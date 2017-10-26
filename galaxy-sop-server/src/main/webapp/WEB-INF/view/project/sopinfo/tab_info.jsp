@@ -330,13 +330,13 @@
 							<tr>
 								<td>
 									<span>项目估值：</span>
-									<input type="text" value="9999" class="basic_mes_input real_ivestest_input">
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>股权占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)">
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
 							<tr>
