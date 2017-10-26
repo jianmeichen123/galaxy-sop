@@ -186,7 +186,7 @@ $(function(){
 				$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
 				$("#industry_own_sel").val(projectInfo.industryOwnDs);
 				$("#finance_status_sel").val(projectInfo.financeStatusDs)
-				$("input[name='projectSource']").val(projectInfo.faFlagStr)
+				$("input[name='projectSource']").val(projectInfo.faFlagStr).attr('data-flag',projectInfo.faFlag);
 				//$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
 				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
@@ -378,7 +378,8 @@ $(function(){
 						var target = $(this).closest('#dropdown').find('input');
 						target.removeClass('up')
 						var txt = $(this).text(); 
-						target.val(txt)
+						var faFlag=$(this).attr('value');
+						target.val(txt).attr('data-flag',faFlag);
 						$("#dropdown ul").hide(); 
 				});
 					 
@@ -524,9 +525,8 @@ $(function(){
 		function getUpdateData(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
-			var industry_own=$("#industry_own_sel").val().trim();
-			var faFlag=$('select[name="projectSource"] option:selected').attr("value");
-			var remark=$('#remark').val().trim();
+			var industry_own=$("#industry_own_sel").val();
+			var faFlag=$('input[name="projectSource"]').attr('data-flag');
 			var faName="";
 			if(faFlag=='projectSource:1'){
 				faName=$("#faNameEdit").val();
@@ -562,7 +562,6 @@ $(function(){
 					       "industryOwn":industry_own,
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
-		  	               "remark":remark,
 		  	               "financeMode":investForm,
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
