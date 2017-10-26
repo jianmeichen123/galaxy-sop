@@ -251,6 +251,62 @@ $(function(){
 				}
 			
 			})
+			function callBackSelect(data,domId){
+        	if(domId='finance_status_sel'){
+        		 var _dom=$("#finance_status_sel").next('ul');
+ 		        _dom.html("");
+ 		        //_dom.append('<option value="">--请选择--</option>');
+	 		    var childNum = _dom.find("option").length;
+	 		    var valueId=$("#financeStatusDs").attr("value");
+	 		    var resultId=$("#financeStatusDs").attr("data-result-id");
+	 		    var entity=data.entity.childList[0];
+	 		    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
+	 		    if(!childNum || childNum !=0 ){
+	 		    	$.each(entity.valueList,function(){ 
+	 		    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
+	 					
+	 				});
+	 		    }
+	 		    $("select[data-title-id]").change(function(){
+	 		    	$(this).attr("tochange",true)
+	 		    })
+        	}else if(domId=='industry_own_sel'){
+        		 var _dom=$("#industry_own_sel").next('ul');
+		           _dom.html("");
+		           //_dom.append('<option value="">--请选择--</option>');
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum !=0 ){
+			    	$.each(data.entityList,function(){
+							if(this.code==p){
+								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
+							}else{
+								_dom.append("<li value='"+this.code+"'>"+this.name+"</li>");
+							}
+					});
+			    }
+        	}else if(domId=='projectSource'){
+        		var _dom=$("input[name='projectSource']").next('ul');
+		           _dom.html("");
+		           //_dom.append('<option value="">--请选择--</option>');
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum !=0 ){
+			    	$.each(data.entityList,function(){
+							if(this.code==p){
+								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
+							}else{
+								_dom.append("<li index='"+this.value+"' value='"+this.code+"'>"+this.name+"</li>");
+							}
+					});
+			    }
+        	}
+        	$("#dropdown ul li").click(function(){
+				var target = $(this).closest('#dropdown').find('input');
+				target.removeClass('up')
+				var txt = $(this).text(); 
+				target.val(txt)
+				$("#dropdown ul").hide(); 
+        	});
+        }
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
@@ -269,6 +325,13 @@ $(function(){
 			    $("select[data-title-id]").change(function(){
 			    	$(this).attr("tochange",true)
 			    })
+				$("#dropdown ul li").click(function(){
+					var target = $(this).closest('#dropdown').find('input');
+					target.removeClass('up')
+					var txt = $(this).text(); 
+					target.val(txt)
+					$("#dropdown ul").hide(); 
+			});
 				 
 			}
 			function CallBackA(data){
@@ -285,10 +348,16 @@ $(function(){
 								}
 						});
 				    }
+					$("#dropdown ul li").click(function(){
+						var target = $(this).closest('#dropdown').find('input');
+						target.removeClass('up')
+						var txt = $(this).text(); 
+						target.val(txt)
+						$("#dropdown ul").hide(); 
+				});
 					 
 				}
 			function CallBackC(data){
-				console.log(data)
 			       var _dom=$("input[name='projectSource']").next('ul');
 			           _dom.html("");
 			           //_dom.append('<option value="">--请选择--</option>');
@@ -302,6 +371,13 @@ $(function(){
 								}
 						});
 				    }
+					$("#dropdown ul li").click(function(){
+						var target = $(this).closest('#dropdown').find('input');
+						target.removeClass('up')
+						var txt = $(this).text(); 
+						target.val(txt)
+						$("#dropdown ul").hide(); 
+				});
 					 
 				}
 			//表格渲染 
@@ -730,7 +806,7 @@ $("input[data-title-id]").on("input",function(){
 $("input[data-title-id=\"1816\"]").attr("tochange",true);
 //div模拟select下拉框
 $(function(){ 
-	$(".input_select").click(function(){ 
+	$(".input_select").click(function(e){ 
 		var _this = $(this);
 		var ul = _this.parents('#dropdown').find('ul');
 		if(ul.css("display")=="none"){
@@ -743,16 +819,16 @@ $(function(){
 		//_this.addClass('input_select');
 		ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
 		} 
+		$(document).on("click", function(){
+			if(ul.css("display")!="none"){
+				ul.slideUp("fast");
+				_this.removeClass('up');
+				ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
+			}
+			
+	    });
+		 e.stopPropagation();
 	}); 
-	
-	$("#dropdown ul li").click(function(){ 
-		var target = $(this).closest('#dropdown').find('input');
-		target.removeClass('up')
-		var txt = $(this).text(); 
-		target.val(txt)
-		$("#dropdown ul").hide(); 
-}); 
-
 }); 
 
 /**
