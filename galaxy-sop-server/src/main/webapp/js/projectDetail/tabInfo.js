@@ -548,6 +548,8 @@ function jointDeliveryEdit(list){
 	}else{
 		$(".institutionBtn span").hide()
 	}*/
+	//编辑验证样式调整
+}
 //本轮融资轮次
 /*sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,
 		function(data) {
