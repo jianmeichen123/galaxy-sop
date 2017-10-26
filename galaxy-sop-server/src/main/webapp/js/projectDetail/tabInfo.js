@@ -389,6 +389,11 @@ $(function(){
 			var s_type=$(this).attr("save_type");
 			var data="";
 			if(s_type=="finance"){
+				if(!$("#basicForm").validate().form())
+				{
+					labelPosition();
+					return;
+				}
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;

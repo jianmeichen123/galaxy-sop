@@ -1,13 +1,6 @@
 //基本信息表单验证
 	$(function(){
 		$("#basicForm").validate();
-		$.each($("#basicForm input"),function(){
-			$(this).on("blur",function(){
-				labelPosition();
-			})
-		})
-		
-		
 	})
 //验证
 //投资形式-投资金额
@@ -154,27 +147,4 @@ jQuery.validator.addMethod("verify_10_01", function(value, element) {
 		var percentage = /^\d+(\.\d{2})?$/;
 		return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 	}, "只能是0～100的整数和两位小数"); 
-	function labelPosition(){
-		//错误提示定位
-		$.each($("label.error"),function(){
-			if($(this).is(":visible")){
-				var prevEle=$(this).siblings();
-				var prevEleWid;
-				var sum=0;
-				$.each(prevEle,function(i,n){
-					if($(n).is(":visible")){
-						prevEleWid=$(n).outerWidth(true);
-					}else{
-						prevEleWid=0;
-					}
-					sum+= prevEleWid;
-				})
-				var top=$(prevEle).offset().top;
-				$(this).parent().css("position","relative");
-				$(this).css({"position":"absolute","left":sum,"top":"-2px","white-space":"nowrap","z-index":"2","border":"1px solid #c7bf93","padding":"3px 8px"})
-			}else{
-				$(this).css({"padding":"0","border":"0"})
-			}
-		})
-	}
 	
