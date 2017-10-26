@@ -260,7 +260,7 @@
 										<li>互联网医疗</li> 
 									</ul> 
 							</div>
-							<input type="text" value="" class="basic_mes_input  input_FA"/>
+							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/>
 						</td>
 					</tr>
 				</table>

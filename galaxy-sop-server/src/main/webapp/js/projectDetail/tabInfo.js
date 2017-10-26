@@ -574,6 +574,7 @@ $(function(){
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
+			console.log(formatData);
 			return formatData;
 		}
 		function saveSuccess(){
