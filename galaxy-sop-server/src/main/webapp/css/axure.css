@@ -3858,7 +3858,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
  .pagebox .tabtable .agency_institute  table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
- .agency_institute table th,.agency_institute table td{text-align:center;}
+ .agency_institute table th,.agency_institute table td{text-align:center; border-bottom:.5px solid #d8d8d8;}
  .agency_institute .invest_max_height{width: auto; padding: 0 24px;}
  
  
