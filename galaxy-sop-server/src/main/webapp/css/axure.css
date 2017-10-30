@@ -3708,7 +3708,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
  .tabinfo_con table.base_table{border:0.5px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;}
- .tabinfo_con table.base_table label{font-family: MicrosoftYaHei;color:#45aaff;}
+ .tabinfo_con table.base_table label.blue{font-family: MicrosoftYaHei;color:#45aaff;}
  .tabinfo_con table.base_table label:nth-child(2){margin:0 20px;}
  .tabinfo_con .base_table th,.tabinfo_con .base_table td{border-bottom: .5px solid #d8d8d8;}
  .tabinfo_con .team_info.base_table th:nth-child(3){width:108px;} 
