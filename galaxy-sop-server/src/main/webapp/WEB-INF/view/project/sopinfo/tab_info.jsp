@@ -372,7 +372,9 @@
 									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
 									<em class="inves_delete"></em>
 								</div> -->	
-								<span class="inves_add"></span>
+								<div class="institutionBtn">
+									<span class="inves_add"></span>
+								</div>								
 							</div>	
 				
 						</div>
@@ -750,16 +752,16 @@
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs">'
-	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
-	          +'<span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	          +'<span><select><option value="currency:0">人民币</option><option value="currency:1">美元</option></select></span>'
-	          +'<span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="填写机构名称" class="name" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
+	          +'<span class="input_box"><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
+	          +'<span class="input_box"><select><option value="currency:0">人民币</option><option value="currency:1">美元</option></select></span>'
+	          +'<span class="input_box"><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
-	  	$(".inputsForm").append(inputsRow);
+	  	$(".institue_inputs").append(inputsRow);
 	  };
 	  //新增
-/* 	  var addInputs_i=0;
+ 	  var addInputs_i=0;
 	$(".institutionBtn span").click(function(){
 		addInputs_i++;
 		addInputsRow(addInputs_i-1);
@@ -774,9 +776,9 @@
 		}else{
 			$(this).show()
 		}
-	}) */
+	}) 
 	//删除
-	/* $(document).on('click','.block_inputs .del',function(){
+	 $(document).on('click','.block_inputs .del',function(){
 		var input1=$(this).siblings("span:first").children("input:first").attr("data-id");
 		if(null!=input1){
 			isDelete.push(input1);
@@ -793,7 +795,7 @@
 		}else{
 			$(".institutionBtn span").css("margin-top","0")
 		}
-	}); */
+	});
 	
 	/* 股权结构 */
 	var isTransfering = "${fx:isTransfering(pid) }";
@@ -871,19 +873,6 @@
 			$('.invest_institue').hide();
 		}
 	});
-	
-//实际注资添加按钮
-$('.inves_add').on("click",function(){
-	$('.inves_add').before(inputContent);
-	$('.institue_content').show();
-	var inputContLength = $('.institue_content').length;
-	console.log(inputContLength);
-	if(inputContLength === 10){
-		$('.inves_add').hide();
-		return false;
-	}
-	
-});
 	
 	//拼接出input一行
   var inputContent = '<div class="institue_content">'

@@ -3849,7 +3849,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content{width: auto;height: auto;display:none;margin-top:10px;}
  .institue_inputs{display:inline-table;}
  .invest_max_height{max-height:365px;overflow:auto;}
- .institue_content .input_box{position:relative;}
+ .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  #basicForm .invest_current label.error{display: block;background:none;padding-top: 5px;position:absolute;left:4px;bottom:-45px;}
  
 .mt_50{margin-top: 50px;} 
