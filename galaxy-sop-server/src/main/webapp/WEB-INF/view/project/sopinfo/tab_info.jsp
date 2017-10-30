@@ -767,11 +767,7 @@
 		addInputs_i++;
 		addInputsRow(addInputs_i-1);
 		var inputsLength=$(".block_inputs").length;
-		if(inputsLength>0){
-			$(this).css("margin-top","50px");
-		}else{
-			$(this).css("margin-top","0");
-		}
+		
 		if(inputsLength>=10){
 			$(this).hide()
 		}else{

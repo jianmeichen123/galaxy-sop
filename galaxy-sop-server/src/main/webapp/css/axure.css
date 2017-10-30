@@ -3669,7 +3669,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .title_3 .size16{padding:0;margin:0;font-size:12px;}
  .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
  .tabinfo_con{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px; padding-bottom:40px; }
- .tabtable_con_jbxx .title_3{font-size:12px;color:#333;}
+ .tabtable_con_jbxx .title_3{font-size:12px;color:#333;font-family: MicrosoftYaHei;}
  .tabinfo_con .three_part{width:100%;}
  .tabinfo_con .three_part li{color:#fff;float:left;box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;}
  .tabinfo_con .three_part li:nth-child(1),.tabinfo_con .three_part li:nth-child(2){width:32%;padding-right:20px;}
@@ -3853,7 +3853,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #basicForm .invest_current label.error{display: block;background:none;padding-top: 5px;position:absolute;left:4px;bottom:-45px;}
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
- .institue_content .input_box #dropdown .input_select, .institue_content .input_box #dropdown ul{width:66px;}
+ .institue_content .input_box #dropdown .input_select{width:66px;}
+ .institue_content .input_box #dropdown ul{width:74px;}
  
 .mt_50{margin-top: 50px;} 
  
