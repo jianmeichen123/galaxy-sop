@@ -3855,8 +3855,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box #dropdown .input_select{width:66px;}
  .institue_content .input_box #dropdown ul{width:75px;}
  .institue_inputs .inputsForm{padding-left: 35px;}
-.mt_50{margin-top: 50px;} 
- 
+ .mt_50{margin-top: 50px;} 
+ .agency_close{display:inline-block; }
  
  
  

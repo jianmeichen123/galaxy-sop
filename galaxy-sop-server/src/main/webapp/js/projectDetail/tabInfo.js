@@ -578,7 +578,6 @@ function radio_faFlag(isContactsV){
 	} 
 }
 function jointDeliveryList(list){
-	debugger;
 	$("#jointDelivery").children().remove(); 
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
