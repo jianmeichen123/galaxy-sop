@@ -448,16 +448,47 @@ $(function(){
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			}else{
+			}else if(s_type=="save_basic"){
 				data=getUpdateData();
+				if(!$("#basicForm").validate().form())
+				{
+					return;
+				}
+				saveBaseInfo("basicForm");
+				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
+					if(data2.result.status=="OK"){
+						layer.msg(data2.result.message);
+						//弹窗关闭
+						var close="basic"
+						$('.'+close+'_current').hide();//basic_current
+						$('.'+close+'_on').hide();
+						$('.'+close+'_center').show();
+						$('.bj_hui_on').hide();
+						$("body").css('overflow-y','auto');
+						sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
+							projectInfo = data.entity;
+							$("#project_name_t").text(projectInfo.projectName);
+							$("#industryOwnDs").text(projectInfo.industryOwnDs);
+							$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"-":projectInfo.financeStatusDs);
+							$("#projectType").text(projectInfo.type);
+							$("#faName").text(projectInfo.faFlagStr);
+							if(projectInfo.faFlag=="projectSource:1"){
+								$("#faName").attr('data-original-title',projectInfo.faName);
+								$("#faName[data-toggle='tooltip']").tooltip();//提示
+							}else{
+								$("#faName").removeAttr('data-original-title');
+							}
+						});
+						financeRound();   //单独刷新融资轮次
+						//initTabInfo(data.id);
+					}else {
+							layer.msg(data2.result.message);
+					}
+					
+				});
 			}
-			
-			if(!$("#basicForm").validate().form())
-			{
-				return;
-			}
-			saveBaseInfo("basicForm");
-			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
+			//saveBaseInfo("basicForm");
+		/*	sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 				if(data2.result.status=="OK"){
 					layer.msg(data2.result.message);
 					initTabInfo(data.id);
@@ -465,11 +496,7 @@ $(function(){
 						layer.msg(data2.result.message);
 				}
 				
-			});
-				
-			
-			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0
-			
+			});*/
 		})
 		
 		
@@ -522,14 +549,14 @@ $(function(){
 			console.log(formatData);
 			return formatData;
 		}
-		function saveSuccess(){
+		/*function saveSuccess(){
 			sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 				projectInfo = data.entity;
 				$.getTabHtml({
 					url : platformUrl.toTabProjectInfo +'/'+ pid
 				});
 			});
-		}
+		}*/
 
 });
 $("select[name='projectSource']").change(function() {
