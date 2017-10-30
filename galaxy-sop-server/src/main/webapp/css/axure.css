@@ -3800,11 +3800,12 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
  .edit_basic_table tr{display:block;margin-top:16px;}
- .basic_mes_input{border:1px solid #999999;border-radius:2px;width:438px;height:31px;padding-left:8px;}
+ .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:438px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
-.input_select{width:436px;height:30px;padding-left:10px;border:1px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;} 
-#dropdown ul{width:446px; margin-top:2px;border:1px solid #979797; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
-#dropdown ul li{height:30px; text-indent:10px;padding-left: 1px;border-bottom:1px solid #d8d8d8;background:#fff; cursor:pointer;}
+.input_select{width:436px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
+#dropdown ul{width:446px; margin-top:-1px;border:.5px solid #979797; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
+#dropdown ul li{height:30px; text-indent:10px;padding-left: 1px;border-bottom:.5px solid #d8d8d8;background:#fff; cursor:pointer;}
+#dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
 .input_FA{margin-left:77px;margin-top:10px;display:none;}
 .version19_cancel_btn{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-size:14px;} 
@@ -3820,14 +3821,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .real_ivestest_input{width:400px;margin-left:38px;}
  .real_invest_short{margin-left:-4px;}
  .vest_span{display:inline-block;margin-left:20px;}
- .inves_input{width:108px;height:28px;padding-left:8px;margin-left:4px;}
+ .inves_input{width:108px;height:28px;padding-left:8px;margin-left:4px;border:.5px solid #999999;}
  .inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
  .select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 6px;}
  .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
  select::-ms-expand { display: none; }
  .inves_stock{width:68px;margin-left: 6px;}
- .input_stock_left{margin-left:41px;}
- .inves_delete{display:inline-block;cursor:pointer;width:16px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
+ .inves_delete{display:inline-block;position: relative;top: 5px;cursor:pointer;width:16px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
  .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px;vertical-align: text-bottom;margin-left: 37px;margin-top: 10px;}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
@@ -3854,8 +3854,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
- .institue_content .input_box #dropdown ul{width:74px;}
- 
+ .institue_content .input_box #dropdown ul{width:75px;}
+ .institue_inputs .inputsForm{padding-left: 35px;}
 .mt_50{margin-top: 50px;} 
  
  
