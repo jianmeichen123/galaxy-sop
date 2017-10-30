@@ -112,7 +112,7 @@ $( "#meeting_per_add_form #projectName" ).autocomplete({
   
   function openMeetingDialog(projectId, meetingType)
   {
-	  var url = Constants.sopEndpointURL+"/galaxy/project/progress/meetAdd";
+	  var url = Constants.sopEndpointURL+"/galaxy/meeting/add";
 	  var data = {
 			projectId:  projectId,
 			type: meetingType
