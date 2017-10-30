@@ -217,14 +217,14 @@
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font><i></i>项目名称不能为空" aria-required="true"/>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空" aria-required="true"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<span style="display:inline-block">行业归属：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -238,7 +238,7 @@
 						<td>
 							<span style="display:inline-block">融资轮次：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font><i></i>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
+								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -252,7 +252,7 @@
 						<td>
 							<span style="display:inline-block">项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" onclick="dropdown_select(this,event)" value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -260,7 +260,7 @@
 										<li>互联网医疗</li> 
 									</ul> 
 							</div>
-							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/>
+							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 						</td>
 					</tr>
 				</table>
@@ -281,19 +281,19 @@
 							<tr>
 								<td>
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数" data-title-id="1943">
+									<input type="text" class="basic_mes_input" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>出让股份：</span>
-									<input type="text" class="basic_mes_input" placeholder="出让股份(%)"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数" data-title-id="1917">
+									<input type="text" class="basic_mes_input" placeholder="出让股份(%)"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的四位小数" data-title-id="1917">
 								</td>
 							</tr>
 							
@@ -315,25 +315,25 @@
 							<tr>
 								<td>
 									<span>投资金额：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额万元" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的四位小数"  data-title-id="3004"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额万元" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>项目估值：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数"  data-title-id="3012">
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>股权占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"  data-title-id="3010"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的四位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>加速服务费占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比(%)" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"  data-title-id="3011"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比(%)" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的四位小数"  data-title-id="3011"/>
 								</td>
 							</tr>
 							<tr>
@@ -454,7 +454,7 @@
 	                <td>
 	                	<span class="new_color_gray">行业归属：</span>
 	                	<span>
-	                		<select class="new_nputr" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空">
+	                		<select class="new_nputr" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空">
 	                			<option value="">--请选择--</option>
 	               			 </select>
 	                	</span>
@@ -462,17 +462,17 @@
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 	            </tr>
 	            <tr>
-                     	 <td><span class="new_color_gray">融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font><i></i>本轮融资轮次不能为空" ></select></span></td>
+                     	 <td><span class="new_color_gray">融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>本轮融资轮次不能为空" ></select></span></td>
                      	 <!-- <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td> -->
                </tr>
                <tr>
                         <td>
                          <span class="new_color_gray">项目来源：</span>
                          <span class="mar_left">
-                         	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
+                         	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font>项目来源不能为空" >
                    				<option value="">--请选择--</option>
                   			 </select>
-                         	<input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" />
+                         	<input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20" />
                          </span>
                         </td>
                </tr>
@@ -489,11 +489,11 @@
 	        </div>  --> 
 	       <%-- <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
+	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
+	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
 	            </tr>
 	       </table> --%>
 	   <%--      <!--实际投资-->
@@ -503,12 +503,12 @@
 	        </div>  
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的四位小数"  data-title-id="3004"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"  data-title-id="3010"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的四位小数"  data-title-id="3010"/>&nbsp;　%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数"  data-title-id="3012"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"  data-title-id="3011"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的四位小数"  data-title-id="3011"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
 	     		<tr>
@@ -753,10 +753,10 @@
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs institue_content">'
-	          +'<span class="input_box"><input placeholder="填写机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="填写投资金额（万元）" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" onclick="dropdown_select(this,event)" type="text" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
-	          +'<span class="input_box"><input placeholder="填写占股比例（%）"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="填写机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
+	          +'<span class="input_box"><input placeholder="填写投资金额（万元）" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"/></span>'
+	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" onclick="dropdown_select(this,event)" type="text" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
+	          +'<span class="input_box"><input placeholder="填写占股比例（%）"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font>0到100之间的两位小数"/></span>'
 	            +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
