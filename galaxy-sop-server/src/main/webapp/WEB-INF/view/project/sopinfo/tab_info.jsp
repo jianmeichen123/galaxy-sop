@@ -186,9 +186,9 @@
 				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span></td>
 			</tr>
 		</table>
-		<table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >
+		<!-- <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >
 			
-		</table>
+		</table> -->
 	</div>
 	<!-- 编辑页面 -->
 	<div class="basic_on basic_common_width">
@@ -425,7 +425,7 @@
 	 	   
 	 	   <!-- 合投机构 --> 
 	 	   <div class="agency_institute investTogether_current">
-	 	   		<div class="title_bj_tzjl agency_radius">合投机构</div>
+	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont">
 						 <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >

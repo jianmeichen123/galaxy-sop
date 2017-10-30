@@ -480,6 +480,8 @@ $(function(){
 								$("#faName").removeAttr('data-original-title');
 							}
 						});
+						buildShareResult("4","3002");  //实际投资
+						buildShareResult("4","3008");  //实际投资
 						financeRound();   //单独刷新融资轮次
 						//initTabInfo(data.id);
 					}else {
@@ -576,6 +578,7 @@ function radio_faFlag(isContactsV){
 	} 
 }
 function jointDeliveryList(list){
+	debugger;
 	$("#jointDelivery").children().remove(); 
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
