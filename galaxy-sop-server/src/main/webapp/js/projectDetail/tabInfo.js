@@ -495,7 +495,7 @@ $(function(){
 		$("[data-on='save']").click(function(){
 			var s_type=$(this).attr("save_type");
 			var data="";
-			if(s_type=="finance"){
+			if(s_type=="finance"||s_type=="real_invest"){
 				if(!$("#basicForm").validate().form())
 				{
 					return;
