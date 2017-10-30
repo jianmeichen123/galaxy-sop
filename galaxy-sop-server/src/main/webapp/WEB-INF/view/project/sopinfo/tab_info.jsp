@@ -887,10 +887,10 @@ $('.inves_add').on("click",function(){
 	
 	//拼接出input一行
   var inputContent = '<div class="institue_content">'
-					  +'<input type="text" placeholder="机构名称" class="inves_input input_stock_left" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空">'
-					  +'<input type="text" placeholder="投资金额(万元)" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数">'
+					  +'<span class="input_box"><input type="text" placeholder="机构名称" class="inves_input input_stock_left" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"></span>'
+					  +'<span class="input_box"><input type="text" placeholder="投资金额(万元)" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"></span>'
 					  +'<span class="select_cont"><select class="inves_select"><option>人民币</option><option>美元</option></select></span>'
-					  +'<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数">'
+					  +'<span class="input_box"><input type="text" placeholder="股权占比(%)" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font>0到100之间的两位小数"></span>'
 					  +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
 					  +'</div> ';
   //实际注资删除按钮
