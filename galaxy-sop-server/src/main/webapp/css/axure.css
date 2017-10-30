@@ -3827,7 +3827,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
  select::-ms-expand { display: none; }
  .inves_stock{width:68px;margin-left: 6px;}
- .inves_delete{display:inline-block;position: relative;top: 5px;cursor:pointer;width:16px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
+ .inves_delete{display:inline-block;position: relative;top: 5px;cursor:pointer;width:17px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
  .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px;vertical-align: text-bottom;margin-left: 37px;margin-top: 10px;}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
@@ -3843,7 +3843,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .radio_cont{width:28px;height:12px;margin-left:16px;cursor:pointer;text-align:center;background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 4px}
  .radio_checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 4px}
  .relative_box .oval{cursor:pointer;}
- .invest_institue{display:none;}
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
  .institue_content{width: auto;height: auto; margin-top:10px;}

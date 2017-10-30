@@ -340,16 +340,16 @@
 								<td>
 									<span>投资形式：</span>
 									<span class="vest_span">
-										<label class='radio_cont radio_checked'>
-											<input type="radio" value="" name="invest_form" class="radioclass"/>
+										<label class='radio_cont'>
+											<input type="radio"  name="investForm" value="financeMode:0" class="radioclass"/>
 											独投
 										</label>
 										<label class='radio_cont' data-name="">
-											<input type="radio" value="" name="invest_form" class="radioclass"/>
+											<input type="radio"  name="investForm" value="financeMode:1" class="radioclass"/>
 											领投
 										</label>
 										<label class='radio_cont'>
-											<input type="radio" value="" name="invest_form" class="radioclass"/>
+											<input type="radio" name="investForm" value="financeMode:2" class="radioclass"/>
 											合投
 										</label>
 									
@@ -775,7 +775,7 @@
 		}
 	}) 
 	//删除
-	 $(document).on('click','.block_inputs .del',function(){
+	 $(document).on('click','.block_inputs .inves_delete',function(){
 		var input1=$(this).siblings("span:first").children("input:first").attr("data-id");
 		if(null!=input1){
 			isDelete.push(input1);
@@ -857,36 +857,20 @@
 	//radio自定义事件
 	$(".radio_cont").on("click",function(){
 		$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
+		$(this).checked=true;
 		//领投合投点击显示
 		var index = $(this).index();
 		if(index===1){
-			$('.invest_institue').show();
+			$('.institution').show();
 			$(".invest_type").text('领投机构：');
 		}else if(index===2){
 			$('.invest_institue').show();
 			$(".invest_type").text('合投机构：');
 		}else{
-			$('.invest_institue').hide();
+			$('.institution').hide();
 		}
 	});
 	
-	//拼接出input一行
-/*   var inputContent = '<div class="institue_content">'
-					  +'<span class="input_box"><input type="text" placeholder="机构名称" class="inves_input input_stock_left" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"></span>'
-					  +'<span class="input_box"><input type="text" placeholder="投资金额(万元)" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"></span>'
-					  +'<span class="select_cont"><select class="inves_select"><option>人民币</option><option>美元</option></select></span>'
-					  +'<span class="input_box"><input type="text" placeholder="股权占比(%)" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font>0到100之间的两位小数"></span>'
-					  +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
-					  +'</div> ';
-  //实际注资删除按钮
-function deleteRow(obj){
-	var _this = $(obj);
-	_this.closest('.institue_content').remove();
-	var inputContLength = $('.institue_content').length;
-	if(inputContLength <= 10){
-		$('.inves_add').show();
-	}
-} */
 	
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>

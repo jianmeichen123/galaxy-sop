@@ -595,12 +595,12 @@ var name_opt = new Array()
 function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
-		var inputsRow='<div class="block_inputs">'
-	        +'<span class="input_box"><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	        +'<span class="input_box"><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	        +'<span class="input_box"><select class="money_select"><option value="currency:0">人民币</option><option value="currency:1">美元</option></select></span>'
-	        +'<span class="input_box"><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
-	          +'<span class="del">删除</span>'
+		var inputsRow='<div class="block_inputs institue_content">'
+	        +'<span class="input_box"><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name inves_input input_stock_left" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
+	        +'<span class="input_box"><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
+	        +'<span class="input_box"><div id="dropdown"> <input class="input_select" onclick="dropdown_select(this,event)" type="text" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div></span>'
+	        +'<span class="input_box"><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);
 		 name_opt.push(list[i].deliveryCurrency);
@@ -610,9 +610,11 @@ function jointDeliveryEdit(list){
 		var index = $(this).index()
 		var _this = $(this);
 		if(name_opt[index]==='currency:0' || name_opt[index]==='人民币'){
-			_this.find('select option:eq(0)').prop('selected',true);
+			
+			_this.find('#industry_own_sel').attr("value","人民币").attr("m-val","currency:0");
 		}else{
-			_this.find('select option:eq(1)').prop('selected',true);
+			
+			_this.find('#industry_own_sel').attr("value","美元").attr("m-val","currency:1");
 		}
 	});
 	
@@ -804,6 +806,14 @@ function dropdown_select(data,event){
 		_this.removeClass('up');
 	} 
 	event.stopPropagation(); 
+	$("#dropdown ul li").click(function(){
+		event.stopPropagation(); 
+		var target = $(this).closest('#dropdown').find('input');
+		target.removeClass('up')
+		var txt = $(this).text(); 
+		target.val(txt).attr("m-val",$(this).attr("value"));
+		$("#dropdown ul").hide(); 
+	});
 	$(document).on("click", function(){
 		if(ul.css("display")!="none"){
 			ul.slideUp("fast");
