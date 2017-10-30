@@ -35,12 +35,15 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.util.NodeUtil;
+import com.galaxyinternet.model.common.Node;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
@@ -48,6 +51,7 @@ import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationResultService;
@@ -58,7 +62,6 @@ import com.galaxyinternet.service.hologram.InformationResultService;
 public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
 
 	final Logger logger = LoggerFactory.getLogger(InfoProjectController.class);
-	
 	
 	@Autowired
 	private InformationDataService infoDataService;
@@ -74,6 +77,9 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationResultService informationResultService;
 	@Autowired
 	private InformationListdataService informationListdataService;
+	@Autowired
+	private InformationTitleRelateService informationTitleRelateService;
+	
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
@@ -355,6 +361,51 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		
 		return response;
 	}
+	
+	
+	/**
+	 * 根据code等信息获取title和value
+	 * @param reportType
+	 * @param realteId
+	 * @param projectId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getTitleRelationResults/{reportType}/{projectId}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable Integer reportType,@PathVariable Long projectId)
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		if(reportType == null || projectId == null){
+			data.getResult().addError("参数丢失");
+			return data;
+		}
+		Map<String,Object> proInfo = new HashMap<String,Object>();
+		try
+		{
+			//项目信息
+			Project pr = projectService.queryById(projectId);
+			InformationResult ir = new InformationResult();
+			ir.setProjectId(projectId.toString());
+			ir.setReportType(reportType.toString());
+			//全息报告信息
+			List<Node> childs= informationResultService.selectResults(ir);
+			List<Node> child = NodeUtil.bulid(childs);
+				proInfo.put("pro", pr);
+				proInfo.put("report", child);
+				data.setUserData(proInfo);
+			
+		} catch (Exception e)
+		{
+			logger.error("获取项目详情信息页失败",e);
+			data.getResult().addError("获取标题失败");
+		}
+		return data;
+	}
+	
+
+	
+	
+	
 }
 
 
