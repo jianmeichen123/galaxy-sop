@@ -2947,8 +2947,8 @@ color:#999999;}
 
 label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;}
 label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;background:url(../img/error_bg.png) 0 0 no-repeat}
-#basicForm .finicial_current label.error{display:block; background:none;padding-left:75px;padding-top: 5px;}
-。block_inputs label.error{display:inline-block!important;}
+#basicForm label.error{display:block; background:none;padding-left:75px;padding-top: 5px;}
+.block_inputs label.error{display:inline-block!important;}
 /* 项目流程progress */
 
 	.new_poptxt{
@@ -3743,7 +3743,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .relative_box .img_box{color:#4f52a0;}
 .relative_box .img_box+#plan_name{margin-top: -8px;}
 .relative_box .plan_update_time{color:#8b8db8;}
- .version19_detail_header_box{width:100%;background:#fff;padding-top:28px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
+ .version19_detail_header_box{width:100%;background:#fff;padding-top:30px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
  .version19_detail_header .top div{margin-right:10px;}
  .version19_detail_header_box{visibility:hidden;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}

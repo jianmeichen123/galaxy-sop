@@ -75,7 +75,7 @@ $(function(){
 				$("#faName").attr('data-original-title',projectInfo.faName);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}else{
-				$("#faName").removeAttr('title');
+				$("#faName").removeAttr('data-original-title');
 			}
 			$('.version19_detail_header_box').css('visibility','visible')
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
@@ -254,62 +254,6 @@ $(function(){
 				}
 			
 			})
-			function callBackSelect(data,domId){
-        	if(domId='finance_status_sel'){
-        		 var _dom=$("#finance_status_sel").next('ul');
- 		        _dom.html("");
- 		        //_dom.append('<option value="">--请选择--</option>');
-	 		    var childNum = _dom.find("option").length;
-	 		    var valueId=$("#financeStatusDs").attr("value");
-	 		    var resultId=$("#financeStatusDs").attr("data-result-id");
-	 		    var entity=data.entity.childList[0];
-	 		    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
-	 		    if(!childNum || childNum !=0 ){
-	 		    	$.each(entity.valueList,function(){ 
-	 		    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
-	 					
-	 				});
-	 		    }
-	 		    $("select[data-title-id]").change(function(){
-	 		    	$(this).attr("tochange",true)
-	 		    })
-        	}else if(domId=='industry_own_sel'){
-        		 var _dom=$("#industry_own_sel").next('ul');
-		           _dom.html("");
-		           //_dom.append('<option value="">--请选择--</option>');
-		       var childNum = _dom.find("option").length;
-			    if(!childNum || childNum !=0 ){
-			    	$.each(data.entityList,function(){
-							if(this.code==p){
-								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
-							}else{
-								_dom.append("<li value='"+this.code+"'>"+this.name+"</li>");
-							}
-					});
-			    }
-        	}else if(domId=='projectSource'){
-        		var _dom=$("input[name='projectSource']").next('ul');
-		           _dom.html("");
-		           //_dom.append('<option value="">--请选择--</option>');
-		       var childNum = _dom.find("option").length;
-			    if(!childNum || childNum !=0 ){
-			    	$.each(data.entityList,function(){
-							if(this.code==p){
-								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
-							}else{
-								_dom.append("<li index='"+this.value+"' value='"+this.code+"'>"+this.name+"</li>");
-							}
-					});
-			    }
-        	}
-        	$("#dropdown ul li").click(function(){
-				var target = $(this).closest('#dropdown').find('input');
-				target.removeClass('up')
-				var txt = $(this).text(); 
-				target.val(txt)
-				$("#dropdown ul").hide(); 
-        	});
-        }
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
@@ -334,6 +278,7 @@ $(function(){
 					var txt = $(this).text(); 
 					target.val(txt)
 					$("#dropdown ul").hide(); 
+					$(this).closest('#dropdown').find('input').attr('tochange',true);
 			});
 				 
 			}
@@ -788,7 +733,7 @@ function buildMoneyResult(pid){
 }
 //本轮融资轮次
 financeRound();
-function financeRound(){   
+function financeRound(){ 
 	var codeArr = ['NO1_1'];
 	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, 
 			function backFun(data){
@@ -800,8 +745,8 @@ function financeRound(){
 						$.each(entityList,function(){
 							var title = this;
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"—":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
-								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
+								$("label[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"—":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("data-result-id",title.resultList[0].id);	
 							}
 						});
 					}

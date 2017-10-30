@@ -32,7 +32,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 		};
 		if(type==14 )
 		{
-			infoMode.value = field.val();
+			infoMode.value = field.attr('data-flag');
 		}else if(type==19 || type==1){
 			infoMode.remark1 = field.val();
 		}	
