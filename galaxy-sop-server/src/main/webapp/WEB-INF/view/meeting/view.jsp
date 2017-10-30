@@ -246,7 +246,7 @@ $("#add-meeting-btn").click(function(){
 });
 function showPreAddDialog()
 {
-	var _url = "<%=path %>/galaxy/project/progress/meetPreAdd";
+	var _url = "<%=path %>/galaxy/meeting/preAdd";
 	$.getHtml({
 		url:_url
 	});
