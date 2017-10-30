@@ -94,7 +94,7 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
                         map = reportExportService.fixedtableTitleResult(ids,proId,valueIdNameMap);
                         break;
                     case "file" :
-                        map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath);
+                        map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath,preCode);
                         //map = reportExportService.fileTitleResult(ids,proId);  //doc
                         break;
                     /*case "score" :

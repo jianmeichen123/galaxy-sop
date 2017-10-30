@@ -748,7 +748,7 @@ public class ReportExportServiceImpl implements ReportExportService {
      NO4_2_6_3   rId401 2345 image401.png image20.png
      NO9_3_7     rId501 2345 image501.png image25.png
      */
-    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath)
+    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath,String precode)
             throws Exception
     {
         Map<String, Object> map = new HashMap<>();
@@ -767,6 +767,15 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(titleList == null || titleList.isEmpty()){
             return  map;
         }
+
+        //word 图片 长宽设置
+        int hight = 2510000;
+        int width = 3318000;
+        if("EN".equals(precode)){
+            hight = 2160000;
+            width = 2810000;
+        }
+
 
         //String tempfilePath = SpringContextManager.getBean(SopFileController.class).getTempfilePath() ;
         List<FileUtilModel> resultTemp = null;
@@ -834,8 +843,8 @@ public class ReportExportServiceImpl implements ReportExportService {
                         fis = new FileInputStream(outFile);
                         BufferedImage src = javax.imageio.ImageIO.read(fis);
                         am.setRid("rId"+ridMark+i);
-                        am.setHigh(src.getHeight()*9525>2510000?2510000:src.getHeight()*9525);
-                        am.setWide(src.getWidth()*9525>3318000?3318000:src.getWidth()*9525);
+                        am.setHigh(src.getHeight()*9525>hight?hight:src.getHeight()*9525);
+                        am.setWide(src.getWidth()*9525>width?width:src.getWidth()*9525);
 
                         fis.close();
                     } catch (Exception e) {

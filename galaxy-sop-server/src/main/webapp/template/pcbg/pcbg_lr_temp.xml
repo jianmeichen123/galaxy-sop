@@ -6607,9 +6607,11 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>团队重要成员是否拥有足够、合理的股权：</w:t>
+                            <w:t>团队重要成员是否拥有足够、合理的股权：<#if !share_holding?? >—— </#if></w:t>
                         </w:r>
                     </w:p>
+
+                    <#if share_holding?? && (share_holding?size > 0) >
                     <w:tbl>
                         <w:tblPr>
                             <w:tblStyle w:val="a8"/>
@@ -6674,6 +6676,8 @@
                                 </w:p>
                             </w:tc>
                         </w:tr>
+
+                        <#list share_holding as sh>
                         <w:tr w:rsidR="00F30BDD" w14:paraId="66D32E06" w14:textId="77777777" w:rsidTr="00113C84">
                             <w:tc>
                                 <w:tcPr>
@@ -6694,7 +6698,7 @@
                                             <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>小</w:t>
+                                        <w:t>${sh.field1!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -6717,12 +6721,15 @@
                                             <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>2</w:t>
+                                        <w:t>${sh.field2!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
                         </w:tr>
+                        </#list>
                     </w:tbl>
+                    </#if>
+
                     <w:p w14:paraId="630BB711" w14:textId="7A68A9F6" w:rsidR="00E860C7" w:rsidRPr="00765C7D" w:rsidRDefault="00E860C7" w:rsidP="00E860C7">
                         <w:pPr>
                             <w:jc w:val="left"/>
@@ -8767,7 +8774,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>${(ENO2_4_2.N1)!"——"}</w:t>
+                            <w:t><#if ENO2_4_4?? >${(ENO2_4_4.N1)!"——"}<#else>——</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -8856,7 +8863,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>${(ENO2_4_2.N2)!"——"}</w:t>
+                            <w:t><#if ENO2_4_4?? >${ENO2_4_4.N2!"——"}<#else>——</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -9587,9 +9594,11 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：</w:t>
+                            <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）： <#if !NO4_2_2?? >—— </#if> </w:t>
                         </w:r>
                     </w:p>
+
+                    <#if (NO4_2_2)?? >
                     <w:p w14:paraId="678B2046" w14:textId="650D9184" w:rsidR="003929CE" w:rsidRPr="00110408" w:rsidRDefault="003929CE" w:rsidP="00FB25CD">
                         <w:pPr>
                             <w:widowControl/>
@@ -9605,6 +9614,8 @@
                                 <w:szCs w:val="21"/>
                             </w:rPr>
                         </w:pPr>
+
+                        <#list NO4_2_2 as ps422>
                         <w:r>
                             <w:rPr>
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="微软雅黑" w:hint="eastAsia"/>
@@ -9615,9 +9626,9 @@
                             </w:rPr>
                             <w:drawing>
                                 <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="3744A411" wp14:editId="5EDE563C">
-                                    <wp:extent cx="2810964" cy="2158365"/>
+                                    <wp:extent cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                                     <wp:effectExtent l="0" t="0" r="8890" b="635"/>
-                                    <wp:docPr id="5" name="图片 5"/>
+                                    <wp:docPr id="5${ps422_index}" name="图片 5"/>
                                     <wp:cNvGraphicFramePr>
                                         <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                                     </wp:cNvGraphicFramePr>
@@ -9625,17 +9636,11 @@
                                         <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                             <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                                 <pic:nvPicPr>
-                                                    <pic:cNvPr id="5" name="1.jpg"/>
+                                                    <pic:cNvPr id="5" name=""/>
                                                     <pic:cNvPicPr/>
                                                 </pic:nvPicPr>
                                                 <pic:blipFill>
-                                                    <a:blip cstate="print">
-                                                        <a:extLst>
-                                                            <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">
-                                                                <a14:useLocalDpi xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main" val="0"/>
-                                                            </a:ext>
-                                                        </a:extLst>
-                                                    </a:blip>
+                                                    <a:blip r:embed="${ps422.rid}"/>
                                                     <a:stretch>
                                                         <a:fillRect/>
                                                     </a:stretch>
@@ -9643,11 +9648,18 @@
                                                 <pic:spPr>
                                                     <a:xfrm>
                                                         <a:off x="0" y="0"/>
-                                                        <a:ext cx="2841557" cy="2181855"/>
+                                                        <a:ext cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                                                     </a:xfrm>
                                                     <a:prstGeom prst="rect">
                                                         <a:avLst/>
                                                     </a:prstGeom>
+                                                    <a:ln>
+                                                        <a:solidFill>
+                                                            <a:schemeClr val="bg1">
+                                                                <a:lumMod val="75000"/>
+                                                            </a:schemeClr>
+                                                        </a:solidFill>
+                                                    </a:ln>
                                                 </pic:spPr>
                                             </pic:pic>
                                         </a:graphicData>
@@ -9664,7 +9676,11 @@
                             </w:rPr>
                             <w:t xml:space="preserve"> </w:t>
                         </w:r>
+                        </#list>
+
                     </w:p>
+                    </#if>
+
                     <w:p w14:paraId="7BE0A3E6" w14:textId="543AE1A9" w:rsidR="00A30856" w:rsidRPr="00110408" w:rsidRDefault="00A30856" w:rsidP="00A30856">
                         <w:pPr>
                             <w:widowControl/>
