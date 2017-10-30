@@ -67,7 +67,7 @@
 		popEve.prototype = {
 			init:function(){
 				var _this = this;
-					_this.insertbg().inserttxt().closepop();
+					_this.insertbg().inserttxt().postionEve().closepop();
 
 			},
 			//背景插入
