@@ -157,7 +157,9 @@ var initPage = {
 				    			_isProve : "hide",
 				    			_remark : "hide",
 								callFuc : function(){
-									window.location.reload(platformUrl.projectDetail + project.projectId);
+									//window.location.reload(platformUrl.projectDetail + project.projectId);
+									sendGetRequest(platformUrl.getBusinessPlanFile+"/"+initPage.projectId,null,initPage.initCallBack); //局部刷新
+									
 								},
 								_url : platformUrl.commonUploadFile, //兼容老板插件
 								_localUrl : platformUrl.commonUploadFile
