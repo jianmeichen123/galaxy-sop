@@ -763,24 +763,22 @@ $("input[data-title-id=\"1816\"]").attr("tochange",true);
 //div模拟select下拉框
 
 function dropdown_select(data,event){
-
-	event.stopPropagation(); 
 	var _this = $(data);
 	var ul = _this.closest('#dropdown').find('ul');
+	$('#dropdown ul').slideUp('fast');
+	$('#dropdown ul').hide('fast');
 	if(ul.css("display")=="none"){
 		_this.addClass('up');
 		ul.slideDown("fast");
-		ul.closest('tr').siblings('tr').find('#dropdown ul').slideUp('fast')
 	}else{ 
 		ul.slideUp("fast");
 		_this.removeClass('up');
-		ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
 	} 
+	event.stopPropagation(); 
 	$(document).on("click", function(){
 		if(ul.css("display")!="none"){
 			ul.slideUp("fast");
 			_this.removeClass('up');
-			ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
 		}
 		
     });
