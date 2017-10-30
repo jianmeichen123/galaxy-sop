@@ -193,6 +193,7 @@ $(function(){
 					var financeForms=$("input[name='investForm']");
 					for(var i=0;i<financeForms.length;i++){
 						if(financeForms[i].value==projectInfo.financeMode){
+							financeForms[i].parentNode.className += " radio_checked";
 							financeForms[i].checked=true;
 						}
 				
@@ -440,7 +441,7 @@ $(function(){
 		$("[data-on='save']").click(function(){
 			var s_type=$(this).attr("save_type");
 			var data="";
-			if(s_type=="finance"||s_type=="real_invest"){
+			if(s_type=="finance"){
 				if(!$("#basicForm").validate().form())
 				{
 					return;
@@ -448,7 +449,7 @@ $(function(){
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			}else if(s_type=="save_basic"){
+			}else if(s_type=="save_basic"||s_type=="real_invest"){
 				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
@@ -514,7 +515,7 @@ $(function(){
 				faName="";
 			}
 			//处理投资形式
-			var investForm= $("input[name='investForm']:checked").val();
+			var investForm= $(".radio_checked input").attr("value");
 			var arr=[];
 			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
 				var jointDeliverys= $(".block_inputs");
@@ -531,12 +532,11 @@ $(function(){
 					    }
 				        obj.deliveryName=jointDelivery.childNodes[0].childNodes[0].value;
 				        obj.deliveryAmount=jointDelivery.childNodes[1].childNodes[0].value;
-				        obj.deliveryCurrency=jointDelivery.childNodes[2].childNodes[0].options[jointDelivery.childNodes[2].childNodes[0].selectedIndex].value;
+				        obj.deliveryCurrency=jointDelivery.childNodes[2].childNodes[0].firstElementChild.getAttribute("m-val");
 				        obj.deliveryShareRatio=jointDelivery.childNodes[3].childNodes[0].value;
 				        arr[i]=obj;
 				}
 			}
-			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
 					       "industryOwn":industry_own,
@@ -546,7 +546,6 @@ $(function(){
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
-			console.log(formatData);
 			return formatData;
 		}
 		/*function saveSuccess(){
