@@ -75,7 +75,7 @@ $(function(){
 				$("#faName").attr('data-original-title',projectInfo.faName);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}else{
-				$("#faName").removeAttr('title');
+				$("#faName").removeAttr('data-original-title');
 			}
 			$('.version19_detail_header_box').css('visibility','visible')
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
