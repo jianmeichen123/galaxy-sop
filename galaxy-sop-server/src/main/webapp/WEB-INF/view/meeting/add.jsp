@@ -129,6 +129,8 @@
 </div>	
 </form>
 <script>
+//$("#dialog-btns #cancel-btn").click();
+$.popupOneClose();
 //会议纪要富文本
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 viewNotes.on( 'change', function() {   //访谈纪要 
@@ -207,7 +209,6 @@ var fileUploader = new plupload.Uploader({
 					return;
 				}
 				var data = $.parseJSON($("#meeting_form").serializeObject());
-				console.log($.trim(CKEDITOR.instances.viewNotes.getData()));
 				data.meetingNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
 				if(up.files.length > 0){
 					up.settings.multipart_params = data;  
@@ -224,6 +225,7 @@ var fileUploader = new plupload.Uploader({
 						}else{
 							layer.msg("保存成功", {time : 500});
 							$.popupTwoClose();
+							$('#data-table').bootstrapTable('refresh');
 						}
 					});
 				}
@@ -272,6 +274,7 @@ var fileUploader = new plupload.Uploader({
 			}else{
 				layer.msg("保存成功", {time : 500});
 				$.popupTwoClose();
+				$('#data-table').bootstrapTable('refresh');
 			}
 		},
 		BeforeUpload:function(up){

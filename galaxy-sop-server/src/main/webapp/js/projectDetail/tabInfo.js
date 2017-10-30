@@ -83,7 +83,13 @@ $(function(){
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
 			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));
-			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+			if($("#financeMode").text()=="独投"){
+				$("#financeMode").addClass("disabled");
+			}else{
+				$("#financeMode").removeClass("disabled");
+			}
+		    
+		    if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				jointDeliveryList(projectInfo.jointDeliveryList);
 				//列表无数据时不显示表格
 				var trLen=$("#jointDelivery").find("tr:gt(0)").length;
@@ -483,6 +489,12 @@ $(function(){
 						buildShareResult("4","3002");  //实际投资
 						buildShareResult("4","3008");  //实际投资
 						jointDeliveryList(projectInfo.jointDeliveryList);//合投机构 
+						$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));
+						if($("#financeMode").text()=="独投"){
+							$("#financeMode").addClass("disabled");
+						}else{
+							$("#financeMode").removeClass("disabled");
+						}
 						financeRound();   //单独刷新融资轮次
 						//initTabInfo(data.id);
 					}else {
