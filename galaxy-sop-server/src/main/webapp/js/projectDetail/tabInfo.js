@@ -786,32 +786,6 @@ function dropdown_select(data,event){
     });
 }
 
-$(function(){ 
-	$(".input_select").click(function(e){ 
-		var _this = $(this);
-		var ul = _this.parents('#dropdown').find('ul');
-		if(ul.css("display")=="none"){
-			_this.addClass('up');
-			ul.slideDown("fast");
-			ul.closest('tr').siblings('tr').find('#dropdown ul').slideUp('fast')
-		}else{ 
-		ul.slideUp("fast");
-		_this.removeClass('up');
-		//_this.addClass('input_select');
-		ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
-		} 
-		$(document).on("click", function(){
-			if(ul.css("display")!="none"){
-				ul.slideUp("fast");
-				_this.removeClass('up');
-				ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
-			}
-			
-	    });
-		 e.stopPropagation();
-	}); 
-}); 
-
 //改变保存按钮top值
 $('.input_FA ,#project_name_edit').blur(function(){
 	if($('.error').is(":visible")){
