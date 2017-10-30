@@ -18,6 +18,7 @@ import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.common.Node;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
@@ -211,6 +212,23 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 			result=meeting.getMeetingResult();
 		}
 		return result;
+	}
+	
+	
+	@Override
+	public List<Node> selectResults(InformationResult ir) {
+		// TODO Auto-generated method stub
+		List<InformationResult> list = informationResultDao.selectResultByRelate(ir);
+		List<Node> nodeList = new ArrayList<Node>();
+		if(list != null && list.size() > 0){
+			for(InformationResult entity : list){
+				Node node = new Node(entity.getId(),entity.getResultId() == null ? null : entity.getResultId()
+						,entity.getTitleId() == null ? null : Long.valueOf(entity.getTitleId()),
+						entity.getValueName(),entity.getType() == 19 ? entity.getContentDescribe1() : entity.getContentChoose(),Long.valueOf(entity.getParentId()),entity.getType());
+				nodeList.add(node);
+			}
+		}
+		return nodeList;
 	}
 	
 	

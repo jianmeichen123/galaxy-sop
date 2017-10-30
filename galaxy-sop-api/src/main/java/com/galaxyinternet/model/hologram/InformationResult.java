@@ -33,6 +33,13 @@ public class InformationResult extends PagableEntity{
     
     private Set<String> titleIds;
 
+    /**information_title_relate start**/
+    private String parentId;
+    private Long resultId;
+    private String code;
+    private String reportType;
+    private Integer type;
+    /**information_title_relate end**/
     
     private Long valueId;
     private String valueName;
@@ -182,6 +189,46 @@ public class InformationResult extends PagableEntity{
 
 	public void setNotNull(boolean notNull) {
 		this.notNull = notNull;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
+	public Long getResultId() {
+		return resultId;
+	}
+
+	public void setResultId(Long resultId) {
+		this.resultId = resultId;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 	
 	

@@ -71,7 +71,7 @@
 					<li>
 						<div class="con_box">
 							<div class="relative_box">						
-								<em class="oval" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover' title="点击查看合投列表">合投</em>
+								<em class="oval" id="financeMode" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover' title="点击查看合投列表"></em>
 								<p class="img_box">
 								出让股份
 								</p>
@@ -861,13 +861,15 @@
 		//领投合投点击显示
 		var index = $(this).index();
 		if(index===1){
-			$('.institution').show();
+			$('.invest_institue').show();
 			$(".invest_type").text('领投机构：');
 		}else if(index===2){
 			$('.invest_institue').show();
 			$(".invest_type").text('合投机构：');
 		}else{
-			$('.institution').hide();
+
+			$(".inputsForm").html("");
+			$(".invest_institue").hide();
 		}
 	});
 	
