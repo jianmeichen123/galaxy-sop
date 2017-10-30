@@ -3846,11 +3846,14 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_institue{display:none;}
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
- .institue_content{width: auto;height: auto;display:none;margin-top:10px;}
+ .institue_content{width: auto;height: auto; margin-top:10px;}
  .institue_inputs{display:inline-table;}
  .invest_max_height{max-height:365px;overflow:auto;}
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  #basicForm .invest_current label.error{display: block;background:none;padding-top: 5px;position:absolute;left:4px;bottom:-45px;}
+ .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
+ .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
+ .institue_content .input_box #dropdown .input_select, .institue_content .input_box #dropdown ul{width:66px;}
  
 .mt_50{margin-top: 50px;} 
  

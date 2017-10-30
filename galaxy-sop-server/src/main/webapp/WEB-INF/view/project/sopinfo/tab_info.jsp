@@ -372,6 +372,7 @@
 									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
 									<em class="inves_delete"></em>
 								</div> -->	
+								<div class="inputsForm"></div>
 								<div class="institutionBtn">
 									<span class="inves_add"></span>
 								</div>								
@@ -751,14 +752,14 @@
 	
 	//新增添加合投机构
 	function addInputsRow(i){
-	     var inputsRow='<div class="block_inputs">'
-	          +'<span class="input_box"><input placeholder="填写机构名称" class="name" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	          +'<span class="input_box"><select><option value="currency:0">人民币</option><option value="currency:1">美元</option></select></span>'
-	          +'<span class="input_box"><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	     var inputsRow='<div class="block_inputs institue_content">'
+	          +'<span class="input_box"><input placeholder="填写机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
+	          +'<span class="input_box"><input placeholder="填写投资金额（万元）" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
+	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" onclick="dropdown_select(this,event)" type="text" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
+	          +'<span class="input_box"><input placeholder="填写占股比例（%）"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
-	  	$(".institue_inputs").append(inputsRow);
+	  	$(".inputsForm").append(inputsRow);
 	  };
 	  //新增
  	  var addInputs_i=0;
@@ -875,7 +876,7 @@
 	});
 	
 	//拼接出input一行
-  var inputContent = '<div class="institue_content">'
+/*   var inputContent = '<div class="institue_content">'
 					  +'<span class="input_box"><input type="text" placeholder="机构名称" class="inves_input input_stock_left" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"></span>'
 					  +'<span class="input_box"><input type="text" placeholder="投资金额(万元)" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"></span>'
 					  +'<span class="select_cont"><select class="inves_select"><option>人民币</option><option>美元</option></select></span>'
@@ -890,7 +891,7 @@ function deleteRow(obj){
 	if(inputContLength <= 10){
 		$('.inves_add').show();
 	}
-}
+} */
 	
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
