@@ -612,7 +612,7 @@
 		<span class="new_color size16">团队成员</span>
 	</div>
 	<input type="hidden" id="pid" name="id" value="${pid}" />
-		<div>			
+		<div class='member'>			
 			<!--表格内容-->
 			<!-- <div class="tab-pane active commonsize" id="view">
 				<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
