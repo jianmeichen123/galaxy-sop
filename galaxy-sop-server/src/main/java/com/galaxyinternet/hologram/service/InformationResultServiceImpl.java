@@ -222,9 +222,13 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		List<Node> nodeList = new ArrayList<Node>();
 		if(list != null && list.size() > 0){
 			for(InformationResult entity : list){
+				String value = "";
+				if(entity.getType() != null){
+					value = entity.getType() == 19 ? entity.getContentDescribe1() : entity.getContentChoose();
+				}
 				Node node = new Node(entity.getId(),entity.getResultId() == null ? null : entity.getResultId()
 						,entity.getTitleId() == null ? null : Long.valueOf(entity.getTitleId()),
-						entity.getValueName(),entity.getType() == 19 ? entity.getContentDescribe1() : entity.getContentChoose(),Long.valueOf(entity.getParentId()),entity.getType());
+						entity.getValueName(),value,Long.valueOf(entity.getParentId()),entity.getType());
 				nodeList.add(node);
 			}
 		}
