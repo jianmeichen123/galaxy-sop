@@ -83,10 +83,13 @@ $(function(){
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
 			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));
-			if($("#financeMode").text()=="独投"){
-				$("#financeMode").addClass("disabled");
+		    $("#financeMode").attr("data-original-title",typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":"点击查看"+projectInfo.fModeRemark+"列表"));
+		    $("#financeMode").tooltip();//提示
+		    if($("#financeMode").text()=="独投"){
+				$("#financeMode").removeAttr("data-original-title");
+				$("#financeMode").addClass("hide");
 			}else{
-				$("#financeMode").removeClass("disabled");
+				$("#financeMode").removeClass("hide");
 			}
 		    
 		    if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
@@ -490,10 +493,13 @@ $(function(){
 						buildShareResult("4","3008");  //实际投资
 						jointDeliveryList(projectInfo.jointDeliveryList);//合投机构 
 						$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));
+						$("#financeMode").attr("data-original-title",typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":"点击查看"+projectInfo.fModeRemark+"列表"));
+						$("#financeMode").tooltip();//提示
 						if($("#financeMode").text()=="独投"){
-							$("#financeMode").addClass("disabled");
+							$("#financeMode").removeAttr("data-original-title");
+							$("#financeMode").addClass("hide");
 						}else{
-							$("#financeMode").removeClass("disabled");
+							$("#financeMode").removeClass("hide");
 						}
 						financeRound();   //单独刷新融资轮次
 						//initTabInfo(data.id);

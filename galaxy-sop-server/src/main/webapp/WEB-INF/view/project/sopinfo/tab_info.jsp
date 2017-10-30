@@ -71,7 +71,7 @@
 					<li>
 						<div class="con_box">
 							<div class="relative_box">						
-								<em class="oval" id="financeMode" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover' title="点击查看合投列表"></em>
+								<em class="oval" id="financeMode" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover'></em>
 								<p class="img_box">
 								出让股份
 								</p>

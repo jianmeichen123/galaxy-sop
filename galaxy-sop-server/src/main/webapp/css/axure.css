@@ -3842,6 +3842,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .radio_cont{width:28px;height:12px;margin-left:16px;cursor:pointer;text-align:center;background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 4px}
  .radio_checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 4px}
  .relative_box .oval{cursor:pointer;}
+ .relative_box .oval.hide{cursor:default;}
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
  .institue_content{width: auto;height: auto; margin-top:10px;}
