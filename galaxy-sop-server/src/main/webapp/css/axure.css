@@ -3653,7 +3653,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
  #deliver_form label.error{background:none;color:#333;margin:0;padding:0}
   .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
- .pagebox .ritmin .tabtable #jointDelivery th:first-child{width:50%}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
  .role_hide{display:none;}
  .mb_24 span.error{font-size:12px;}
@@ -3817,7 +3816,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .real_investment{display:none; height:auto;max-height: 505px}
  .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
  .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
- .title_bj_tzjl{font-family:MicrosoftYaHei-Bold;font-size:14px;}
+ .title_bj_tzjl{font-family:MicrosoftYaHei-Bold;font-size:14px;position:relative;}
  .real_ivestest_input{width:400px;margin-left:38px;}
  .real_invest_short{margin-left:-4px;}
  .vest_span{display:inline-block;margin-left:20px;}
@@ -3853,12 +3852,12 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
- .institue_content .input_box #dropdown ul{width:75px;}
+ .institue_content .input_box #dropdown ul{width:75.5px;}
  .institue_inputs .inputsForm{padding-left: 35px;}
  .mt_50{margin-top: 50px;} 
- .agency_close{display:inline-block; }
- 
- 
+ .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
+ .agency_institute table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;}
+ .agency_institute table th,.agency_institute table td{text-align:center;}
  
  
  

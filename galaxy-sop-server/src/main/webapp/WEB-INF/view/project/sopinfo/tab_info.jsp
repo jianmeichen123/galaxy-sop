@@ -425,7 +425,7 @@
 	 	   
 	 	   <!-- 合投机构 --> 
 	 	   <div class="agency_institute investTogether_current">
-	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close"></em></div>
+	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont">
 						 <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >

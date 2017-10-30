@@ -482,6 +482,7 @@ $(function(){
 						});
 						buildShareResult("4","3002");  //实际投资
 						buildShareResult("4","3008");  //实际投资
+						jointDeliveryList(projectInfo.jointDeliveryList);//合投机构 
 						financeRound();   //单独刷新融资轮次
 						//initTabInfo(data.id);
 					}else {
