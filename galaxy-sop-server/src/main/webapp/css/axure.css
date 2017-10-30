@@ -3743,7 +3743,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .relative_box .img_box{color:#4f52a0;}
 .relative_box .img_box+#plan_name{margin-top: -8px;}
 .relative_box .plan_update_time{color:#8b8db8;}
- .version19_detail_header_box{width:100%;background:#fff;padding-top:28px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
+ .version19_detail_header_box{width:100%;background:#fff;padding-top:30px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
  .version19_detail_header .top div{margin-right:10px;}
  .version19_detail_header_box{visibility:hidden;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
