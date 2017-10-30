@@ -49,11 +49,22 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					if(dom=="basicForm"&&val1=="finance"){
-						$(".bj_hui_on").hide();
-						$(".basic_common_width").hide();
+					if(dom=="basicForm"&&val1=="finance"){						
 						buildMoneyResult("1915");
+					}else if(dom=="basicForm"&&val1=="real_invest"){						
+						buildShareResult("4","3008");
+						//real_invest
 					}
+//					弹窗关闭
+					var close="basic"
+					$('.'+close+'_current').hide();//basic_current
+					$('.'+close+'_on').hide();
+					$('.'+close+'_center').show();
+					$('.bj_hui_on').hide();
+					$('.tip-yellowsimple').hide();
+					$("body").css('overflow-y','auto');
+					
+					
 					if(dom=='company-info-form'){
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);
