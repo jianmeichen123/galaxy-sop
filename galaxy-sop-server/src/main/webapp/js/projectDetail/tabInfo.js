@@ -533,7 +533,7 @@ $(function(){
 		function getUpdateData(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
-			var industry_own=$("#industry_own_sel").val();
+			var industry_own=$("#industry_own_sel").attr('data-flag');
 			var faFlag=$('input[name="projectSource"]').attr('data-flag');
 			var faName="";
 			if(faFlag=='projectSource:1'){
