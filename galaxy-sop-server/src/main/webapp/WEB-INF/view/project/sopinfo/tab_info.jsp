@@ -268,7 +268,7 @@
 			</div>
 	    </div>
 	   		<div class="btn btnbox basic_mes_button">
-              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              <button  class="pubbtn bluebtn version19_save_btn" data-on="save" save_type='save_basic'>保存</button>
               <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 
 	    </div>
@@ -811,7 +811,6 @@
 	
 	/*编辑法人信息保存方法交互  */
 	$('.legal_current [data-btn="save"]').on('click',function(){
-		console.log(${projectId })
 		var projectCompany=$("input[name='projectCompany']").val();
 		var formationDate=$("input[name='formationDate']").val();
 		var companyLegal=$("input[name='companyLegal']").val();

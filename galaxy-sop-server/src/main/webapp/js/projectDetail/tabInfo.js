@@ -655,6 +655,8 @@ function buildShareResult(reportType,relateId){
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
+								}else{
+									var I_val=_val;
 								}
 								if(_val==undefined){
 									_val="—"
