@@ -278,6 +278,7 @@ $(function(){
 					var txt = $(this).text(); 
 					target.val(txt)
 					$("#dropdown ul").hide(); 
+					$(this).closest('#dropdown').find('input').attr('tochange',true);
 			});
 				 
 			}
@@ -745,7 +746,7 @@ function financeRound(){
 							var title = this;
 							if(null!=title.resultList&&title.resultList.length>0){
 								$("label[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"—":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
-								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("data-result-id",title.resultList[0].id);	
 							}
 						});
 					}
@@ -756,7 +757,6 @@ function financeRound(){
 
 //给input赋予tochange属性
 $("input[data-title-id]").on("input",function(){
-	alert('222')
 	$(this).attr("tochange",true);
 })
 $("input[data-title-id=\"1816\"]").attr("tochange",true);
