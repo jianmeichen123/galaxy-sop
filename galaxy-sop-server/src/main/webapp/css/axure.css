@@ -3664,7 +3664,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
  .tabinfo_con .oval：hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
- .title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
+ .title_2 ,.title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
  .title_3 .size16{padding:0;margin:0;font-size:12px;}
  .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
  .tabinfo_con{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px; padding-bottom:40px; }
@@ -3679,7 +3679,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .two_part li,.tabinfo_con .one_part li{float:left;box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:50%; padding-right:20px;}
  .tabinfo_con .one_part li{padding:0; width:100%;}
  .invest_infoC li .con_box,.plan_infoC li .con_box{height:145px;border:.5px solid #b2b2b2;border-radius:4px; padding:30px 0 20px 30px;}
- .plan_infoC .con_box:hover{box-shadow:0 2px 4px 2px rgba(69,170,255,0.20);border:1px solid #45aaff;}
  .finance_infoC li .con_box{border-radius:4px; padding:20px 0 20px 30px; font-size:12px;}
  .finance_infoC li:nth-child(1) .con_box{background:#938af7;}
  .finance_infoC li:nth-child(2) .con_box{background:#fbae96;}
@@ -3796,9 +3795,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
  .edit_com_color{font-size:14px;color:#666666;}
- .basic_message_cont{width:100%;margin:0 auto;height:100%;width: 100%;margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;    padding-top: 30px;}
+ .basic_message_cont{margin:0 auto;height:100%;width: 100%; margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;    padding-top: 30px;}
  .edit_basic_table{border:none;padding:0px !important;}
- .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
+ .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;position: relative;}
  .edit_basic_table tr{display:block;margin-bottom:16px;}
  .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:433px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
@@ -3812,19 +3811,19 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
 .basic_mes_button{margin: 0 auto;display:block;}
 .basic_common_width{width:600px;font-family:Microsoft YaHei;border-radius:0px !important;}
- .finacing_plan{ height:auto;max-height:505px;display:none;}
- .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
- .real_investment{display:none; height:auto;max-height: 505px}
- .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;}
- .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
- .invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{width:113px;text-align: justify; text-justify:distribute-all-lines;  text-align-last: justify; -webkit-text-align-last:justify; -moz-text-align-last:justify; display: inline-block;}
- .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
- .real_ivestest_input{width:385px;}
- .vest_span{display:inline-block;}
- .inves_input{width:104px;height:28px;padding-left:8px;margin-left:4px;border:.5px solid #999999;}
- .inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
- .select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 6px;}
- .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
+.finacing_plan{ height:auto;max-height:505px;display:none;}
+.finacing_plan .inves_plan_btn{margin-bottom: 27px;}
+.real_investment{display:none; height:auto;max-height: 505px}
+.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;}
+.basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
+.invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
+.title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
+.real_ivestest_input{width:385px;position: absolute;left: 116px;top: 0px;}
+.vest_span{display:inline-block;position: absolute;left: 116px;top: 0px;width: 400px;}
+.inves_input{width:104px;height:28px;padding-left:8px;margin-left:4px;border:.5px solid #999999;}
+.inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
+.select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 6px;}
+.select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
  select::-ms-expand { display: none; }
  .inves_stock{width:68px;margin-left: 6px;}
  .inves_delete{display:inline-block;position: relative;top: 5px;cursor:pointer;width:17px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px;position: absolute;right: -22px}
@@ -3848,7 +3847,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
  .institue_content{width: auto;height: auto; margin-bottom:10px;position: relative;}
- .institue_inputs{display:inline-table;vertical-align: top;}
+ .institue_inputs{display:inline-table;vertical-align: top;position: absolute;left: 116px;top: 0px;}
  .invest_max_height{max-height:365px;overflow:auto;}
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  #basicForm .invest_current label.error{color: #000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
@@ -3858,7 +3857,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
  .institue_content .input_box #dropdown ul{width:75.5px;}
- .invest_institue{margin-top:10px;display:none;}
+ .invest_institue{margin-top:25px; position: relative;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
  .pagebox .tabtable .agency_institute  table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
