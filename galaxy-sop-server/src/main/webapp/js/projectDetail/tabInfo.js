@@ -604,10 +604,14 @@ function radio_faFlag(isContactsV){
 	} 
 }
 function jointDeliveryList(list){
-	$("#jointDelivery").children().remove(); 
+	$("#jointDelivery").show.children().remove(); 
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
 	temp.append(html);
+	if(list.length<=0||list==undefined){
+		temp.append("<tr class=\"no-records-found\"><td colspan=\"4\" style=\" text-align:center !important;color:#bbb;border:0;line-height:32px !important\" class=\"noinfo no_info01\"><label class=\"no_info_icon_xhhl\">没有找到匹配的记录</label></td></tr>");
+		return;
+	}
 	for(var i=0;i<list.length;i++){
 		if(list[i].deliveryCurrency=="currency:1"){
 			list[i].deliveryCurrency='美元'
