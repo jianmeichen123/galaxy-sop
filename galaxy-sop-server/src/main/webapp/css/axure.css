@@ -3807,16 +3807,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
 .input_FA{margin-left:77px;margin-top:10px;display:none;}
-.version19_cancel_btn{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-size:14px;} 
+.version19_cancel_btn{background:#eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;} 
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
-.basic_mes_button{display:flex;justify-content:center;margin-top:63px;}
+.basic_mes_button{margin: 0 auto;display:block;}
 .basic_common_width{width:600px;font-family:Microsoft YaHei;border-radius:0px !important;}
  .finacing_plan{ height:auto;max-height:505px;display:none;}
  .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
  .real_investment{display:none; height:auto;max-height: 505px}
  .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;}
  .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
- .invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{width:113px;text-align: justify;text-align-last: justify;   -webkit-text-align-last:justify; -moz-text-align-last:justify; text-justify:distribute-all-lines; display: inline-block;}
+ .invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{width:113px;text-align: justify; text-justify:distribute-all-lines;  text-align-last: justify; -webkit-text-align-last:justify; -moz-text-align-last:justify; display: inline-block;}
  .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
  .real_ivestest_input{width:385px;}
  .vest_span{display:inline-block;}
