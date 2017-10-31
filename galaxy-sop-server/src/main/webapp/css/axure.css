@@ -3664,7 +3664,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
  .tabinfo_con .oval：hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
- .title_2 ,.title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
+ .title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
  .title_3 .size16{padding:0;margin:0;font-size:12px;}
  .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
  .tabinfo_con{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px; padding-bottom:40px; }
