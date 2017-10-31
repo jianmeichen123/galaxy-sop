@@ -1,16 +1,5 @@
 $(function(){
-		
-		var width_fwb=$('.tabtable_con_on').width();
-		$('.width_fwb').css('width',(width_fwb-20));
-		//未上传上传计划书，用于调样式
-		if($("#plan_name").text()==''){
-			$("#plan_name").parent('li').css("margin-right","0");
-		}
-		
 		//统一显示
-		 $('.edui-icon-fullscreen').on('click',function(){
-				$('body').css('padding-bottom','300px')
-		})
 		if(isTransfering == 'true')
 		{
 			$('[data-on="data-open"]').addClass('limits_gray');
@@ -49,8 +38,6 @@ $(function(){
 				projectInfoList=data.userData.report[0].childList;
 			}
 		})
-		console.log(projectInfoDetail);
-		console.log(projectInfoList);
 		//项目名称截断
 		if(projectInfoDetail.projectName.length>24){
 			var str=projectInfoDetail.projectName.substring(0,24);
@@ -167,26 +154,6 @@ $(function(){
 				$(window).resize(function(){
 					popMiddle()
 				})
-				
-				
-				//投资形式切换
-				/*$(".new_table .mar_left>input").change(function(){
-					var val=$(this).val();
-					$(".institutionBtn span").css('margin-top','0');
-					if(val=="financeMode:0"){
-						$(".institution").hide();
-					}else if(val=="financeMode:1"){
-						$(".institution").show();
-						$(".institution .new_color_gray").text("领投机构：");
-					}else{
-						$(".institution").show();
-						$(".institution .new_color_gray").text("合投机构：");
-					}
-				});*/
-				//updataReport();
-				//buildMoneyResult("1915");  //融资计划
-				//buildShareResult("4","3002");  //实际投资
-				//buildShareResult("4","3008");  //实际投资
 				//基本信息修改
 				$("#editImg").html(ht);
 				$("#project_name_edit").val(projectInfoDetail.projectName);
@@ -201,7 +168,6 @@ $(function(){
 				$("#industry_own_sel").val(projectInfoDetail.industryOwnDs);
 				$("#finance_status_sel").val(projectInfoDetail.financeStatusDs)
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
-				//$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
 				if(projectInfoDetail.financeMode!=undefined&&projectInfoDetail.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
@@ -252,9 +218,6 @@ $(function(){
 			    	 */
 			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
-			    	// createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
-			    	
-			    	//initDialogVal();
 		    	}
 			    responseData()//数据反显
 			    radio_faFlag(projectInfoDetail.faFlag);
@@ -511,16 +474,6 @@ $(function(){
 					
 				});
 			}
-			//saveBaseInfo("basicForm");
-		/*	sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
-				if(data2.result.status=="OK"){
-					layer.msg(data2.result.message);
-					initTabInfo(data.id);
-				}else {
-						layer.msg(data2.result.message);
-				}
-				
-			});*/
 		})
 		
 		
@@ -571,15 +524,6 @@ $(function(){
 			};
 			return formatData;
 		}
-		/*function saveSuccess(){
-			sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
-				projectInfo = data.entity;
-				$.getTabHtml({
-					url : platformUrl.toTabProjectInfo +'/'+ pid
-				});
-			});
-		}*/
-
 });
 $("select[name='projectSource']").change(function() {
 	// 0 y; 1 n
@@ -643,46 +587,8 @@ function jointDeliveryEdit(list){
 			_this.find('#industry_own_sel').attr("value","美元").attr("m-val","currency:1");
 		}
 	});
-	
-	
-	
-	
-	//新增按钮显示隐藏
-/*	var inputsLength=$(".block_inputs").length;
-	if(inputsLength <10){
-		$(".institutionBtn span").show()
-	}else{
-		$(".institutionBtn span").hide()
-	}*/
-	//编辑验证样式调整
 }
-//本轮融资轮次
-/*sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,
-		function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				var entityList = data.entity.childList[0];
-				var options = [];
-				if(entityList.valueList && entityList.valueList.length>0){
-					$.each(entityList.valueList, function(i, value){
-						console.log(value)
-						options.push('<option value="'+value.id+'" data-title-id="'+value.titleId+'">'+value.name+'</option>');
-						if(selectIndex && i == selectIndex){
-							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
-						}else{
-							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
-						}
-					});
-					$('select[name="financeStatus"]').append(options.join(''));
-				}
-			} else {
-
-			}
-		});*/
 buildShareResult("4","5812");
-//buildShareResult("4","3002");
-//buildShareResult("4","3008");
-//buildMoneyResult("1915");
 function buildShareResult(reportType,relateId){
 	sendGetRequest(platformUrl.getRelateTitleResults +reportType+"/"+relateId+"/"+projectInfo.id, null,
 			function(data) {
@@ -741,77 +647,6 @@ function buildShareResult(reportType,relateId){
 				}
 			})
 }
-function buildMoneyResult(pid){
-	sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK')
-				{
-					var entityList = data.entityList;
-					if(entityList && entityList.length >0)
-					{
-						$.each(entityList,function(){
-							var title = this;
-							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
-							
-							
-							if(null!=title.resultList&&title.resultList.length>0){
-								var _val = title.resultList[0].contentDescribe1;
-								_val=_parsefloat(_val);
-								var I_val=_val
-								if(_val==undefined){
-									_val="—"
-								}else{
-									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
-										var Tval= change_number(_val);
-										_val = _parsefloat(Tval[0]);
-										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
-									}
-								}
-								
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
-								if(title.id=="1917"){
-									console.log(_val);
-									if(_val==undefined||_val=="—"){_val=0;}
-									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
-								}
-							}else{
-								$(".new_color_black[data-title-id='"+title.id+"']").text("—")
-								if(title.id=="1917"){
-									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
-								}
-								
-							}
-						});
-					}
-				}
-			})
-}
-//本轮融资轮次
-//financeRound();
-function financeRound(){ 
-	var codeArr = ['NO1_1'];
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, 
-			function backFun(data){
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entityList = data.entity.childList;
-					if(entityList && entityList.length >0)
-					{
-						$.each(entityList,function(){
-							var title = this;
-							if(null!=title.resultList&&title.resultList.length>0){
-								$("label[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"—":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("data-result-id",title.resultList[0].id);	
-							}
-						});
-					}
-					
-				}
-			});
-}
-
 //保存后刷新
 function updataReport(projectInfoList){
 	if(projectInfoList && projectInfoList.length>0){
@@ -882,8 +717,9 @@ function updataReport(projectInfoList){
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
+									console.log(Tval[1])
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
 							
