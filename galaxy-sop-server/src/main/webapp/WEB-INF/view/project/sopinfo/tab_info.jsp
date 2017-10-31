@@ -110,6 +110,7 @@
 				</ul>
 			</div>		
 		</div>
+		<input type="hidden" id="pid" name="id" value="${projectId}"/>
 	</div>
 	<!-- 编辑页面 -->
 	<div class="basic_on basic_common_width">
@@ -281,6 +282,18 @@
 						<div class="invest_institue">
 							<span class="invest_type">合投机构：</span>
 							<div class="institue_inputs">
+								<!-- <div class="institue_content">
+									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
+									<input type="text" placeholder="投资金额(万元)" class="inves_input">
+									<span class='select_cont'>
+										<select class="inves_select">
+											<option>人民币</option>
+											<option>美元</option>
+										</select>
+									</span>
+									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
+									<em class="inves_delete"></em>
+								</div> -->	
 								<div class="inputsForm"></div>
 								<div class="institutionBtn">
 									<span class="inves_add"></span>
@@ -350,6 +363,7 @@
 	</div>
 	  
 </div>
+
 <!-- 商业计划书隐藏页面 -->
 <div id="uploadPanel"  style="display: none;">
 	<div class="title_bj">上传更新</div>
@@ -462,6 +476,7 @@
 	        </tr>
 	    </table>                
 	</div>
+
 </div>
 </div>
 
@@ -577,15 +592,6 @@
 	{
 		$('.legal [data-on="data-open"]').addClass('limits_gray');
 	}
-/* 	$('.legal [data-btn="edit"]').on('click',function(){
-		alert('cdddd')
-		if($(this).hasClass('limits_gray'))
-		{
-			return;
-		}
-		editCompany();		
-	}); 
-	
 	/*编辑法人信息保存方法交互  */
 	$('.legal_current [data-btn="save"]').on('click',function(){
 		var projectCompany=$("input[name='projectCompany']").val();
@@ -621,16 +627,6 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
-	/*  function editCompany()
-	{
-		buildShareResult("4","5812");
-    	 $('.bj_hui_on').show(); 
-		 $('.legal .show').hide(); 
-		 $('.legal .hidden').show(); 
-	}  */
-	
-	
-	//chen{}
 	//radio自定义事件
 	$(".radio_cont").on("click",function(){
 		$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
