@@ -578,16 +578,24 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				var _val = title.resultList[0].contentDescribe1;
-				if(_val==undefined){
-					_val="未填写"
+				var test_num = $(".field[data-title-id='"+title.id+"']").next().text();
+				alert(test_num)
+				if(test_num.indexOf("元")<0){
+					_val = _parsefloat(_val);
+					var moneyT =test_num;
 				}else{
-					var res = change_number(_val);
-					_val = _parsefloat(res[0]);
-					var moneyT = res[1];
+					if(_val==undefined){
+						_val="未填写"
+					}else{
+						var res = change_number(_val);
+						_val = _parsefloat(res[0]);
+						var moneyT = res[1]+"元";
+					}
 				}
+				
 				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if(title.resultList[0].contentDescribe1 !=undefined){
-					$(".field[data-title-id='"+title.id+"']").next().text(moneyT+"元").show();
+					$(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
 				}else{
 					$(".field[data-title-id='"+title.id+"']").next().hide();
 				}
