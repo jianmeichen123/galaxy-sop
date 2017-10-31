@@ -505,8 +505,6 @@ $(function(){
 						}else{
 							$("#financeMode").removeClass("hide");
 						}
-						financeRound();   //单独刷新融资轮次
-						//initTabInfo(data.id);
 					}else {
 							layer.msg(data2.result.message);
 					}
@@ -819,7 +817,7 @@ function updataReport(projectInfoList){
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
-	    		$("label[data-title-id='"+o.titleId+"']").text(o.valueName==undefined ?"—":o.valueName).attr({"value":o.value,"data-result-id":o.resultId});
+	    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
 	    		if(entityList && entityList.length>0){
@@ -862,7 +860,6 @@ function updataReport(projectInfoList){
 	    			$.each(entityList,function(){
 	    				var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr({"data-type":title.type});	
-						
 						if(null!=title.value&& undefined!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
