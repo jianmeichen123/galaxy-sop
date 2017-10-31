@@ -78,6 +78,8 @@ public class MeetingRecord  extends PagableRecordEntity{
     private String resultReasonStr;
     private String reasonOther;
     
+    private Long projectCreateUid;
+    
     
     public String getParticipant() {
 		return participant;
@@ -449,6 +451,16 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setResultReasonStr(String resultReasonStr) {
 		this.resultReasonStr = resultReasonStr;
+	}
+
+	public Long getProjectCreateUid()
+	{
+		return projectCreateUid;
+	}
+
+	public void setProjectCreateUid(Long projectCreateUid)
+	{
+		this.projectCreateUid = projectCreateUid;
 	}
 
 	@Override

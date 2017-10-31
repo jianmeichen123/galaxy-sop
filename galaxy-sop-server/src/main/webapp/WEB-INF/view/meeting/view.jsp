@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
+	String pageId = "meetView";
 %>
 <!doctype html>
 <html>
@@ -19,7 +20,7 @@
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-var pageId = "meetView";
+var pageId = "<%=pageId%>";
 </script>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
@@ -178,9 +179,11 @@ $(function(){
 	
 });
 
-
+var editScope = "${fx:dataScope('meetingRecord_update')}".split(",");
+var delScope = "${fx:dataScope('meetingRecord_delete')}".split(",");
 var meetSelectRow = null;
 function meetFormatLog(value,row,index){
+	var rtn = '';
 	var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
 	    subValue=value.replace(/<[^>]+>/g, "");
 	if(value != ''){
@@ -193,10 +196,20 @@ function meetFormatLog(value,row,index){
 						subValue1+
 						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
 					'</div>';
-			return rc;
+			rtn = rc;
 		}else{
-			return strlog;
+			rtn = strlog;
 		}
+		var projectCreateUid = row.projectCreateUid+"";
+		if($.inArray( projectCreateUid, editScope ) != -1)
+		{
+			rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="editMeeting('+row.id+')" >编辑<a>';
+		}
+		if($.inArray( projectCreateUid, delScope ) != -1)
+		{
+			rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="delMeeting('+row.id+')" >删除<a>';
+		}
+		return rtn;
 	}
 }
 

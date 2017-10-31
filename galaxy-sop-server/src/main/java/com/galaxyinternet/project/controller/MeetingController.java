@@ -136,6 +136,7 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 			
 			if(meetingRecord.getId() == null)
 			{
+				meetingRecord.setCreateUid(user.getId());
 				meetingRecordService.insert(meetingRecord);
 			}
 			else

@@ -1,5 +1,9 @@
 package com.galaxyinternet.common.taglib;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
@@ -11,9 +15,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.utils.SopConstatnts;
 import com.google.gson.Gson;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.List;
 
 public class FXFunctionTags
 {
@@ -195,6 +196,27 @@ public class FXFunctionTags
 			}
 		}
 		return false;
+	}
+	
+	public static String dataScope(String resourceMark)
+	{
+		User user = WebUtils.getUserFromSession();
+		List<PlatformResource> resources = user.getAllResourceToUser();
+		if(resources != null && resources.size() >0)
+		{
+			for(PlatformResource resource : resources)
+			{
+				if(resourceMark != null && resourceMark.equals(resource.getResourceMark()))
+				{
+					List<Long> userIds = resource.getUserIds();
+					if(userIds != null && userIds.size()>0)
+					{
+						return StringUtils.join(userIds,",");
+					}
+				}
+			}
+		}
+		return "";
 	}
 
 }
