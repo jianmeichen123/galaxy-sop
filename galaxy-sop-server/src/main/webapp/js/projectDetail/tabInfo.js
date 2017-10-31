@@ -179,12 +179,12 @@ $(function(){
 				
 				}
 					//机构显示
-					var investForm= $("input[name='investForm']:checked").val();
+					var investForm= $(".radio_checked input[name='investForm']").val();
 					if(investForm=="financeMode:1"){
-						$(".institution .new_color_gray").text("领投机构：");
+						$(".invest_institue .invest_type").text("领投机构：");
 						$(".invest_institue").show();
 					}else if(investForm=="financeMode:2"){
-						$(".institution .new_color_gray").text("合投机构：");
+						$(".invest_institue .invest_type").text("合投机构：");
 						$(".invest_institue").show();
 					}else{
 						$(".invest_institue").hide();
