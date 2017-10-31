@@ -71,7 +71,7 @@
 					<li>
 						<div class="con_box">
 							<div class="relative_box">						
-								<em class="oval" id="financeMode" data-toggle="tooltip" data-name="investTogether" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover'></em>
+								<em class="oval" id="financeMode" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover'></em>
 								<p class="img_box">
 								出让股份
 								</p>
@@ -425,7 +425,7 @@
 	 	   
 	 	   <!-- 合投机构 --> 
 	 	   <div class="agency_institute investTogether_current">
-	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close" data-on="close" data-name="basic"></em></div>
+	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close" data-on="close" data-name="investTogether"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont invest_max_height">
 						 <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >
