@@ -110,85 +110,6 @@
 				</ul>
 			</div>		
 		</div>
-
-		<div class="new_r_compile_new">
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
-			</span>
-		</c:if>
-		</div>
-		<table width="100%" cellspacing="0" cellpadding="0" class="new_table" id="project_info">
-		 <input type="hidden" id="pid" name="id" value="${projectId}"/>
-			<tr>
-				<td><span class="new_color_gray">项目名称：</span>
-					<span class="new_color_black" id="project_name"></span>
-				</td>
-				<td><span class="new_color_gray">创建时间：</span>
-					<span class="new_color_black" id="create_date"></span>
-				</td>
-			</tr>
-			
-			<tr>
-				<td><span class="new_color_gray" >项目类型：</span><span class="new_color_black" id="projectType"></span></td>
-				<td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate"></span></td>
-			</tr>
-			
-			<tr>
-				<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs" ></span></td>
-				<td><span class="new_color_gray" >投资经理：</span>
-					<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
-			</tr>
-			
-		     <tr>
-				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"  data-title-id="1108"></span></td>
-				<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
-				<span class="new_color_gray" id="s">(</span>
-					<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
-			</tr>
-			     <tr>
-				     <td><span class="new_color_gray">项目来源：</span><span class="new_color_black" id="faName"></span></td>
-					</tr>
-			 <tr>
-				     <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
-					</tr>
-		</table>
-
-		<!--融资计划-->
-		<div class="new_r_compile new_bottom_color">
-			<span class="new_ico_financing"></span> <span class="new_color size16"><em class="red">*</em>融资计划</span>
-		</div>
-		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-			<tr>
-				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"  data-title-id="1916"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"  data-title-id="1917"></span><span class="new_color_black">&nbsp;%</span></td>
-			</tr>
-			<tr>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"  data-title-id="1943"></span><span class="new_color_black">&nbsp;万元</span></td>
-			</tr>
-		</table>
-		
-		<!--实际投资-->
-		<div class="new_r_compile new_bottom_color">
-			<span class="new_ico_practical"></span> <span class="new_color size16">实际投资</span>
-		</div>
-		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-			<tr>
-				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution" data-title-id="3004"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio" data-title-id="3010"></span><span class="new_color_black">&nbsp;%</span></td>
-			</tr>
-			<tr>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations" data-title-id="3012"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge" data-title-id="3011"></span><span class="new_color_black">&nbsp;%</span></td>
-	
-			</tr>
-			<tr>
-				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span></td>
-			</tr>
-		</table>
-		<!-- <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >
-			
-		</table> -->
 	</div>
 	<!-- 编辑页面 -->
 	<div class="basic_on basic_common_width">
@@ -360,18 +281,6 @@
 						<div class="invest_institue">
 							<span class="invest_type">合投机构：</span>
 							<div class="institue_inputs">
-								<!-- <div class="institue_content">
-									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
-									<input type="text" placeholder="投资金额(万元)" class="inves_input">
-									<span class='select_cont'>
-										<select class="inves_select">
-											<option>人民币</option>
-											<option>美元</option>
-										</select>
-									</span>
-									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
-									<em class="inves_delete"></em>
-								</div> -->	
 								<div class="inputsForm"></div>
 								<div class="institutionBtn">
 									<span class="inves_add"></span>
@@ -439,111 +348,7 @@
 	 	   
 	    </form>
 	</div>
-	  <%-- <table width="600px" cellspacing="0" cellpadding="0" class="new_table edit_basic_table">
-	            <tr>
-	                <td><span class="new_color_gray">投资经理：</span><span>小王</span></td>
-	            </tr>
-	            <tr>
-	            	<td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
-	            </tr>
-	            <tr>
-	                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit"></span></td>
-	                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
-	            </tr>
-	            <tr>
-	                <td>
-	                	<span class="new_color_gray">行业归属：</span>
-	                	<span>
-	                		<select class="new_nputr" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空">
-	                			<option value="">--请选择--</option>
-	               			 </select>
-	                	</span>
-	                </td>
-	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
-	            </tr>
-	            <tr>
-                     	 <td><span class="new_color_gray">融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>本轮融资轮次不能为空" ></select></span></td>
-                     	 <!-- <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td> -->
-               </tr>
-               <tr>
-                        <td>
-                         <span class="new_color_gray">项目来源：</span>
-                         <span class="mar_left">
-                         	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font>项目来源不能为空" >
-                   				<option value="">--请选择--</option>
-                  			 </select>
-                         	<input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20" />
-                         </span>
-                        </td>
-               </tr>
-                 <tr>
-                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><input id="remark" class="new_nputr text"  placeholder="最多输入50字" maxLength = "50"></input></span></td>
-                 </tr>
-	        </table>  --%> 
-	        
-	        
-	        <!--编辑融资计划-->
-	       <!--  <div class="new_r_compile new_bottom_color">
-	            <span class="new_ico_financing"></span>
-	            <span class="new_color size16">融资计划</span>
-	        </div>  --> 
-	       <%-- <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
-	            </tr>
-	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
-	            </tr>
-	       </table> --%>
-	   <%--      <!--实际投资-->
-	        <div class="new_r_compile new_bottom_color">
-	            <span class="new_ico_practical"></span>
-	            <span class="new_color size16">实际投资</span>
-	        </div>  
-	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的四位小数"  data-title-id="3010"/>&nbsp;　%</span></td>
-	            </tr>
-	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的四位小数"  data-title-id="3011"/>&nbsp;　%</span></td>
-	     	
-	     		</tr>
-	     		<tr>
-	                <td><span class="new_color_gray">投资形式：</span>
-	                <span class="mar_left">
-                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:0">独投 </div>
-                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:1">领投</div>
-                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:2">合投</div>
-                     </span>
-	                </td>
-	     		</tr>
-	        </table>
-	        <div class="institution clearfix" >
-	        	<div class="fl"><span class='new_color_gray'>合投机构：</span></div>
-	        	<div class="fl">
-	        		<div class="inputsForm"></div>
-	        		<div class="institutionBtn"><span class="pubbtn bluebtn">新增</span></div>
-	        	</div>
-	        </div> --%>
-</div>
-<!--商业计划书-->
-<div class="tabtable_con_on">
-	<div class="new_r_compile ">
-		<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
-	</div>
-	<ul class="new_ul_all new_top_color" id='business_plan'>
-		<li></li>
-		<li></li>
-		<li></li>
-
-		<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
-				<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
-				<a href="javascript:;" class="ico new2" data-btn="describe">查看历史</a>
-		</span></li>
-	</ul>
+	  
 </div>
 <!-- 商业计划书隐藏页面 -->
 <div id="uploadPanel"  style="display: none;">
@@ -657,29 +462,6 @@
 	        </tr>
 	    </table>                
 	</div>
-<%--     <div class="hidden">
-      <div class="title">
-          <span class="new_ico_legal icon"></span>
-          <span class="new_color size16">法人信息</span>
-          <div class="btn btnbox">
-              <button href="javascript:;" class="pubbtn bluebtn" data-btn="save">保存</button>
-              <button href="javascript:;" class="pubbtn fffbtn" data-btn="cancle">取消</button>
-          </div> 
-      </div>
-      <form action="#" id="company-info-form">
-      <input type="hidden" name="id" value="${projectId }">
-      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
-          <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50" data-title-id="1814"></td>
-              <!-- <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td> -->
-        	  <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"  data-title-id="1816"></td>
-          </tr>
-          <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"  data-title-id="1815"></td>              
-          </tr>
-      </table>                    
-      </form>
-  </div> --%>
 </div>
 </div>
 
