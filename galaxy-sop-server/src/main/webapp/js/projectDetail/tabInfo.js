@@ -717,8 +717,9 @@ function updataReport(projectInfoList){
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
+									console.log(Tval[1])
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
 							
