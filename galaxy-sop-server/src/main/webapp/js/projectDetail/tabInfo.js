@@ -211,12 +211,12 @@ $(function(){
 					var investForm= $("input[name='investForm']:checked").val();
 					if(investForm=="financeMode:1"){
 						$(".institution .new_color_gray").text("领投机构：");
-						$(".institution").show();
+						$(".invest_institue").show();
 					}else if(investForm=="financeMode:2"){
 						$(".institution .new_color_gray").text("合投机构：");
-						$(".institution").show();
+						$(".invest_institue").show();
 					}else{
-						$(".institution").hide();
+						$(".invest_institue").hide();
 					}
 					
 					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
