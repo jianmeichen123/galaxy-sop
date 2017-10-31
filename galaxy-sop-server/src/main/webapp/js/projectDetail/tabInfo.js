@@ -79,7 +79,7 @@ $(function(){
 			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 		    $("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 		    $("#financeMode").tooltip();//提示
-		    if($("#financeMode").text()=="独投"){
+		    if($("#financeMode").text()!="合投" && $("#financeMode").text()!="领投"){
 				$("#financeMode").removeAttr("data-original-title");
 				$("#financeMode").addClass("hide");
 			}else{
