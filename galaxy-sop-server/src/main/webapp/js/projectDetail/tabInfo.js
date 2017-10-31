@@ -277,7 +277,7 @@ $(function(){
 			    var valueId=$("#financeStatusDs").attr("value");
 			    var resultId=$("#financeStatusDs").attr("data-result-id");
 			    var entity=data.entity.childList[0];
-			    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
+			    $("#finance_status_sel").attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 			    if(!childNum || childNum !=0 ){
 			    	$.each(entity.valueList,function(){ 
 			    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
