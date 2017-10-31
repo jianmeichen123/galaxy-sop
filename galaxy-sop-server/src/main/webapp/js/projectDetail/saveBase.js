@@ -49,11 +49,8 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					if(dom=="basicForm"&&val1=="finance"){						
-						buildMoneyResult("1915");
-					}else if(dom=="basicForm"&&val1=="real_invest"){						
-						buildShareResult("4","3008");
-						//real_invest
+					if(dom=="basicForm"&&val1=="finance"){	
+						updateReportMoney(); 
 					}
 //					弹窗关闭
 					var close="basic"
