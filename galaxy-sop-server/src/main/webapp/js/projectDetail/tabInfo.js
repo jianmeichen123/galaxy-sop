@@ -443,31 +443,7 @@ $(function(){
 						$('.'+close+'_center').show();
 						$('.bj_hui_on').hide();
 						$("body").css('overflow-y','auto');
-						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
-							projectInfoDetail=data.userData.pro;
-							$("#project_name_t").text(projectInfoDetail.projectName);
-							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-							$("#projectType").text(projectInfoDetail.type);
-							$("#faName").text(projectInfoDetail.faFlagStr);
-							if(projectInfoDetail.faFlag=="projectSource:1"){
-								$("#faName").attr('data-original-title',projectInfoDetail.faName);
-								$("#faName[data-toggle='tooltip']").tooltip();//提示
-							}else{
-								$("#faName").removeAttr('data-original-title');
-							}
-						});
 						updateReportMoney(); 
-						jointDeliveryList(projectInfoDetail.jointDeliveryList);//合投机构 
-						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
-						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
-						$("#financeMode").tooltip();//提示
-						if($("#financeMode").text()=="独投"){
-							$("#financeMode").removeAttr("data-original-title");
-							$("#financeMode").addClass("hide");
-						}else{
-							$("#financeMode").removeClass("hide");
-						}
 					}else {
 							layer.msg(data2.result.message);
 					}
@@ -744,9 +720,35 @@ function updataReport(projectInfoList){
     }
 }
 function updateReportMoney(){
+	var projectInfoDetailNew='';
 	var projectInfoListNew=[];
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 		if(data.result.status=='OK'){
+			//基本信息刷新
+			projectInfoDetailNew=data.userData.pro;
+			$("#project_name_t").text(projectInfoDetailNew.projectName);
+			$("#industryOwnDs").text(projectInfoDetailNew.industryOwnDs);
+			$("#financeStatusDs").text(projectInfoDetailNew.financeStatusDs==null?"-":projectInfoDetailNew.financeStatusDs);
+			$("#projectType").text(projectInfoDetailNew.type);
+			$("#faName").text(projectInfoDetailNew.faFlagStr);
+			if(projectInfoDetailNew.faFlag=="projectSource:1"){
+				$("#faName").attr('data-original-title',projectInfoDetailNew.faName);
+				$("#faName[data-toggle='tooltip']").tooltip();//提示
+			}else{
+				$("#faName").removeAttr('data-original-title');
+			}
+			//合投机构刷新
+			jointDeliveryList(projectInfoDetailNew.jointDeliveryList);//合投机构 
+			$("#financeMode").text(typeof(projectInfoDetailNew.fModeRemark)=="undefined"?"—":(projectInfoDetailNew.fModeRemark==0?"—":projectInfoDetailNew.fModeRemark));
+			$("#financeMode").attr("data-original-title",typeof(projectInfoDetailNew.fModeRemark)=="undefined"?"—":(projectInfoDetailNew.fModeRemark==0?"—":"点击查看"+projectInfoDetailNew.fModeRemark+"列表"));
+			$("#financeMode").tooltip();//提示
+			if($("#financeMode").text()=="独投"){
+				$("#financeMode").removeAttr("data-original-title");
+				$("#financeMode").addClass("hide");
+			}else{
+				$("#financeMode").removeClass("hide");
+			}
+			//金额刷新
 			projectInfoListNew=data.userData.report[0].childList;
 			updataReport(projectInfoListNew);
 		}
