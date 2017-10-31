@@ -135,9 +135,6 @@ $(function(){
 				};
 				if(open==="legal"){
 					var companyName= $('#projectCompany').text();
-					console.log(companyName);
-					$('.basic_mes_input').val('222');
-					//console.log($('input[name="projectCompany"]'))
 					if($(this).hasClass('limits_gray'))
 					{
 						return;
