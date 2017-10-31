@@ -3795,10 +3795,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
  .edit_com_color{font-size:14px;color:#666666;}
- .basic_message_cont{width:100%;margin:0 auto;height:100%;width: 100%;margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;}
+ .basic_message_cont{width:100%;margin:0 auto;height:100%;width: 100%;margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;    padding-top: 30px;}
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
- .edit_basic_table tr{display:block;margin-top:16px;}
+ .edit_basic_table tr{display:block;margin-bottom:16px;}
  .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:433px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{width:430px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
