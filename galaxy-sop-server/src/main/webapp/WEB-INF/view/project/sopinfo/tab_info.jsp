@@ -203,13 +203,13 @@
 							<tr>
 								<td>
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额万元"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
+									<input type="text" class="basic_mes_input" placeholder="项目估值万元" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
 								</td>
 							</tr>
 							<tr>
