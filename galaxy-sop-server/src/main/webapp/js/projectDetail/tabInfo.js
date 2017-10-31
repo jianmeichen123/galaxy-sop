@@ -109,7 +109,7 @@ $(function(){
 				}
 			}
 			//report信息
-		    updataReport();		    
+		    updataReport(projectInfoList);	    
 			if(roleId==4){   //投资经理a看投资经理B的项目，团队，法人，股权，融资隐藏
 				var roleProject=$('#createUname').text();
 				var roleLogin=$('.man_info .name').text();
@@ -497,9 +497,7 @@ $(function(){
 								$("#faName").removeAttr('data-original-title');
 							}
 						});
-						updataReport();
-						//buildShareResult("4","3002");  //实际投资
-						//buildShareResult("4","3008");  //实际投资
+						updateReportMoney(); 
 						jointDeliveryList(projectInfoDetail.jointDeliveryList);//合投机构 
 						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
@@ -816,7 +814,7 @@ function financeRound(){
 }
 
 //保存后刷新
-function updataReport(){
+function updataReport(projectInfoList){
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
@@ -911,6 +909,15 @@ function updataReport(){
 	    	}			    	
 	    })
     }
+}
+function updateReportMoney(){
+	var projectInfoListNew=[];
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
+		if(data.result.status=='OK'){
+			projectInfoListNew=data.userData.report[0].childList;
+			updataReport(projectInfoListNew);
+		}
+	})
 }
 //给input赋予tochange属性
 $("input[data-title-id]").on("input",function(){
