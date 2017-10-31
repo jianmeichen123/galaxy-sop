@@ -787,11 +787,6 @@
 		}else{
 			$(".institutionBtn span").hide()
 		}
-		if(inputsLength>0){
-			$(".institutionBtn span").css("margin-top","50px")
-		}else{
-			$(".institutionBtn span").css("margin-top","0")
-		}
 	});
 	
 	/* 股权结构 */
