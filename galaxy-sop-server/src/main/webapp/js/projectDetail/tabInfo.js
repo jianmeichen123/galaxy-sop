@@ -14,6 +14,7 @@ $(function(){
 			$('.tip-yellowsimple').hide();
 			$("label.error").hide();
 			$("body").css('overflow-y','auto');
+			$('.radio_cont').removeClass('radio_checked')
 		})
 		
 		/**
