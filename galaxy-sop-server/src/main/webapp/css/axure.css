@@ -3844,7 +3844,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #dropdown ul li{height:30px; text-indent:10px;padding-left: 1px;border-bottom:.5px solid #d8d8d8;background:#fff; cursor:pointer;}
 #dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
-.input_FA{margin-left:77px;margin-top:10px;display:none;}
+.basic_common_width table .input_FA{margin-left:77px;margin-top:10px;display:none;}
 .version19_cancel_btn{background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;} 
 .version19_cancel_btn:hover,.version19_cancel_btn:active{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
