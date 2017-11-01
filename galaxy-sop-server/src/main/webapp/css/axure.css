@@ -3860,7 +3860,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
 .real_ivestest_input{width:385px;position: absolute;left: 116px;top: 0px;}
 .vest_span{display:inline-block;position: absolute;left: 116px;top: 0px;width: 400px;}
-.inves_input{width:104px;height:28px;padding-left:8px;margin-left:4px;border:.5px solid #999999;}
+.inves_input{width:96px;height:28px;padding-left:8px;margin-left:4px;border:.5px solid #999999;}
 .inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
 .select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 6px;}
 .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
@@ -3894,7 +3894,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #basicForm .invest_current label.error{color: #000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
  #basicForm .invest_max_height tr label.error{margin-left: 116px;}.
  institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
- .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:116px;}
+ .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:111px;}
  .institue_content .input_box:nth-child(4){width:82px;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
