@@ -3666,7 +3666,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
  .title_2 ,.title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
  .title_3 .size16{padding:0;margin:0;font-size:12px;}
- .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
+ .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec!important;margin-bottom:39px}
  .tabinfo_con{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px; padding-bottom:40px; }
  .tabtable_con_jbxx .title_3{font-size:12px;color:#333;font-family: Microsoft YaHei;}
  .tabinfo_con .three_part{width:100%;}
@@ -3726,6 +3726,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   .tabinfo_con .base_table tr td:last-child,.base_table tr th:last-child{padding:0;padding-right:30px;width:147px;}
  .tabinfo_con table.base_table th{font-weight:bold;}
   .btnbox_f .add_pro{background:#45aaff;border-radius:2px;width:110px;height:32px;line-height:32px;font-family:Microsoft YaHei; color:#fff;font-size:14px;display:block;text-align:center;}
+ .tabtable_con_on .bluebtn{width:110px;}
  .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -5px;}
  .tabinfo_con .role_table{margin:0;}
  .tabinfo_con .role_table span{margin:0;}
