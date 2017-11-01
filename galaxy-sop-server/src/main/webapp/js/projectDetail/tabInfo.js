@@ -79,10 +79,12 @@ $(function(){
 			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 		    $("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 		    $("#financeMode").tooltip();//提示
-		    if($("#financeMode").text()!="合投" && $("#financeMode").text()!="领投"){
+		    if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
 				$("#financeMode").removeAttr("data-original-title");
 				$("#financeMode").addClass("hide");
+				$('#financeMode').addClass('pointer-events');
 			}else{
+				$('#financeMode').removeClass('pointer-events');
 				$("#financeMode").removeClass("hide");
 			}
 		    
@@ -463,12 +465,14 @@ $(function(){
 						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 						$("#financeMode").tooltip();//提示
-						if($("#financeMode").text()=="独投"){
+						if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
 							$("#financeMode").removeAttr("data-original-title");
 							$("#financeMode").addClass("hide");
+							$('#financeMode').addClass('pointer-events');
 						}else{
+							$('#financeMode').removeClass('pointer-events');
 							$("#financeMode").removeClass("hide");
-						}
+						}					
 					}else {
 							layer.msg(data2.result.message);
 					}
@@ -548,7 +552,11 @@ function jointDeliveryList(list){
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
 	temp.append(html);
-	if(list.length<=0||list==undefined){
+	if(list==undefined){
+		$('#financeMode').addClass('pointer-events');
+		return;
+	}else if(list.length<=0){
+		$('#financeMode').removeClass('pointer-events');
 		temp.append("<tr class=\"no-records-found\"><td colspan=\"4\" style=\" text-align:center !important;color:#bbb;border:0;line-height:32px !important\" class=\"noinfo no_info01\"><label class=\"no_info_icon_xhhl\">没有找到匹配的记录</label></td></tr>");
 		return;
 	}
