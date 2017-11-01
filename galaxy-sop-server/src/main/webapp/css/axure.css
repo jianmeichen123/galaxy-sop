@@ -3802,7 +3802,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:433px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{width:430px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
-#dropdown ul{width:439.5px; margin-top:-1px;border:.5px solid #979797; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
+#dropdown ul{width:439.5px; border:.5px solid #979797; border-top:none; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
 #dropdown ul li{height:30px; text-indent:10px;padding-left: 1px;border-bottom:.5px solid #d8d8d8;background:#fff; cursor:pointer;}
 #dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
@@ -3857,7 +3857,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
  .institue_content .input_box #dropdown ul{width:75.5px;}
- .invest_institue{margin-top:25px; position: relative;}
+ .invest_institue{position: relative;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
  .pagebox .tabtable .agency_institute  table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
