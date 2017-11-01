@@ -3843,6 +3843,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .real_investment{display:none; height:auto;max-height: 505px}
 .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;display:inline-block;vertical-align:middle;}
 .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
+.basic_common_width  table tr td label.no_info_icon_xhhl{color:#bbb;}
 .invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
 .real_ivestest_input{width:385px;position: absolute;left: 116px;top: 0px;}
