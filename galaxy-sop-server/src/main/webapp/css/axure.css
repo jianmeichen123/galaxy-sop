@@ -3725,8 +3725,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .border_bottom .btnbox_f{margin:0;}
  .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{font-family:'Microsoft YaHei'; color:#5a626d;text-align:center;padding:0;-webkit-box-sizing: border-box;}
  .tabinfo_con table.base_table th{font-weight:bold;}
- .add_pro{background:#45aaff;border-radius:2px;width:110px!important;line-height:32px; color:#fff;font-size:14px;display:block;text-align:center;}
- .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -2px;}
+  .btnbox_f .add_pro{background:#45aaff;border-radius:2px;width:110px;height:32px;line-height:32px;font-family:Microsoft YaHei; color:#fff;font-size:14px;display:block;text-align:center;}
+ .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -5px;}
  .tabinfo_con .role_table{margin:0;}
  .tabinfo_con .role_table span{margin:0;}
  .role_table span{font-family:Microsoft YaHei;color:#333;}
