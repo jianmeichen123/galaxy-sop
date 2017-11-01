@@ -3661,7 +3661,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con{margin:0; border-radius: 0px; }
  .tabinfo_con .edit{float:right; font-weight: normal;font-family: Microsoft YaHei;} 
  .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
- .tabinfo_con .oval：hover{background:#0084f5;}
+ .tabinfo_con .oval:hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
  .title_2 ,.title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
  .title_3 .size16{padding:0;margin:0;font-size:12px;}
