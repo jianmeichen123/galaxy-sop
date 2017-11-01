@@ -3790,7 +3790,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .yy{background-position:-507px 45px;}
 .base_select_ul{max-height:250px;overflow-y:auto;}
  /*陈剑波修改*/
- .basic_message{width:600px;border-radius:0px;height:552px;display:none;}
+ .basic_message{width:600px;border-radius:0px;height:552px;display:none;background:#fff;}
  .basic_mes_left{margin-left:8px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
