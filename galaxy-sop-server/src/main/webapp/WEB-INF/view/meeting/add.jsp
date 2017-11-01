@@ -24,7 +24,14 @@
 
 
 <form id="meeting_form" class="myprojecttc new_poptxt myproject_add">
+<c:choose>
+	<c:when test="${empty entity }">
 <div class="title_bj">添加${meetingTypeDesc}记录</div>
+	</c:when>
+	<c:otherwise>
+<div class="title_bj">编辑${meetingTypeDesc}记录</div>	
+	</c:otherwise>
+</c:choose>
 <c:if test="${!empty entity }">
 <input type="hidden" name="id" value="${entity.id }">
 </c:if>
