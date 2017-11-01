@@ -579,7 +579,6 @@ function buildResults(sec,title,readonly)
 			{
 				var _val = title.resultList[0].contentDescribe1;
 				var test_num = $(".field[data-title-id='"+title.id+"']").next().text();
-				alert(test_num)
 				if(test_num.indexOf("元")<0){
 					_val = _parsefloat(_val);
 					var moneyT =test_num;

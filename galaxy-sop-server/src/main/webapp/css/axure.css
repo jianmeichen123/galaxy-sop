@@ -1650,7 +1650,7 @@ word-wrap:break-word;
   top:-10px;
   left:1px;
 }
-.line_ul_p .green_dot_on{background-position: -38px -15px;}
+.line_ul_p .green_dot_on{background-position: -50px -15px;}
 .new_btn,.new_btn_right{ width:148px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;background:#3ca6ff;}
 .correlation{ border-top:1px solid #e4e4e4; background-color:#f7f7f7; height:40px; line-height:40px; text-indent:20px;font-size: 14px;font-family: "Microsoft YaHei";color:#333;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
@@ -3788,9 +3788,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .cp{background-position:-339px 45px;}
 .sev_report .gray .rz{background-position:-424px 45px;}
 .sev_report .gray .yy{background-position:-507px 45px;}
-.base_select_ul{max-height:250px;overflow-y:auto;}
+.base_select_ul{max-height:150px;overflow-y:auto;}
  /*陈剑波修改*/
- .basic_message{width:600px;border-radius:0px;height:552px;display:none;}
+ .basic_message{width:600px;border-radius:0px;height:auto;display:none;background:#fff;}
  .basic_mes_left{margin-left:8px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
@@ -3799,17 +3799,21 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;position: relative;}
  .edit_basic_table tr{display:block;margin-bottom:16px;}
- .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:433px;height:31px;padding-left:8px;}
+ #updateProjectInfo tr{display:block;margin-bottom:10px;}
+ #updateProjectInfo tr:nth-child(1){margin-bottom:0px;}
+ #updateProjectInfo tr:nth-child(2){margin-bottom:0px;}
+ #updateProjectInfo tr:nth-child(3){margin-bottom:0px;}
+ .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:430px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
-.input_select{width:430px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
-#dropdown ul{width:439.5px; margin-top:-1px;border:.5px solid #979797; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
+.input_select{width:427px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
+#dropdown ul{width:436.5px; border:.5px solid #979797; border-top:none; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
 #dropdown ul li{height:30px; text-indent:10px;padding-left: 1px;border-bottom:.5px solid #d8d8d8;background:#fff; cursor:pointer;}
 #dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
 .input_FA{margin-left:77px;margin-top:10px;display:none;}
 .version19_cancel_btn{background:#eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;} 
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
-.basic_mes_button{margin: 0 auto;display:block;}
+.basic_mes_button{margin: 37px auto 27px;display:block;}
 .basic_common_width{width:600px;font-family:Microsoft YaHei;border-radius:0px !important;}
 .finacing_plan{ height:auto;max-height:505px;display:none;}
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
@@ -3857,7 +3861,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
  .institue_content .input_box #dropdown ul{width:75.5px;}
- .invest_institue{margin-top:25px; position: relative;}
+ .invest_institue{position: relative;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
  .pagebox .tabtable .agency_institute  table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}

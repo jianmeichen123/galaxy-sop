@@ -79,10 +79,12 @@ $(function(){
 			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 		    $("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 		    $("#financeMode").tooltip();//提示
-		    if($("#financeMode").text()!="合投" && $("#financeMode").text()!="领投"){
+		    if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
 				$("#financeMode").removeAttr("data-original-title");
 				$("#financeMode").addClass("hide");
+				$('#financeMode').addClass('pointer-events');
 			}else{
+				$('#financeMode').removeClass('pointer-events');
 				$("#financeMode").removeClass("hide");
 			}
 		    
@@ -463,12 +465,14 @@ $(function(){
 						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 						$("#financeMode").tooltip();//提示
-						if($("#financeMode").text()=="独投"){
+						if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
 							$("#financeMode").removeAttr("data-original-title");
 							$("#financeMode").addClass("hide");
+							$('#financeMode').addClass('pointer-events');
 						}else{
+							$('#financeMode').removeClass('pointer-events');
 							$("#financeMode").removeClass("hide");
-						}
+						}					
 					}else {
 							layer.msg(data2.result.message);
 					}
@@ -548,7 +552,11 @@ function jointDeliveryList(list){
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
 	temp.append(html);
-	if(list.length<=0||list==undefined){
+	if(list==undefined){
+		$('#financeMode').addClass('pointer-events');
+		return;
+	}else if(list.length<=0){
+		$('#financeMode').removeClass('pointer-events');
 		temp.append("<tr class=\"no-records-found\"><td colspan=\"4\" style=\" text-align:center !important;color:#bbb;border:0;line-height:32px !important\" class=\"noinfo no_info01\"><label class=\"no_info_icon_xhhl\">没有找到匹配的记录</label></td></tr>");
 		return;
 	}
@@ -569,7 +577,7 @@ function jointDeliveryEdit(list){
 		var inputsRow='<div class="block_inputs institue_content">'
 	        +'<span class="input_box"><input placeholder="机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name inves_input input_stock_left" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
 	        +'<span class="input_box"><input placeholder="投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	        +'<span class="input_box"><div id="dropdown"> <input class="input_select" onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div></span>'
+	        +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div></span>'
 	        +'<span class="input_box"><input placeholder="占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font><i></i>0-100间的两位小数"/></span>'
 	          +'<em class="inves_delete"></em>'
 	          +'</div>';
@@ -790,21 +798,6 @@ function dropdown_select(data,event){
 		
     });
 }
-
-//改变保存按钮top值
-$('.input_FA ,#project_name_edit').blur(function(){
-	if($('.error').is(":visible")){
-		$('.basic_message .basic_mes_button').css('margin-top','0')
-	}
-})
-$('[data-on="save"]').click(function(){
-	if($('.error').is(":visible")){
-		$('.basic_message .basic_mes_button').css('margin-top','0')
-	}
-})
-$('[data-on="data-open"]').click(function(){
-	$('.basic_message .basic_mes_button').css('margin-top','63px')
-})
 
 /**
  * chart案例开始
