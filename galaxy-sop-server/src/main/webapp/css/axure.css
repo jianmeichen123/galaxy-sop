@@ -3758,7 +3758,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .version19_detail_header .m_one{margin-right:10px;}
 .version19_detail_header .b_span{background-image:url(../img/base_info/base_icon.png);background-position: -45px -5px;width:34px;padding-left:34px;}
 .version19_blue_btn{border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;}
-.version19_blue_btn:hover,.version19_blue_btn:active{background-color:#0084f5;}
+.version19_blue_btn:hover,.version19_blue_btn:active,.version19_save_btn:hover,.version19_save_btn:active{background-color:#0084f5;}
 .version19_edit_btn{font-size:12px;color:#45aaff;line-height:32px;margin-right:16px;cursor:pointer;}
 .pagebox .version19_ritmin{margin-top:220px;}
 .version19_new_right{margin-top:0;}
@@ -3833,8 +3833,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #dropdown ul li:last-child{border-bottom-width:0px;}
 .up{background: url(../img/base_info/up.png) no-repeat center right 7px;}
 .input_FA{margin-left:77px;margin-top:10px;display:none;}
-.version19_cancel_btn{background:#eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;} 
-.version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
+.version19_cancel_btn{background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;} 
+.version19_cancel_btn:hover,.version19_cancel_btn:active{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
+.version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
 .basic_mes_button{margin: 37px auto 27px;display:block;}
 .basic_common_width{width:600px;font-family:Microsoft YaHei;border-radius:0px !important;}
 .finacing_plan{ height:auto;max-height:505px;display:none;}
