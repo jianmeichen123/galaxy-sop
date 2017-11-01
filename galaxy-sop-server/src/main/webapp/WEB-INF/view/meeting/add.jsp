@@ -25,6 +25,9 @@
 
 <form id="meeting_form" class="myprojecttc new_poptxt myproject_add">
 <div class="title_bj">添加${meetingTypeDesc}记录</div>
+<c:if test="${!empty entity }">
+<input type="hidden" name="id" value="${entity.id }">
+</c:if>
 <input type="hidden" name="projectId" value="${projectId }">
 <input type="hidden" name="meetingType" value="${meetingType }">
 <div class="tab_con">
@@ -32,7 +35,7 @@
 		<dl class="fmdl fml clearfix">
 			<dt>会议时间：</dt>
 			<dd class="clearfix">
-				<input type="text" class="datetimepickerHour txt time" readonly
+				<input type="text" class="datetimepickerHour txt time" value="${entity.meetingDateStr }" readonly
 					id="meetingDateStr" name="meetingDateStr" required="true" data-msg-required="<font color=red>*</font><i></i>必填"
 					style="height: 23px; width: 150px;"/>
 			</dd>
@@ -42,7 +45,7 @@
         <dl class="fmdl clearfix">
             <dt id="toobar_content">会议纪要：</dt>
             <dd>
-                <textarea id="viewNotes"></textarea> 
+                <textarea id="viewNotes">${entity.meetingNotes }</textarea> 
                 <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
             </dd>
         </dl>           
@@ -124,13 +127,15 @@
     </dl>
     <div class="save_button mt_50">
     	<button type=button id="save_meeting" class="pubbtn bluebtn">保存</button>
-        <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+        <a href="javascript:;" class="pubbtn fffbtn" data-close="close" id="close-btn">取消</a>
     </div>
 </div>	
 </form>
 <script>
-//$("#dialog-btns #cancel-btn").click();
+//如果是添加，关闭上一弹窗；如果是编辑忽略
+<c:if test="${empty entity}">
 $.popupOneClose();
+</c:if>
 //会议纪要富文本
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 viewNotes.on( 'change', function() {   //访谈纪要 
@@ -151,6 +156,7 @@ viewNotes.on( 'keyup', function() {    //兼容ie10
 	}
    
 });
+
 //表单验证
 jQuery.validator.addMethod("reasonOther", function(value, element) {  
 	var reasonOther =/\s*\S+/;
@@ -224,7 +230,8 @@ var fileUploader = new plupload.Uploader({
 							return;
 						}else{
 							layer.msg("保存成功", {time : 500});
-							$.popupTwoClose();
+							$("#close-btn").click();
+							//$.popupTwoClose();
 							$('#data-table').bootstrapTable('refresh');
 						}
 					});
@@ -273,7 +280,8 @@ var fileUploader = new plupload.Uploader({
 				return false;
 			}else{
 				layer.msg("保存成功", {time : 500});
-				$.popupTwoClose();
+				$("#close-btn").click();
+				//$.popupTwoClose();
 				$('#data-table').bootstrapTable('refresh');
 			}
 		},
@@ -299,4 +307,33 @@ var fileUploader = new plupload.Uploader({
 });
 fileUploader.init();
 
+
+$(function(){
+	//回显文件
+	<c:if test="${!empty file}">
+	//文件
+	$("#file_object").removeClass("no_bg");
+	$("#file_object").text('${file.fileName}.${file.fileSuffix}');
+	$("#select_btn").next().find("input").hide();
+	$("#select_btn").text("更新");
+	$("#file_object").addClass("audio_name");
+	</c:if>
+	//结果回显
+	$("#resultRadion input[name='meetingResult']").on('showback',function(){
+		var _reason = $(this).parent().parent().find("select[name='resultReason']");
+		if(!_reason.hasClass("disabled"))
+		{
+			_reason.val('${entity.resultReason}')
+			_reason.change();
+			var _other = $(this).parent().parent().find("input[name='reasonOther']");
+			if(!_other.hasClass("disabled"))
+			{
+				_other.val('${entity.reasonOther}')
+			}
+		}
+	});
+	<c:if test="${!empty entity}">
+	$("input[name='meetingResult'][value='${entity.meetingResult}']").attr("checked",true).click().trigger('showback');
+	</c:if>
+});
 </script>

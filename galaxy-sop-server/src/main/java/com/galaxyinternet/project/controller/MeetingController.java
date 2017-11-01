@@ -43,6 +43,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 
 @Controller
 @RequestMapping("/galaxy/meeting")
@@ -55,6 +56,8 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 	private DictService dictService;
 	@Autowired
 	private MeetingRecordService meetingRecordService;
+	@Autowired
+	private  SopFileService sopFileService;
 	@Value("${sop.oss.tempfile.path}")
 	private String tempfilePath;
 
@@ -113,6 +116,26 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 		// 跟进中原因
 		List<Dict> meetingFollowingReason = dictService.selectByParentCode("meetingFollowingReason");
 		mv.addObject("meetingFollowingReason", meetingFollowingReason);
+		return mv;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(Long id)
+	{
+		ModelAndView mv = new ModelAndView("meeting/error");
+		MeetingRecord entity = meetingRecordService.queryById(id);
+		if(entity == null)
+		{
+			mv.addObject("msg", "数据错误");
+			return mv;
+		}
+		
+		mv = meetAdd(entity.getProjectId(), entity.getMeetingType());
+		mv.addObject("entity", entity);
+		if(entity.getFileId() != null)
+		{
+			SopFile file  = sopFileService.queryById(entity.getFileId());
+			mv.addObject("file", file);
+		}
 		return mv;
 	}
 
@@ -177,7 +200,21 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 
 		return data;
 	}
-
+	@ResponseBody
+	@RequestMapping(value = "/del", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord>del(Long id)
+	{
+		ResponseData<MeetingRecord> data = new ResponseData<>();
+		try
+		{
+			meetingRecordService.deleteById(id);
+		} catch (Exception e)
+		{
+			logger.error("删除失败，id="+id,e);
+			data.getResult().addError("删除失败");
+		}
+		return data;
+	}
 	/**
 	 * 根据项目阶段验证是否能添加会议到项目 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 -> 投资意向书（投资） ->
 	 * 尽职调查 -> 投决会 -> 投资协议 -> 股权交割 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 ->

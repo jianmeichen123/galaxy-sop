@@ -213,7 +213,35 @@ function meetFormatLog(value,row,index){
 	}
 }
 
-
+function editMeeting(id)
+{
+	var _url = "<%=path %>/galaxy/meeting/edit?_="+new Date().getTime()+"&id="+id;
+	$.getHtml({
+		url:_url
+	});
+}
+function delMeeting(id)
+{
+	var _url = "<%=path %>/galaxy/meeting/del?_="+new Date().getTime()+"&id="+id;
+	layer.confirm("确定删除？",function(i){
+		layer.close(i);
+		sendPostRequestByJsonObj(
+			_url,
+			{},
+			function(data){
+				if(data.result.status=='OK')
+				{
+					layer.msg("删除成功");
+					$('#data-table').bootstrapTable('refresh');
+				}
+				else
+				{
+					layer.msg("删除失败。");
+				}
+			}
+		);
+	});
+}
 
 function showMeetDetail(selectRowId){
 	meetSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
