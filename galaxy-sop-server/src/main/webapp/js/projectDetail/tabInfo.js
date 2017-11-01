@@ -791,21 +791,6 @@ function dropdown_select(data,event){
     });
 }
 
-//改变保存按钮top值
-$('.input_FA ,#project_name_edit').blur(function(){
-	if($('.error').is(":visible")){
-		$('.basic_message .basic_mes_button').css('margin-top','0')
-	}
-})
-$('[data-on="save"]').click(function(){
-	if($('.error').is(":visible")){
-		$('.basic_message .basic_mes_button').css('margin-top','0')
-	}
-})
-$('[data-on="data-open"]').click(function(){
-	$('.basic_message .basic_mes_button').css('margin-top','63px')
-})
-
 /**
  * chart案例开始
  */
