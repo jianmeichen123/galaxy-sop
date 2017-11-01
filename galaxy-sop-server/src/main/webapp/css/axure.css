@@ -3804,6 +3804,28 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #updateProjectInfo tr:nth-child(2){margin-bottom:0px;}
  #updateProjectInfo tr:nth-child(3){margin-bottom:0px;}
  .basic_mes_input{border:.5px solid #999999;border-radius:2px;width:430px;height:31px;padding-left:8px;}
+ .basic_mes_input::-webkit-input-placeholder { /* WebKit browsers */
+    color:#d8d8d8;
+    font-family:Microsoft YaHei;
+	font-size:12px;
+}
+.basic_mes_input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#d8d8d8;
+    font-family:Microsoft YaHei;
+	font-size:12px;
+}
+.basic_mes_input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#d8d8d8;
+    font-family:Microsoft YaHei;
+	font-size:12px;
+}
+.basic_mes_input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:#d8d8d8;
+    font-family:Microsoft YaHei;
+	font-size:12px;
+}
+ 
+ 
  #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{width:427px;height:30px;padding-left:10px;border:.5px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;box-shadow:none;} 
 #dropdown ul{width:436.5px; border:.5px solid #979797; border-top:none; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
@@ -3818,7 +3840,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .finacing_plan{ height:auto;max-height:505px;display:none;}
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
 .real_investment{display:none; height:auto;max-height: 505px}
-.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;}
+.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;display:inline-block;vertical-align:middle;}
 .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
 .invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
@@ -3851,17 +3873,19 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
  .institue_content{width: auto;height: auto; margin-bottom:10px;position: relative;}
+ .institue_content #dropdown .input_select{height: 28px;}
  .institue_inputs{display:inline-table;vertical-align: top;position: absolute;left: 116px;top: 0px;}
- .invest_max_height{max-height:365px;overflow:auto;}
+ .invest_max_height{max-height:365px;overflow:auto;} 
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  #basicForm .invest_current label.error{color: #000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
- .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
+ #basicForm .invest_max_height tr label.error{margin-left: 116px;}.
+ institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:116px;}
  .institue_content .input_box:nth-child(4){width:82px;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
  .institue_content .input_box #dropdown .input_select{width:66px;}
  .institue_content .input_box #dropdown ul{width:75.5px;}
- .invest_institue{position: relative;}
+ .invest_institue{position: relative; display:none;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;}
  .pagebox .tabtable .agency_institute  table{border: 0.5px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
