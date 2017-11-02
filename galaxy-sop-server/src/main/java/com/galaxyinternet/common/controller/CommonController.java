@@ -34,6 +34,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.BuryRequest;
 import com.galaxyinternet.model.BuryPoint;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
@@ -76,6 +77,10 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private ResourceService resourceService;
 	@Autowired
 	private BuryPointService  buryPointService;
+	
+	@Autowired
+	private BuryRequest buryRequest;
+	
 	/**
 	 * 动态生成左边菜单项列表
 	 * @author yangshuhua
@@ -454,7 +459,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		params.put("os", "1");
 		params.put("osVersion",buryPoint.getOsVersion());
 		params.put("hardware", buryPoint.getHardware());
-		String result = buryPointService.HttpClientburyPoint(params,request);
+		String sessionId = request.getHeader(Constants.SESSION_ID_KEY);
+		params.put("sessionId", sessionId);
+		String result = buryRequest.burySave(params,"");
 		ResponseData<User> responseBody = new ResponseData<User>();
 		if(null!=result&&!"".equals(result)){
 			responseBody.setResult(new Result(Status.OK, null, "埋点成功！"));

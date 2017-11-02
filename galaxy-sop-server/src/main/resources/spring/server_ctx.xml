@@ -28,7 +28,6 @@
 	<!-- <import resource="classpath*:redis/galaxy-redis-config.xml" /> -->
 	<!-- <import resource="classpath*:redis/userRepository-context.xml" /> -->
 	<import resource="classpath*:spring-session.xml" />
-	<import resource="classpath*:spring-session.xml" />
 	
 	<!-- 用于初始化不同项目的请求地址，存入redis中 -->
 	<bean id="com.galaxyinternet.framework.core.config.ConfigBean" class="com.galaxyinternet.framework.core.config.ConfigBean">
@@ -50,9 +49,8 @@
 		scope="singleton"/>
 	
 	
-	<bean  class="com.galaxyinternet.common.utils.BuryPointRequest">
-	    <property name="buryUrl" value="${galaxy.project.bury.endpoint}"/>
-		<property name="softWareVersion" value="${buryPoint.softWare.vesion}"/>
+	<bean  class="com.galaxyinternet.framework.core.utils.BuryRequest" p:burySaveUrl="${galaxy.project.bury.endpoint}">
+	    
 	</bean>
 	
 	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
