@@ -117,7 +117,7 @@
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
 		<div class="basic_message message_current basic_current">
-		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
+		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息<em class="agency_close" data-on="close" data-name="basic"></em></div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
 				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
@@ -196,7 +196,7 @@
 	    </div>
 	    <!-- 编辑融资计划 -->
 	 	   <div class="finacing_plan finicial_current basic_current">
-	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划</div>
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划<em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
@@ -208,16 +208,17 @@
 							</tr>
 							<tr>
 								<td>
-									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" placeholder="项目估值万元" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<span>出让股份：</span>
 									<input type="text" class="basic_mes_input" placeholder="出让股份(%)"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的四位小数" data-title-id="1917">
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<span>项目估值：</span>
+									<input type="text" class="basic_mes_input" placeholder="项目估值万元" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
+								</td>
+							</tr>
+							
 							
 						</table>
 							
@@ -230,7 +231,7 @@
 	 	   </div>
 	 	   <!-- 编辑实际投资 -->
 			 	 <div class="finacing_plan real_investment invest_current basic_current">
-	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资<em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<div class="compile_on_center edit_com_color invest_max_height">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
@@ -242,16 +243,17 @@
 							</tr>
 							<tr>
 								<td>
-									<span>项目估值：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<span>股权占比：</span>
 									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的四位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<span>项目估值：</span>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
+								</td>
+							</tr>
+							
 							<tr>
 								<td>
 									<span>加速服务费占比：</span>
@@ -311,7 +313,7 @@
 	 	   </div>  
 	 	   <!--编辑法人信息  -->
 	 	  <div class="legal_person  basic_current legal_current">
-	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息</div>
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息<em class="agency_close" data-on="close" data-name="legal"></em></div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont" id='company-info-form'>
 					 <input type="hidden" name="id" value="${projectId }">
