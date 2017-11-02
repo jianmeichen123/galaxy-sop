@@ -19,7 +19,7 @@ public class AuthContext {
 	}
 
 	private String pageId;
-	private List<Integer> userIds;
+	private List<Long> userIds;
 
 	public String getPageId() {
 		return pageId;
@@ -29,11 +29,11 @@ public class AuthContext {
 		this.pageId = pageId;
 	}
 
-	public List<Integer> getUserIds() {
+	public List<Long> getUserIds() {
 		return userIds;
 	}
 
-	public void setUserIds(List<Integer> userIds) {
+	public void setUserIds(List<Long> userIds) {
 		this.userIds = userIds;
 	}
 

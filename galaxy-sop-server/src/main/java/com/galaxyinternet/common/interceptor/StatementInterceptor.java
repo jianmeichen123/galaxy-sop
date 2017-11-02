@@ -1,6 +1,7 @@
 package com.galaxyinternet.common.interceptor;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +24,13 @@ import org.slf4j.LoggerFactory;
 import com.galaxyinternet.common.utils.StrUtils;
 
 import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.expression.ExpressionVisitor;
+import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.select.FromItem;
+import net.sf.jsqlparser.statement.select.Join;
+import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.util.deparser.ExpressionDeParser;
-import net.sf.jsqlparser.util.deparser.SelectDeParser;
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
 public class StatementInterceptor implements Interceptor {
 	private static final Logger logger = LoggerFactory.getLogger(StatementInterceptor.class);
@@ -37,7 +39,7 @@ public class StatementInterceptor implements Interceptor {
 	@Override
 	public Object intercept(Invocation inv) throws Throwable {
 		String pageId = AuthContext.get().getPageId();
-		List<Integer> userIds = AuthContext.get().getUserIds();
+		List<Long> userIds = AuthContext.get().getUserIds();
 		if(pageId == null || pageId.equals("index") || userIds == null || userIds.size() == 0)
 		{
 			return inv.proceed();
@@ -78,47 +80,56 @@ public class StatementInterceptor implements Interceptor {
 	 * @param userIds
 	 * @return
 	 */
-	private String handleSQL(String sql, List<Integer> userIds)
+	private String handleSQL(String sql, List<Long> userIds)
 	{
-		StringBuilder buffer = new StringBuilder();
 		try {
 			Select select = (Select) CCJSqlParserUtil.parse(sql);
-			ExpressionDeParser expressionDeParser = new ExpressionDeParser();
-			SelectDeParser deparser = new GalaxySQLParser(expressionDeParser, buffer, userIds);
-			expressionDeParser.setSelectVisitor(deparser);
-			expressionDeParser.setBuffer(buffer);
-			select.getSelectBody().accept(deparser);
-		} catch (JSQLParserException e) {
-			logger.error("构建sql错误 "+buffer,e);
-			buffer = new StringBuilder(sql);
+			if(PlainSelect.class.isInstance(select.getSelectBody()))
+			{
+				PlainSelect plainSelect = (PlainSelect)select.getSelectBody();
+				FromItem from = plainSelect.getFromItem();
+				List<Join> joins = plainSelect.getJoins();
+				List<Table> tables = new ArrayList<>();
+				tables.add((Table)from);
+				
+				if(joins != null && joins.size()>0)
+				{
+					for(Join join : joins)
+					{
+						tables.add((Table)join.getRightItem());
+					}
+				}
+				for(Table table : tables)
+				{
+					String tableName = table.getFullyQualifiedName();
+					String alias = table.getAlias() != null ? table.getAlias().getName() : table.getFullyQualifiedName();
+					if(tableMap.containsKey(tableName))
+					{
+						Expression where = plainSelect.getWhere();
+						String condition = StrUtils.join(",", userIds.toArray());
+						String cond = "";
+						if(where == null)
+						{
+							cond = " "+alias+"."+tableMap.get(tableName)+" in ("+condition+") ";
+						}
+						else
+						{
+							cond += where.toString()+" and "+alias+"."+tableMap.get(tableName)+" in ("+condition+") ";
+						}
+						Expression exp = CCJSqlParserUtil.parseCondExpression(cond);
+						plainSelect.setWhere(exp);
+					}
+				}
+				return plainSelect.toString();
+			}
+		} catch (JSQLParserException e) 
+		{
+			logger.error("构建sql错误 "+sql,e);
 		}
 		
-		return buffer.toString();
+		return sql;
 	}
 	
-	class GalaxySQLParser extends SelectDeParser
-	{
-		private String condition;
-		public GalaxySQLParser(ExpressionVisitor expressionVisitor, StringBuilder buffer, List<Integer> userIds) {
-	        super(expressionVisitor, buffer);
-	        this.condition = StrUtils.join(",", userIds.toArray());
-	    }
-		@Override
-		public void visit(Table table) {
-			String tableName = table.getFullyQualifiedName();
-			String alias = table.getAlias() != null ? table.getAlias().getName() : table.getFullyQualifiedName();
-			Map<String,String> tableMap = StatementInterceptor.this.getTableMap();
-			if(tableMap.containsKey(tableName))
-			{
-				getBuffer().append(" (select * from "+tableName+" where "+tableMap.get(tableName)+" in ("+condition+") ) "+alias);
-			}
-			else
-			{
-				super.visit(table);
-			}
-		}
-	}
-
 	public Map<String, String> getTableMap() {
 		return tableMap;
 	}

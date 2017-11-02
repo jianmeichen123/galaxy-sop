@@ -46,4 +46,14 @@
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>boolean isPrivilege_6(java.lang.Long)</function-signature>
 	</function>
+	<function>
+		<name>hasPremission</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean hasPremission(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>dataScope</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>java.lang.String dataScope(java.lang.String)</function-signature>
+	</function>
 </taglib>

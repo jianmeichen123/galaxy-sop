@@ -31,26 +31,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.util.NodeUtil;
+import com.galaxyinternet.model.common.Node;
+import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.InformationTitleRelate;
+import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
+import com.galaxyinternet.service.JointDeliveryService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationResultService;
+import com.galaxyinternet.utils.CollectionUtils;
 
 @Api("全息图后台接口")
 @Controller
@@ -58,7 +71,6 @@ import com.galaxyinternet.service.hologram.InformationResultService;
 public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
 
 	final Logger logger = LoggerFactory.getLogger(InfoProjectController.class);
-	
 	
 	@Autowired
 	private InformationDataService infoDataService;
@@ -74,12 +86,25 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationResultService informationResultService;
 	@Autowired
 	private InformationListdataService informationListdataService;
+	@Autowired
+	private InformationTitleRelateService informationTitleRelateService;
+	@Autowired
+	private JointDeliveryService jointDeliveryService;
+	@Autowired
+	private DictService dictService;
+	
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
 	}
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	/**
@@ -355,6 +380,101 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		
 		return response;
 	}
+	
+	
+	/**
+	 * 根据code等信息获取title和value
+	 * @param reportType
+	 * @param realteId
+	 * @param projectId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getTitleRelationResults/{reportType}/{projectId}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable Integer reportType,@PathVariable Long projectId)
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		if(reportType == null || projectId == null){
+			data.getResult().addError("参数丢失");
+			return data;
+		}
+		Map<String,Object> proInfo = new HashMap<String,Object>();
+		try
+		{
+			//项目信息
+			Project project = projectService.queryById(projectId);
+			Map<String,String> dictMap = dictMap("financeMode");
+			if (project != null) {
+				List<Department> departments = departmentService.queryAll();
+				Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
+				Long deptId = null;
+				if (queryOne != null) {
+					project.setProjectCareerline(queryOne.getName());
+					deptId = queryOne.getManagerId();
+					if (null != deptId && deptId.longValue() > 0L) {
+						User queryById = userService.queryById(queryOne
+								.getManagerId());
+						if (queryById != null) {
+							project.setHhrName(queryById.getRealName());
+						}
+					}
+				}
+				if(project.getIndustryOwn()!=null){
+	                String name=DictEnum.industryOwn.getNameByCode(
+	        		 project.getIndustryOwn().toString());
+				if (name != null) {
+						project.setIndustryOwnDs(name);				
+					}else{
+						project.setIndustryOwnDs(null);
+					}
+				}	
+				if(null!=project.getFinanceMode()&&!"".equals(project.getFinanceMode())){
+					String financeMode=dictMap.get(project.getFinanceMode());
+					project.setfModeRemark(financeMode);
+					List<JointDelivery> queryList=new ArrayList<JointDelivery>();
+					JointDelivery jointDelivery=new JointDelivery();
+					jointDelivery.setProjectId(project.getId());
+					jointDelivery.setDeliveryType(project.getFinanceMode());
+					if(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2")){
+						jointDelivery.setDeliveryType(project.getFinanceMode());
+						queryList = jointDeliveryService.queryList(jointDelivery);
+					}
+					project.setJointDeliveryList(queryList);
+				}
+			} else {
+				data.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
+				return data;
+			}
+			
+			InformationResult ir = new InformationResult();
+			ir.setProjectId(projectId.toString());
+			ir.setReportType(reportType.toString());
+			//全息报告信息
+			List<Node> childs= informationResultService.selectResults(ir);
+			List<Node> child = NodeUtil.bulid(childs);
+				proInfo.put("pro", project);
+				proInfo.put("report", child);
+				data.setUserData(proInfo);
+			
+		} catch (Exception e)
+		{
+			logger.error("获取项目详情信息页失败",e);
+			data.getResult().addError("获取标题失败");
+		}
+		return data;
+	}
+	
+
+	  public Map<String,String> dictMap(String parentCode){
+		  Map<String,String> map=new HashMap<String,String>();
+			List<Dict> dictList = dictService.selectByParentCode(parentCode);
+			for(Dict d : dictList){
+				map.put(d.getCode(),d.getName());
+			}
+			return map;
+	  }
+	
+	
 }
 
 

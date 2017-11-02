@@ -20,7 +20,7 @@ public class SQLParserTest {
 	public void testParse() throws Exception {
 
 		//String sql = "select * from t_1 t1,t_2 t2";
-		String sql = "select * from t_1  inner join t_2 ";
+		String sql = "select * from table1 t_1 ";
 		Select select = (Select) CCJSqlParserUtil.parse(sql);
 
 		// Start of value modification
@@ -43,7 +43,7 @@ class MySelectDeParser extends SelectDeParser {
         super(expressionVisitor, buffer);
     }
 	
-	/*
+	
 	@Override
 	public void visit(PlainSelect plainSelect) {
 		super.visit(plainSelect);
@@ -64,8 +64,11 @@ class MySelectDeParser extends SelectDeParser {
 		{
 			this.getBuffer().append(" where 2=3");
 		}
-		this.getBuffer().append(" and 1=2");
-	}*/
+		else
+		{
+			this.getBuffer().append(" and 1=2");
+		}
+	}
 
 
 	@Override

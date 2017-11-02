@@ -501,7 +501,11 @@ function type_5_html(title,mark){
 		if(results && results[0] && results[0].id){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					hresult_2 =  "<dd class=\"fl_none division_dd\">"+results[i].contentDescribe1+"</dd>";
+					if(textarea_show(results[i].contentDescribe1)==0){    //全为空格、回车
+						hresult_2 =  "<dd class=\"fl_none division_dd\">未填写</dd>";
+					}else{
+						hresult_2 =  "<dd class=\"fl_none division_dd\">"+results[i].contentDescribe1+"</dd>";
+					}
 				}else if(results[i].valueName){
 					hresult_1 =  "<dd>"+results[i].valueName+"</dd>";
 				}
@@ -517,7 +521,11 @@ function type_5_html(title,mark){
 			for(var i = 0;  i < results.length; i++ ){
 				if(!results[i].valueId){
 					if(results[i].contentDescribe1){
-                        r_value = results[i].contentDescribe1;
+						if(textarea_show(results[i].contentDescribe1)==0){  //全为空格、回车
+							r_value = '';
+						}else{
+							r_value = results[i].contentDescribe1;
+						}
 					}
 					var result_id = results[i].id;
 					break;

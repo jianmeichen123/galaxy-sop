@@ -155,7 +155,7 @@
 							}
 							$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 						}
-						var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+						var last_id=$(radioShow).children(".icheck:last").find('.icheckbox_flat-blue').hasClass("checked");
 						if(last_id){
 							$(radioShow).find(".others_text").show();
 							$(radioShow).find(".others_text").val(p_box.attr("data-remark"))
@@ -196,6 +196,8 @@
 							data_list.titleValue=titleValue;
 						}else if(type==13 || type==2){
 							data_list.titleValue=titleValue;
+						}else if(type==20){
+							data_list.val=span_this.attr("value");
 						}
 						data.push(data_list);
 					});
@@ -302,7 +304,7 @@
 							}
 						   var div=$(".h_edit_txt");
 						   for(var j=0;j<div.children("dd").length;j++){
-							   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+							   div.children("dd").eq(j).find("input").val(inputsValueList[j].trim());
 							   
 						   }
 						}
@@ -550,7 +552,7 @@ function right(obj,type){
 		var val = $(obj).parent().parent().find("textarea").val();
 		val=val.replace(/\n|\r\n/g,"<br>")
 		val=val.replace(/\s/g,"&nbsp;");
-		if(val == null || val.length == 0)
+		if(val == null || val.length == 0 || textarea_show(val)==0)
 		{
 			val='未填写';
 		}
@@ -674,9 +676,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var currency_id = $(this).find("dd select").val();
 			var currency=$(this).find("dd select").find("option[data-id='"+currency_id+"']").text();
 			data_list.currency=currency+"p"+currency_id;
-			data_list.value=_parsefloat(val)+"万"+currency;			
+			data_list.value=_parsefloat(val)+"万"+currency;	
+			var res = change_number(val);
+			data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
 			if(val==""||val==undefined){
 				data_list.value="未填写";
+				data_list.Tvalue="未填写";
 				data_list.currency="";
 			}
 		}else if(data_type==14){
@@ -825,12 +830,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(_code==dcode){
 				if(_type==1||_type==20||_type==8){	
 					if(_type==20){
+						
 						_this.find("span").attr("currency",d_this.currency);
-						_this.find("span").html(d_this.value);
+						_this.find("span").attr("value",d_this.value);
+						_this.find("span").html(d_this.Tvalue)
 					}else if(_type==1){
 						_this.find("span").html(_parsefloat(d_this.value));
 					}else{
-						_this.find("span").html(d_this.value);
+						if(textarea_show(d_this.value)>0){
+							_this.find("span").html(d_this.value);
+						}
 					}
 					
 					Tfun_8(_this);
@@ -876,14 +885,25 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var sp_dds = $(".content_16 p[data-relate-id='1006'],.content_16 p[data-relate-id='9006']");
 					/*str=str.replace(/\n|\r\n/g,"<br>")
 					str=str.replace(/\s/g,"&nbsp;");*/
+					console.log(str)
+					if(str !=undefined && str.indexOf("<sitg>")>-1){
+						var conStr=str.split("<sitg>");
+						var sum=0;
+					   for(var i=0;i<conStr.length;i++){
+							if(conStr[i].indexOf("</sitg>")>-1){
+								var inputsValueLen=conStr[i].substring(0,conStr[i].indexOf("</sitg>")).trim().length;
+								sum +=inputsValueLen
+							}
+						}
+					}
 					if(str){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
 						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
 					} 
 					sp_str1=str1.split("</sitg>）的产品或服务，");
 					sp_str1=sp_str1[1];					
-					dds.html(d_this.remark1==undefined ?"未填写":str1);
-					sp_dds.html(d_this.remark1==undefined ?"未填写":sp_str1);
+					dds.html((d_this.remark1==undefined || sum==0 )?"未填写":str1);
+					sp_dds.html((d_this.remark1==undefined || sum==0 )?"未填写":sp_str1);
 					dds.attr("data-remark",str);
 					Tfun_8(dds)
 				}else if(_type==10){

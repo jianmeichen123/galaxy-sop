@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
+	String pageId = "meetView";
 %>
 <!doctype html>
 <html>
@@ -10,6 +11,7 @@
 <meta charset="utf-8">
 <title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/jquery-ui.min.css" type="text/css" rel="stylesheet">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
@@ -17,8 +19,11 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
+<script type="text/javascript">
+var pageId = "<%=pageId%>";
+</script>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
 <style>
 .tab-pane table th:nth-child(3) {
     width: 55%;
@@ -85,6 +90,9 @@
                 <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="keyword" name="keyword" maxlength="100"/>  <!-- proNameCode -->
               </dd>
               <dd>
+              <c:if test="${fx:hasPremission('meetingRecord_add')}">
+               <a href="javascript:;" class="bluebtn ico cx xz" id="add-meeting-btn">新增</a>
+              </c:if>
                <a href="javascript:;" class="bluebtn ico cx" action="querySearch">搜索</a>
               </dd>
             </dl>
@@ -171,9 +179,11 @@ $(function(){
 	
 });
 
-
+var editScope = "${fx:dataScope('meetingRecord_update')}".split(",");
+var delScope = "${fx:dataScope('meetingRecord_delete')}".split(",");
 var meetSelectRow = null;
 function meetFormatLog(value,row,index){
+	var rtn = '';
 	var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
 	    subValue=value.replace(/<[^>]+>/g, "");
 	if(value != ''){
@@ -186,14 +196,52 @@ function meetFormatLog(value,row,index){
 						subValue1+
 						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
 					'</div>';
-			return rc;
+			rtn = rc;
 		}else{
-			return strlog;
+			rtn = strlog;
 		}
 	}
+	var projectCreateUid = row.projectCreateUid+"";
+	if($.inArray( projectCreateUid, editScope ) != -1)
+	{
+		rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="editMeeting('+row.id+')" >编辑<a>';
+	}
+	if($.inArray( projectCreateUid, delScope ) != -1)
+	{
+		rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="delMeeting('+row.id+')" >删除<a>';
+	}
+	return rtn=='' ? '-' : rtn;
 }
 
-
+function editMeeting(id)
+{
+	var _url = "<%=path %>/galaxy/meeting/edit?_="+new Date().getTime()+"&id="+id;
+	$.getHtml({
+		url:_url
+	});
+}
+function delMeeting(id)
+{
+	var _url = "<%=path %>/galaxy/meeting/del?_="+new Date().getTime()+"&id="+id;
+	layer.confirm("确定删除？",function(i){
+		layer.close(i);
+		sendPostRequestByJsonObj(
+			_url,
+			{},
+			function(data){
+				if(data.result.status=='OK')
+				{
+					layer.msg("删除成功");
+					$('#data-table').bootstrapTable('refresh');
+				}
+				else
+				{
+					layer.msg("删除失败。");
+				}
+			}
+		);
+	});
+}
 
 function showMeetDetail(selectRowId){
 	meetSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
@@ -233,6 +281,16 @@ function initMeetTcVal(){
 	$("#btnNotBeUse").html("");
 	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
 	
+}
+$("#add-meeting-btn").click(function(){
+	showPreAddDialog();
+});
+function showPreAddDialog()
+{
+	var _url = "<%=path %>/galaxy/meeting/preAdd";
+	$.getHtml({
+		url:_url
+	});
 }
 </script>
 

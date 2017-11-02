@@ -23,6 +23,46 @@ function _parsefloat(date){
 		return res;
 	}
 }
+//亿元——万亿转换
+function change_number(date){
+	if(date!=undefined){
+		var dd =  String(date).split(".")[0];
+		var leng = dd.length;
+		var text="万";
+		if(leng>4&&leng<8){
+			var dd1=dd.substring(0,leng-4);
+			var dd2=dd.substring(leng-4,leng).substring(0,2);
+			dd=dd1+"."+dd2;
+			text="亿";
+		}else if(leng==8){
+			var dd2=dd.substring(0,2);
+			dd="0."+dd2;
+			text="万亿";
+		}else if(leng>8){
+			var dd1=dd.substring(0,leng-8);
+			var dd2=dd.substring(leng-8,leng).substring(0,2);
+			dd=dd1+"."+dd2;
+			text="万亿";
+		}else{
+			dd=date;
+		}
+		var rarry=[dd,text]
+		return rarry;
+	}
+}
+//七大报告文本框全为空格处理
+function textarea_show(contentDescribe){
+	var len=0;
+	if(contentDescribe){
+		contentDescribe=contentDescribe.replace(/<br\/>/g,'');
+		contentDescribe=contentDescribe.replace(/<br>/g,'');
+		contentDescribe=contentDescribe.replace(/&nbsp;/g,"");
+		len=contentDescribe.length;
+	}else{
+		len=0;
+	}
+	return len;
+}
 /**
  * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */

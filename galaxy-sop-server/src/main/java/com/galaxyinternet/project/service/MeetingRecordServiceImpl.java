@@ -32,7 +32,6 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.UserService;
 
@@ -397,6 +396,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setResultReason(ib.getResultReason());
 				bo.setReasonOther(ib.getReasonOther());
 				bo.setUid(proIdUidMap.get(ib.getProjectId()));
+				bo.setProjectCreateUid(ib.getProjectCreateUid());
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){

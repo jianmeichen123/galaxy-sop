@@ -16,6 +16,12 @@
 		<result column="create_id" 			jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" 		jdbcType="BIGINT" 		property="updatedTime" />
 		<result column="update_id" 			jdbcType="BIGINT" 		property="updateId" />
+		<result column="parent_id" 	property="parentId" />
+		<result column="code" 		property="code" />
+		<result column="report_type" 		property="reportType" />
+		<result column="value_name" 		property="valueName" />
+		<result column="result_id" 		property="resultId" />
+		
 	</resultMap>
 
 
@@ -171,7 +177,14 @@
 		where id = #{id}
 	</update>
 	
-	
+	<!-- id 为 relateid，   relate.id relate_id,  -->
+	<select id="selectResultByRelateType" resultMap="BaseResultMap" parameterType="java.util.Map">
+	   SELECT itr.id,ir.id AS result_id,itr.name AS value_name,itr.parent_id,itr.code,itr.title_id,ir.content_choose,ir.content_describe1,ir.project_id 
+            ,it.type FROM (information_title_relate AS itr LEFT JOIN information_result AS ir
+            ON itr.title_id = ir.title_id
+            AND ir.project_id = #{projectId}) LEFT JOIN information_title AS it ON itr.title_id = it.id
+			WHERE itr.report_type = #{reportType}
+	</select>
 	
 </mapper>
 	

@@ -403,6 +403,7 @@ function buildResult(title)
 	{
 		if(_sign=="sign_3"){
 			var val = results[0].contentDescribe1;
+			var a_val = results[0].contentDescribe1;
 			var currency_id = results[0].contentDescribe2;
 			if(currency_id!=undefined){
 				var currency=currency_id.split("p")[0];
@@ -410,17 +411,34 @@ function buildResult(title)
 			if(type == 20){
 				if(val==""||val==undefined){
 					val="未填写";
+					a_val="未填写";
 					currency_id="";
 				}else{
-					val=_parsefloat(val)+"万"+currency; 
+					var res = change_number(val);
+					val=_parsefloat(res[0])+res[1]+currency; 
+					a_val =_parsefloat(a_val)+"万"+currency;
 				}
-				_ele.find("span").attr("currency",currency_id);
+				_ele.find("span").attr("currency",currency_id).attr("value",a_val);
+				_ele.find("span").html(val);
 			 }else if(type==1){
 				 val=_parsefloat(val);
-			 }
-			_ele.find("span").html(val);
+				 _ele.find("span").html(val);
+			 }else if(type==8){
+				if(textarea_show(val)>0){
+					_ele.find("span").html(val);
+				}
+			}else{
+				_ele.find("span").html(val);
+			}
+			
 		}else{
-			_ele.html(results[0].contentDescribe1);
+			if(type==8){
+				if(textarea_show(results[0].contentDescribe1)>0){
+					_ele.html(results[0].contentDescribe1);
+				}
+			}else{
+				_ele.html(results[0].contentDescribe1);
+			}
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
@@ -478,7 +496,7 @@ function buildResult(title)
 	{
 		_ele = $('.title-value[data-title-id="'+title.id+'"][data-sub-id="'+title.subId+'"]');
 		var val = results[0]["contentDescribe"+title.subId];
-		if(typeof val == 'undefined')
+		if(typeof val == 'undefined' || textarea_show(val)==0)
 		{
 			_ele.html('未填写');
 		}
@@ -496,11 +514,31 @@ function buildResult(title)
 			_ele.attr("data-remark",val);
 			val=val.replace(/<sitg>/g,'（<sitg>').replace(/<\/sitg>/g,'<\/sitg>）');
 			$(_ele).each(function(){
-				if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
-					val=val.split("</sitg>）的产品或服务，");
-					val = val[1];
+				if(val !=undefined && val.indexOf("<sitg>")>-1){
+					var conStr=val.split("（<sitg>");
+					var sum=0;
+				   for(var i=0;i<conStr.length;i++){
+						if(conStr[i].indexOf("</sitg>）")>-1){
+							var inputsValueLen=conStr[i].substring(0,conStr[i].indexOf("</sitg>")).trim().length;
+							sum +=inputsValueLen
+						}
+					}
 				}
-				$(this).html(val);
+				if(val.indexOf("<sitg>")==-1){
+					if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
+						val=val.split("</sitg>）的产品或服务，");
+						val = val[1];
+					}
+					$(this).html(val);
+				}else{
+					if(sum>0){
+						if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
+							val=val.split("</sitg>）的产品或服务，");
+							val = val[1];
+						}
+						$(this).html(val);
+					}
+				}
 			})
 			
 		}
@@ -583,7 +621,8 @@ function getValues()
 				type:type
 			};		
 			text = _this.html();
-			if(type == 20){				
+			if(type == 20){		
+				text = _this.attr("value");
 				text=text.replace("万人民币","");
 				text=text.replace("万美元","");
 				model.remark2 =_this.attr("currency") ;

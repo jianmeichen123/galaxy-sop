@@ -50,11 +50,11 @@ position:absolute;
         	</div>
         	<div class='fl three'>
         		<span class="projectType" id="projectType"></span>
-        		<span class="faName" id="faName" data-toggle="tooltip" data-placement="top" title='FA来源名称'></span>
+        		<span class="faName" id="faName" data-toggle="tooltip" data-placement="top"></span>
         	</div>
         	<div class='fr four'>
         		<c:if test="${isEditable}">
-					<span class="version19_edit_btn" data-name="basic" data-on="data-open">编辑</span>
+					<span class="version19_edit_btn" data-name="basic"  data-on="data-open" data-cont="message">编辑</span>
 				</c:if>
 				<span class="b_span version19_blue_btn" onclick="back();">返回</span>
         	</div>
@@ -143,7 +143,6 @@ $(function(){
   //计算version19_detail_header的左边距
 	var  w_lft=$(".lft").width();
   	$('.version19_detail_header').css({'padding-left':w_lft+40});
-  	$("[data-toggle='tooltip']").tooltip();//提示
 });
 /**
  * 面包屑

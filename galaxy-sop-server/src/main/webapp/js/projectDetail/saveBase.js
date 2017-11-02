@@ -32,7 +32,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 		};
 		if(type==14 )
 		{
-			infoMode.value = field.val();
+			infoMode.value = field.attr('data-flag');
 		}else if(type==19 || type==1){
 			infoMode.remark1 = field.val();
 		}	
@@ -49,6 +49,19 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					if(dom=="basicForm"&&val1=="finance"){	
+						updateReportMoney(); 
+					}
+//					弹窗关闭
+					var close="basic"
+					$('.'+close+'_current').hide();//basic_current
+					$('.'+close+'_on').hide();
+					$('.'+close+'_center').show();
+					$('.bj_hui_on').hide();
+					$('.tip-yellowsimple').hide();
+					$("body").css('overflow-y','auto');
+					
+					
 					if(dom=='company-info-form'){
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);

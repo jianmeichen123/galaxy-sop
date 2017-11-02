@@ -168,7 +168,7 @@ var isEditable = "${isEditable}";
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>	
 </body>
 <script>
-
+$(".exportReport").show();
 function getDetailUrl(code)
 {
 	if(code == 'share-holding')

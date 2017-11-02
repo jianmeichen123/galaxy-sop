@@ -30,11 +30,13 @@
     <result column="last_created_time" property="lastCreatedTime" jdbcType="BIGINT" />
     <result column="result_reason" property="resultReason" jdbcType="VARCHAR" />
     <result column="reason_other" property="reasonOther" jdbcType="VARCHAR" />
+    <result column="project_create_uid" property="projectCreateUid" jdbcType="BIGINT" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
     id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, meeting_notes_text,created_time,record_type,create_uid,participant,meet_valid,meeting_name,result_reason,reason_other
+    ,(SELECT create_uid FROM sop_project sub_proj WHERE sub_proj.id = project_id) AS project_create_uid
   </sql>
   
   

@@ -369,7 +369,7 @@ function saveForm(form,_this)
 					post_data,
 					function(data){		
 						if(data.result.status=="OK"){
-							$("tr.no-records-found").remove();
+							//$("tr.no-records-found").remove();
 							layer.msg("保存成功");
 							var code = _this.data("urlCode");
 							var name = _this.data("name")					
