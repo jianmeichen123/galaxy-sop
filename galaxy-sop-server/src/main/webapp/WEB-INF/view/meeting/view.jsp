@@ -200,17 +200,17 @@ function meetFormatLog(value,row,index){
 		}else{
 			rtn = strlog;
 		}
-		var projectCreateUid = row.projectCreateUid+"";
-		if($.inArray( projectCreateUid, editScope ) != -1)
-		{
-			rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="editMeeting('+row.id+')" >编辑<a>';
-		}
-		if($.inArray( projectCreateUid, delScope ) != -1)
-		{
-			rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="delMeeting('+row.id+')" >删除<a>';
-		}
-		return rtn;
 	}
+	var projectCreateUid = row.projectCreateUid+"";
+	if($.inArray( projectCreateUid, editScope ) != -1)
+	{
+		rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="editMeeting('+row.id+')" >编辑<a>';
+	}
+	if($.inArray( projectCreateUid, delScope ) != -1)
+	{
+		rtn += '&nbsp;<a href="javascript:;" class="blue  option_item_mark"  onclick="delMeeting('+row.id+')" >删除<a>';
+	}
+	return rtn=='' ? '-' : rtn;
 }
 
 function editMeeting(id)
