@@ -255,7 +255,7 @@
 							<tr>
 								<td>
 									<span>加速服务费占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比(%)" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的四位小数"  data-title-id="3011"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比(%)" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的两位小数"  data-title-id="3011"/>
 								</td>
 							</tr>
 							<tr>

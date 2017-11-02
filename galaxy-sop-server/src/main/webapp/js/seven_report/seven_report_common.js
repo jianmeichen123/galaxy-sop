@@ -1326,6 +1326,15 @@ function validate(){
 						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="4" && inputValRuleMark=="1,2"){
+				var validate={
+						"data-rule-vinputValRule_52":"true",
+						//"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_52":"<font color=red>*</font>只允许输入数字0~5整数和两位小数"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="50"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -1423,9 +1432,9 @@ jQuery.validator.addMethod("verify_3010", function(value, element) {
 }, "支持0到100之间的四位小数");
 //支持0到5之间的四位小数
 jQuery.validator.addMethod("verify_3011", function(value, element) {
-	var verify_3011 = /^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$/;
+	var verify_3011 = /^([0-4](\.\d{1,2})?)$|^(5(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_3011.test(value));
-}, "支持0到5之间的四位小数");
+}, "支持0到5之间的两位小数");
 
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {
@@ -1473,6 +1482,11 @@ jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 //inputValRule=="4" && inputValRuleMark="1,4"
 jQuery.validator.addMethod("vinputValRule_54", function(value, element) {
 	var vinputValRule_54 = /^([0-5]{1}|[0-5]{1}\.\d{1,4}|[0-5]{1}\.0{1,4})$/;
+	return this.optional(element) || (vinputValRule_54.test(value));
+}, "不能超过5");
+//inputValRule=="4" && inputValRuleMark="1,2"
+jQuery.validator.addMethod("vinputValRule_52", function(value, element) {
+	var vinputValRule_54 = /^([0-5]{1}|[0-5]{1}\.\d{1,2}|[0-5]{1}\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_54.test(value));
 }, "不能超过5");
 //不能超过50个字

@@ -51,9 +51,9 @@
 	}, "0到100之间的四位小数");
 	//加速服务费占比
 	jQuery.validator.addMethod("serviceChargeedit", function (value, element) {
-		var serviceChargeedit = /^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$/;
+		var serviceChargeedit = /^([0-4](\.\d{1,2})?)$|^(5(\.[0]{1,2})?)$/;
 		return this.optional(element) || (serviceChargeedit.test(value));
-	}, "0到5之间的四位小数");
+	}, "0到5之间的两位小数");
 	//机构名称
 	jQuery.validator.addMethod("delivery", function(value, element) {   
 		var delivery = /^(?!.{51}|^\s*$)/;
