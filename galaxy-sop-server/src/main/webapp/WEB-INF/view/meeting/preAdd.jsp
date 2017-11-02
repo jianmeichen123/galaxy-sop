@@ -6,7 +6,7 @@ var pageId = "meetingRecord_add";
 <div class="title_bj">新增会议记录</div>
 <form id="meeting_per_add_form">
 	<input type="hidden" id="projectId" name="projectId"/>
-<div class="meetingtc margin_45" id="add_meet_dialog">
+<div class="meetingtc margin_45" id="add_meet_dialog" style='padding-left:20px;'>
     <div class="min clearfix">
         <dl class="fmdl clearfix">
         	<dt>项目名称:</dt>
@@ -43,7 +43,7 @@ var pageId = "meetingRecord_add";
             </dd>
         </dl>
     </div>
-    <div class="btnbox" id="dialog-btns">
+    <div class="btnbox" id="dialog-btns" style='margin-top:30px;'>
     	<a href="javascript:;" class="pubbtn bluebtn" id="submit-bnt">确认</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close" id="cancel-btn">取消</a>
     </div>
 </div>
