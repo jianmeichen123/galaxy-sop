@@ -86,7 +86,6 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			/**清楚浏览器缓存**/
 			xhr.setRequestHeader("If-Modified-Since","0"); 
 			xhr.setRequestHeader("Cache-Control","no-cache");
-
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
@@ -123,7 +122,7 @@ function sendPostRequestByJsonObjNoCache(reqUrl, jsonObj,async_status,callbackFu
 			/**清楚浏览器缓存**/
 			xhr.setRequestHeader("If-Modified-Since","0"); 
 			xhr.setRequestHeader("Cache-Control","no-cache");
-
+           
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
@@ -1816,4 +1815,15 @@ function setData(sumPlanMoney,sumActualMoney){
 
 }
 
+function cut(cutelement, cutlength) {
+ 
+    
+    var cutelement = $(cutelement);
+    $.each(cutelement, function (i, item) {
+        if (item.innerText.length > cutlength) {//循环判断cutelement中含有的字数
+            item.innerText = item.innerText.substring(0, cutlength) + "...";//如果字数超过，则截取内容，拼接上“...”显示
+        }
 
+    })
+
+}

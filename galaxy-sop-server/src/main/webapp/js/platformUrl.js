@@ -2,6 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"],
 	sopEndpointURL : endpointObj["galaxy.project.sop.endpoint"],
+	buryEndpointURL : endpointObj["galaxy.project.bury.endpoint"],
 }
 
 var platformUrl = {

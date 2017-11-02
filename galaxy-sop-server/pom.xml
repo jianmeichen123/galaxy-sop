@@ -104,7 +104,7 @@
 				<galaxy.project.platform.endpoint>http://zfeng.local.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://zfeng.local.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://zfeng.local.com/sop/</galaxy.project.sop.endpoint>
-
+                <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
 			</properties>
 		</profile>
 		<profile>
@@ -136,7 +136,8 @@
 				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>127.0.0.1:2181</cluster.zk.address>
-
+                <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
+                <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
 			</properties>
 		</profile>
 		<profile>
@@ -167,6 +168,7 @@
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>10.9.210.22:12181</cluster.zk.address>
+				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
 					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
@@ -177,7 +179,8 @@
 					<redis.master>galaxymaster</redis.master> -->
 
 				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
-
+              <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
+			
 			</properties>
 		</profile>
 		<profile>
@@ -209,6 +212,9 @@
 				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 			    <cluster.zk.address>10.9.210.22:12182</cluster.zk.address>
+			    <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+			    <galaxy.project.bury.endpoint>http://fx.qa.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
+			
 			</properties>
 		</profile>
 		<profile>

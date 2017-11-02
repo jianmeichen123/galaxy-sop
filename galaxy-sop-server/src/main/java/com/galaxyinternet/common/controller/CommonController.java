@@ -3,7 +3,9 @@ package com.galaxyinternet.common.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,12 +34,15 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.BuryPoint;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.BuryPointService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
@@ -68,7 +74,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private UserService userService;
 	@Autowired
 	private ResourceService resourceService;
-	
+	@Autowired
+	private BuryPointService  buryPointService;
 	/**
 	 * 动态生成左边菜单项列表
 	 * @author yangshuhua
@@ -428,5 +435,33 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			}
 		}
 		return res;
+	}
+	
+	
+	/**
+	 * 埋点
+	 * @version 2017-11-1
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/buryPoint", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<User> buryPoint(HttpServletRequest request,@RequestBody 
+			BuryPoint buryPoint) {
+		// TODO Auto-generated method stub
+		Map<String,String> params=new HashMap<String,String>();
+		params.put("pCode", buryPoint.getpCode());
+		params.put("userId", buryPoint.getUserId());
+		params.put("recordDate", buryPoint.getRecordDate().toString());
+		params.put("os", "1");
+		params.put("osVersion",buryPoint.getOsVersion());
+		params.put("hardware", buryPoint.getHardware());
+		String result = buryPointService.HttpClientburyPoint(params,request);
+		ResponseData<User> responseBody = new ResponseData<User>();
+		if(null!=result&&!"".equals(result)){
+			responseBody.setResult(new Result(Status.OK, null, "埋点成功！"));
+		}else{
+			responseBody.setResult(new Result(Status.ERROR, null, "埋点失败！"));
+		}
+	     return responseBody;
+			 
 	}
 }
