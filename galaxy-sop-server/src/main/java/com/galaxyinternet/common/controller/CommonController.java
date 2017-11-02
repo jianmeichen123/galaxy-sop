@@ -461,7 +461,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		params.put("hardware", buryPoint.getHardware());
 		String sessionId = request.getHeader(Constants.SESSION_ID_KEY);
 		params.put("sessionId", sessionId);
-		String result = buryRequest.burySave(params,"");
+		String result = buryRequest.burySave(params);
 		ResponseData<User> responseBody = new ResponseData<User>();
 		if(null!=result&&!"".equals(result)){
 			responseBody.setResult(new Result(Status.OK, null, "埋点成功！"));
