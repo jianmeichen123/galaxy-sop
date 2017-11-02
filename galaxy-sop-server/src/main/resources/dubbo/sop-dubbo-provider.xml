@@ -47,9 +47,5 @@
 	<!-- 添加团队成员 -->
  	<dubbo:service interface="com.galaxyinternet.service.PersonPoolService" ref="com.galaxyinternet.service.PersonPoolService"  version="1.0.0" >
 	</dubbo:service>
-	<!-- 添加团队成员 -->
- 	<dubbo:service interface="com.galaxyinternet.service.BuryPointService" ref="com.galaxyinternet.service.BuryPointService"  version="1.0.0" >
-	</dubbo:service>
-	
  	
 </beans>

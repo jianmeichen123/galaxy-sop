@@ -50,6 +50,11 @@
 		scope="singleton"/>
 	
 	
+	<bean  class="com.galaxyinternet.common.utils.BuryPointRequest">
+	    <property name="buryUrl" value="${galaxy.project.bury.endpoint}"/>
+		<property name="softWareVersion" value="${buryPoint.softWare.vesion}"/>
+	</bean>
+	
 	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
 	<bean id="leaderSelector" class="com.galaxyinternet.framework.core.cluster.LeaderSelector">
 		<constructor-arg name="address" value="${cluster.zk.address}"/>
