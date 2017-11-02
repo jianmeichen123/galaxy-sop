@@ -522,7 +522,7 @@
 				<div class="top clearfix border_bottom">
 		        <!--按钮-->
 			       <c:if test="${isEditable}">
-			          <div class=" bluebtn btnbox_f btnbox_f1 clearfix">
+			          <div class="bluebtn btnbox_f btnbox_f1 clearfix">
 			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
 			          </div>
 			        </c:if>

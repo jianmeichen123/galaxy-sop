@@ -91,7 +91,7 @@ var pageId = "<%=pageId%>";
               </dd>
               <dd>
               <c:if test="${fx:hasPremission('meetingRecord_add')}">
-               <a href="javascript:;" class="bluebtn ico cx" id="add-meeting-btn">新增</a>
+               <a href="javascript:;" class="bluebtn ico cx xz" id="add-meeting-btn">新增</a>
               </c:if>
                <a href="javascript:;" class="bluebtn ico cx" action="querySearch">搜索</a>
               </dd>
