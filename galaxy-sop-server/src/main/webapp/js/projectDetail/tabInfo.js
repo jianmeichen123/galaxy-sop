@@ -1,4 +1,7 @@
 $(function(){
+	$('.edit_basic_table tr').hover(function(){
+		return false;
+	})
 		//统一显示
 		if(isTransfering == 'true')
 		{
