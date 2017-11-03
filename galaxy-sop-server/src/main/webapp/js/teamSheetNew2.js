@@ -420,6 +420,7 @@
 						});
 						
 						$(_dialog.id).find("#send-mail-btn").click(function(){
+							buryPoint("106");
 							if(!valdator.form())
 							{
 								return;

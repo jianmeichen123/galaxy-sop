@@ -336,18 +336,25 @@ function seven_link(data){
 	var _href=window.location.href;
 	setCookie("back_url",_href,24,'/');
 	if(data==1){
+		buryPoint("109");
 		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==2){
+		buryPoint("110");
 		window.location.href=platformUrl.toEvalindex+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==3){
+		buryPoint("111");
 		window.location.href=platformUrl.investigate+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==4){
+		buryPoint("112");
 		window.location.href=platformUrl.toDecision+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==5){
+		buryPoint("113");
 		window.location.href=platformUrl.toPreEva+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==6){
+		buryPoint("114");
 		window.location.href=platformUrl.toFinancing+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==7){
+		buryPoint("115");
 		window.location.href=platformUrl.toOperation+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}
 	

@@ -81,41 +81,48 @@ function initTabEquity(){
 }
 //访谈记录
 function initTabInterview(){
+	buryPoint("100");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/proview/" + projectId
 	});
 }
 //会议纪要
 function initTabMeeting(Id){
+	buryPoint("101");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/promeet/" + projectId
 	});
 }
 //交割前事项
 function initTabDelivery(){
+	buryPoint("102");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/delivery/toprodeliver/" + projectId
 	});
 }
 //注资信息
 function initTabAppropriation(projectId){
+	buryPoint("103");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/toAppropriation/null/"+projectId
 	});
 }
 //运营分析
 function initTabPostMeeting(){
+	buryPoint("104");
 	$.getTabHtml({
 		url : platformUrl.showOperationsAnalysis +'/'+ projectId
 	});
 }
 //项目文档
 function initTabSopFile(){
+	buryPoint("105");
 	tabFile.init(projectId);
 	
 }
 //操作日志
 function initTabOperLog(){
+	buryPoint("107");
 	var url = Constants.sopEndpointURL+"/galaxy/project/toprolog/" + projectId;
 	$.getTabHtml({
 		url : url

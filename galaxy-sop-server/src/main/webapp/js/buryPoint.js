@@ -87,7 +87,6 @@ function _mime(option, value) {
  * @param code
  */
 function buryPoint(code){
-//	/alert(Constants.buryEndpointURL);
 	var url=Constants.sopEndpointURL+"/galaxy/common/buryPoint";
 	  var pCode=code;
 	  var userId=userId;
@@ -95,7 +94,6 @@ function buryPoint(code){
       var os=1;
       var osType="";
       var osVersion=judgeBrower();
-      alert(osVersion);
       var hardware="";
       var softVersion="";
 	  var data={

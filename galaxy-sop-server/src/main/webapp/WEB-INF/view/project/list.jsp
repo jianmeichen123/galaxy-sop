@@ -363,6 +363,7 @@ var pageId = "project";
 			initPageSize = pageParams.pageSize;
 		}
 		$("button[action='querySearch']").click(function(){
+			buryPoint("98");
 			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 		});
 		/**

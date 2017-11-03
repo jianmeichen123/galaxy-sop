@@ -423,6 +423,7 @@ function showMailPopup()
 				ids.push($row.data('id'));
 			});
 			$(_dialog.id).find("#send-mail-btn").click(function(){
+				buryPoint("119");
 				if(!valdator.form())
 				{
 					return;

@@ -559,7 +559,6 @@ function cyIndexCallback(data){
 	}	
 }
 function dealtTask(){
-	console.log("chenjainmei1111");
 	window.location.href=$("#menus").find("[data-menueid='168']").attr("href");
 }
 

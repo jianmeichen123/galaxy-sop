@@ -347,7 +347,7 @@
 						});
 						
 						$(_dialog.id).find("#send-mail-btn").click(function(){
-							if(!valdator.form())
+					      if(!valdator.form())
 							{
 								return;
 							}

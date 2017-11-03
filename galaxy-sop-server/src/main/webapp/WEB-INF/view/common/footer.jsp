@@ -4,7 +4,16 @@
 %>
 <script>
 
-function menu_to_view(url,name){
+function menu_to_view(url,name,id){
+	if(id=="1071"){
+		buryPoint("96");
+	}else if(id=="1081"){
+		buryPoint("116");
+	}else if(id=="1091"){
+		buryPoint("117");
+	}else if(id=="1101" ){
+		buryPoint("118");
+	}
 	var _href=window.location.href;
 	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
 		var result=$(".pagebox").attr("data-result");
@@ -35,12 +44,12 @@ function createMenus(current){
 	   		 if(typeof(o.nodes) == "undefined" || o.nodes == null){
 	   			if(selected == o.id){
 		   			/* html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
-		   			html += '<li class="on"><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li class="on"><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\',\''+o.id+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   			//html += '<li class="on"><a href="javascript:;" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   			
 	   			}else{
 		   			/* html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
-		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\',\''+o.id+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   			//html += '<li><a href="javascript:;" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{

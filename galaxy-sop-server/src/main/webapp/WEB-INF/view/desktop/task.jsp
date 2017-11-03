@@ -87,6 +87,7 @@ function getValue(str) {
 	}
 }
 function dealtTask(){
+	buryPoint("95");
 	var url = Constants.sopEndpointURL + "galaxy/soptask" 
 	window.location.href=url;
 }
