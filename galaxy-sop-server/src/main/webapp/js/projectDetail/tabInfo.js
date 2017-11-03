@@ -82,6 +82,7 @@ $(function(){
 			var fs;
 			
         $("[data-on='data-open']").click(function (){
+        	var txt=$(this).text();
         	    isDelete=[];
 				if($(this).hasClass('limits_gray'))
 				{
@@ -100,6 +101,11 @@ $(function(){
 					}
 					buildShareResult("4","5812");
 					
+				}
+				if(txt=='领投'){
+					$('.investTogether_current .agency_radius span').text('领投机构')
+				}else{
+					$('.investTogether_current .agency_radius span').text('合投机构')
 				}
 				
 				//外层div一直显示 basic_on  show
