@@ -158,7 +158,7 @@
 					</tr>
 					<tr>
 						<td>
-							<span style="display:inline-block">融资轮次：</span>
+							<span style="display:inline-block">本轮融资轮次：</span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" autocomplete="off" autocomplete="off"  autocomplete="off"  onclick="dropdown_select(this,event)" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
 									<ul class='base_select_ul'> 
