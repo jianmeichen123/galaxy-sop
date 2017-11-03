@@ -3863,7 +3863,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
 #updateProjectInfo .basic_message_cont .basic_mes_left,#updateProjectInfo .basic_message_cont #dropdown,#updateProjectInfo .basic_message_cont .basic_mes_input,.real_ivestest_input{margin: 0; width:385px;position: absolute;left: 116px;top: 0px;}
 #updateProjectInfo .basic_message_cont .basic_mes_input{width:395px;}
-#updateProjectInfo .basic_message_cont #dropdown+.basic_mes_input{positive:relative;top: 10px;}
+#updateProjectInfo .basic_message_cont #dropdown+input.basic_mes_input{position:relative;top: 10px;}
 #updateProjectInfo .basic_message_cont .input_select{width:393px;}
 #updateProjectInfo .basic_message_cont #dropdown ul{width: 404px;right:-20px;}
 .vest_span{display:inline-block;position: absolute;left: 116px;top: 0px;width: 400px;}
