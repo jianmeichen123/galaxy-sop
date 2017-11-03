@@ -30,49 +30,14 @@ $(function(){
 	   /**
 		 * 加载项目详情数据
 		 */
-		var projectInfoDetail = '';
-		var projectInfoReport=[];
-		sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
-			if(data.result.status=='OK'){
-				console.log(data)
-				projectInfoDetail=data.userData.pro;
-				projectInfoList=data.userData.report[0].childList;
-			}
-		})
-		//项目名称截断
-		if(projectInfoDetail.projectName.length>24){
-			var str=projectInfoDetail.projectName.substring(0,24);
-		}
-		$("#project_name").text(str);
-		$("#project_name").attr("title",projectInfo.projectName);
 		var projectPro = projectInfoDetail.projectProgress;
 		if(projectPro=="projectProgress:10"){
 			$("#end").hide();
 			$("#s").hide();
 		}
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-			$("#project_name_title").text(projectInfoDetail.projectName);
-			$("#project_name_t").text(projectInfoDetail.projectName);
 			$("#project_name").text(projectInfoDetail.projectName);
-			$("#project_code").text(projectInfoDetail.projectCode);
-			$("#create_date").text(projectInfoDetail.createDate);
-			$("#updateDate").text(projectInfoDetail.updateDate);
-			$("#createUname").text(projectInfoDetail.createUname);
-			$("#projectCareerline").text(projectInfoDetail.projectCareerline);
-			$("#projectType").text(projectInfoDetail.type);
-			$("#projectProgress").text(projectInfoDetail.progress);
 			$("#projectStatusDs").text(projectInfoDetail.projectProgress=="projectProgress:10"?"":projectInfoDetail.projectStatusDs);
-			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-			$("#faName").text(projectInfoDetail.faFlagStr);
-			if(projectInfoDetail.faFlag=="projectSource:1"){
-				$("#faName").attr('data-original-title',projectInfoDetail.faName);
-				$("#faName[data-toggle='tooltip']").tooltip();//提示
-			}else{
-				$("#faName").removeAttr('data-original-title');
-			}
-			$('.version19_detail_header_box').css('visibility','visible')
-		    $("#remarkStr").text(projectInfoDetail.remark==""?"无":(projectInfoDetail.remark==null?"无":projectInfoDetail.remark));
 		    var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
