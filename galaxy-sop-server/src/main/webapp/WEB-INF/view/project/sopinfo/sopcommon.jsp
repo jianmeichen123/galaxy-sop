@@ -74,7 +74,7 @@ position:absolute;
 	</div>
 		
 </div>
-<div class="basic_on basic_common_width">
+<div class="basic_on basic_common_width sop_common_width">
 		<form id="basicForm1" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
 		<div class="basic_message message_current basic_current">

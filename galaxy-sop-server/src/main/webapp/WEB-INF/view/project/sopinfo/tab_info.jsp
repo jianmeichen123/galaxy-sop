@@ -113,7 +113,7 @@
 		<input type="hidden" id="pid" name="id" value="${projectId}"/>
 	</div>
 	<!-- 编辑页面 -->
-	<div class="basic_on basic_common_width">
+	<div class="basic_on basic_common_width tab_info_common_width">
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
 		<%-- <div class="basic_message message_current basic_current">

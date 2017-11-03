@@ -11,6 +11,7 @@ $(function(){
 			$('.'+close+'_on').hide();
 			$('.'+close+'_center').show();
 			$('.bj_hui_on').hide();
+			$('.bj_hui_on_common').hide();
 			$('.tip-yellowsimple').hide();
 			$("label.error").hide();
 			$("body").css('overflow-y','auto');
@@ -86,7 +87,7 @@ $(function(){
 				var open=$(this).attr('data-cont');
 				var common = $(this).attr('data-name');
 				if(open==="invest"){
-					$(".basic_common_width").css('max-height','505px');
+					$(".tab_info_common_width").css('max-height','505px');
 				};
 				if(open==="legal"){
 					var companyName= $('#projectCompany').text();
@@ -107,14 +108,14 @@ $(function(){
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
-					var wh = parseInt($(".basic_common_width").outerWidth(true)),
-					ht = parseInt($(".basic_common_width").outerHeight(true));
+					var wh = parseInt($(".tab_info_common_width").outerWidth(true)),
+					ht = parseInt($(".tab_info_common_width").outerHeight(true));
 					var win_w = $(window).width(),
 					win_h = $(window).height(),
 					win_x = (win_w-wh)/2,
 					win_y = (win_h-ht)/2;
 					//弹出层定位+显示
-					$(".basic_common_width").Fixed({
+					$(".tab_info_common_width").Fixed({
 						x:win_x,
 						y:win_y
 					});
