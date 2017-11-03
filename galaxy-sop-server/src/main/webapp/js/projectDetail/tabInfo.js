@@ -21,16 +21,6 @@ $(function(){
 			$('.radio_cont').removeClass('radio_checked')
 		})
 		
-		/**
-		 * 组装数据
-		 */
-		function responseData(){
-			var sel_val = $("#financeStatusDs").text();
-			if(sel_val!="A+轮"){
-				$("#finance_status_sel").find('option[text='+sel_val+']').prop("selected",true);
-			}
-		}
-		
 	   /**
 		 * 加载项目详情数据
 		 */
@@ -197,8 +187,7 @@ $(function(){
 			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
-			    responseData()//数据反显
-			    radio_faFlag(projectInfoDetail.faFlag);
+			   // radio_faFlag(projectInfoDetail.faFlag);
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
 					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
 					$("#faNameEdit").val(projectInfoDetail.faName);
@@ -504,11 +493,6 @@ $(function(){
 			};
 			return formatData;
 		}
-});
-$("select[name='projectSource']").change(function() {
-	// 0 y; 1 n
-	var $selectedvalue = $(this).find("option:selected").attr("value");
-	radio_faFlag($selectedvalue);
 });
 
 //是否为来源于中介
