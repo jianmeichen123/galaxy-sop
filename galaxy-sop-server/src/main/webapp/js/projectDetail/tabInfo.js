@@ -633,7 +633,7 @@ function updataReport(projectInfoList){
 	    			$.each(entityList,function(){
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
-						if(null!=title.value&& undefined!=title.value){
+						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val = title.value;
 							_val=_parsefloat(_val);
 							var I_val=_val
@@ -669,7 +669,7 @@ function updataReport(projectInfoList){
 	    			$.each(entityList,function(){
 	    				var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr({"data-type":title.type});	
-						if(null!=title.value&& undefined!=title.value){
+						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
