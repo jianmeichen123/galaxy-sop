@@ -137,7 +137,8 @@
 				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>127.0.0.1:2181</cluster.zk.address>
                 <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-                <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+              <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+               	<!--  <galaxy.project.bury.endpoint>http://10.8.233.150:8888/bury</galaxy.project.bury.endpoint> -->
 			</properties>
 		</profile>
 		<profile>

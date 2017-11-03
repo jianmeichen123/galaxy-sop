@@ -1,42 +1,11 @@
-
-buryPoint("95");
-/**
- * 埋点工功能相关js开始
- * @param code
- */
-function buryPoint(code){
-//	/alert(Constants.buryEndpointURL);
-	var url=Constants.sopEndpointURL+"/galaxy/common/buryPoint";
-	  var pCode=code;
-	  var userId=userId;
-      var recordDate=Date.parse(new Date());
-      var os=1;
-      var osType="";
-      var osVersion=judgeBrower();
-      var hardware="";
-      var softVersion="";
-	  var data={
-			  "pCode":pCode,
-			  "userId":userId,
-			  "recordDate":recordDate,
-			  "os":os,
-			  "osType":osType,
-			  "osVersion":osVersion,
-			  "hardware":hardware, 
-			  "softVersion":softVersion
-	  };
-	  sendPostRequestByJsonObj(url,data,function(resultDate){
-	  });
-	}
-
 function judgeBrower(){
 	  //application/vnd.chromium.remoting-viewer 可能为360特有
     var is360 = _mime("type", "application/vnd.chromium.remoting-viewer");
-    
     if (isChrome() && is360) { 
         return "360";
     }else{
-     myBrowser();
+         var result=myBrowser();
+         return result;
     }
 }
 //检测是否是谷歌内核(可排除360及谷歌以外的浏览器)
@@ -98,23 +67,49 @@ function _mime(option, value) {
 		}//isIE end
 		if (isFF) {
 		return "Firefox";
-		}else 
-		if (isOpera) {
+		}else if (isOpera) {
 			return "Opera";
-		}else 
-		if(isChrome && !isQQBrowser && isSafari&&!isEdge){
+		}else if(isChrome && !isQQBrowser && isSafari&&!isEdge){
 			return "Chrome";
-		}else
-		if(isQQBrowser && isChrome && isSafari){
+		}else if(isQQBrowser && isChrome && isSafari){
 		return 'QQBrowser';
-		}else
-		if(isSafari && !isQQBrowser && !isChrome){
+		}else if(isSafari && !isQQBrowser && !isChrome){
 		return "isSafari";
-		}else
-		if(isEdge){
-		return "isEdge";
+		}else if(isEdge){
+		   return "isEdge";
 		}else{
 			return "other";
 		}
 	}
+
+/**
+ * 埋点工功能相关js开始
+ * @param code
+ */
+function buryPoint(code){
+//	/alert(Constants.buryEndpointURL);
+	var url=Constants.sopEndpointURL+"/galaxy/common/buryPoint";
+	  var pCode=code;
+	  var userId=userId;
+      var recordDate=Date.parse(new Date());
+      var os=1;
+      var osType="";
+      var osVersion=judgeBrower();
+      alert(osVersion);
+      var hardware="";
+      var softVersion="";
+	  var data={
+			  "pCode":pCode,
+			  "userId":userId,
+			  "recordDate":recordDate,
+			  "os":os,
+			  "osType":osType,
+			  "osVersion":osVersion,
+			  "hardware":hardware, 
+			  "softVersion":softVersion
+	  };
+	  sendPostRequestByJsonObj(url,data,function(resultDate){
+	  });
+	}
+
 

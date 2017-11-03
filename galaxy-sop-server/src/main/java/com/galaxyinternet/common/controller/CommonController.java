@@ -29,13 +29,14 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.BuryPoint;
+import com.galaxyinternet.framework.core.model.BuryPointEntity;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.BuryRequest;
-import com.galaxyinternet.model.BuryPoint;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hologram.InformationData;
@@ -452,16 +453,13 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	public ResponseData<User> buryPoint(HttpServletRequest request,@RequestBody 
 			BuryPoint buryPoint) {
 		// TODO Auto-generated method stub
-		Map<String,String> params=new HashMap<String,String>();
-		params.put("pCode", buryPoint.getpCode());
-		params.put("userId", buryPoint.getUserId());
-		params.put("recordDate", buryPoint.getRecordDate().toString());
-		params.put("os", "1");
-		params.put("osVersion",buryPoint.getOsVersion());
-		params.put("hardware", buryPoint.getHardware());
-		String sessionId = request.getHeader(Constants.SESSION_ID_KEY);
-		params.put("sessionId", sessionId);
-		String result = buryRequest.burySave(params);
+		User user = (User) getUserFromSession(request);
+		BuryPointEntity entity=new BuryPointEntity();
+		List<BuryPoint>  list=new ArrayList<BuryPoint>();
+		buryPoint.setUserId(user.getId().toString());
+		list.add(buryPoint);
+		entity.setList(list);
+		String result = buryRequest.burySave(entity);
 		ResponseData<User> responseBody = new ResponseData<User>();
 		if(null!=result&&!"".equals(result)){
 			responseBody.setResult(new Result(Status.OK, null, "埋点成功！"));

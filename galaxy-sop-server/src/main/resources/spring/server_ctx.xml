@@ -37,7 +37,6 @@
 				<value>galaxy.project.platform.endpoint</value>
 				<value>galaxy.project.report.endpoint</value>
 				<value>galaxy.project.sop.endpoint</value>
-				<value>galaxy.project.bury.endpoint</value>
 			</list>
 		</constructor-arg>
 		<constructor-arg index="2" ref="cache" />
@@ -49,7 +48,9 @@
 		scope="singleton"/>
 	
 	
-	<bean  class="com.galaxyinternet.framework.core.utils.BuryRequest" p:burySaveUrl="${galaxy.project.bury.endpoint}">
+	<bean  class="com.galaxyinternet.framework.core.utils.BuryRequest" 
+	p:burySaveUrl="${galaxy.project.bury.endpoint}"
+	p:burySoftWareVersion="${buryPoint.softWare.vesion}">
 	    
 	</bean>
 	
