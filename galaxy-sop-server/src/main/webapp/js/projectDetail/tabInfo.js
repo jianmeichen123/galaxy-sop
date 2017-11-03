@@ -136,6 +136,7 @@ $(function(){
 				$("#industry_own_sel").val(projectInfoDetail.industryOwnDs);
 				$("#finance_status_sel").val(projectInfoDetail.financeStatusDs)
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
+				$("#faNameEdit").val(projectInfoDetail.faName);
 				//添加投资形式字段
 				if(projectInfoDetail.financeMode!=undefined&&projectInfoDetail.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
@@ -190,7 +191,6 @@ $(function(){
 			   // radio_faFlag(projectInfoDetail.faFlag);
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
 					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
-					$("#faNameEdit").val(projectInfoDetail.faName);
 					$("#faNameEdit").css("display","block");
 					$("#faNameEdit").attr('required','required');
 				}else{

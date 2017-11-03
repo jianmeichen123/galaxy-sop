@@ -59,7 +59,7 @@ $(function(){
 				$("#industry_own_sel").val(projectInfoDetail.industryOwnDs);
 				$("#finance_status_sel").val(projectInfoDetail.financeStatusDs)
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
-				
+				$("#faNameEdit").val(projectInfoDetail.faName);
 				//投资形式合投，领头编辑页面投资列表处理
 				
 				 p=projectInfoDetail.industryOwn;
@@ -77,6 +77,14 @@ $(function(){
 			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
+				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
+					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
+					$("#faNameEdit").css("display","block");
+					$("#faNameEdit").attr('required','required');
+				}else{
+					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
+					$("#faNameEdit").css("display","none");
+				}
 			
 			})
 			function CallBackB(data){
