@@ -54,7 +54,7 @@ position:absolute;
         	</div>
         	<div class='fr four'>
         		<c:if test="${isEditable}">
-					<span class="version19_edit_btn" data-name="basic"  data-on="data-open" data-cont="message">编辑</span>
+					<span class="version19_edit_btn" data-name="basic"  data-on="data-open-basic" data-cont="message">编辑</span>
 				</c:if>
 				<span class="b_span version19_blue_btn" onclick="back();">返回</span>
         	</div>
@@ -74,6 +74,91 @@ position:absolute;
 	</div>
 		
 </div>
+<div class="basic_on basic_common_width sop_common_width">
+		<form id="basicForm1" onsubmit="return false;">
+		<!-- 编辑基本信息 -->
+		<div class="basic_message message_current basic_current">
+		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息<em class="agency_close" data-on="close" data-name="basic"></em></div>
+		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+			<div class="basic_message_cont">
+				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
+					<tr>
+						<td>
+							<span>投资经理：</span><span class="basic_mes_left">小王</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>项目类型：</span><span class="basic_mes_left" id="projectType_edit">2017-10-23</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>创建时间：</span><span class="basic_mes_left">2017-10-23</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>项目名称：</span>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空" aria-required="true"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>行业归属：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" autocomplete="off"  onclick="dropdown_select(this,event)"  value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
+									<ul class='base_select_ul'> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
+									</ul> 
+							</div> 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>本轮融资轮次：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" autocomplete="off" autocomplete="off"  autocomplete="off"  onclick="dropdown_select(this,event)" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
+									<ul class='base_select_ul'> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
+									</ul> 
+							</div> 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>项目来源：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" autocomplete="off"  onclick="dropdown_select(this,event)" value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+									<ul class='base_select_ul'> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
+									</ul> 
+							</div>
+							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+						</td>
+					</tr>
+				</table>
+			
+			</div>
+	    </div>
+	   		<div class="btn btnbox basic_mes_button">
+              <button  class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type='save_basic'>保存</button>
+              <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
+            </div> 
+	    </div>
+	 </form>
+</div>
+<!--隐藏-->
+<div class="bj_hui_on_common"></div>
 </body>
 <%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
 <!-- 高管/投资经理 -->
@@ -81,6 +166,7 @@ position:absolute;
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
+<script src="<%=path %>/js/projectDetail/tabInfoCommon.js" type="text/javascript"></script>
 <script>
 /* var number_on;
 $(function(){

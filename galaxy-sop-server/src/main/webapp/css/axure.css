@@ -1670,7 +1670,7 @@ word-wrap:break-word;
 .color_pass{ color:#00ba00}
 .color_undetermined{ color:#ff9a48}
 .color_veto{ color:#ff9a48}
-.bj_hui_on{
+.bj_hui_on,.bj_hui_on_common{
     position: fixed;
     _position: absolute;
     left: 0;

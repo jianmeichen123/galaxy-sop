@@ -113,10 +113,10 @@
 		<input type="hidden" id="pid" name="id" value="${projectId}"/>
 	</div>
 	<!-- 编辑页面 -->
-	<div class="basic_on basic_common_width">
+	<div class="basic_on basic_common_width tab_info_common_width">
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
-		<div class="basic_message message_current basic_current">
+		<%-- <div class="basic_message message_current basic_current">
 		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息<em class="agency_close" data-on="close" data-name="basic"></em></div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
@@ -193,7 +193,7 @@
               <button  class="pubbtn bluebtn version19_save_btn" data-on="save" save_type='save_basic'>保存</button>
               <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 
-	    </div>
+	    </div> --%>
 	    <!-- 编辑融资计划 -->
 	 	   <div class="finacing_plan finicial_current basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划<em class="agency_close" data-on="close" data-name="basic"></em></div>
@@ -349,7 +349,7 @@
 	 	   
 	 	   <!-- 合投机构 --> 
 	 	   <div class="agency_institute investTogether_current">
-	 	   		<div class="title_bj_tzjl agency_radius">合投机构 <em class="agency_close" data-on="close" data-name="investTogether"></em></div>
+	 	   		<div class="title_bj_tzjl agency_radius"><span>合投机构</span> <em class="agency_close" data-on="close" data-name="investTogether"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont invest_max_height">
 						 <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >

@@ -1,4 +1,7 @@
 $(function(){
+	$('.edit_basic_table tr').hover(function(){
+		return false;
+	})
 		//统一显示
 		if(isTransfering == 'true')
 		{
@@ -11,21 +14,12 @@ $(function(){
 			$('.'+close+'_on').hide();
 			$('.'+close+'_center').show();
 			$('.bj_hui_on').hide();
+			$('.bj_hui_on_common').hide();
 			$('.tip-yellowsimple').hide();
 			$("label.error").hide();
 			$("body").css('overflow-y','auto');
 			$('.radio_cont').removeClass('radio_checked')
 		})
-		
-		/**
-		 * 组装数据
-		 */
-		function responseData(){
-			var sel_val = $("#financeStatusDs").text();
-			if(sel_val!="A+轮"){
-				$("#finance_status_sel").find('option[text='+sel_val+']').prop("selected",true);
-			}
-		}
 		
 	   /**
 		 * 加载项目详情数据
@@ -78,6 +72,7 @@ $(function(){
 			var fs;
 			
         $("[data-on='data-open']").click(function (){
+        	var txt=$(this).text();
         	    isDelete=[];
 				if($(this).hasClass('limits_gray'))
 				{
@@ -86,7 +81,7 @@ $(function(){
 				var open=$(this).attr('data-cont');
 				var common = $(this).attr('data-name');
 				if(open==="invest"){
-					$(".basic_common_width").css('max-height','505px');
+					$(".tab_info_common_width").css('max-height','505px');
 				};
 				if(open==="legal"){
 					var companyName= $('#projectCompany').text();
@@ -96,6 +91,11 @@ $(function(){
 					}
 					buildShareResult("4","5812");
 					
+				}
+				if(txt=='领投'){
+					$('.investTogether_current .agency_radius span').text('领投机构')
+				}else{
+					$('.investTogether_current .agency_radius span').text('合投机构')
 				}
 				
 				//外层div一直显示 basic_on  show
@@ -107,14 +107,14 @@ $(function(){
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
-					var wh = parseInt($(".basic_common_width").outerWidth(true)),
-					ht = parseInt($(".basic_common_width").outerHeight(true));
+					var wh = parseInt($(".tab_info_common_width").outerWidth(true)),
+					ht = parseInt($(".tab_info_common_width").outerHeight(true));
 					var win_w = $(window).width(),
 					win_h = $(window).height(),
 					win_x = (win_w-wh)/2,
 					win_y = (win_h-ht)/2;
 					//弹出层定位+显示
-					$(".basic_common_width").Fixed({
+					$(".tab_info_common_width").Fixed({
 						x:win_x,
 						y:win_y
 					});
@@ -136,6 +136,7 @@ $(function(){
 				$("#industry_own_sel").val(projectInfoDetail.industryOwnDs);
 				$("#finance_status_sel").val(projectInfoDetail.financeStatusDs)
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
+				$("#faNameEdit").val(projectInfoDetail.faName);
 				//添加投资形式字段
 				if(projectInfoDetail.financeMode!=undefined&&projectInfoDetail.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
@@ -187,11 +188,9 @@ $(function(){
 			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
-			    responseData()//数据反显
-			    radio_faFlag(projectInfoDetail.faFlag);
+			   // radio_faFlag(projectInfoDetail.faFlag);
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
 					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
-					$("#faNameEdit").val(projectInfoDetail.faName);
 					$("#faNameEdit").css("display","block");
 					$("#faNameEdit").attr('required','required');
 				}else{
@@ -494,11 +493,6 @@ $(function(){
 			};
 			return formatData;
 		}
-});
-$("select[name='projectSource']").change(function() {
-	// 0 y; 1 n
-	var $selectedvalue = $(this).find("option:selected").attr("value");
-	radio_faFlag($selectedvalue);
 });
 
 //是否为来源于中介
