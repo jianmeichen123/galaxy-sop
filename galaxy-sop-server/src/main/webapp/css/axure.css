@@ -874,28 +874,6 @@ pre{white-space:pre-wrap;margin:0;}
 .fade.in {
   opacity: 1;
 }
-.tooltip-inner {
-  padding: 3px 8px;
-  color: #fff;
-  text-align: center;
-  background-color: #000;
-  border-radius: 4px;
-}
-.tooltip-arrow {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-}
-.tooltip.top .tooltip-arrow {
-  bottom: 0;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px 5px 0;
-  border-top-color: #000;
-}
-
 /* 投后静态预览 */
 .label_static{position: relative;}
 .label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 999;}
@@ -2276,7 +2254,7 @@ margin: 45px auto 30px;}
 .xingmou{background-position: -37px -1230px;}
 .usermsg div.xingmou a{padding-left: 27px;}
 .usermsg div.xingmou .navbar{left:4px;width:24px;}
-.man_info{position:relative;height:50px;}
+.man_info{position:relative;height:35px;}
 .man_info .name{position:absoute;}
 .usermsg a,.man_info span{font-size: 12px;font-family: "Microsoft YaHei";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
