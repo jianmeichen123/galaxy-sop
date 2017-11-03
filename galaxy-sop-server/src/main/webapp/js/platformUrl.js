@@ -1271,6 +1271,7 @@ var platformUrl = {
      * 下载 全息报告doc
      */
     downNOdoc : Constants.sopEndpointURL + "/galaxy/binfo/downNO/",
+    downENdoc : Constants.sopEndpointURL + "/galaxy/binfo/downxEN/",
 }
 
 /**
