@@ -87,7 +87,7 @@ var planGrid = {
 			columns : [{
 				field : 'fileName',
 				title : '文档名称',
-				formatter : gridFormatter.fileNameFormatter
+				formatter : 'fileNameFormatter'
 			}, {
 				field : 'fileStatusDesc',
 				title : '状态'
@@ -110,6 +110,15 @@ var planGrid = {
 
 
 };
+
+function fileNameFormatter(value,row,index){
+	if(row.fileName && row.fileName.length>50){
+		var info="<span title='"+row.fileName+"'>"+row.fileName.substring(0,50)+"</span>"
+	}else{
+		var info="<span title='"+row.fileName+"'>"+row.fileName+"</span>"
+	}
+	return info;
+}
 /**
  * 初始化商业计划模块
  * param :
