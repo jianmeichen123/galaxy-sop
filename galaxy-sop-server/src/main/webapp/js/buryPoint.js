@@ -34,59 +34,41 @@ function _mime(option, value) {
 	var isChrome = userAgent.indexOf("Chrome") > -1; //判断是否Opera浏览器
 	var isQQBrowser=userAgent.indexOf("QQBrowser") > -1; 
 	var isEdge = userAgent.indexOf("Edge") > -1 && isChrome;
-			if (isIE) {
-			var IE5 = IE55 = IE6 = IE7 = IE8 =IE9= false;
-			var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-			reIE.test(userAgent);
-			var fIEVersion = parseFloat(RegExp["$1"]);
-			IE55 = fIEVersion == 5.5;
-			IE6 = fIEVersion == 6.0;
-			IE7 = fIEVersion == 7.0;
-			IE8 = fIEVersion == 8.0;
-			IE9 = fIEVersion == 9.0;
-			 IE10 = fIEVersion == 10.0;
-			 IE11 = fIEVersion == 11.0;
-				if (IE55) {
-				   return "IE55" ;
-				}
-				if (IE6) {
-				   return "IE6" ;
-				}
-				if (IE7) {
-				   return "IE7" ;
-				}
-				if (IE8) {
-				   return "IE8" ;
-				}
-				if (IE9) {
-				   return "IE9" ;
-				}
-				if (IE11) {
-				  return "IE11";
-				}
-		}//isIE end
-		if (isFF) {
-		return "Firefox";
-		}else if (isOpera) {
-			return "Opera";
-		}else if(isChrome && !isQQBrowser && isSafari&&!isEdge){
-			return "Chrome";
-		}else if(isQQBrowser && isChrome && isSafari){
+	
+		
+	var Sys = {};
+    var ua = navigator.userAgent.toLowerCase();
+    var s;
+    (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+    (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] : 0;
+    
+    if (Sys.ie) {
+    	return 'IE: ' + Sys.ie;
+    }else if (isFF) {
+    	return "Firefox";
+	}else if (isOpera) {
+		return "Opera";
+	}else if(isChrome && !isQQBrowser && isSafari&&!isEdge){
+		return "Chrome";
+	}else if(isQQBrowser && isChrome && isSafari){
 		return 'QQBrowser';
-		}else if(isSafari && !isQQBrowser && !isChrome){
+	}else if(isSafari && !isQQBrowser && !isChrome){
 		return "isSafari";
-		}else if(isEdge){
-		   return "isEdge";
-		}else{
-			return "other";
-		}
+	}else if(isEdge){
+	    return "isEdge";
+	}else{
+		return "other";
 	}
+	
+
+}
 
 /**
  * 埋点工功能相关js开始
  * @param code
  */
 function buryPoint(code){
+	console.log("!!!!!!!!!!!")
 	var url=Constants.sopEndpointURL+"/galaxy/common/buryPoint";
 	  var pCode=code;
 	  var userId=userId;
