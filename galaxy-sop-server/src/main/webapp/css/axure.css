@@ -3913,4 +3913,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .agency_institute table th,.agency_institute table td{text-align:center; border-bottom:.5px solid #d8d8d8;}
  .agency_institute .invest_max_height{width: auto; padding: 0 24px;}
  #add_meet_dialog dd #meetingType{width:225px;}
- .member table.team_info .on td{ background:#fff}
+ .member table.team_info .on td{ background:none;}
