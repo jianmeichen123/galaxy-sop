@@ -637,7 +637,7 @@
 		var index = $(this).index();
 		if(index===1){
 			$('.invest_institue').show();
-			$(".invest_type").text('领投机构：');
+			$(".invest_type").text('跟投机构：');
 		}else if(index===2){
 			$('.invest_institue').show();
 			$(".invest_type").text('合投机构：');
