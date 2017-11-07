@@ -144,8 +144,8 @@
 		  <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
 	      <if test="fileId != null" > file_id = #{fileId,jdbcType=BIGINT}, </if>
 	      <if test="viewDate != null" > view_date = #{viewDate,jdbcType=TIMESTAMP}, </if>
-	      <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
-	      <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
+	     <!--  <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
+	     -->  <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
 	       <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	      <if test="createdId != null" > created_id= #{createdId,jdbcType=BIGINT}, </if>
