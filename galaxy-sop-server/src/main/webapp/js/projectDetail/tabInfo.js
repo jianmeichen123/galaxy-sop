@@ -93,7 +93,7 @@ $(function(){
 					
 				}
 				if(txt=='领投'){
-					$('.investTogether_current .agency_radius span').text('领投机构')
+					$('.investTogether_current .agency_radius span').text('跟投机构')
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
 				}
@@ -150,7 +150,7 @@ $(function(){
 					//机构显示
 					var investForm= $(".radio_checked input[name='investForm']").val();
 					if(investForm=="financeMode:1"){
-						$(".invest_institue .invest_type").text("领投机构：");
+						$(".invest_institue .invest_type").text("跟投机构：");
 						$(".invest_institue").show();
 					}else if(investForm=="financeMode:2"){
 						$(".invest_institue .invest_type").text("合投机构：");

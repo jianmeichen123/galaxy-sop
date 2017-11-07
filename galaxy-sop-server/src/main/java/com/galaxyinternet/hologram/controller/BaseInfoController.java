@@ -8,6 +8,7 @@ import com.galaxyinternet.common.utils.DocxExportUtil;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -172,13 +174,14 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		String currTime = System.currentTimeMillis()+"";
+		String ymd = DateUtil.convertDateToStringForTeamCode(new Date());
 
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"EN",currTime,tempfilePath);
 		map.putAll(reportExportService.titleScoreResult(pid,"EN"));
 
-		String fn1 = project.getProjectName() + "评测报告概览.docx";
-		String fn2 = project.getProjectName() + "评测报告内容.docx";
+		String fn1 = project.getProjectName() + "评测报告概览"+ymd+".docx";
+		String fn2 = project.getProjectName() + "评测报告内容"+ymd+".docx";
 
 		String dfn1 = currTime + "pcgl";
 		String dfn2 = currTime + "pclr";
@@ -196,7 +199,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			docExportUtil1.creatDocxAsZip(map,currTime,false);
 			docExportUtil2.creatDocxAsZip(map,currTime,true);
 
-			String zipName = project.getProjectName() + "评测报告.zip";
+			String zipName = project.getProjectName() + "评测报告"+ymd+".zip";
 			Map<String, String> dname_sname = new HashMap<>();
 			dname_sname.put(dfn1,fn1);
 			dname_sname.put(dfn2,fn2);
