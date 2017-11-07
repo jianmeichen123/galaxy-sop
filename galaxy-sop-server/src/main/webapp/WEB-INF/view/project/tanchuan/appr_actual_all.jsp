@@ -149,7 +149,7 @@
 				return false;
 				
 			}  
-		var fields = $.find("input[type='text'][data-title-id]");
+		var fields = $('#b_apprGrantTotal').find("input[type='text'][data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');

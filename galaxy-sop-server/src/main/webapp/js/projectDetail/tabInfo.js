@@ -821,7 +821,11 @@ function base_chart(data_id,name,border_color,pice_color,data){
 	var sdata_id = echarts.init(document.getElementById(data_id));
 	sdata_id.setOption(option, true);
 }
-
+$(function(){
+	$("table tr").hover(function(){
+		return false;
+	})
+})
 /**
  * chart案例结束
  */

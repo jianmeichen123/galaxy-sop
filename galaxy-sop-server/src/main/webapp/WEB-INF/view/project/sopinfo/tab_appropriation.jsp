@@ -161,7 +161,7 @@ var searchPartMoney;
 						$('input#grantMoney').addClass('disabled');
 					}
 					$("#projectId").val(pId);
-					 getTotalAppr(projectInfo.id);
+					 getTotalAppr(projectInfo.id,_data_type != "info");
 					//计算剩余金额
 		                var totalMoneyPart=$("#totalMoneyPart").val();
 		                $("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
@@ -297,14 +297,19 @@ var searchPartMoney;
 		/**
 		 * 获取总注资计划并校验
 		 * @param projectId
+		 * @param valiate 是否验证总计划信息
 		 * @returns {Boolean}
 		 */
-		function getTotalAppr(projectId){
+		function getTotalAppr(projectId,validate){
 			var flag = false;
 			var params={};
+			if(typeof(validate) == 'undefined')
+			{
+				validate = true;
+			}
 			params.projectId = projectId;
 			sendPostRequestByJsonObj(
-						Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+						Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr?validate='+validate , 
 						params,
 						function(data){
 							if(data.result.status == "OK"){

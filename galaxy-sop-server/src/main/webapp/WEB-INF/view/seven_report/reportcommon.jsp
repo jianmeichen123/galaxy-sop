@@ -199,7 +199,12 @@ function backList(url){   //返回项目列表页
  * 导出报告
  */
 function downExport() {
-    window.location.href = platformUrl.downNOdoc + pid+"?sid="+sessionId+"&guid="+userId;
+	var _href=window.location.href;
+	if(_href.indexOf('toBaseInfo')>-1){
+		 window.location.href = platformUrl.downNOdoc + pid+"?sid="+sessionId+"&guid="+userId;
+	}else if(_href.indexOf('toEvalindex')>-1){
+		window.location.href = platformUrl.downENdoc + pid+"?sid="+sessionId+"&guid="+userId;
+	}
 }
 </script>
 

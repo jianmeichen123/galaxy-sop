@@ -284,6 +284,8 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	@RequestMapping(value = "/getTotalAppr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationResult> getTotalAppr(@RequestBody InformationResult informationResult,HttpServletRequest request){
 		
+		boolean validate = "true".equals(request.getParameter("validate"));
+		
 		ResponseData<InformationResult> response = new ResponseData<InformationResult>();
 		if(StringUtils.isEmpty(informationResult.getProjectId()) && StringUtils.isEmpty(informationResult.getTitleId())){
 			response.setResult(new Result(Status.ERROR,"参数丢失."));
@@ -300,7 +302,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			List<InformationResult> list = informationResultService.queryList(informationResult);
 			if(list != null && list.size() == titleIds.length){
 				for(InformationResult ir : list){
-					if(StringUtils.isEmpty(ir.getContentDescribe1())){
+					if(validate && StringUtils.isEmpty(ir.getContentDescribe1())){
 						map.clear();
 						break;
 					}
