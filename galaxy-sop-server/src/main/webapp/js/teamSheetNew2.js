@@ -120,14 +120,15 @@
 									var extensionsZip="zip,rar,ZIP,RAR";
 									var extensionsDoc="doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS";
 									if(extensionsImage.indexOf(type)>-1 || extensionsZip.indexOf(type)>-1 || extensionsDoc.indexOf(type)>-1){
-										uploader.start();
-										return false;
-										var $fileType = $(_this).find("#win_fileType");
-										
 										//解决多次文件选择后，文件都存入upload
 										if(uploader.files.length >= 2){
 											uploader.splice(0, uploader.files.length-1)
 										}
+										uploader.start();
+										return false;
+										var $fileType = $(_this).find("#win_fileType");
+										
+										
 										plupload.each(files, function(file) {
 //											document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 											$(_this).find("#win_fileTxt").val(file.name);   
