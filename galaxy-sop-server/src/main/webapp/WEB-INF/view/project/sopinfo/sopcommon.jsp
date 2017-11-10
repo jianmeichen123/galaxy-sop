@@ -203,6 +203,9 @@ sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationRes
 if(projectInfoDetail.projectName.length>24){
 			var str=projectInfoDetail.projectName.substring(0,24);
 		}
+if(projectInfoDetail.projectName.length>20){
+	$('.project_name_t').css('font-size','24px')
+}
 		$("#project_name").text(str);
 		$("#project_name").attr("title",projectInfo.projectName);
 		var projectPro = projectInfoDetail.projectProgress;

@@ -3750,18 +3750,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .version19_detail_header_box{visibility:hidden;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
 .version19_detail_header .project_name_t{font-family:Microsoft YaHei;font-size:32px;color:#202533;line-height:32px;text-align:left;}
-@media screen and (max-width: 1440px) {
-   .version19_detail_header .project_name_t {
-        font-size:28px;
-        line-height:28px;
-    }
-}
-@media screen and (max-width: 1280px) {
-   .version19_detail_header .project_name_t {
-        font-size:26px;
-        line-height:26px;
-    }
-}
 .version19_detail_header .two .middot{margin:0 5px;}
 .version19_detail_header .three{border-radius:10px;}
 .version19_detail_header .three span{display:inline-block;height:20px;line-height:20px;padding:0 10px;font-size:12px;color:#ffffff;border-radius:10px;margin-right:10px;}
