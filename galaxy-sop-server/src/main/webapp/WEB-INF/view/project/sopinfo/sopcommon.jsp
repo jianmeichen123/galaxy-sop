@@ -205,6 +205,8 @@ if(projectInfoDetail.projectName.length>24){
 		}
 if(projectInfoDetail.projectName.length>20){
 	$('.project_name_t').css('font-size','24px')
+}else{
+	$('.project_name_t').css('font-size','32px')
 }
 		$("#project_name").text(str);
 		$("#project_name").attr("title",projectInfo.projectName);

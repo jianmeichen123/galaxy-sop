@@ -178,8 +178,6 @@ $(function(){
 			var data="";
 			if(s_type=="save_basic"){
 				data=getUpdateDataBasic();
-				console.log('&&&&&&&&&&&&&7');
-				console.log(data);
 				if(!$("#basicForm1").validate().form())
 				{
 					return;
@@ -207,6 +205,11 @@ $(function(){
 								$("#faName[data-toggle='tooltip']").tooltip();//提示
 							}else{
 								$("#faName").removeAttr('data-original-title');
+							}
+							if(projectInfoDetail.projectName.length>20){
+								$('.project_name_t').css('font-size','24px')
+							}else{
+								$('.project_name_t').css('font-size','32px')
 							}
 						});
 						updateReportMoneyBasic(); 
