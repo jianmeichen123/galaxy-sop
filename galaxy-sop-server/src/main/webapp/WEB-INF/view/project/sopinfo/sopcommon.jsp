@@ -84,7 +84,7 @@ position:absolute;
 				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 					<tr>
 						<td>
-							<span>投资经理：</span><span class="basic_mes_left">小王</span>
+							<span>投资经理：</span><span class="basic_mes_left" id="createUname_edit"></span>
 						</td>
 					</tr>
 					<tr>
@@ -94,7 +94,7 @@ position:absolute;
 					</tr>
 					<tr>
 						<td>
-							<span>创建时间：</span><span class="basic_mes_left">2017-10-23</span>
+							<span>创建时间：</span><span class="basic_mes_left" id="create_date_edit">2017-10-23</span>
 						</td>
 					</tr>
 					<tr>

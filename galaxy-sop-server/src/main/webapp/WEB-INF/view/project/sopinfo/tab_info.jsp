@@ -327,8 +327,8 @@
 							<tr>
 								<td style="position:relative;">
 									<span>成立日期：</span>
-									<input type="text" value="" class="basic_mes_input " name="formationDate" onkeydown="return false;"  data-title-id="1816">
-									<i class="legal_date"></i>
+									<input type="text" value="" class="basic_mes_input legal_date" name="formationDate" onkeydown="return false;"  data-title-id="1816">
+									<!-- <i class="legal_date"></i> -->
 								</td>
 							</tr>
 							<tr>
