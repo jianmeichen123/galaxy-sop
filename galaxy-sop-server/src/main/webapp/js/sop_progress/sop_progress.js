@@ -78,7 +78,7 @@ function interviewList(){
 }
 function meetList(type){
 	$('#projectProgress_1_table').bootstrapTable('destroy');
-	$("#meetingType").val(type);
+	$("#projectProgress_1_table_custom-toolbar #meetingType").val(type);
 	$("#sop_projectId").val(projectId);
 	$('#projectProgress_1_table').bootstrapTable({
 		url:Constants.sopEndpointURL+'/galaxy/progress/p/queryMeet',
