@@ -3881,8 +3881,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .legal_person{height:318px;}
  .short_num{display:inline-block;margin-left:33px;width:auto !important;}
  .legal_input{margin-left:5px;}
- .legal_date{display:inline-block;position:absolute;right:10px;top:7px;cursor:pointer;width:20px;height:20px;background:url('../img/base_info/pop_icon.png') no-repeat  -134px -14px}
- .legal_date:hover,.legal_date:active{background-position:-134px -62px;}
+ .legal_date{cursor:pointer;background:url('../img/base_info/pop_icon_datepick.png') no-repeat  402px -8px}
+ .legal_date:hover,.legal_date:active{background-position:402px -56px;}
  .legal_person{display:none;}
  .agency_institute{display:none;}
  .radioclass{opacity:0;cursor:pointer;filter:alpha(opacity=0);}
