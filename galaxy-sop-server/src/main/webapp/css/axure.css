@@ -14,6 +14,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 /* 去掉ie中input框右侧的X */
  ::-ms-clear{display: none;}
  /*弹窗列表*/
+ #businessplan-history-dialog{height:400px;}
  #businessplan-history-dialog .fixed-table-body{max-height:350px; overflow-y:auto}
 /*固定弹窗排期头部*/
 .fixed_table_tit{position:fixed; width:775px}
