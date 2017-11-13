@@ -19,6 +19,7 @@ import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ReportExportService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,8 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ScoreInfoService scoreInfoService;
 
 
 	@Value("${sop.oss.tempfile.path}")
@@ -179,6 +182,9 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"EN",currTime,tempfilePath);
 		map.putAll(reportExportService.titleScoreResult(pid,"EN"));
+
+		Map<String,String>  weight = scoreInfoService.getTabWeight("EN",pid);
+		map.putAll(weight);
 
 		String fn1 = project.getProjectName() + "评测报告概览"+ymd+".docx";
 		String fn2 = project.getProjectName() + "评测报告内容"+ymd+".docx";
