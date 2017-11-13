@@ -97,6 +97,10 @@
 		var vinputValRule_3 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 		return this.optional(element) || (vinputValRule_3.test(value));
 	}, "不能超过100"); 
+	jQuery.validator.addMethod("verify_32_0", function(value, element) {   
+		var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+		return this.optional(element) || (verify_32_0.test(value));
+	}, "支持0-100之间的两位小数"); 
 	//inputValRuleMark=="3,2"
 	jQuery.validator.addMethod("verify_32", function(value, element) {   
 		var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
