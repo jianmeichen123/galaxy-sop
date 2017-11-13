@@ -270,7 +270,7 @@
 										</label>
 										<label class='radio_cont' data-name="">
 											<input type="radio"  name="investForm" value="financeMode:1" class="radioclass"/>
-											领投
+											跟投
 										</label>
 										<label class='radio_cont'>
 											<input type="radio" name="investForm" value="financeMode:2" class="radioclass"/>

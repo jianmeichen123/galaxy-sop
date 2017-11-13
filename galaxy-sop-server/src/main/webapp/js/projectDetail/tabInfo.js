@@ -38,7 +38,7 @@ $(function(){
 			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 		    $("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 		    $("#financeMode").tooltip();//提示
-		    if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
+		    if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="跟投"){
 				$("#financeMode").removeAttr("data-original-title");
 				$("#financeMode").addClass("hide");
 				$('#financeMode').addClass('pointer-events');
@@ -92,7 +92,7 @@ $(function(){
 					buildShareResult("4","5812");
 					
 				}
-				if(txt=='领投'){
+				if(txt=='跟投'){
 					$('.investTogether_current .agency_radius span').text('跟投机构')
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
@@ -429,7 +429,7 @@ $(function(){
 						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看"+projectInfoDetail.fModeRemark+"列表"));
 						$("#financeMode").tooltip();//提示
-						if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
+						if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="跟投"){
 							$("#financeMode").removeAttr("data-original-title");
 							$("#financeMode").addClass("hide");
 							$('#financeMode').addClass('pointer-events');
