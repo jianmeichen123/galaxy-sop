@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
-	String pageId = "meetView";
 %>
 <!doctype html>
 <html>
@@ -19,9 +18,6 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript">
-var pageId = "<%=pageId%>";
-</script>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
 <style>
@@ -140,6 +136,7 @@ var pageId = "<%=pageId%>";
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
+setPageId("meetView");
 var transferingIds = "${fx:getTransferingPids()}".split(",");
 </script>
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>

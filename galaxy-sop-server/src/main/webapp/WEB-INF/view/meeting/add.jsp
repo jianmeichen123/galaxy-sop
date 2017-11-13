@@ -139,6 +139,7 @@
 </div>	
 </form>
 <script>
+setPageId("meetingRecord_detail");
 //如果是添加，关闭上一弹窗；如果是编辑忽略
 <c:if test="${empty entity}">
 $.popupOneClose();

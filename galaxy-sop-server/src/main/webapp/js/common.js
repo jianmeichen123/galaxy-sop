@@ -1,6 +1,32 @@
+var pageIds = new Array();
+/**
+ * 数据权限 - 设置页面标识
+ * @param pageId
+ * @returns
+ */
+function setPageId(pageId)
+{
+	console.log("push "+pageId);
+	pageIds.push(pageId);
+}
+/**
+ * 数据权限 - 弹窗关闭重新设置页面标识
+ * @returns
+ */
+function popPageId()
+{
+	var pageId = pageIds.pop();
+	console.log("pop "+pageId);
+}
+/**
+ * 数据权限 - 传递页面标识
+ */
 $(document).ajaxSend(function(event, xhr, settings) {
-	if(typeof(pageId) != 'undefined')
+	console.log(pageIds);
+	var len = pageIds.length;
+	if(len > 0)
 	{
+		pageId = pageIds[len-1];
 		xhr.setRequestHeader("pageId",pageId);
 	}
 });

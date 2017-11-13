@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
-var pageId = "meetingRecord_add";
+setPageId("meetingRecord_add");
 </script>
 <div class="title_bj">新增会议记录</div>
 <form id="meeting_per_add_form">
