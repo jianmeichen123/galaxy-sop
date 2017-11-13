@@ -182,10 +182,14 @@ $(function(){
 				{
 					return;
 				}
-				saveBaseInfo("basicForm1");
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){
 						layer.msg(data2.result.message);
+						saveBaseInfo("basicForm1");
+						if(data2.result.errorCode=='mccf'){   //项目名重复
+							layer.msg(data2.result.message);
+							return;
+						}
 						//弹窗关闭
 						var close="basic"
 						$('.'+close+'_current').hide();//basic_current
