@@ -209,11 +209,13 @@
 							if(n.val!="未填写"){
 								if(d_type==20){
 									$("#"+n.relateId+"_select").find("option[data-code='currency1']").attr("selected",true);
-									if(n.val.indexOf("美元")!=-1){
-										$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
+									if(n.val){
+										if(n.val.indexOf("美元")!=-1){
+											$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
+										}
+										n.val=n.val.replace("万人民币","");
+										n.val=n.val.replace("万美元","");
 									}
-									n.val=n.val.replace("万人民币","");
-									n.val=n.val.replace("万美元","");
 								}								
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);								
 							}
