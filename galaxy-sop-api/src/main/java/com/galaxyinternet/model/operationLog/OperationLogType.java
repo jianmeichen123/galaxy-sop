@@ -36,8 +36,27 @@ public enum OperationLogType {
 	
 	meeting_5_update("/galaxy/progress/p2/add/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
 	
+	//会议列表页面操作
+	menu_meeting_1_add("/galaxy/meeting/save/"+UrlNumber.one, OperType.ADD.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_1_update("/galaxy/meeting/save/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+		
+	menu_meeting_2_add("/galaxy/meeting/save/"+UrlNumber.three, OperType.ADD.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_2_update("/galaxy/meeting/save/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+		
+	menu_meeting_3_add("/galaxy/meeting/save/"+UrlNumber.five, OperType.ADD.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	menu_meeting_3_update("/galaxy/meeting/save/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+		
+	menu_meeting_4_add("/galaxy/meeting/save/"+UrlNumber.seven, OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	menu_meeting_4_update("/galaxy/meeting/save/"+UrlNumber.eight, OperType.UPDATE.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+		
+	menu_meeting_5_add("/galaxy/meeting/save/"+UrlNumber.nine, OperType.ADD.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	menu_meeting_5_update("/galaxy/meeting/save/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
 	
-	
+	menu_meeting_1_del("/galaxy/meeting/del/"+UrlNumber.one, OperType.DELETE.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_2_del("/galaxy/meeting/del/"+UrlNumber.two, OperType.DELETE.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_3_del("/galaxy/meeting/del/"+UrlNumber.three, OperType.DELETE.getOperationType(), "立项会会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_4_del("/galaxy/meeting/del/"+UrlNumber.four, OperType.DELETE.getOperationType(), "投决会会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	menu_meeting_5_del("/galaxy/meeting/del/"+UrlNumber.five, OperType.DELETE.getOperationType(), "会后商务谈判会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 	/* 2017.7 v1.5 sopfile-flow -----------------------------------------*/
 
 	//projectProgress:4

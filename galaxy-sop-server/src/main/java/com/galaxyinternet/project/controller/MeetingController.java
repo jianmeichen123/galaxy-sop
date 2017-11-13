@@ -25,6 +25,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
@@ -36,6 +37,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -148,6 +150,8 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 		try
 		{
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			UrlNumber uNum = null;
+			boolean isInsert = true;
 			boolean isMultPart = ServletFileUpload.isMultipartContent(request);
 			if(!isMultPart)
 			{
@@ -164,7 +168,43 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 			}
 			else
 			{
+				isInsert = false;
 				meetingRecordService.updateById(meetingRecord);
+			}
+			switch(meetingRecord.getMeetingType())
+			{
+		       case "meetingType:1":
+		    	    if(isInsert)
+		    	    	uNum = UrlNumber.one;
+		    	    else 
+		    	    	uNum = UrlNumber.two;
+		    	    break;
+		       case "meetingType:2":
+		    	    if(isInsert)
+		    	    	uNum = UrlNumber.three;
+		    	    else 
+		    	    	uNum = UrlNumber.four;
+		    	    break;
+		       case "meetingType:3":
+		    	    if(isInsert)
+		    	    	uNum = UrlNumber.five;
+		    	    else 
+		    	    	uNum = UrlNumber.six;
+		    	    break;
+		       case "meetingType:4":
+		    	    if(isInsert)
+		    	    	uNum = UrlNumber.nine;
+		            else 
+		    	    	uNum = UrlNumber.ten;
+		    	    break;
+		       case "meetingType:5":
+		    	    if(isInsert)
+		    	    	uNum = UrlNumber.seven;
+		            else 
+		    	    	uNum = UrlNumber.eight;
+		    	    break;
+		    	default :
+		    		 break;
 			}
 			
 			if (isMultPart)
@@ -190,6 +230,7 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
 			}
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
 		} catch (Exception e)
 		{
 			data.setResult(new Result(Status.ERROR,null, "会议添加失败"));
@@ -200,14 +241,42 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 
 		return data;
 	}
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@ResponseBody
 	@RequestMapping(value = "/del", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord>del(Long id)
+	public ResponseData<MeetingRecord>del(HttpServletRequest request, Long id)
 	{
 		ResponseData<MeetingRecord> data = new ResponseData<>();
 		try
 		{
-			meetingRecordService.deleteById(id);
+			MeetingRecord po = meetingRecordService.queryById(id);
+			if(po != null)
+			{
+				UrlNumber uNum = null;
+				switch(po.getMeetingType())
+				{
+			       case "meetingType:1":
+		    	    	uNum = UrlNumber.one;
+			    	    break;
+			       case "meetingType:2":
+		    	    	uNum = UrlNumber.two;
+			    	    break;
+			       case "meetingType:3":
+			    	    	uNum = UrlNumber.three;
+			    	    break;
+			       case "meetingType:4":
+		    	    	uNum = UrlNumber.four;
+			    	    break;
+			       case "meetingType:5":
+		    	    	uNum = UrlNumber.five;
+			    	    break;
+			    	default :
+			    		 break;
+				}
+				Project project = projectService.queryById(po.getProjectId());
+				meetingRecordService.deleteById(id);
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
+			}
 		} catch (Exception e)
 		{
 			logger.error("删除失败，id="+id,e);
