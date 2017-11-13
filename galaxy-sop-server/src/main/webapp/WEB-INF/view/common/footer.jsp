@@ -13,6 +13,10 @@ function menu_to_view(url,name,id){
 		buryPoint("117");
 	}else if(id=="1101" ){
 		buryPoint("118");
+	}else if(id=="1111" ){
+		buryPoint("123");
+	}else if(id=="1211" ){
+		buryPoint("124");
 	}
 	var _href=window.location.href;
 	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
