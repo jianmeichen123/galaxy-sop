@@ -57,6 +57,16 @@ $(function(){
 					$("#jointDelivery").show();
 				}
 			}
+		    //融资计划编辑框赋值resultid
+			$.each(projectInfoList,function(i,o){
+				if(o.nodeName=='融资计划'){
+					$('#project_contribution_edit').attr('data-result-id',o.childList[0].resultId);
+					$('#project_share_ratio_edit').attr('data-result-id',o.childList[1].resultId);
+					$('#project_valuations_edit').attr('data-result-id',o.childList[2].resultId)
+					
+				}
+			})
+			
 			//report信息
 		    updataReport(projectInfoList);	    
 			if(roleId==4){   //投资经理a看投资经理B的项目，团队，法人，股权，融资隐藏
