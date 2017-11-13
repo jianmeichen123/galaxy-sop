@@ -236,8 +236,9 @@ var fileUploader = new plupload.Uploader({
                             $("#save_meeting").removeClass("disabled");
 							return;
 						}else{
-							layer.msg("保存成功", {time : 500});
+							layer.msg("保存成功", {time : 500});							
 							$("#close-btn").click();
+							$.locksCreenOpen();
 							//$.popupTwoClose();
 							$('#data-table').bootstrapTable('refresh');
 						}
