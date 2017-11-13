@@ -3656,7 +3656,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
  #deliver_form label.error{background:none;color:#333;margin:0;padding:0}
-  .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
+  .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;word-break:break-all;}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
  .role_hide{display:none;}
  .mb_24 span.error{font-size:12px;}
