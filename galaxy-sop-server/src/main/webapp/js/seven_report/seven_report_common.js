@@ -241,7 +241,7 @@ function buildResults(sec,title,readonly)
 						$(".type_radio[data-id='"+title.id+"']").text(n.valueName);
 						
 					}else{
-						$(".field[data-title-id='"+n.titleId+"']").html(n.contentDescribe1==undefined ?"未填写":n.contentDescribe1);
+						$(".field[data-title-id='"+n.titleId+"']").html((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0)?"未填写":n.contentDescribe1);
 					}
 				}else{
 					var str=n.contentDescribe1;
