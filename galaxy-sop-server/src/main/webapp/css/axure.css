@@ -2065,6 +2065,8 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
+.editPostMeetingtc .meet_left{float:left;}
+.meet_left #div_meetingNotes dd{max-width:445px;width:auto; margin:0;overflow: visible;}
 .width_36 ,.width_36  .th-inner{ width:400px; overflow:hidden;}
 /*权限*/
 .lft li:hover .role1, .lft li.on .role1 {
