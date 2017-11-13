@@ -258,7 +258,7 @@ function buildResults(sec,title,readonly)
 						$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
 						$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
 					}else{
-						$("textarea[data-title-id='"+n.titleId+"']").val(n.contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+						$("textarea[data-title-id='"+n.titleId+"']").val((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0 )?"":str).attr("resultId",result_id);
 					}
 				
 					
