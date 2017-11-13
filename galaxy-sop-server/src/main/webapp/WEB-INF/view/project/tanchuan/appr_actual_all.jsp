@@ -36,7 +36,7 @@
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
 	                    		value="<fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
-	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>支持0到100之间的四位小数"/>
+	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>支持0到100之间的两位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>

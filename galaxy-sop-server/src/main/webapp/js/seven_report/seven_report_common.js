@@ -1427,12 +1427,12 @@ jQuery.validator.addMethod("verify_3012", function(value, element) {
 }, "支持13位长度的四位小数");
 //支持0到100之间的四位小数
 jQuery.validator.addMethod("verify_3010", function(value, element) {
-	var verify_3010 = /^(\d{1,2}(\.\d{1,4})?)$/;
+	var verify_3010 = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_3010.test(value));
-}, "支持0到100之间的四位小数");
+}, "支持0到100之间的两位小数");
 //支持0到5之间的四位小数
 jQuery.validator.addMethod("verify_3011", function(value, element) {
-	var verify_3011 = /^([0-4](\.\d{1,2})?)$|^(5(\.[0]{1,2})?)$/;
+	var verify_3011 = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
 	return this.optional(element) || (verify_3011.test(value));
 }, "支持0到5之间的两位小数");
 
