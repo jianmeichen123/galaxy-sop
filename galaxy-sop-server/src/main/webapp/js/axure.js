@@ -213,13 +213,6 @@
 		$('div[data-id="popid1"]').remove();
 		$("#popbg01").remove();
 	};
-	//屏幕开屏
-	$.locksCreenOpen =function(){
-		$(document.body).css({
-		   "overflow-x":"auto",
-		   "overflow-y":"auto"
-		 });
-	}
 	//切换样式控制
 	$.fn.changeClass = function(options){
 		if($(this).length==0){ return false};
