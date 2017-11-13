@@ -112,6 +112,9 @@ if(meetingType != ""){
 }
 //验证
 $(function(){
+	  document.getElementsByClassName("datetimepickerHour")[0].addEventListener('click', function(e) {
+	    e.currentTarget.blur();  //解决input多次点击，日期插件不显示的问题
+	});
 	$(".myproject_add").validate({
 		focusCleanup:true,
 		onfocusout:false,

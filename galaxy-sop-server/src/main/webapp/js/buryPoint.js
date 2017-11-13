@@ -68,7 +68,6 @@ function _mime(option, value) {
  * @param code
  */
 function buryPoint(code){
-	console.log("!!!!!!!!!!!")
 	var url=Constants.sopEndpointURL+"/galaxy/common/buryPoint";
 	  var pCode=code;
 	  var userId=userId;

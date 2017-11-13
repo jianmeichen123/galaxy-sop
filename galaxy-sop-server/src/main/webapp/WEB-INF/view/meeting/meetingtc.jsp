@@ -135,7 +135,7 @@
 	        <dt><em class="red">*</em>股权占比:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="finalShareRatio" name="finalShareRatio"  onblur="set_finalValuations()" 
-	           		allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+	           		allowNULL="no" valType="OTHER" regString="^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$" msg="<font color=red>*</font>0到100之间的两位小数"/>
 	           	<span class='m_r50'>% </span>
 	           	<!-- 
 	           	<div id="finalShareRatio_valiate" class="tip-yellowsimple" >
@@ -151,7 +151,7 @@
 	        <dt><em class="red">*</em>加速服务费占比:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="serviceCharge" name="serviceCharge" 
-	           		allownull="no" valtype="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数" />
+	           		allownull="no" valtype="OTHER" regstring="^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$" msg="<font color=red>*</font>0到5之间的两位小数" />
 	           	<span class='m_r50'>% </span>
 	           	<!-- 
 	           	<div id="serviceCharge_valiate" class="tip-yellowsimple" >

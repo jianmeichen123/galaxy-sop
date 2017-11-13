@@ -14,6 +14,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 /* 去掉ie中input框右侧的X */
  ::-ms-clear{display: none;}
  /*弹窗列表*/
+ #businessplan-history-dialog{height:400px;}
  #businessplan-history-dialog .fixed-table-body{max-height:350px; overflow-y:auto}
 /*固定弹窗排期头部*/
 .fixed_table_tit{position:fixed; width:775px}
@@ -2065,6 +2066,8 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
+.editPostMeetingtc .meet_left{float:left;}
+.meet_left #div_meetingNotes dd{max-width:445px;width:auto; margin:0;overflow: visible;}
 .width_36 ,.width_36  .th-inner{ width:400px; overflow:hidden;}
 /*权限*/
 .lft li:hover .role1, .lft li.on .role1 {
@@ -3653,7 +3656,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
  #deliver_form label.error{background:none;color:#333;margin:0;padding:0}
-  .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
+  .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;word-break:break-all;}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
  .role_hide{display:none;}
  .mb_24 span.error{font-size:12px;}
@@ -3902,3 +3905,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .agency_institute .invest_max_height{width: auto; padding: 0 24px;}
  #add_meet_dialog dd #meetingType{width:225px;}
  .member table.team_info .on td{ background:none;}
+ .basic_message_cont span.error{margin-left:118px;}
+  .basic_message_cont #finance_status_sel-error.error{margin-left:0;}

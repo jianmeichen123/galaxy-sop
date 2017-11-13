@@ -241,7 +241,7 @@ function buildResults(sec,title,readonly)
 						$(".type_radio[data-id='"+title.id+"']").text(n.valueName);
 						
 					}else{
-						$(".field[data-title-id='"+n.titleId+"']").html(n.contentDescribe1==undefined ?"未填写":n.contentDescribe1);
+						$(".field[data-title-id='"+n.titleId+"']").html((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0)?"未填写":n.contentDescribe1);
 					}
 				}else{
 					var str=n.contentDescribe1;
@@ -258,7 +258,7 @@ function buildResults(sec,title,readonly)
 						$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
 						$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
 					}else{
-						$("textarea[data-title-id='"+n.titleId+"']").val(n.contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+						$("textarea[data-title-id='"+n.titleId+"']").val((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0 )?"":str).attr("resultId",result_id);
 					}
 				
 					
@@ -1427,12 +1427,12 @@ jQuery.validator.addMethod("verify_3012", function(value, element) {
 }, "支持13位长度的四位小数");
 //支持0到100之间的四位小数
 jQuery.validator.addMethod("verify_3010", function(value, element) {
-	var verify_3010 = /^(\d{1,2}(\.\d{1,4})?)$/;
+	var verify_3010 = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_3010.test(value));
-}, "支持0到100之间的四位小数");
+}, "支持0到100之间的两位小数");
 //支持0到5之间的四位小数
 jQuery.validator.addMethod("verify_3011", function(value, element) {
-	var verify_3011 = /^([0-4](\.\d{1,2})?)$|^(5(\.[0]{1,2})?)$/;
+	var verify_3011 = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
 	return this.optional(element) || (verify_3011.test(value));
 }, "支持0到5之间的两位小数");
 
@@ -1450,6 +1450,10 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100");
+jQuery.validator.addMethod("verify_32_0", function(value, element) {   
+	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+	return this.optional(element) || (verify_32_0.test(value));
+}, "支持0-100之间的两位小数"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {
 	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;

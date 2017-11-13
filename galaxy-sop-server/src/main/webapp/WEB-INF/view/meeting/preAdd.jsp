@@ -108,6 +108,7 @@ $( "#meeting_per_add_form #projectName" ).autocomplete({
 		  return;
 	  }
 	  openMeetingDialog(projectId, meetingType);
+    $.locksCreenOpen();
   });
   
   function openMeetingDialog(projectId, meetingType)

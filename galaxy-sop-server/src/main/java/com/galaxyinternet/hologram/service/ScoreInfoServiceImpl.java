@@ -15,6 +15,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import freemarker.ext.beans.HashAdapter;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +46,8 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 	private ScoreInfoDao scoreInfoDao;
 	@Autowired
 	private InformationResultDao resultDao;
+	@Autowired
+	private InformationTitleRelateDao informationTitleRelateDao;
 	/**
 	 * 计算题目分数
 	 * @param param
@@ -238,6 +244,32 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 		
 		return null;
 	}
+	/**
+	 * 查询各tab项的比重
+	 * @param preCode EN CN
+	 * @return W1001项目、W1002团队、运营、、的比重
+	 */
+	public Map<String,String> getTabWeight(String preCode, Long projectId){
+		Map<String, String> result = new HashMap<>();
+
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("codeLike", StringUtils.isBlank(preCode)?"EN":preCode);
+		params.put("isValid",0);
+		params.put("parentId",0);
+		List<InformationTitle> titles = informationTitleRelateDao.selectTitleByRelate(params);
+
+		//for(int i = 0 ; i < titles.size(); i++)
+		for(InformationTitle temp : titles)
+		{
+			BigDecimal weight =  getWeight(temp.getId(), projectId);
+			if(weight!=null){
+				result.put("W" + temp.getId(), weight.toString());
+			}
+		}
+
+		return result;
+	}
+
 	
 	public ScoreInfo getByRelateId(Long relateId)
 	{

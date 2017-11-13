@@ -147,8 +147,10 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="20"|| type=="10"}}
+						{{if type=="1" || type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
+						{{else type=="20"}}
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span value="未填写">未填写</span></p></div>						
 						{{else type=="8"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 mare_text income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></p> </div>
 						{{else type=="2" || type=="12" || type=="14" || type=="13"}}
@@ -377,8 +379,10 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="20"||type=="10"}}
+						{{if type=="1" || type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
+						{{else type=="20"}}
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span value='未填写'>未填写</span></p></div>
 						{{else type=="8"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 mare_text income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span> <em class="packup">收起</em><em class="detail"><i>...</i>展开</em></p></div>
 						{{else type=="2" || type=="12" || type=="14" || type=="13"}}

@@ -11,7 +11,10 @@ function  progress(id,type){
 			if(type=="detail"){
 				//详情点击关闭页面刷新
 				$(".progress_close").click(function(){  //关闭弹窗刷新列表
-					$(".projectDetail li.on").click();
+					var liIndex = $(".projectDetail li.on").index();
+					if(liIndex!=0){
+						$(".projectDetail li.on").click();
+					}					
 				})
 			}else{
 				$(".progress_close").click(function(){  //关闭弹窗刷新列表

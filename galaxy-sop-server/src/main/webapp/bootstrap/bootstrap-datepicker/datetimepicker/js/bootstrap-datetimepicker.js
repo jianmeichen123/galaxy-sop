@@ -1868,9 +1868,6 @@
       $this.datetimepicker('show');
     }
   );
-  document.getElementsByClassName("datetimepickerHour")[0].addEventListener('click', function(e) {
-	    e.currentTarget.blur();  //流程里面解决input多次点击，日期插件不显示的问题
-	});
   $(function () {
     $('[data-provide="datetimepicker-inline"]').datetimepicker();
   });

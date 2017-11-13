@@ -10,7 +10,7 @@
 	}, "支持0-1000000的四位小数");
 //占股比例
 	jQuery.validator.addMethod("share", function (value, element) {
-		var share = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
+		var share = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 		return this.optional(element) || (share.test(value));
 	}, "0到100之间的两位小数");
 	
@@ -31,9 +31,9 @@
 	}, "支持四位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
-		var proshare = /^(\d{1,2}(\.\d{1,4})?)$/;
+		var proshare = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 		return this.optional(element) || (proshare.test(value));
-	}, "0到100之间的四位小数");
+	}, "0到100之间的两位小数");
 	//投资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
 		var finalContribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
@@ -46,12 +46,12 @@
 	}, "支持四位小数");
 	//股权占比
 	jQuery.validator.addMethod("finalShareRatio", function (value, element) {
-		var finalShareRatio = /^(\d{1,2}(\.\d{1,4})?)$/;
+		var finalShareRatio = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 		return this.optional(element) || (finalShareRatio.test(value));
-	}, "0到100之间的四位小数");
+	}, "0到100之间的两位小数");
 	//加速服务费占比
 	jQuery.validator.addMethod("serviceChargeedit", function (value, element) {
-		var serviceChargeedit = /^([0-4](\.\d{1,2})?)$|^(5(\.[0]{1,2})?)$/;
+		var serviceChargeedit = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
 		return this.optional(element) || (serviceChargeedit.test(value));
 	}, "0到5之间的两位小数");
 	//机构名称
@@ -97,6 +97,10 @@
 		var vinputValRule_3 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 		return this.optional(element) || (vinputValRule_3.test(value));
 	}, "不能超过100"); 
+	jQuery.validator.addMethod("verify_32_0", function(value, element) {   
+		var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+		return this.optional(element) || (verify_32_0.test(value));
+	}, "支持0-100之间的两位小数"); 
 	//inputValRuleMark=="3,2"
 	jQuery.validator.addMethod("verify_32", function(value, element) {   
 		var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
