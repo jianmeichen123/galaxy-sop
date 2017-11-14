@@ -1211,7 +1211,7 @@ function validate(){
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"
+						"data-msg-vinputValRule_3":"<font color=red>*</font>0到100之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
@@ -1220,7 +1220,7 @@ function validate(){
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>支持0～100的整数和两位小数"
+						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>0到100之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="10,2"){
@@ -1274,7 +1274,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
-						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"
+						"data-msg-verify_32":"<font color=red>*</font>0到100之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
@@ -1323,7 +1323,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四位小数"
+						"data-msg-vinputValRule_54":"<font color=red>*</font>0到5之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4" && inputValRuleMark=="1,2"){
@@ -1332,7 +1332,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_52":"<font color=red>*</font>只允许输入数字0~5整数和两位小数"
+						"data-msg-vinputValRule_52":"<font color=red>*</font>0到5之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="50"){
@@ -1434,7 +1434,7 @@ jQuery.validator.addMethod("verify_3010", function(value, element) {
 jQuery.validator.addMethod("verify_3011", function(value, element) {
 	var verify_3011 = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
 	return this.optional(element) || (verify_3011.test(value));
-}, "支持0到5之间的两位小数");
+}, "0到5之间的两位小数");
 
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {
