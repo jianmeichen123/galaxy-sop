@@ -6287,7 +6287,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>否</w:t>
+                            <w:t>是否</w:t>
                         </w:r>
                         <w:proofErr w:type="gramEnd"/>
                         <w:r w:rsidRPr="00C510F2">
