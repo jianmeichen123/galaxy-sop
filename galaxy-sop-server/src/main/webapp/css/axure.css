@@ -2533,6 +2533,13 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .error_fr span{display: inline;float: none;font-size: 12px;font-family:'宋体'}
 .error_fr span.error{display:block;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
+
+.team_wid_p span.error{float:none;}
+/* .team_wid_p::before{content:"%";font-size: 12px;font-family: "Microsoft YaHei"; z-index: 0;position: relative;    top: -1px; right: -1px;}
+.team_wid_p span.error::before{content:"%  "; position: relative;left: -10px;font-family: "Microsoft YaHei";   font-size: 12px; }
+.team_wid_p span.error{position: relative;z-index: 2; right: -11px;background: #fff;margin-right:0;}
+.team_wid_p input{margin-right:5px;} */
+
 .team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
 .no_bl{ display:none;}
 /* V201703全息图 */
