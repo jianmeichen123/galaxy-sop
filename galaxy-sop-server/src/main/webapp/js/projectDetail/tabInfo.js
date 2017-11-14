@@ -550,8 +550,8 @@ function jointDeliveryList(list){
 	   temp.append(html);
 	}	
 }
-var name_opt = new Array()
 function jointDeliveryEdit(list){
+	var name_opt = new Array()
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs institue_content">'
@@ -569,10 +569,10 @@ function jointDeliveryEdit(list){
 		var index = $(this).index()
 		var _this = $(this);
 		if(name_opt[index]==='currency:0' || name_opt[index]==='人民币'){
-			
+			_this.find('#industry_own_sel').val("人民币");
 			_this.find('#industry_own_sel').attr("value","人民币").attr("m-val","currency:0");
 		}else{
-			
+			_this.find('#industry_own_sel').val("美元");
 			_this.find('#industry_own_sel').attr("value","美元").attr("m-val","currency:1");
 		}
 	});
