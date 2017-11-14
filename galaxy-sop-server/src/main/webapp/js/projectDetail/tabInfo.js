@@ -57,13 +57,19 @@ $(function(){
 					$("#jointDelivery").show();
 				}
 			}
+		   
 		    //融资计划编辑框赋值resultid
 			$.each(projectInfoList,function(i,o){
 				if(o.nodeName=='融资计划'){
-					$('#project_contribution_edit').attr('data-result-id',o.childList[0].resultId);
-					$('#project_share_ratio_edit').attr('data-result-id',o.childList[1].resultId);
-					$('#project_valuations_edit').attr('data-result-id',o.childList[2].resultId)
-					
+					 $.each(o.childList,function(i,o){
+						 if(o.titleId=='1916'){
+							 $('#project_contribution_edit').attr('data-result-id',o.resultId);
+						 }else if(o.titleId=='1917'){
+							 $('#project_share_ratio_edit').attr('data-result-id',o.resultId);
+						 }else if(o.titleId=='1943'){
+							 $('#project_valuations_edit').attr('data-result-id',o.resultId);
+						 }
+					 })
 				}
 			})
 			
