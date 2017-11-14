@@ -62,6 +62,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service("com.galaxyinternet.service.hologram.ReportExportService")
@@ -110,6 +112,13 @@ public class ReportExportServiceImpl implements ReportExportService {
     public String textConversion(String text){
         if(StringUtils.isBlank(text)){
             return null;
+        }else{
+            String check = text.replace("<br/>","")
+                    .replace("<br>","")
+                    .replace("&nbsp;","");
+            if(StringUtils.isBlank(check)){
+                return null;
+            }
         }
 
         String result = text.replace("<br/>","<w:br />")
@@ -439,7 +448,27 @@ public class ReportExportServiceImpl implements ReportExportService {
             {
                 if (tempResult.getContentDescribe1().contains("sitg"))
                 {
-                    value = textConversion(tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）"));
+                    String[] conStr=tempResult.getContentDescribe1().split("<sitg>");
+                    int sum=0;
+                    for(int i=0;i<conStr.length;i++){
+                        if(conStr[i].indexOf("</sitg>")>-1){
+                            int inputsValueLen=conStr[i].substring(0,conStr[i].indexOf("</sitg>")).trim().length();
+                            sum +=inputsValueLen;
+                        }
+                    }
+                    if(sum == 0){
+                        return null;
+                    }
+
+                    Pattern pattern = Pattern.compile("<sitg>\\s*");
+                    Matcher matcher = pattern.matcher(tempResult.getContentDescribe1());
+                    value = matcher.replaceAll("（");
+
+                    pattern = Pattern.compile("\\s*</sitg>");
+                    matcher = pattern.matcher(value);
+                    value = matcher.replaceAll("）");
+
+                    //value = textConversion(tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）"));
                 }else{
                     value = textConversion(tempResult.getContentDescribe1());
                 }
