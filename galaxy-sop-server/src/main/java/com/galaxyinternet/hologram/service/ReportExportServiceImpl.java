@@ -462,11 +462,11 @@ public class ReportExportServiceImpl implements ReportExportService {
 
                     Pattern pattern = Pattern.compile("<sitg>\\s*");
                     Matcher matcher = pattern.matcher(tempResult.getContentDescribe1());
-                    value = matcher.replaceAll("(");
+                    value = matcher.replaceAll("（");
 
                     pattern = Pattern.compile("\\s*</sitg>");
                     matcher = pattern.matcher(value);
-                    value = matcher.replaceAll(")");
+                    value = matcher.replaceAll("）");
 
                     //value = textConversion(tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）"));
                 }else{
