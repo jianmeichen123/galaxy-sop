@@ -3678,7 +3678,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .three_part li:nth-child(1),.tabinfo_con .three_part li:nth-child(2){width:32%;padding-right:20px;}
  .tabinfo_con .three_part li:nth-child(3){width:36%;}
  .tabinfo_con .invest_infoC {width:64%;display:inline-block;float: left;}
-  .tabinfo_con .plan_infoC .con_box:hover{border:1px solid #45aaff;box-shadow:0 2px 4px 2px rgba(69,170,255,0.20);}
+  .tabinfo_con .plan_infoC .con_box:hover,.two_part .con_box:hover,.invest_money .invest_money_p2:hover,invest_money .invest_money_p1:hover{border:1px solid #45aaff;box-shadow:0 2px 4px 2px rgba(69,170,255,0.20);}
  .invest_infoC .title_3{padding-right:20px;}
  .tabinfo_con .plan_infoC {width:36%; display:inline-block;float: left;}
  .tabinfo_con .two_part li,.tabinfo_con .one_part li{float:left;box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:50%; padding-right:20px;}
@@ -3752,7 +3752,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .version19_detail_header .top div{margin-right:10px;}
  .version19_detail_header_box{visibility:hidden;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
-.version19_detail_header .project_name_t{font-family:Microsoft YaHei;font-size:32px;color:#202533;line-height:32px;text-align:left;}
+.version19_detail_header .project_name_t{font-family:Microsoft YaHei;font-size:28px;color:#202533;line-height:28px;text-align:left;}
 .version19_detail_header .two .middot{margin:0 5px;}
 .version19_detail_header .three{border-radius:10px;}
 .version19_detail_header .three span{display:inline-block;height:20px;line-height:20px;padding:0 10px;font-size:12px;color:#ffffff;border-radius:10px;margin-right:10px;}
