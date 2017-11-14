@@ -2514,6 +2514,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_compile .team_tit{ border-bottom:1px solid #f6f6f6; height:25px; margin-right:10px;}
 .team_compile_ul{overflow:hidden;}
 .team_compile_ul li span{color:#999;}
+.team_compile_ul li span.error{color:#ff0000;}
+span.error,label.error{color:#ff0000 !important;}
 .team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden; height: 33px;}
 .team_compile_ul li.wid_li{width:100%;}
 .team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
@@ -2959,7 +2961,7 @@ color:#999999;}
 
 label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;}
 label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;background:url(../img/error_bg.png) 0 0 no-repeat}
-#basicForm label.error{display:block; background:none;padding-left:75px;padding-top: 5px;}
+#basicForm label.error{display:block; background:none;padding-left:75px;padding-top: 5px; color: #ff0000;}
 .block_inputs label.error{display:inline-block!important;}
 /* 项目流程progress */
 
@@ -3856,7 +3858,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
 .real_investment{display:none; height:auto;max-height: 505px}
 .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;display:inline-block;vertical-align:middle;}
-.basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
+.basic_common_width  table tr td label{font-family:PingFangSC-Regular;}
+.basic_common_width  table tr td label.error{color: #ff0000;}
 .basic_common_width  table tr td label.no_info_icon_xhhl{color:#bbb;}
 #updateProjectInfo .basic_message_cont table tr td span:nth-child(1),.invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
@@ -3897,7 +3900,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_inputs{display:inline-table;vertical-align: top;position: absolute;left: 116px;top: 0px;}
  .invest_max_height{max-height:365px;overflow:auto;} 
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
- #basicForm .invest_current label.error{color: #000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
+ #basicForm .invest_current label.error{ color: #ff0000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
  #basicForm .invest_max_height tr label.error{margin-left: 116px;}.
  institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:111px;}
@@ -3913,5 +3916,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .agency_institute .invest_max_height{width: auto; padding: 0 24px;}
  #add_meet_dialog dd #meetingType{width:225px;}
  .member table.team_info .on td{ background:none;}
- .basic_message_cont span.error{margin-left:118px;}
+ .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}

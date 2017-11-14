@@ -1490,8 +1490,8 @@ jQuery.validator.addMethod("vinputValRule_54", function(value, element) {
 }, "不能超过5");
 //inputValRule=="4" && inputValRuleMark="1,2"
 jQuery.validator.addMethod("vinputValRule_52", function(value, element) {
-	var vinputValRule_54 = /^([0-5]{1}|[0-5]{1}\.\d{1,2}|[0-5]{1}\.0{1,2})$/;
-	return this.optional(element) || (vinputValRule_54.test(value));
+	var vinputValRule_52 = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
+	return this.optional(element) || (vinputValRule_52.test(value));
 }, "不能超过5");
 //不能超过50个字
 jQuery.validator.addMethod("verify_50_font", function(value, element) { 

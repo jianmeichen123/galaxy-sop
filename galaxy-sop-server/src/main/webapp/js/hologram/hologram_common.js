@@ -1265,6 +1265,15 @@ function validate(){
 						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="1,2"){
+				var validate={
+						""data-rule-vinputValRule_52":"true",
+						//"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_52":"<font color=red>*</font>0到5之间的两位小数"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4" && inputValRuleMark=="1,4"){
 				var validate={
 						"data-rule-vinputValRule_54":"true",
@@ -1337,6 +1346,10 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100"); 
+jQuery.validator.addMethod("vinputValRule_52", function(value, element) {
+	var vinputValRule_52 = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;
+	return this.optional(element) || (vinputValRule_52.test(value));
+}, "0到5之间的两位小数"); 
 jQuery.validator.addMethod("verify_32_0", function(value, element) {   
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));
