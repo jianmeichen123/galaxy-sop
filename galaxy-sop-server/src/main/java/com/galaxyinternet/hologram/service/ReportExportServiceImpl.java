@@ -259,13 +259,13 @@ public class ReportExportServiceImpl implements ReportExportService {
 
             Department department = departmentService.queryById(project.getProjectDepartid());
             //project.setProjectCareerline(department.getName());
-            map.put("NO1_1_4", department.getName());
+            if(department!=null) map.put("NO1_1_4", department.getName());
 
             //事业部总经理
             if(department.getManagerId()!=null){
                 User managerUser = userService.queryById(department.getManagerId());
                 //project.setHhrName(managerUser.getRealName());
-                map.put("NO1_1_3", managerUser.getRealName());
+                if(managerUser!=null) map.put("NO1_1_3", managerUser.getRealName());
             }
         }catch (Exception e){
             logger.error("projectTitleResult ",e);
