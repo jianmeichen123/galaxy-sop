@@ -99,7 +99,7 @@
                             <span class="m_r30">万元</span>
                             <span class="basic_span">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$" msg="<font color=red>*</font>0到100之间的两位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
