@@ -107,7 +107,7 @@ position:absolute;
 						<td>
 							<span>行业归属：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off"  onclick="dropdown_select(this,event)"  value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -121,8 +121,8 @@ position:absolute;
 						<td>
 							<span>本轮融资轮次：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off" autocomplete="off"  autocomplete="off"  onclick="dropdown_select(this,event)" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
-									<ul class='base_select_ul'> 
+								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)" placeholder='请选择'  value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
+									<ul class='base_select_ul finance_status_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
 										<li>互联网教育</li> 
@@ -135,7 +135,7 @@ position:absolute;
 						<td>
 							<span>项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off"  onclick="dropdown_select(this,event)" value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 

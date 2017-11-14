@@ -751,6 +751,7 @@ $("input[data-title-id=\"1816\"]").attr("tochange",true);
 
 function dropdown_select(data,event){
 	var _this = $(data);
+	var inputId=_this.attr('id');
 	var ul = _this.closest('#dropdown').find('ul');
 	$('#dropdown ul').slideUp('fast');
 	$('#dropdown ul').hide('fast');
@@ -761,6 +762,17 @@ function dropdown_select(data,event){
 		ul.slideUp("fast");
 		_this.removeClass('up');
 	} 
+	if(inputId=='finance_status_sel'){
+		$('#finance_status_sel').blur(function(){
+			if($('#finance_status_sel-error').is(':visible')){
+				$('#finance_status_sel-error').next('.finance_status_ul').css('margin-top','-30px');
+				$('#finance_status_sel-error').closest('tr').css('height','65px');
+			}
+			
+		});
+		
+		
+	}
 	event.stopPropagation(); 
 	$("#dropdown ul li").click(function(){
 		event.stopPropagation(); 

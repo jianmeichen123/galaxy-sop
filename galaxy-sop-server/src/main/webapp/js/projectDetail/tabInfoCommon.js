@@ -12,7 +12,8 @@ $(function(){
 		$('.tip-yellowsimple').hide();
 		$("label.error").hide();
 		$("body").css('overflow-y','auto');
-		$('.radio_cont').removeClass('radio_checked')
+		$('.radio_cont').removeClass('radio_checked');
+		
 	})
 	 $("[data-on='data-open-basic']").click(function (){
         	    isDelete=[];
@@ -45,7 +46,10 @@ $(function(){
 				}
 				$(window).resize(function(){
 					popMiddle()
-				})
+				});
+				//错误提示
+				$('#finance_status_sel').closest('tr').css('height','auto');
+				$('.finance_status_ul').css('margin-top','0px');
 				//基本信息修改
 				$("#project_name_edit").val(projectInfoDetail.projectName);
 				$("#create_date_edit").text(projectInfoDetail.createDate);
@@ -109,11 +113,16 @@ $(function(){
 				var target = $(this).closest('#dropdown').find('input');
 				target.removeClass('up')
 				var txt = $(this).text(); 
-				target.val(txt)
+				target.val(txt);
 				$("#dropdown ul").hide(); 
 				$(this).closest('#dropdown').find('input').attr('tochange',true);
+				if(txt!=''){
+					$('#finance_status_sel-error').hide();
+					$('#finance_status_sel-error').closest('tr').css('height','auto');
+					$('.finance_status_ul').css('margin-top','0px');
+				}
 		});
-			 
+		    			 
 		}
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel").next('ul');
@@ -172,7 +181,6 @@ $(function(){
 			}
 		
 		//保存
-		
 		$("[data-on='save_basic']").click(function(){
 			var s_type=$(this).attr("save_type");
 			var data="";
@@ -180,6 +188,13 @@ $(function(){
 				data=getUpdateDataBasic();
 				if(!$("#basicForm1").validate().form())
 				{
+					if($('#finance_status_sel-error').is(':visible')){
+						$('#finance_status_sel-error').closest('tr').css('height','65px');
+						$('.finance_status_ul').css('margin-top','-30px');
+					}else{
+						$('#finance_status_sel-error').closest('tr').css('height','auto');
+						$('.finance_status_ul').css('margin-top','0px');
+					}
 					return;
 				}
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
