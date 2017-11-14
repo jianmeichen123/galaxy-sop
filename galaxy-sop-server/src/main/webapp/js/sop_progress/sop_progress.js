@@ -12,7 +12,9 @@ function  progress(id,type){
 				//详情点击关闭页面刷新
 				$(".progress_close").click(function(){  //关闭弹窗刷新列表
 					var liIndex = $(".projectDetail li.on").index();
-					if(liIndex!=0){
+					if(liIndex==0){
+						reference(projectId);//右侧单独刷新
+						}else{
 						$(".projectDetail li.on").click();
 					}					
 				})
