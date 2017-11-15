@@ -13,7 +13,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -77,7 +78,7 @@ import com.galaxyinternet.utils.RoleUtils;
 @Controller
 @RequestMapping("/galaxy/idea")
 public class IdeaController extends BaseControllerImpl<Idea, Idea> {
-	private static final Logger logger = Logger.getLogger(IdeaController.class);
+	private static final Logger logger = LoggerFactory.getLogger(IdeaController.class);
 	@Autowired
 	private IdeaService ideaService;
 	@Autowired

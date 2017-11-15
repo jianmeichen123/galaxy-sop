@@ -1,6 +1,7 @@
 package com.galaxyinternet.scheduling;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.galaxyinternet.framework.core.cluster.LeaderSelector;
@@ -8,7 +9,7 @@ import com.galaxyinternet.framework.core.exception.BusinessException;
 
 public abstract class BaseGalaxyTask implements GalaxyTask {
 
-	private static final Logger logger = Logger.getLogger(BaseGalaxyTask.class);
+	private static final Logger logger = LoggerFactory.getLogger(BaseGalaxyTask.class);
 	protected boolean disabled = false;
 	@Autowired
 	private LeaderSelector leaderSelector;

@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -16,7 +17,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 
 public class MenuAccessInterceptor extends HandlerInterceptorAdapter implements InitializingBean
 {
-	private final Logger logger = Logger.getLogger(MenuAccessInterceptor.class);
+	private final Logger logger = LoggerFactory.getLogger(MenuAccessInterceptor.class);
 	private Map<String,String> mappings = new HashMap<>();
 	
 	@Override

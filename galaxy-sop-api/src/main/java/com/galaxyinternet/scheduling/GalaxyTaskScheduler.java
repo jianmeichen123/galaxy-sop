@@ -4,7 +4,8 @@ import java.util.concurrent.ScheduledFuture;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.ScheduledMethodRunnable;
@@ -12,7 +13,7 @@ import org.springframework.scheduling.support.ScheduledMethodRunnable;
 public class GalaxyTaskScheduler extends ThreadPoolTaskScheduler 
 {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(GalaxyTaskScheduler.class);
+	private static final Logger logger = LoggerFactory.getLogger(GalaxyTaskScheduler.class);
 	private boolean disabled = false;;
 	@PostConstruct
 	public void initPoolsize()
