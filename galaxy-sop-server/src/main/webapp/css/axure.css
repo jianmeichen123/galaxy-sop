@@ -3874,7 +3874,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
 .select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 6px;}
 .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 6px;}
- select::-ms-expand { display: none; }
  .inves_stock{width:68px;margin-left: 6px;}
  .inves_delete{display:inline-block;position: relative;top: 5px;cursor:pointer;width:17px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px;position: absolute;right: -22px}
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
