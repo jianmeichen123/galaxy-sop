@@ -553,9 +553,9 @@
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs institue_content">'
 	          +'<span class="input_box"><input placeholder="机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="投资金额（万元）" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持6位长度的四位小数" data-msg-amount="<font color=red>*</font>支持6位长度的四位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持6位长度的四位小数" data-msg-amount="<font color=red>*</font>支持6位长度的四位小数"/></span>'
 	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
-	          +'<span class="input_box"><input placeholder="占股比例（%）"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="占股比例(%)"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
 	            +'<em class="inves_delete"></em>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
