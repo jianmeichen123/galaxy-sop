@@ -53,6 +53,10 @@
 	p:burySoftWareVersion="${buryPoint.softWare.vesion}">
 	    
 	</bean>
+	<bean  class="com.galaxyinternet.framework.core.utils.AuthRequestUtil" 
+	p:authSaveUrl="${auth.uri}">
+	    
+	</bean>
 	
 	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
 	<bean id="leaderSelector" class="com.galaxyinternet.framework.core.cluster.LeaderSelector">

@@ -1,5 +1,29 @@
 package com.galaxyinternet.hologram.service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationFileDao;
@@ -10,10 +34,13 @@ import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.LocalCache;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.model.User;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -29,27 +56,6 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -78,7 +84,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	private ScoreInfoService scoreInfoService;
 	@Autowired
 	private InformationFileDao infoFileDao;
-	
+	@Autowired
+	private AuthRequestUtil authReq;
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
 		return this.informationTitleDao;
@@ -723,6 +730,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		listdataQuery.setTitleIds(titleIds);
 		listdataQuery.setProperty("created_time");
 		listdataQuery.setDirection(Direction.ASC.toString());
+		Map<String,String> userMap=initCache();
 		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
 		if(listdataList != null && listdataList.size() > 0)
 		{
@@ -744,12 +752,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					}
 					if(item.getCreateId() != null)
 					{
-						String createUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+						String createUserName =userMap.get(item.getCreateId().toString());
 						item.setCreateUserName(createUserName);
 					}
 					if(item.getUpdateId() != null)
 					{
-						String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getUpdateId(), "realName");
+						String updateUserName = userMap.get(item.getUpdateId().toString());
 						item.setUpdateUserName(updateUserName);
 					}
 					if(item.getCreatedTime() != null)
@@ -1157,7 +1165,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(listdataList != null && listdataList.size()>0)
 		{
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
-			
+			Map<String,String> userMap=initCache();
 			for(InformationListdata item : listdataList)
 			{
 				
@@ -1175,12 +1183,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						}
 						if(item.getCreateId() != null)
 						{
-							String createUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+							String createUserName = userMap.get(item.getCreateId().toString());
 							item.setCreateUserName(createUserName);
 						}
 						if(item.getUpdateId() != null)
 						{
-							String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getUpdateId(), "realName");
+							String updateUserName = userMap.get(item.getUpdateId().toString());
 							item.setUpdateUserName(updateUserName);
 						}
 						if(item.getCreatedTime() != null)
@@ -1345,4 +1353,20 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		 }
 		 return true;
 		}
+	
+	public Map<String ,String > initCache( )
+	{
+		Map<String ,String > map=new HashMap<String ,String>();
+		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
+			if(userList != null && userList.size() >0)
+			{
+				for(int i=0;i<userList.size();i++)
+				{
+					Map<String,Object> mapNew=userList.get(i);
+				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
+				}
+			}
+		return map;
+		
+	}
 }

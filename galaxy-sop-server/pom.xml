@@ -139,6 +139,7 @@
                 <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
               <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
                	<!--  <galaxy.project.bury.endpoint>http://10.8.233.150:8888/bury</galaxy.project.bury.endpoint> -->
+               	 <auth.uri>http://fx.dev.galaxyinternet.com/authority_service/</auth.uri>
 			</properties>
 		</profile>
 		<profile>
@@ -181,7 +182,7 @@
 
 				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
               <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-			
+			   <auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
 			</properties>
 		</profile>
 		<profile>
@@ -215,7 +216,7 @@
 			    <cluster.zk.address>10.9.210.22:12182</cluster.zk.address>
 			    <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
 			    <galaxy.project.bury.endpoint>http://fx.qa.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-			
+			    <auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
 			</properties>
 		</profile>
 		<profile>

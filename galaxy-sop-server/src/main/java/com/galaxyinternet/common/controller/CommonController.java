@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +45,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.BuryPointService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;

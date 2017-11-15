@@ -9,8 +9,10 @@
 
 $(function(){
 	var defaultnum=0;
+	var flag=false;
 	if(getCookieValue('backListOperation')=='7'){   //运营分析返回后切换
 		defaultnum=7;
+		flag=true;
 		deleteCookie("backListOperation",'/');
 	}
 	$('.projectDetail').tabLazyChange({
@@ -20,13 +22,17 @@ $(function(){
 				case 0: initTabInfo(projectId);  break;  //标签0:基本信息
 				case 1: initTabProjectTeam(); break;  //标签1:团队成员
 				case 2: initTabEquity(); break;  //标签2: 股权结构
-				case 3: initTabInterview();   break;  //标签3:访谈记录
-				case 4: initTabMeeting(projectId);   break;  //标签4:会议记录
-				case 5: initTabDelivery();   break;  //标签5:交割前事项
-				case 6: initTabAppropriation(projectId);   break;  //标签6:注资信息
-				case 7: initTabPostMeeting();   break;  //标签7:运营分析
-				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
-				case 9: initTabOperLog();   break;  //标签9:操作日志
+				case 3: initTabInterview();buryPoint("100");   break;  //标签3:访谈记录
+				case 4: initTabMeeting(projectId);buryPoint("101");   break;  //标签4:会议记录
+				case 5: initTabDelivery();  buryPoint("102"); break;  //标签5:交割前事项
+				case 6: initTabAppropriation(projectId);buryPoint("103");   break;  //标签6:注资信息
+				case 7: initTabPostMeeting(); 
+				if(!flag){
+					buryPoint("104");
+				}
+				  break;  //标签7:运营分析
+				case 8: initTabSopFile(projectId);  buryPoint("105"); break;  //标签8:项目文档
+				case 9: initTabOperLog(); buryPoint("107");  break;  //标签9:操作日志
 				/*case 10:initTabInfomation();   break;  //标签10:全息图
 				case 11:laobanTest();   break;  //标签11:老板测试
 */				default: return false;
@@ -81,48 +87,48 @@ function initTabEquity(){
 }
 //访谈记录
 function initTabInterview(){
-	buryPoint("100");
+	//buryPoint("100");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/proview/" + projectId
 	});
 }
 //会议纪要
 function initTabMeeting(Id){
-	buryPoint("101");
+	//buryPoint("101");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/promeet/" + projectId
 	});
 }
 //交割前事项
 function initTabDelivery(){
-	buryPoint("102");
+	//buryPoint("102");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/delivery/toprodeliver/" + projectId
 	});
 }
 //注资信息
 function initTabAppropriation(projectId){
-	buryPoint("103");
+	//buryPoint("103");
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/toAppropriation/null/"+projectId
 	});
 }
 //运营分析
 function initTabPostMeeting(){
-	buryPoint("104");
+	//buryPoint("104");
 	$.getTabHtml({
 		url : platformUrl.showOperationsAnalysis +'/'+ projectId
 	});
 }
 //项目文档
 function initTabSopFile(){
-	buryPoint("105");
+	//buryPoint("105");
 	tabFile.init(projectId);
 	
 }
 //操作日志
 function initTabOperLog(){
-	buryPoint("107");
+	//buryPoint("107");
 	var url = Constants.sopEndpointURL+"/galaxy/project/toprolog/" + projectId;
 	$.getTabHtml({
 		url : url

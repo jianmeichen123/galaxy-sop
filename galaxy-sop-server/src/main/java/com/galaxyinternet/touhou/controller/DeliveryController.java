@@ -4,7 +4,9 @@ package com.galaxyinternet.touhou.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationListdata;
@@ -71,6 +74,8 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	InformationFileService informationFileService;
 	@Autowired
 	Cache cache;
+	@Autowired
+	private AuthRequestUtil authReq;
 
 	private String tempfilePath;
 
@@ -284,9 +289,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 							Direction.fromString("desc"), 
 							"created_time"));
 			List<InformationListdata> content = actualPage.getContent();
+			Map<String,String> userMap=initCache();
 			if(content != null && content.size() > 0){
 				for(InformationListdata c : content){
-					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+c.getUpdateId(), "realName"));
+					c.setUpdateUserName(userMap.get(c.getUpdateId().toString()));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
 				actualPage.setContent(content);
@@ -334,5 +340,20 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		}
 	}
 	
-	
+	public Map<String ,String > initCache( )
+	{
+		Map<String ,String > map=new HashMap<String ,String>();
+		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
+			if(userList != null && userList.size() >0)
+			{
+				
+				for(int i=0;i<userList.size();i++)
+				{
+					Map<String,Object> mapNew=userList.get(i);
+				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
+				}
+			}
+		return map;
+		
+	}
 }
