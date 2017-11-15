@@ -209,7 +209,7 @@ if(projectInfoDetail.projectName.length>20){
 	$('.project_name_t').css('font-size','28px')
 }
 		$("#project_name").text(str);
-		$("#project_name").attr("title",projectInfo.projectName);
+		$("#project_name").attr("title",projectInfoDetail.projectName);
 		var projectPro = projectInfoDetail.projectProgress;
 		if(projectPro=="projectProgress:10"){
 			$("#end").hide();
