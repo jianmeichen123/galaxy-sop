@@ -3810,6 +3810,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .rz{background-position:-424px 45px;}
 .sev_report .gray .yy{background-position:-507px 45px;}
 .base_select_ul{max-height:150px;overflow-y:auto;}
+.team_wid_p #field2-error{float:left;}
  /*陈剑波修改*/
  .basic_message{width:600px;border-radius:0px;height:auto;display:none;background:#fff;}
  .basic_mes_left{margin-left:8px;}
