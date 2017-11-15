@@ -444,8 +444,8 @@
 			<c:if test="${isEditable}">
 				<div class="top clearfix border_bottom">
 					<!--按钮-->
-					<div class="bluebtn btnbox_f btnbox_f1 clearfix">
-						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员"><em class="plus">+</em> 添加</a>
+					<div class="bluebtn btnbox_f btnbox_f1 clearfix borderRadius">
+						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员">添加</a>
 						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 					</div>
 				</div>
@@ -501,8 +501,8 @@
 			<div class="top clearfix border_bottom">
         <!--按钮-->
 	       <c:if test="${isEditable}">
-	          <div class="bluebtn btnbox_f btnbox_f1 clearfix ">
-	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+	          <div class="bluebtn btnbox_f btnbox_f1 clearfix borderRadius">
+	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)">添加</a>
 	          </div>
 	        </c:if>
 	    </div>
@@ -524,8 +524,8 @@
 				<div class="top clearfix border_bottom">
 		        <!--按钮-->
 			       <c:if test="${isEditable}">
-			          <div class="bluebtn btnbox_f btnbox_f1 clearfix">
-			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+			          <div class="bluebtn btnbox_f btnbox_f1 clearfix borderRadius">
+			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)">添加</a>
 			          </div>
 			        </c:if>
 		    </div>
