@@ -2537,8 +2537,8 @@ span.error,label.error{color:#ff0000 !important;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
 
 .team_wid_p span.error{float:none;}
- .team_wid_p::before{content:"%";font-size: 12px;font-family: "Microsoft YaHei"; padding-left: 5px;}
-/*.team_wid_p::before{content:"%";font-size: 12px;font-family: "Microsoft YaHei"; z-index: 0;position: relative;    top: -1px; right: -1px;}
+/* .team_wid_p::before{content:"%";font-size: 12px;font-family: "Microsoft YaHei"; padding-left: 5px;}
+.team_wid_p::before{content:"%";font-size: 12px;font-family: "Microsoft YaHei"; z-index: 0;position: relative;    top: -1px; right: -1px;}
 .team_wid_p span.error::before{content:"%  "; position: relative;left: -10px;font-family: "Microsoft YaHei";   font-size: 12px; }
 .team_wid_p span.error{position: relative;z-index: 2; right: -11px;background: #fff;margin-right:0;}
 .team_wid_p input{margin-right:5px;} */
