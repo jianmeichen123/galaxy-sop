@@ -1348,7 +1348,7 @@
                 <w:rPr>
                     <w:noProof/>
                 </w:rPr>
-                <w:t>客户及收入评测（剔除主营业务）（</w:t>
+                <w:t>客户及收入评测（剔除非主营业务）（</w:t>
             </w:r>
             <w:r>
                 <w:rPr>
@@ -6607,7 +6607,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>团队重要成员是否拥有足够、合理的股权：<#if !share_holding?? >—— </#if></w:t>
+                            <w:t>团队重要成员是否拥有足够、合理的股权：<#if !share_holding?? > — </#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -8774,7 +8774,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t><#if ENO2_4_4?? >${(ENO2_4_4.N1)!"—"}<#else>——</#if></w:t>
+                            <w:t><#if ENO2_4_4?? >${(ENO2_4_4.N1)!"—"}<#else> — </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -8863,7 +8863,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t><#if ENO2_4_4?? >${ENO2_4_4.N2!"—"}<#else>——</#if></w:t>
+                            <w:t><#if ENO2_4_4?? >${ENO2_4_4.N2!"—"}<#else> — </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -9474,7 +9474,7 @@
                                 <w:sz w:val="21"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>客户及收入评测（剔除主营业务）（12%）</w:t>
+                            <w:t>客户及收入评测（剔除非主营业务）（12%）</w:t>
                         </w:r>
                         <w:bookmarkEnd w:id="47"/>
                         <w:bookmarkEnd w:id="48"/>
@@ -9594,7 +9594,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）： <#if !NO4_2_2?? >—— </#if> </w:t>
+                            <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）： <#if !NO4_2_2?? > — </#if> </w:t>
                         </w:r>
                     </w:p>
 
