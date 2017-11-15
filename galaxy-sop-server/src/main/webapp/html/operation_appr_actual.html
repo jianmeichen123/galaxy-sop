@@ -25,7 +25,7 @@
 		                <dt>实际注资名称 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt txt" id="grantDetail" name="field1" type="text" value="实际" maxLength="20" valType="OTHER" regString="^.{0,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input class="edittxt txt" id="grantDetail" name="field1" type="text" placeholder="实际" maxLength="20" valType="OTHER" regString="^.{0,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -108,7 +108,7 @@ $(function(){
 						   o.find("[name='id']").text(json['id']);
 					   }
 					   if(json['field1']==""||!json['field1']){
-						   json['field1']=="实际";
+						   json['field1']=="实际注资";
 					   }
 					   o.find("[name='field1']").text(json['field1']);
 					   o.find("[name='field2']").text(json['field2']);
