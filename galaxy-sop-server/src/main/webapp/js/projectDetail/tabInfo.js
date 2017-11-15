@@ -35,7 +35,7 @@ $(function(){
 		    var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
-			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
+			$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"投资形式未填":(projectInfoDetail.fModeRemark==0?"投资形式未填":projectInfoDetail.fModeRemark));
 		    $("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看投资机构列表"));
 		    $("#financeMode").tooltip();//提示
 		    if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
@@ -653,7 +653,7 @@ function updataReport(projectInfoList){
 							_val=_parsefloat(_val);
 							var I_val=_val
 							if(_val==undefined){
-								_val="—"
+								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
@@ -662,19 +662,18 @@ function updataReport(projectInfoList){
 								}
 							}
 							
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val);
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val).removeClass("font-normal");
 							$("input[data-title-id='"+title.titleId+"']").val(title.value==undefined ?"":I_val).attr({"data-result-id":title.resultId});	
 							if(title.titleId=="1917"){
-								console.log(_val);
-								if(_val==undefined||_val=="—"){_val=0;}
-								base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
+								if(_val==undefined||_val=="暂无数据"){_val=0;}
+								if(_val!=0){
+									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
+								}
 							}
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text("—")
-							if(title.titleId=="1917"){
-								base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
-							}
-							
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();							
 						}
 					});
 	    		}
@@ -702,29 +701,31 @@ function updataReport(projectInfoList){
 								var I_val=_val;
 							}
 							if(_val==undefined){
-								_val="—"
+								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
-									console.log(Tval[1])
 									_val = _parsefloat(Tval[0]);
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
 							
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val);
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val).removeClass("font-normal");;;
 							$("input[data-title-id='"+title.titleId+"']").val(title.value==undefined ?"":I_val).attr({"data-result-id":title.resultId});	
 							if(title.titleId=="3010"){
-								if(_val==undefined||_val=="—"){
+								if(_val==undefined||_val=="暂无数据"){
 									_val=0;
 								}
-								base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+								if(_val!=0){
+									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+								}	
 							}
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text("—");
-							if(title.titleId=="3010"){
-								base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
-							}}
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();
+						}
+							 
 					});
 	    		}
 	    		

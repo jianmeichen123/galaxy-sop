@@ -50,7 +50,7 @@
 					<div class="con_box">
 						<p>出让股份</p>
 						<p class="data_con">
-							<em class="new_color_black" id="project_share_ratio" data-title-id="1917"></em>%				
+							<em class="new_color_black" id="project_share_ratio" data-title-id="1917"></em><span>%</span>				
 						</p>
 						<p id="finance_chart" data-title-id="1917">
 						</p>
@@ -77,8 +77,8 @@
 								</p>
 							</div>	
 							<div class="relative_box">
-								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em>%
-								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em>%</p>
+								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em><span>%</span>
+								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em><span>%</span></p>
 								<p id="invest_chart"></p>
 							</div>
 						</div>
