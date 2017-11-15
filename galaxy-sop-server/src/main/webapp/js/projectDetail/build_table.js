@@ -456,7 +456,8 @@ function saveRow(data)
 }
 //检查是否10条tr
 function check_table_tr_edit(table){
-		var limit = 10;
+	var code = $(table).attr('data-code');
+		var limit = getTableRowLimitNew(code);
 		var trs=$(table).find("tr").length-1;
 		if(trs==0){
 			var th_length =$(table).find("th").length
@@ -466,13 +467,21 @@ function check_table_tr_edit(table){
 			$(table).find(".no-records-found").remove();
 		}
 		if(trs>=limit){
-			$(table).closest(".tabtable_con_on").find(".bluebtn").hide(); 
+			$(table).closest(".tabtable_con_on").find(".btnbox_f1").hide(); 
 			for(var i=trs-1;i>limit-1;i--){   //历史数据展示前10条
 				$(table).find("tbody tr").eq(i).hide();
 			}
 		}else{
-			$(table).closest(".tabtable_con_on").find(".bluebtn").show(); 
+			$(table).closest(".tabtable_con_on").find(".btnbox_f1").show(); 
 		}
+}
+function getTableRowLimitNew(code)
+{
+	if(code == 'equity-structure')
+	{
+		return 200;
+	}
+	return 10;
 }
 var deletedRowIds = new Array();
 function delRow(ele)
