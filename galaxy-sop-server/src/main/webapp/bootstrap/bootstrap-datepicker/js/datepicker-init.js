@@ -422,4 +422,22 @@ $(function(){
 	    //endDate: '+3d'
 	});
 	//$('.datepicker-text').datepicker("setDate",dateadd);
+	//打开未来视图
+	$('.datepicker-month-start-future-text').datepicker({
+	    format: 'yyyy-mm',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    today: "Today",
+	    //upToNowBtn:true,
+	    //todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minViewMode: 1,
+	    orientation: "bottom left",
+	    //endDate : dateLimit,
+	    defaultDate : new Date(),
+	});
 });

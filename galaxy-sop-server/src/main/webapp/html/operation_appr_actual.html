@@ -94,6 +94,9 @@ $(function(){
 				   var index = json['index'];
 				   if(index){
 					   //编辑数据
+					   if(json['field1']==""||!json['field1']){
+						   json['field1']=="实际";
+					   }
 					   div.find("[name='field1']").text(json['field1']);
 					   div.find("[name='field2']").text(json['field2']);
 					   div.find("[name='field3']").text(_parsefloat(json['field3']));
@@ -103,6 +106,9 @@ $(function(){
 					   var o = $(data);
 					   if(json['id']){
 						   o.find("[name='id']").text(json['id']);
+					   }
+					   if(json['field1']==""||!json['field1']){
+						   json['field1']=="实际";
 					   }
 					   o.find("[name='field1']").text(json['field1']);
 					   o.find("[name='field2']").text(json['field2']);
