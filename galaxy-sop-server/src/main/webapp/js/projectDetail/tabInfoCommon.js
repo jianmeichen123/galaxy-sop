@@ -215,6 +215,7 @@ $(function(){
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;
 							$("#project_name_t").text(projectInfoDetail.projectName);
+							$("#project_name_t").attr("title",projectInfoDetail.projectName);
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
 							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 							$("#projectType").text(projectInfoDetail.type);
