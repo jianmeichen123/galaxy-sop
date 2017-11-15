@@ -1267,7 +1267,7 @@ function validate(){
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="1,2"){
 				var validate={
-						""data-rule-vinputValRule_52":"true",
+						"data-rule-vinputValRule_52":"true",
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
