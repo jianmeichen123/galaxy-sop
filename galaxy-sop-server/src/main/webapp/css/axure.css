@@ -3738,7 +3738,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .base_table tr:last-child td{border-bottom-width:0px;}
  .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{text-align:center;padding:0;-webkit-box-sizing: border-box;}
  .tabinfo_con .base_table tr td:first-child{text-align:left;padding-left:30px;}
- .tabinfo_con .base_table tr th:first-child{padding-left:30px;}
+ .tabinfo_con .base_table tr th:first-child{padding-left:30px;text-align:left;}
+  .tabinfo_con .base_table tr td{height:35px;}
  .tabinfo_con .border_bottom .btnbox_f{margin:0;}
  .borderRadius{border-radius:2px;}
  .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{font-family:'Microsoft YaHei'; color:#5a626d;text-align:center;padding:0;-webkit-box-sizing: border-box;}
