@@ -668,12 +668,19 @@ function updataReport(projectInfoList){
 								if(_val==undefined||_val=="暂无数据"){_val=0;}
 								if(_val!=0){
 									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
+									
 								}
 							}
 							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
 							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");
-							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();							
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide()
+							if(title.titleId=="1917"){
+								base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
+							}else{
+								return;
+							}
+							
 						}
 					});
 	    		}
@@ -718,14 +725,18 @@ function updataReport(projectInfoList){
 								}
 								if(_val!=0){
 									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
-								}	
+								}else{
+									return;
+								}
+								
 							}
 							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");
-							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();
-						}
-							 
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");;
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide()
+							if(title.titleId=="3010"){
+								base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
+							}}
 					});
 	    		}
 	    		
