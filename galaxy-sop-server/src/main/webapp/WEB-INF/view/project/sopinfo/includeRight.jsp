@@ -43,7 +43,7 @@
         	              </div>
         	              
       					</div> 
-						<div class="new_right_flow new_right_flow_after">
+						<div class="new_right_flow new_right_flow_after clearfix">
 		            	<div class="new_right_flow_line">
 		                	<ul class="line_ul_p" id="lct_ul">
 		                    	<li><span class="gray_dot"></span><label>接触访谈</label></li>
@@ -74,7 +74,7 @@
 			</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
-			<div class="tq_div" style="display:none;">
+			<div class="tq_div clearfix" style="display:none;">
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">

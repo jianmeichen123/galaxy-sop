@@ -22,7 +22,6 @@ function popPageId()
  * 数据权限 - 传递页面标识
  */
 $(document).ajaxSend(function(event, xhr, settings) {
-	console.log(pageIds);
 	var len = pageIds.length;
 	if(len > 0)
 	{

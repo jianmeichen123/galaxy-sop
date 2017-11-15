@@ -850,7 +850,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                 {
                     FileUtilModel am = new FileUtilModel();
                     try {
-                        OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), resultList.get(i-1).getFileKey()));
+                        OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest( StringUtils.isBlank(resultList.get(i-1).getBucketName())? OSSFactory.getDefaultBucketName():resultList.get(i-1).getBucketName(), resultList.get(i-1).getFileKey()));
                         fis = ossobjcet.getObjectContent();
 
                         File dir = new File(tempfilePath+ File.separator +currentMark);
@@ -877,7 +877,8 @@ public class ReportExportServiceImpl implements ReportExportService {
 
                         fis.close();
                     } catch (Exception e) {
-                        throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
+                        logger.error("file error ",e);
+                        //throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
                     } finally {
                         try {
                             if(out!=null){
@@ -960,7 +961,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         InputStream fis = null;
         try {
-            OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), informationFile.getFileKey()));
+            OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(StringUtils.isBlank(informationFile.getBucketName())? OSSFactory.getDefaultBucketName():informationFile.getBucketName(), informationFile.getFileKey()));
 
             fis = ossobjcet.getObjectContent();
             byte[] buffer = new byte[1024];
@@ -1048,7 +1049,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             }
         } catch (Exception e) {
             logger.error("gradeTitleResult err",e);
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
 
         return map;

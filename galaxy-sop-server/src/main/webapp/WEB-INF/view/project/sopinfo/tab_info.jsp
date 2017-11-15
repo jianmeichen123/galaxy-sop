@@ -444,8 +444,8 @@
 			<c:if test="${isEditable}">
 				<div class="top clearfix border_bottom">
 					<!--按钮-->
-					<div class="bluebtn btnbox_f btnbox_f1 clearfix">
-						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员"><em class="plus">+</em> 添加</a>
+					<div class="btnbox_f btnbox_f1 clearfix borderRadius">
+						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员">添加</a>
 						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 					</div>
 				</div>
@@ -501,8 +501,8 @@
 			<div class="top clearfix border_bottom">
         <!--按钮-->
 	       <c:if test="${isEditable}">
-	          <div class="bluebtn btnbox_f btnbox_f1 clearfix ">
-	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+	          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
+	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)">添加</a>
 	          </div>
 	        </c:if>
 	    </div>
@@ -524,8 +524,8 @@
 				<div class="top clearfix border_bottom">
 		        <!--按钮-->
 			       <c:if test="${isEditable}">
-			          <div class="bluebtn btnbox_f btnbox_f1 clearfix">
-			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+			          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
+			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)">添加</a>
 			          </div>
 			        </c:if>
 		    </div>
@@ -552,10 +552,10 @@
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs institue_content">'
-	          +'<span class="input_box"><input placeholder="机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="投资金额（万元）" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持6位长度的四位小数" data-msg-amount="<font color=red>*</font>支持6位长度的四位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
+	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持6位长度的四位小数" data-msg-amount="<font color=red>*</font>支持6位长度的四位小数"/></span>'
 	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
-	          +'<span class="input_box"><input placeholder="占股比例（%）"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="占股比例(%)"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
 	            +'<em class="inves_delete"></em>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);

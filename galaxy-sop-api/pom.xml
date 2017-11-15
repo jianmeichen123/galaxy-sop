@@ -66,12 +66,6 @@
 			<groupId>com.galaxyinternet</groupId>
 			<artifactId>galaxy-common</artifactId>
 			<version>${dependency.project}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

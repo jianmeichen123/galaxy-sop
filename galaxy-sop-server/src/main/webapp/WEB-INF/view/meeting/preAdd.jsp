@@ -11,7 +11,7 @@ setPageId("meetingRecord_add");
         <dl class="fmdl clearfix">
         	<dt>项目名称:</dt>
             <dd class="clearfix">
-            	<input type="text" id="projectName" name="projectName" class="txt s_txt"/>
+            	<input type="text" id="projectName" name="projectName" class="txt s_txt" placeholder="请输入要搜索的项目名称"/>
             </dd>
         </dl>
      </div>
@@ -34,10 +34,9 @@ setPageId("meetingRecord_add");
             <dt>会议类型：</dt>
             <dd class="clearfix">
             	<select id="meetingType">
-            		<option></option>
+            		<option value="">请选择</option>
             		<c:forEach var="meetingType" items="${meetingType }">
             		<option value="${meetingType.code }">${meetingType.name }</option>
-            		
             		</c:forEach>
             	</select>
             </dd>

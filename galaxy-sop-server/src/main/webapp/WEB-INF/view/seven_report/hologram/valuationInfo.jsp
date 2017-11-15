@@ -597,6 +597,8 @@ function getTableRowLimit(code)
 	if(code == 'investor-situation' || code =='operation-indices')
 	{
 		return 20;
+	}else if(code == 'equity-structure'){
+		return 200;
 	}
 	return 10;
 }

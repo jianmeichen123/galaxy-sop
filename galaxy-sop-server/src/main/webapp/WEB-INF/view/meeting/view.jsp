@@ -229,7 +229,12 @@ function delMeeting(id)
 				if(data.result.status=='OK')
 				{
 					layer.msg("删除成功");
-					$('#data-table').bootstrapTable('refresh');
+					if ($('#data-table').find("tbody tr").length<=1) {
+					       $('#data-table').bootstrapTable('prevPage').bootstrapTable('refresh');
+					    }else{
+					    	$('#data-table').bootstrapTable('refresh');
+					    }
+					
 				}
 				else
 				{

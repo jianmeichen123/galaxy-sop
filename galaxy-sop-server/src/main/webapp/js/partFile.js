@@ -89,7 +89,14 @@ var  showbar;
 			
 			if(type==19)
 			{	
-				infoMode[name] = field.val();
+				if(name=="field1"&&field.val()==""){
+					infoMode[name]="实际注资";
+					if(field.closest("dd").prev("dt").text().indexOf("分拨")>-1){
+						infoMode[name]="分拨注资";
+					}
+				}else {
+					infoMode[name] = field.val();
+				}
 			}
 		});
 		if(code=='grant-actual'){  

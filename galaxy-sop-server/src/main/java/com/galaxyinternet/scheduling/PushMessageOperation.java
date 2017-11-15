@@ -1,38 +1,23 @@
 package com.galaxyinternet.scheduling;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
-import com.galaxyinternet.model.operationMessage.OperationType;
-import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.role.Role;
-import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.model.user.UserRole;
-import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.OperationMessageService;
-import com.galaxyinternet.service.PassRateService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 /**
@@ -43,7 +28,7 @@ import com.galaxyinternet.service.UserService;
 @Component("pushMessageOperation")
 public class PushMessageOperation extends BaseGalaxyTask {
 	@SuppressWarnings("unused")
-	private Logger logger = Logger.getLogger(PushMessageOperation.class);
+	private Logger logger = LoggerFactory.getLogger(PushMessageOperation.class);
 
 	@Autowired
 	ProjectService projectService;

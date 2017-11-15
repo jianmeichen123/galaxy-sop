@@ -69,7 +69,7 @@
 			CODE : "^[A-Za-z0-9\-]+$"
 		};
 		var flag=false;
-		if(para.rule=='OTHER') {//自定义的验证规则匹配
+		if(para.rule=='OTHER'||para.rule=='unRequire') {//自定义的验证规则匹配
 			flag=new RegExp(para.regString).test(para.data);
 		}else if(para.rule=='MAXBYTE'){
 			var len = 0;
@@ -168,6 +168,9 @@ function validateBefore() {
 			if(valType=='OTHER'){//如果类型是自定义，则获取自定义的验证字符串
 				regString=$(this).attr('regString');
 				flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:valType, regString:$(this).attr('regString')});
+			} else if(valType=='unRequire'){//如果类型是自定义，则获取自定义的验证字符串
+				regString=$(this).attr('regString');
+				flag=$.Validator.match({data:$(this).val(), rule:valType, regString:$(this).attr('regString')});
 			} else {
 				if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
 					flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});

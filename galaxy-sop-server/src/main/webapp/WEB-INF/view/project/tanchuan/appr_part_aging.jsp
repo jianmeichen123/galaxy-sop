@@ -28,7 +28,7 @@
 		            <dt>分拨名称 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="分拨" maxLength="20" />
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" placeholder="分拨" maxLength="20" />
 		                    </div> 
 		                </dd>
 		            </dl>

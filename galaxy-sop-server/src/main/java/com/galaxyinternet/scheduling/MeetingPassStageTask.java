@@ -5,7 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ import com.galaxyinternet.service.UserService;
 @Component("meetingPassStageTask")
 public class MeetingPassStageTask extends BaseGalaxyTask {
 	@SuppressWarnings("unused")
-	private Logger logger = Logger.getLogger(MeetingPassStageTask.class);
+	private Logger logger = LoggerFactory.getLogger(MeetingPassStageTask.class);
 
 	@Autowired
 	private UserService userService;
