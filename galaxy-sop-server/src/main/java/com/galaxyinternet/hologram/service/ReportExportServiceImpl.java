@@ -877,7 +877,8 @@ public class ReportExportServiceImpl implements ReportExportService {
 
                         fis.close();
                     } catch (Exception e) {
-                        throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
+                        logger.error("file error ",e);
+                        //throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
                     } finally {
                         try {
                             if(out!=null){
@@ -1048,7 +1049,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             }
         } catch (Exception e) {
             logger.error("gradeTitleResult err",e);
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
 
         return map;
