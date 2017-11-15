@@ -1568,6 +1568,9 @@ function getTableRowLimit(code)
 {
 	var num=0;
 	switch(code){
+		case "equity-structure":
+	       num=200; 
+	       break;
 	   case "investor-situation":
 	       num=20; 
 	       break;
