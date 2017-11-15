@@ -278,8 +278,14 @@ $(function(){
     });
     
   //计算version19_detail_header的左边距
-	var  w_lft=$(".lft").width();
-  	$('.version19_detail_header').css({'padding-left':w_lft+40});
+  detailHeaderWidth();
+  function detailHeaderWidth(){
+	  var  w_lft=$(".lft").width();
+	  	$('.version19_detail_header').css({'padding-left':w_lft+40});
+  }
+  	$(window).resize(function(){
+  		detailHeaderWidth();
+  	})
 });
 /**
  * 面包屑
