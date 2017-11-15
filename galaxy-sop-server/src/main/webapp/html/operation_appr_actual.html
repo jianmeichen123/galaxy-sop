@@ -95,7 +95,7 @@ $(function(){
 				   if(index){
 					   //编辑数据
 					   if(json['field1']==""||!json['field1']){
-						   json['field1']=="实际";
+						   json['field1']="实际注资";
 					   }
 					   div.find("[name='field1']").text(json['field1']);
 					   div.find("[name='field2']").text(json['field2']);
@@ -108,7 +108,7 @@ $(function(){
 						   o.find("[name='id']").text(json['id']);
 					   }
 					   if(json['field1']==""||!json['field1']){
-						   json['field1']=="实际注资";
+						   json['field1']="实际注资";
 					   }
 					   o.find("[name='field1']").text(json['field1']);
 					   o.find("[name='field2']").text(json['field2']);
