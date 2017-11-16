@@ -181,8 +181,10 @@ var delScope = "${fx:dataScope('meetingRecord_delete')}".split(",");
 var meetSelectRow = null;
 function meetFormatLog(value,row,index){
 	var rtn = '';
-	var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
+	if(value){
+		var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
 	    subValue=value.replace(/<[^>]+>/g, "");
+	}
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
