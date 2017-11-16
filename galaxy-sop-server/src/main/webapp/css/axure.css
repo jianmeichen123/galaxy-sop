@@ -3712,12 +3712,12 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #finance_chart{right:40px;top:30px}
  .plan_infoC .img_box{background-position:-341px -96px;}
  .plan_infoC #plan_operator{margin:12px 0;}
- .plan_infoC #plan_operator a{display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -11px -137px;width: 26px;height: 28px;float:left;margin-right:35px;}
- .plan_infoC #plan_operator a.f2{width:35px;background-position:-69px -137px;}
- .plan_infoC #plan_operator a.new2{background-position:-134px -137px;}
- .plan_infoC #plan_operator a:hover{background-position:-11px -95px;}
- .plan_infoC #plan_operator a.f2:hover{background-position:-69px -95px;}
- .plan_infoC #plan_operator a.new2:hover{background-position:-134px -95px;}
+ .plan_infoC #plan_operator a{padding-left:23px;line-height:28px;font-family:Microsoft YaHei;display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -8px -222px;width: 26px;height: 28px;float:left;margin-right:15px;}
+ .plan_infoC #plan_operator a.f2{background-position:-75px -222px;}
+ .plan_infoC #plan_operator a.new2{background-position:-144px -222px;width:60px;}
+ .plan_infoC #plan_operator a:hover{background-position:-8px -252px;}
+ .plan_infoC #plan_operator a.f2:hover{background-position:-75px -252px;}
+ .plan_infoC #plan_operator a.new2:hover{background-position:-144px -252px;}
  .invest_infoC .con_box.invest_money{border:0px;padding:0;height:196px;}
  .pagebox .tabinfo_con table.base_table{border:1px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;margin-bottom:20px;}
  .invest_infoC .invest_money p{display:block;border:1px solid #d8d8d8;border-radius:2px;font-size:12px;color:#777acb; padding:20px 0 20px 30px; height:47px;}
@@ -3758,7 +3758,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .relative_box .no_plan{width:150px;height:25px;background:url(../img/base_info/base_icon.png) -180px -70px no-repeat;color:#b2b2b2;margin:0 auto;text-align:center;padding-top:95px;position:relative;left:-15px;top:5px;}
 .relative_box .no_plan a{font-family:'Microsoft YaHei';font-size:12px;color:#45aaff;}
 .relative_box .no_plan.limits_gray a{color:#b2b2b2;}
-.plan_infoC #plan_operator span.limits_gray a{background-position:-11px -176px;}
+.plan_infoC #plan_operator span.limits_gray a{background-position:-8px -282px;color:#d8d8d8}
 .relative_box .img_box{color:#4f52a0;}
 .relative_box .img_box+#plan_name{margin-top: -8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:30px;text-indent:-5px;}
 .relative_box .plan_update_time{color:#8b8db8;}
