@@ -219,7 +219,7 @@ var fileUploader = new plupload.Uploader({
 	init: {
 		PostInit: function(up){
 			$("#save_meeting").click(function(){
-				if(!validator.form()){
+				if(!validator.form()||$("#viewNotes-error").is(":visible")){
 					return;
 				}
 				var data = $.parseJSON($("#meeting_form").serializeObject());
