@@ -138,6 +138,7 @@ $(function() {
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -149,7 +150,7 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
-				var sTop=$(window).scrollTop();
+				$(window).scrollTop(sTop);
 				validate();
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
