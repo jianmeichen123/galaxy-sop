@@ -447,7 +447,7 @@ $(function(){
 						});
 						updateReportMoney(); 
 						jointDeliveryList(projectInfoDetail.jointDeliveryList);//合投机构 
-						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":projectInfoDetail.fModeRemark));
+						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"投资形式未填":(projectInfoDetail.fModeRemark==0?"投资形式未填":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看投资机构列表"));
 						$("#financeMode").tooltip();//提示
 						if(projectInfoDetail.fModeRemark!="合投" && projectInfoDetail.fModeRemark!="领投"){
