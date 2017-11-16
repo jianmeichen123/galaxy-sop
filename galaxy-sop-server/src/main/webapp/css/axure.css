@@ -3825,7 +3825,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #updateProjectInfo tr:nth-child(1){margin-bottom:0px;}
  #updateProjectInfo tr:nth-child(2){margin-bottom:0px;}
  #updateProjectInfo tr:nth-child(3){margin-bottom:0px;}
- .basic_mes_input{border:1px solid #d8d8d8;border-radius:2px;width:430px;height:31px;padding-left:8px;}
+ .basic_mes_input{border:1px solid #d8d8d8;border-radius:2px;width:420px;height:31px;padding-left:8px;}
  .basic_mes_input::-webkit-input-placeholder, .inputsForm input::-webkit-input-placeholder{ /* WebKit browsers */
     color:#d8d8d8;
     font-family:Microsoft YaHei;
@@ -3862,9 +3862,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .basic_common_width  table tr td label{font-family:PingFangSC-Regular;}
 .basic_common_width  table tr td label.error{color: #ff0000;}
 .basic_common_width  table tr td label.no_info_icon_xhhl{color:#bbb;}
-#updateProjectInfo .basic_message_cont table tr td span:nth-child(1),.invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
+#updateProjectInfo .basic_message_cont table tr td span:nth-child(1),.invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type,#company-info-form .edit_basic_table tr span{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .title_bj_tzjl{font-family:Microsoft YaHei-Bold;font-size:14px;position:relative;}
-#updateProjectInfo .basic_message_cont .basic_mes_left,#updateProjectInfo .basic_message_cont #dropdown,#updateProjectInfo .basic_message_cont .basic_mes_input,.real_ivestest_input{margin: 0; width:385px;position: absolute;left: 116px;top: 0px;}
+#updateProjectInfo .basic_message_cont .basic_mes_left,#updateProjectInfo .basic_message_cont #dropdown,#updateProjectInfo .basic_message_cont .basic_mes_input,.real_ivestest_input,#company-info-form .edit_basic_table tr .basic_mes_input{margin: 0; width:385px;position: absolute;left: 116px;top: 0px;}
 #updateProjectInfo .basic_message_cont .basic_mes_input{width:395px;}
 #updateProjectInfo .basic_message_cont #dropdown+input.basic_mes_input{position:relative;top: 10px;}
 #updateProjectInfo .basic_message_cont .input_select{width:393px;}
@@ -3883,8 +3883,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .legal_person{height:318px;}
  .short_num{display:inline-block;margin-left:33px;width:auto !important;}
  .legal_input{margin-left:5px;}
- .legal_date{cursor:pointer;background:url('../img/base_info/pop_icon_datepick.png') no-repeat  402px -8px}
- .legal_date:hover,.legal_date:active{background-position:402px -56px;}
+ .legal_date{cursor:pointer;background:url('../img/base_info/pop_icon_datepick.png') no-repeat  358px -8px}
+ .legal_date:hover,.legal_date:active{background-position:358px -56px;}
  .legal_person{display:none;}
  .agency_institute{display:none;}
  .radioclass{opacity:0;cursor:pointer;filter:alpha(opacity=0);}
