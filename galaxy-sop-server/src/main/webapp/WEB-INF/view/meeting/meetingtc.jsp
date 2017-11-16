@@ -72,7 +72,7 @@
             </dd>
         </dl>
     </div>
-    
+    <!-- 
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix" id="meet_type_dl">
             <dt>会议类型：</dt>
@@ -92,6 +92,7 @@
             </dd>
         </dl>
     </div>
+     -->
 
      
     <div class="min clearfix toShow_tjh" style="display:none;">
