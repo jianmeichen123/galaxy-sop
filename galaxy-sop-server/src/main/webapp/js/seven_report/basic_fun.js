@@ -910,8 +910,14 @@ function saveForm(form)
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();
+        if($(form).is('.actual_aging_container_form')){
+        	data = JSON.parse(data);
+        	 if(data.field1=="" || !(data.field1)){
+             	data.field1="分拨注资"
+             }
+             data=JSON.stringify(data);
+        }
         saveRow(data);
-        
     }
 }
 

@@ -18,7 +18,7 @@
 	<div class="title_bj" id="grant_popup_name">添加分拨计划</div>
 	<input type="hidden" id="remainMoneyPart" value=""/>
 	<input type="hidden" id="totalMoneyPart" value=""/>
-  <form id="detail-form">
+  <form id="detail-form" class='actual_aging_container_form'>
 		<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
