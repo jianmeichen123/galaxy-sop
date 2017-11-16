@@ -255,7 +255,7 @@ function showMeetDetail(selectRowId){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			queryMeetPerPro();
+			//queryMeetPerPro();
 			$(".title_bj").text("会议纪要");
 			$('.edui-container').show();
 			initMeetTcVal();
@@ -265,7 +265,8 @@ function showMeetDetail(selectRowId){
 }
 
 function initMeetTcVal(){
-	$("#projectId").val(meetSelectRow.projectId).attr("disabled","desabled");
+	console.log(meetSelectRow);
+	$("#projectName").val(meetSelectRow.proName).attr("disabled","desabled");
 	$("#meetingDateStr").val(meetSelectRow.meetingDateStr).attr("disabled","desabled");
 	
 	$("input[name='meetingTypeTc'][value='"+meetSelectRow.meetingType+"']").attr("checked",'checked');
