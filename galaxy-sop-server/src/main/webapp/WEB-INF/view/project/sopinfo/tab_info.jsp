@@ -333,8 +333,8 @@
 							</tr>
 							<tr>
 								<td>
-									<span>法定代表人:</em></span>
-									<input type="text" value="" class="basic_mes_input legal_input" placeholder="法定代表人名称" name="companyLegal" maxlength="30"  data-title-id="1815">
+									<span>法<em class="short_num">人:</em></span>
+									<input type="text" value="" class="basic_mes_input legal_input" placeholder="法人名称" name="companyLegal" maxlength="30"  data-title-id="1815">
 								</td>
 							</tr>
 						</table>
@@ -474,7 +474,7 @@
         	    <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
 	        </tr>
 	        <tr>
-	       		 <td><span class="new_color_gray th">法定代表人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	      
+	       		 <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	      
 	        </tr>
 	    </table>                
 	</div>
