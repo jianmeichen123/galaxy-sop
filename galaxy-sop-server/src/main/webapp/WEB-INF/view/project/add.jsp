@@ -94,7 +94,7 @@
                         <li>
                             <span class="basic_span">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的支持四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
                             <span class="basic_span">出让股份：</span>
