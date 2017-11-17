@@ -3886,7 +3886,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px;vertical-align: text-bottom;margin-top: 10px;}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
  .inver_button{margin-top:25px;margin-bottom:27px;}
- .legal_person{height:318px;}
+/*  .legal_person{height:318px;} */
  .short_num{display:inline-block;margin-left:33px;width:auto !important;}
  .legal_input{margin-left:5px;}
  .legal_date{cursor:pointer;background:url('../img/base_info/pop_icon_datepick.png') no-repeat  402px -8px}
