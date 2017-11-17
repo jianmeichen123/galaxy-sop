@@ -1416,7 +1416,7 @@ jQuery.validator.addMethod("verify_134", function(value, element) {
 	return this.optional(element) || (verify_n4.test(value));
 }, "不能超过999999999");
 jQuery.validator.addMethod("verify_13", function(value, element) {
-	var verify_13 = /^([1-9][0-9]{1,12}|0)$/;
+	var verify_13 = /^([1-9][0-9]{0,12}|0)$/;
 	return this.optional(element) || (verify_13.test(value));
 }, "不能超过9999999999999");
 //inputValRuleMark=="8,2"
