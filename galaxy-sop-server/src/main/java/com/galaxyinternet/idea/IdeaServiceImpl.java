@@ -244,12 +244,12 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			String projectCode = generateProjectCode(project.getProjectDepartid());
 			project.setProjectCode(projectCode);
 			project.setFaFlag("projectSource:0");
-			projectService.newProject(project, null);
+			long newProject = projectService.newProject(project, null);
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
 			InformationResult re=new InformationResult();
 			re.setTitleId("1108");
-			re.setProjectId(String.valueOf(id));
+			re.setProjectId(String.valueOf(newProject));
 			re.setContentChoose("尚未获投");
 			re.setCreatedTime(now);
 			re.setCreateId(userId.toString());
