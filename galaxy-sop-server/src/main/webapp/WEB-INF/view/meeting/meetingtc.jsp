@@ -69,8 +69,7 @@ setPageId("meetingRecord_detail");
         <dl class="fmdl clearfix" id="proselect">
         	<dt>项目 :</dt>
             <dd class="clearfix">
-            	<select id="projectId" name="projectId"  valType="required" msg="<font color=red>*</font>项目不能为空">
-                </select>
+            	<input type="text" class="txt" readonly  id="projectName" name = "projectName" style="height:23px;width:150px;"/>
             </dd>
         </dl>
     </div>

@@ -18,7 +18,7 @@ $(function(){
 			$('.tip-yellowsimple').hide();
 			$("label.error").hide();
 			$("body").css('overflow-y','auto');
-			$('.radio_cont').removeClass('radio_checked')
+			$('.radio_cont').removeClass('radio_checked');
 		})
 		
 	   /**
@@ -88,6 +88,7 @@ $(function(){
 			var fs;
 			
         $("[data-on='data-open']").click(function (){
+        	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
 				if($(this).hasClass('limits_gray'))
@@ -174,7 +175,6 @@ $(function(){
 					}else{
 						$(".invest_institue").hide();
 					}
-					
 					if(projectInfoDetail.financeMode!=undefined&&projectInfoDetail.financeMode!="financeMode:0"){
 						jointDeliveryEdit(projectInfoDetail.jointDeliveryList);
 					}

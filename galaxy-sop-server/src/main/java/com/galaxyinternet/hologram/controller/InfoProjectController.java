@@ -283,7 +283,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	@ResponseBody
 	@RequestMapping(value = "/getTotalAppr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationResult> getTotalAppr(@RequestBody InformationResult informationResult,HttpServletRequest request){
-		
+		//是否验证信息完整
 		boolean validate = "true".equals(request.getParameter("validate"));
 		
 		ResponseData<InformationResult> response = new ResponseData<InformationResult>();
