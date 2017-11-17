@@ -5,6 +5,9 @@ $(function(){
 	  $('.task-tips-li').on('click',function(){
 	        $(this).addClass('on').siblings().removeClass('on');          
 	      })
+	   $('.task-cx').on('click',function(){
+		   $(this).closest('div').find('.task_input').css('display','block');
+	   })
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		var obj=this;

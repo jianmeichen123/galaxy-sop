@@ -3931,7 +3931,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task_tipslink li{margin:0 40px 0 0;}
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;}
-.pagebox .ritmin .searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;}
+.pagebox .ritmin .searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;}
 .pagebox .ritmin .task-searchbox{width:auto;}
 .task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/btnico2.png) no-repeat 21px 6px;margin-left:10px;}
 .task-last-li{margin-top:-6px !important;}
