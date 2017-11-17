@@ -58,8 +58,13 @@
                 
                   
           </ul>
+          
+          <span class='more-task fr'>指派任务</span>
+          <ul class='task-toggle'>
+          	<li>移交任务</li>
+          	<li>放弃任务</li>
+          </ul>
         </div>
-        <div class='task-todeal-table'>
         <!--表格内容-->
 						<table class='no-radius' width="100%"  cellspacing="0" cellpadding="0" 
 						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
@@ -79,7 +84,7 @@
    						 	</thead>
 					</table>
 	
-	</div>
+	
     </div>
 </div>
 

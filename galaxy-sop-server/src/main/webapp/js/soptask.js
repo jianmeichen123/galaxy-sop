@@ -4,10 +4,19 @@
 $(function(){
 	  $('.task-tips-li').on('click',function(){
 	        $(this).addClass('on').siblings().removeClass('on');          
-	      })
+	      });
+	  //搜索框点击显示
 	   $('.task-cx').on('click',function(){
 		   $(this).closest('div').find('.task_input').css('display','block');
-	   })
+	   });
+	   //更多操作点击显示
+	   $('.more-task').mouseenter(function(){
+		   $('.task-toggle').slideDown();
+	   });
+	   $('.task-toggle').mouseleave(function(){
+		    $('.task-toggle').slideUp();
+	   });
+	   
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		var obj=this;
