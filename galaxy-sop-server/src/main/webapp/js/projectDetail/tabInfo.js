@@ -169,11 +169,14 @@ $(function(){
 					if(investForm=="financeMode:1"){
 						$(".invest_institue .invest_type").text("跟投机构：");
 						$(".invest_institue").show();
+						$('.invest_max_height').css('height','315px');
 					}else if(investForm=="financeMode:2"){
 						$(".invest_institue .invest_type").text("合投机构：");
 						$(".invest_institue").show();
+						$('.invest_max_height').css('height','315px');
 					}else{
 						$(".invest_institue").hide();
+						$('.invest_max_height').css('height','auto');
 					}
 					if(projectInfoDetail.financeMode!=undefined&&projectInfoDetail.financeMode!="financeMode:0"){
 						jointDeliveryEdit(projectInfoDetail.jointDeliveryList);
