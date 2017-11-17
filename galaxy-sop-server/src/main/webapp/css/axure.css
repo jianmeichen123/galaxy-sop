@@ -3902,7 +3902,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  #basicForm .invest_current label.error{ color: #ff0000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
  #basicForm .invest_max_height tr label.error{margin-left: 116px;}.
- institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
+ .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:111px;}
  .institue_content .input_box:nth-child(4){width:82px;}
  .institue_content .input_box #dropdown{width:69px; margin-left: 4px;}
@@ -3920,3 +3920,25 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .member table.team_info .on td{ background:none;}
  .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
+
+ /* CHEN */
+.pagebox .task_todeal h2{height:64px;background:#fff;line-height:64px;padding-left:39px;font-size:24px;color:#202533}
+.pagebox .task_todeal{padding-left:0px;margin: 50px 0 0 10.505%;width: 90.5% !important;}
+.task-top{height:108px;background:#fff;margin-top:-9px;}
+.pagebox .task_todeal .top .task_tipslink{margin:8px 0 0 39px;font-size:14px;color:#33363e;}
+.pagebox .task_todeal .top .task_tipslink li{padding-bottom:13px;}
+.pagebox .task_todeal .top .task_tipslink li:hover{border-bottom:4px solid #45aaff;}
+.task_tipslink li{margin:0 40px 0 0;}
+.bottom_none:hover{border-bottom:none !important;}
+.task_tipslink li a{color:#33363e;font-size:14px;}
+.pagebox .ritmin .searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;}
+.pagebox .ritmin .task-searchbox{width:auto;}
+.task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/btnico2.png) no-repeat 21px 6px;margin-left:10px;}
+.task-last-li{margin-top:-6px !important;}
+.task_tipslink .task-searchbox .task-cx{font-size:13px;}
+.no-radius{border-radius:0px !important;}
+.task_input{display:none;}
+
+
+
+

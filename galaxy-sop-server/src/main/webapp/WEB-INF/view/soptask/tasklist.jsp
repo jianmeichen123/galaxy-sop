@@ -10,6 +10,10 @@
 <head>
 <meta charset="utf-8">
 <title>星河投</title>
+<style>
+.fixed-table-container{padding-left:20px !important;padding-right:20px !important;border-radius:0px !important;}
+.fixed-table-body{border-radius:0px !important;}
+</style>
 
 
 <%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
@@ -27,32 +31,37 @@
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
- 	<div class="ritmin">
-    	<h2>待办任务</h2>
+ 	<div class="ritmin task_todeal">
+ 	<div>
         <!--页眉-->
-        <div class="top clearfix" id="custom-toolbar">
-        	<!--搜索-->
-          <div class="searchbox clearfix">
-            <input type="hidden"  id="tipslink_val"/>
-            <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
-            <input  name="keyword" type="text" placeholder="请输入项目名称或投资经理姓名" class="txt"/>
-            <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">搜索</a>
-
-          </div>
+        <div class="top clearfix task-top" id="custom-toolbar">
+        <h2>待办任务</h2>
             <!--tips连接-->
-        	<ul class="tipslink">
-            	<li class="on"><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
-                <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
-                <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
-                <%if("".equals(url)){ %>
-                      <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
+        	<ul class="tipslink task_tipslink">
+            	<li class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
+                 <%if("".equals(url)){ %>
+                      <li class='task-tips-li'><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
                 <%} %>
-                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">待完工<span><!-- (4) --></span></a></li>
-                <li><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>   
+                <li class='task-tips-li'><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">待完工<span><!-- (4) --></span></a></li>
+                <li class='task-tips-li'><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>
+                <li class='bottom_none'>|</li> 
+                <li class='task-tips-li'><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">部门待完工<span><!-- (2) --></span></a></li>
+                <li class='bottom_none task-last-li'>
+	               	 <div class="searchbox clearfix task-searchbox">
+			            <input type="hidden"  id="tipslink_val"/>
+			            <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
+			            <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
+			            <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch">搜索</a>
+	        		  </div>
+          		</li>
+                <!-- <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span>(5)</span></a></li> -->
+                
+                  
           </ul>
         </div>
+        <div class='task-todeal-table'>
         <!--表格内容-->
-						<table width="100%" cellspacing="0" cellpadding="0" 
+						<table class='no-radius' width="100%"  cellspacing="0" cellpadding="0" 
 						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
 				         data-toolbar="#custom-toolbar" >
 						   <thead>
@@ -70,7 +79,7 @@
    						 	</thead>
 					</table>
 	
-
+	</div>
     </div>
 </div>
 
