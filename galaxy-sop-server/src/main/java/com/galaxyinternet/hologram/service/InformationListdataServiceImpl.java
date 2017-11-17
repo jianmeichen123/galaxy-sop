@@ -1,7 +1,7 @@
 package com.galaxyinternet.hologram.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
@@ -114,12 +116,22 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 	{
 		if(entity != null)
 		{
+			User user = WebUtils.getUserFromSession();
+			if(user != null)
+			{
+				entity.setUpdateId(user.getId());
+			}
+			entity.setUpdatedTime(new Date().getTime());
 			if(entity.getId() != null)
 			{
 				updateById(entity);
 			}
 			else
 			{
+				if(user != null)
+				{
+					entity.setCreateId(user.getId());
+				}
 				insert(entity);
 			}
 		}
