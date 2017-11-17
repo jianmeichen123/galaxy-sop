@@ -151,21 +151,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
-	//分期注资计划:PNO1_7|本轮融资:ONO9_2(编辑判断)
-	if(id_code == 'PNO1_7' || id_code == 'ONO9_2'){
-		if(!getTotalAppr(projectInfo.id)){
-			 $.getHtml({
-					url:'../../html/beforeSave.html',  
-					data:"",//传递参数
-					okback:function(){
-						$(".before_save_tc").addClass("stag_plan")
-						$(".before_save_btn").remove();
-						$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
-					}//模版反回成功执行	
-				});
-			  return false;
-		 }
-	}
 	var str ="";
 	if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 		str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
@@ -488,6 +473,25 @@ function editRow(ele)
 	var row = $(ele).closest('tr');
 	var txt= $(ele).text();
 	var valtr=row.find("td[data-field-name='field3']").text(); // 当前编辑的金额
+	
+	//分期注资验证
+	if(txt == '编辑')
+	{
+		if(code == 'grant-part' && !getTotalAppr(projectInfo.id, true))
+		{
+			$.getHtml({
+				url:'../../html/beforeSave.html',  
+				data:"",//传递参数
+				okback:function(){
+					$(".before_save_tc").addClass("stag_plan")
+					$(".before_save_btn").remove();
+					$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
+				}//模版反回成功执行	
+			});
+			return false;
+		}
+	}
+	
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
@@ -525,6 +529,7 @@ function editRow(ele)
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			//计算剩余金额
 			getTotalAppr(projectInfo.id);
+			
 			var totalMoneyPart=$("#totalMoneyPart").val();
 			$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
 			$(".moeny_all input").on("blur",function(){
@@ -837,6 +842,19 @@ function addRow(ele)
 				 sum+=Number($(this).find("td[data-field-name='field3']").text());
 			 })
 			
+		}
+		if(code == 'grant-part' && !getTotalAppr(projectInfo.id, true))
+		{
+			$.getHtml({
+				url:'../../html/beforeSave.html',  
+				data:"",//传递参数
+				okback:function(){
+					$(".before_save_tc").addClass("stag_plan")
+					$(".before_save_btn").remove();
+					$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
+				}//模版反回成功执行	
+			});
+			return false;
 		}
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
@@ -1164,12 +1182,16 @@ function tableDictColumn(code){
  * @param projectId
  * @returns {Boolean}
  */
-function getTotalAppr(projectId){
+function getTotalAppr(projectId,validate){
 	var flag = false;
 	var params={};
+	if(typeof(validate) == 'undefined')
+	{
+		validate = false;
+	}
 	params.projectId = projectId;
 	sendPostRequestByJsonObj(
-				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr?validate='+validate , 
 				params,
 				function(data){
 					if(data.result.status == "OK"){
@@ -1184,13 +1206,6 @@ function getTotalAppr(projectId){
 						}
 					}
 				});
-	/*if(!flag){
-		layer.open({
-			  type: 1,
-			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
-			  area: ['420px', '240px'], //宽高
-			  content: '无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体'
-			});*/
 
 	return flag;
 }
