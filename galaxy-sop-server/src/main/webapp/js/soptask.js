@@ -49,6 +49,8 @@ $(function(){
 	$("table").on("click", "#doclaim", function() {
 		var task=this;
 		var taskId=task.childNodes[1].value;
+		alert(task.childNodes[1].value)
+		console.log(task.childNodes[1])
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 	    forwardWithHeader(url);
 	//	this.href=endUrl;
