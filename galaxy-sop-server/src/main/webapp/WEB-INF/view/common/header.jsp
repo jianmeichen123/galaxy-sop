@@ -215,7 +215,10 @@ $(function(){
       $(".wrap_right_bg").show();
       disposedWidth();
       //getScript();
-      load_data_chart_kpi();   //重新渲染绩效考核
+      if($('#container_kpi').is(":visible")){
+    	  load_data_chart_kpi();   //重新渲染绩效考核
+      }
+      
     });
     $(".bico").click(function(){
       $(".small").show();
@@ -223,7 +226,9 @@ $(function(){
       $(".wrap_right_bg").hide();
       disposedWidth();
       //getScript();
-      load_data_chart_kpi();   //重新渲染绩效考核
+      if($('#container_kpi').is(":visible")){
+    	  load_data_chart_kpi();   //重新渲染绩效考核
+      }
     })
     //下拉框
     $(".man_info").hover(function(){
