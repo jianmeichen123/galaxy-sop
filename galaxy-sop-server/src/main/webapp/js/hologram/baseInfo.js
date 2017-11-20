@@ -71,6 +71,7 @@ function toEditTitleHtml(title,html){
 	var s_div = 
 		"<div class=\"h_edit h_team_look base_team_look clearfix\" id=\"b_"+title.code+"\" >" +
 		"<form id=\"c_"+title.code+"\">"+
+		"<div class=\"history_block\">您有一份<span class='history_time'>2017/11/11 12:12</span>的历史记录，<span class='btn'>点击恢复</span></div>"+
 			"<div class=\"h_btnbox\">" +
 		    	"<span class=\"h_save_btn\" data-on=\"save\" attr-save=\""+title.code+"\">保存</span>" +
 		    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
