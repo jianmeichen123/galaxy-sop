@@ -54,6 +54,24 @@ $(function(){
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
 	    forwardWithHeader(url);
 	});
+	//切换显示
+	$('.task_tipslink').tabLazyChange({
+		onchangeSuccess : function(index){
+			switch(index){
+				case 0 : initTabTaskMessage();break;
+				case 1 :initTabTaskLog();break;
+			}
+		}
+	})
+	
+	//页面请求地址
+	function initTabTaskMessage(){
+		alert('ddd')
+		$.getTabHtml({
+			url : Constants.sopEndpointURL+"/galaxy/soptask/detail"
+		});
+	}
+	
 	
 
 

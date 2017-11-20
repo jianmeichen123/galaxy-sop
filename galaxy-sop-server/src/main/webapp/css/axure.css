@@ -3948,7 +3948,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .pagebox .taskDetail-ritmin{margin:0px;padding-left:15px;}
 .taskDetail-mesage{margin-top:20px;}
 .taskDetail-mesage-top{height:170px;background:#fff; display:flex;justify-content:space-between;flex-wrap:wrap;}
-.taskDetail-mesage-table{margin-top:10px;border:1px solid;}
+.taskDetail-mesage-table{margin-top:10px;}
 .task-item{height:auto;}
 .task-item li{margin-top:20px;color:#5a626d;font-size:14px;font-family:MicrosoftYaHei;} 
 .task-detail-table .on td{background:none !important;}
@@ -3961,3 +3961,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table tr td:nth-child(1){text-align:left;padding-left:20px;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
+.upate-task{display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
+.submit-success{width:96px;color:#3ca6ff;background:#fff;margin-left:20px;}
+/*操作日志*/
+.opretion-log thead th{font-size:14px;color:#5a626d;font-weight:bold;text-align:center;}
+.opretion-log thead th:nth-child(1){text-align:left;padding-left:20px;}
+.opretion-log tbody tr td{font-size:14px;color:#5a626d;text-align:center;}
+.opretion-log tbody tr td:nth-child(1){text-align:left;padding-left:20px;}

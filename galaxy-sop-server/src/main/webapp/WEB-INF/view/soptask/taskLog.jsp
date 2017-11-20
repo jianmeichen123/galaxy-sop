@@ -41,13 +41,7 @@
  	<div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 	<div class='taskDetail-mesage-top'>
-	        	<div class='task-item task-item-left'>
-	        		<ul>
-	        			<li>项目名称：<span>创投</span></li>
-	        			<li>创建时间：<span>2016-12-22</span></li>
-	        			<li>合伙人：<span>李凯</span></li>
-	        		</ul>
-	        	</div>
+	        	
 	        	<div class='task-item'>
 	        		<li>项目类型：<span>投资</span></li>
 	       			<li>投资事业线：<span>人工智能</span></li>
