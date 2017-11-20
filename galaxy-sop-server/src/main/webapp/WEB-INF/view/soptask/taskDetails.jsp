@@ -32,12 +32,17 @@
         <div class="top clearfix task-top taskdetail-top">
         <h2>待办任务</h2>
             <!--tips连接-->
-        	<ul class="tipslink task_tipslink">
-            	<li class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">任务详情<span></span></a></li>
-                <li class='task-tips-li'><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">操作日志<span></span></a></li>
+        	<ul class="tipslink task_tipslink to-task-tips">
+            	<li data-tab="nav" class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">任务详情<span></span></a></li>
+                <li data-tab="nav" class='task-tips-li'><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">操作日志<span></span></a></li>
           	</ul>
         </div>
     <!--右中部内容-->
+    <div class="ritmin taskDetail-ritmin">
+    	<!-- <div data-id='tab-block'>
+	    	
+    	</div> -->
+    </div>
  	<!-- <div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 	<div class='taskDetail-mesage-top'>
@@ -85,7 +90,51 @@
 	        		</tbody>
 	        	
 	        	</table>
+	        	操作日志table 
+	        	<table class='opretion-log' width='100%' cellspacing='0' cellpadding='0' border='0'>
+	        		<thead>
+	        			<tr>
+	        				<th>时间</th>
+	        				<th>操作者</th>
+	        				<th>动作</th>
+	        				<th>对象</th>
+	        				<th>项目</th>
+	        				<th>原因</th>
+	        				<th>业务</th>
+	        			</tr>
+	        		</thead>
+	        		<tbody>
+	        			<tr>
+	        				<td>2017-12-12</td>
+	        				<td>王凯</td>
+	        				<td>上传</td>
+	        				<td>人事尽调报告</td>
+	        				<td>村多多</td>
+	        				<td>-</td>
+	        				<td>尽职调查</td>
+	        			</tr>
+	        			<tr>
+	        				<td>2017-12-12</td>
+	        				<td>王凯</td>
+	        				<td>上传</td>
+	        				<td>人事尽调报告</td>
+	        				<td>村多多</td>
+	        				<td>-</td>
+	        				<td>尽职调查</td>
+	        			</tr>
+	        			<tr>
+	        				<td>2017-12-12</td>
+	        				<td>王凯</td>
+	        				<td>上传</td>
+	        				<td>人事尽调报告</td>
+	        				<td>村多多</td>
+	        				<td>-</td>
+	        				<td>尽职调查</td>
+	        			</tr>
+	        		</tbody>
 	        	
+	        	
+	        	</table>
         	</div>
         	<div class='taskDetail-mesage-update'>
         		<span class="upate-task">更新尽调报告</span>

@@ -853,6 +853,8 @@
 								return;
 							}
 							$(_this.id).find(".tabtxt").html(html);
+							console.log(_this.id)
+							console.log(html)
 							opts.okback();
 						},
 						error:function(){
