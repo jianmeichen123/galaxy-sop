@@ -3934,7 +3934,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;}
 .task-searchbox{width:auto;display:inline-block;float:right;}
 .task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;}
-/* .task-last-li{margin-top:-6px !important;} */
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
 .more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:20px;margin-left:20px;}
@@ -3944,3 +3943,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
 .pagebox .taskDetail-ritmin{margin:0px;padding-left:15px;}
 .taskDetail-mesage{height:170px;border:1px solid;x;background:#fff;}
+.taskDetail-mesage ul li{float:left;width:33.3%;}

@@ -40,7 +40,17 @@
     <!--右中部内容-->
  	<div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
-        	
+        	<ul>
+        		<li>项目名称：创投</li>
+        		<li>项目类型:投资</li>
+        		<li>项目编码:27000012</li>
+        		<li>项目名称：创投</li>
+        		<li>项目类型:投资</li>
+        		<li>项目编码:27000012</li>
+        		<li>项目名称：创投</li>
+        		<li>项目类型:投资</li>
+        		<li>项目编码:27000012</li>
+        	</ul>
         
         </div>
 	</div>
