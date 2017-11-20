@@ -318,12 +318,32 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 		return title;
 	}
+	/**
+	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
+	 */
+	@Override
+	public InformationTitle selectTitlesisShowForTable(String pinfoKey, String isShow) {
+		InformationTitle title = null;
+		title = selectTitlesValuesForTable(pinfoKey,isShow);
+		return title;
+	}
 	@Override
 	@Transactional
 	public InformationTitle selectTitlesValues(String pinfoKey) {
 		InformationTitle ptitle = selectValuesByTinfo(pinfoKey);
 		if(ptitle!=null){
 			List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(ptitle.getId()));
+			ptitle.setChildList(childList);
+		}
+		return ptitle;
+	}
+	
+	@Override
+	@Transactional
+	public InformationTitle selectTitlesValuesForTable(String pinfoKey,String isShow) {
+		InformationTitle ptitle = selectValuesByTinfo(pinfoKey);
+		if(ptitle!=null){
+			List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPidForTable(ptitle.getId(),isShow));
 			ptitle.setChildList(childList);
 		}
 		return ptitle;

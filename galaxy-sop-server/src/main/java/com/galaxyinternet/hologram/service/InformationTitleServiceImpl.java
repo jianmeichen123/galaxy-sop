@@ -153,6 +153,33 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		return ptitleList;
 	}
 	
+	/**
+	 * @author jianmeichen
+	 * @处理表格新增编辑页面是普通题型
+	 * 2017-11-20
+	 */
+	@Override
+	public List<InformationTitle> selectChildsByPidForTable(Long pid, String isShow) {
+		Direction direction = Direction.ASC;
+		String property = "index_no";
+		
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("parentId",pid);
+		params.put("isValid",0);
+		params.put("isShow",isShow);
+		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
+		List<InformationTitle> ptitleList = informationTitleDao.selectChildsByPid(params);
+		
+		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
+		
+		for(InformationTitle title : ptitleList){
+			if(title.getSign() != null && title.getSign().intValue() == 2){
+				title.setName(title.getName()+"：");
+			}
+		}
+		return ptitleList;
+	}
+	
 	
 	
 	/**

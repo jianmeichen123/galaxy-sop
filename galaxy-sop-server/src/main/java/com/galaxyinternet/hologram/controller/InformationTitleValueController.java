@@ -329,6 +329,30 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		return responseBody;
 	}
 	
+	/**
+	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryAllTitleForTable/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> queryAllTitleForTable(HttpServletRequest request,
+			@PathVariable("pinfoKey") String pinfoKey,
+			@RequestParam(value ="reportType", required =false) String reportType,
+			@RequestParam(value ="proId", required =false) Long proId) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		InformationTitle title = null;
+		try{
+			title = informationDictionaryService.selectTitlesisShowForTable(pinfoKey,"f");
+
+			responseBody.setEntity(title);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
+			logger.error("queryAllTitleValues 题及所有子集及value信息获取失败："+pinfoKey,e);
+		}
+		
+		return responseBody;
+	}
+	
 	
 	
 	

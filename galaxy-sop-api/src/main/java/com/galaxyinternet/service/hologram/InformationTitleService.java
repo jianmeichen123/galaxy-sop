@@ -79,7 +79,7 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 
 
 
-
+	public List<InformationTitle> selectChildsByPidForTable(Long pid, String isShow);
 
 	
 

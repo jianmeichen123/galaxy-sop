@@ -65,5 +65,9 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	List<InformationDictionary> selectValuesByTable(Long  proid, String relateCode) throws Exception;
 
 
-	void setValuesForTitleByTable(Long proId, InformationTitle title) throws Exception ;
+	 void setValuesForTitleByTable(Long proId, InformationTitle title) throws Exception ;
+    // InformationTitle selectTitlesForTable(String pinfoKey, String isShow);
+     InformationTitle selectTitlesValuesForTable(String pinfoKey,String isShow);
+     InformationTitle selectTitlesisShowForTable(String pinfoKey, String isShow);
+    
 }

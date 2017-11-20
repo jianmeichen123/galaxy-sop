@@ -39,7 +39,7 @@ var keyJSON={};
 var deleteJSON={};
 var mustids = "${mustids}";
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO5_4", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
