@@ -371,7 +371,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 						{{else type=="21"}}
@@ -385,7 +385,7 @@
 											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 												<div class="radioShow"></div>
 												<div class="Button">
-													<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+													<em onclick="right(this,'checkSp')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 												</div> 
 										</td>
 											
@@ -397,8 +397,10 @@
 												<select>
 													<option>请选择</option>
 												</select>
-												<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}">
-							                    <em>(0-\${scoreMax}分)</em>
+												<div class="score-div">
+													<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}">
+							                   		 <em>(0-\${scoreMax}分)</em>
+												</div>
 											</td>
 										{{/if}}
 											
