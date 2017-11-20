@@ -377,7 +377,7 @@
 						{{else type=="22"}}
 						<td colspan="4"  class="td_22">
 							<div>
-								<table class="table_inner">
+								<table class="table_inner" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}" >
 									 
 										{{each(i,informationGrades) informationGrades }}
 										<tr>

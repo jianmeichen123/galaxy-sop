@@ -397,6 +397,7 @@ function buildResult(title)
 	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
 	var _scoreEle = $('.score-column[data-title-id="'+title.id+'"]');
 	var _sign = _ele.parent().attr("class");
+	var _tableInner = $('.table_inner[data-title-id="'+title.id+'"]');
 	//Radio
 	if(type == 2 || type==14)
 	{
@@ -553,6 +554,8 @@ function buildResult(title)
 			
 		}
 		_ele.attr("data-result-id",results[0].id);
+	}else if(type == 22){
+		var resString = _tableInner.find("tr:first-child").clone();
 	}
 	
 	
