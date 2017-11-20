@@ -26,13 +26,11 @@
 
 <body>
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-<div class="pagebox clearfix">
+
+<div class="pagebox clearfix task-pagebox">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
-    <!--右中部内容-->
- 	<div class="ritmin task_todeal">
- 	<div>
-        <!--页眉-->
-        <div class="top clearfix task-top" id="custom-toolbar">
+	 <!--页眉-->
+        <div class="top clearfix task-top">
         <h2>待办任务</h2>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink">
@@ -44,45 +42,41 @@
                 <li class='task-tips-li'><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>
                 <li class='bottom_none'>|</li> 
                 <li class='task-tips-li'><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">部门待完工<span><!-- (2) --></span></a></li>
-                <li class='bottom_none task-last-li'>
-	               	 <div class="searchbox clearfix task-searchbox">
-			            <input type="hidden"  id="tipslink_val"/>
-			            <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
-			            <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
-			            <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch">搜索</a>
-	        		  </div>
-          		</li>
-                <!-- <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span>(5)</span></a></li> -->
-                
-                  
-          </ul>
+           </ul>
+          <div class="searchbox clearfix task-searchbox">
+            <input type="hidden"  id="tipslink_val"/>
+            <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
+            <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
+             <span class='more-task fr'>指派任务</span>
+            <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch">搜索</a>
+	          <ul class='task-toggle'>
+	          	<li>移交任务</li>
+	          	<li>放弃任务</li>
+	          </ul>
+      	  </div>
           
-          <span class='more-task fr'>指派任务</span>
-          <ul class='task-toggle'>
-          	<li>移交任务</li>
-          	<li>放弃任务</li>
-          </ul>
         </div>
+    <!--右中部内容-->
+ 	<div class="ritmin task-ritmin">
+ 	<div>
         <!--表格内容-->
-						<table class='no-radius' width="100%"  cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
-				         data-toolbar="#custom-toolbar" >
-						   <thead>
-						    <tr>
-						        <th data-field="orderRemark"  class="data-input">优先级</th>
-						        <th data-field="hours"  class="data-input">剩余时间(h)</th>
-						        <th data-field="taskDeadlineformat"  class="col-md-1 status ">提交日期</th>
-						        <th data-field="taskType"  >任务类型</th>
-						        <th data-field="taskName"  width="200px" >任务名称</th>
-						        <th data-field="taskStatus"  class="col-md-2" >任务状态</th>
-						        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
-						        <th data-field="createUname"  class="col-md-2" >投资经理</th>
-								<th  class="col-md-2" data-field="caozuohtml" >操作</th>
-   						 	</tr>	
-   						 	</thead>
-					</table>
-	
-	
+			<table class='no-radius' width="100%"  cellspacing="0" cellpadding="0" 
+			 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
+	         data-toolbar="#custom-toolbar" >
+			   <thead>
+			    <tr>
+			        <th data-field="orderRemark"  class="data-input">优先级</th>
+			        <th data-field="hours"  class="data-input">剩余时间(h)</th>
+			        <th data-field="taskDeadlineformat"  class="col-md-1 status ">提交日期</th>
+			        <th data-field="taskType"  >任务类型</th>
+			        <th data-field="taskName"  width="200px" >任务名称</th>
+			        <th data-field="taskStatus"  class="col-md-2" >任务状态</th>
+			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
+			        <th data-field="createUname"  class="col-md-2" >投资经理</th>
+					<th  class="col-md-2" data-field="caozuohtml" >操作</th>
+			 	</tr>	
+			 	</thead>
+		</table>
     </div>
 </div>
 
@@ -96,6 +90,15 @@
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
+//计算距离的左边距
+detailHeaderWidth();
+function detailHeaderWidth(){
+	  var  w_lft=$(".lft").width();
+	  	$('.task-top').css({'margin-left':w_lft});
+}
+$(window).resize(function(){
+	detailHeaderWidth();
+})	
 function projectNameFormatter(value,row,index){
 		var str=row.projectName;
 		if(str.length>12){

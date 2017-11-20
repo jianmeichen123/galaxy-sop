@@ -5,10 +5,6 @@ $(function(){
 	  $('.task-tips-li').on('click',function(){
 	        $(this).addClass('on').siblings().removeClass('on');          
 	      });
-	  //搜索框点击显示
-	   $('.task-cx').on('click',function(){
-		   $(this).closest('div').find('.task_input').css('display','block');
-	   });
 	   //更多操作点击显示
 	   $('.more-task').mouseenter(function(){
 		   $('.task-toggle').slideDown();
@@ -49,11 +45,14 @@ $(function(){
 	$("table").on("click", "#doclaim", function() {
 		var task=this;
 		var taskId=task.childNodes[1].value;
-		alert(task.childNodes[1].value)
-		console.log(task.childNodes[1])
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 	    forwardWithHeader(url);
 	//	this.href=endUrl;
+	});
+	//指派任务
+	$(".more-task").on("click",function() {
+		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
+	    forwardWithHeader(url);
 	});
 	
 

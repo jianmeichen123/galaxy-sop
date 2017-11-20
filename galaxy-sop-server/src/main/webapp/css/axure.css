@@ -3922,24 +3922,25 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
 
  /* CHEN */
-.pagebox .task_todeal h2{height:64px;background:#fff;line-height:64px;padding-left:39px;font-size:24px;color:#202533}
-.pagebox .task_todeal{padding-left:0px;margin: 50px 0 0 10.505%;width: 90.5%;}
-.task-top{height:108px;background:#fff;margin-top:-9px;}
-.pagebox .task_todeal .top .task_tipslink{margin:8px 0 0 39px;font-size:14px;color:#33363e;}
-.pagebox .task_todeal .top .task_tipslink li{padding-bottom:13px;}
+ .task-pagebox{min-width:auto;}
+.task-top{height:108px;background:#fff;margin:51px 0 0 150px;}
+.task-top h2{height:64px;background:#fff;line-height:64px;margin-left:39px;font-size:24px;color:#202533}
+.task-top .task_tipslink{display: inline-block;margin:8px 0 0 39px;font-size:14px;color:#33363e;}
+.task-top .task_tipslink li{padding-bottom:13px;}
 .task-tips-li.on{border-bottom:4px solid #45aaff;}
 .task_tipslink li{margin:0 40px 0 0;}
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;}
-.pagebox .ritmin .searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;}
-.pagebox .ritmin .task-searchbox{width:auto;}
-.task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/btnico2.png) no-repeat 21px 6px;margin-left:10px;}
-.task-last-li{margin-top:-6px !important;}
+.task-searchbox .task_input{border:1px solid #d8d8d8;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;}
+.task-searchbox{width:auto;display:inline-block;float:right;}
+.task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;}
+/* .task-last-li{margin-top:-6px !important;} */
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
-.task_input{display:none;}
-.more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:20px;}
-.task-toggle{display:none;position:absolute;right:20px;top:92px;z-index:10;width:88px;height:65px;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
+.more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:20px;margin-left:20px;}
+.task-toggle{display:none;position:absolute;right:20px;top:154px;z-index:10;width:88px;height:65px;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
 .task-toggle li{cursor:pointer;height:32px;line-height:32px;}
 .task-toggle li:hover{background:#e5f3ff;}
-
+.pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
+.pagebox .taskDetail-ritmin{margin:0px;padding-left:15px;}
+.taskDetail-mesage{height:170px;border:1px solid;x;background:#fff;}

@@ -518,4 +518,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 		return map;
 	}
+	
+	@RequestMapping(value = "/detail")
+	public String detail(HttpServletRequest request) {
+		return "soptask/taskDetails";
+	}
 }
