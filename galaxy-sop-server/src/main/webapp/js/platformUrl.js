@@ -115,6 +115,23 @@ var platformUrl = {
 	totalMission: Constants.sopEndpointURL + "/galaxy/soptask/totalMission",
 	
 	
+	/**
+	 * 待办-日志
+	 */
+	toTaskLog: Constants.sopEndpointURL + "/galaxy/soptask/toTaskLog",
+	/**
+	 * 待办-信息
+	 */
+	toTaskMesage: Constants.sopEndpointURL + "/galaxy/soptask/toTaskMesage",
+	
+	
+	/**
+	 * 待办任务总数
+	 */
+	totalMission: Constants.sopEndpointURL + "/galaxy/soptask/totalMission",
+	
+	
+	
 	/**gxc
 	 * 主页的待办任务:
 	 */		

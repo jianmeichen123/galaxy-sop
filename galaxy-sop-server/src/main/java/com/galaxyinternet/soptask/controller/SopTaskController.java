@@ -523,4 +523,14 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public String detail(HttpServletRequest request) {
 		return "soptask/taskDetails";
 	}
+	
+	@RequestMapping(value = "/toTaskLog")
+	public String toTaskLog(HttpServletRequest request) {
+		return "soptask/taskLog";
+	}
+	
+	@RequestMapping(value = "/toTaskMesage")
+	public String toTtaskMesage(HttpServletRequest request) {
+		return "soptask/taskMesage";
+	}
 }
