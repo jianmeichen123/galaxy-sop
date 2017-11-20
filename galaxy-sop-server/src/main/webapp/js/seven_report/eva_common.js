@@ -48,10 +48,8 @@ function tabShow(code,relateId){
 					var _table = $(this).find(".table_inner");
 					var tr_length = _table.find("tr").length;
 					if(tr_length<=1){
-						_table.find(".score-column").find("input").hide();
-						
-					}
-					
+						_table.find(".score-div").hide();						
+					}					
 				})
 				/*显示结果  */
 				/* 16类型内容处理 */				
@@ -129,6 +127,8 @@ function showResultAndScoreList(relateId)
 			platformUrl.getRelateTitleResults+reportType+"/"+relateId+"/"+projId, 
 			null,
 			function(data){
+				console.log("分数比")
+				console.log(data);
 				if(data.result.status == 'OK')
 				{
 					$.each(data.entityList,function(){
@@ -146,7 +146,7 @@ function showResultAndScoreList(relateId)
 						var autoList = this.autoList;
 						if(typeof autoList != 'undefined' && autoList.length>0 )
 						{
-							var sel = $('td[class="score-column"][data-relate-id="'+rid+'"]').find('select');
+							var sel = $('td.score-column[data-relate-id="'+rid+'"]').find('select');
 							sel.empty();
 							sel.append('<option>请选择</option>')
 							$.each(autoList,function(){

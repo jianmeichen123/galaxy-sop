@@ -595,6 +595,20 @@ function right(obj,type){
 			p.attr("data-title-value",selectId);
 			p.text(selectVal);
 		}
+	}else if(type=="checkSp"){
+		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
+		var table = align_left.closest('.table_inner');
+		$(obj).parent().hide();
+		$(obj).parent().parent().find('.radioShow').hide();
+		if(val_checkbox.length==0){
+			$(obj).parent().parent().find('p').show().text("未选择");
+			var resString = table.find("tr:first-child").clone();
+			table.empty();
+			table.append(resString); 
+		}else{
+			
+		}
+		
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
@@ -606,7 +620,6 @@ function right(obj,type){
 		align_left.html(input_text);
 	}else{
 	}
-
 	//对号，x号消失
 	$(obj).parent().hide();
 	$(obj).parent().parent().find('p').show();
