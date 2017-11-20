@@ -378,7 +378,7 @@
 						<td colspan="4"  class="td_22">
 							<div>
 								<table class="table_inner">
-									<!-- {{each(i,valueList) valueList}}-->
+									 
 										{{each(i,informationGrades) informationGrades }}
 										<tr>
 										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
@@ -408,7 +408,7 @@
 
 									</tr>
 									{{/each}}
-								<!-- {{/each}}-->
+								 
 								</table>
 							</div>
 						</td>
