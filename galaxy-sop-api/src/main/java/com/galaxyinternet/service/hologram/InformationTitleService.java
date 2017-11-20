@@ -76,6 +76,14 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	List<InformationDictionary> selectProNvaluesInfo(String pid, String tid, String vpid);
 	
 	List<InformationTitle> searchRelateTitleWithData(Integer reportType, Long relateId, Long projectId);
+	
+	/**
+	 * type = 22时获取选项
+	 * @param projectId
+	 * @param titleId
+	 * @return
+	 */
+	public List<InformationDictionary> getList4Title(Long projectId, Long titleId);
 
 
 

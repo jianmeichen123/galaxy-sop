@@ -317,6 +317,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 
 			if (proId != null){
 				informationDictionaryService.setValuesForTitleByTable(proId,title);
+				List<InformationDictionary> values = informationTitleService.getList4Title(proId, title.getTitleId());
+				title.setValueList(values);
 			}
 
 			responseBody.setEntity(title);

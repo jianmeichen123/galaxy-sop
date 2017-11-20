@@ -92,7 +92,8 @@ var path = '<%=path%>';
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>			
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>
+<script src="<%=path %>/js/hologram/auto_save.js" type="text/javascript"></script>			
 
 <script type="text/javascript">
 createMenus(5);
@@ -138,6 +139,7 @@ $(function() {
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
+		var sec = $(this).closest('.radius');
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -149,6 +151,9 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
+				$('.h_title').click(function(){
+					auto_save(sec);
+				})
 				var sTop=$(window).scrollTop();
 				validate();
 				$.each($('.textarea_h'),function(i,data){

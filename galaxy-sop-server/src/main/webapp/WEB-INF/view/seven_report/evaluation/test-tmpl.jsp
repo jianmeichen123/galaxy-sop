@@ -377,8 +377,8 @@
 						{{else type=="22"}}
 						<td colspan="4"  class="td_22">
 							<div>
-								<table class="table_inner">
-									<!-- {{each(i,valueList) valueList}}-->
+								<table class="table_inner" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}" >
+									 
 										{{each(i,informationGrades) informationGrades }}
 										<tr>
 										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
@@ -408,7 +408,7 @@
 
 									</tr>
 									{{/each}}
-								<!-- {{/each}}-->
+								 
 								</table>
 							</div>
 						</td>

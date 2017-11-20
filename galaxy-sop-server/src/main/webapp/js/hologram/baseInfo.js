@@ -270,14 +270,14 @@ function one_select_edit(title,inputtype,type){
     	if(title.resultList!=undefined){
     		eresult = 
         		"<dd>" +
-    		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
+    		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
     					li +
     				"</select>" +
     	    	"</dd>";
     	}else{
     		eresult = 
         		"<dd>" +
-    		    	"<select data-must='"+title.isMust+"' name='"+title.id+"'>" +
+    		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
     					li +
     				"</select>" +
     	    	"</dd>";
@@ -654,7 +654,10 @@ function type_8_html(title,mark){
 
 		var r_value = '';
 		if(results && results[0] && results[0].contentDescribe1) r_value = results[0].contentDescribe1;
-		var result_id=title.resultList[0].id;	
+		if(title.resultList){
+			var result_id=title.resultList[0].id;
+		}
+			
 		var eresult =
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" resultId='"+result_id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
@@ -915,15 +918,15 @@ function type_13_html(title,mark){
 			if(i+1 == values.length){
 				if(values[i].checked){
 					has_beizhu = true;
-					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-id='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
-					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-id='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}else{
 				if(values[i].checked){
-					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-id='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
-					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-id='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}
 		}
@@ -955,7 +958,7 @@ function type_13_html(title,mark){
 				"</ul>" +
 			"</dd>";	
 			
-		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult+"</div>";
+		return  "<div class=\"mb_24 clearfix h_edit_txt\">" + htitle  + eresult+"</div>";
 	}
 }
 
@@ -1048,10 +1051,10 @@ function type_21_html(title,mark){
 		var eresult = one_select_edit(title,'select','select');
 		var res = "" ;		
 		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
-			res="<input type=\"text\" class=\"txt input_21 disabled\"  disabled=\"disabled\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"'  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+			res="<input type=\"text\" class=\"txt input_21 disabled\"  disabled=\"disabled\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
 			var i_val= title.resultList[0].contentDescribe1;
-			res="<input type=\"text\" class=\"txt input_21\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
+			res="<input type=\"text\" class=\"txt input_21\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";

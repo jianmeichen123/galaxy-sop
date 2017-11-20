@@ -29,32 +29,38 @@ function edit_bsaicfun(data){
 		$("input").change(function(){
 			var _target=$(this).closest("div").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 		$("textarea").on("input",function(){
 			var _target=$(this).closest("div").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 		$("select").change(function(){
 			var _target=$(this).closest("div").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 	}else{
 		$("input").change(function(){
 			var _target=$(this).parents("dl.h_edit_txt").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 		$("textarea").on("input",function(){
 			var _target=$(this).parents("dl.h_edit_txt").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 		$("select").change(function(){
 			var _target=$(this).parents("dl.h_edit_txt").find("dt");
 			_target.attr("tochange",true);
+			$(this).closest('form').attr("tochange",true);
 			
 		})
 	}
@@ -2016,36 +2022,52 @@ function selectContext(formId){
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');
-	$.getHtml({
-		url:getDetailUrl(code),//模版请求地址
-		data:"",//传递参数
-		okback:function(){
-			if(code=="equity-structure"){
-				$(".form_textarea").remove();
-			}
-			$('#qualifications_popup_name').html('添加简历');
-            $('#qualifications_popup_name1').html('添加持股人');
-            $('#finace_popup_name').html('添加融资历史');
-            $('#finace_popup_name').html('添加融资历史');
-			 $("#complete_title").html('添加综合竞争比较');
-			 $("#delivery_popup_name").html("添加交割事项")
-			 $(".see_block").hide();
-            $("#detail-form input[name='projectId']").val(projectInfo.id);
-            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
-            selectContext("detail-form");
-            $("#save-detail-btn").click(function(){
-                saveForm($("#detail-form"));
-                check_table();
-                check_table_tr_edit();
-            });
-            $("#save_person_learning").click(function(){
-                check_table();
-                check_table_tr_edit();
-            });
-		}//模版反回成功执行	
-	});
+	if(code=='competitor_obvious' || code=='competitor_potential'){   //竞争
+		var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
+		sendGetRequest(platformUrl.queryAllTitleValues + 'DNO5_4_1?reportType=2', null,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						var entity = data.entity;
+						console.log(entity);
+						$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					} else {
+
+					}
+			}) 
+	}else{
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				if(code=="equity-structure"){
+					$(".form_textarea").remove();
+				}
+				$('#qualifications_popup_name').html('添加简历');
+	            $('#qualifications_popup_name1').html('添加持股人');
+	            $('#finace_popup_name').html('添加融资历史');
+	            $('#finace_popup_name').html('添加融资历史');
+				 $("#complete_title").html('添加综合竞争比较');
+				 $("#delivery_popup_name").html("添加交割事项")
+				 $(".see_block").hide();
+	            $("#detail-form input[name='projectId']").val(projectInfo.id);
+	            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+	            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
+	            selectContext("detail-form");
+	            $("#save-detail-btn").click(function(){
+	                saveForm($("#detail-form"));
+	                check_table();
+	                check_table_tr_edit();
+	            });
+	            $("#save_person_learning").click(function(){
+	                check_table();
+	                check_table_tr_edit();
+	            });
+			}//模版反回成功执行	
+		});
+	}
+	
 }
 //提交表单处理
 function saveForm(form)
@@ -2067,7 +2089,9 @@ function saveRow(data)
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
+		console.log(data);
 		var tr = buildRow(data,true,titleId);
+		console.log(tr)
 		$('table[data-title-id="'+titleId+'"].editable').append(tr);
 	}
 	else

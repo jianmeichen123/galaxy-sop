@@ -80,6 +80,12 @@
 					validate();					
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
+					$('.h_title').click(function(){
+						var _tochange=sec.find('form').attr('tochange');
+						if(_tochange=='true'){
+							auto_save(sec);
+						}
+					})
 					btn_disable(1);					
 					//文本域剩余字符数
 					section.find(".h_title span").remove();

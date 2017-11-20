@@ -456,6 +456,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 				title.setValueList(vs);
 			}
 		}
+		
 
 		if(title.getChildList()!=null && !title.getChildList().isEmpty()){
 			for(InformationTitle temp : title.getChildList()){

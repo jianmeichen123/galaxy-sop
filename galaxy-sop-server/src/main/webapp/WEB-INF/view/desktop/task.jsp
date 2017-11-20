@@ -10,7 +10,7 @@ String path = request.getContextPath();
 		<table width="100%" cellspacing="0" cellpadding="0">
 			<thead>
 				<tr>
-					<th style="width:20%">优先级</th>
+					<!-- <th style="width:20%">优先级</th> -->
 					<th style="width:20%">任务名称</th>
 					<th style="width:20%">任务状态</th>
 					<th style="width:25%">所属项目</th>
@@ -61,7 +61,7 @@ function SopTaskCallback(data){
 				 }
 			 }
 			 var tr='<tr>'+
-				 '<td style="width:20%">'+ taskOrderDesc+'</td>'+
+				/*  '<td style="width:20%">'+ taskOrderDesc+'</td>'+ */
 				 '<td style="width:20%" title="'+ temp.taskName+'" >'+ temp.taskName+'</td>'+
 				 '<td style="width:25%">'+ temp.taskStatus+'</td>'+
 				 '<td style="width:20%" title="'+ temp.projectName+'">'+ getValue(temp.projectName)+'</td>'+

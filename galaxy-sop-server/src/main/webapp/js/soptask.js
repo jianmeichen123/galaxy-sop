@@ -55,20 +55,41 @@ $(function(){
 	    forwardWithHeader(url);
 	});
 	//切换显示
-	$('.task_tipslink').tabLazyChange({
+	$('.to-task-tips').tabLazyChange({
+		defaultnum:0,
 		onchangeSuccess : function(index){
+			alert(index)
 			switch(index){
 				case 0 : initTabTaskMessage();break;
 				case 1 :initTabTaskLog();break;
 			}
 		}
 	})
+/*	$('.to-task-tips li').click(function(){
+		var index = $(this).index();
+		console.log(index)
+		if(index == 0){
+			initTabTaskMessage()
+		}else if(index == 1){
+			initTabTaskLog();
+		}
+	})*/
+	
 	
 	//页面请求地址
 	function initTabTaskMessage(){
-		alert('ddd')
 		$.getTabHtml({
-			url : Constants.sopEndpointURL+"/galaxy/soptask/detail"
+			url : platformUrl.toTaskMesage,
+			okback:function(){
+				alert(00)
+			}
+		});
+		//console.log(platformUrl.toTaskMesage)
+	}
+	function initTabTaskLog(){
+		console.log(platformUrl.toTaskLog)
+		$.getTabHtml({
+			url : platformUrl.toTaskLog
 		});
 	}
 	
