@@ -7,6 +7,7 @@
 <script id="ifelse" type="text/x-jquery-tmpl">
 	<form id="b_\${code}" onsubmit="return false;">
 		<div class="h_edit section">
+			<div class="history_block">您有一份<span class='history_time'>2017/11/11 12:12</span>的历史记录，<span class='btn'>点击恢复</span></div>
 			<div class="h_btnbox">
 				<span class="h_save_btn" attr-save="\${code}">保存</span>
 				<span class="h_cancel_btn" data-on="h_cancel" attr-hide="\${code}" attr-session="\${id}">取消</span>

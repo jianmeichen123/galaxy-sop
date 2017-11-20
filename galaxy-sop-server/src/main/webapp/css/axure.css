@@ -3920,7 +3920,11 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .member table.team_info .on td{ background:none;}
  .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
-
+/* V1.10 */
+.history_block{color:#ff6565;font-size:14px;position:absolute;top:20px;}
+.history_block .btn{color:#3ca6ff;}
+.h_edit{padding-top:100px;}
+.h_edit .h_title{top:60px;}
  /* CHEN */
  .task-pagebox{min-width:auto;}
 .task-top{height:108px;background:#fff;margin:51px 0 0 150px;}
@@ -3944,3 +3948,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .pagebox .taskDetail-ritmin{margin:0px;padding-left:15px;}
 .taskDetail-mesage{height:170px;border:1px solid;x;background:#fff;}
 .taskDetail-mesage ul li{float:left;width:33.3%;}
+
