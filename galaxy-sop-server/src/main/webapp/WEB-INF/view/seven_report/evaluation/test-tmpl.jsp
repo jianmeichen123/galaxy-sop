@@ -320,7 +320,7 @@
 					{{else type=="15"}}
 						<td colspan="4"  class="td_15">
 							<div>
-								<table class="table_15">
+								<table class="table_inner">
 										{{each(i,informationGrades) informationGrades }}
 									<tr>
 										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
@@ -373,6 +373,48 @@
 							<div class="Button">
 								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
+						</td>
+						{{else type=="21"}}
+						<td colspan="4"  class="td_21">
+							<div>
+								<table class="table_inner">
+										{{each(i,informationGrades) informationGrades }}
+									<tr>
+										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
+											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未选择</p></div>
+											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
+										</td>
+											
+												<td>\${scoreMax}</td>
+												<td>\${scoreExplain}</td>
+												{{if isScore==0}}
+												<!-- 系统打分 -->
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
+												{{else isScore==1}}
+												<!-- 人工打分（select） -->
+													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+														<select>
+															<option>请选择</option>
+														</select>
+													</td>
+												{{else isScore==2}}
+												<!-- 人工打分（数值范围） -->
+													<td class="score-column score-columns" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+														
+														<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}">
+							                            <em>(0-\${scoreMax}分)</em>
+													</td>
+												{{else isScore==4}}
+												<!-- 根据其他子项分值计算得出 -->
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
+												{{/if}}
+											
+
+									</tr>
+										{{/each}}
+									
+								</table>
+							</div>
 						</td>
 				 	{{/if}}
 				{{else sign==3}}

@@ -141,7 +141,7 @@ table .on td{
 table td .holder{
 	height:27px;
 }
-table td.td_15{padding:0;}
+table td.td_15,table td.td_21{padding:0;}
 table td input{
 	width:64px;
 	height:24px;
@@ -225,26 +225,26 @@ table td i.wrong{
 	cursor:pointer;
 	
 }
-table.table_15 td{
+table.table_inner td{
 	border:0px;
 	border-right: 1px solid #d8d8d8;
 }
-table.table_15 tr:first-child{
+table.table_inner tr:first-child{
 	border-bottom: 1px solid #d8d8d8;
 }
-table.table_15 td:first-child{
+table.table_inner td:first-child{
 	width:37.13%;
 }
-table.table_15 td:first-child+td{
+table.table_inner td:first-child+td{
 	width:10.6%;
 }
-table.table_15 td:first-child+td+td{
+table.table_inner td:first-child+td+td{
 	width:35.24%;
 	text-align:left;
 	padding: 5px;
 	word-wrap :normal;
 }
-table.table_15 td:first-child+td+td+td{
+table.table_inner td:first-child+td+td+td{
 	width:15.8%;
 	border-right: 0px;
 }
