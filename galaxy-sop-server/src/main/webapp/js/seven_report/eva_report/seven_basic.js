@@ -383,11 +383,9 @@ function get_result(code,e_type,dom){
 		}else{
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType,null,function(data){
 				 var result = data.result.status;
-				 if(result == 'OK'){
-					 if(code=="NO5_4_1"){
+				 if(result == 'OK'){ 
 						 	console.log("!!!!type==20")
-							console.log(data)
-						}
+							console.log(data) 
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
 					 var type=entity.type;
@@ -414,7 +412,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 			 })
 		}else if(type==1){
 			result_html ="<div class=\"icheck\"><input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" ></div>";
-		}else if(type==13||type==3){
+		}else if(type==13||type==3||type==21){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
 				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+"></div>"	 
@@ -446,12 +444,12 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				result_li += "<li><a href=\"javascript:;\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 			})
 			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"
-		}
+		} 
 		 dom.html(result_html);
 		 divSelect();
 	 }else if(e_type==2){
 		 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
-		 }else if(e_type==3){
+	 }else if(e_type==3){
 		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 $(".ch_opration").css('width',$(".new_left").width())
 			 check_table();

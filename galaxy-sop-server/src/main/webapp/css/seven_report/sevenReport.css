@@ -232,6 +232,9 @@ table.table_inner td{
 table.table_inner tr:first-child{
 	border-bottom: 1px solid #d8d8d8;
 }
+table.table_inner tr:last-child{
+	border-bottom:0px;
+}
 table.table_inner td:first-child{
 	width:37.13%;
 }
@@ -1000,7 +1003,9 @@ select::-ms-expand { display: none; }
 	text-align:left;
     line-height: 1.5;
 } 
-
+.score-column.heightL select{
+	margin:5px 0;
+}
 .mCSB_scrollTools .mCSB_draggerRail{
 	background-color:#e9ebf2 !important;
 	width:6px !important;
