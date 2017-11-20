@@ -40,17 +40,59 @@
     <!--右中部内容-->
  	<div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
-        	<ul>
-        		<li>项目名称：创投</li>
-        		<li>项目类型:投资</li>
-        		<li>项目编码:27000012</li>
-        		<li>项目名称：创投</li>
-        		<li>项目类型:投资</li>
-        		<li>项目编码:27000012</li>
-        		<li>项目名称：创投</li>
-        		<li>项目类型:投资</li>
-        		<li>项目编码:27000012</li>
-        	</ul>
+ 		 	<div class='taskDetail-mesage-top'>
+	        	<div class='task-item task-item-left'>
+	        		<ul>
+	        			<li>项目名称:<span>创投</span></li>
+	        			<li>创建时间:<span>2016-12-22</span></li>
+	        			<li>合伙人:<span>李凯</span></li>
+	        		</ul>
+	        	</div>
+	        	<div class='task-item'>
+	        		<li>项目类型:<span>投资</span></li>
+	       			<li>投资事业线:<span>人工智能</span></li>
+	       			<li>公司名称:<span>星河互联集团</span></li>
+	        	</div>
+	        	<div class='task-item task-item-right'>
+	        		<li>项目编码:<span>27000021</span></li>
+	       			<li>投资经理:<span>人工智能-投资经理</span></li>
+	       			<span class='pro-detail'>项目详细信息 ></span>
+	        	</div>
+        	</div>
+        	<div class='taskDetail-mesage-table'>
+	        	<table width='100%' class='task-detail-table' border='0' cellspacing='0' cellpadding='0'>
+	        		<thead>
+	        			<tr>
+	        				<th>上传日期</th>
+	        				<th>存储类型</th>
+	        				<th>更新日期</th>
+	        				<th>档案状态</th>
+	        				<th>操作</th>
+	        			</tr>
+	        		</thead>
+	        		<tbody>
+	        			<tr>
+	        				<td>2017-04-09</td>
+	        				<td>图片</td>
+	        				<td>2017-08-04</td>
+	        				<td>已上传</td>
+	        				<td class='task-operation'>
+	        					<span>查看</span>
+	        					<span>查看历史</span>
+	        				</td>
+	        				
+	        			</tr>
+	        		</tbody>
+	        	
+	        	</table>
+        	</div>
+        	<div class='taskDetail-mesage-update'>
+        		<span>更新尽调报告</span>
+        		<span>提交完成</span>
+        	
+        	</div>
+        	
+        	
         
         </div>
 	</div>
