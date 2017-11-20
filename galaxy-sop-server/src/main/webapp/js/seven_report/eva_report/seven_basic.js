@@ -371,7 +371,7 @@
 function get_result(code,e_type,dom){
 		if(code=="ENO4_4_2" || code=="ENO4_4_5"||code=="CNO4_4_5" || code=="CNO4_4_2"){
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType+"&proId="+projectInfo.id,null,function(data){
-				 var result = data.result.status;
+				var result = data.result.status;
 				 if(result == 'OK'){
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
@@ -384,6 +384,10 @@ function get_result(code,e_type,dom){
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType,null,function(data){
 				 var result = data.result.status;
 				 if(result == 'OK'){
+					 if(code=="NO5_4_1"){
+						 	console.log("!!!!type==20")
+							console.log(data)
+						}
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
 					 var type=entity.type;
