@@ -412,7 +412,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 			 })
 		}else if(type==1){
 			result_html ="<div class=\"icheck\"><input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" ></div>";
-		}else if(type==13||type==3||type==21){
+		}else if(type==13||type==3||type==22){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
 				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+"></div>"	 
@@ -606,7 +606,12 @@ function right(obj,type){
 			table.empty();
 			table.append(resString); 
 		}else{
-			
+			$(obj).parent().parent().find('p').show().text("未选择");
+			var resString = table.find("tr:first-child").clone();
+			table.empty();
+			$.each(val_checkbox,function(){
+				table.append(resString);
+			})
 		}
 		
 	}

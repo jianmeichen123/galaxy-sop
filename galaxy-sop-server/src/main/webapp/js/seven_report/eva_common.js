@@ -43,8 +43,8 @@ function tabShow(code,relateId){
 				$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 				$(".pagebox").attr("data-result",false);  
 				$("#save-rpt-btn").attr("disabled",true);
-				//竞争21类型
-				$.each($(".td_21"),function(){
+				//竞争22类型
+				$.each($(".td_22"),function(){
 					var _table = $(this).find(".table_inner");
 					var tr_length = _table.find("tr").length;
 					if(tr_length<=1){

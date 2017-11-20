@@ -374,12 +374,13 @@
 								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
-						{{else type=="21"}}
-						<td colspan="4"  class="td_21">
+						{{else type=="22"}}
+						<td colspan="4"  class="td_22">
 							<div>
 								<table class="table_inner">
+									<!-- {{each(i,valueList) valueList}}-->
 										{{each(i,informationGrades) informationGrades }}
-									<tr>
+										<tr>
 										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 											<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
@@ -406,8 +407,8 @@
 											
 
 									</tr>
-										{{/each}}
-									
+									{{/each}}
+								<!-- {{/each}}-->
 								</table>
 							</div>
 						</td>
@@ -438,7 +439,7 @@
 					</td>
 				{{/if}}	
 				{{if type}}
-					{{if logicalAnd(type!=15,type!=21) }}
+					{{if logicalAnd(type!=15,type!=22) }}
 						{{each(i,informationGrades) informationGrades }}
 							<td>\${scoreMax}</td>
 							<td>\${scoreExplain}</td>
