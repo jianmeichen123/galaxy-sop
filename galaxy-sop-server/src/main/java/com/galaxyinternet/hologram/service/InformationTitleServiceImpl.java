@@ -2,6 +2,7 @@ package com.galaxyinternet.hologram.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,10 +13,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,8 @@ import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.LocalCache;
-import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.model.User;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
@@ -52,7 +49,6 @@ import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
@@ -1230,17 +1226,26 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		resultQuery.setTitleIds(titleInfo.getIds());
 		resultQuery.setProjectId(projectId+"");
 		List<InformationResult> resultList = resultDao.selectList(resultQuery);
+		Map<Long,InformationListdata> listData = getListMap(projectId);
+		
 		if(resultList != null && resultList.size()>0)
 		{
 			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
+			
 			for(InformationResult item : resultList)
 			{
-				if(item.getContentChoose() != null)
+				String val = item.getContentChoose();
+				//type is 22, 从listdata表取值
+				if( NumberUtils.isNumber(val)&& listData.containsKey(Long.parseLong(val)))
 				{
-					if(dict != null)
+					item.setValueName(listData.get(Long.parseLong(val)).getField1());
+				}
+				else if(item.getContentChoose() != null )
+				{
+					if(dict != null )
 					{
-						item.setValueName(dict.get(Long.valueOf(item.getContentChoose())));
+						item.setValueName(dict.get(Long.parseLong(item.getContentChoose())));
 					}
 				}
 				String titleId = item.getTitleId()+"";
@@ -1368,5 +1373,75 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			}
 		return map;
 		
+	}
+	/**
+	 * type = 22,标题和对应选项（list_data）映射
+	 */
+	public static Map<Long,Long> RESULT_LIST_MAP = new ConcurrentHashMap<>();
+	static
+	{
+		//主要的竞争对手
+		RESULT_LIST_MAP.put(1584L, 1582L);
+		//主要的潜在竞争对手
+		RESULT_LIST_MAP.put(1585L, 1583L);
+	}
+	/**
+	 * type=22时，获取项目对应列表
+	 * @param projectId
+	 * @return
+	 */
+	public Map<Long,InformationListdata> getListMap(Long projectId)
+	{
+		Map<Long,InformationListdata> map = new HashMap<>();
+		Collection<Long> titleIds = RESULT_LIST_MAP.values();
+		Set<String> titleStrIds = new HashSet<>(titleIds.size());
+		for(Long titleId : titleIds)
+		{
+			titleStrIds.add(titleId+"");
+		}
+		InformationListdata query = new InformationListdata();
+		query.setTitleIds(titleStrIds);
+		query.setProjectId(projectId);
+		List<InformationListdata> list = listDataDao.selectList(query);
+		if(list != null && list.size()>0)
+		{
+			for(InformationListdata item : list)
+			{
+				map.put(item.getId(), item);
+			}
+		}
+		return map;
+	}
+	/**
+	 * type = 22时获取选项
+	 * @param projectId
+	 * @param titleId
+	 * @return
+	 */
+	public List<InformationDictionary> getList4Title(Long projectId, Long titleId)
+	{
+		if(!RESULT_LIST_MAP.containsKey(titleId))
+		{
+			return null;
+		}
+		Long listTitleId = RESULT_LIST_MAP.get(titleId);
+		InformationListdata query = new InformationListdata();
+		query.setTitleId(listTitleId);
+		query.setProjectId(projectId);
+		List<InformationListdata> list = listDataDao.selectList(query);
+		if(list != null && list.size()>0)
+		{
+			List<InformationDictionary> dataList = new ArrayList<>(list.size());
+			InformationDictionary dict = null;
+			for(InformationListdata item : list)
+			{
+				dict = new InformationDictionary();
+				dict.setName(item.getField1());
+				dict.setValue(item.getId()+"");
+				dataList.add(dict);
+			}
+			return dataList;
+		}
+		return null;
 	}
 }
