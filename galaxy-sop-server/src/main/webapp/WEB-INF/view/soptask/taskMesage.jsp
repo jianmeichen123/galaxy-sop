@@ -28,17 +28,8 @@
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix task-pagebox">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
-        <!--页眉-->
-        <div class="top clearfix task-top taskdetail-top">
-        <h2>待办任务</h2>
-            <!--tips连接-->
-        	<ul class="tipslink task_tipslink">
-            	<li class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">任务详情<span></span></a></li>
-                <li class='task-tips-li'><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">操作日志<span></span></a></li>
-          	</ul>
-        </div>
     <!--右中部内容-->
- 	<!-- <div class="ritmin taskDetail-ritmin">
+ 	<div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 	<div class='taskDetail-mesage-top'>
 	        	<div class='task-item task-item-left'>
@@ -85,7 +76,6 @@
 	        		</tbody>
 	        	
 	        	</table>
-	        	
         	</div>
         	<div class='taskDetail-mesage-update'>
         		<span class="upate-task">更新尽调报告</span>
@@ -96,7 +86,7 @@
         	
         
         </div>
-	</div> -->
+	</div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
