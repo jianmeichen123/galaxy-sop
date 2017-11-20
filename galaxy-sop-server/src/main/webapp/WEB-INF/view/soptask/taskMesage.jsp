@@ -1,31 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
-<% 
-	String path = request.getContextPath(); 
-    java.util.Date date=new java.util.Date();
-    String url=(String)request.getAttribute("flagUrl");
-%>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>星河投</title>
-<style>
-.fixed-table-container{padding-left:20px !important;padding-right:20px !important;border-radius:0px !important;}
-.fixed-table-body{border-radius:0px !important;}
-</style>
-<%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-   <!--bootstrap-table-->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
-</head>
 
-<body>
-<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix task-pagebox">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
@@ -88,14 +62,6 @@
         </div>
 	</div>
 </div>
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>	
-<!-- bootstrap-table -->
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
 //计算距离的左边距
@@ -158,4 +124,4 @@ function projectNameFormatter(value,row,index){
 	    }
 	
 </script>
-</html>
+

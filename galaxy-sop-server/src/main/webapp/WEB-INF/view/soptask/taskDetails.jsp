@@ -39,9 +39,16 @@
         </div>
     <!--右中部内容-->
     <div class="ritmin taskDetail-ritmin">
-    	<!-- <div data-id='tab-block'>
-	    	
-    	</div> -->
+    	<div data-id="tab-block">
+    		<div id='tab-content' data-id="tab-content">
+		    	<div class='tabtxt'>
+		    	
+		    	</div>
+	    	</div>
+    	</div>
+	</div>
+    	
+    	 
     </div>
  	<!-- <div class="ritmin taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>

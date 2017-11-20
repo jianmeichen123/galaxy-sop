@@ -58,31 +58,16 @@ $(function(){
 	$('.to-task-tips').tabLazyChange({
 		defaultnum:0,
 		onchangeSuccess : function(index){
-			alert(index)
 			switch(index){
 				case 0 : initTabTaskMessage();break;
 				case 1 :initTabTaskLog();break;
 			}
 		}
-	})
-/*	$('.to-task-tips li').click(function(){
-		var index = $(this).index();
-		console.log(index)
-		if(index == 0){
-			initTabTaskMessage()
-		}else if(index == 1){
-			initTabTaskLog();
-		}
-	})*/
-	
-	
+	})	
 	//页面请求地址
 	function initTabTaskMessage(){
 		$.getTabHtml({
 			url : platformUrl.toTaskMesage,
-			okback:function(){
-				alert(00)
-			}
 		});
 		//console.log(platformUrl.toTaskMesage)
 	}
