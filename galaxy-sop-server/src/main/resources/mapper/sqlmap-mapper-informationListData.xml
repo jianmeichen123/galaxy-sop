@@ -19,6 +19,16 @@
 		<result column="field_8" 	jdbcType="VARCHAR" 		property="field8" />
 		<result column="field_9" 	jdbcType="VARCHAR" 		property="field9" />
 		<result column="field_10" 	jdbcType="VARCHAR" 		property="field10" />
+		<result column="field_11" 	jdbcType="VARCHAR" 		property="field11" />
+		<result column="field_12" 	jdbcType="VARCHAR" 		property="field12" />
+		<result column="field_13" 	jdbcType="VARCHAR" 		property="field13" />
+		<result column="field_14" 	jdbcType="VARCHAR" 		property="field14" />
+		<result column="field_15" 	jdbcType="VARCHAR" 		property="field15" />
+		<result column="field_16" 	jdbcType="VARCHAR" 		property="field16" />
+		<result column="field_17" 	jdbcType="VARCHAR" 		property="field17" />
+		<result column="field_18" 	jdbcType="VARCHAR" 		property="field18" />
+		<result column="field_19" 	jdbcType="VARCHAR" 		property="field19" />
+		<result column="field_20" 	jdbcType="VARCHAR" 		property="field20" />
 		<result column="relate_file_id" 	jdbcType="VARCHAR" 		property="relateFileId" />
 		<result column="is_valid" 	jdbcType="INTEGER" 		property="isValid" />
 		<result column="created_time" jdbcType="BIGINT" 	property="createdTime" />
@@ -30,7 +40,10 @@
 
 
 	<sql id="Base_Column_List">
-		id, project_id, title_id,parent_id, code,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10,relate_file_id,is_valid, created_time, create_id, updated_time, update_id
+		id, project_id, title_id,parent_id, code,
+		field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10,
+		field_11, field_12, field_13, field_14, field_15,field_16,field_17,field_18,field_19,field_20,
+		relate_file_id,is_valid, created_time, create_id, updated_time, update_id
 	</sql>
 
 
@@ -113,6 +126,16 @@
 			field_8,
 			field_9,
 			field_10,
+			field_11,
+			field_12,
+			field_13,
+			field_14,
+			field_15,
+			field_16,
+			field_17,
+			field_18,
+			field_19,
+			field_20,
 			relate_file_id,
 			is_valid, 
 			created_time, 
@@ -136,6 +159,16 @@
 			#{field8,jdbcType=VARCHAR},
 			#{field9,jdbcType=VARCHAR},
 			#{field10,jdbcType=VARCHAR},
+			#{field11,jdbcType=VARCHAR},
+			#{field12,jdbcType=VARCHAR},
+			#{field13,jdbcType=VARCHAR},
+			#{field14,jdbcType=VARCHAR},
+			#{field15,jdbcType=VARCHAR},
+			#{field16,jdbcType=VARCHAR},
+			#{field17,jdbcType=VARCHAR},
+			#{field18,jdbcType=VARCHAR},
+			#{field19,jdbcType=VARCHAR},
+			#{field20,jdbcType=VARCHAR},
 			#{relateFileId,jdbcType=VARCHAR}, 
 			#{isValid,jdbcType=INTEGER}, 
 			#{createdTime,jdbcType=BIGINT}, 
@@ -190,6 +223,16 @@
 			<if test="field8 != null"> field_8 = #{field8,jdbcType=VARCHAR}, </if>
 			<if test="field9 != null"> field_9 = #{field9,jdbcType=VARCHAR}, </if>
 			<if test="field10 != null"> field_10 = #{field10,jdbcType=VARCHAR}, </if>
+			<if test="field11 != null"> field_11 = #{field11,jdbcType=VARCHAR}, </if>
+			<if test="field12 != null"> field_12 = #{field12,jdbcType=VARCHAR}, </if>
+			<if test="field13 != null"> field_13 = #{field13,jdbcType=VARCHAR}, </if>
+			<if test="field14 != null"> field_14 = #{field14,jdbcType=VARCHAR}, </if>
+			<if test="field15 != null"> field_15 = #{field15,jdbcType=VARCHAR}, </if>
+			<if test="field16 != null"> field_16 = #{field16,jdbcType=VARCHAR}, </if>
+			<if test="field17 != null"> field_17 = #{field17,jdbcType=VARCHAR}, </if>
+			<if test="field18 != null"> field_18 = #{field18,jdbcType=VARCHAR}, </if>
+			<if test="field19 != null"> field_19 = #{field19,jdbcType=VARCHAR}, </if>
+			<if test="field20 != null"> field_20 = #{field20,jdbcType=VARCHAR}, </if>
 			<if test="relateFileId != null"> relate_file_id = #{relateFileId,jdbcType=VARCHAR}, </if>
 			<if test="isValid != null"> is_valid = #{isValid,jdbcType=VARCHAR}, </if>
 			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>

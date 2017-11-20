@@ -37,6 +37,26 @@ public class InformationListdataRemark extends BaseEntity{
     private String field9;
 
     private String field10;
+    
+    private String field11;
+
+    private String field12;
+
+    private String field13;
+
+    private String field14;
+
+    private String field15;
+
+    private String field16;
+
+    private String field17;
+
+    private String field18;
+
+    private String field19;
+
+    private String field20;
 
     private Integer isValid;
 
@@ -71,6 +91,26 @@ public class InformationListdataRemark extends BaseEntity{
     private String subTitleId9;
     
     private String subTitleId10;
+    
+    private String subTitleId11;
+    
+    private String subTitleId12;
+    
+    private String subTitleId13;
+    
+    private String subTitleId14;
+    
+    private String subTitleId15;
+    
+    private String subTitleId16;
+    
+    private String subTitleId17;
+    
+    private String subTitleId18;
+    
+    private String subTitleId19;
+    
+    private String subTitleId20;
 
     public Long getId() {
         return id;
@@ -326,6 +366,206 @@ public class InformationListdataRemark extends BaseEntity{
 
 	public void setSubTitleId10(String subTitleId10) {
 		this.subTitleId10 = subTitleId10;
+	}
+
+	public String getField11()
+	{
+		return field11;
+	}
+
+	public void setField11(String field11)
+	{
+		this.field11 = field11;
+	}
+
+	public String getField12()
+	{
+		return field12;
+	}
+
+	public void setField12(String field12)
+	{
+		this.field12 = field12;
+	}
+
+	public String getField13()
+	{
+		return field13;
+	}
+
+	public void setField13(String field13)
+	{
+		this.field13 = field13;
+	}
+
+	public String getField14()
+	{
+		return field14;
+	}
+
+	public void setField14(String field14)
+	{
+		this.field14 = field14;
+	}
+
+	public String getField15()
+	{
+		return field15;
+	}
+
+	public void setField15(String field15)
+	{
+		this.field15 = field15;
+	}
+
+	public String getField16()
+	{
+		return field16;
+	}
+
+	public void setField16(String field16)
+	{
+		this.field16 = field16;
+	}
+
+	public String getField17()
+	{
+		return field17;
+	}
+
+	public void setField17(String field17)
+	{
+		this.field17 = field17;
+	}
+
+	public String getField18()
+	{
+		return field18;
+	}
+
+	public void setField18(String field18)
+	{
+		this.field18 = field18;
+	}
+
+	public String getField19()
+	{
+		return field19;
+	}
+
+	public void setField19(String field19)
+	{
+		this.field19 = field19;
+	}
+
+	public String getField20()
+	{
+		return field20;
+	}
+
+	public void setField20(String field20)
+	{
+		this.field20 = field20;
+	}
+
+	public String getSubTitleId11()
+	{
+		return subTitleId11;
+	}
+
+	public void setSubTitleId11(String subTitleId11)
+	{
+		this.subTitleId11 = subTitleId11;
+	}
+
+	public String getSubTitleId12()
+	{
+		return subTitleId12;
+	}
+
+	public void setSubTitleId12(String subTitleId12)
+	{
+		this.subTitleId12 = subTitleId12;
+	}
+
+	public String getSubTitleId13()
+	{
+		return subTitleId13;
+	}
+
+	public void setSubTitleId13(String subTitleId13)
+	{
+		this.subTitleId13 = subTitleId13;
+	}
+
+	public String getSubTitleId14()
+	{
+		return subTitleId14;
+	}
+
+	public void setSubTitleId14(String subTitleId14)
+	{
+		this.subTitleId14 = subTitleId14;
+	}
+
+	public String getSubTitleId15()
+	{
+		return subTitleId15;
+	}
+
+	public void setSubTitleId15(String subTitleId15)
+	{
+		this.subTitleId15 = subTitleId15;
+	}
+
+	public String getSubTitleId16()
+	{
+		return subTitleId16;
+	}
+
+	public void setSubTitleId16(String subTitleId16)
+	{
+		this.subTitleId16 = subTitleId16;
+	}
+
+	public String getSubTitleId17()
+	{
+		return subTitleId17;
+	}
+
+	public void setSubTitleId17(String subTitleId17)
+	{
+		this.subTitleId17 = subTitleId17;
+	}
+
+	public String getSubTitleId18()
+	{
+		return subTitleId18;
+	}
+
+	public void setSubTitleId18(String subTitleId18)
+	{
+		this.subTitleId18 = subTitleId18;
+	}
+
+	public String getSubTitleId19()
+	{
+		return subTitleId19;
+	}
+
+	public void setSubTitleId19(String subTitleId19)
+	{
+		this.subTitleId19 = subTitleId19;
+	}
+
+	public String getSubTitleId20()
+	{
+		return subTitleId20;
+	}
+
+	public void setSubTitleId20(String subTitleId20)
+	{
+		this.subTitleId20 = subTitleId20;
 	}
     
 	
