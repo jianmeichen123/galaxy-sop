@@ -77,7 +77,7 @@ $(function(){
 		});
 	}
 	/*指派任务弹窗点击事件*/
-/*	$('.task-toggle li').click(function(){
+	$('.task-toggle li').click(function(){
 		var index = $(this).index();
 		var code = $(this).attr("data-code");
 		console.log(code)
@@ -91,11 +91,8 @@ $(function(){
 			});
 		}
 		$('.pop').addClass('task-pop');
-	});*/
-	$('.pop').addClass('task-pop');
-	$.getHtml({
-		url:getDetailUrl('transfer-task')
 	});
+	
 	//页面请求地址
 function getDetailUrl(code)
 {
@@ -107,10 +104,6 @@ function getDetailUrl(code)
 	}
 	return "";
 }
-
-
-
-
 
 	$(".tipslink").on("click","a",function(){
 		var a = $(this);
