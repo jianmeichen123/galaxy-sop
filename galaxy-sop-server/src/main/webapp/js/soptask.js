@@ -49,12 +49,12 @@ $(function(){
 	    forwardWithHeader(url);
 	//	this.href=endUrl;
 	});
-	//指派任务
+	//指派任务点击跳转
 	$(".more-task").on("click",function() {
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
 	    forwardWithHeader(url);
 	});
-	//切换显示
+	//ul切换显示
 	$('.to-task-tips').tabLazyChange({
 		defaultnum:0,
 		onchangeSuccess : function(index){
@@ -69,7 +69,6 @@ $(function(){
 		$.getTabHtml({
 			url : platformUrl.toTaskMesage,
 		});
-		//console.log(platformUrl.toTaskMesage)
 	}
 	function initTabTaskLog(){
 		console.log(platformUrl.toTaskLog)
@@ -77,9 +76,33 @@ $(function(){
 			url : platformUrl.toTaskLog
 		});
 	}
-	
-	
-
+	/*指派任务弹窗点击事件*/
+	$('.task-toggle li').click(function(){
+		var index = $(this).index();
+		var code = $(this).attr("data-code");
+		console.log(code)
+		if(index == 0){
+			$.getHtml({
+				url:getDetailUrl(code)
+			});
+		}else if(index == 1){
+			$.getHtml({
+				url:getDetailUrl(code)
+			});
+			
+		}
+		
+	})
+function getDetailUrl(code)
+{
+	if(code =='transfer-task')
+	{	
+		return '../html/task_todeal.html';
+	}else if(code === 'abandon-task'){
+		return '../html/task_toabandon.html';
+	}
+	return "";
+}
 
 
 

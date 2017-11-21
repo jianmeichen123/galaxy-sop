@@ -1,13 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<% 
-	String path = request.getContextPath(); 
-%>
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
+
+
 <div class="qualificationstc errortc finace_history_tc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
 	<div class="title_bj" id="finace_popup_name"></div>
 	<form action="" id="detail-form">
@@ -89,55 +81,7 @@
         </div>
     </div>
       	</form>
-      	<!-- 查看显示下面内容 -->
-      	<div class="see_block">
-            <div class="conference_all">
-            <dl class="fmdl clearfix wid_2">
-                <dt>融资时间：</dt>
-                <dd name="field1"></dd>
-                  
-            </dl>
-            <dl class="fmdl clearfix wid_2">
-             <dt>投资金额：</dt>
-                <dd name="field3"></dd>
-                 
-            </dl>
-          <dl class="fmdl clearfix wid_2">
-            <dt>股权占比：</dt>
-                <dd name="field4" class="percent"></dd>
-              
-           </dl>
-           <dl class="fmdl clearfix wid_2">
-           <dt>估值金额：</dt>
-           <dd name="field5"></dd>
-            </dl>
-            <dl class="fmdl clearfix wid_2 hidden">
-           <dt>币种：</dt>
-           <dd name="field6"></dd>
-            </dl>
-           <dl class="fmdl clearfix wid_2">
-            <dt>融资轮次：</dt>
-                <dd name="field7"></dd>            
-           
-           </dl>
-           <dl class="fmdl  wid_2">
-				<dt>新老股：</dt>
-				<dd name="field8"></dd> 
-				</dl>
-			<dl class="fmdl wid clearfix block ">
-                 <dt>投资方(机构或个人)：</dt>
-                <dd name="field2" class="textarea"></dd>
-            </dl>
-             	<dl class="fmdl wid clearfix block">
-           		<dt>合同关键条款：</dt>
-	                <dd name="field9" class="textarea"></dd> 
-	             </dl>
-	             <dl class="fmdl wid clearfix block">
-	           		<dt>对赌或业绩承诺条款：</dt>
-	                <dd name="field10" class="textarea"></dd> 
-	             </dl>
-        	</div>	
-        </div>
+      	
     
   <div class="button_affrim">
         <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
@@ -147,38 +91,10 @@
 </div>
 
 <script>
-$(function(){
-	$('input[name="field1"]').val(new Date().format("yyyy-MM-dd"));
-});
-$(function(){
-    $("#detail-form").validate({});
-    $.validator.setDefaults({
-    	errorElement:'span'
-    });
-    
-    //金额联动
-    function calculationValuations(){
-		var projectParent = $("input[name='field3']").val();
-		var projectChildren = $("input[name='field4']").val();
-		if(projectParent > 0 && projectChildren > 0){
-			return projectParent * (100/projectChildren);
-		}
-		return null;
-	}
-    $("div").delegate("input[name='field3']","blur",function(){
-    	var valuations = calculationValuations();
-		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(4));
-		}
-	});
-    $("div").delegate("input[name='field4']","blur",function(){
-    	var valuations = calculationValuations();
-		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(4));
-		}
-	});
-})
 
-//selectContext();
-//initDialogValstr("updateOrSave_HF");
+
 </script>
+
+
+
+

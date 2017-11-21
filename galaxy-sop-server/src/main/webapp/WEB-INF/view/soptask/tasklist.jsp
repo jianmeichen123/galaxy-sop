@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <title>星河投</title>
 <style>
-.fixed-table-container{padding-left:20px !important;padding-right:20px !important;border-radius:0px !important;}
+.fixed-table-container{padding-left:0px !important;padding-right:10px !important;border-radius:0px !important;}
 .fixed-table-body{border-radius:0px !important;}
 </style>
 <%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
@@ -50,8 +50,8 @@
              <span class='more-task fr'>指派任务</span>
             <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch">搜索</a>
 	          <ul class='task-toggle'>
-	          	<li>移交任务</li>
-	          	<li>放弃任务</li>
+	          	<li data-code='transfer-task'>移交任务</li>
+	          	<li data-code='abandon-task'>放弃任务</li>
 	          </ul>
       	  </div>
           
