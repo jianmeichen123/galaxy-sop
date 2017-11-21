@@ -2370,7 +2370,7 @@ function editRow(ele)
 	}
 };
 //竞争对手编辑
-function editRowCompete(ele,id_code,row,code){
+function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr
 	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 			function(data) {
 				var result = data.result.status;
@@ -2438,7 +2438,7 @@ function editRowCompete(ele,id_code,row,code){
 		}) 
 }
 //查看竞争对手
-function showRowCompete(ele,id_code,row,code,flag){
+function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr,flag是否编辑状态下查看
 	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 			function(data) {
 				var result = data.result.status;
