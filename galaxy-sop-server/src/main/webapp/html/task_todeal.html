@@ -1,89 +1,27 @@
 
 
-<div class="qualificationstc errortc finace_history_tc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
-	<div class="title_bj" id="finace_popup_name"></div>
+<div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
+	<div class="title_bj abandon-title" >移交任务</div>
 	<form action="" id="detail-form">
-			
-    <input name="index" type="hidden" value="">
-    	<input name="id" type="hidden">
-    	<input name="titleId" type="hidden">
-    	<input name="subCode" type="hidden">
-    <div class="qualifications_all">
-        <div class="conference_all">
-            <dl class="fmdl clearfix">
-                <dt>融资时间：</dt>
-                <dd>
-                    <input type="text" class="datepicker-text txt time" readonly=""  name="field1" value="">
-                </dd>
-                  
-            </dl>
-            <dl class="fmdl clearfix">
-                 <dt>投资方(机构或个人)：</dt>
-                <dd>
-                    <input type="text" class="txt"  name="field2" data-rule-verify_50_font="true" data-msg-verify_50_font="<font color=red>*</font>不能超过50字符"/>
-                </dd>
-            </dl>
-            <dl class="fmdl clearfix sign_fmdl">
-             <dt>投资金额：</dt>
-                <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
-                </dd>
-                 
-            </dl>
-            <dl class="fmdl clearfix">
-               <dt>币种：</dt>
-               <dd>
-                   <select name="field6"  id="field6">
-                      <!--  <option value="0"  name="financeUnit" >人民币</option>
-                       <option value="1" name="financeUnit" selected="selected">美元</option> -->
-         
-                   </select>
-               </dd>
-           </dl>
-          <dl class="fmdl clearfix sign_fmdl">
-            <dt>股权占比：</dt>
-                <dd>
-                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-verify_32_0="true"  data-msg-verify_32_0="<font color=red>*</font>支持0-100之间的两位小数"/>
-                </dd>
-           </dl>
-           <dl class="fmdl clearfix sign_fmdl">
-           <dt>估值金额：</dt>
-                <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_134="true" data-msg-verify_134="<font color=red>*</font>支持13位长度的四位小数"/>
-                </dd>
-            </dl>
-           <dl class="fmdl clearfix">
-            <dt>融资轮次：</dt>
-                <dd>
-					<select name="field7" class='new_nputr' id="field7">
-					        <option name="111">1111111</option>
-			         </select>
-                </dd>            
-           
-           </dl>
-           <dl class="fmdl">
-           		<dt>新老股：</dt>
-                <dd>
-					<label><input type="radio" name="field8" value="2203">新股</label>
-				    <label><input type="radio" name="field8" value="2204">老股</label>
-                </dd>
-             </dl>
-           <div class="team_wid">
-            	<p>合同关键条款：</p>
-            	<textarea class="team_textarea" name="field9" id="finace_area" oninput="countChar('finace_area','label_now','2000')"></textarea>
-            	<div class="finace_fnum num_tj"><span for="" id="label_now">2000</span>/2000</div>
-            </div>
-           <div class="team_wid">
-            	<p>对赌或业绩承诺条款：</p>
-            	<textarea class="team_textarea" name="field10" id="now_area" oninput="countChar('now_area','label_now_next','2000')"></textarea>
-            	<div class="finace_fnum num_tj"><span for="" id="label_now_next">2000</span>/2000</div>
-            </div>
-        </div>
-    </div>
-      	</form>
+    <div class="qualifications_all task-todeal">
+        <ul>
+        	<li><em>接收部门：</em><span>人力资源部</span></li>
+        	<li class='select-simulate'><em>接收人：</em>
+        		<input type='text' placeholder='请选择'>
+        		<ul>
+        			<li>2222222222</li>
+        			<li>2222222222</li>
+        			<li>2222222222</li>
+        		</ul>
+        	</li>
+        	<li class='task-todeal-textarea'>
+        		<em>移交原因：</em>
+        		<textarea placeholder='请输入移交原因'></textarea>
+        	</li>
+        </ul>
       	
     
-  <div class="button_affrim">
+  	<div class="button_affrim">
         <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>

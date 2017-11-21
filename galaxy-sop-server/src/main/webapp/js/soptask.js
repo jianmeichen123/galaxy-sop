@@ -54,7 +54,7 @@ $(function(){
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
 	    forwardWithHeader(url);
 	});
-	//ul切换显示
+	//ul tab切换显示
 	$('.to-task-tips').tabLazyChange({
 		defaultnum:0,
 		onchangeSuccess : function(index){
@@ -77,7 +77,7 @@ $(function(){
 		});
 	}
 	/*指派任务弹窗点击事件*/
-	$('.task-toggle li').click(function(){
+/*	$('.task-toggle li').click(function(){
 		var index = $(this).index();
 		var code = $(this).attr("data-code");
 		console.log(code)
@@ -89,10 +89,14 @@ $(function(){
 			$.getHtml({
 				url:getDetailUrl(code)
 			});
-			
 		}
-		
-	})
+		$('.pop').addClass('task-pop');
+	});*/
+	$('.pop').addClass('task-pop');
+	$.getHtml({
+		url:getDetailUrl('transfer-task')
+	});
+	//页面请求地址
 function getDetailUrl(code)
 {
 	if(code =='transfer-task')
@@ -103,6 +107,8 @@ function getDetailUrl(code)
 	}
 	return "";
 }
+
+
 
 
 
