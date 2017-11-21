@@ -2169,7 +2169,12 @@ function editRow(ele)
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		if(txt=='查看'){
-			showRowCompete(ele,id_code,row,code);
+			var flag=false;
+			var formObj=$(ele).closest('table');
+			if(formObj.is('.editable')){
+				flag=true;
+			}
+			showRowCompete(ele,id_code,row,code,flag);
 		}else{
 			editRowCompete(ele,id_code,row,code);
 		}
@@ -2423,14 +2428,20 @@ function editRowCompete(ele,id_code,row,code){
 		}) 
 }
 //查看竞争对手
-function showRowCompete(ele,id_code,row,code){
+function showRowCompete(ele,id_code,row,code,flag){
 	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#page_list_compete").tmpl(entity).appendTo("#a_"+id_code);
-					$(ele).closest('form').hide();
+					if(flag==true){  //编辑状态
+						$(ele).closest('form').hide();
+					}else{   //显示状态
+						$('.bj_hui_on').show();
+						$(ele).closest('.section>.h_team_look').hide();
+					}
+					
 					var sec = $(ele).closest('.section').attr('class');
 					var _val=$('table.editable').attr('data-code');
 					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
@@ -2452,7 +2463,12 @@ function showRowCompete(ele,id_code,row,code){
 					});
 					//取消
 					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
-						$(ele).closest('form').show();
+						if(flag==true){  //编辑状态
+							$(ele).closest('form').show();
+						}else{   //显示状态
+							$('.bj_hui_on').hide();
+							$(ele).closest('.section>.h_team_look').show();
+						}
 						var form=$(this).closest('.h_compete_look')
 						$(form).remove();							
 					})
