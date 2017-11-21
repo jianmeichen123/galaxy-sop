@@ -21,21 +21,9 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.service.InformationMGService;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
-import com.galaxyinternet.service.JointDeliveryService;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.InformationDataService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationProgressService;
-import com.galaxyinternet.service.hologram.InformationResultService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,9 +32,9 @@ import io.swagger.annotations.ApiParam;
 @Api("全息图后台接口")
 @Controller
 @RequestMapping("/draftBox/infoData")
-public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
+public class DraftBoxController  extends BaseControllerImpl<InformationData, InformationData> {
 
-	final Logger logger = LoggerFactory.getLogger(InfoProjectController.class);
+	final Logger logger = LoggerFactory.getLogger(DraftBoxController.class);
 	
 	@Autowired
 	private InformationMGService informationMGService;
