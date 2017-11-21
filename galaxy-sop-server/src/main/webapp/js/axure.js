@@ -827,7 +827,6 @@
 			$.tabup({
 				showback:function(){
 					var _this = this;
-					console.log(this)
 					$.ajax({
 						type:"GET",
 						data:opts.data,
@@ -854,7 +853,6 @@
 								return;
 							}
 							$(_this.id).find(".tabtxt").html(html);
-							console.log(_this.id)
 							opts.okback();
 						},
 						error:function(){
