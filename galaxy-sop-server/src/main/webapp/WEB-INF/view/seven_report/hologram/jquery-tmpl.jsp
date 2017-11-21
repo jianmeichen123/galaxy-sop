@@ -458,6 +458,7 @@
 <!-竞争弹窗开始->
 {{else}}
 <div class="h_edit section">
+	<input name="index" type="hidden" value="">
 	<input name="id" type="hidden">
     <input name="titleId" type="hidden" value='\${id}'>
     <input name="subCode" type="hidden">

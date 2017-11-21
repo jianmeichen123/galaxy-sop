@@ -2102,6 +2102,7 @@ function saveForm(form)
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
+		console.log(data);
 		saveRow(data);
 	}
 }
@@ -2164,193 +2165,261 @@ function saveRow(data)
 }
 function editRow(ele)	
 {
-	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
+	var code = $(ele).closest('table').data('code');
 	var txt=$(ele).text();
-	$.getHtml({
-		url:getDetailUrl(code),//模版请求地址
-		data:"",//传递参数
-		okback:function(){
-			//var title = $("#pop-title");
-			 if(txt=="查看"){
-				 	$("#detail-form").hide();
-					$(".button_affrim").hide();
-					$('#detail-form_look_over').show();
-					$("#delivery_popup_name").text("查看交割事项");
-					 $('#grant_popup_name').html('查看分期注资计划');
-					 $('#finace_popup_name').html('查看融资历史');
-					 $("#complete_title").html('查看综合竞争比较');
-					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看里程碑和时间节点');
-					 $("#pop-title").text('查看分期注资计划');
-					 $("#pop-title-yy").html('查看运营指标');
-					
-				}else{
-					$(".see_block").hide();
-					$('#detail-form_look_over').hide();
-					$("#delivery_popup_name").text("编辑交割事项");
-					 $('#grant_popup_name').html('编辑分期注资计划');
-					 $('#finace_popup_name').html('编辑融资历史');
-					 $("#complete_title").html('编辑综合竞争比较');
-					 $("#pop-title-tz").html('编辑投资人');
-					 $("#pop-title-share").html('编辑股东');
-					 $("#pop-title-yy").html('编辑运营指标');
-					 $("#pop-title-gs").text('编辑同类公司');
-					 $("#pop-title-time").text('编辑里程碑和时间节点');
-					 $("#pop-title").text('编辑分期注资计划');
-				}
-			$("#detail-form input[name='subCode']").val(code);
-			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
-			selectContext("detail-form");
-			//增加显示字段限制
-			var dataCode = $(ele).closest('table').attr('data-code');
-			
-			$.each($("#detail-form").find("input, select, textarea"),function(){
-				var ele = $(this);
-				var name = ele.attr('name');
-				var type=ele.attr('type');
-				var idVal=ele.attr('id');
-				var val_text =row.data(name);
-				if(type=="radio"){
-					if(ele.val()==row.data(name)){
-						ele.attr("checked","chedcked");
+	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
+	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
+		editRowCompete(ele,id_code,row,code);
+	}else{
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				//var title = $("#pop-title");
+				 if(txt=="查看"){
+					 	$("#detail-form").hide();
+						$(".button_affrim").hide();
+						$('#detail-form_look_over').show();
+						$("#delivery_popup_name").text("查看交割事项");
+						 $('#grant_popup_name').html('查看分期注资计划');
+						 $('#finace_popup_name').html('查看融资历史');
+						 $("#complete_title").html('查看综合竞争比较');
+						 $("#pop-title-gs").text('查看同类公司');
+						 $("#pop-title-time").text('查看里程碑和时间节点');
+						 $("#pop-title").text('查看分期注资计划');
+						 $("#pop-title-yy").html('查看运营指标');
+						
+					}else{
+						$(".see_block").hide();
+						$('#detail-form_look_over').hide();
+						$("#delivery_popup_name").text("编辑交割事项");
+						 $('#grant_popup_name').html('编辑分期注资计划');
+						 $('#finace_popup_name').html('编辑融资历史');
+						 $("#complete_title").html('编辑综合竞争比较');
+						 $("#pop-title-tz").html('编辑投资人');
+						 $("#pop-title-share").html('编辑股东');
+						 $("#pop-title-yy").html('编辑运营指标');
+						 $("#pop-title-gs").text('编辑同类公司');
+						 $("#pop-title-time").text('编辑里程碑和时间节点');
+						 $("#pop-title").text('编辑分期注资计划');
 					}
-				}else if (type=="text"){
+				$("#detail-form input[name='subCode']").val(code);
+				$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+				selectContext("detail-form");
+				//增加显示字段限制
+				var dataCode = $(ele).closest('table').attr('data-code');
+				
+				$.each($("#detail-form").find("input, select, textarea"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					var type=ele.attr('type');
+					var idVal=ele.attr('id');
+					var val_text =row.data(name);
+					if(type=="radio"){
+						if(ele.val()==row.data(name)){
+							ele.attr("checked","chedcked");
+						}
+					}else if (type=="text"){
+						if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+							if(name=="field2"){
+								val_text = _parsefloat(val_text)
+							}					
+						}
+						if(code=="competition-comparison"||code=="grant-part"){	
+							if(name=="field3"){	
+								val_text = _parsefloat(val_text)
+							}
+						}
+						if(code=="finance-history"||code=="investor-situation"){
+							if(name=="field3"||name=="field4"||name=="field5")
+							val_text = _parsefloat(val_text);
+						}
+						ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+					}else{
+						ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+					}
+				});
+				//查看显示
+				$.each($(".see_block").find("dd[name]"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					var val_text=  row.data(name);				
 					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 						if(name=="field2"){
 							val_text = _parsefloat(val_text)
 						}					
 					}
-					if(code=="competition-comparison"||code=="grant-part"){	
-						if(name=="field3"){	
+					if(code=="competition-comparison"||code=="grant-part"){					
+						if(key=="field3"){
 							val_text = _parsefloat(val_text)
 						}
 					}
 					if(code=="finance-history"||code=="investor-situation"){
 						if(name=="field3"||name=="field4"||name=="field5")
-						val_text = _parsefloat(val_text);
-					}
-					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
-				}else{
-					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
-				}
-			});
-			//查看显示
-			$.each($(".see_block").find("dd[name]"),function(){
-				var ele = $(this);
-				var name = ele.attr('name');
-				var val_text=  row.data(name);				
-				if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
-					if(name=="field2"){
-						val_text = _parsefloat(val_text)
-					}					
-				}
-				if(code=="competition-comparison"||code=="grant-part"){					
-					if(key=="field3"){
 						val_text = _parsefloat(val_text)
 					}
-				}
-				if(code=="finance-history"||code=="investor-situation"){
-					if(name=="field3"||name=="field4"||name=="field5")
-					val_text = _parsefloat(val_text)
-				}
-				ele.text(val_text);
-				//历史融资特殊处理select,radio
-				$.each($("#financeDetail select"),function(){
-					var selectId=$(this).val();
-					var selectVal=$("#financeDetail select").find("option[value='"+selectId+"']").text();
-					if(row.data(name)==selectId && selectId!=""){
-						ele.text(selectVal);
-					}
-					var val=$(".see_block").find("dd[name='field6']").text();
-					if(row.data('field3')==""){
-						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
-					}else if(row.data('field3')==undefined || row.data('field3')==null){
-						$(".see_block").find("dd[name='field3']").text('');
+					ele.text(val_text);
+					//历史融资特殊处理select,radio
+					$.each($("#financeDetail select"),function(){
+						var selectId=$(this).val();
+						var selectVal=$("#financeDetail select").find("option[value='"+selectId+"']").text();
+						if(row.data(name)==selectId && selectId!=""){
+							ele.text(selectVal);
+						}
+						var val=$(".see_block").find("dd[name='field6']").text();
+						if(row.data('field3')==""){
+							$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
+						}else if(row.data('field3')==undefined || row.data('field3')==null){
+							$(".see_block").find("dd[name='field3']").text('');
+						}else{
+							$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
+						}
+						if(row.data('field5')==""){
+							$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
+						}else if(row.data('field5')==undefined || row.data('field5')==null){
+							$(".see_block").find("dd[name='field5']").text('');
+						}else{
+							$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
+						}
+						
+					});
+					$.each($("#financeDetail input[type='radio']"),function(){
+						var selectId=$(this).val();
+						var selectVal=$("#financeDetail").find("input[type='radio'][value='"+selectId+"']").parent().text();
+						if(row.data(name)==selectId){
+							ele.text(selectVal);
+						}
+					});
+					
+				})
+				//分拨剩余金额显示
+				$(".remainMoney span").text($("#formatRemainMoney").text());
+				//特殊处理带万元单位的查看
+				$.each($(".see_block").find("dd.money[name]"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					if(row.data(name)==""){
+						ele.text(_parsefloat(row.data(name)));
+					}else if(row.data(name)==undefined || row.data(name)==null){
+						ele.text("");
 					}else{
-						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
-					}
-					if(row.data('field5')==""){
-						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
-					}else if(row.data('field5')==undefined || row.data('field5')==null){
-						$(".see_block").find("dd[name='field5']").text('');
-					}else{
-						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
+						ele.text(_parsefloat(row.data(name))+'万元');
 					}
 					
-				});
-				$.each($("#financeDetail input[type='radio']"),function(){
-					var selectId=$(this).val();
-					var selectVal=$("#financeDetail").find("input[type='radio'][value='"+selectId+"']").parent().text();
-					if(row.data(name)==selectId){
-						ele.text(selectVal);
+				})
+				//特殊处理带%单位的查看
+				$.each($(".see_block").find("dd.percent[name]"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					if(row.data(name)==""){
+						ele.text(_parsefloat(row.data(name)));
+					}else if(row.data(name)==undefined || row.data(name)==null){
+						ele.text("");
+					}else{
+						ele.text(_parsefloat(row.data(name))+'%');
 					}
+					
+				})
+				//文本框剩余字数
+				$.each($("textarea"),function(){
+					var len=$(this).val().length;
+					var initNum=$(this).siblings('.num_tj').find("span").text();
+					$(this).siblings('.num_tj').find("span").text(initNum-len);
 				});
 				
-			})
-			//分拨剩余金额显示
-			$(".remainMoney span").text($("#formatRemainMoney").text());
-			//特殊处理带万元单位的查看
-			$.each($(".see_block").find("dd.money[name]"),function(){
-				var ele = $(this);
-				var name = ele.attr('name');
-				if(row.data(name)==""){
-					ele.text(_parsefloat(row.data(name)));
-				}else if(row.data(name)==undefined || row.data(name)==null){
-					ele.text("");
-				}else{
-					ele.text(_parsefloat(row.data(name))+'万元');
-				}
+				//竞争对手的展示;
+				var myRow = $(ele).closest('tr');
+				var oppoPerson = myRow.find('td:eq(0)').text();
+				var degress = myRow.find('td:eq(1)').text();
+				var dangerRation = myRow.find('td:eq(2)').text();
+				var helpfullMethod = myRow.find('td:eq(3)').text();
+				var vervifyHas = myRow.find('td:eq(4)').text();
+				$('.oppostie_people').text(oppoPerson);
+				$('.win_degree').text(degress);
+				$('.danger_degree').text(dangerRation);
+				$('.helpful_method').text(helpfullMethod);
+				$('.verfify_orNot').text(vervifyHas);
+				//上一轮融资后关键运营指标变化
+				$('.index-name').text(oppoPerson);
+				$('.index-value').text(degress);
+				$('.current-value').text(dangerRation);
+				//融资的里程碑和时间点
+				$('.finicial-number').text(oppoPerson);
+				$('.milestone').text(degress);
+				$('.finicial-time').text(dangerRation);
 				
-			})
-			//特殊处理带%单位的查看
-			$.each($(".see_block").find("dd.percent[name]"),function(){
-				var ele = $(this);
-				var name = ele.attr('name');
-				if(row.data(name)==""){
-					ele.text(_parsefloat(row.data(name)));
-				}else if(row.data(name)==undefined || row.data(name)==null){
-					ele.text("");
-				}else{
-					ele.text(_parsefloat(row.data(name))+'%');
-				}
-				
-			})
-			//文本框剩余字数
-			$.each($("textarea"),function(){
-				var len=$(this).val().length;
-				var initNum=$(this).siblings('.num_tj').find("span").text();
-				$(this).siblings('.num_tj').find("span").text(initNum-len);
-			});
-			
-			//竞争对手的展示;
-			var myRow = $(ele).closest('tr');
-			var oppoPerson = myRow.find('td:eq(0)').text();
-			var degress = myRow.find('td:eq(1)').text();
-			var dangerRation = myRow.find('td:eq(2)').text();
-			var helpfullMethod = myRow.find('td:eq(3)').text();
-			var vervifyHas = myRow.find('td:eq(4)').text();
-			$('.oppostie_people').text(oppoPerson);
-			$('.win_degree').text(degress);
-			$('.danger_degree').text(dangerRation);
-			$('.helpful_method').text(helpfullMethod);
-			$('.verfify_orNot').text(vervifyHas);
-			//上一轮融资后关键运营指标变化
-			$('.index-name').text(oppoPerson);
-			$('.index-value').text(degress);
-			$('.current-value').text(dangerRation);
-			//融资的里程碑和时间点
-			$('.finicial-number').text(oppoPerson);
-			$('.milestone').text(degress);
-			$('.finicial-time').text(dangerRation);
-			
-			$("#detail-form input[name='index']").val(row.index());
-			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"));
-			});
-		}//模版反回成功执行	
-	});
+				$("#detail-form input[name='index']").val(row.index());
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+				});
+			}//模版反回成功执行	
+		});
+	}
 };
+//竞争对手编辑
+function editRowCompete(ele,id_code,row,code){
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					$(ele).closest('form').hide();
+					var _val=$('table.editable').attr('data-code');
+					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
+					//编辑回显
+					$.each($("#b_"+id_code+"_1").find("input, select, textarea"),function(){
+						var ele = $(this);
+						var name = ele.attr('name');
+						var type=ele.attr('type');
+						var idVal=ele.attr('id');
+						var val_text =row.data(name);
+						if(type=="radio"){
+							if(ele.val()==row.data(name)){
+								ele.attr("checked","chedcked");
+							}
+						}else if (type=="text"){
+							if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+								if(name=="field2"){
+									val_text = _parsefloat(val_text)
+								}					
+							}
+							if(code=="competition-comparison"||code=="grant-part"){	
+								if(name=="field3"){	
+									val_text = _parsefloat(val_text)
+								}
+							}
+							if(code=="finance-history"||code=="investor-situation"){
+								if(name=="field3"||name=="field4"||name=="field5")
+								val_text = _parsefloat(val_text);
+							}
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+						}else{
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+						}
+					});
+					$("#b_"+id_code+"_1").find("input[name='index']").val(row.index());
+					//保存
+					$('div').delegate(".save-competeInfo-btn","click",function(event){
+						var form=$(this).closest('form')
+						saveForm($(form));
+						$(form).remove();
+						$(ele).closest('form').show();		
+						 check_table();
+			             check_table_tr_edit();
+					})
+					//取消
+					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
+						$(ele).closest('form').show();
+						var form=$(this).closest('form')
+						$(form).remove();							
+					})
+				} else {
+
+				}
+		}) 
+}
 
 var deletedRowIds = new Array();
  // 股权结构合理性 表格删除行使用
