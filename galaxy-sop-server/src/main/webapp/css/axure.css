@@ -3978,9 +3978,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:MicrosoftYaHei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
 .qualifications_all p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
 .qualifications_all p {padding:30px 0 0 118px;color:#666666;font-size:14px;}
-.task-textarea{width:444px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
+.task-textarea{width:444px;font-size:14px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
 .tast-content{margin-left:38px;}
-.tast-content em{display:inline-block;margin-right:8px;}
+.tast-content em{display:inline-block;margin-right:8px;color:#666666;font-size:14px;}
 .tast-btn{margin-top:20px;}
 .tast-btn a{width:92px;height:32px;line-height:32px;border-radius:2px;border:1px solid #eef6fc ;}
 .task-confirm{background:#3ca6ff;}
@@ -3999,3 +3999,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .select-simulate{position:relative;}
 .toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;}
 .task-department{margin-left:10px;}
+input::input-placeholder{color:red !important;}
+.pop .tast-close{background:url('../img/base_info/close.png') no-repeat center} 
