@@ -2031,33 +2031,7 @@ function addRow(ele)
 	var code = $(ele).prev().data('code');
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
-		sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						var entity = data.entity;
-						$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-						$(ele).closest('form').hide();
-						var _val=$('table.editable').attr('data-code');
-						$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
-						$('div').delegate(".save-competeInfo-btn","click",function(event){
-							var form=$(this).closest('form')
-							saveForm($(form));
-							$(form).remove();
-							$(ele).closest('form').show();		
-							 check_table();
-				             check_table_tr_edit();
-						})
-						//取消
-						$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
-							$(ele).closest('form').show();
-							var form=$(this).closest('form')
-							$(form).remove();							
-						})
-					} else {
-
-					}
-			}) 
+		addRowCompete(ele,id_code);
 	}else{
 		$.getHtml({
 			url:getDetailUrl(code),//模版请求地址
@@ -2091,6 +2065,36 @@ function addRow(ele)
 		});
 	}
 	
+}
+//竞争表格新增
+function addRowCompete(ele,id_code){
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					$(ele).closest('form').hide();
+					var _val=$('table.editable').attr('data-code');
+					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
+					$('div').delegate(".save-competeInfo-btn","click",function(event){
+						var form=$(this).closest('form')
+						saveForm($(form));
+						$(form).remove();
+						$(ele).closest('form').show();		
+						 check_table();
+			             check_table_tr_edit();
+					})
+					//取消
+					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
+						$(ele).closest('form').show();
+						var form=$(this).closest('form')
+						$(form).remove();							
+					})
+				} else {
+
+				}
+		}) 
 }
 //提交表单处理
 function saveForm(form)
