@@ -2555,7 +2555,7 @@ span.error,label.error{color:#ff0000 !important;}
 .h_edit{background:#fafafa;z-index:999;}
 .h_look .h_btnbox,.h_edit .h_btnbox{position: absolute;top: 20px;right: 20px;z-index: 8;}
 .h_look .h_btnbox span,.h_edit .h_btnbox span{margin-left: 20px;cursor: pointer;color:#999;}
-.h_edit .h_btnbox .h_save_btn,.h_look .h_btnbox .h_edit_btn{font-size: 14px;color:#0886ff;}
+.h_edit .h_btnbox .h_save_btn,.h_look .h_btnbox .h_edit_btn,.h_edit .h_btnbox .save-competeInfo-btn{font-size: 14px;color:#0886ff;}
 .h{background-color: #fff;margin-bottom: 10px;}
 .h .mb_24{margin-bottom: 24px;}
 .h .w_half{width:50%;}

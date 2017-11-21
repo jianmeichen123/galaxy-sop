@@ -797,6 +797,7 @@ function buildTable(sec,title)
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
+		console.log(header);
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
@@ -812,6 +813,12 @@ function buildTable(sec,title)
 						continue;
 					}
 					if(header.code=='finance-history'&&(key == 'field8'||key == 'field9'||key == 'field10')){
+						continue;
+					}
+					if(header.code=='competitor_obvious'&&(key != 'field1')){
+						continue;
+					}
+					if(header.code=='competitor_potential'&&(key != 'field1')){
 						continue;
 					}
 					if(key!="opt"){
@@ -2022,15 +2029,31 @@ function selectContext(formId){
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');
-	if(code=='competitor_obvious' || code=='competitor_potential'){   //竞争
-		var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
-		sendGetRequest(platformUrl.queryAllTitleValues + 'DNO5_4_1?reportType=2', null,
+	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
+	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
+		sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
 						var entity = data.entity;
-						console.log(entity);
 						$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+						$(ele).closest('form').hide();
+						var _val=$('table.editable').attr('data-code');
+						$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
+						$('div').delegate(".save-competeInfo-btn","click",function(event){
+							var form=$(this).closest('form')
+							saveForm($(form));
+							$(form).remove();
+							$(ele).closest('form').show();		
+							 check_table();
+				             check_table_tr_edit();
+						})
+						//取消
+						$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
+							$(ele).closest('form').show();
+							var form=$(this).closest('form')
+							$(form).remove();							
+						})
 					} else {
 
 					}
@@ -2089,9 +2112,7 @@ function saveRow(data)
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
-		console.log(data);
 		var tr = buildRow(data,true,titleId);
-		console.log(tr)
 		$('table[data-title-id="'+titleId+'"].editable').append(tr);
 	}
 	else

@@ -39,7 +39,7 @@ var keyJSON={};
 var deleteJSON={};
 var mustids = "${mustids}";
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO5_4", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
@@ -129,6 +129,9 @@ $(function() {
 					check_table_tr_edit();
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
+					$('.h_title').click(function(){
+						auto_save(sec);
+					})
 					section.find(".h_title span").remove();
 					section.find(".h_title").append(str);
 					mustData(projectInfo.id,0);
