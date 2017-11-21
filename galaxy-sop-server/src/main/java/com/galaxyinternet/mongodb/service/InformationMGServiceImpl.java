@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.framework.core.exception.MongoDBException;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.mongodb.dao.InformationMGDao;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 
