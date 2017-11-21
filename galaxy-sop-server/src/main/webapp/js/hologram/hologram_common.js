@@ -797,7 +797,6 @@ function buildTable(sec,title)
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
-		console.log(header);
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
@@ -2102,7 +2101,6 @@ function saveForm(form)
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
-		console.log(data);
 		saveRow(data);
 	}
 }
@@ -2168,9 +2166,13 @@ function editRow(ele)
 	var row = $(ele).closest('tr');
 	var code = $(ele).closest('table').data('code');
 	var txt=$(ele).text();
-	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
+	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
-		editRowCompete(ele,id_code,row,code);
+		if(txt=='查看'){
+			showRowCompete(ele,id_code,row,code);
+		}else{
+			editRowCompete(ele,id_code,row,code);
+		}
 	}else{
 		$.getHtml({
 			url:getDetailUrl(code),//模版请求地址
@@ -2413,6 +2415,45 @@ function editRowCompete(ele,id_code,row,code){
 					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
 						$(ele).closest('form').show();
 						var form=$(this).closest('form')
+						$(form).remove();							
+					})
+				} else {
+
+				}
+		}) 
+}
+//查看竞争对手
+function showRowCompete(ele,id_code,row,code){
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#page_list_compete").tmpl(entity).appendTo("#a_"+id_code);
+					$(ele).closest('form').hide();
+					var sec = $(ele).closest('.section').attr('class');
+					var _val=$('table.editable').attr('data-code');
+					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
+					//答案显示
+					$.each($(".h_compete_look ").find("dd"),function(){
+						var obj = $(this);
+						var name = obj.attr('name');
+						var type=obj.siblings('dt').attr('data-type');
+						var val_text =row.data(name);
+						if(type==2){
+							var titleId=$(ele).closest('table').attr('data-title-id');
+							var subCode=$(ele).closest('table').attr('data-code');
+							var filed=obj.attr('name');
+							var map=dictCache(titleId,subCode,filed);
+							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
+						}else if(type==8 || type==1){
+							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未填写":val_text);
+						}
+					});
+					//取消
+					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
+						$(ele).closest('form').show();
+						var form=$(this).closest('.h_compete_look')
 						$(form).remove();							
 					})
 				} else {
