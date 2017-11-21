@@ -1,16 +1,15 @@
 
 
-<style>
+<!-- <style>
 .fixed-table-container{padding-left:20px !important;padding-right:20px !important;border-radius:0px !important;}
 .fixed-table-body{border-radius:0px !important;}
-</style>
+</style> -->
 
 <body>
 
 <div class="pagebox clearfix task-pagebox">
-	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
- 	<div class="ritmin taskDetail-ritmin">
+ 	<div class="taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 
 	        	<!--操作日志table  -->
@@ -66,15 +65,14 @@
 
 <script type="text/javascript">
 //计算距离的左边距
-detailHeaderWidth();
+/* detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
-	  	$('.task-top').css({'margin-left':w_lft});
 	  	$('.task-top').css({'margin-left':w_lft});
 }
 $(window).resize(function(){
 	detailHeaderWidth();
-})	
+})	 */
 function projectNameFormatter(value,row,index){
 		var str=row.projectName;
 		if(str.length>12){
