@@ -40,16 +40,13 @@ $('.select-simulate input').click(function(){
 	var _this = $(this);
 	if(ul.css('display')=='none'){
 		_this.addClass('up');
-		
 		ul.slideDown('fast')
 	}else{
 		ul.slideUp('fast');
 		_this.removeClass('up');
-		//ul.addClass('down')
 	}	
 });
 $('.select-simulate ul li').click(function(){
-	
 	var _this = $(this);
 	var liText = _this.text()
 	var target = _this.closest('.select-simulate').find('input').removeClass('up')
