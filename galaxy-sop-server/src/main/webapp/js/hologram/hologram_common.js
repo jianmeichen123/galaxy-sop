@@ -2073,6 +2073,11 @@ function addRowCompete(ele,id_code){
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					if(id_code=='NO5_4'){
+						$('.h_title_conpetition').text('添加显在竞争对手')
+					}else{
+						$('.h_title_conpetition').text('添加潜在竞争对手')
+					}
 					$(ele).closest('form').hide();
 					var _val=$('table.editable').attr('data-code');
 					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
@@ -2372,6 +2377,11 @@ function editRowCompete(ele,id_code,row,code){
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					if(id_code=='NO5_4'){
+						$('.h_title_conpetition').text('编辑显在竞争对手')
+					}else{
+						$('.h_title_conpetition').text('编辑潜在竞争对手')
+					}
 					$(ele).closest('form').hide();
 					var _val=$('table.editable').attr('data-code');
 					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
@@ -2435,6 +2445,11 @@ function showRowCompete(ele,id_code,row,code,flag){
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#page_list_compete").tmpl(entity).appendTo("#a_"+id_code);
+					if(id_code=='NO5_4'){
+						$('.h_title_conpetition').text('查看显在竞争对手')
+					}else{
+						$('.h_title_conpetition').text('查看潜在竞争对手')
+					}
 					if(flag==true){  //编辑状态
 						$(ele).closest('form').hide();
 					}else{   //显示状态
