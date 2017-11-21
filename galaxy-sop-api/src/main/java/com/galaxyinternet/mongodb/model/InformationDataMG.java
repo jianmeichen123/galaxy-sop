@@ -7,11 +7,6 @@ import java.util.Set;
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.model.hologram.FixedTableModel;
-import com.galaxyinternet.model.hologram.InformationFile;
-import com.galaxyinternet.model.hologram.InformationModel;
-import com.galaxyinternet.model.hologram.InformationScore;
-import com.galaxyinternet.model.hologram.TableModel;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,17 +20,17 @@ public class InformationDataMG extends PagableEntity {
 	private String projectId;
 	private int flag;//0:正常数据编辑;1:表格数据处理;2:固定表格处理
 	@ApiModelProperty("普通类型")
-	private List<InformationModel> infoModeList;
+	private List<InformationModelMG> infoModeList;
 	@ApiModelProperty("固定表格")
-	private List<FixedTableModel> infoFixedTableList;
+	private List<FixedTableModelMG> infoFixedTableList;
 	@ApiModelProperty("动态表格-删除的记录")
 	private Set<String> deletedRowIds;  //适用table表
 	@ApiModelProperty("动态表格")
-	private List<TableModel>     infoTableModelList;
+	private List<TableModelMG>     infoTableModelMGList;
 	@ApiModelProperty("分数")
-	private List<InformationScore> scoreList;
+	private List<InformationScoreMG> scoreList;
 	@ApiModelProperty("文件/图片")
-	private List<InformationFile> infoFileList;
+	private List<InformationFileMG> infoFileList;
 	private Set<Long> deleteFileIds;
 	
 	private Set<String> deletedResultTids;  //适用result表
@@ -49,28 +44,28 @@ public class InformationDataMG extends PagableEntity {
 		this.projectId = projectId;
 	}
 
-	public List<InformationModel> getInfoModeList() {
-		return infoModeList == null? new ArrayList<InformationModel>():infoModeList;
+	public List<InformationModelMG> getInfoModeList() {
+		return infoModeList == null? new ArrayList<InformationModelMG>():infoModeList;
 	}
 
-	public void setInfoModeList(List<InformationModel> infoModeList) {
+	public void setInfoModeList(List<InformationModelMG> infoModeList) {
 		this.infoModeList = infoModeList;
 	}
 
-	public List<FixedTableModel> getInfoFixedTableList() {
+	public List<FixedTableModelMG> getInfoFixedTableList() {
 		return infoFixedTableList;
 	}
 
-	public void setInfoFixedTableList(List<FixedTableModel> infoFixedTableList) {
+	public void setInfoFixedTableList(List<FixedTableModelMG> infoFixedTableList) {
 		this.infoFixedTableList = infoFixedTableList;
 	}
 
-	public List<TableModel> getInfoTableModelList() {
-		return infoTableModelList;
+	public List<TableModelMG> getInfoTableModelMGList() {
+		return infoTableModelMGList;
 	}
 
-	public void setInfoTableModelList(List<TableModel> infoTableModelList) {
-		this.infoTableModelList = infoTableModelList;
+	public void setInfoTableModelMGList(List<TableModelMG> infoTableModelMGList) {
+		this.infoTableModelMGList = infoTableModelMGList;
 	}
 
 	public int getFlag() {
@@ -97,22 +92,22 @@ public class InformationDataMG extends PagableEntity {
 		this.deletedResultTids = deletedResultTids;
 	}
 
-	public List<InformationScore> getScoreList()
+	public List<InformationScoreMG> getScoreList()
 	{
 		return scoreList;
 	}
 
-	public void setScoreList(List<InformationScore> scoreList)
+	public void setScoreList(List<InformationScoreMG> scoreList)
 	{
 		this.scoreList = scoreList;
 	}
 
-	public List<InformationFile> getInfoFileList()
+	public List<InformationFileMG> getInfoFileList()
 	{
 		return infoFileList;
 	}
 
-	public void setInfoFileList(List<InformationFile> infoFileList)
+	public void setInfoFileList(List<InformationFileMG> infoFileList)
 	{
 		this.infoFileList = infoFileList;
 	}
