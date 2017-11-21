@@ -80,10 +80,45 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	/**
 	 * 全息报告 ： docx 下载
 	 */
+	public static final String tempath = "/template/qxbg";    //  模板地址
+	public static final String[] temp_xml = new String[]{"document.xml","header1.xml","header2.xml"};
+	public static final String temp_docx = "qxbg_lr_temp.docx";   //内容 .xml .docx
+
+	@RequestMapping("/downxNO/{pid}")
+	public void downNOdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+		String currTime = System.currentTimeMillis()+"";
+
+		Project project = projectService.queryById(pid);
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO",currTime,tempfilePath);
+
+		String docxName = project.getProjectName() + "全息报告.docx";
+
+		try {
+			/*
+			 * request
+			 * @param templatePath 模板文件位置
+			 * @param filePath 保存路径
+			 * @param fileName 保存名称,  生成的docx文件
+			 */
+			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,response,tempath, tempfilePath, docxName);
+			docExportUtil1.downDocxAsZip(map,currTime,temp_xml,temp_docx);
+
+			/*String zipName = project.getProjectName() + "全息报告.zip";
+			Map<String, String> dname_sname = new HashMap<>();
+			dname_sname.put(dfn1,fn1);
+			dname_sname.put(dfn2,fn2);
+
+			DocxExportUtil.downZip(zipName,dname_sname,tempfilePath,request,response);*/
+		} catch (Exception e) {
+			logger.error("downDoc ",e);
+		}
+	}
+	/*
 	public static final String temp1x = "qxbg_gl_temp";   //概览 .xml .docx
 	public static final String temp2x = "qxbg_lr_temp";   //内容 .xml .docx
-	public static final String tempath = "/template";    //  模板地址
-
 	@RequestMapping("/downxNO/{pid}")
 	public void downNOdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
@@ -101,13 +136,13 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		String dfn2 = currTime + "qxlr";
 
 		try {
-			/*
+			*//*
 			 * request
 			 * @param templatePath 模板文件位置
 			 * @param templateName  xml docx 模板文件名称
 			 * @param filePath 保存路径
 			 * @param fileName 保存名称, xml docx 模板生成的文件
-			 */
+			 *//*
 			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,tempath, temp1x, tempfilePath, dfn1);
 			DocxExportUtil docExportUtil2 = new DocxExportUtil(request,tempath, temp2x, tempfilePath, dfn2);
 			docExportUtil1.creatDocxAsZip(map,currTime,false);
@@ -122,7 +157,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		} catch (Exception e) {
 			logger.error("downDoc ",e);
 		}
-	}
+	}*/
 	/**
 	 * 全息报告 ： doc 下载
 	 */
