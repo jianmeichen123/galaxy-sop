@@ -2416,6 +2416,19 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 						}
 					});
+					//文本域剩余字符数
+					var section=$(ele).closest('.radius');
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 					$("#b_"+id_code+"_1").find("input[name='index']").val(row.index());
 					//保存
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
