@@ -141,7 +141,7 @@
                	 
                	<!-- mongodb 开始 --> 
                 <mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27012</mongo.port>
+				<mongo.port>27017</mongo.port>
 				<mongo.username>sop</mongo.username>
 				<mongo.password>sop</mongo.password>
 				<mongo.dbname>sop</mongo.dbname>

@@ -36,7 +36,6 @@ public class InformationDataMG extends PagableEntity {
 	private List<InformationScore> scoreList;
 	@ApiModelProperty("文件/图片")
 	private List<InformationFile> infoFileList;
-	
 	private Set<Long> deleteFileIds;
 	
 	private Set<String> deletedResultTids;  //适用result表
