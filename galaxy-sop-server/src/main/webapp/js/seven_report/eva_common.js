@@ -555,7 +555,23 @@ function buildResult(title)
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}else if(type == 22){
-		var resString = _tableInner.find("tr:first-child").clone();
+		var resString = _tableInner.find("tr:first-child").clone(true);
+		if(results.length>1){
+			resString.find(".score-div").show();
+		}
+		_tableInner.empty();
+		$.each(results,function(){
+			var _this =this;
+			var res = resString.clone(true);
+			console.log(res.find(".title-value").text());
+			console.log(_this);
+			res.find(".title-value").text(_this.valueName).attr({
+				"contentC":_this.contentChoose,
+				"resultId":_this.id,
+			});
+			console.log(res);
+			_tableInner.append(res);
+		})
 	}
 	
 	
