@@ -2,6 +2,7 @@ package com.galaxyinternet.model.hologram;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +17,9 @@ public class ItemParam
 	private String[] values;
 	@ApiModelProperty("题目的分数")
 	private BigDecimal score;
+	@ApiModelProperty("多个结果需要分别计分时使用")
+	private List<ResultParam> results;
+	
 	public Long getRelateId()
 	{
 		return relateId;
@@ -61,6 +65,14 @@ public class ItemParam
 			return relateId+"-"+subId;
 		}
 		return relateId+"";
+	}
+	public List<ResultParam> getResults()
+	{
+		return results;
+	}
+	public void setResults(List<ResultParam> results)
+	{
+		this.results = results;
 	}
 	
 	
