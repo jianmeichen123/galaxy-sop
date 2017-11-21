@@ -392,8 +392,8 @@
 											
 										<td>\${scoreMax}</td>
 										<td>\${scoreExplain}</td>
-										{{if isScore==1}}
-										<!-- type21打分 -->
+										{{if isScore}}
+										<!-- type22打分 -->
 											<td class="score-column heightL" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 												<select>
 													<option>请选择</option>
