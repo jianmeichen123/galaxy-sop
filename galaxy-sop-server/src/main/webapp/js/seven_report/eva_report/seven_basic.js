@@ -111,6 +111,7 @@
 		var id_code=$(obj).attr("attr-id")
 		var p_box=$(obj).siblings(".align_left").find("p");
 		var titleVal=p_box.attr("data-title-value");
+		var tableTr = $(obj).closest(".table_inner").find(".title-value")
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
 			var p_this=$(this);
@@ -141,7 +142,7 @@
 						$(".input_select").attr("value",val);
 						$(".input_select").val(val);
 					}			
-				}else if(type==13 || type==3){
+				}else if(type==13 || type==3 ){
 					if(titleVal){
 						titleVal=titleVal+","
 						var titleValList=titleVal.split(",");
@@ -161,6 +162,20 @@
 							$(radioShow).find(".others_text").val(p_box.attr("data-remark"))
 						}
 					}				
+				}else if(type==22 ){
+					if(tableTr==1&&!tableTr.hasClass(".black")){
+						
+					}else{
+						$.each(tableTr,function(){
+							var val = $(this).attr("contentc");
+							var _parents = $(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue");
+							_parents.addClass("checked");
+							//$(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+							$(radioShow).find("input[value='"+val+"']").attr("checked",true);
+							
+						})
+					}
+					
 				}else if(type==14){
 					$(radioShow).find(".input_select").attr("id",titleVal);
 					if(val!="未选择"){
@@ -412,7 +427,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 			 })
 		}else if(type==1){
 			result_html ="<div class=\"icheck\"><input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" ></div>";
-		}else if(type==13||type==3||type==22){
+		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
 				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+"></div>"	 
@@ -420,7 +435,13 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label></div>"	 
 				 }
 			 })
-		}else if(type==18){
+		}else if(type==22){
+			console.log(valueList);
+			 $.each(valueList,function(i,n){
+				 result_html += "<div class=\"icheck\"><input type=\"checkbox\"  value="+n.value+"><label>"+n.name+"</label></div>"	 
+			 })
+		}
+		else if(type==18){
 			var result_li='';
 			
 			$.each(valueList,function(i,n){

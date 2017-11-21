@@ -563,13 +563,10 @@ function buildResult(title)
 		$.each(results,function(){
 			var _this =this;
 			var res = resString.clone(true);
-			console.log(res.find(".title-value").text());
-			console.log(_this);
 			res.find(".title-value").text(_this.valueName).attr({
-				"contentC":_this.contentChoose,
+				"contentc":_this.contentChoose,
 				"resultId":_this.id,
 			});
-			console.log(res);
 			_tableInner.append(res);
 		})
 	}
