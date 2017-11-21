@@ -1,11 +1,5 @@
 package com.galaxyinternet.hologram.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +40,6 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -58,12 +51,18 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api("全息图后台接口")
 @Controller
@@ -86,8 +85,6 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationResultService informationResultService;
 	@Autowired
 	private InformationListdataService informationListdataService;
-	@Autowired
-	private InformationTitleRelateService informationTitleRelateService;
 	@Autowired
 	private JointDeliveryService jointDeliveryService;
 	@Autowired

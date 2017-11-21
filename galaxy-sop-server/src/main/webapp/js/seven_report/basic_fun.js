@@ -1113,6 +1113,10 @@ function getDetailUrl(code)
 	    }
 		return path+'/html/grant-part.jsp';
 	}
+	else if(code == 'competitor_obvious')
+	{
+		return path+'/html/addRow.jsp';
+	}
 	return "";
 }
 
