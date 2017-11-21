@@ -394,7 +394,7 @@
 										<td>\${scoreExplain}</td>
 										{{if isScore}}
 										<!-- type22打分 -->
-											<td class="score-column heightL" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+											<td class="score-columns score-column heightL" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 												<select>
 													<option>请选择</option>
 												</select>

@@ -222,9 +222,8 @@ function eva_validate(){
 	for(var i=0;i<scores.length;i++){
 		var input = scores.eq(i);
 		var rulerMarket=input.attr("rulermarket");
-		var name=input.parent().data("relate-id");
+		var name=input.closest(".score-column").data("relate-id");
 		var name1="data-rule-eva_"+rulerMarket;
-		name2="data-msg-eva_"+rulerMarket;
 		scores.eq(i).attr("data-rule-eva_"+rulerMarket+"",true);
 		scores.eq(i).attr("name",name);
 	}
