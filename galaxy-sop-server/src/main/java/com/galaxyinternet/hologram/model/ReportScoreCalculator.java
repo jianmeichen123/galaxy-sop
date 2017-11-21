@@ -73,13 +73,12 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		{
 			List<ResultParam> valueList = item.getResults();
 			BigDecimal totalWeight = BigDecimal.ZERO;
-			BigDecimal totalScore = BigDecimal.ZERO;
 			if(valueList != null && valueList.size()>0)
 			{
 				if(valueList.size() == 1)
 				{
 					ResultParam val = valueList.iterator().next();
-					totalScore = val.getScore();
+					score = val.getScore();
 				}
 				else
 				{
@@ -94,20 +93,20 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 										.multiply(it.getWeight())
 										.divide(BigDecimal.valueOf(100))
 										.setScale(4, BigDecimal.ROUND_HALF_UP);
-								totalScore = totalScore.add(resultScore);
+								score = score.add(resultScore);
 							}
 						}
 					}
 					//权重之和不是100
 					if(totalWeight.compareTo(BigDecimal.valueOf(100)) > 0)
 					{
-						totalScore = BigDecimal.ZERO;
+						score = BigDecimal.ZERO;
 					}
 				}
 			}
 			ItemParam itemParam = new ItemParam();
 			itemParam.setRelateId(relateId);
-			itemParam.setScore(totalScore);
+			itemParam.setScore(score);
 			itemParam.setSubId(info.getSubId());
 			items.put(key, itemParam);
 			logger.debug(String.format("ID=%s, ScoreType=%s, Score=%s", info.getPk(),scoreType,score));
