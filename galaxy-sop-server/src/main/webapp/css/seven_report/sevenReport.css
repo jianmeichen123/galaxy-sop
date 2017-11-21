@@ -225,12 +225,13 @@ table td i.wrong{
 	cursor:pointer;
 	
 }
+
 table.table_inner td{
 	border:0px;
 	border-right: 1px solid #d8d8d8;
 }
-table.table_inner tr:first-child{
-	border-bottom: 1px solid #d8d8d8;
+table.table_inner tr{
+border-bottom: 1px solid #d8d8d8;
 }
 table.table_inner tr:last-child{
 	border-bottom:0px;

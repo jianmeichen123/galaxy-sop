@@ -163,14 +163,12 @@
 						}
 					}				
 				}else if(type==22 ){
-					if(tableTr==1&&!tableTr.hasClass(".black")){
-						
+					if(tableTr.length==1&&tableTr.eq(0).hasClass(".black")){
 					}else{
 						$.each(tableTr,function(){
 							var val = $(this).attr("contentc");
 							var _parents = $(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue");
 							_parents.addClass("checked");
-							//$(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 							$(radioShow).find("input[value='"+val+"']").attr("checked",true);
 							
 						})
@@ -399,8 +397,6 @@ function get_result(code,e_type,dom){
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType,null,function(data){
 				 var result = data.result.status;
 				 if(result == 'OK'){ 
-						 	console.log("!!!!type==20")
-							console.log(data) 
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
 					 var type=entity.type;
@@ -436,7 +432,6 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				 }
 			 })
 		}else if(type==22){
-			console.log(valueList);
 			 $.each(valueList,function(i,n){
 				 result_html += "<div class=\"icheck\"><input type=\"checkbox\"  value="+n.value+"><label>"+n.name+"</label></div>"	 
 			 })
@@ -542,6 +537,7 @@ function right(obj,type){
 		}
 	}else if(type=="checkbox"){		
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
+
 		var p = align_left.find('p');
 		var relateId=p.attr("data-title-id");
 		var relateId_p= $(".new_left").find("p[data-title-id='" + relateId + "']");
@@ -620,18 +616,28 @@ function right(obj,type){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
 		var table = align_left.closest('.table_inner');
 		$(obj).parent().hide();
-		$(obj).parent().parent().find('.radioShow').hide();
+		$(obj).parent().parent().find('.radioShow').hide();		
 		if(val_checkbox.length==0){
-			$(obj).parent().parent().find('p').show().text("未选择");
 			var resString = table.find("tr:first-child").clone();
+			resString.find(".title-value").text("未选择").attr("contentc","").show().removeClass("black");
+			resString.find(".score-div").hide();
 			table.empty();
 			table.append(resString); 
 		}else{
-			$(obj).parent().parent().find('p').show().text("未选择");
 			var resString = table.find("tr:first-child").clone();
 			table.empty();
+			if(val_checkbox.length==1){
+				resString.find(".score-div").hide();
+				resString.find(".score-div").prev().attr("disabled","disabled").addClass("disabled");
+			}else{
+				resString.find(".score-div").show();
+				resString.find(".score-div").prev().removeAttr("disabled").removeClass("disabled");
+				
+			}
 			$.each(val_checkbox,function(){
-				table.append(resString);
+				var res =resString.clone();
+				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");
+				table.append(res);
 			})
 		}
 		
@@ -926,7 +932,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var sp_dds = $(".content_16 p[data-relate-id='1006'],.content_16 p[data-relate-id='9006']");
 					/*str=str.replace(/\n|\r\n/g,"<br>")
 					str=str.replace(/\s/g,"&nbsp;");*/
-					console.log(str)
 					if(str !=undefined && str.indexOf("<sitg>")>-1){
 						var conStr=str.split("<sitg>");
 						var sum=0;
