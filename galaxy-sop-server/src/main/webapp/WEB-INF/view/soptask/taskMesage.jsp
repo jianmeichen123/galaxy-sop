@@ -1,9 +1,8 @@
 
 
 <div class="pagebox clearfix task-pagebox">
-	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
- 	<div class="ritmin taskDetail-ritmin">
+ 	<div class="taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 	<div class='taskDetail-mesage-top'>
 	        	<div class='task-item task-item-left'>
@@ -65,15 +64,14 @@
 
 <script type="text/javascript">
 //计算距离的左边距
-detailHeaderWidth();
+/* detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
-	  	$('.task-top').css({'margin-left':w_lft});
 	  	$('.task-top').css({'margin-left':w_lft});
 }
 $(window).resize(function(){
 	detailHeaderWidth();
-})	
+}) */	
 function projectNameFormatter(value,row,index){
 		var str=row.projectName;
 		if(str.length>12){

@@ -11,10 +11,10 @@ String path = request.getContextPath();
 			<thead>
 				<tr>
 					<!-- <th style="width:20%">优先级</th> -->
-					<th style="width:20%">任务名称</th>
-					<th style="width:20%">任务状态</th>
-					<th style="width:25%">所属项目</th>
-					<th style="width:15%">操作</th>
+					<th style="width:25%">任务名称</th>
+					<th style="width:25%">任务状态</th>
+					<th style="width:30%">所属项目</th>
+					<th style="width:20%">操作</th>
 				</tr>
 			</thead>
 			<tbody id="sopStak">

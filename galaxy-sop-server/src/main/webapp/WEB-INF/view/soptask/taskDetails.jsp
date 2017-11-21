@@ -37,122 +37,20 @@
                 <li data-tab="nav" class='task-tips-li'><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">操作日志<span></span></a></li>
           	</ul>
         </div>
-    <!--右中部内容-->
-    <div class="ritmin taskDetail-ritmin">
-    	<div data-id="tab-block">
-    		<div id='tab-content' data-id="tab-content">
-		    	<div class='tabtxt'>
-		    	
+	    <!--右中部内容-->
+	    <div class="ritmin taskDetail-ritmin">
+	    	<div data-id="tab-block">
+	    		<div id='tab-content' data-id="tab-content">
+			    	<div class='tabtxt'>
+			    	
+			    	</div>
 		    	</div>
 	    	</div>
-    	</div>
-	</div>
-    	
+		</div>
+	    	
     	 
     </div>
- 	<!-- <div class="ritmin taskDetail-ritmin">
- 		 <div class='taskDetail-mesage'>
- 		 	<div class='taskDetail-mesage-top'>
-	        	<div class='task-item task-item-left'>
-	        		<ul>
-	        			<li>项目名称：<span>创投</span></li>
-	        			<li>创建时间：<span>2016-12-22</span></li>
-	        			<li>合伙人：<span>李凯</span></li>
-	        		</ul>
-	        	</div>
-	        	<div class='task-item'>
-	        		<li>项目类型：<span>投资</span></li>
-	       			<li>投资事业线：<span>人工智能</span></li>
-	       			<li>公司名称：<span>星河互联集团</span></li>
-	        	</div>
-	        	<div class='task-item task-item-right'>
-	        		<li>项目编码：<span>27000021</span></li>
-	       			<li>投资经理：<span>人工智能-投资经理</span></li>
-	       			<span class='pro-detail'>项目详细信息 ></span>
-	        	</div>
-        	</div>
-        	<div class='taskDetail-mesage-table'>
-	        	<table width='100%' class='task-detail-table' border='0' cellspacing='0' cellpadding='0'>
-	        		<thead>
-	        			<tr>
-	        				<th>上传日期</th>
-	        				<th>存储类型</th>
-	        				<th>更新日期</th>
-	        				<th>档案状态</th>
-	        				<th>操作</th>
-	        			</tr>
-	        		</thead>
-	        		<tbody>
-	        			<tr>
-	        				<td>2017-04-09</td>
-	        				<td>图片</td>
-	        				<td>2017-08-04</td>
-	        				<td>已上传</td>
-	        				<td class='task-operation'>
-	        					<span>查看</span>
-	        					<span>查看历史</span>
-	        				</td>
-	        				
-	        			</tr>
-	        		</tbody>
-	        	
-	        	</table>
-	        	操作日志table 
-	        	<table class='opretion-log' width='100%' cellspacing='0' cellpadding='0' border='0'>
-	        		<thead>
-	        			<tr>
-	        				<th>时间</th>
-	        				<th>操作者</th>
-	        				<th>动作</th>
-	        				<th>对象</th>
-	        				<th>项目</th>
-	        				<th>原因</th>
-	        				<th>业务</th>
-	        			</tr>
-	        		</thead>
-	        		<tbody>
-	        			<tr>
-	        				<td>2017-12-12</td>
-	        				<td>王凯</td>
-	        				<td>上传</td>
-	        				<td>人事尽调报告</td>
-	        				<td>村多多</td>
-	        				<td>-</td>
-	        				<td>尽职调查</td>
-	        			</tr>
-	        			<tr>
-	        				<td>2017-12-12</td>
-	        				<td>王凯</td>
-	        				<td>上传</td>
-	        				<td>人事尽调报告</td>
-	        				<td>村多多</td>
-	        				<td>-</td>
-	        				<td>尽职调查</td>
-	        			</tr>
-	        			<tr>
-	        				<td>2017-12-12</td>
-	        				<td>王凯</td>
-	        				<td>上传</td>
-	        				<td>人事尽调报告</td>
-	        				<td>村多多</td>
-	        				<td>-</td>
-	        				<td>尽职调查</td>
-	        			</tr>
-	        		</tbody>
-	        	
-	        	
-	        	</table>
-        	</div>
-        	<div class='taskDetail-mesage-update'>
-        		<span class="upate-task">更新尽调报告</span>
-        		<span class='upate-task submit-success'>提交完成</span>
-        	
-        	</div>
-        	
-        	
-        
-        </div>
-	</div> -->
+ 	
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
@@ -168,7 +66,6 @@
 detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
-	  	$('.task-top').css({'margin-left':w_lft});
 	  	$('.task-top').css({'margin-left':w_lft});
 }
 $(window).resize(function(){

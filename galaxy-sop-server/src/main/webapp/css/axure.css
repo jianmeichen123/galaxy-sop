@@ -3945,8 +3945,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-toggle li{cursor:pointer;height:32px;line-height:32px;}
 .task-toggle li:hover{background:#e5f3ff;}
 .pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
-.pagebox .taskDetail-ritmin{margin:0px;padding-left:15px;}
-.taskDetail-mesage{margin-top:20px;}
+.pagebox .taskDetail-ritmin{margin:0px;padding-left:10px;}
+.taskDetail-mesage{margin-top:20px;width:100%;}
 .taskDetail-mesage-top{height:170px;background:#fff; display:flex;justify-content:space-between;flex-wrap:wrap;}
 .taskDetail-mesage-table{margin-top:10px;}
 .task-item{height:auto;}
