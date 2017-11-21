@@ -629,6 +629,9 @@ function getValues()
 		var titleId = _this.attr('data-title-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
+		if(type="22"){
+			value = _this.attr('contentc');
+		}
 		var resultId = _this.attr('data-result-id');
 		var remark = _this.attr('data-remark');
 		var text = _this.text();
@@ -691,7 +694,7 @@ function getValues()
 			infoModelList.push(model);
 		}
 		//checkbox,checkbox+input,checkbox+textarea
-		else if( type == 3 || type == 6 || type == 13)
+		else if( type == 3 || type == 6 || type == 13|| type == 22)
 		{					
 			if(typeof value != 'undefined')
 			{
