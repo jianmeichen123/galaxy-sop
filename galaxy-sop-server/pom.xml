@@ -127,7 +127,7 @@
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8082</dubbo.protocol.port>
+				<dubbo.protocol.port>8089</dubbo.protocol.port>
 				<xinge.enviroment>2</xinge.enviroment>
 				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
@@ -140,7 +140,7 @@
                	 <auth.uri>http://fx.dev.galaxyinternet.com/authority_service/</auth.uri>
                	 
                	<!-- mongodb 开始 --> 
-                <mongo.host>10.9.210.22</mongo.host>
+                <mongo.host>10.11.8.34</mongo.host>
 				<mongo.port>27012</mongo.port>
 				<mongo.username>sop</mongo.username>
 				<mongo.password>sop</mongo.password>
@@ -190,7 +190,7 @@
               <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
 			   <auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
 			      	<!-- mongodb 开始 --> 
-                <mongo.host>10.9.210.22</mongo.host>
+                <mongo.host>10.11.8.34</mongo.host>
 				<mongo.port>27012</mongo.port>
 				<mongo.username>sop</mongo.username>
 				<mongo.password>sop</mongo.password>
