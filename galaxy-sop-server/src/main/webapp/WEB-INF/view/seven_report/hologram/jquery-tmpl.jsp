@@ -466,7 +466,7 @@
 				<span class="save-competeInfo-btn" attr-save="\${code}">保存</span>
 				<span class="h_cancel_competeInfo_btn" data-on="h_cancel" attr-hide="\${code}" attr-session="\${id}">取消</span>
 			</div>
-			<div class="h_title">添加显在竞争对手</div>
+			<div class="h_title h_title_conpetition">添加显在竞争对手</div>
 			{{each(j,childList) childList}}
 				{{if isShow=="f"}}
 				<div class="mb_16">
@@ -944,4 +944,132 @@
   </div>
 </div>
 {{/each}}
+</script>
+
+<!-- 竞争查看弹窗 -->
+<script id="page_list_compete" type="text/x-jquery-tmpl">
+  <div class="h_look h_team_look h_compete_look clearfix" id="\${code}">
+{{if code=='NO5_4_1' || code=='NO5_5_1'}}
+	<div class="h_title h_title_conpetition">查看显在竞争对手</div>
+		<div class="h_btnbox">
+			<span class="h_cancel_competeInfo_btn" data-on="h_cancel" attr-hide="\${code}" attr-session="\${id}">取消</span>
+		</div>
+	{{each(j,childList) childList}}   
+			{{if isShow=="f"}}
+				<div class="mb_24 clearfix">
+				  <dl class="clearfix">
+					{{if type=="1"}}
+					<dt  data-type="\${type}" >\${name}</dt>  
+                           <dd class="field" data-title-id="\${id}" name="field\${j+1}">未填写</dd>
+					{{else type=="5"}}       
+					<dt  data-type="\${type}">\${name}</dt>                 
+					<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+					<dd>备注</dd>
+
+					{{else type=="2"}}
+					<dt  data-type="\${type}">\${name}</dt>
+					<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}" name="field\${j+1}">未选择</dd>
+
+					{{else type=="3"}}
+					<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
+					<div class="checked_div clearfix">
+					{{each(i,valueList) valueList}}
+					 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
+					{{/each}}
+					</div>
+
+					{{else type=="6"}}
+					<dt  data-type="\${type}" title-id="\${id}">\${name}</dt>
+					{{each(i,valueList) valueList}}
+					<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+					{{/each}}
+					<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+
+					{{else type=="7"}}
+					<dt data-type="\${type}">\${name}</dt>
+					<dd class="mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
+						</dd>
+
+					{{else type=="8"}}
+					<dt data-type="\${type}">\${name}</dt>
+					<dd class="fl_none field division_dd" data-title-id="\${id}" name="field\${j+1}">未填写</dd>
+			         {{else type=="9"}}
+					<dt data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">
+			                <table>
+			                  <tr>
+			                    <th></th>
+			                    <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
+			                  </tr>
+			                  <tr>
+			                 	 <th>上游</th>
+			                 	 <td style="width:100px">供应商</td>
+			                 	 <td data-format='1_1' style="width:100px"></td>
+			                 	 <td data-format='1_2'></td>
+			               	 </tr>
+							<tr>
+			                  <th rowspan='2'>下游</th>
+			                  <td style="width:100px">主要渠道</td>
+			                  <td data-format='2_1' style="width:100px"></td>
+			                  <td data-format='2_2'></td>
+			                </tr>
+			                <tr>
+			                  <td style="width:100px">主要客户</td>
+			                  <td data-format='3_1' style="width:100px"></td>
+			                  <td data-format='3_2'></td>
+			                </tr>
+
+			                </table>
+			              </dd>
+
+					{{else type=="4"}}
+					<dt data-type="\${type}">\${name}</dt>
+					{{each(i,valueList) valueList}}
+					<dd>未选择</dd>
+					{{/each}}
+
+					{{else type=="10"}}
+					<dt data-type="\${type}">\${name}</dt>			 
+						<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+					{{else type=="11"}}
+					<dd>项目带过来的数据</dd>
+
+					{{else type=="12"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="field" data-title-id="\${id}">未选择</dd>
+					{{else type=="13"}}
+						<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						<div class="checked_div clearfix">
+						{{each(i,valueList) valueList}}
+							<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}" style="display:none;"></dd>
+						{{/each}}
+						<dd class="field">未选择</dd>
+						</div>
+					{{else type=="14"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="field" data-title-id="\${id}">未选择</dd>
+					{{else type=="15"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+					{{else type=="16"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="fl_none field division_dd" data-title-id="\${id}" data-content="\${content}">未填写</dd>
+					{{else type=="19"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="field" data-title-id="\${id}">未填写</dd>
+						<dd class="field news_table">\${content}</dd>
+					{{else type=="20"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="field" data-title-id="\${id}">未填写</dd>
+						<dd class="field news_table">\${content}</dd>
+						<dd class="field news_table"></dd>
+					{{/if}}                      
+					</dl>		
+				</div>
+			{{/if}}
+	{{/each}}
+		{{/if}}
+  </div>
 </script>

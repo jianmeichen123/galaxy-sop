@@ -67,6 +67,7 @@ detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
 	  	$('.task-top').css({'margin-left':w_lft});
+	  	//$('.task-ritmin').css('margin-left':w_lft);
 }
 $(window).resize(function(){
 	detailHeaderWidth();

@@ -127,8 +127,6 @@ function showResultAndScoreList(relateId)
 			platformUrl.getRelateTitleResults+reportType+"/"+relateId+"/"+projId, 
 			null,
 			function(data){
-				console.log("分数比")
-				console.log(data);
 				if(data.result.status == 'OK')
 				{
 					$.each(data.entityList,function(){
@@ -631,6 +629,9 @@ function getValues()
 		var titleId = _this.attr('data-title-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
+		if(type="22"){
+			value = _this.attr('contentc');
+		}
 		var resultId = _this.attr('data-result-id');
 		var remark = _this.attr('data-remark');
 		var text = _this.text();
@@ -693,7 +694,7 @@ function getValues()
 			infoModelList.push(model);
 		}
 		//checkbox,checkbox+input,checkbox+textarea
-		else if( type == 3 || type == 6 || type == 13)
+		else if( type == 3 || type == 6 || type == 13|| type == 22)
 		{					
 			if(typeof value != 'undefined')
 			{
@@ -1123,8 +1124,9 @@ function s_editRow(ele)
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this).find(".align_left").find("p");
+		var type = _this.attr("data-type");
 		var sign_3 = $(this).find(".align_left").find(".sign_3")
-		var sign_status = _this.hasClass("income_structor_content");
+		var sign_status = _this.hasClass("income_structor_content");		
 		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
 		var code_input = _this.closest("td").siblings(".score-column").find("input");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
@@ -1155,7 +1157,10 @@ function font_color(data){
 				code_select.val("请选择");
 			}else{
 				_this.addClass("black");
-				code_dom.removeClass("disabled").attr("disabled",false);
+				if(type!="22"){
+					code_dom.removeClass("disabled").attr("disabled",false);
+				}
+				
 			}
 		}
 		//16类型特殊处理
