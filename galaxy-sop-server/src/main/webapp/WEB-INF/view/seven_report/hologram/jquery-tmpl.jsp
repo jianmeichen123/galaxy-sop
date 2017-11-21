@@ -466,7 +466,7 @@
 				<span class="save-competeInfo-btn" attr-save="\${code}">保存</span>
 				<span class="h_cancel_competeInfo_btn" data-on="h_cancel" attr-hide="\${code}" attr-session="\${id}">取消</span>
 			</div>
-			<div class="h_title">添加显在竞争对手</div>
+			<div class="h_title h_title_conpetition">添加显在竞争对手</div>
 			{{each(j,childList) childList}}
 				{{if isShow=="f"}}
 				<div class="mb_16">
@@ -950,7 +950,7 @@
 <script id="page_list_compete" type="text/x-jquery-tmpl">
   <div class="h_look h_team_look h_compete_look clearfix" id="\${code}">
 {{if code=='NO5_4_1' || code=='NO5_5_1'}}
-	<div class="h_title">查看显在竞争对手</div>
+	<div class="h_title h_title_conpetition">查看显在竞争对手</div>
 		<div class="h_btnbox">
 			<span class="h_cancel_competeInfo_btn" data-on="h_cancel" attr-hide="\${code}" attr-session="\${id}">取消</span>
 		</div>

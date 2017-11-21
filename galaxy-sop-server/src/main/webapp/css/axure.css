@@ -3926,6 +3926,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .h_edit{padding-top:100px;}
 .h_edit .h_title{top:60px;}
 .h_compete_look{z-index:999;background:#fff;}
+.h_title_conpetition{border-left:4px solid #fafafa;}
  /* CHEN */
  .task-pagebox{min-width:auto;}
 .task-top{height:108px;background:#fff;margin:51px 0 0 150px;}
