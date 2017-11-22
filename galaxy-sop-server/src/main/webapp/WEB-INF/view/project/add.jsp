@@ -35,105 +35,96 @@
 		<%-- <div class="new_tit_a"><a href="#">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/><a href="#">创投项目</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>添加项目</div> --%>
         <div class="new_left add-poject-right">
         	<div class="tabtable_con_on add-project-tabtable">
-                    <!--融资计划-->
+                    <!--基本信息-->
+                 <form action="" id="add_form" method="post" autocomplete="off">
+                  <div class='addpro-basic-content'>
                     <div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">基本信息</span>
                     </div>  
-                    <form action="" id="add_form" method="post" autocomplete="off">
-                    <ul class="basic_ul">
+                    <ul class="basic_ul addpro-basi-ul">
                     	<li>
-                        	<span class="basic_span"><em class="red">*</em><i class='letter-space'>项目类型：</i></span>
+                        	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                           	 <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                             </span>
-                            <span class="basic_span" style="margin-left:23px;"><em class="red">*</em>创建时间：</span>
+                            <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
-                        <li>
-                            <span class="basic_span"><em class="red">*</em>项目名称：</span>
+                        <li style='margin-top:25px;'>
+                            <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
                             <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
-                       		<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
+                       		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
                             <span class="m_r30">
-								<select name="financeStatus" class='new_nputr addpro-input' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空" data-title-id="1108" data-type="14">
-								<option value="">--请选择--</option>
+								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空" data-title-id="1108" data-type="14">
+									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
                         </li>
-                        <li>
-                        	<span class="basic_span"><em class="red">*</em>行业归属：</span>
+                        <li style='margin-top:52px;'>
+                        	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr addpro-input' valType="required" msg="<font color=red>*</font>行业归属不能为空">
-			                    	<option value="">--请选择--</option>
+			                    	<option value="">请选择</option>
 			                    </select>
                             </span>
-                            <span class="basic_span"><em class="red">*</em>项目来源：</span>
+                            <span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
                             <span class="m_r30" style="with:400px">
 	                            <select name="faFlag" class='new_nputr addpro-input' valType="required" msg="<font color=red>*</font>项目来源不能为空">
-				                    	<option value="">--请选择--</option>
+				                    	<option value="">请选择</option>
 				                </select> 
-	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
-	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是  -->
 	                             <input type="text" class="new_nputr addpro-input"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
                        		</span>
-                        	<%-- <span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
-                            <span class="m_r30">
-								<select name="financeStatus" class='new_nputr' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空" data-title-id="1108" data-type="14">
-								<option value="">--请选择--</option>
-			                    </select>
-							</span> --%>
                         </li>
-                        <li>
-                        <%-- <span class="basic_span"><em class="red">*</em>项目来源：</span>
-                            <span class="m_r30" style="with:400px">
-	                            <select name="faFlag" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
-				                    	<option value="">--请选择--</option>
-				                </select> 
-	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
-	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是  -->
-	                             <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
-                       		</span> --%>
-                        </li>
-                        
                     </ul>  
-                    
+                </div>
                     <!--融资计划-->
-                    <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_financing"></span>
-                        <span class="new_color size16 m_r15">融资计划</span>
-                    </div>  
-                    <ul class="basic_ul">
-                    	
+                <div class='addpro-finacing-plan'>
+                    <div class="addpro-new-title ">
+                        <span class="new_color  add-pro-basicmessage">融资计划</span>
+                    </div> 
+                    <ul class="basic_ul addpro-finacing-ul">
                         <li>
-                            <span class="basic_span">融资金额：</span>
+                            <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+                            	<input type="text" placeholder='融资金额（万元）' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
                             </span>
-                            <span class="m_r30">万元</span>
-                            <span class="basic_span">出让股份：</span>
-                            <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$" msg="<font color=red>*</font>0到100之间的两位小数"/>
-                            </span>
-                            <span class="m_r30">% </span>
+                            <!-- <span class="m_r30">万元</span> -->
+                            
                         </li>
                         <li>
-                        	<span class="basic_span">项目估值：</span>
+	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations" allowNULL="yes" valType="LIMIT_13_NUMBER" msg="<font color=red>*</font>支持13位长度的四位小数"/>
+                            	<input type="text" placeholder='出让股份（%）' class='new_nputr_number addpro-input' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$" msg="<font color=red>*</font>0到100之间的两位小数"/>
                             </span>
-                            <span class="m_r30">万元</span>
+                            <!-- <span class="m_r30">% </span> -->
+	                    </li>
+                        <li>
+                        	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
+                            <span class="m_r15">
+                            	<input type="text" placeholder='项目估值（万元）' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations" allowNULL="yes" valType="LIMIT_13_NUMBER" msg="<font color=red>*</font>支持13位长度的四位小数"/>
+                            </span>
+                            <!-- <span class="m_r30">万元</span> -->
                         </li>
                     </ul>
-                    </form>
+               </div>
+                </form>
                     <!--实际投资-->
-                    <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
-                        <span class="new_color size16">商业计划书</span>
-                    </div>  
-                    <!-- 商业计划书表格-->
-                    <table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
-                    </table>
+                <div class='addpro-business-plan'>
+	                <div class="addpro-new-title ">
+                        <span class="new_color  add-pro-basicmessage">商业计划书<em>(文件上传大小不超过25MB)</em></span>
+                    </div> 
+	                <!-- 商业计划书表格-->
+	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table business-plan-table">
+	                </table>
+	                <div class="compile_on_center">
+                       <div class="compile_on_left addpro-compile">
+                           <span class="pubbtn bluebtn adddpro-save" onclick="add();">保存</span>
+                           <span class="pubbtn fffbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
+                       </div>  
+                   </div>
+                </div>
                     <!-- 商业计划书隐藏页面 -->
 					<div id="uploadPanel"  style="display: none;">
 						<div class="title_bj">上传更新</div>
@@ -194,13 +185,8 @@
 					<%--     <input type="hidden" id="pathInput" value="<%=path%>"> --%>
 						</div>
 					</div>
-                    <div class="compile_on_center">
-                       <div class="compile_on_left">
-                           <span class="pubbtn bluebtn" onclick="add();">保存</span>
-                           <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
-                       </div>  
-                   </div>
-                </div>
+                    
+          </div>
         </div>
        <!--右边-->
         <div class="basic_right">
