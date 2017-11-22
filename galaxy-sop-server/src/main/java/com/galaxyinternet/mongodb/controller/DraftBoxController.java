@@ -21,6 +21,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.service.InformationMGService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.hologram.InformationDataService;
@@ -57,9 +58,9 @@ public class DraftBoxController  extends BaseControllerImpl<InformationData, Inf
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdateInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> saveOrUpdateInfo(
-			@ApiParam(name = "informationData", value = "标题/值信息", required = true)
+			@ApiParam(name = "informationDataMG", value = "标题/值信息", required = true)
 			@RequestBody 
-			InformationData informationData,
+			InformationDataMG informationData,
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(null==informationData.getProjectId()||"".equals(informationData.getProjectId())){
@@ -70,7 +71,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationData, Inf
 	   // Project project = projectService.queryById(projectId);
 		User user = (User) getUserFromSession(request);
 		try{
-			infoDataService.save(informationData);
+			informationMGService.save(informationData);
 		   // logger.info("全息图编辑项目相关信息["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 		    responseBody.setResult(new Result(Status.OK, null,"编辑项目部分成功"));
 

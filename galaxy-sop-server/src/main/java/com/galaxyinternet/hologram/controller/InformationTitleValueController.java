@@ -34,7 +34,7 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("/galaxy/tvalue")
+@RequestMapping("/galaxy/tvalue/")
 public class InformationTitleValueController  extends BaseControllerImpl<InformationTitle, InformationTitleBo> {
 
 	
