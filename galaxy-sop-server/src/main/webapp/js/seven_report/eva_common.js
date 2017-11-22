@@ -634,7 +634,7 @@ function getValues()
 		var titleId = _this.attr('data-title-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
-		if(type="22"){
+		if(type=="22"){
 			value = _this.attr('contentc');
 		}
 		var resultId = _this.attr('data-result-id');

@@ -1217,7 +1217,7 @@ function countGrade(data){
 		if(_val==""){
 			//_val=0;
 			return;
-		}else if(parseInt(_val)>30){
+		}else if(parseInt(_val)>100){
 			return false;
 		}
 		if(_input.hasClass("error")){
@@ -1227,7 +1227,7 @@ function countGrade(data){
 		}
 	}) 
 	//alert(num);
-	if(num>30){
+	if(num>100){
 //		手动加红字
 		tables.find("span.oError").hide();
 		var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
