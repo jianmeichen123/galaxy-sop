@@ -59,10 +59,7 @@ public class InformationMGServiceImpl implements InformationMGService {
 		List<InformationModelMG> list = data.getInfoModeList();
 		InformationResultMG entity = null;
 		List<InformationResultMG> entityList = new ArrayList<>(); // 增加
-		List<InformationResultMG> uodateList = new ArrayList<>(); // 修改
 		for (InformationModelMG model : list) {
-			if (!"true".equals(model.getTochange()) || model.getTitleId() == null)
-				continue;
 			entity = new InformationResultMG();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
@@ -85,28 +82,20 @@ public class InformationMGServiceImpl implements InformationMGService {
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			if (null == model.getResultId() || model.getResultId().equals("")) {
-				entity.setCreatedTime(now);
-				entity.setCreateId(userId.toString());
-				entityList.add(entity); // 新增
-			} else {
-				entity.setId(new Long(model.getResultId()));
-				entity.setUpdatedTime(now);
-				entity.setUpdateId(userId.toString());
-				entity.setIsValid("0");
-				uodateList.add(entity); // 修改
-			}
+			entity.setCreatedTime(now);
+			entity.setCreateId(userId.toString());
+			entityList.add(entity); // 新增
 		}
 		// 插入数据
 		for (int i=0;i<entityList.size();i++) {
-		InformationResultMG result=entityList.get(i);
-		  try {
-			informationResultMGService.save(result);
-		} catch (MongoDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
+			InformationResultMG result=entityList.get(i);
+			  try {
+				informationResultMGService.save(result);
+			} catch (MongoDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
 		
 	}			
 			
