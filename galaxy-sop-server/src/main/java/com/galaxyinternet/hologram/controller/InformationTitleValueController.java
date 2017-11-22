@@ -316,11 +316,14 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			title = informationDictionaryService.selectTitlesValuesForAll(pinfoKey,reportType);
 
 			if (proId != null){
-				informationDictionaryService.setValuesForTitleByTable(proId,title);
-				if(title.getValueList() == null || title.getValueList().size() == 0)
+				if(title.getType() != null && title.getType().intValue() == 22)
 				{
 					List<InformationDictionary> values = informationTitleService.getList4Title(proId, title.getTitleId());
 					title.setValueList(values);
+				}
+				else
+				{
+					informationDictionaryService.setValuesForTitleByTable(proId,title);
 				}
 			}
 

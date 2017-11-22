@@ -4,6 +4,9 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,11 +21,12 @@ import com.google.gson.JsonSerializer;
 import springfox.documentation.spring.web.json.Json;
 
 public class CustomGsonBuilder {
-	
+	private static final Logger logger = LoggerFactory.getLogger(CustomGsonBuilder.class);
 	private GsonBuilder builder = new GsonBuilder();
 	public CustomGsonBuilder()
 	{
 		builder.registerTypeAdapter(Date.class, new DateAdapter());
+		builder.registerTypeAdapter(Long.class, new LongAdapter());
 		builder.registerTypeAdapter(Json.class, new SpringfoxJsonToGsonAdapter());
 	}
 	
@@ -33,7 +37,6 @@ public class CustomGsonBuilder {
 	
 	private static final class DateAdapter implements JsonDeserializer<Date>
 	{
-
 		@Override
 		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 				throws JsonParseException {
@@ -50,16 +53,30 @@ public class CustomGsonBuilder {
 						try {
 							date = DateUtil.convertStringToDate(json.getAsString());
 						} catch (ParseException e2) {
-							// TODO Auto-generated catch block
 							e2.printStackTrace();
 						}
 					}
 				}
-				
 			}
 			return date;
 		}
-
+	}
+	
+	private static final class LongAdapter implements JsonDeserializer<Long>
+	{
+		@Override
+		public Long deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+		{
+			Long result = null;
+			try
+			{
+				result = json.getAsLong();
+			} catch (Exception e)
+			{
+				logger.error("格式转化错误:"+json.toString(),e);
+			}
+			return result;
+		}
 		
 	}
 	
@@ -72,8 +89,5 @@ public class CustomGsonBuilder {
 			final JsonParser parser = new JsonParser();
 	        return parser.parse(json.value());
 		}
-
-		
-		
 	}
 }

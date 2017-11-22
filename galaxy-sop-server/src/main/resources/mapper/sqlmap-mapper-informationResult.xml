@@ -90,7 +90,7 @@
 			)
 	</insert>
 	
-	<insert id="insertBatch" parameterType="java.util.List">
+	<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
 		insert into information_result (
 			project_id, 
 			title_id,

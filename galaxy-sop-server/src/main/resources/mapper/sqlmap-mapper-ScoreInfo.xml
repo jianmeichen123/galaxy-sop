@@ -98,7 +98,9 @@
 			project_id, 
 			title_relate_id,
 			grade1,
-			grade2
+			grade2,
+			result_id,
+			grade_percentage
 		)
 		values 
 		<foreach collection="list" item="item" separator=",">
@@ -106,16 +108,31 @@
 				#{item.projectId,jdbcType=BIGINT}, 
 				#{item.relateId,jdbcType=BIGINT}, 
 				#{item.score1,jdbcType=NUMERIC},
-				#{item.score2,jdbcType=NUMERIC}
+				#{item.score2,jdbcType=NUMERIC},
+				#{item.resultId,jdbcType=BIGINT},
+				#{item.weight,jdbcType=NUMERIC}
 			)
 		</foreach>
 	</insert>
 	<delete id="deleteScoreBatch" parameterType="java.util.Map">
 		delete from information_result_grade
-		where title_relate_id in
-		<foreach collection="relateIds" item="item" open="(" separator="," close=")">
-		#{item}
-		</foreach>
-		and project_id = #{projectId}
+		<where>
+			<trim prefixOverrides="and">
+			<if test="projectId != null">and project_id =#{projectId}</if>
+			<if test="relateId != null"> and title_relate_id =#{relateId}</if>
+			<if test="relateIds != null">
+				and title_relate_id in 
+				<foreach collection="relateIds" item="item" open="(" separator="," close=")">
+				#{item}
+				</foreach>
+			</if>
+			<if test="resultIds != null">
+				and result_id in 
+				<foreach collection="resultIds" item="item" open="(" separator="," close=")">
+				#{item}
+				</foreach>
+			</if>
+			</trim>
+		</where>
 	</delete>
 </mapper>
