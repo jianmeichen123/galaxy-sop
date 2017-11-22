@@ -37,6 +37,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.GrantActual;
@@ -84,6 +85,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private InformationListdataService informationListdataService;
 	@Autowired
 	InformationFileService informationFileService;
+	@Autowired
+	private AuthRequestUtil authReq;
 	@Autowired
 	Cache cache;
 	@Override
@@ -177,7 +180,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					if(c.getUpdateId() != null || c.getCreateId() != null){
 						uid = c.getUpdateId()==null?c.getCreateId():c.getUpdateId();
 					}
-					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+uid, "realName"));
+					Map<String,String> userMap=initCache();
+					c.setUpdateUserName(userMap.get(uid.toString()));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
 				sortList.sort(content,"time","asc");
@@ -450,5 +454,20 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				_common_logger_.error("下载失败.",e);
 			}
 		}
+	}
+	public Map<String ,String > initCache( )
+	{
+		Map<String ,String > map=new HashMap<String ,String>();
+		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
+			if(userList != null && userList.size() >0)
+			{
+				for(int i=0;i<userList.size();i++)
+				{
+					Map<String,Object> mapNew=userList.get(i);
+				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
+				}
+			}
+		return map;
+		
 	}
 }

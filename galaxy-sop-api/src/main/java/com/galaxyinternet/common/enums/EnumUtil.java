@@ -48,6 +48,8 @@ public class EnumUtil {
 			return CodeEnum.rongKuai.getCode();
 		}else if(id == CodeEnum.virtualReality.getId()){
 			return CodeEnum.virtualReality.getCode();
+		}else if(id == CodeEnum.international.getId()){
+			return CodeEnum.international.getCode();
 		}/*else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCode();
 		}else if(id == CodeEnum.RKjr.getId()){

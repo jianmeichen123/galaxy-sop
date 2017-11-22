@@ -638,11 +638,13 @@
 		if(index===1){
 			$('.invest_institue').show();
 			$(".invest_type").text('跟投机构：');
+			$('.invest_max_height').css('height','315px');
 		}else if(index===2){
 			$('.invest_institue').show();
 			$(".invest_type").text('合投机构：');
+			$('.invest_max_height').css('height','315px');
 		}else{
-
+			$('.invest_max_height').css('height','auto');
 			$(".inputsForm").html("");
 			$(".invest_institue").hide();
 		}

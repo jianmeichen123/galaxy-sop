@@ -140,6 +140,7 @@ $(function() {
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.radius');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -155,6 +156,7 @@ $(function() {
 					auto_save(sec);
 				})
 				var sTop=$(window).scrollTop();
+				$(window).scrollTop(sTop);
 				validate();
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));

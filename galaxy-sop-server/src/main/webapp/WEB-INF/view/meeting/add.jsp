@@ -155,6 +155,15 @@ viewNotes.on( 'change', function() {   //访谈纪要
 	}
    
 });
+viewNotes.on( 'blur', function() {    //兼容ie10
+	var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+	if(viewNotesLen>5000){
+		$("#viewNotes-error").show();
+	}else{
+		$("#viewNotes-error").hide();
+	}
+   
+});
 viewNotes.on( 'keyup', function() {    //兼容ie10
 	var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
 	if(viewNotesLen>5000){
@@ -219,7 +228,11 @@ var fileUploader = new plupload.Uploader({
 	init: {
 		PostInit: function(up){
 			$("#save_meeting").click(function(){
-				if(!validator.form()){
+				var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+				if(viewNotesLen>5000){
+					$("#viewNotes-error").show();
+				}
+				if(!validator.form()||$("#viewNotes-error").is(":visible")){
 					return;
 				}
 				var data = $.parseJSON($("#meeting_form").serializeObject());

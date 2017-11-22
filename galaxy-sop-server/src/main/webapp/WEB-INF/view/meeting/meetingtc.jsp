@@ -25,7 +25,9 @@
 <!-- 保存进度条 -->
 <link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
-
+<script type="text/javascript">
+setPageId("meetingRecord_detail");
+</script>
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -67,12 +69,11 @@
         <dl class="fmdl clearfix" id="proselect">
         	<dt>项目 :</dt>
             <dd class="clearfix">
-            	<select id="projectId" name="projectId"  valType="required" msg="<font color=red>*</font>项目不能为空">
-                </select>
+            	<input type="text" class="txt" readonly  id="projectName" name = "projectName" style="height:23px;width:150px;"/>
             </dd>
         </dl>
     </div>
-    
+    <!-- 
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix" id="meet_type_dl">
             <dt>会议类型：</dt>
@@ -92,6 +93,7 @@
             </dd>
         </dl>
     </div>
+     -->
 
      
     <div class="min clearfix toShow_tjh" style="display:none;">

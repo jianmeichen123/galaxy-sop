@@ -173,7 +173,7 @@
 			#{isValid,jdbcType=INTEGER}, 
 			#{createdTime,jdbcType=BIGINT}, 
 			#{createId,jdbcType=BIGINT}, 
-			#{updateTime,jdbcType=BIGINT}, 
+			#{updatedTime,jdbcType=BIGINT}, 
 			#{updateId,jdbcType=BIGINT}
 		)
 	    ]]>
@@ -237,7 +237,7 @@
 			<if test="isValid != null"> is_valid = #{isValid,jdbcType=VARCHAR}, </if>
 			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
 			<if test="createId != null"> create_id = #{createId,jdbcType=BIGINT}, </if>
-			<if test="updateTime != null"> updated_time = #{updateTime,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="updateId != null"> update_id = #{updateId,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
