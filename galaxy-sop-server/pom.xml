@@ -127,7 +127,7 @@
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8089</dubbo.protocol.port>
+				<dubbo.protocol.port>8087</dubbo.protocol.port>
 				<xinge.enviroment>2</xinge.enviroment>
 				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
