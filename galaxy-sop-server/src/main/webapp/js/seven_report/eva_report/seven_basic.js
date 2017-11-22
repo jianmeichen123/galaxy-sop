@@ -1195,3 +1195,34 @@ function iCheck(){
 		 $(this).parents('.radioShow').find('.others_text').attr("required",false);
 	})
 }
+function countGrade(data){
+	var _this = $(data);
+	var tables = _this.closest(".table_inner");
+	var inputs = tables.find(".score-div input[type='text']");
+	var error_input = tables.find(".score-div input[type='text'].error");
+	var num=0;
+	var numEinput=0;
+	if(error_input.length>0){
+		return;
+	}
+	$.each(inputs,function(){
+		var _input = $(this);
+		var _val =_input.val();
+		if(_val==""){
+			_val=0;
+			numEinput+=1;
+		}
+		if(_input.hasClass("error")){
+			if(parseInt(_val)=="NaN"){
+				num+=0;
+			}else{
+				num+=parseInt(_val);
+			}
+		}else{
+			num+=parseInt(_val);
+		}
+	}) 
+	if(num>100||(numEinput==0&&num!=100 )){
+		layer.msg("主要竞争对手的权重之和必需等于100");
+	}
+}
