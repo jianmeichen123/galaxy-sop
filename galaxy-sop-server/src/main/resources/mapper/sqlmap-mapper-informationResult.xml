@@ -16,18 +16,23 @@
 		<result column="create_id" 			jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" 		jdbcType="BIGINT" 		property="updatedTime" />
 		<result column="update_id" 			jdbcType="BIGINT" 		property="updateId" />
-		<result column="parent_id" 	property="parentId" />
-		<result column="code" 		property="code" />
+		<result column="parent_id" 			property="parentId" />
+		<result column="code" 				property="code" />
 		<result column="report_type" 		property="reportType" />
 		<result column="value_name" 		property="valueName" />
-		<result column="result_id" 		property="resultId" />
+		<result column="result_id" 			property="resultId" />
+		<result column="grade_percentage" 	property="weight" 		jdbcType="NUMERIC"/>
+		<result column="grade1" 			property="score" 		jdbcType="NUMERIC"/>
 		
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
-		id, project_id, title_id, content_choose, content_describe1, content_describe2, sort, is_valid, created_time, create_id, updated_time, update_id
+		information_result.id, information_result.project_id, information_result.title_id, 
+		information_result.content_choose, information_result.content_describe1, information_result.content_describe2, 
+		information_result.sort, information_result.is_valid, information_result.created_time, 
+		information_result.create_id, information_result.updated_time, information_result.update_id
 	</sql>
 
 
@@ -35,17 +40,17 @@
 	<sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
-				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
-				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
-				<if test="titleId != null"> and title_id = #{titleId,jdbcType=BIGINT} </if>
-				<if test="isValid != null">  and is_valid = #{isValid,jdbcType=BIGINT} </if>
+				<if test="id != null"> and information_result.id = #{id,jdbcType=BIGINT} </if>
+				<if test="projectId != null"> and information_result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="titleId != null"> and information_result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="isValid != null">  and information_result.is_valid = #{isValid,jdbcType=BIGINT} </if>
 				<if test="titleIds != null">
-					and title_id in 
+					and information_result.title_id in 
 					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
 					#{item}
 					</foreach>
 				</if>
-				<if test="notNull == true">  and content_choose is not null </if>
+				<if test="notNull == true">  and information_result.content_choose is not null </if>
 				
 				
 			</trim>
@@ -114,9 +119,11 @@
 	
 	<!-- 查询 -->
 	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
-		select
+		SELECT
 		<include refid="Base_Column_List" />
-		from information_result
+		,information_result_grade.grade_percentage,information_result_grade.grade1
+		FROM information_result
+		LEFT JOIN information_result_grade ON information_result.id = information_result_grade.result_id
 		<include refid="Base_Where_Clause" />
 	</select>
 
