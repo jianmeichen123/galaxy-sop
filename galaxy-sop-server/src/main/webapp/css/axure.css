@@ -4011,3 +4011,10 @@ input::input-placeholder{color:red !important;}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 /* 添加项目 */
 .add-project-title{height:62px;border:1px solid;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;ont-family:MicrosoftYaHei;}
+.add-poject-right{width:100%;}
+.pagebox .add-project-ritmin{margin:10px 0px 0 10.505%;padding-left:16px;}
+.add-project-tabtable{border-radius:0px;}
+.add-pro-basicmessage{font-size:16px;color:#333333;margin-left:0px;}
+.addpro-new-title{padding:20px 0 10px 0px;border-bottom:1px solid #ececec;margin-left:20px;width:97%;}
+.addpro-input{width:278px;height:30px;border-radius:2px;}
+.letter-space{letter-spacing:7px;}

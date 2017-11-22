@@ -85,14 +85,14 @@ $(function(){
 			$.getHtml({
 				url:getDetailUrl(code)
 			});
-			$('.close').addClass('tast-close')
+			$('.close').addClass('tast-close')//添加关闭按钮
 		}else if(index == 1){
 			$.getHtml({
 				url:getDetailUrl(code)
 			});
 			$('.close').addClass('tast-close')
 		}
-		$('.pop').addClass('task-pop');
+		$('.pop').addClass('task-pop');//去掉圆角
 	});
 	
 	//页面请求地址
