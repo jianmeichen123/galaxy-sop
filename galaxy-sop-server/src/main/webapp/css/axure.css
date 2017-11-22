@@ -4008,3 +4008,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-department{margin-left:10px;}
 input::input-placeholder{color:red !important;}
 .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center} 
+.toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
