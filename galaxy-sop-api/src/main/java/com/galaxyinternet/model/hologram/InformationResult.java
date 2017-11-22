@@ -49,6 +49,9 @@ public class InformationResult extends PagableEntity{
     
     private boolean notNull;
     
+    private BigDecimal weight;
+    private BigDecimal score;
+    
     public Long getValueId() {
 		return valueId;
 	}
@@ -229,6 +232,26 @@ public class InformationResult extends PagableEntity{
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public BigDecimal getWeight()
+	{
+		return weight;
+	}
+
+	public void setWeight(BigDecimal weight)
+	{
+		this.weight = weight;
+	}
+
+	public BigDecimal getScore()
+	{
+		return score;
+	}
+
+	public void setScore(BigDecimal score)
+	{
+		this.score = score;
 	}
 	
 	

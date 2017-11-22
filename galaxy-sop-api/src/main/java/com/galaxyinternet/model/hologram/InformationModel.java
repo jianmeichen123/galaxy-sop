@@ -30,6 +30,8 @@ public class InformationModel extends PagableEntity {
 	private BigDecimal score2;
 	
 	private Long reportType;
+	private BigDecimal resultScore;
+	private BigDecimal resultWeight;
 	
 	public String getProjectId() {
 		return projectId;
@@ -132,6 +134,26 @@ public class InformationModel extends PagableEntity {
 
 	public void setReportType(Long reportType) {
 		this.reportType = reportType;
+	}
+
+	public BigDecimal getResultScore()
+	{
+		return resultScore;
+	}
+
+	public void setResultScore(BigDecimal resultScore)
+	{
+		this.resultScore = resultScore;
+	}
+
+	public BigDecimal getResultWeight()
+	{
+		return resultWeight;
+	}
+
+	public void setResultWeight(BigDecimal resultWeight)
+	{
+		this.resultWeight = resultWeight;
 	}
 
 	@Override

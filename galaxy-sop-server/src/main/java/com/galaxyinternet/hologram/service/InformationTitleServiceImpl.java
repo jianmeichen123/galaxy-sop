@@ -1332,7 +1332,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						if(autoList!=null && autoList.size()>0)
 						{
 							Integer scoreType = score.getScoreType();
-							if( scoreType!=null && scoreType.intValue() == 1)
+							if( scoreType!=null && (scoreType.intValue() == 1||scoreType.intValue() == 5))
 							{
 								title.setAutoList(autoList);
 							}

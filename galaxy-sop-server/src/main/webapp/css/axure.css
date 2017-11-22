@@ -3875,7 +3875,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #updateProjectInfo .basic_message_cont .basic_mes_input{width:395px;}
 #updateProjectInfo .basic_message_cont #dropdown+input.basic_mes_input{position:relative;top: 10px;}
 #updateProjectInfo .basic_message_cont .input_select{width:393px;}
-#updateProjectInfo .basic_message_cont #dropdown ul{width: 404px;right:-20px;}
+#updateProjectInfo .basic_message_cont #dropdown ul{width: 404px;right:-20px;box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 .vest_span{display:inline-block;position: absolute;left: 116px;top: 0px;width: 400px;}
 .inves_input{width:96px;height:28px;padding-left:8px;margin-left:4px;border:1px solid #d8d8d8;}
 .inves_select{width:68px;height:32px;margin-left: 4px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
@@ -4007,4 +4007,14 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;}
 .task-department{margin-left:10px;}
 input::input-placeholder{color:red !important;}
-.pop .tast-close{background:url('../img/base_info/close.png') no-repeat center} 
+ .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
+.toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
+/* 添加项目 */
+.add-project-title{height:62px;border:1px solid;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;ont-family:MicrosoftYaHei;}
+.add-poject-right{width:100%;}
+.pagebox .add-project-ritmin{margin:10px 0px 0 10.505%;padding-left:16px;}
+.add-project-tabtable{border-radius:0px;}
+.add-pro-basicmessage{font-size:16px;color:#333333;margin-left:0px;}
+.addpro-new-title{padding:20px 0 10px 0px;border-bottom:1px solid #ececec;margin-left:20px;width:97%;}
+.addpro-input{width:278px;height:30px;border-radius:2px;}
+.letter-space{letter-spacing:7px;}

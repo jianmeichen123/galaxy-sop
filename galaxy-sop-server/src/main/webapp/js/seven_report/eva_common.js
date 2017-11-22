@@ -565,6 +565,8 @@ function buildResult(title)
 				"contentc":_this.contentChoose,
 				"resultId":_this.id,
 			});
+			//res.find(".score-div select");
+			res.find(".score-div input").val(_this.weight);
 			_tableInner.append(res);
 		})
 	}

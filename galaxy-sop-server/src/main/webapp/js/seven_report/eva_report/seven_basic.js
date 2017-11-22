@@ -632,12 +632,18 @@ function right(obj,type){
 			}else{
 				resString.find(".score-div").show();
 				resString.find(".score-div").prev().removeAttr("disabled").removeClass("disabled");
+				resString.find(".score-div input").removeAttr("disabled").removeClass("disabled");
 				
 			}
+			var iNum = 0
 			$.each(val_checkbox,function(){
 				var res =resString.clone();
 				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");
+				res.find(".score-div input").attr("name","scor_"+iNum).val("");
+				res.find(".score-div select").val("请选择");
+				res.find("span.error").remove();
 				table.append(res);
+				iNum+=1;
 			})
 		}
 		
@@ -1201,28 +1207,40 @@ function countGrade(data){
 	var inputs = tables.find(".score-div input[type='text']");
 	var error_input = tables.find(".score-div input[type='text'].error");
 	var num=0;
-	var numEinput=0;
 	if(error_input.length>0){
-		return;
+		tables.find("span.oError").hide();
+		return false;
 	}
 	$.each(inputs,function(){
 		var _input = $(this);
 		var _val =_input.val();
 		if(_val==""){
-			_val=0;
-			numEinput+=1;
+			//_val=0;
+			return;
+		}else if(parseInt(_val)>30){
+			return false;
 		}
 		if(_input.hasClass("error")){
-			if(parseInt(_val)=="NaN"){
-				num+=0;
-			}else{
-				num+=parseInt(_val);
-			}
+			return false;
 		}else{
 			num+=parseInt(_val);
 		}
 	}) 
-	if(num>100||(numEinput==0&&num!=100 )){
-		layer.msg("主要竞争对手的权重之和必需等于100");
+	//alert(num);
+	if(num>30){
+//		手动加红字
+		tables.find("span.oError").hide();
+		var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
+		if(_this.val()!=""){
+			_this.after(errorSpan);
+		}else {
+			$.each(inputs,function(){
+				var Ival =$(this).val();
+				if(Ival!=""){
+					$(this).after(errorSpan);
+					return false;
+				}
+			})
+		}
 	}
 }

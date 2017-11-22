@@ -1,5 +1,20 @@
 package com.galaxyinternet.hologram.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationFileDao;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
@@ -26,18 +41,6 @@ import com.galaxyinternet.model.hologram.TableModel;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.utils.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
 
 @Service
 public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>implements InformationDataService
@@ -82,7 +85,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		if (data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()) {
 			titleIds = data.getDeletedResultTids();
 		}
-
+		Map<InformationResult,InformationModel> poAndVOMap = new HashMap<>();
 		for (InformationModel model : list) {
 			if (!"true".equals(model.getTochange()) || model.getTitleId() == null)
 				continue;
@@ -132,6 +135,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId.toString());
 				entityList.add(entity); // 新增
+				poAndVOMap.put(entity, model);
 			} else {
 				entity.setId(new Long(model.getResultId()));
 				entity.setUpdatedTime(now);
@@ -165,6 +169,14 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		// 插入数据
 		if (entityList.size() > 0) {
 			resultDao.insertInBatch(entityList);
+			for(InformationResult item : entityList)
+			{
+				if(poAndVOMap.containsKey(item))
+				{
+					InformationModel model = poAndVOMap.get(item);
+					model.setResultId(item.getId()+"");
+				}
+			}
 		}
 		InformationResult resultUpdate = new InformationResult();
 		// 决策报告编辑估值安排时候计算项目投资额
@@ -333,6 +345,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	
 	public void saveScore(InformationData data)
 	{
+		saveResultScore(data);
 		if(data == null || data.getProjectId() == null || data.getScoreList()==null)
 		{
 			return;
@@ -361,6 +374,53 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			});
 		}
+	}
+	/**
+	 * 保存结果的分值 - 例如 type == 22的题
+	 * @param data
+	 */
+	public void saveResultScore(InformationData data)
+	{
+		if(data == null || data.getProjectId() == null)
+		{
+			return;
+		}
+		List<InformationModel> resultList = data.getInfoModeList();
+		if(resultList == null || resultList.size() == 0)
+		{
+			return;
+		}
+		List<InformationScore> resultScoreList = new ArrayList<>();
+		Set<Long> resultIds = new HashSet<>();
+		InformationScore entity = null;
+		for(InformationModel item : resultList)
+		{
+			if(item.getResultScore() == null && item.getResultWeight() == null)
+			{
+				continue;
+			}
+			if(item.getResultId() != null)
+			{
+				resultIds.add(Long.parseLong(item.getResultId()));
+			}
+			entity = new InformationScore();
+			entity.setWeight(item.getResultWeight());
+			entity.setScore1(item.getResultScore());
+			entity.setResultId(Long.parseLong(item.getResultId()));
+			entity.setProjectId(Long.parseLong(data.getProjectId()));
+			resultScoreList.add(entity);
+		}
+		if(resultIds.size()>0)
+		{
+			InformationScore query = new InformationScore();
+			query.setResultIds(resultIds);
+			scoreInfoDao.deleteScoreBatch(query);
+		}
+		if(resultScoreList.size()>0)
+		{
+			scoreInfoDao.insertScoreBatch(resultScoreList);
+		}
+		
 	}
 	/**
 	 * 评测报告与初评报告分数保持一致

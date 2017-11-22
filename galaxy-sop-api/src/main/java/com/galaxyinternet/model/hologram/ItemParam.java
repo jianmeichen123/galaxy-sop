@@ -52,12 +52,13 @@ public class ItemParam
 	{
 		this.score = score;
 	}
+	
+	
 	@Override
 	public String toString()
 	{
-		return "ItemParam [relateId=" + relateId + ", subId=" + subId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
+		return "ItemParam [relateId=" + relateId + ", subId=" + subId + ", values=" + Arrays.toString(values) + ", score=" + score + ", results=" + results + "]";
 	}
-	
 	public String getKey()
 	{
 		if(subId != null)

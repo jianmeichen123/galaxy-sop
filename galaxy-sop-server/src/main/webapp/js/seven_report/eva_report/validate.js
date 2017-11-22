@@ -219,6 +219,7 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 //打分报告正则
 function eva_validate(){
 	var scores = $(".score-columns").find("input[type='text']");
+	var scoresL = $(".heightL").find("input[type='text']");
 	for(var i=0;i<scores.length;i++){
 		var input = scores.eq(i);
 		var rulerMarket=input.attr("rulermarket");
@@ -226,6 +227,9 @@ function eva_validate(){
 		var name1="data-rule-eva_"+rulerMarket;
 		scores.eq(i).attr("data-rule-eva_"+rulerMarket+"",true);
 		scores.eq(i).attr("name",name);
+	}
+	for(var i=0;i<scoresL.length;i++){
+		scores.eq(i).attr("name","scor_"+i);
 	}
 }
 jQuery.validator.addMethod("eva_10", function(value, element) {   

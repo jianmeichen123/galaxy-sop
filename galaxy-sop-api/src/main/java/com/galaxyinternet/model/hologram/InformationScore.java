@@ -17,6 +17,9 @@ public class InformationScore extends BaseEntity
 	private BigDecimal score2;
 	private Set<Long> ids;
 	private Set<Long> relateIds;
+	private Long resultId;
+	private BigDecimal weight;
+	private Set<Long> resultIds;
 	public Long getRelateId()
 	{
 		return relateId;
@@ -64,6 +67,30 @@ public class InformationScore extends BaseEntity
 	public void setRelateIds(Set<Long> relateIds)
 	{
 		this.relateIds = relateIds;
+	}
+	public Long getResultId()
+	{
+		return resultId;
+	}
+	public void setResultId(Long resultId)
+	{
+		this.resultId = resultId;
+	}
+	public BigDecimal getWeight()
+	{
+		return weight;
+	}
+	public void setWeight(BigDecimal weight)
+	{
+		this.weight = weight;
+	}
+	public Set<Long> getResultIds()
+	{
+		return resultIds;
+	}
+	public void setResultIds(Set<Long> resultIds)
+	{
+		this.resultIds = resultIds;
 	}
 	
 }
