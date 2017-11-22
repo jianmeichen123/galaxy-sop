@@ -15,8 +15,10 @@ import org.springframework.util.CollectionUtils;
 
 import com.galaxyinternet.common.utils.SpringContextManager;
 import com.galaxyinternet.model.hologram.ItemParam;
+import com.galaxyinternet.model.hologram.ResultParam;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.model.hologram.ScoreValue;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
 /**
  * 计算报告分数
@@ -67,7 +69,49 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		}
 		
 		Integer scoreType = info.getScoreType();
-		if(scoreType != null && (scoreType == 1 || scoreType == 2)) //手动输入或选择分数
+		if(scoreType != null && scoreType == 5)//多个结果分数之和
+		{
+			List<ResultParam> valueList = item.getResults();
+			BigDecimal totalWeight = BigDecimal.ZERO;
+			if(valueList != null && valueList.size()>0)
+			{
+				if(valueList.size() == 1)
+				{
+					ResultParam val = valueList.iterator().next();
+					score = val.getScore();
+				}
+				else
+				{
+					for(ResultParam it : valueList)
+					{
+						if(it.getWeight() != null)
+						{
+							totalWeight = totalWeight.add(it.getWeight());
+							if(it.getScore() != null)
+							{
+								BigDecimal resultScore = it.getScore()
+										.multiply(it.getWeight())
+										.divide(BigDecimal.valueOf(100))
+										.setScale(4, BigDecimal.ROUND_HALF_UP);
+								score = score.add(resultScore);
+							}
+						}
+					}
+					//权重之和不是100
+					if(totalWeight.compareTo(BigDecimal.valueOf(100)) > 0)
+					{
+						score = BigDecimal.ZERO;
+					}
+				}
+			}
+			ItemParam itemParam = new ItemParam();
+			itemParam.setRelateId(relateId);
+			itemParam.setScore(score);
+			itemParam.setSubId(info.getSubId());
+			items.put(key, itemParam);
+			logger.debug(String.format("ID=%s, ScoreType=%s, Score=%s", info.getPk(),scoreType,score));
+		}
+		else if(scoreType != null && (scoreType == 1 || scoreType == 2)) //手动输入或选择分数
 		{
 			score = item.getScore();
 			ItemParam itemParam = new ItemParam();

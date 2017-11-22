@@ -7,6 +7,7 @@ public class ScoreValue
 	private Long valueId;
 	private String value;
 	private BigDecimal weight;
+	private BigDecimal resultScore;
 	public Long getValueId()
 	{
 		return valueId;
@@ -31,5 +32,13 @@ public class ScoreValue
 	{
 		this.weight = weight;
 	}
-
+	public BigDecimal getResultScore()
+	{
+		return resultScore;
+	}
+	public void setResultScore(BigDecimal resultScore)
+	{
+		this.resultScore = resultScore;
+	}
+	
 }

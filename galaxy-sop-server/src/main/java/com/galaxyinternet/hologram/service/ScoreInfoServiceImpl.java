@@ -1,7 +1,6 @@
 package com.galaxyinternet.hologram.service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,9 +14,6 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import freemarker.ext.beans.HashAdapter;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +21,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.dao.hologram.InformationResultDao;
+import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
 import com.galaxyinternet.dao.hologram.ScoreInfoDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.hologram.model.ReportScoreCalculator;
 import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.model.hologram.ResultParam;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.model.hologram.ScoreValue;
@@ -106,45 +105,54 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 				@Override
 				public void run()
 				{
-					ScoreInfo scoreInfo = scoreInfoDao.selectById(relateId);
-					ScoreInfo query = new ScoreInfo();
-					query.setProjectId(projectId);
-					query.setCode(scoreInfo.getCode());
-					List<ScoreInfo> vallueList = scoreInfoDao.selectList(query);
-					
-					ReportParam param = new ReportParam();
-					param.setRelateId(relateId);
-					param.setProjectId(projectId);
-					param.setReportType(scoreInfo.getProcessMode());
-					param.setItems(convert(vallueList));
-					Map<String,BigDecimal> results = calculateSingleReport(param);
-					if(results != null && results.size()>0)
+					try
 					{
-						for(Entry<String,BigDecimal> entry : results.entrySet())
+						ScoreInfo scoreInfo = scoreInfoDao.selectById(relateId);
+						ScoreInfo query = new ScoreInfo();
+						query.setProjectId(projectId);
+						query.setCode(scoreInfo.getCode());
+						List<ScoreInfo> vallueList = scoreInfoDao.selectList(query);
+						
+						ReportParam param = new ReportParam();
+						param.setRelateId(relateId);
+						param.setProjectId(projectId);
+						param.setReportType(scoreInfo.getProcessMode());
+						param.setItems(convert(vallueList));
+						Map<String,BigDecimal> results = calculateSingleReport(param);
+						if(results != null && results.size()>0)
 						{
-							if(entry.getKey() != null && entry.getValue() != null)
+							for(Entry<String,BigDecimal> entry : results.entrySet())
 							{
-								//计算总分
-								if(entry.getKey().equals("0"))
+								if(entry.getKey() != null && entry.getValue() != null)
 								{
-									while(true)
+									//计算总分
+									if(entry.getKey().equals("0"))
 									{
-										BigDecimal expect = ref.get();
-										BigDecimal update = expect.add(entry.getValue());
-										if(ref.compareAndSet(expect, update))
+										while(true)
 										{
-											break;
+											BigDecimal expect = ref.get();
+											BigDecimal update = expect.add(entry.getValue());
+											if(ref.compareAndSet(expect, update))
+											{
+												break;
+											}
 										}
 									}
-								}
-								else
-								{
-									scores.put(entry.getKey(), entry.getValue());
+									else
+									{
+										scores.put(entry.getKey(), entry.getValue());
+									}
 								}
 							}
 						}
+					} catch (Exception e)
+					{
+						logger.error("Calc Error, relateId="+relateId,e);
 					}
-					countDownLatch.countDown();
+					finally
+					{
+						countDownLatch.countDown();
+					}
 				}
 			});
 		}
@@ -165,14 +173,20 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			List<ScoreValue> valueList = info.getValueList();
 			if(valueList != null && valueList.size()>0)
 			{
+				List<ResultParam> results = new ArrayList<>();
 				List<String> values = new ArrayList<>();
 				for(ScoreValue value : valueList)
 				{
+					ResultParam result = new ResultParam();
+					result.setScore(value.getResultScore());
+					result.setWeight(value.getWeight());
+					results.add(result);
 					if(value != null && value.getValue() != null)
 					{
 						values.add(value.getValue());
 					}
 				}
+				param.setResults(results);
 				param.setValues(values.toArray(new String[values.size()]));
 			}
 			items.add(param);
