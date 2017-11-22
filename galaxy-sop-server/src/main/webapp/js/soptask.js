@@ -85,10 +85,12 @@ $(function(){
 			$.getHtml({
 				url:getDetailUrl(code)
 			});
+			$('.close').addClass('tast-close')
 		}else if(index == 1){
 			$.getHtml({
 				url:getDetailUrl(code)
 			});
+			$('.close').addClass('tast-close')
 		}
 		$('.pop').addClass('task-pop');
 	});
