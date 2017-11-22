@@ -565,6 +565,7 @@
 	$(".institutionBtn span").click(function(){
 		addInputs_i++;
 		addInputsRow(addInputs_i-1);
+		$('.invest_max_height').scrollTop('1000');
 		var inputsLength=$(".block_inputs").length;
 		
 		if(inputsLength>=10){
