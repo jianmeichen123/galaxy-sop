@@ -3709,6 +3709,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .relative_box .oval,#invest_chart{position:absolute; right:30px;top:0;}
  #invest_chart{top:-6px;}
  #finance_chart,#invest_chart{width:54px;height:54px;position:absolute;}
+ .relative_box,.con_box #serviceCharge{font-size:12px;color:#777acb;}
  #finance_chart{right:40px;top:30px}
  .plan_infoC .img_box{background-position:-341px -96px;}
  .plan_infoC #plan_operator{margin:12px 0;}
