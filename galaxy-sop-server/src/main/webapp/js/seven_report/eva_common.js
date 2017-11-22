@@ -222,6 +222,9 @@ function popScore(titles,relateId)
 				td = $('td.score-column[data-relate-id="'+rid+'"][data-sub-id="'+subId+'"]');
 			}
 			var ele = td.children('input,select');
+			if(td.hasClass("heightL")){
+				return;
+			}
 			if(ele.length ==0)
 			{
 				td.text(score);
@@ -565,8 +568,8 @@ function buildResult(title)
 				"contentc":_this.contentChoose,
 				"resultId":_this.id,
 			});
-			//res.find(".score-div select");
-			res.find(".score-div input").val(_this.weight);
+			res.find(".score-div input").val(_this.weight?_this.weight:"");
+			res.find(".heightL select").val(_this.score?_this.score:"请选择");
 			_tableInner.append(res);
 		})
 	}
