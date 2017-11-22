@@ -1473,7 +1473,13 @@ function check_table_tr_edit(){
 }
 function getTableRowLimit(code)
 {
-	return 10;
+	if(code == 'competitor_obvious' || code =='competitor_potential')
+	{
+		return 20;
+	}else{
+		return 10;
+	}
+	
 }
 	
 //编辑的时候右侧导航隐藏不可用
@@ -2472,10 +2478,10 @@ function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是�
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#page_list_compete").tmpl(entity).appendTo("#a_"+id_code);
-					var divId=$('.h_compete_look').find('dd').attr('data-title-id');
+					/*var divId=$('.h_compete_look').find('dd').attr('data-title-id');
 					if(divId=='1524' || divId=='1512'){
 						$('dd[data-title-id="'+divId+'"]').closest('.mb_24').hide();
-					}
+					}*/
 					if(flag==true){  //编辑状态
 						$(ele).closest('form').hide();
 					}else{   //显示状态
@@ -2502,12 +2508,12 @@ function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是�
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未填写":val_text);
 						}
 					});
-					var name=$('dd[name="field1"]').text();  //竞争对手名称
+					/*var name=$('dd[name="field1"]').text();  //竞争对手名称
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('查看显在竞争对手-'+name)
 					}else{
 						$('.h_title_conpetition').text('查看潜在竞争对手-'+name)
-					}
+					}*/
 					//取消
 					$('div').delegate(".h_cancel_competeInfo_btn","click",function(event){
 						if(flag==true){  //编辑状态
