@@ -2,11 +2,9 @@ package com.galaxyinternet.mongodb.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.galaxyinternet.framework.core.model.PagableEntity;
-
 import io.swagger.annotations.ApiModelProperty;
 @Document(collection="galaxy.sop.FixedTableModelMG")
-public class FixedTableModelMG extends PagableEntity {
+public class FixedTableModelMG  {
 	private static final long serialVersionUID = 1L;
 	
 	private String titleId;

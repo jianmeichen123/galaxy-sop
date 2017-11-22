@@ -1,18 +1,17 @@
 package com.galaxyinternet.mongodb.model;
 
-import com.galaxyinternet.framework.core.dao.utils.QueryField;
-import com.galaxyinternet.framework.core.model.PagableEntity;
-import com.galaxyinternet.framework.core.utils.CommonUtil;
-import com.galaxyinternet.framework.core.utils.DateUtil;
-
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.galaxyinternet.framework.core.dao.utils.QueryField;
+import com.galaxyinternet.framework.core.utils.CommonUtil;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 @Document(collection="galaxy.sop.InformationListdataMG")
-public class InformationListdataMG extends PagableEntity implements Cloneable{
+public class InformationListdataMG {
 
 	private static final long serialVersionUID = 1L;
 	/*唯一编码*/

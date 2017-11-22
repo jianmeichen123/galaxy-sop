@@ -49,9 +49,9 @@ public class InformationMGServiceImpl implements InformationMGService {
 	public void save(InformationDataMG data) throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		saveResult(data);
-		saveListData(data);
-		saveFixedTable(data);
-		saveFiles(data);
+	//	saveListData(data);
+		//saveFixedTable(data);
+	//	saveFiles(data);
 	}
 	private void saveResult(InformationDataMG data)
 	{
@@ -82,7 +82,6 @@ public class InformationMGServiceImpl implements InformationMGService {
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			entity.setCreatedTime(now);
 			entity.setCreateId(userId.toString());
 			entityList.add(entity); // 新增
 		}
@@ -127,7 +126,7 @@ public class InformationMGServiceImpl implements InformationMGService {
 			if(model.getValueId() != null)
 			{
 				entity.setUpdateId(userId+"");
-				entity.setUpdatedTime(now);
+				//entity.setUpdatedTime(now);
 				entity.setId(model.getValueId());
 				try {
 					informationFixedTableMGService.updateById(model.getValueId().toString(), entity);
@@ -137,7 +136,7 @@ public class InformationMGServiceImpl implements InformationMGService {
 				}
 				continue;
 			}
-			entity.setCreatedTime(now);
+		//	entity.setCreatedTime(now);
 			entity.setCreateId(userId+"");
 			insertEntityList.add(entity);
 		}
@@ -209,7 +208,7 @@ public class InformationMGServiceImpl implements InformationMGService {
 			
 			if(model.getId() == null)
 			{
-				entity.setCreatedTime(now);
+		//		entity.setCreatedTime(now);
 				entity.setCreateId(userId);
 				entity.setUpdateId(userId);
 				entity.setUpdateTime(now);
@@ -246,11 +245,11 @@ public class InformationMGServiceImpl implements InformationMGService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(model.getDataList() != null && model.getDataList().size() > 0){
+				/*if(model.getDataList() != null && model.getDataList().size() > 0){
 					setDataList(entity.getId(),entity,model.getDataList(),
 							userId,entity.getUpdatedTime());
 				}
-				
+				*/
 			}
 		}
 		
@@ -306,51 +305,7 @@ public class InformationMGServiceImpl implements InformationMGService {
 			}
 		}
 	}
-	private void saveFiles(InformationDataMG data)
-	{
-		List<InformationFileMG> infoFiles = data.getInfoFileList();
-		try
-		{
-			//插入新添加的文件
-			for(InformationFileMG infoFile : infoFiles)
-			{
-				if(infoFile.getId() != null)
-				{
-					continue;
-				}
-				String fileData = infoFile.getData();
-				String suffix = fileData.substring(fileData.indexOf("data:image/")+11,fileData.indexOf(";base64,"));
-				String fileName = "image-"+System.currentTimeMillis();
-				File tempFile = File.createTempFile(fileName, "."+suffix);
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				fileData = fileData.substring(fileData.indexOf(";base64,")+8, fileData.length());
-				FileUtils.base64ToFile(fileData, tempFile);
-				UploadFileResult rtn = OSSHelper.simpleUploadByOSS(tempFile, fileKey, OSSHelper.setRequestHeader(tempFile.getName(), tempFile.length())); //上传至阿里云
-				String bucketName = rtn.getBucketName();
-				String url = OSSHelper.getUrl(bucketName,fileKey);
-				Long now = System.currentTimeMillis();
-				
-				infoFile.setFileKey(fileKey);
-				infoFile.setFileLength(tempFile.length()+"");
-				infoFile.setBucketName(bucketName);
-				infoFile.setFileSuffix(suffix);
-				infoFile.setUpdatedTime(now);
-				infoFile.setFileName(fileName);
-				infoFile.setFileUrl(url);
-				infoFile.setCreatedTime(now);
-				try {
-					informationFileMGService.save(infoFile);
-				} catch (MongoDBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	/**/
 	
 	
 	

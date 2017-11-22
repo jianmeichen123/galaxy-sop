@@ -6,9 +6,8 @@ import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
-import com.galaxyinternet.framework.core.model.PagableEntity;
 @Document(collection="galaxy.sop.InformationResultMG")
-public class InformationResultMG extends PagableEntity{
+public class InformationResultMG {
 
 	private static final long serialVersionUID = 1L;
 	/*唯一编码*/
@@ -235,6 +234,15 @@ public class InformationResultMG extends PagableEntity{
 	public void setType(Integer type) {
 		this.type = type;
 	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	
 	
 	
     

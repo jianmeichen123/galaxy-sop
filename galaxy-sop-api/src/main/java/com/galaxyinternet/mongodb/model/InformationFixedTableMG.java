@@ -5,9 +5,8 @@ import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
-import com.galaxyinternet.framework.core.model.PagableEntity;
 @Document(collection="galaxy.sop.InformationFixedTableMG")
-public class InformationFixedTableMG extends PagableEntity{
+public class InformationFixedTableMG {
 
 	private static final long serialVersionUID = 1L;
 	/*唯一编码*/

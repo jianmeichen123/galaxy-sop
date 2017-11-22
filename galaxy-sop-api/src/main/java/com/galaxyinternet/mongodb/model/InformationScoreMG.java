@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
-import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class InformationScoreMG extends BaseEntity
+public class InformationScoreMG
 {
 	/**
 	 * 

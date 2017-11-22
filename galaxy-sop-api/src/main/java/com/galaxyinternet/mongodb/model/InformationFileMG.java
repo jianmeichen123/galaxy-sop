@@ -6,10 +6,8 @@ import java.util.Set;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.galaxyinternet.framework.core.model.BaseEntity;
 @Document(collection="galaxy.sop.InformationFileMG")
-public class InformationFileMG extends BaseEntity{
+public class InformationFileMG {
 	
 	private static final long serialVersionUID = 1L;
 

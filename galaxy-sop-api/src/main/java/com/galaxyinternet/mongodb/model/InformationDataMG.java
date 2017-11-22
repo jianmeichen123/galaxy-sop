@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
-import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 @ApiModel
-public class InformationDataMG extends PagableEntity {
+public class InformationDataMG {
 	private static final long serialVersionUID = 1L;
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
