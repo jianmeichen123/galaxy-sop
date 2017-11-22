@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection="galaxy.sop.InformationListdataMG")
 public class InformationListdataMG extends PagableEntity implements Cloneable{
 
 	private static final long serialVersionUID = 1L;

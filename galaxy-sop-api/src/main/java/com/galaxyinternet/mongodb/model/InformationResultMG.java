@@ -3,9 +3,11 @@ package com.galaxyinternet.mongodb.model;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.model.PagableEntity;
-
+@Document(collection="galaxy.sop.InformationResultMG")
 public class InformationResultMG extends PagableEntity{
 
 	private static final long serialVersionUID = 1L;
