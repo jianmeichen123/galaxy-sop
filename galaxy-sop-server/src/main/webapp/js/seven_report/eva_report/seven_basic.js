@@ -1215,8 +1215,9 @@ function countGrade(data){
 		var _input = $(this);
 		var _val =_input.val();
 		if(_val==""){
-			_val=0;
-		}else if(parseInt(_val)=="NaN"||parseInt(_val)>30){
+			//_val=0;
+			return;
+		}else if(parseInt(_val)>30){
 			return false;
 		}
 		if(_input.hasClass("error")){
@@ -1226,10 +1227,20 @@ function countGrade(data){
 		}
 	}) 
 	//alert(num);
-	if(num>30||(numEinput==0&&num!=30 )){
+	if(num>30){
 //		手动加红字
 		tables.find("span.oError").hide();
 		var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
-		_this.after(errorSpan);
+		if(_this.val()!=""){
+			_this.after(errorSpan);
+		}else {
+			$.each(inputs,function(){
+				var Ival =$(this).val();
+				if(Ival!=""){
+					$(this).after(errorSpan);
+					return false;
+				}
+			})
+		}
 	}
 }
