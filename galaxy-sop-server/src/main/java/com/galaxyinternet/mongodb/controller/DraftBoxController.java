@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiParam;
 
 @Api("全息图后台接口")
 @Controller
-@RequestMapping("/draftBox/infoData")
+@RequestMapping("/galaxy/draftBox/infoData")
 public class DraftBoxController  extends BaseControllerImpl<InformationData, InformationData> {
 
 	final Logger logger = LoggerFactory.getLogger(DraftBoxController.class);

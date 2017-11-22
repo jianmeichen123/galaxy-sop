@@ -3,12 +3,15 @@ package com.galaxyinternet.mongodb.model;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class InformationResultMG extends PagableEntity{
 
 	private static final long serialVersionUID = 1L;
-
+	/*唯一编码*/
+	@QueryField(attribute="uuid")
+	private String uuid;
 	private String titleId;
 
     private String contentChoose;
