@@ -14,7 +14,6 @@
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
-var pageId = "project";
 var path = '<%=path%>';
 </script>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>

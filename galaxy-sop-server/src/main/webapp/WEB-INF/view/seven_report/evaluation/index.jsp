@@ -14,9 +14,6 @@
 <link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript">
-var pageId = "project";
-</script>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
 

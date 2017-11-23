@@ -4049,3 +4049,4 @@ input::input-placeholder{color:red !important;}
 .addpro-input-arrow-up{background:url(../img/base_info/up.png) no-repeat right 7px center;}
 .addpro-input-fa{margin-top:15px;}
 .addpro-basi-ul select::-ms-expand { display: none; }
+.tips-no-backgroud{width:auto !important;}

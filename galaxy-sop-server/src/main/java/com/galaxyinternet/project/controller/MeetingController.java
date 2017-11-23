@@ -13,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.annotation.GalaxyResource;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -30,6 +33,8 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -60,9 +65,34 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 	private MeetingRecordService meetingRecordService;
 	@Autowired
 	private  SopFileService sopFileService;
+	@Autowired
+	private ProjectController projectController;
 	@Value("${sop.oss.tempfile.path}")
 	private String tempfilePath;
 
+	@GalaxyResource(name="meetView")
+	@ResponseBody
+	@RequestMapping(value = "/queryMeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ) {
+		
+		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
+		
+		try {
+			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("queryMeet ",e);
+			}
+		}
+		
+		return responseBody;
+	}
 	/**
 	 * 会议添加页面
 	 */
@@ -73,6 +103,19 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 		List<Dict> dictList = dictService.selectByParentCode("meetingType");
 		mv.addObject("meetingType", dictList);
 		return mv;
+	}
+	/**
+	 * 添加会议页面 - 搜索项目
+	 * @param request
+	 * @param project
+	 * @return
+	 */
+	@GalaxyResource(name="meetingRecord_add")
+	@ResponseBody
+	@RequestMapping(value = "/searchProject", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project)
+	{
+		return projectController.searchProject(request, project);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

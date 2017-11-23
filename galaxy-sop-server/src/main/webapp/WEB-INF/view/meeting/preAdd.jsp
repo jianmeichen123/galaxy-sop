@@ -1,8 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script type="text/javascript">
-setPageId("meetingRecord_add");
-</script>
 <div class="title_bj">新增会议记录</div>
 <form id="meeting_per_add_form">
 	<input type="hidden" id="projectId" name="projectId"/>
@@ -60,7 +57,7 @@ $( "#meeting_per_add_form #projectName" ).blur(function(){
 $( "#meeting_per_add_form #projectName" ).autocomplete({
     source: function( req, resp ){
     	var val = $( "#meeting_per_add_form #projectName" ).val();
-    	var url = Constants.sopEndpointURL+"/galaxy/project/search";
+    	var url = Constants.sopEndpointURL+"/galaxy/meeting/searchProject";
     	var data = {
    			nameCodeLike:val,
    			createUid:0,
