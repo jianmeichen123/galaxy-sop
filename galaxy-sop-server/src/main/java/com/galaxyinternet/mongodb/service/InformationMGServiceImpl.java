@@ -44,7 +44,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	public void save(InformationDataMG data) throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		saveResult(data);
-	//	saveListData(data);
+	    saveListData(data);
 		//saveFixedTable(data);
 	//	saveFiles(data);
 	}
@@ -168,6 +168,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		}
 		InformationListdataMG entity = null;
 		Set<String> titleIds = new HashSet<>();
+		judgeAndDeleteModel(data);
 		for(TableModelMG model : list)
 		{
 			titleIds.add(model.getTitleId()+"");
@@ -198,7 +199,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			Long now = new Date().getTime();
 			entity.setCreateId(userId);
 			entity.setCreateTime(now);
-			judgeAndDeleteModel(data);
 				try {
 					informationListdataMGService.save(entity);
 				} catch (MongoDBException e) {

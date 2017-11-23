@@ -17,7 +17,6 @@ public class InformationListdataMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
-    private Long id;
     @QueryField(attribute="projectId")
     private String projectId;
 
@@ -124,13 +123,6 @@ public class InformationListdataMG {
 		this.titleIds = titleIds;
 	}
 
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
    
 
