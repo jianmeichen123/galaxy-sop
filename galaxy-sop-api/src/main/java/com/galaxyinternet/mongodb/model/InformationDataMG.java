@@ -27,7 +27,7 @@ public class InformationDataMG  extends PagableEntity{
 	@ApiModelProperty("动态表格-删除的记录")
 	private Set<String> deletedRowIds;  //适用table表
 	@ApiModelProperty("动态表格")
-	private List<TableModelMG>     infoTableModelMGList;
+	private List<TableModelMG>     infoTableModelList;
 	@ApiModelProperty("分数")
 	private List<InformationScoreMG> scoreList;
 	@ApiModelProperty("文件/图片")
@@ -60,12 +60,22 @@ public class InformationDataMG  extends PagableEntity{
 		this.infoFixedTableList = infoFixedTableList;
 	}
 
-	public List<TableModelMG> getInfoTableModelMGList() {
-		return infoTableModelMGList;
+
+
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setInfoTableModelMGList(List<TableModelMG> infoTableModelMGList) {
-		this.infoTableModelMGList = infoTableModelMGList;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public List<TableModelMG> getInfoTableModelList() {
+		return infoTableModelList;
+	}
+
+	public void setInfoTableModelList(List<TableModelMG> infoTableModelList) {
+		this.infoTableModelList = infoTableModelList;
 	}
 
 	public int getFlag() {

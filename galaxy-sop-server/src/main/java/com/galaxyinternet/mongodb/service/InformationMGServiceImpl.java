@@ -73,7 +73,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
-
+			entity.setContentChoose(model.getValue());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -161,34 +161,21 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		{
 			return;
 		}
-		//删除数据
-		if(data.getDeletedRowIds() != null && data.getDeletedRowIds().size() > 0)
-		{
-			InformationListdataMG query = new InformationListdataMG();
-			query.setIds(data.getDeletedRowIds());
-			try {
-				informationListdataMGService.deleteByCondition(query);
-			} catch (MongoDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		List<TableModelMG> list = data.getInfoTableModelMGList();
+		List<TableModelMG> list = data.getInfoTableModelList();
 		if(list == null || list.size() ==0)
 		{
 			return;
 		}
 		InformationListdataMG entity = null;
 		Set<String> titleIds = new HashSet<>();
-		
 		for(TableModelMG model : list)
 		{
 			titleIds.add(model.getTitleId()+"");
 			entity = new InformationListdataMG();
-			entity.setProjectId(Long.valueOf(projectId));
-			entity.setTitleId(Long.valueOf(model.getTitleId()));
+			entity.setParentId(data.getParentId());
+			entity.setProjectId(projectId);
+			entity.setTitleId(model.getTitleId().toString());
 			entity.setCode(model.getCode());
-			entity.setParentId(model.getParentId());
 			entity.setField1(model.getField1());
 			entity.setField2(model.getField2());
 			entity.setField3(model.getField3());
@@ -199,109 +186,26 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity.setField8(model.getField8());
 			entity.setField9(model.getField9());
 			entity.setField10(model.getField10());
+			entity.setField11(model.getField11());
+			entity.setField12(model.getField12());
+			entity.setField13(model.getField13());
+			entity.setField14(model.getField14());
+			entity.setField15(model.getField15());
+			entity.setField16(model.getField16());
 			entity.setRelateFileId(model.getRelateFileId());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			
-			if(model.getId() == null)
-			{
-		//		entity.setCreatedTime(now);
-				entity.setCreateId(userId);
-				entity.setUpdateId(userId);
-				entity.setUpdateTime(now);
-				Long id = null;
+			entity.setCreateId(userId);
+			entity.setCreateTime(now);
+			judgeAndDeleteModel(data);
 				try {
-					
 					informationListdataMGService.save(entity);
-					InformationListdataMG findOne = informationListdataMGService.findOne(entity);
-					
-					if(null!=findOne){
-						id=findOne.getId();	
-					}
-				
 				} catch (MongoDBException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					if(model.getDataList() != null && model.getDataList().size() > 0){
-					setDataList(id,entity,model.getDataList(),
-							userId,now);
-				}
-				continue;	
 			}
-			else
-			{
-				entity.setId(model.getId());
-				if(StringUtils.isNotEmpty(model.getUpdateTimeSign())){
-					entity.setUpdateTime(now);
-					entity.setUpdateId(userId);
-				}
-				try {
-					informationListdataMGService.updateById(model.getId().toString(), entity);
-				} catch (MongoDBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				/*if(model.getDataList() != null && model.getDataList().size() > 0){
-					setDataList(entity.getId(),entity,model.getDataList(),
-							userId,entity.getUpdatedTime());
-				}
-				*/
-			}
-		}
-		
-	}
-	
-	public void setDataList(Long id,InformationListdataMG entity,List<InformationListdataMG> list,
-			Long userId,Long now){
-		if(id > 0 && list != null && list.size() > 0){
-			for(InformationListdataMG tm : list){
-				InformationListdataMG td;
-				try {
-					td = (InformationListdataMG) entity.clone();
-					td.setParentId(id);
-					td.setCode(tm.getCode());
-					td.setField1(tm.getField1());
-					td.setField2(tm.getField2());
-					td.setField3(tm.getField3());
-					td.setField4(tm.getField4());
-					td.setField5(tm.getField5());
-					td.setField6(tm.getField6());
-					td.setField7(tm.getField7());
-					td.setField8(tm.getField8());
-					td.setField9(tm.getField9());
-					td.setField10(tm.getField10());
-					td.setRelateFileId(tm.getRelateFileId());
-					if(tm.getId() == null){
-						//新增
-						td.setId(null);
-						td.setUpdateId(userId);
-						td.setUpdateTime(now);
-						try {
-							informationListdataMGService.save(td);
-						} catch (MongoDBException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}else{
-						//修改
-						td.setId(tm.getId());
-						td.setUpdateTime(now);
-						td.setUpdateId(userId);
-						try {
-							informationListdataMGService.updateById(tm.getId().toString(), td);
-						} catch (MongoDBException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 	/**/
 	@Override
@@ -311,24 +215,39 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	}
 	
 	public void judgeAndDeleteModel(InformationDataMG data){
-		InformationResultMG param=new InformationResultMG();
-		param.setParentId(data.getParentId());
-		param.setProjectId(data.getProjectId());
-		List<InformationResultMG> findList=new ArrayList<InformationResultMG>();
+		
+		List<InformationResultMG> findInfoModeList=new ArrayList<InformationResultMG>();
+		List<InformationListdataMG> findInfoTableModelList=new ArrayList<InformationListdataMG>();
 		try {
-		    findList = informationResultMGService.find(param);
+			if(null!=data.getInfoTableModelList()&&data.getInfoTableModelList().size()>0){
+				InformationListdataMG param=new InformationListdataMG();
+				param.setParentId(data.getParentId());
+				param.setProjectId(data.getProjectId());
+				param.setTitleId(data.getInfoTableModelList().get(0).getTitleId().toString());
+				findInfoTableModelList=informationListdataMGService.find(param);
+				if(null!=findInfoTableModelList&&findInfoTableModelList.size()>0){
+					informationListdataMGService.deleteByCondition(param);
+				}
+			}else if(null!=data.getInfoModeList()&&data.getInfoModeList().size()>0){
+				InformationResultMG param=new InformationResultMG();
+				param.setParentId(data.getParentId());
+				param.setProjectId(data.getProjectId());
+				findInfoModeList = informationResultMGService.find(param);
+				if(null!=findInfoModeList&&findInfoModeList.size()>0){
+					try {
+						informationResultMGService.deleteByCondition(param);
+					} catch (MongoDBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		   
 		} catch (MongoDBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if(null!=findList&&findList.size()>0){
-			try {
-				informationResultMGService.deleteByCondition(param);
-			} catch (MongoDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 	}
 	
 	

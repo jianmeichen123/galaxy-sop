@@ -19,11 +19,11 @@ public class InformationListdataMG {
 	private String uuid;
     private Long id;
     @QueryField(attribute="projectId")
-    private Long projectId;
+    private String projectId;
 
-    private Long titleId;
+    private String  titleId;
     @QueryField(attribute="parentId")
-    private Long parentId;
+    private String parentId;
 
     private String code;
 
@@ -132,17 +132,7 @@ public class InformationListdataMG {
         this.id = id;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public Long getTitleId() {
-        return titleId;
-    }
+   
 
     public Long getTime(){
 		return time;
@@ -152,19 +142,19 @@ public class InformationListdataMG {
 		this.time = time;
 	}
 
-	public void setTitleId(Long titleId) {
-        this.titleId = titleId;
-    }
 
-    public Long getParentId() {
-        return parentId;
-    }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+   
 
-    public String getCode() {
+    public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getCode() {
         return code;
     }
 
@@ -565,14 +555,39 @@ public class InformationListdataMG {
 		this.field20 = field20;
 	}
 
-	public static long getSerialversionuid()
-	{
-		return serialVersionUID;
+
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(String titleId) {
+		this.titleId = titleId;
 	}
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {  
         return (InformationListdataMG)super.clone();  
-    }  
+    }
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}  
     
 }
