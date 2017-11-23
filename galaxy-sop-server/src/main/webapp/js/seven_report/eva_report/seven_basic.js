@@ -166,9 +166,15 @@
 					if(tableTr.length==1&&tableTr.eq(0).hasClass(".black")){
 					}else{
 						$.each(tableTr,function(){
+							var heightL=$(this).closest("tr").find(".heightL");
+							var _sel=heightL.find("select").val();
+							var _inp=heightL.find("input").val();
 							var val = $(this).attr("contentc");
 							var _parents = $(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue");
-							_parents.addClass("checked");
+							_parents.addClass("checked").attr({
+								"selScore":_sel,
+								"inpScore":_inp
+							});
 							$(radioShow).find("input[value='"+val+"']").attr("checked",true);
 							
 						})
@@ -626,21 +632,17 @@ function right(obj,type){
 		}else{
 			var resString = table.find("tr:first-child").clone();
 			table.empty();
-			if(val_checkbox.length==1){
-				resString.find(".score-div").hide();
-				resString.find(".score-div").prev().attr("disabled","disabled").addClass("disabled");
-			}else{
 				resString.find(".score-div").show();
 				resString.find(".score-div").prev().removeAttr("disabled").removeClass("disabled");
 				resString.find(".score-div input").removeAttr("disabled").removeClass("disabled");
-				
-			}
-			var iNum = 0
+			var iNum = 0;
 			$.each(val_checkbox,function(){
 				var res =resString.clone();
-				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");
-				res.find(".score-div input").attr("name","scor_"+iNum).val("");
-				res.find(".score-div select").val("请选择");
+				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");				
+				res.find(".score-div input").attr("name","scor_"+iNum).val($(this).parent().attr("inpscore"));
+				var selscore=parseInt($(this).parent().attr("selscore"));
+				res.find("select").val(selscore);
+				if(val_checkbox.length==1){res.find(".score-div input").val(100)}
 				res.find("span.error").remove();
 				table.append(res);
 				iNum+=1;
