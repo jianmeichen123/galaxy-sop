@@ -58,7 +58,7 @@
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow '  valtype="required"  msg="<font color=red>*</font>本轮融资轮次不能为空"  data-title-id="1108" data-type="14">
-									<!-- <option value="">请选择</option> -->
+									<option value="">请选择</option>
 			                    </select>
 							</span>
                         </li>
