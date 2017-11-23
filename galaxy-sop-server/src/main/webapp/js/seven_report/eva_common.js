@@ -632,10 +632,23 @@ function getValues()
 		var _this = $(this);
 		var type = _this.data('type');
 		var titleId = _this.attr('data-title-id');
+		var relateId = _this.attr('data-relate-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
+		var resultScore,resultWeight;
 		if(type=="22"){
 			value = _this.attr('contentc');
+			var _row = _this.closest('tr')
+			scoreEle = _row.find('.result-score');
+			if(scoreEle.length>0)
+			{
+				resultScore = scoreEle.val();
+			}
+			weightEle = _row.find('.result-weight:visible');
+			if(weightEle.length>0)
+			{
+				resultWeight = weightEle.val();
+			}
 		}
 		var resultId = _this.attr('data-result-id');
 		var remark = _this.attr('data-remark');
@@ -661,6 +674,7 @@ function getValues()
 			}			
 			model.projectId = projId;
 			model.titleId = titleId;
+			model.relateId = relateId;
 			if(typeof resultId != 'undefined')
 			{
 				model.resultId = resultId;
@@ -684,6 +698,7 @@ function getValues()
 				};
 			model.projectId = projId;
 			model.titleId = titleId;
+			model.relateId = relateId;
 			if(typeof resultId != 'undefined')
 			{
 				model.resultId = resultId;
@@ -713,6 +728,12 @@ function getValues()
 						};
 					model.projectId = projId;
 					model.titleId = titleId;
+					model.relateId = relateId;
+					if(type == 22)
+					{
+						model.resultScore=resultScore;
+						model.resultWeight=resultWeight;
+					}
 					if(typeof resultId != 'undefined')
 					{
 						model.resultId = resultId;
@@ -750,7 +771,8 @@ function getValues()
 						tochange:"true",
 						type:type,
 						projectId: projId,
-						titleId: titleId
+						titleId: titleId,
+						relateId: relateId
 					};
 			}
 			if(typeof text == 'undefined' || text == '未填写'|| text == '未选择')
@@ -779,6 +801,7 @@ function getValues()
 				};
 				model.projectId = projId;
 				model.titleId = titleId;
+				model.relateId = relateId;
 				if(typeof resultId != 'undefined')
 				{
 					model.resultId = resultId;
@@ -806,7 +829,12 @@ function getScores()
 	var scores = $(".score-column input,select");
 	$.each(scores,function(){
 		var _this = $(this);
+		
 		var td = _this.parent();
+		if(td.hasClass('result-score-column'))
+		{
+			return;
+		}
 		var titleId= td.data('titleId');
 		var relateId= td.data('relateId');
 		var subId = td.data('subId');

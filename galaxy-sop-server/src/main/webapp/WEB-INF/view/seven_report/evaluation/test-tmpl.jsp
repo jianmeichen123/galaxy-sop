@@ -394,12 +394,12 @@
 										<td>\${scoreExplain}</td>
 										{{if isScore}}
 										<!-- type22打分 -->
-											<td class="score-columns score-column heightL" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
-												<select>
-													<option>请选择</option>
+											<td class="score-columns score-column heightL result-score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+												<select class="result-score">
+													<option value="">请选择</option>
 												</select>
 												<div class="score-div">
-													<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}" onblur="countGrade(this)">
+													<input class="result-weight" type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}" onblur="countGrade(this)">
 							                   		 <em>(0-\${scoreMax}分)</em>
 												</div>
 											</td>

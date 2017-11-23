@@ -391,7 +391,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			return;
 		}
 		List<InformationScore> resultScoreList = new ArrayList<>();
-		Set<Long> resultIds = new HashSet<>();
+		Set<Long> relateIds = new HashSet<>();
 		InformationScore entity = null;
 		for(InformationModel item : resultList)
 		{
@@ -401,19 +401,20 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 			if(item.getResultId() != null)
 			{
-				resultIds.add(Long.parseLong(item.getResultId()));
+				relateIds.add(item.getRelateId());
 			}
 			entity = new InformationScore();
 			entity.setWeight(item.getResultWeight());
 			entity.setScore1(item.getResultScore());
 			entity.setResultId(Long.parseLong(item.getResultId()));
 			entity.setProjectId(Long.parseLong(data.getProjectId()));
+			entity.setRelateId(item.getRelateId());
 			resultScoreList.add(entity);
 		}
-		if(resultIds.size()>0)
+		if(relateIds.size()>0)
 		{
 			InformationScore query = new InformationScore();
-			query.setResultIds(resultIds);
+			query.setRelateIds(relateIds);
 			scoreInfoDao.deleteScoreBatch(query);
 		}
 		if(resultScoreList.size()>0)

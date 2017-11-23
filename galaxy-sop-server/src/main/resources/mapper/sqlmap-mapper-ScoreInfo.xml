@@ -52,8 +52,8 @@
 		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
 		<if test="projectId != null">
 		LEFT JOIN (SELECT * FROM information_result WHERE project_id = #{projectId})  rt ON rt.title_id = r.title_id
-		LEFT JOIN information_result_grade rg ON rg.title_relate_id = r.id AND project_id = #{projectId} 
-		LEFT JOIN information_result_grade rg2 ON rg2.result_id = rt.id and rg2. project_id = #{projectId} 
+		LEFT JOIN information_result_grade rg ON rg.title_relate_id = r.id AND rg.project_id = #{projectId} 
+		LEFT JOIN information_result_grade rg2 ON rg2.title_relate_id =r.id AND rg2.result_id = rt.id and rg2.project_id = #{projectId} 
 		</if>
 		<where>
 			<trim prefixOverrides="and">
