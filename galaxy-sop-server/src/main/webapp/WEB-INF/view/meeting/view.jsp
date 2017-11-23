@@ -96,7 +96,7 @@
           </div>
         </div>
 		<div class="tab-pane active" id="view">
-			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
+			<table id="data-table" data-url="<%=path %>/galaxy/meeting/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"
 				data-page-list="[5,10,20]" data-id-field="id" data-unique-id="id"
@@ -136,7 +136,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
-setPageId("meetView");
 var transferingIds = "${fx:getTransferingPids()}".split(",");
 </script>
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>

@@ -175,7 +175,6 @@
 						   "overflow-y":"auto"
 						 });
 					}
-					popPageId();
 						//关闭对外接口
 						_this.hideback.apply(_this);
 						$(_this.id).remove();
@@ -208,13 +207,11 @@
 	$.popupOneClose =function(){
 		$('div[data-id="popid0"]').remove();
 		$("#popbg").remove();
-		popPageId();
 	};
 	//二次弹窗关闭
 	$.popupTwoClose =function(){
 		$('div[data-id="popid1"]').remove();
 		$("#popbg01").remove();
-		popPageId();
 	};
 	//切换样式控制
 	$.fn.changeClass = function(options){
