@@ -46,9 +46,9 @@
                         	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
-                          	 <!-- <span id="projectTypeTip"  style="display:none;">
+                          	 <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
-                            </span> -->
+                            </span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
@@ -58,7 +58,7 @@
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow '  valtype="required"  msg="<font color=red>*</font>本轮融资轮次不能为空"  data-title-id="1108" data-type="14">
-									<option value="">请选择</option>
+									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
                         </li>
