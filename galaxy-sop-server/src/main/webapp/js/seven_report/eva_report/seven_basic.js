@@ -654,7 +654,9 @@ function right(obj,type){
 				iNum+=1;
 			})
 		}
-		
+		 $(".score-column select,input").change(function(){
+				calcScore();
+		 });
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
