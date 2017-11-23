@@ -148,7 +148,7 @@ function showResultAndScoreList(relateId)
 							sel.empty();
 							sel.append('<option>请选择</option>')
 							$.each(autoList,function(){
-								sel.append('<option>'+this.grade+'</option>')
+								sel.append('<option value='+this.grade+'>'+this.grade+'</option>')
 							});
 						}
 						//结果
