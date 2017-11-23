@@ -130,7 +130,7 @@ function validateBefore() {
 	//自定义的验证字符串
 	var regString;
 	if(valType=='required') {//不能为空的判断
-		if($(this).val()=='' || $.trim($(this).val())=='') {
+		if($(this).val()=='' || $.trim($(this).val())==''){
 			flag=false;
 		}
 	} else if(valType=='requiredDiv'){
@@ -254,7 +254,7 @@ function validateBeforeScroll() {  //团队成员验证，单独加了一个表�
 	
 }
 //submit之前对所有表单进行验证
-function beforeSubmit() {
+function beforeSubmit(){
 	var flag=true;
 	 $.each($("[valType]"),function(i, n){
 	 	 //清除可能已有的提示信息

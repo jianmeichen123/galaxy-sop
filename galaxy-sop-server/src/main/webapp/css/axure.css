@@ -4023,7 +4023,7 @@ input::input-placeholder{color:red !important;}
 .addpro-basic-span em{left:-1px;}
 .addpro-marin-lt{margin-left:59px;}
 .addpro-left{margin-left:245px;}
-.addpro-basic-content{background-color:#fff;height:282px;}
+.addpro-basic-content{background-color:#fff;height:302px;}
 .addpro-finacing-plan{background-color:#fff;margin-top:10px;height:234px;}
 .addpro-finacing-ul li{margin-top:20px;}
 .add-finace-lf{padding-left:20px;}
@@ -4046,3 +4046,5 @@ input::input-placeholder{color:red !important;}
 .inpu-self{background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 9px;padding-left:8px;cursor:pointer;margin-right:16px;}
 .inpu-self-checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 9px;}
 .addpro-input-arrow {background:url(../img/base_info/down.png) no-repeat right 7px center;-webkit-appearance: none;appearance:none;-moz-appearance:noen;}
+.addpro-input-arrow-up{background:url(../img/base_info/up.png) no-repeat right 7px center;}
+.addpro-input-fa{margin-top:15px;}
