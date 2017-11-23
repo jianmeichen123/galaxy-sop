@@ -92,7 +92,7 @@ public class CustomGsonBuilder {
 			
 			try
 			{
-				result = NumberUtils.createBigDecimal(json.toString());
+				result = json.getAsBigDecimal();
 			} catch (Exception e)
 			{
 				logger.error("格式转化错误:"+json.toString(),e);
