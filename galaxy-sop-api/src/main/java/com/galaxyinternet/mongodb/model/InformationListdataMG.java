@@ -18,11 +18,11 @@ public class InformationListdataMG {
 	@QueryField(attribute="uuid")
 	private String uuid;
     private Long id;
-
+    @QueryField(attribute="projectId")
     private Long projectId;
 
     private Long titleId;
-
+    @QueryField(attribute="parentId")
     private Long parentId;
 
     private String code;

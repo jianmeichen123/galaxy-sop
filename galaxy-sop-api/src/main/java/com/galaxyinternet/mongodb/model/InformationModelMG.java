@@ -10,6 +10,7 @@ public class InformationModelMG  {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
+	@QueryField(attribute="projectId")
 	private String projectId;//项目id
 	
 	private String titleId;//题干id（标签）

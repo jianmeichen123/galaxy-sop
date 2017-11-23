@@ -22,7 +22,7 @@ public class InformationResultMG {
     private String contentDescribe2;
 
     private Integer sort;
-    
+    @QueryField(attribute="projectId")
     private String projectId;
 
     private String isValid;
@@ -38,6 +38,7 @@ public class InformationResultMG {
     private Set<String> titleIds;
 
     /**information_title_relate start**/
+    @QueryField(attribute="parentId")
     private String parentId;
     private Long resultId;
     private String code;

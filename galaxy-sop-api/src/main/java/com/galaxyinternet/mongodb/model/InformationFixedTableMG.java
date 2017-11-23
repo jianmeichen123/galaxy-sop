@@ -13,11 +13,11 @@ public class InformationFixedTableMG {
 	@QueryField(attribute="uuid")
 	private String uuid;
 	private Long id;
-
+	@QueryField(attribute="projectId")
 	private String projectId;
-
+    @QueryField(attribute="titleId")
     private String titleId;
-
+    private String parentId;
     private String rowNo;
 
     private String colNo;
@@ -153,6 +153,24 @@ public class InformationFixedTableMG {
 	public void setValueName(String valueName) {
 		this.valueName  = valueName == null ? null : valueName.trim();;
 	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	
+	
     
     
 }

@@ -17,6 +17,7 @@ public class InformationDataMG  extends PagableEntity{
 	@QueryField(attribute="uuid")
 	private String uuid;
 	@ApiModelProperty("项目")
+	@QueryField(attribute="projectId")
 	private String projectId;
 	private int flag;//0:正常数据编辑;1:表格数据处理;2:固定表格处理
 	@ApiModelProperty("普通类型")
