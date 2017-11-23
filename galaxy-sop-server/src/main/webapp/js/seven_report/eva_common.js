@@ -264,7 +264,7 @@ function calcScore()
 	$(".title-value").each(function(){
 		var _this = $(this);
 		var relateId = _this.data('relateId');
-		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
+		var subId = isNaN(_this.data('subId')) ? '' : _this.data('subId');
 		var values = getTitleValue(relateId);
 		var title = {
 			"relateId": relateId,
@@ -273,17 +273,13 @@ function calcScore()
 		}
 		titleData[relateId+"-"+subId] = title;
 	});
-	
 	$(".score-column input,select").each(function(){
 		var _this = $(this);
 		var td = _this.closest('td');
 		var relateId = td.data('relateId');
-		var subId = typeof td.data('subId')=='undefined' || td.data('subId')==''? null:td.data('subId');
+		var subId = isNaN(td.data('subId')) ? '' : td.data('subId');
 		var values = getTitleValue(relateId);
 		var score = _this.val();
-		var isResultScore = td.hasClass('result-score-column');
-		var resultScore = td.parent().find('.result-score').val();
-		var resultWeight = td.parent().find('.result-weight:visible').val();
 		if(score == "" || isNaN(score))
 		{
 			score = null;
@@ -299,24 +295,33 @@ function calcScore()
 			title = titleData[relateId+"-"+subId];
 			title.score = score
 		}
-		if(isResultScore)
-		{
-			var results = new Array();
-			if(title.hasOwnProperty('results'))
-			{
-				results = title.results;
-			}
-			results.push({
-				score: resultScore,
-				weight: resultWeight
-			});
-			title.results = results;
-		}
 		titleData[relateId+"-"+subId] = title;
 	});
-	console.log(titleData);
+	//结果分数
+	var resultsData = {};
+	$(".result-score-column").each(function(){
+		var td = $(this);
+		var relateId = td.data('relateId');
+		var subId = isNaN(td.data('subId')) ? '' : td.data('subId');
+		var results = new Array();
+		if(resultsData.hasOwnProperty(relateId+"-"+subId) )
+		{
+			results = resultsData[relateId+"-"+subId];
+		}
+		var resultScore = td.find('.result-score').val();
+		var resultWeight = td.find('.result-weight').val();
+		results.push({
+			score: resultScore > 0 ? resultScore : 0,
+			weight: resultWeight > 0 ? resultWeight : 0 		
+		});
+		resultsData[relateId+"-"+subId] = results;
+	});
 	var items = new Array();
 	$.each(titleData,function(key,item){
+		if(resultsData.hasOwnProperty(key))
+		{
+			item.results = resultsData[key];
+		}
 		items.push(item);
 	});
 	console.log(items);
