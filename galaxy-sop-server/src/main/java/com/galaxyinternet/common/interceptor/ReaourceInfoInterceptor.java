@@ -15,11 +15,12 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.user.User;
 /**
- * 数据权限，获取页面资源标识（pageId）
+ * 数据权限控制, 通过在controller方法上添加{@link GalaxyResource}注解控制数据范围
+ * 
  * @author wangsong
  *
  */
-public class PageInfoInterceptor extends HandlerInterceptorAdapter 
+public class ReaourceInfoInterceptor extends HandlerInterceptorAdapter 
 {
 	
 	
