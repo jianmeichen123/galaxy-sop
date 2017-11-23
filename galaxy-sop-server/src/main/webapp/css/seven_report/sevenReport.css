@@ -107,7 +107,7 @@ table td:first-child+td+td+td+td+td+td{
 }
 
 table .on td{
-	background:none !important;
+	background:#fff !important;
 }
 
 .align_left{
@@ -1099,3 +1099,4 @@ select::-ms-expand { display: none; }
 	padding-right: 22px!important;
 }
 .ch_opration .h_edit_btnbox{margin-bottom:0px;}
+.heightL.disabled{background-color:#fff!important;}

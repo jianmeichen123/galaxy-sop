@@ -29,6 +29,7 @@ public class InformationModel extends PagableEntity {
 	private BigDecimal score1;
 	private BigDecimal score2;
 	
+	private Long relateId;
 	private Long reportType;
 	private BigDecimal resultScore;
 	private BigDecimal resultWeight;
@@ -139,6 +140,16 @@ public class InformationModel extends PagableEntity {
 	public BigDecimal getResultScore()
 	{
 		return resultScore;
+	}
+
+	public Long getRelateId()
+	{
+		return relateId;
+	}
+
+	public void setRelateId(Long relateId)
+	{
+		this.relateId = relateId;
 	}
 
 	public void setResultScore(BigDecimal resultScore)

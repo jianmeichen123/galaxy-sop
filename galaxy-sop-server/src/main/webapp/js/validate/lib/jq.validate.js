@@ -3,7 +3,7 @@
     $('form').bind('submit',beforeSubmit);
 	//为带有valType属性的元素初始化提示信息并注册onblur事件
 	$.each($("[valType]"),function(i, n) {
-		$(n).poshytip({
+		/*$(n).poshytip({
 			className: 'tip-yellowsimple',
 			content: $(n).attr('msg'),
 			showOn: 'none',
@@ -12,7 +12,7 @@
 			alignY: 'center',
 			offsetX: 5,
 			offsetY: 10
-		});
+		});*/
 		$(n).bind('blur',validateBefore);
 	});
 	//为带有valType1属性的元素初始化提示信息并注册onblur事件

@@ -4010,7 +4010,7 @@ input::input-placeholder{color:red !important;}
  .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 /* 添加项目 */
-.add-project-title{height:62px;border:1px solid;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;ont-family:MicrosoftYaHei;}
+.add-project-title{height:62px;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;ont-family:MicrosoftYaHei;}
 .add-poject-right{width:100%;}
 .pagebox .add-project-ritmin{margin:10px 0px 0 10.505%;padding-left:16px;}
 .add-project-tabtable{border-radius:0px;background-color:inherit;}
@@ -4022,8 +4022,8 @@ input::input-placeholder{color:red !important;}
 .addpro-basi-ul{margin-left:9px;min-width:1088px;}
 .addpro-basic-span em{left:-1px;}
 .addpro-marin-lt{margin-left:59px;}
-.addpro-left{margin-left:235px;}
-.addpro-basic-content{background-color:#fff;height:282px;}
+.addpro-left{margin-left:245px;}
+.addpro-basic-content{background-color:#fff;height:302px;}
 .addpro-finacing-plan{background-color:#fff;margin-top:10px;height:234px;}
 .addpro-finacing-ul li{margin-top:20px;}
 .add-finace-lf{padding-left:20px;}
@@ -4031,14 +4031,21 @@ input::input-placeholder{color:red !important;}
 .add-pro-basicmessage em{font-size:12px;color:#999999;margin-left:10px;}
 .business-plan-table{margin:10px 20px 40px 20px;}
 .addpro-compile{padding-bottom:30px;}
-.addpro-business-plan table{border-radius:0px !important;}
-.addpro-business-plan table th{text-align:center;}
+.addpro-business-plan table{border-radius:0px !important;border:1px solid #d8d8d8;}
+.addpro-business-plan table th{text-align:center;font-size:14px;font-weight:bold;}
 .addpro-business-plan table td{text-align:center;}
 .addpro-business-plan table th:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table td:nth-child(1){text-align:left;padding-left:20px;}
-.addpro-business-plan table th:nth-child(3){text-align:right;padding-right:20px;}
+.addpro-business-plan table th:nth-child(3){text-align:right;padding-right:40px;}
 .addpro-business-plan table td:nth-child(3){text-align:right;padding-right:20px;}
 .compile_on_left span.adddpro-save{background:#3ca6ff;border-radius:2px;width:92px;height:32px;font-size:14px;color:#ffffff;line-height:32px;font-family:MicrosoftYaHei;}
 .compile_on_left span.addpro-cacel{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-family:MicrosoftYaHei;font-size:14px;color:#3ca6ff;line-height:32px;}
 .compile_on_left span.addpro-cacel:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .task-cancle:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
+.inpu-radio{opacity:0;filter:alpha(opacity=0);}
+.inpu-self{background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 9px;padding-left:8px;cursor:pointer;margin-right:16px;}
+.inpu-self-checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 9px;}
+.addpro-input-arrow {background:url(../img/base_info/down.png) no-repeat right 7px center;-webkit-appearance: none;appearance:none;-moz-appearance:none;}
+.addpro-input-arrow-up{background:url(../img/base_info/up.png) no-repeat right 7px center;}
+.addpro-input-fa{margin-top:15px;}
+.addpro-basi-ul select::-ms-expand { display: none; }

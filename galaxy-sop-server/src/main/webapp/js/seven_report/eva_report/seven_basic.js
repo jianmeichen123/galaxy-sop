@@ -52,6 +52,7 @@
 			//编辑数据请求
 			//请求成功，数据添加
 			get_result(id_code,1,radioShow);
+			_td.siblings(".heightL").addClass("disabled");
 			var pText = $(obj).parent().find('p');
 			var pSpan = $(obj).parent().find('span');
 			_this.hide();
@@ -166,9 +167,15 @@
 					if(tableTr.length==1&&tableTr.eq(0).hasClass(".black")){
 					}else{
 						$.each(tableTr,function(){
+							var heightL=$(this).closest("tr").find(".heightL");
+							var _sel=heightL.find("select").val();
+							var _inp=heightL.find("input").val();
 							var val = $(this).attr("contentc");
 							var _parents = $(radioShow).find("input[value='"+val+"']").parent(".icheckbox_flat-blue");
-							_parents.addClass("checked");
+							_parents.addClass("checked").attr({
+								"selScore":_sel,
+								"inpScore":_inp
+							});
 							$(radioShow).find("input[value='"+val+"']").attr("checked",true);
 							
 						})
@@ -478,6 +485,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 function closeX(obj){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
+	$(obj).closest("tr").find(".heightL").removeClass("disabled")
 	//对号,x号消失
 	$(obj).parent().hide();
 	//radio 消失
@@ -510,6 +518,7 @@ function right(obj,type){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	//验证
+	$(obj).closest("tr").find(".heightL").removeClass("disabled")
 	if(type=="checkbox" || type=="radio"){
 		var form = $(obj).closest("form");
 		if(!form.validate().form())
@@ -626,27 +635,28 @@ function right(obj,type){
 		}else{
 			var resString = table.find("tr:first-child").clone();
 			table.empty();
-			if(val_checkbox.length==1){
-				resString.find(".score-div").hide();
-				resString.find(".score-div").prev().attr("disabled","disabled").addClass("disabled");
-			}else{
 				resString.find(".score-div").show();
 				resString.find(".score-div").prev().removeAttr("disabled").removeClass("disabled");
 				resString.find(".score-div input").removeAttr("disabled").removeClass("disabled");
-				
-			}
-			var iNum = 0
+			var iNum = 0;
 			$.each(val_checkbox,function(){
 				var res =resString.clone();
-				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");
-				res.find(".score-div input").attr("name","scor_"+iNum).val("");
-				res.find(".score-div select").val("请选择");
+				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");				
+				res.find(".score-div input").attr("name","scor_"+iNum).val($(this).parent().attr("inpscore"));
+				var selscore=$(this).parent().attr("selscore");
+				if(selscore==""){
+					selscore="请选择"
+				}
+				res.find("select").val(selscore);
+				if(val_checkbox.length==1){res.find(".score-div input").val(100).hide()}
 				res.find("span.error").remove();
 				table.append(res);
 				iNum+=1;
 			})
 		}
-		
+		 $(".score-column select,input").change(function(){
+				calcScore();
+		 });
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){

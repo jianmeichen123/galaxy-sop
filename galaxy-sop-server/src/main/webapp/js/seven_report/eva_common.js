@@ -148,7 +148,7 @@ function showResultAndScoreList(relateId)
 							sel.empty();
 							sel.append('<option>请选择</option>')
 							$.each(autoList,function(){
-								sel.append('<option>'+this.grade+'</option>')
+								sel.append('<option value='+this.grade+'>'+this.grade+'</option>')
 							});
 						}
 						//结果
@@ -264,7 +264,7 @@ function calcScore()
 	$(".title-value").each(function(){
 		var _this = $(this);
 		var relateId = _this.data('relateId');
-		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
+		var subId = isNaN(_this.data('subId')) ? '' : _this.data('subId');
 		var values = getTitleValue(relateId);
 		var title = {
 			"relateId": relateId,
@@ -273,12 +273,11 @@ function calcScore()
 		}
 		titleData[relateId+"-"+subId] = title;
 	});
-	
 	$(".score-column input,select").each(function(){
 		var _this = $(this);
-		var td = _this.parent();
+		var td = _this.closest('td');
 		var relateId = td.data('relateId');
-		var subId = typeof td.data('subId')=='undefined' ? null:td.data('subId');
+		var subId = isNaN(td.data('subId')) ? '' : td.data('subId');
 		var values = getTitleValue(relateId);
 		var score = _this.val();
 		if(score == "" || isNaN(score))
@@ -298,10 +297,34 @@ function calcScore()
 		}
 		titleData[relateId+"-"+subId] = title;
 	});
+	//结果分数
+	var resultsData = {};
+	$(".result-score-column").each(function(){
+		var td = $(this);
+		var relateId = td.data('relateId');
+		var subId = isNaN(td.data('subId')) ? '' : td.data('subId');
+		var results = new Array();
+		if(resultsData.hasOwnProperty(relateId+"-"+subId) )
+		{
+			results = resultsData[relateId+"-"+subId];
+		}
+		var resultScore = td.find('.result-score').val();
+		var resultWeight = td.find('.result-weight').val();
+		results.push({
+			score: resultScore > 0 ? resultScore : 0,
+			weight: resultWeight > 0 ? resultWeight : 0 		
+		});
+		resultsData[relateId+"-"+subId] = results;
+	});
 	var items = new Array();
 	$.each(titleData,function(key,item){
+		if(resultsData.hasOwnProperty(key))
+		{
+			item.results = resultsData[key];
+		}
 		items.push(item);
 	});
+	console.log(items);
 	var data = {
 			"parentId": 0	,
 			"relateId": rid,
@@ -632,10 +655,23 @@ function getValues()
 		var _this = $(this);
 		var type = _this.data('type');
 		var titleId = _this.attr('data-title-id');
+		var relateId = _this.attr('data-relate-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
+		var resultScore,resultWeight;
 		if(type=="22"){
 			value = _this.attr('contentc');
+			var _row = _this.closest('tr')
+			scoreEle = _row.find('.result-score');
+			if(scoreEle.length>0)
+			{
+				resultScore = scoreEle.val();
+			}
+			weightEle = _row.find('.result-weight:visible');
+			if(weightEle.length>0)
+			{
+				resultWeight = weightEle.val();
+			}
 		}
 		var resultId = _this.attr('data-result-id');
 		var remark = _this.attr('data-remark');
@@ -661,6 +697,7 @@ function getValues()
 			}			
 			model.projectId = projId;
 			model.titleId = titleId;
+			model.relateId = relateId;
 			if(typeof resultId != 'undefined')
 			{
 				model.resultId = resultId;
@@ -684,6 +721,7 @@ function getValues()
 				};
 			model.projectId = projId;
 			model.titleId = titleId;
+			model.relateId = relateId;
 			if(typeof resultId != 'undefined')
 			{
 				model.resultId = resultId;
@@ -713,6 +751,12 @@ function getValues()
 						};
 					model.projectId = projId;
 					model.titleId = titleId;
+					model.relateId = relateId;
+					if(type == 22)
+					{
+						model.resultScore=resultScore;
+						model.resultWeight=resultWeight;
+					}
 					if(typeof resultId != 'undefined')
 					{
 						model.resultId = resultId;
@@ -750,7 +794,8 @@ function getValues()
 						tochange:"true",
 						type:type,
 						projectId: projId,
-						titleId: titleId
+						titleId: titleId,
+						relateId: relateId
 					};
 			}
 			if(typeof text == 'undefined' || text == '未填写'|| text == '未选择')
@@ -779,6 +824,7 @@ function getValues()
 				};
 				model.projectId = projId;
 				model.titleId = titleId;
+				model.relateId = relateId;
 				if(typeof resultId != 'undefined')
 				{
 					model.resultId = resultId;
@@ -806,7 +852,12 @@ function getScores()
 	var scores = $(".score-column input,select");
 	$.each(scores,function(){
 		var _this = $(this);
+		
 		var td = _this.parent();
+		if(td.hasClass('result-score-column'))
+		{
+			return;
+		}
 		var titleId= td.data('titleId');
 		var relateId= td.data('relateId');
 		var subId = td.data('subId');
