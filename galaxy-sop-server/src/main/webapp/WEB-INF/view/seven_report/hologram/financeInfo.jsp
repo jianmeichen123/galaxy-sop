@@ -172,6 +172,8 @@
 		{
 			return;
 		}
+		console.log(111111);
+		data.parentId="1702";
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

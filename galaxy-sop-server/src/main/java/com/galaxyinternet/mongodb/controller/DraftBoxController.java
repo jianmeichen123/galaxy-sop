@@ -18,13 +18,9 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationData;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.service.InformationMGService;
-import com.galaxyinternet.service.DictService;
-import com.galaxyinternet.service.hologram.InformationDataService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,20 +29,16 @@ import io.swagger.annotations.ApiParam;
 @Api("全息图后台接口")
 @Controller
 @RequestMapping("/galaxy/draftBox/infoData")
-public class DraftBoxController  extends BaseControllerImpl<InformationData, InformationData> {
+public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, InformationDataMG> {
 
 	final Logger logger = LoggerFactory.getLogger(DraftBoxController.class);
 	
 	@Autowired
 	private InformationMGService informationMGService;
 	
-	@Autowired
-	private InformationDataService infoDataService;
-	@Autowired
-	private DictService dictService;
 	@Override
-	protected BaseService<InformationData> getBaseService() {
-		return this.infoDataService;
+	protected BaseService<InformationDataMG> getBaseService() {
+		return this.informationMGService;
 	}
 	/**
 	 * 全息图-项目部分-字段编辑
@@ -57,12 +49,12 @@ public class DraftBoxController  extends BaseControllerImpl<InformationData, Inf
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdateInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> saveOrUpdateInfo(
+	public ResponseData<InformationDataMG> saveOrUpdateInfo(
 			@ApiParam(name = "informationDataMG", value = "标题/值信息", required = true)
 			@RequestBody 
 			InformationDataMG informationData,
 			HttpServletRequest request) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
+		ResponseData<InformationDataMG> responseBody = new ResponseData<InformationDataMG>();
 		if(null==informationData.getProjectId()||"".equals(informationData.getProjectId())){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;

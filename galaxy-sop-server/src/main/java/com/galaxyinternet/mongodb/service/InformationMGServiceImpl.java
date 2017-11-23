@@ -1,7 +1,5 @@
 package com.galaxyinternet.mongodb.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,25 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.MongoDBException;
-import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.FixedTableModelMG;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
-import com.galaxyinternet.mongodb.model.InformationFileMG;
 import com.galaxyinternet.mongodb.model.InformationFixedTableMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
 import com.galaxyinternet.mongodb.model.InformationModelMG;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
 import com.galaxyinternet.mongodb.model.TableModelMG;
-import com.galaxyinternet.utils.FileUtils;
 
 @Service("com.galaxyinternet.mongodb.service.InformationMGService")
-public class InformationMGServiceImpl implements InformationMGService {
+public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>implements InformationMGService {
 	
 	@Autowired
 	private InformationFileMGService informationFileMGService;
@@ -85,10 +80,13 @@ public class InformationMGServiceImpl implements InformationMGService {
 			entity.setCreateId(userId.toString());
 			entityList.add(entity); // 新增
 		}
+		 //判断并且删除已经存在的模块答案
+		  judgeAndDeleteModel(data);
 		// 插入数据
 		for (int i=0;i<entityList.size();i++) {
 			InformationResultMG result=entityList.get(i);
 			  try {
+			    result.setParentId(data.getParentId());
 				informationResultMGService.save(result);
 			} catch (MongoDBException e) {
 				// TODO Auto-generated catch block
@@ -306,6 +304,32 @@ public class InformationMGServiceImpl implements InformationMGService {
 		}
 	}
 	/**/
+	@Override
+	protected BaseDao<InformationDataMG, Long> getBaseDao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void judgeAndDeleteModel(InformationDataMG data){
+		InformationResultMG param=new InformationResultMG();
+		param.setParentId(data.getParentId());
+		param.setProjectId(data.getProjectId());
+		List<InformationResultMG> findList=new ArrayList<InformationResultMG>();
+		try {
+		    findList = informationResultMGService.find(param);
+		} catch (MongoDBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(null!=findList&&findList.size()>0){
+			try {
+				informationResultMGService.deleteByCondition(param);
+			} catch (MongoDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 	
