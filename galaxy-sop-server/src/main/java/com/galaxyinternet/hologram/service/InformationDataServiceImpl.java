@@ -415,6 +415,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			InformationScore query = new InformationScore();
 			query.setRelateIds(relateIds);
+			query.setProjectId(Long.parseLong(data.getProjectId()));
 			scoreInfoDao.deleteScoreBatch(query);
 		}
 		if(resultScoreList.size()>0)

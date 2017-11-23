@@ -276,11 +276,14 @@ function calcScore()
 	
 	$(".score-column input,select").each(function(){
 		var _this = $(this);
-		var td = _this.parent();
+		var td = _this.closest('td');
 		var relateId = td.data('relateId');
-		var subId = typeof td.data('subId')=='undefined' ? null:td.data('subId');
+		var subId = typeof td.data('subId')=='undefined' || td.data('subId')==''? null:td.data('subId');
 		var values = getTitleValue(relateId);
 		var score = _this.val();
+		var isResultScore = td.hasClass('result-score-column');
+		var resultScore = td.parent().find('.result-score').val();
+		var resultWeight = td.parent().find('.result-weight:visible').val();
 		if(score == "" || isNaN(score))
 		{
 			score = null;
@@ -296,12 +299,27 @@ function calcScore()
 			title = titleData[relateId+"-"+subId];
 			title.score = score
 		}
+		if(isResultScore)
+		{
+			var results = new Array();
+			if(title.hasOwnProperty('results'))
+			{
+				results = title.results;
+			}
+			results.push({
+				score: resultScore,
+				weight: resultWeight
+			});
+			title.results = results;
+		}
 		titleData[relateId+"-"+subId] = title;
 	});
+	console.log(titleData);
 	var items = new Array();
 	$.each(titleData,function(key,item){
 		items.push(item);
 	});
+	console.log(items);
 	var data = {
 			"parentId": 0	,
 			"relateId": rid,

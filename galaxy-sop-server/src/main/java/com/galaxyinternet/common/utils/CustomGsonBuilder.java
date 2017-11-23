@@ -1,9 +1,11 @@
 package com.galaxyinternet.common.utils;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +29,7 @@ public class CustomGsonBuilder {
 	{
 		builder.registerTypeAdapter(Date.class, new DateAdapter());
 		builder.registerTypeAdapter(Long.class, new LongAdapter());
+		builder.registerTypeAdapter(BigDecimal.class, new BigDecimalAdapter());
 		builder.registerTypeAdapter(Json.class, new SpringfoxJsonToGsonAdapter());
 	}
 	
@@ -75,6 +78,26 @@ public class CustomGsonBuilder {
 			{
 				logger.error("格式转化错误:"+json.toString(),e);
 			}
+			return result;
+		}
+		
+	}
+	private static final class BigDecimalAdapter implements JsonDeserializer<BigDecimal>
+	{
+
+		@Override
+		public BigDecimal deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+		{
+			BigDecimal result = null;
+			
+			try
+			{
+				result = NumberUtils.createBigDecimal(json.toString());
+			} catch (Exception e)
+			{
+				logger.error("格式转化错误:"+json.toString(),e);
+			}
+			
 			return result;
 		}
 		
