@@ -122,7 +122,6 @@ var planGrid = {
 
 
 function init(){
-	console.log('init');
 	var formdata = {
 			_domid : 'plan_business_table'
 	}

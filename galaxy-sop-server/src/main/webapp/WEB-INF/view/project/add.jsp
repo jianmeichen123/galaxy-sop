@@ -304,14 +304,15 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 		$("select[name='faFlag']").change(function(){
 			var text=$(this).find("option:checked").text();
 			if(text=="FA"){
-				$(this).siblings(".new_nputr").show();
+				$(this).siblings(".new_nputr").css('display','block');
 			}else{
 				$(this).siblings(".new_nputr").hide();
-				$(".tip-yellowsimple").each(function(){  //隐藏提示  
+				$('#faName-error').remove();
+				/* $(".tip-yellowsimple").each(function(){
 		            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
 		            	$(this).remove();
 		            }
-		        }); 
+		        });  */
 			}
 		})
 		
