@@ -20,7 +20,7 @@ import com.galaxyinternet.model.user.User;
  * @author wangsong
  *
  */
-public class ReaourceInfoInterceptor extends HandlerInterceptorAdapter 
+public class ResourceInfoInterceptor extends HandlerInterceptorAdapter 
 {
 	
 	
