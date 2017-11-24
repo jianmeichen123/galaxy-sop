@@ -4016,7 +4016,7 @@ input::input-placeholder{color:red !important;}
 .add-project-tabtable{border-radius:0px;background-color:inherit;}
 .add-pro-basicmessage{font-size:16px;color:#333333;margin-left:0px;}
 .addpro-new-title{padding:20px 0 10px 0px;border-bottom:1px solid #ececec;margin-left:20px;width:97%;}
-.addpro-input{width:278px;height:32px;border-radius:2px;color:#333333;font-size:14px;padding-left:10px;}
+.addpro-input{width:278px;height:32px;border-radius:2px;color:#333333;font-size:14px;padding-left:10px;display:block;}
 .letter-space{letter-spacing:7px;width:auto;}
 .addpro-basic-span{width:auto;padding-left:10px;}
 .addpro-basi-ul{margin-left:9px;min-width:1088px;}
@@ -4024,8 +4024,8 @@ input::input-placeholder{color:red !important;}
 .addpro-marin-lt{margin-left:59px;}
 .addpro-left{margin-left:245px;}
 .addpro-basic-content{background-color:#fff;height:302px;}
-.addpro-finacing-plan{background-color:#fff;margin-top:10px;height:234px;}
-.addpro-finacing-ul li{margin-top:20px;}
+.addpro-finacing-plan{background-color:#fff;margin-top:10px;height:auto;padding-bottom:1px;}
+.addpro-finacing-ul li{margin-top:16px;}
 .add-finace-lf{padding-left:20px;}
 .addpro-business-plan{background:#fff;margin-top:10px;}
 .add-pro-basicmessage em{font-size:12px;color:#999999;margin-left:10px;}
@@ -4047,6 +4047,6 @@ input::input-placeholder{color:red !important;}
 .inpu-self-checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 9px;}
 .addpro-input-arrow {background:url(../img/base_info/down.png) no-repeat right 7px center;-webkit-appearance: none;appearance:none;-moz-appearance:none;}
 .addpro-input-arrow-up{background:url(../img/base_info/up.png) no-repeat right 7px center;}
-.addpro-input-fa{margin-top:15px;}
+.addpro-input-fa{margin-top:-10px;}
 .addpro-basi-ul select::-ms-expand { display: none; }
 .tips-no-backgroud{width:auto !important;}
