@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.common.annotation.GalaxyResource;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -229,13 +231,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		if(null==sopTaskBo.getFlagUrl()){
 			sopTaskBo.setFlagUrl("");
 		}
-     	//根据当前登录认查询部门
-		//Department Department=new Department();//
-		//Department.setId(user.getDepartmentId());
-	//	Department queryOne = departmentService.queryOne(Department);
-		//if(!StringEx.isNullOrEmpty(queryOne)){
-			sopTaskBo.setDepartmentId(user.getDepartmentId());
-		//}
+		sopTaskBo.setDepartmentId(user.getDepartmentId());
 		Result result = new Result();
 		try {
 			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(),sopTaskBo.getPageSize()), sopTaskBo,request);
@@ -533,4 +529,105 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public String toTtaskMesage(HttpServletRequest request) {
 		return "soptask/taskMesage";
 	}
+	/**
+	 * 全部
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@GalaxyResource(name="task_view", table="sop_task")
+	@ResponseBody
+	@RequestMapping(value = "/list/all", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> searchAll(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		return search(sopTaskBo, request);
+	}
+	/**
+	 * 待认领
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/list/unclaimed", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> searchUnclaimed(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		sopTaskBo.setTaskStatus(taskStatus.待认领.getCode());
+		return search(sopTaskBo, request);
+	}
+	/**
+	 * 待完工
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@GalaxyResource(name="task_list_dispose", table="sop_task")
+	@ResponseBody
+	@RequestMapping(value = "/list/unfinished", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> searchUnfinished(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		sopTaskBo.setTaskStatus(taskStatus.待完工.getCode());
+		return search(sopTaskBo, request);
+	}
+	/**
+	 * 已完成
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@GalaxyResource(name="task_list_complete", table="sop_task")
+	@ResponseBody
+	@RequestMapping(value = "/list/finished", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> searchFinished(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		sopTaskBo.setTaskStatus(taskStatus.已完成.getCode());
+		return search(sopTaskBo, request);
+	}
+	/**
+	 * 部门待完工
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@GalaxyResource(name="task_list_dep", table="sop_task")
+	@ResponseBody
+	@RequestMapping(value = "/list/depUnfinished", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> searchDepUnfinished(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		sopTaskBo.setTaskStatus(taskStatus.待完工.getCode());
+		return search(sopTaskBo, request);
+	}
+	
+	public ResponseData<SopTaskBo> search(@RequestBody SopTaskBo sopTaskBo, HttpServletRequest request)
+	{
+		ResponseData<SopTaskBo> data = new ResponseData<>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Long departmentId = user.getDepartmentId();
+		sopTaskBo.setDepartmentId(departmentId);
+
+		Result result = new Result();
+		try
+		{
+			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(), sopTaskBo.getPageSize()), sopTaskBo, request);
+			if (null == list.getContent())
+			{
+				List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();
+				list.setTotal((long) 0);
+				list.setContent(SopTaskBoList);
+			}
+			data.setPageList(list);
+			result.setStatus(Status.OK);
+		} catch (PlatformException e)
+		{
+			result.addError(e.getMessage());
+		} catch (Exception e)
+		{
+			result.addError("任务列表查询失败");
+			logger.error("任务列表查询失败", e);
+		}
+		data.setResult(result);
+		return data;
+	}
+	
+	
 }

@@ -84,6 +84,7 @@
 						<entry key="sop_idea" value="created_uid"/>
 						<entry key="sop_idea_zixun" value="create_uid"/>
 						<entry key="sop_project" value="create_uid"/>
+						<entry key="sop_task" value="assign_uid"/>
 					</map>
 				</property>
 			</bean>
