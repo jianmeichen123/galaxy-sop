@@ -45,7 +45,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		// TODO Auto-generated method stub
 		saveResult(data);
 	    saveListData(data);
-		//saveFixedTable(data);
+		saveFixedTable(data);
 	//	saveFiles(data);
 	}
 	private void saveResult(InformationDataMG data)
@@ -115,27 +115,15 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		for(FixedTableModelMG model : list)
 		{
 			entity = new InformationFixedTableMG();
+			entity.setParentId(data.getParentId());
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
 			entity.setRowNo(model.getRowNo());
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());
 			entity.setContent(model.getValue());
-			if(model.getValueId() != null)
-			{
-				entity.setUpdateId(userId+"");
-				//entity.setUpdatedTime(now);
-				entity.setId(model.getValueId());
-				try {
-					informationFixedTableMGService.updateById(model.getValueId().toString(), entity);
-				} catch (MongoDBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				continue;
-			}
-		//	entity.setCreatedTime(now);
 			entity.setCreateId(userId+"");
+			entity.setCreateTime(now.toString());
 			insertEntityList.add(entity);
 		}
 		//插入数据
@@ -218,6 +206,9 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		
 		List<InformationResultMG> findInfoModeList=new ArrayList<InformationResultMG>();
 		List<InformationListdataMG> findInfoTableModelList=new ArrayList<InformationListdataMG>();
+		List<InformationFixedTableMG> findInfoFixedTableModelList=new ArrayList<InformationFixedTableMG>();
+		
+		
 		try {
 			if(null!=data.getInfoTableModelList()&&data.getInfoTableModelList().size()>0){
 				InformationListdataMG param=new InformationListdataMG();
@@ -236,6 +227,19 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				if(null!=findInfoModeList&&findInfoModeList.size()>0){
 					try {
 						informationResultMGService.deleteByCondition(param);
+					} catch (MongoDBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}else if(null!=data.getInfoFixedTableList()&&data.getInfoFixedTableList().size()>0){
+				InformationFixedTableMG param=new InformationFixedTableMG();
+				param.setParentId(data.getParentId());
+				param.setProjectId(data.getProjectId());
+				findInfoFixedTableModelList = informationFixedTableMGService.find(param);
+				if(null!=findInfoModeList&&findInfoModeList.size()>0){
+					try {
+						informationFixedTableMGService.deleteByCondition(param);
 					} catch (MongoDBException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

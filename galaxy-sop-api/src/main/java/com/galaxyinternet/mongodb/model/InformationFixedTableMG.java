@@ -12,7 +12,6 @@ public class InformationFixedTableMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
-	private Long id;
 	@QueryField(attribute="projectId")
 	private String projectId;
     @QueryField(attribute="titleId")
@@ -40,13 +39,6 @@ public class InformationFixedTableMG {
 
     private String valueName;
 
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Set<String> getTitleIds()
 	{
