@@ -32,10 +32,10 @@ $(function(){
 	            });
 				//单击按钮刷新页列表里面的内容
 				$(".btnbox").on("click", "#notdo", function() {
-					$("#data-table").bootstrapTable("refresh");
+					$("#task-table").bootstrapTable("refresh");
 				 });
 				$(".pop").on("click", "[data-close='close']", function(){
-					$("#data-table").bootstrapTable("refresh");
+					$("#task-table").bootstrapTable("refresh");
 				 });
 			}//模版反回成功执行	
 		});
@@ -107,13 +107,25 @@ function getDetailUrl(code)
 	return "";
 }
 
+	$("#task-table").bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:10,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'created_time',
+		pagination: true,
+	    search: false,
+	    onLoadSuccess: function (data) {
+	    }
+	});
 	$(".tipslink").on("click","a",function(){
 		var a = $(this);
 		var tipslink = $("#tipslink_val");
 		var url = a.attr("data-query-url");
 		
-		$("#data-table").bootstrapTable('refresh',{url:url});
-	
+		$("#task-table").bootstrapTable('refresh',{url:url});
 	});
 	
 		

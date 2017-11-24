@@ -535,7 +535,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @param request
 	 * @return
 	 */
-	@GalaxyResource(name="task_view", table="sop_task")
 	@ResponseBody
 	@RequestMapping(value = "/list/all", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTaskBo> searchAll(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
