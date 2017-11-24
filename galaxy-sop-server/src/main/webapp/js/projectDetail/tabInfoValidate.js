@@ -14,6 +14,11 @@
 				},
 				faFlag :{
 					required:true
+				},
+				faName :{
+					required:true,
+					number :true,
+					faname : true
 				}
 			},
 			messages :{
@@ -28,6 +33,10 @@
 				},
 				faFlag:{
 					required:'*项目来源不能为空'
+				},
+				faName :{
+					required:'*不能以空格开头，字符最大长度为20',
+					number:'*不能以空格开头，字符最大长度为20'
 				}
 				
 			},
