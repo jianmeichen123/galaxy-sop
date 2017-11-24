@@ -57,7 +57,7 @@
                             <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
                             <span class="m_r30">
-								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>本轮融资轮次不能为空"  data-title-id="1108" data-type="14">
+								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
 									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
@@ -65,16 +65,16 @@
                         <li style='margin-top:52px;margin-bottom:20px;'>
                         	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
-                            	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>行业归属不能为空">
+                            	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '>
 			                    	<option value="">请选择</option>
 			                    </select>
                             </span>
                             <span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
                             <span class="m_r30" style="with:400px">
-	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>项目来源不能为空">
+	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
 				                    	<option value="">请选择</option>
 				                </select>
-	                             <input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"  data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20" required/>
+	                             <input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"/>
                        		</span>
                         </li>
                     </ul>  

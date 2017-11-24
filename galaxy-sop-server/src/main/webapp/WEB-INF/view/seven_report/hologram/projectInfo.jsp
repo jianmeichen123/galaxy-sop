@@ -222,6 +222,7 @@
 		}
 		console.log("项目");
 		console.log(data)
+		data.parentId="1212";
 		sendPostRequestByJsonObj(
 				platformUrl.saveOrUpdateInfo , 
 				data,
