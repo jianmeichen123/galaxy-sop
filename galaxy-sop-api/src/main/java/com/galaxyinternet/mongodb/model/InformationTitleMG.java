@@ -1,18 +1,19 @@
-package com.galaxyinternet.model.hologram;
+package com.galaxyinternet.mongodb.model;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-import com.galaxyinternet.framework.core.model.PagableEntity;
-import com.galaxyinternet.mongodb.model.InformationFixedTableMG;
-import com.galaxyinternet.mongodb.model.InformationListdataMG;
-import com.galaxyinternet.mongodb.model.InformationResultMG;
+import com.galaxyinternet.model.hologram.InformationGrade;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 
-public class InformationTitle extends PagableEntity implements Cloneable  {
+public class InformationTitleMG {
 	private static final long serialVersionUID = 1L;
 
 	private Set<String> titleIds;
+	
+	private String id;
 
 	private String parentId;
 
@@ -44,16 +45,13 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 	private String valRuleFormula;
 	
 	
-	private List<InformationTitle> childList;
-	private List<InformationDictionary> valueList;
-	private List<InformationResult> resultList;
-	private List<InformationFixedTable> fixedTableList;
-	private List<InformationListdata> dataList;
+	private List<InformationTitleMG> childList;
+	private List<InformationDictionaryMG> valueList;
+	private List<InformationResultMG> resultList;
+	private List<InformationFixedTableMG> fixedTableList;
+	private List<InformationListdataMG> dataList;
 	private InformationListdataRemark tableHeader;
-	private List<InformationFile> fileList;
-	private List<InformationResultMG> resultMGList;
-	private List<InformationFixedTableMG> fixedTableMGList;
-	private List<InformationListdataMG> dataMGList;
+	
 	
 	private Long resultId;
 	private String resultIds;
@@ -196,45 +194,23 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 		this.valRuleFormula = valRuleFormula;
 	}
 
-	public List<InformationTitle> getChildList() {
+	public List<InformationTitleMG> getChildList() {
 		return childList;
 	}
 
-	public void setChildList(List<InformationTitle> childList) {
+	public void setChildList(List<InformationTitleMG> childList) {
 		this.childList = childList;
 	}
 
-	public List<InformationDictionary> getValueList() {
+	public List<InformationDictionaryMG> getValueList() {
 		return valueList;
 	}
 
-	public void setValueList(List<InformationDictionary> valueList) {
+	public void setValueList(List<InformationDictionaryMG> valueList) {
 		this.valueList = valueList;
 	}
 
-	public List<InformationResult> getResultList() {
-		return resultList;
-	}
 
-	public void setResultList(List<InformationResult> resultList) {
-		this.resultList = resultList;
-	}
-
-	public List<InformationFixedTable> getFixedTableList() {
-		return fixedTableList;
-	}
-
-	public void setFixedTableList(List<InformationFixedTable> fixedTableList) {
-		this.fixedTableList = fixedTableList;
-	}
-
-	public List<InformationListdata> getDataList() {
-		return dataList;
-	}
-
-	public void setDataList(List<InformationListdata> dataList) {
-		this.dataList = dataList;
-	}
 
 	public Long getResultId() {
 		return resultId;
@@ -268,13 +244,6 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 		this.resultContent2 = resultContent2;
 	}
 
-	public InformationListdataRemark getTableHeader() {
-		return tableHeader;
-	}
-
-	public void setTableHeader(InformationListdataRemark tableHeader) {
-		this.tableHeader = tableHeader;
-	}
 
 	public Integer getIsMust() {
 		return isMust;
@@ -378,48 +347,54 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 		this.subId = subId;
 	}
 
-	public List<InformationFile> getFileList()
-	{
-		return fileList;
+    
+	public List<InformationResultMG> getResultList() {
+		return resultList;
 	}
 
-	public void setFileList(List<InformationFile> fileList)
-	{
-		this.fileList = fileList;
+	public void setResultList(List<InformationResultMG> resultList) {
+		this.resultList = resultList;
+	}
+
+	public List<InformationFixedTableMG> getFixedTableList() {
+		return fixedTableList;
+	}
+
+	public void setFixedTableList(List<InformationFixedTableMG> fixedTableList) {
+		this.fixedTableList = fixedTableList;
+	}
+
+	public List<InformationListdataMG> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<InformationListdataMG> dataList) {
+		this.dataList = dataList;
+	}
+
+	public InformationListdataRemark getTableHeader() {
+		return tableHeader;
+	}
+
+	public void setTableHeader(InformationListdataRemark tableHeader) {
+		this.tableHeader = tableHeader;
 	}
 	
-	
 
-	public List<InformationResultMG> getResultMGList() {
-		return resultMGList;
+	public String getId() {
+		return id;
 	}
 
-	public void setResultMGList(List<InformationResultMG> resultMGList) {
-		this.resultMGList = resultMGList;
-	}
-
-	public List<InformationFixedTableMG> getFixedTableMGList() {
-		return fixedTableMGList;
-	}
-
-	public void setFixedTableMGList(List<InformationFixedTableMG> fixedTableMGList) {
-		this.fixedTableMGList = fixedTableMGList;
-	}
-
-	public List<InformationListdataMG> getDataMGList() {
-		return dataMGList;
-	}
-
-	public void setDataMGList(List<InformationListdataMG> dataMGList) {
-		this.dataMGList = dataMGList;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
-	public InformationTitle clone() 
+	public InformationTitleMG clone() 
 	{
 		try
 		{
-			return (InformationTitle)super.clone();
+			return (InformationTitleMG)super.clone();
 		} catch (CloneNotSupportedException e)
 		{
 			// TODO Auto-generated catch block

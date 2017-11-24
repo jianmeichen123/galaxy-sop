@@ -1,5 +1,7 @@
 package com.galaxyinternet.mongodb.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -7,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +21,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.service.InformationMGService;
@@ -74,6 +78,25 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		return responseBody;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/getTitleResults/{titleId}/{projectId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId)
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		
+		try
+		{
+			List<InformationTitle> list = informationMGService.searchWithData(titleId, projectId);
+			data.setEntityList(list);
+			
+		} catch (Exception e)
+		{
+			logger.error("获取标题失败，信息:titleId="+titleId,e);
+			data.getResult().addError("获取标题失败");
+		}
+		
+		return data;
+	}
 	
 
 	
