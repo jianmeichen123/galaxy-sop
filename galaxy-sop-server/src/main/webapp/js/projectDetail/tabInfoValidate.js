@@ -1,6 +1,7 @@
 //基本信息表单验证
 	$(function(){
 		$("#basicForm").validate();
+		$('#add_form').validate();
 	})
 //验证
 //投资形式-投资金额
