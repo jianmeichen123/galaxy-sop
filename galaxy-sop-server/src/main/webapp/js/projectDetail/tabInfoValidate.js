@@ -1,7 +1,46 @@
 //基本信息表单验证
 	$(function(){
 		$("#basicForm").validate();
-		$('#add_form').validate();
+		$('#add_form').validate({
+			rules :{
+				projectName :{
+					required :true
+				},
+				financeStatus :{
+					required: true
+				},
+				industryOwn:{
+					required:true
+				},
+				faFlag :{
+					required:true
+				},
+				faName :{
+					required:true,
+					number :true,
+					faname : true
+				}
+			},
+			messages :{
+				projectName:{
+					required:'*项目名称不能为空'
+				},
+				financeStatus:{
+					required:'*本轮融资轮次不能为空'
+				},
+				industryOwn:{
+					required:'*行业归属不能为空'
+				},
+				faFlag:{
+					required:'*项目来源不能为空'
+				},
+				faName :{
+					required:'*不能以空格开头，字符最大长度为20',
+					number:'*不能以空格开头，字符最大长度为20'
+				}
+				
+			},
+		});
 	})
 //验证
 //投资形式-投资金额

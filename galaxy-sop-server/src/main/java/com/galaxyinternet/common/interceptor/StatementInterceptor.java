@@ -38,9 +38,9 @@ public class StatementInterceptor implements Interceptor {
 	private Map<String,String> tableMap = new HashMap<>();
 	@Override
 	public Object intercept(Invocation inv) throws Throwable {
-		String pageId = AuthContext.get().getPageId();
+		List<String> talbes = AuthContext.get().getTables();
 		List<Long> userIds = AuthContext.get().getUserIds();
-		if(pageId == null || pageId.equals("index") || userIds == null || userIds.size() == 0)
+		if(talbes == null || talbes.size() == 0 || userIds == null || userIds.size() == 0)
 		{
 			return inv.proceed();
 		}
@@ -99,11 +99,12 @@ public class StatementInterceptor implements Interceptor {
 						tables.add((Table)join.getRightItem());
 					}
 				}
+				List<String> tableRestriction = AuthContext.get().getTables();
 				for(Table table : tables)
 				{
 					String tableName = table.getFullyQualifiedName();
 					String alias = table.getAlias() != null ? table.getAlias().getName() : table.getFullyQualifiedName();
-					if(tableMap.containsKey(tableName))
+					if(tableMap.containsKey(tableName) && tableRestriction.contains(tableName))
 					{
 						Expression where = plainSelect.getWhere();
 						String condition = StrUtils.join(",", userIds.toArray());

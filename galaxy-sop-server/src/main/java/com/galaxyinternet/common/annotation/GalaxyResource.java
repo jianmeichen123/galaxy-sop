@@ -14,4 +14,6 @@ import java.lang.annotation.Target;
 public @interface GalaxyResource 
 {
 	String name() default "";
+	
+	String[] table() default {"sop_project"};
 }

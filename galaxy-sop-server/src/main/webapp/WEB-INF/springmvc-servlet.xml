@@ -97,7 +97,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<bean class="com.galaxyinternet.common.interceptor.ReaourceInfoInterceptor"/>
+			<bean class="com.galaxyinternet.common.interceptor.ResourceInfoInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>

@@ -20,6 +20,7 @@ public class AuthContext {
 
 	private String pageId;
 	private List<Long> userIds;
+	private List<String> tables;
 
 	public String getPageId() {
 		return pageId;
@@ -36,5 +37,16 @@ public class AuthContext {
 	public void setUserIds(List<Long> userIds) {
 		this.userIds = userIds;
 	}
+
+	public List<String> getTables()
+	{
+		return tables;
+	}
+
+	public void setTables(List<String> tables)
+	{
+		this.tables = tables;
+	}
+	
 
 }

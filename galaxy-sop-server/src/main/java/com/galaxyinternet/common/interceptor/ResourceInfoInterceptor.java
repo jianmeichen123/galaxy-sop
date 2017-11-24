@@ -1,6 +1,7 @@
 package com.galaxyinternet.common.interceptor;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import com.galaxyinternet.model.user.User;
  * @author wangsong
  *
  */
-public class ReaourceInfoInterceptor extends HandlerInterceptorAdapter 
+public class ResourceInfoInterceptor extends HandlerInterceptorAdapter 
 {
 	
 	
@@ -36,7 +37,8 @@ public class ReaourceInfoInterceptor extends HandlerInterceptorAdapter
 			{
 				HttpSession session = request.getSession();
 				String pageId = rec.name();
-				AuthContext.get().setPageId(pageId);
+				List<String> tables = Arrays.asList(rec.table());
+				AuthContext.get().setTables(tables);
 				User user = (User)session.getAttribute(Constants.SESSION_USER_KEY);
 				if(user != null)
 				{
