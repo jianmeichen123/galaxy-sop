@@ -54,7 +54,7 @@
                         </li>
                         <li style='margin-top:25px;'>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
-                            <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" required <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
+                            <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>本轮融资轮次不能为空"  data-title-id="1108" data-type="14">
@@ -62,7 +62,7 @@
 			                    </select>
 							</span>
                         </li>
-                        <li style='margin-top:52px;'>
+                        <li style='margin-top:52px;margin-bottom:20px;'>
                         	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>行业归属不能为空">
@@ -73,8 +73,8 @@
                             <span class="m_r30" style="with:400px">
 	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '  msg="<font color=red>*</font>项目来源不能为空">
 				                    	<option value="">请选择</option>
-				                </select><br>
-	                             <input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+				                </select>
+	                             <input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"  data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20" required/>
                        		</span>
                         </li>
                     </ul>  
@@ -109,7 +109,7 @@
                         </li>
                     </ul>
                </div>
-                </form>
+               
                     <!--实际投资-->
                 <div class='addpro-business-plan'>
 	                <div class="addpro-new-title ">
@@ -125,6 +125,7 @@
                        </div>  
                    </div>
                 </div>
+                 </form>
                     <!-- 商业计划书隐藏页面 -->
 					<div id="uploadPanel"  style="display: none;">
 						<div class="title_bj">上传更新</div>
@@ -213,7 +214,6 @@
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
-<script type='text/javascript' src='<%=path%>/js/validate/lib/jquery-message.zh.js'></script>
 <script type="text/javascript">
 //计算距离的左边距
 detailHeaderWidth();
@@ -231,7 +231,8 @@ $('.inpu-self').click(function(){
 $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	var _this = $(this);
 	_this.toggleClass('addpro-input-arrow-up')
-})
+});
+
 
 
 
@@ -259,7 +260,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	function CallBackB(data){
 	    var _dom=$("select[name='financeStatus']");
 	        _dom.html("");
-	        _dom.append('<option value="">--请选择--</option>');
+	        _dom.append('<option value="">请选择</option>');
 	    var childNum = _dom.find("option").length;
 	    var entity=data.entity.childList[0];
 	    if(!childNum || childNum !=0 ){
@@ -323,10 +324,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 		}
 		return null;
 	}
-	
+
 	function add(){
-		$("#add_form").validate();
-		var val=$('input:radio[name="projectType"]:checked').val();
+		$(".adddpro-save").submit();
+		/* var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null || typeof(val) == "undefined"){
 			$("#projectTypeTip").css("display","block");
 			return;
@@ -339,8 +340,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				return TOKEN;
 			});
 		} 
-		
-		if(beforeSubmit()){
+		 */
+		/* if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -359,7 +360,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				}
 				
 			},TOKEN);
-		}
+		} */
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){
