@@ -52,7 +52,7 @@
 			//编辑数据请求
 			//请求成功，数据添加
 			get_result(id_code,1,radioShow);
-			_td.siblings(".heightL").addClass("disabled");
+			_td.closest(".table_inner").find(".heightL").addClass("disabled");
 			var pText = $(obj).parent().find('p');
 			var pSpan = $(obj).parent().find('span');
 			_this.hide();
@@ -485,7 +485,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 function closeX(obj){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
-	$(obj).closest("tr").find(".heightL").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL").removeClass("disabled")
 	//对号,x号消失
 	$(obj).parent().hide();
 	//radio 消失
@@ -518,7 +518,7 @@ function right(obj,type){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	//验证
-	$(obj).closest("tr").find(".heightL").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL").removeClass("disabled")
 	if(type=="checkbox" || type=="radio"){
 		var form = $(obj).closest("form");
 		if(!form.validate().form())
@@ -644,7 +644,7 @@ function right(obj,type){
 				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");				
 				res.find(".score-div input").attr("name","scor_"+iNum).val($(this).parent().attr("inpscore"));
 				var selscore=$(this).parent().attr("selscore");
-				if(selscore==""){
+				if(selscore==""||!selscore){
 					selscore="请选择"
 				}
 				res.find("select").val(selscore);
