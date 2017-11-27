@@ -1,5 +1,8 @@
-
-
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%
+	String path = request.getContextPath(); 
+%>
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
  	<div class="taskDetail-ritmin">
@@ -7,21 +10,21 @@
  		 	<div class='taskDetail-mesage-top'>
 	        	<div class='task-item task-item-left'>
 	        		<ul>
-	        			<li>项目名称：<span>创投</span></li>
-	        			<li>创建时间：<span>2016-12-22</span></li>
-	        			<li>合伙人：<span>李凯</span></li>
+	        			<li>项目名称：<span id="projectName">创投</span></li>
+	        			<li>创建时间：<span id="createDate">2016-12-22</span></li>
+	        			<li>事业部总经理：<span id="hhrName">李凯</span></li>
 	        		</ul>
 	        	</div>
 	        	<div class='task-item'>
-	        		<li>项目类型：<span>投资</span></li>
-	       			<li>投资事业线：<span>人工智能</span></li>
-	       			<li>公司名称：<span>星河互联集团</span></li>
+	        		<li>项目类型：<span id="type">投资</span></li>
+	       			<li>投资事业线：<span id="projectCareerline">人工智能</span></li>
+	       			<li>公司名称：<span id="projectCompany">星河互联集团</span></li>
 	        	</div>
 	        	<div class='task-item task-item-right'>
-	        		<li>项目编码：<span>27000021</span></li>
-	       			<li>投资经理：<span>人工智能-投资经理</span></li>
+	        		<li>项目编码：<span id="projectCode">27000021</span></li>
+	       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
 	       			<span class='pro-detail'>项目详细信息 ></span>
-	        	</div>
+	        	</div> 
         	</div>
         	<div class='taskDetail-mesage-table'>
 	        	<table width='100%' class='task-detail-table' border='0' cellspacing='0' cellpadding='0'>
@@ -51,75 +54,89 @@
 	        	</table>
         	</div>
         	<div class='taskDetail-mesage-update'>
-        		<span class="upate-task">更新尽调报告</span>
-        		<span class='upate-task submit-success'>提交完成</span>
-        	
+        		<span class="upate-task" id="file-upload-btn">更新尽调报告</span>
+        		<span class='upate-task submit-success' id="complete-task-btn" disabled="disabled" class="disabled">提交完成</span>
         	</div>
-        	
-        	
-        
         </div>
 	</div>
 </div>
 
 <script type="text/javascript">
-//计算距离的左边距
-/* detailHeaderWidth();
-function detailHeaderWidth(){
-	  var  w_lft=$(".lft").width();
-	  	$('.task-top').css({'margin-left':w_lft});
-}
-$(window).resize(function(){
-	detailHeaderWidth();
-}) */	
-function projectNameFormatter(value,row,index){
-		var str=row.projectName;
-		if(str.length>12){
-			subStr = str.substring(0,12);
-			var options = "<span title='"+str+"'>"+subStr+"</span>";
-			return options;
+
+	/**********************显示任务详情 START************************/
+	var url = platformUrl.detailProject+"/${projectId}";
+	var data = {};
+	var callback = function(data){
+		if(data.result.status == "Error")
+		{
+			return;
 		}
-		else{
-			var options = "<span title='"+str+"'>"+str+"</span>";
-			return options;
+		var project = data.entity;
+		$(".task-item span").each(function(){
+			var _item = $(this);
+			var id = _item.attr('id');
+			if(!project.hasOwnProperty(id))
+			{
+				return;
+			}
+			_item.text(project[id]);
+		});
+	};
+	sendGetRequest(url,data,callback);
+	/**********************显示任务详情 END ************************/
+	/**********************显示文件 START ************************/
+	function isBlank(val)
+	{
+		if(val == "" || val == null || val == 'undefined')
+		{
+			return true;
 		}
+		return false;
 	}
-    var flag="${flagUrl}";
-    var num=0;
-    if(flag=="jl"){
-    	num=10;
-    }
-    if(flag=="pz"){
-    	num=11;
-    }
-    if(flag=="gq"){
-    	num=12;
-    }
-    if(flag=="jz"){
-    	num=9;
-    }
-	$(function(){
-		var flag="${flagUrl}";
-		var num=2;
-		if(flag=="jz"){
-			num=9;
-		}
-		if(flag=="jl"){
-			num=10;		
+	function downloadFile(ele)
+	{
+		var row = $(ele).closest("tr");
+		var fileId = row.data("id");
+		forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
+	}
+	
+	var url = platformUrl.queryFile;
+	var data = {
+		"projectId":"${projectId}",
+		"fileWorktype":"${fileWorktype}"
+	};
+	var callback = function(data){
+		$(".task-detail-table tbody").empty();
+		$.each(data.entityList,function(){
+			var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'"></tr>');
+			$tr.append('<td>'+(isBlank(this.createdTime) ? "" : Number(this.createdTime).toDate().format("yyyy/MM/dd")) +'</td>');
+			$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
+			$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
+			$tr.append('<td>'+this.fileStatusDesc+'</td>');
+			if(isBlank(this.fileName)){
+				$tr.append('<td></td>');
+				//$("#complete-task-btn").addClass('disabled');
+			}
+			else
+			{
+				$tr.append('<td class="task-operation"><span onclick="downloadFile(this)">查看</span></td>');
+				/* 
+				$("#complete-task-btn").removeClass('disabled');
+				$("#complete-task-btn").removeProp("disabled");
+				var btnText = $("#show-upload-btn").text();
+				if(btnText != null && btnText.indexOf('上传')>-1)
+				{
+					$("#show-upload-btn").text(btnText.replace('上传','更新'))
 				}
-		if(flag=="gq"){
-			num=12;
-		}
-		if(flag=="pz"){
-			num=11;
-		}
-		createMenus(num);
+				$(".task_noprovide").hide();
+				 */
+			}
+			$(".task-detail-table tbody").append($tr);
+		});
 		
-	});
-	var aa=$("a[resource-mark]")
-	  if(isContainResourceByMark("interView")){
-	    	$('div[resource-mark="interView"]').css("display","block");
-	    }
+	};
+	sendPostRequestByJsonObj(url, data, callback);
+	/**********************显示文件 END ************************/
 	
 </script>
 

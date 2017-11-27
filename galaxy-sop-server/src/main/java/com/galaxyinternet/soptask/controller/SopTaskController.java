@@ -26,6 +26,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
@@ -209,7 +210,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
 	public ModelAndView doTask(Long taskId,HttpServletRequest request) {
 		
-		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
+		ModelAndView mv = new ModelAndView("soptask/taskDetails");
 		try {
 			SopTask task = sopTaskService.queryById(taskId);
 			mv.addObject("taskId", taskId);
@@ -526,8 +527,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	
 	@RequestMapping(value = "/detail")
-	public String detail(HttpServletRequest request) {
-		return "soptask/taskDetails";
+	public ModelAndView detail(Long taskId)
+	{
+		ModelAndView mv = new ModelAndView("soptask/taskDetails");
+		mv.addObject("taskId", taskId);
+		return mv;
 	}
 	
 	@RequestMapping(value = "/toTaskLog")
@@ -536,8 +540,35 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	
 	@RequestMapping(value = "/toTaskMesage")
-	public String toTtaskMesage(HttpServletRequest request) {
-		return "soptask/taskMesage";
+	public ModelAndView toTtaskMesage(Long taskId) 
+	{
+		ModelAndView mv = new ModelAndView("soptask/taskMesage");
+		SopTask task = sopTaskService.queryById(taskId);
+		mv.addObject("taskId", taskId);
+		mv.addObject("projectId", task.getProjectId());
+		mv.addObject("taskFlag", task.getTaskFlag());
+		String fileWType = null;
+		switch (task.getTaskFlag())
+		{
+		case 2:
+			fileWType = fileWorktype.人力资源尽职调查报告.getCode();
+			break;
+		case 3:
+			fileWType = fileWorktype.法务尽职调查报告.getCode();
+			break;
+		case 4:
+			fileWType = fileWorktype.财务尽职调查报告.getCode();
+			break;
+		case 8:
+			fileWType = fileWorktype.资金拨付凭证.getCode();
+			break;
+		case 9:
+			fileWType = fileWorktype.工商转让凭证.getCode();
+			break;
+
+		}
+		mv.addObject("fileWorktype", fileWType);
+		return mv;
 	}
 	/**
 	 * 全部 - 显示待认领、本人待完成、本人已完成的任务

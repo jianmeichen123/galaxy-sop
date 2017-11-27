@@ -53,7 +53,6 @@
  	
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>	
 <!-- bootstrap-table -->
@@ -67,22 +66,31 @@ detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
 	  	$('.task-top').css({'margin-left':w_lft});
-	  	//$('.task-ritmin').css('margin-left':w_lft);
 }
 $(window).resize(function(){
 	detailHeaderWidth();
-})	
-function projectNameFormatter(value,row,index){
-		var str=row.projectName;
-		if(str.length>12){
-			subStr = str.substring(0,12);
-			var options = "<span title='"+str+"'>"+subStr+"</span>";
-			return options;
+})
+	//ul tab切换显示
+	$('.to-task-tips').tabLazyChange({
+		defaultnum:0,
+		onchangeSuccess : function(index){
+			switch(index){
+				case 0 : initTabTaskMessage();break;
+				case 1 :initTabTaskLog();break;
+			}
 		}
-		else{
-			var options = "<span title='"+str+"'>"+str+"</span>";
-			return options;
-		}
+	})	
+	//页面请求地址
+	function initTabTaskMessage(){
+		$.getTabHtml({
+			url : platformUrl.toTaskMesage+'?taskId=${taskId}'
+		});
+	}
+	function initTabTaskLog(){
+		console.log(platformUrl.toTaskLog)
+		$.getTabHtml({
+			url : platformUrl.toTaskLog+'?taskId=${taskId}'
+		});
 	}
     var flag="${flagUrl}";
     var num=0;
@@ -116,10 +124,5 @@ function projectNameFormatter(value,row,index){
 		createMenus(num);
 		
 	});
-	var aa=$("a[resource-mark]")
-	  if(isContainResourceByMark("interView")){
-	    	$('div[resource-mark="interView"]').css("display","block");
-	    }
-	
 </script>
 </html>

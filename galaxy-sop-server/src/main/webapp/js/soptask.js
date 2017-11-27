@@ -51,28 +51,7 @@ $(function(){
 		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
 	    forwardWithHeader(url);
 	});
-	//ul tab切换显示
-	$('.to-task-tips').tabLazyChange({
-		defaultnum:0,
-		onchangeSuccess : function(index){
-			switch(index){
-				case 0 : initTabTaskMessage();break;
-				case 1 :initTabTaskLog();break;
-			}
-		}
-	})	
-	//页面请求地址
-	function initTabTaskMessage(){
-		$.getTabHtml({
-			url : platformUrl.toTaskMesage,
-		});
-	}
-	function initTabTaskLog(){
-		console.log(platformUrl.toTaskLog)
-		$.getTabHtml({
-			url : platformUrl.toTaskLog
-		});
-	}
+	
 	/*指派任务弹窗点击事件*/
 	$('.task-toggle li').click(function(){
 		var index = $(this).index();
