@@ -135,7 +135,7 @@ var platformUrl = {
 	/**gxc
 	 * 主页的待办任务:
 	 */		
-	soptaskshouye: Constants.sopEndpointURL+"/galaxy/soptask/taskListByRole",
+	soptaskshouye: Constants.sopEndpointURL+"/galaxy/soptask/quickSearch",
 	
 	/**-------首页相关 end  */
 	
