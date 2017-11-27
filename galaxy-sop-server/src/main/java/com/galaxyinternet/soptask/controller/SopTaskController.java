@@ -548,25 +548,32 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		mv.addObject("projectId", task.getProjectId());
 		mv.addObject("taskFlag", task.getTaskFlag());
 		String fileWType = null;
+		String btnTxt = "";
 		switch (task.getTaskFlag())
 		{
 		case 2:
+			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.人力资源尽职调查报告.getCode();
 			break;
 		case 3:
+			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.法务尽职调查报告.getCode();
 			break;
 		case 4:
+			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.财务尽职调查报告.getCode();
 			break;
 		case 8:
+			btnTxt = "上传资金拨付凭证";
 			fileWType = fileWorktype.资金拨付凭证.getCode();
 			break;
 		case 9:
+			btnTxt = "上传工商变更登记凭证";
 			fileWType = fileWorktype.工商转让凭证.getCode();
 			break;
 
 		}
+		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("fileWorktype", fileWType);
 		return mv;
 	}
