@@ -232,7 +232,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	var _this = $(this);
 	_this.toggleClass('addpro-input-arrow-up')
 });
-
+$('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
+	var _this = $(this);
+	_this.removeClass('addpro-input-arrow-up')
+})
 
 
 
