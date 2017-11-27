@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 </head>
