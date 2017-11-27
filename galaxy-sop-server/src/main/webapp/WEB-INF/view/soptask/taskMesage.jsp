@@ -23,7 +23,7 @@
 	        	<div class='task-item task-item-right'>
 	        		<li>项目编码：<span id="projectCode">27000021</span></li>
 	       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
-	       			<span class='pro-detail'>项目详细信息 ></span>
+	       			<a href='#' class='pro-detail'>项目详细信息 ></a>
 	        	</div> 
         	</div>
         	<div class='taskDetail-mesage-table'>
@@ -44,8 +44,8 @@
 	        				<td>2017-08-04</td>
 	        				<td>已上传</td>
 	        				<td class='task-operation'>
-	        					<span>查看</span>
-	        					<span>查看历史</span>
+	        					<a href='#'>查看</a>
+	        					<a href='#'>查看历史</a>
 	        				</td>
 	        				
 	        			</tr>
@@ -54,8 +54,8 @@
 	        	</table>
         	</div>
         	<div class='taskDetail-mesage-update'>
-        		<span class="upate-task" id="file-upload-btn">更新尽调报告</span>
-        		<span class='upate-task submit-success' id="complete-task-btn" disabled="disabled" class="disabled">提交完成</span>
+        		<a href='javascript:;' class="upate-task" id="file-upload-btn">更新尽调报告</a>
+        		<a href='javascript:;'  class='upate-task submit-success' id="complete-task-btn" disabled="disabled" class="disabled">提交完成</a>
         	</div>
         </div>
 	</div>
