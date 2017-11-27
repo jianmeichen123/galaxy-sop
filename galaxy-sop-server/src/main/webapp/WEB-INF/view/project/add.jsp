@@ -325,11 +325,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 		}
 		return null;
 	}
-
+//项目名称重复
 	function add(){
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
-			alert('ddd')
 			return false;	
 		}
 		var val=$('input:radio[name="projectType"]:checked').val();
@@ -345,6 +344,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				return TOKEN;
 			});
 		} 
+		 
+		 if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -363,10 +364,11 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				}
 				
 			},TOKEN);
-		
+		}
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){
+		
 		var infoModeList = new Array();
 		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
 		var data = {
