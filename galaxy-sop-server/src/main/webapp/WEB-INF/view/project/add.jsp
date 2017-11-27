@@ -327,13 +327,17 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	}
 
 	function add(){
-		$(".adddpro-save").submit();
-		/* var val=$('input:radio[name="projectType"]:checked').val();
+		if(!$('#add_form').validate().form()){//验证不通过时候执行
+			$(".adddpro-save").submit();
+			alert('ddd')
+			return false;	
+		}
+		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null || typeof(val) == "undefined"){
 			$("#projectTypeTip").css("display","block");
 			return;
-		}
-		var data1= JSON.stringify(getUpdateData());
+		} 
+		var data1= JSON.stringify(getUpdateData());//转换成字符串
 		if(formData != data1){
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
@@ -341,8 +345,6 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				return TOKEN;
 			});
 		} 
-		 */
-		/* if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -361,11 +363,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				}
 				
 			},TOKEN);
-		} */
+		
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){
-		
 		var infoModeList = new Array();
 		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
 		var data = {
