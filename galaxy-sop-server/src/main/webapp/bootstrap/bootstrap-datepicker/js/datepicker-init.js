@@ -436,7 +436,7 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minViewMode: 1,
-	    orientation: "bottom left",
+	   // orientation: "bottom left",
 	    //endDate : dateLimit,
 	    defaultDate : new Date(),
 	});
