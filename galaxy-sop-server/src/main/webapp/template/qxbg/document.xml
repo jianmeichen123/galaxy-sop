@@ -897,7 +897,7 @@
                         </w:drawing>
                     </w:r>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:widowControl/>
                         <w:jc w:val="left"/>
@@ -1096,7 +1096,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1194,7 +1194,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1292,7 +1292,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1390,7 +1390,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1488,7 +1488,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1586,7 +1586,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1684,7 +1684,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -1782,7 +1782,7 @@
                         </w:r>
                     </w:hyperlink>
                 </w:p>
-                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00113E9A">
+                <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CC7FFD">
                     <w:pPr>
                         <w:pStyle w:val="11"/>
                         <w:rPr>
@@ -2509,7 +2509,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO9_2_1</w:t>
+                            <w:t>${NO9_2_1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2541,7 +2541,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO9_2_2</w:t>
+                            <w:t>${NO9_2_2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2576,7 +2576,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO9_2_11</w:t>
+                            <w:t>${NO9_2_11!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2640,6 +2640,9 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#if team_members?? && (team_members?size > 0) >
+            <#list team_members as tm>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="350"/>
@@ -2669,7 +2672,7 @@
                                 <w:sz w:val="22"/>
                                 <w:szCs w:val="20"/>
                             </w:rPr>
-                            <w:t>张</w:t>
+                            <w:t>${tm.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2698,7 +2701,7 @@
                                 <w:sz w:val="22"/>
                                 <w:szCs w:val="20"/>
                             </w:rPr>
-                            <w:t>男</w:t>
+                            <w:t>${tm.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2727,7 +2730,7 @@
                                 <w:sz w:val="22"/>
                                 <w:szCs w:val="20"/>
                             </w:rPr>
-                            <w:t>C</w:t>
+                            <w:t>${tm.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -2755,12 +2758,19 @@
                                 <w:sz w:val="22"/>
                                 <w:szCs w:val="20"/>
                             </w:rPr>
-                            <w:t>本</w:t>
+                            <w:t>${tm.field5!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+            <#if tm_index == 2 >
+                <#break>
+            </#if>
+        </#list>
+        </#if>
         </w:tbl>
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC"/>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
@@ -3269,7 +3279,7 @@
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:jc w:val="center"/>
@@ -3278,85 +3288,6 @@
                                 <w:sz w:val="22"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:hint="eastAsia"/>
-                                <w:noProof/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <mc:AlternateContent>
-                                <mc:Choice Requires="wps">
-                                    <w:drawing>
-                                        <wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251720704" behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1">
-                                            <wp:simplePos x="0" y="0"/>
-                                            <wp:positionH relativeFrom="column">
-                                                <wp:posOffset>-67310</wp:posOffset>
-                                            </wp:positionH>
-                                            <wp:positionV relativeFrom="paragraph">
-                                                <wp:posOffset>-3457575</wp:posOffset>
-                                            </wp:positionV>
-                                            <wp:extent cx="45085" cy="184150"/>
-                                            <wp:effectExtent l="0" t="0" r="0" b="6350"/>
-                                            <wp:wrapNone/>
-                                            <wp:docPr id="4" name="矩形 4"/>
-                                            <wp:cNvGraphicFramePr/>
-                                            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
-                                                <a:graphicData uri="http://schemas.microsoft.com/office/word/2010/wordprocessingShape">
-                                                    <wps:wsp>
-                                                        <wps:cNvSpPr/>
-                                                        <wps:spPr>
-                                                            <a:xfrm>
-                                                                <a:off x="0" y="0"/>
-                                                                <a:ext cx="45085" cy="184150"/>
-                                                            </a:xfrm>
-                                                            <a:prstGeom prst="rect">
-                                                                <a:avLst/>
-                                                            </a:prstGeom>
-                                                            <a:ln>
-                                                                <a:noFill/>
-                                                            </a:ln>
-                                                        </wps:spPr>
-                                                        <wps:style>
-                                                            <a:lnRef idx="2">
-                                                                <a:schemeClr val="accent3">
-                                                                    <a:shade val="50000"/>
-                                                                </a:schemeClr>
-                                                            </a:lnRef>
-                                                            <a:fillRef idx="1">
-                                                                <a:schemeClr val="accent3"/>
-                                                            </a:fillRef>
-                                                            <a:effectRef idx="0">
-                                                                <a:schemeClr val="accent3"/>
-                                                            </a:effectRef>
-                                                            <a:fontRef idx="minor">
-                                                                <a:schemeClr val="lt1"/>
-                                                            </a:fontRef>
-                                                        </wps:style>
-                                                        <wps:bodyPr rot="0" spcFirstLastPara="0" vertOverflow="overflow" horzOverflow="overflow" vert="horz" wrap="square" lIns="91440" tIns="45720" rIns="91440" bIns="45720" numCol="1"
-                                                                    spcCol="0" rtlCol="0" fromWordArt="0" anchor="ctr" anchorCtr="0" forceAA="0" compatLnSpc="1">
-                                                            <a:noAutofit/>
-                                                        </wps:bodyPr>
-                                                    </wps:wsp>
-                                                </a:graphicData>
-                                            </a:graphic>
-                                        </wp:anchor>
-                                    </w:drawing>
-                                </mc:Choice>
-                                <mc:Fallback xmlns:wpsCustomData="http://www.wps.cn/officeDocument/2013/wpsCustomData">
-                                    <w:pict>
-                                        <v:rect id="_x0000_s1026" o:spid="_x0000_s1026" o:spt="1"
-                                                style="position:absolute;left:0pt;margin-left:-5.3pt;margin-top:-272.25pt;height:14.5pt;width:3.55pt;z-index:251720704;v-text-anchor:middle;mso-width-relative:page;mso-height-relative:page;"
-                                                fillcolor="#A5A5A5 [3206]" filled="t" stroked="f" coordsize="21600,21600"
-                                                o:gfxdata="UEsDBAoAAAAAAIdO4kAAAAAAAAAAAAAAAAAEAAAAZHJzL1BLAwQUAAAACACHTuJAjntbwtkAAAAM&#xA;AQAADwAAAGRycy9kb3ducmV2LnhtbE2PP0/DMBDFdyS+g3VIbKkd2gQIcTogERYEorCwucmRWMTn&#xA;KHaa9ttznWC6f0/v/a7cHt0gDjgF60lDulIgkBrfWuo0fH48JXcgQjTUmsETajhhgG11eVGaovUL&#xA;veNhFzvBJhQKo6GPcSykDE2PzoSVH5H49u0nZyKPUyfbySxs7gZ5o1QunbHECb0Z8bHH5mc3Ow1L&#xA;7u5tp06vc22f129fL/UtjbXW11epegAR8Rj/xHDGZ3SomGnvZ2qDGDQkqcpZyk222WQgWJKsue7P&#xA;mzTLQFal/P9E9QtQSwMEFAAAAAgAh07iQBGpOutPAgAAewQAAA4AAABkcnMvZTJvRG9jLnhtbK1U&#xA;zYrbMBC+F/oOQvfGTnC6aVhnCVm2FEJ3IS09K7IUCySNKilx0pcp9NaH6OOUvkZHsjfZ/pxKbVBm&#xA;NOP5+eabXN8cjSYH4YMCW9PxqKREWA6Nsruavn9392JGSYjMNkyDFTU9iUBvFs+fXXduLibQgm6E&#xA;JxjEhnnnatrG6OZFEXgrDAsjcMKiUYI3LKLqd0XjWYfRjS4mZfmy6MA3zgMXIeDtbW+kixxfSsHj&#xA;vZRBRKJrirXFfPp8btNZLK7ZfOeZaxUfymD/UIVhymLSc6hbFhnZe/VHKKO4hwAyjjiYAqRUXOQe&#xA;sJtx+Vs3m5Y5kXtBcII7wxT+X1j+9vDgiWpqWlFimcER/fj89fu3L6RK2HQuzNFl4x78oAUUU6NH&#xA;6U36xRbIMeN5OuMpjpFwvKym5WxKCUfLeFaNpxnu4vKt8yG+FmBIEmrqcVoZRHZYh4j50PXRJaUK&#xA;oFVzp7TOit9tV9qTA8PJLqfpTQXjJ7+4aUs6zD65KnH6nCHDpGYRReOw52B3lDC9Q+ry6HNuCykD&#xA;Rupz37LQ9jly2J4vRkUkrVamprMyPUNmbbGABFkPUpK20JwQYA8984LjdwqbXbMQH5hHqmFZuD7x&#xA;Hg+pAWuFQaKkBf/pb/fJHxmAVko6pC728XHPvKBEv7HIjVfjqkpcz0o1vZqg4p9atk8tdm9WgBiO&#xA;cVEdz2Lyj/pRlB7MB9yyZcqKJmY55u4RG5RV7FcK95SL5TK7Ib8di2u7cTwFT4BaWO4jSJVne0Fn&#xA;AA0Znuc3bGNaoad69rr8Zyx+AlBLAwQKAAAAAACHTuJAAAAAAAAAAAAAAAAABgAAAF9yZWxzL1BL&#xA;AwQUAAAACACHTuJAihRmPNEAAACUAQAACwAAAF9yZWxzLy5yZWxzpZDBasMwDIbvg72D0X1xmsMY&#xA;o04vo9Br6R7A2IpjGltGMtn69vMOg2X0tqN+oe8T//7wmRa1IkukbGDX9aAwO/IxBwPvl+PTCyip&#xA;Nnu7UEYDNxQ4jI8P+zMutrYjmWMR1ShZDMy1lletxc2YrHRUMLfNRJxsbSMHXay72oB66Ptnzb8Z&#xA;MG6Y6uQN8MkPoC630sx/2Ck6JqGpdo6SpmmK7h5VB7Zlju7INuEbuUazHLAa8CwaB2pZ134EfV+/&#xA;+6fe00c+47rVfoeM649Xb7ocvwBQSwMEFAAAAAgAh07iQH7m5SD3AAAA4QEAABMAAABbQ29udGVu&#xA;dF9UeXBlc10ueG1slZFBTsMwEEX3SNzB8hYlTrtACCXpgrRLQKgcYGRPEotkbHlMaG+Pk7YbRJFY&#xA;2jP/vye73BzGQUwY2Dqq5CovpEDSzljqKvm+32UPUnAEMjA4wkoekeWmvr0p90ePLFKauJJ9jP5R&#xA;KdY9jsC580hp0rowQkzH0CkP+gM6VOuiuFfaUUSKWZw7ZF022MLnEMX2kK5PJgEHluLptDizKgne&#xA;D1ZDTKZqIvODkp0JeUouO9xbz3dJQ6pfCfPkOuCce0lPE6xB8QohPsOYNJQJrIz7ooBT/nfJbDly&#xA;5trWasybwE2KveF0sbrWjmvXOP3f8u2SunSr5YPqb1BLAQIUABQAAAAIAIdO4kB+5uUg9wAAAOEB&#xA;AAATAAAAAAAAAAEAIAAAAMEEAABbQ29udGVudF9UeXBlc10ueG1sUEsBAhQACgAAAAAAh07iQAAA&#xA;AAAAAAAAAAAAAAYAAAAAAAAAAAAQAAAAowMAAF9yZWxzL1BLAQIUABQAAAAIAIdO4kCKFGY80QAA&#xA;AJQBAAALAAAAAAAAAAEAIAAAAMcDAABfcmVscy8ucmVsc1BLAQIUAAoAAAAAAIdO4kAAAAAAAAAA&#xA;AAAAAAAEAAAAAAAAAAAAEAAAAAAAAABkcnMvUEsBAhQAFAAAAAgAh07iQI57W8LZAAAADAEAAA8A&#xA;AAAAAAAAAQAgAAAAIgAAAGRycy9kb3ducmV2LnhtbFBLAQIUABQAAAAIAIdO4kARqTrrTwIAAHsE&#xA;AAAOAAAAAAAAAAEAIAAAACgBAABkcnMvZTJvRG9jLnhtbFBLBQYAAAAABgAGAFkBAADpBQAAAAA=&#xA;">
-                                            <v:fill on="t" focussize="0,0"/>
-                                            <v:stroke on="f" weight="1pt" miterlimit="8" joinstyle="miter"/>
-                                            <v:imagedata o:title=""/>
-                                            <o:lock v:ext="edit" aspectratio="f"/>
-                                        </v:rect>
-                                    </w:pict>
-                                </mc:Fallback>
-                            </mc:AlternateContent>
-                        </w:r>
                     </w:p>
                 </w:tc>
                 <w:tc>
@@ -3474,7 +3405,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["11"]?? > ${NO2_4_5["11"]!"-"}<#else> - </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -3497,7 +3428,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["12"]?? > ${NO2_4_5["12"]!"-"}<#else> - </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -3568,7 +3499,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["21"]?? > ${NO2_4_5["21"]!"-"}<#else> - </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -3591,7 +3522,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["22"]?? > ${NO2_4_5["22"]!"-"}<#else> - </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -3658,7 +3589,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["31"]?? > ${NO2_4_5["31"]!"-"}<#else> - </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -3681,7 +3612,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>NO2_4_5</w:t>
+                            <w:t><#if NO2_4_5?? && NO2_4_5["32"]?? > ${NO2_4_5["32"]!"-"}<#else> - </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4202,7 +4133,7 @@
             <w:pPr>
                 <w:pStyle w:val="1"/>
             </w:pPr>
-            <w:bookmarkStart w:id="2" w:name="_Toc497238443"/>
+            <w:bookmarkStart w:id="3" w:name="_Toc497238443"/>
             <w:r>
                 <w:rPr>
                     <w:rFonts w:hint="eastAsia"/>
@@ -4221,7 +4152,7 @@
                 </w:rPr>
                 <w:t>团队</w:t>
             </w:r>
-            <w:bookmarkEnd w:id="2"/>
+            <w:bookmarkEnd w:id="3"/>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
@@ -4235,6 +4166,9 @@
                 <w:t>3.1核心创始团队</w:t>
             </w:r>
         </w:p>
+
+<#if team_members?? && (team_members?size > 0) >
+<#list team_members as tm>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -4251,7 +4185,7 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>成员1：</w:t>
+                <w:t>成员${tm_index+1}：</w:t>
             </w:r>
         </w:p>
         <w:tbl>
@@ -4312,7 +4246,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>姓名：张</w:t>
+                            <w:t>姓名：${tm.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4334,7 +4268,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>性别：男</w:t>
+                            <w:t>性别：${tm.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4356,7 +4290,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>职位：O</w:t>
+                            <w:t>职位：${tm.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4378,11 +4312,13 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>最高学历：科</w:t>
+                            <w:t>最高学历：${tm.field5!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#if (tm.studyList)?? && (tm.studyList?size > 0) >
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -4409,6 +4345,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list tm.studyList as study>
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -4428,21 +4366,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t xml:space="preserve">2 </w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>–</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${study.field5!"-"}--${study.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4464,7 +4388,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>成</w:t>
+                            <w:t>${study.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4486,7 +4410,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>科</w:t>
+                            <w:t>${study.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4508,12 +4432,17 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>资</w:t>
+                            <w:t>${study.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
-            <w:tr w:rsidR="00EF76AC">
+            </#list>
+            </#if>
+
+
+            <#if tm.workList?? && (tm.workList?size > 0) >
+            <w:tr w:rsidR="006417D3" w:rsidTr="00E4346A">
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="6610" w:type="dxa"/>
@@ -4539,6 +4468,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list tm.workList as work>
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -4555,24 +4486,10 @@
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t xml:space="preserve">2 </w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>–</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${work.field1!"-"} -- ${work.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4595,7 +4512,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>部</w:t>
+                            <w:t>${work.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4617,11 +4534,15 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>理</w:t>
+                            <w:t>${work.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+            </#list>
+            </#if>
+
+            <#if tm.startupList?? && (tm.startupList?size > 0) >
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -4648,6 +4569,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list tm.startupList as sup>
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -4667,21 +4590,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t xml:space="preserve">2 </w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>–</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t xml:space="preserve">${sup.field1!"-"}--${sup.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4705,7 +4614,9 @@
                                 <w:sz w:val="22"/>
                                 <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                             </w:rPr>
-                            <w:t>因</w:t>
+                            <w:t>
+                                <#if sup.field3?? >担任职务为${sup.field3!"-"}，</#if><#if sup.field4?? >${sup.field4!"-"}，</#if><#if sup.field5?? >创立时股权比例为${sup.field5!"-"}，</#if><#if sup.field6?? >融资机构及金额、成功或失败或离职原因为${sup.field6!"-"}</#if>
+                            </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -4728,12 +4639,16 @@
                                 <w:sz w:val="22"/>
                                 <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                             </w:rPr>
-                            <w:t>项目概述:项目概述</w:t>
+                            <w:t>项目概述：${sup.field7!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+            </#list>
+            </#if>
+
         </w:tbl>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -4744,6 +4659,32 @@
                 </w:rPr>
             </w:pPr>
         </w:p>
+</#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+</#if>
+
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:pStyle w:val="2"/>
@@ -5325,9 +5266,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>团队重要成员是否拥有足够、合理的股权：</w:t>
+                <w:t>团队重要成员是否拥有足够、合理的股权：<#if !share_holding?? > - </#if> </w:t>
             </w:r>
         </w:p>
+
+<#if share_holding?? && (share_holding?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblStyle w:val="aa"/>
@@ -5404,6 +5347,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list share_holding as sh>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="474"/>
@@ -5426,7 +5371,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>张</w:t>
+                            <w:t>${sh.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -5448,12 +5393,15 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>5</w:t>
+                            <w:t>${sh.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -7510,7 +7458,7 @@
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>一</w:t>
+                <w:t><#if NO3_10_4?? >${NO3_10_4.N1!"-"}<#else>- </#if> </w:t>
             </w:r>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -7529,7 +7477,7 @@
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>二</w:t>
+                <w:t><#if NO3_10_4?? >${NO3_10_4.N2!"-"}<#else>- </#if> </w:t>
             </w:r>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -7571,7 +7519,7 @@
             <w:pPr>
                 <w:pStyle w:val="1"/>
             </w:pPr>
-            <w:bookmarkStart w:id="3" w:name="_Toc497238444"/>
+            <w:bookmarkStart w:id="4" w:name="_Toc497238444"/>
             <w:r>
                 <w:rPr>
                     <w:rFonts w:hint="eastAsia"/>
@@ -7590,7 +7538,7 @@
                 </w:rPr>
                 <w:t>运营数据</w:t>
             </w:r>
-            <w:bookmarkEnd w:id="3"/>
+            <w:bookmarkEnd w:id="4"/>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
@@ -7657,7 +7605,7 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）</w:t>
+                <w:t>除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：<#if !(NO4_1_2)?? >-</#if></w:t>
             </w:r>
             <w:r w:rsidR="003F37C5">
                 <w:rPr>
@@ -7668,6 +7616,9 @@
                 <w:t xml:space="preserve"> </w:t>
             </w:r>
         </w:p>
+
+<#if (NO4_1_2)?? >
+<#list NO4_1_2 as ps412>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120"/>
@@ -7688,9 +7639,9 @@
                 <w:lastRenderedPageBreak/>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="4018915" cy="2352675"/>
+                        <wp:extent cx="${ps412.wide?c}" cy="${ps412.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="635" b="9525"/>
-                        <wp:docPr id="1" name="图片 1" descr="1"/>
+                        <wp:docPr id="59${ps412_index}" name="图片 1" descr="1"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -7698,13 +7649,13 @@
                             <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                 <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                     <pic:nvPicPr>
-                                        <pic:cNvPr id="1" name="图片 1" descr="1"/>
+                                        <pic:cNvPr id="1" name="" descr="1"/>
                                         <pic:cNvPicPr>
                                             <a:picLocks noChangeAspect="1"/>
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId9"/>
+                                        <a:blip r:embed="${ps412.rid}" />
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -7712,7 +7663,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="4018915" cy="2352675"/>
+                                            <a:ext cx="${ps412.wide?c}" cy="${ps412.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -7725,6 +7676,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00CD01D9">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -7912,7 +7866,7 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）</w:t>
+                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：<#if !(NO4_2_2)?? >-</#if></w:t>
             </w:r>
             <w:r>
                 <w:rPr>
@@ -7923,6 +7877,9 @@
                 <w:tab/>
             </w:r>
         </w:p>
+
+<#if (NO4_2_2)?? >
+<#list NO4_2_2 as ps422>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120"/>
@@ -7943,9 +7900,9 @@
                 <w:lastRenderedPageBreak/>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="3866515" cy="2400300"/>
+                        <wp:extent cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="635" b="0"/>
-                        <wp:docPr id="6" name="图片 6" descr="2"/>
+                        <wp:docPr id="67${ps422_index}" name="图片 6" descr="2"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -7953,13 +7910,13 @@
                             <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                 <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
                                     <pic:nvPicPr>
-                                        <pic:cNvPr id="6" name="图片 6" descr="2"/>
+                                        <pic:cNvPr id="6" name="" descr="2"/>
                                         <pic:cNvPicPr>
                                             <a:picLocks noChangeAspect="1"/>
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId10"/>
+                                        <a:blip r:embed="${ps422.rid}"/>
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -7967,7 +7924,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3866515" cy="2400300"/>
+                                            <a:ext cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -7980,6 +7937,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+        </#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -8175,7 +8135,7 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：</w:t>
+                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：<#if !(NO4_2_5_3)?? >-</#if></w:t>
             </w:r>
             <w:r>
                 <w:rPr>
@@ -8187,6 +8147,9 @@
                 <w:tab/>
             </w:r>
         </w:p>
+
+<#if (NO4_2_5_3)?? >
+<#list NO4_2_5_3 as ps4253>
         <w:p w:rsidR="00063076" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120"/>
@@ -8209,9 +8172,9 @@
                 <w:lastRenderedPageBreak/>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="3618865" cy="2438400"/>
+                        <wp:extent cx="${ps4253.wide?c}" cy="${ps4253.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="635" b="0"/>
-                        <wp:docPr id="7" name="图片 7" descr="3"/>
+                        <wp:docPr id="69${ps4253_index}" name="图片 7" descr="3"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -8225,7 +8188,7 @@
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId11"/>
+                                        <a:blip r:embed="${ps4253.rid}"/>
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -8233,7 +8196,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3618865" cy="2438400"/>
+                                            <a:ext cx="${ps4253.wide?c}" cy="${ps4253.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -8246,6 +8209,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+        </#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -8405,9 +8371,12 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：</w:t>
+                <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：<#if !(NO4_2_6_3)?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if (NO4_2_6_3)?? >
+<#list NO4_2_6_3 as ps4263>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120"/>
@@ -8428,9 +8397,9 @@
                 <w:lastRenderedPageBreak/>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="3437890" cy="2428875"/>
+                        <wp:extent cx="${ps4263.wide?c}" cy="${ps4263.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="10160" b="9525"/>
-                        <wp:docPr id="10" name="图片 10" descr="4"/>
+                        <wp:docPr id="74${ps4263_index}" name="图片 10" descr="4"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -8444,7 +8413,7 @@
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId12"/>
+                                        <a:blip r:embed="${ps4263.rid}"/>
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -8452,7 +8421,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3437890" cy="2428875"/>
+                                            <a:ext cx="${ps4263.wide?c}" cy="${ps4263.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -8465,6 +8434,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+        </#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -9182,7 +9154,7 @@
             <w:pPr>
                 <w:pStyle w:val="1"/>
             </w:pPr>
-            <w:bookmarkStart w:id="4" w:name="_Toc497238445"/>
+            <w:bookmarkStart w:id="5" w:name="_Toc497238445"/>
             <w:r>
                 <w:rPr>
                     <w:rFonts w:hint="eastAsia"/>
@@ -9201,7 +9173,7 @@
                 </w:rPr>
                 <w:t>竞争</w:t>
             </w:r>
-            <w:bookmarkEnd w:id="4"/>
+            <w:bookmarkEnd w:id="5"/>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
@@ -9615,7 +9587,7 @@
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>{NO5_4_4!"-"}</w:t>
+                <w:t>${NO5_4_4!"-"}</w:t>
             </w:r>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -10588,23 +10560,7 @@
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>NO5_6_</w:t>
-            </w:r>
-            <w:proofErr w:type="gramStart"/>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>3.N</w:t>
-            </w:r>
-            <w:proofErr w:type="gramEnd"/>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>1</w:t>
+                <w:t><#if NO5_6_3?? >${NO5_6_3.N1!"-"}<#else>- </#if> </w:t>
             </w:r>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -10622,25 +10578,10 @@
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>NO5_6_</w:t>
-            </w:r>
-            <w:proofErr w:type="gramStart"/>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>3.N</w:t>
-            </w:r>
-            <w:proofErr w:type="gramEnd"/>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>2</w:t>
+                <w:t><#if NO5_6_3?? >${NO5_6_3.N2!"-"}<#else>- </#if> </w:t>
             </w:r>
         </w:p>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -10759,6 +10700,8 @@
                 <w:t>5.6综合竞争比较</w:t>
             </w:r>
         </w:p>
+
+<#if competition_comparison?? && (competition_comparison?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="7112" w:type="dxa"/>
@@ -10920,6 +10863,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list competition_comparison as ccom>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="480"/>
@@ -10947,7 +10892,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>美</w:t>
+                            <w:t>${ccom.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -10976,7 +10921,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>8</w:t>
+                            <w:t>${ccom.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11005,7 +10950,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>5</w:t>
+                            <w:t>${ccom.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11034,7 +10979,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>快</w:t>
+                            <w:t>${ccom.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11061,12 +11006,39 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>是</w:t>
+                            <w:t>${ccom.field5!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+            </#list>
         </w:tbl>
+<#else>
+        <w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+            <w:pPr>
+                <w:spacing w:line="360" w:lineRule="auto"/>
+                <w:ind w:firstLine="420"/>
+                <w:jc w:val="left"/>
+                <w:rPr>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                    <w:sz w:val="18"/>
+                    <w:szCs w:val="18"/>
+                </w:rPr>
+            </w:pPr>
+            <w:r w:rsidRPr="00B55D46">
+                <w:rPr>
+                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                    <w:sz w:val="18"/>
+                    <w:szCs w:val="18"/>
+                </w:rPr>
+                <w:t>-</w:t>
+            </w:r>
+        </w:p>
+</#if>
+
+
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -11137,7 +11109,7 @@
             <w:pPr>
                 <w:pStyle w:val="1"/>
             </w:pPr>
-            <w:bookmarkStart w:id="5" w:name="_Toc497238446"/>
+            <w:bookmarkStart w:id="6" w:name="_Toc497238446"/>
             <w:r>
                 <w:rPr>
                     <w:rFonts w:hint="eastAsia"/>
@@ -11156,7 +11128,7 @@
                 </w:rPr>
                 <w:t>战略及策略</w:t>
             </w:r>
-            <w:bookmarkEnd w:id="5"/>
+            <w:bookmarkEnd w:id="6"/>
         </w:p>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
@@ -11646,8 +11618,6 @@
                 </w:rPr>
                 <w:t>胜出的三个主要原因（按照重要级顺序）</w:t>
             </w:r>
-            <w:bookmarkStart w:id="6" w:name="_GoBack"/>
-            <w:bookmarkEnd w:id="6"/>
             <w:r w:rsidR="00893B72">
                 <w:rPr>
                     <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
@@ -12666,16 +12636,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>需要在交割前解决的事项</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>需要在交割前解决的事项：<#if !delivery_before?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if delivery_before?? && (delivery_before?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6573" w:type="dxa"/>
@@ -12791,6 +12756,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+<#list delivery_before as dbef>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="365"/>
@@ -12824,7 +12791,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${dbef.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -12857,7 +12824,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>当</w:t>
+                            <w:t>${dbef.updateUserName!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -12890,12 +12857,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${dbef.updateTimeStr!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+</#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -12911,16 +12881,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>需要在交割后解决的事项</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>需要在交割后解决的事项：<#if !delivery_after?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if delivery_after?? && (delivery_after?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6573" w:type="dxa"/>
@@ -13036,6 +13001,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+<#list delivery_after as daft>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="365"/>
@@ -13069,7 +13036,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${daft.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13102,7 +13069,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>当</w:t>
+                            <w:t>${daft.updateUserName!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13135,12 +13102,16 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${daft.updateTimeStr!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -13208,30 +13179,12 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>融资历史</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t xml:space="preserve">：  </w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
+                <w:t>融资历史：<#if !finance_history?? > - </#if> </w:t>
             </w:r>
         </w:p>
+
+<#if finance_history?? && (finance_history?size > 0) >
+<#list finance_history as fhis>
         <w:tbl>
             <w:tblPr>
                 <w:tblStyle w:val="aa"/>
@@ -13269,7 +13222,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>融资时间：2</w:t>
+                            <w:t>融资时间：${fhis.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13294,7 +13247,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>币种：人</w:t>
+                            <w:t>币种：${fhis.field6!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13320,7 +13273,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>融资轮次：天</w:t>
+                            <w:t>融资轮次：${fhis.field7!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13350,7 +13303,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>新老股：新</w:t>
+                            <w:t>新老股：${fhis.field8!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13374,7 +13327,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权占比：1</w:t>
+                            <w:t>股权占比：${fhis.field4!"-"}<#if fhis.field4??>% </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13399,7 +13352,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资金额：1</w:t>
+                            <w:t>投资金额：${fhis.field3!"-"}<#if fhis.field3??>万 </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13422,7 +13375,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>估值金额：1</w:t>
+                            <w:t>估值金额：${fhis.field5!"-"}<#if fhis.field5??>万 </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13447,7 +13400,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资方（机构或个人）：阿</w:t>
+                            <w:t>投资方（机构或个人）：${fhis.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13472,7 +13425,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>合同关键条款：阿</w:t>
+                            <w:t>合同关键条款：${fhis.field9!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13497,7 +13450,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>对赌或业绩承诺条款：阿</w:t>
+                            <w:t>对赌或业绩承诺条款：${fhis.field10!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13515,6 +13468,9 @@
                 </w:rPr>
             </w:pPr>
         </w:p>
+        </#list>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -13607,9 +13563,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>股权结构：</w:t>
+                <w:t>股权结构：<#if !equity_structure?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if equity_structure?? && (equity_structure?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6848" w:type="dxa"/>
@@ -13713,7 +13671,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权比例</w:t>
+                            <w:t>股权比例(%)</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13751,6 +13709,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+<#list equity_structure as estr>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="450"/>
@@ -13784,7 +13744,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>第</w:t>
+                            <w:t>第<#if estr_index == 0 >一<#elseif estr_index == 1>二<#elseif estr_index == 2>三<#elseif estr_index ==3>四<#elseif estr_index == 4>五<#elseif estr_index == 5>六<#elseif estr_index == 6>七<#elseif estr_index== 7>八<#elseif estr_index == 8>九<#elseif estr_index == 9>十<#else>${estr_index +1}</#if>大股东</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13817,7 +13777,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>张</w:t>
+                            <w:t>${estr.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13850,7 +13810,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>4</w:t>
+                            <w:t>${estr.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13883,12 +13843,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>创</w:t>
+                            <w:t>${estr.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -13949,71 +13912,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>主要战略投资人、财务投资人投资情况：</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
+                <w:t>主要战略投资人、财务投资人投资情况：<#if !investor_situation?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if investor_situation?? && (investor_situation?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6936" w:type="dxa"/>
@@ -14159,7 +14062,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权占比</w:t>
+                            <w:t>股权占比(%)</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14197,6 +14100,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list investor_situation as isit>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="675"/>
@@ -14230,7 +14135,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>财</w:t>
+                            <w:t>${isit.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14263,7 +14168,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>苏</w:t>
+                            <w:t>${isit.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14296,7 +14201,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>9</w:t>
+                            <w:t><#if isit.field3?? || isit.field6??> ${isit.field3!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14329,7 +14234,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>1</w:t>
+                            <w:t>${isit.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14362,12 +14267,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>5</w:t>
+                            <w:t><#if isit.field5?? || isit.field6??> ${isit.field5!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -14468,9 +14376,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>上一轮融资后关键运营指标的变化：</w:t>
+                <w:t>上一轮融资后关键运营指标的变化：<#if !operation_indices?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if operation_indices?? && (operation_indices?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6914" w:type="dxa"/>
@@ -14604,6 +14514,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list operation_indices as oind>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="384"/>
@@ -14637,7 +14549,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${oind.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14670,7 +14582,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>${oind.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14703,12 +14615,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>${oind.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15051,16 +14966,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>市场同类公司估值参考</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>市场同类公司估值参考：<#if !valuation_reference?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if valuation_reference?? && (valuation_reference?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6530" w:type="dxa"/>
@@ -15142,6 +15052,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list valuation_reference as vref>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="379"/>
@@ -15175,7 +15087,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>不</w:t>
+                            <w:t>${vref.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15208,12 +15120,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t xml:space="preserve">　1</w:t>
+                            <w:t>${vref.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15385,9 +15300,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>每次融资的里程碑和时间节点如何：</w:t>
+                <w:t>每次融资的里程碑和时间节点如何：<#if !financing_milestone?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if financing_milestone?? && (financing_milestone?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6914" w:type="dxa"/>
@@ -15503,6 +15420,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list financing_milestone as fmil>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="384"/>
@@ -15536,7 +15455,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>1</w:t>
+                            <w:t>${fmil.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15569,7 +15488,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>策</w:t>
+                            <w:t>${fmil.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15602,12 +15521,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${fmil.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15897,16 +15819,12 @@
                     <w:sz w:val="22"/>
                 </w:rPr>
                 <w:lastRenderedPageBreak/>
-                <w:t>现金流量表</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>现金流量表：<#if !NO9_3_7?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if (NO9_3_7)?? >
+<#list NO9_3_7 as ps937>
         <w:p w:rsidR="00063076" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15926,9 +15844,9 @@
                 </w:rPr>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="3704590" cy="2495550"/>
+                        <wp:extent cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="10160" b="0"/>
-                        <wp:docPr id="11" name="图片 11" descr="5"/>
+                        <wp:docPr id="80${ps937_index}" name="图片 11" descr="5"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -15942,7 +15860,7 @@
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId13"/>
+                                        <a:blip r:embed="${ps937.rid}"/>
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -15950,7 +15868,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3704590" cy="2495550"/>
+                                            <a:ext cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -15963,6 +15881,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>

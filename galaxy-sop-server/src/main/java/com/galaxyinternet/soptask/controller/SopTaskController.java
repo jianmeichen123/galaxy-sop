@@ -116,15 +116,25 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * 默认页面
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(HttpServletRequest request) {
-		//flag判断该请求是不是人事，财务，法务角色登录的尽调报告或者完善简历菜单
+	public ModelAndView list(HttpServletRequest request) {
 		String flag=request.getParameter("flag");
-		if(null!=flag&&!"".equals(flag)){
-			request.setAttribute("flagUrl",flag);
-		}else{
-			request.setAttribute("flagUrl","");
+		ModelAndView mv = new ModelAndView("soptask/tasklist");
+		String title = "待办任务";
+		if("gq".equals(flag))
+		{
+			title = "股权交割";
 		}
-		return "soptask/tasklist";
+		else if("jz".equals(flag))
+		{
+			title = "尽调报告";
+		}
+		else if("pz".equals(flag))
+		{
+			title = "付款凭证";
+		}
+		mv.addObject("title", title);
+		mv.addObject("flagUrl", flag);
+		return mv;
 	}
 	/**
 	 * 弹出页面
@@ -530,16 +540,18 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		return "soptask/taskMesage";
 	}
 	/**
-	 * 全部
+	 * 全部 - 显示待认领、本人待完成、本人已完成的任务
 	 * @param sopTaskBo
 	 * @param request
 	 * @return
 	 */
-	@GalaxyResource(name="task_view", table="sop_task")
 	@ResponseBody
 	@RequestMapping(value = "/list/all", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTaskBo> searchAll(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
 	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Long assignUid = user.getId();
+		sopTaskBo.setAssignUid(assignUid);
 		return search(sopTaskBo, request);
 	}
 	/**

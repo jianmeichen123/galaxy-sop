@@ -46,23 +46,20 @@
                         	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
-                          	<!--  <span id="projectTypeTip"  style="display:none;">
-                            	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
-                            </span> -->
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
-                            <span class="m_r30"><input type="text" class='datepicker-text new_nputr addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
+                             <span class="m_r30"><input type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
-                        <li style='margin-top:25px;'>
+                        <li>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
-                            <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
-                       		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
+                       		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
 									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
                         </li>
-                        <li style='margin-top:52px;margin-bottom:20px;'>
+                        <li>
                         	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '>
@@ -232,7 +229,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	var _this = $(this);
 	_this.toggleClass('addpro-input-arrow-up')
 });
-
+$('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
+	var _this = $(this);
+	_this.removeClass('addpro-input-arrow-up')
+})
 
 
 
@@ -304,14 +304,15 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 		$("select[name='faFlag']").change(function(){
 			var text=$(this).find("option:checked").text();
 			if(text=="FA"){
-				$(this).siblings(".new_nputr").show();
+				$(this).siblings(".new_nputr").css('display','block');
 			}else{
 				$(this).siblings(".new_nputr").hide();
-				$(".tip-yellowsimple").each(function(){  //隐藏提示  
+				$('#faName-error').remove();
+				/* $(".tip-yellowsimple").each(function(){
 		            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
 		            	$(this).remove();
 		            }
-		        }); 
+		        });  */
 			}
 		})
 		
@@ -324,15 +325,18 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 		}
 		return null;
 	}
-
+//项目名称重复
 	function add(){
-		$(".adddpro-save").submit();
-		/* var val=$('input:radio[name="projectType"]:checked').val();
+		if(!$('#add_form').validate().form()){//验证不通过时候执行
+			$(".adddpro-save").submit();
+			return false;	
+		}
+		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null || typeof(val) == "undefined"){
 			$("#projectTypeTip").css("display","block");
 			return;
-		}
-		var data1= JSON.stringify(getUpdateData());
+		} 
+		var data1= JSON.stringify(getUpdateData());//转换成字符串
 		if(formData != data1){
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
@@ -340,8 +344,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				return TOKEN;
 			});
 		} 
-		 */
-		/* if(beforeSubmit()){
+		 
+		 if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -360,7 +364,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 				}
 				
 			},TOKEN);
-		} */
+		}
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){

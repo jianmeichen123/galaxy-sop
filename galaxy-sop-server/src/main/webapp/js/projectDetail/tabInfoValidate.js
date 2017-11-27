@@ -17,7 +17,6 @@
 				},
 				faName :{
 					required:true,
-					number :true,
 					faname : true
 				}
 			},
@@ -36,7 +35,6 @@
 				},
 				faName :{
 					required:'*不能以空格开头，字符最大长度为20',
-					number:'*不能以空格开头，字符最大长度为20'
 				}
 				
 			},
@@ -58,7 +56,7 @@
 	jQuery.validator.addMethod("faname", function (value, element) {
 		var faname = /^[^\s](.{0,19})$/;
 		return this.optional(element) || (faname.test(value));
-	}, "不能以空格开头，字符最大长度为20");
+	}, "*不能以空格开头，字符最大长度为20");
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
