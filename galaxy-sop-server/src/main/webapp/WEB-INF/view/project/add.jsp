@@ -26,7 +26,7 @@
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 		<div class="new_tit_b add-project-title">
-            <span class="size18">添加项目</span>
+            <span>添加项目</span>
 		</div>
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
@@ -117,8 +117,8 @@
 	                </table>
 	                <div class="compile_on_center">
                        <div class="compile_on_left addpro-compile">
-                           <span class="pubbtn bluebtn adddpro-save" onclick="add();">保存</span>
-                           <span class="pubbtn fffbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
+                           <span class="pubbtn adddpro-save" onclick="add();">保存</span>
+                           <span class="pubbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
                 </div>

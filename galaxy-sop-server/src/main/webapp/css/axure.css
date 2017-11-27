@@ -4011,8 +4011,9 @@ input::input-placeholder{color:red !important;}
  .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 /* 添加项目 */
-.add-project-title{height:62px;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;ont-family:MicrosoftYaHei;}
+.add-project-title{height:62px;margin-left:150px;margin-top:50px;width:auto;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
+.add-project-title span{font-family:MicrosoftYaHei;font-size:24px;color:#202533;}
 .pagebox .add-project-ritmin{margin:10px 0px 0 10.505%;padding-left:16px;}
 .add-project-tabtable{border-radius:0px;background-color:inherit;}
 .add-pro-basicmessage{font-size:16px;color:#333333;margin-left:0px;}
@@ -4047,6 +4048,7 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-business-plan table td:nth-child(3){text-align:right;padding-right:25px;}
 .addpro-business-plan table .add_ico_pgn{font-family:MicrosoftYaHei;font-size:14px;color:#3ca6ff;}
 .compile_on_left span.adddpro-save{background:#3ca6ff;border-radius:2px;width:92px;height:32px;font-size:14px;color:#ffffff;line-height:32px;font-family:MicrosoftYaHei;}
+.compile_on_left span.adddpro-save:hover{background-color:#0084f5;}
 .compile_on_left span.addpro-cacel{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-family:MicrosoftYaHei;font-size:14px;color:#3ca6ff;line-height:32px;}
 .compile_on_left span.addpro-cacel:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .task-cancle:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
