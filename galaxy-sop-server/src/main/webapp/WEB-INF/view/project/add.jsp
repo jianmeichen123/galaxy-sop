@@ -54,7 +54,7 @@
                             <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
                             <span class="m_r30">
-								<select style='margin-left:6px;' name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
+								<select name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
 									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
@@ -67,7 +67,7 @@
 			                    </select>
                             </span>
                             <span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
-                            <span class="m_r30" style="with:400px">
+                            <span class="m_r30">
 	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
 				                    	<option value="">请选择</option>
 				                </select>
@@ -113,7 +113,7 @@
                         <span class="new_color  add-pro-basicmessage">商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table business-plan-table">
+	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
 	                </table>
 	                <div class="compile_on_center">
                        <div class="compile_on_left addpro-compile">
