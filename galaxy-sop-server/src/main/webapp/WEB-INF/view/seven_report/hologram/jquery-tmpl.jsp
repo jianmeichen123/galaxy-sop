@@ -457,7 +457,7 @@
 		</div>
 <!-竞争弹窗开始->
 {{else}}
-<div class="h_edit section">
+<div class="h_edit section h_edit_competition">
 	<input name="index" type="hidden" value="">
 	<input name="id" type="hidden">
     <input name="titleId" type="hidden" value='\${id}'>

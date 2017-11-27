@@ -3952,8 +3952,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-cx{height:29px;line-height:30px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
-.more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:20px;margin-left:20px;}
-.task-toggle{display:none;position:absolute;right:20px;top:-10px;z-index:10;width:88px;height:65px;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
+.more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:20px;}
+.task-toggle{display:none;position:absolute;right:11px;top:-10px;z-index:10;width:88px;height:65px;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
 .task-toggle li{cursor:pointer;height:32px;line-height:32px;}
 .task-toggle li:hover{background:#e5f3ff;}
 .pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
@@ -3966,15 +3966,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table .on td{background:none !important;}
 .task-item-left{margin-left:20px;}
 .task-item-right{margin-right:20px;}
-.pro-detail{float:right;margin-top:60px;color:#3ca6ff;font-size:14px;cursor:pointer;}
+.pro-detail{float:right;margin-top:60px;color:#3ca6ff;font-size:14px;font-family:MicrosoftYaHei;}
 .task-detail-table th{font-family:MicrosoftYaHei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
 .task-detail-table tr td:nth-child(1){text-align:left;padding-left:20px;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
-.upate-task{display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
-.submit-success{width:96px;color:#3ca6ff;background:#fff;margin-left:20px;}
+.upate-task{font-family:MicrosoftYaHei;display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
+.submit-success{font-family:MicrosoftYaHei;width:96px;color:#3ca6ff;background:#fff;margin-left:20px;}
 /*操作日志*/
 .opretion-log thead th{font-size:14px;color:#5a626d;font-weight:bold;text-align:center;}
 .opretion-log thead th:nth-child(1){text-align:left;padding-left:20px;}
@@ -4061,3 +4061,8 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-input-fa{margin-top:15px;margin-bottom:1px;}
 .addpro-basi-ul select::-ms-expand { display: none; }
 .tips-no-backgroud{width:auto !important;}
+.task-back{display:inline-block;width:20px;height:17px;background:url(../img/back.png) no-repeat center center;vertical-align:text-bottom;margin-right:7px;cursor:pointer;}
+.task-back:hover{background:url(../img/back-hover.png) no-repeat center center;}
+.come-back{width:auto;float:right;margin-right:22px;}
+.task-back-msg{font-family:MicrosoftYaHei;font-size:12px;color:#3ca6ff;cursor:pointer;}
+.task-operation a{font-family:MicrosoftYaHei;color:#45aaff;margin-left:16px;}

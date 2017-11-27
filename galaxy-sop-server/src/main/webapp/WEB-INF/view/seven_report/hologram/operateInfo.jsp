@@ -72,18 +72,43 @@ getData();
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
-			 console.log("@@@@");
-			 console.log(data);
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					sec.showResults();
+					//sec.showResults();
 					bindChangeType13();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					$(".bj_hui_on").show();
 					validate();
+					$('.h_title').click(function(){  //保存
+						var _tochange=sec.find('form').attr('tochange');
+						if(_tochange=='true'){
+							auto_save(sec);
+						}
+						auto_save(sec);
+					})
+					if($('.history_block .btn').is(':visible')){   //点击恢复
+						$('.history_block .btn').click(function(){
+							sec.showResultsDrafts();
+							//文本域剩余字符数
+							var textarea_h = section.find('.textarea_h');
+							for(var i=0;i<textarea_h.length;i++){
+								var len=textarea_h.eq(i).val().length;
+								var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+								textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
+							}
+							/* 文本域自适应高度 */
+							for(var i=0;i<$("textarea").length;i++){
+								var textareaId=$("textarea").eq(i).attr("id");
+								autoTextarea(textareaId);
+							}
+							//检查表格tr是否10行
+							check_table_tr_edit();
+							check_table();
+						})
+					}
 					//编辑显示隐藏按钮不可用
 					btn_disable(1);
 					//isMust("#b_"+id_code);	

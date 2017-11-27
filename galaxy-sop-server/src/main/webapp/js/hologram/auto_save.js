@@ -163,12 +163,13 @@
                         infoMode.remark1 = '' ;
                     }
 				}
-				infoModeList.push(infoMode);
+				if (infoMode != null) {
+	                infoModeList.push(infoMode);
+	            }
 			});
 			data.infoModeList = infoModeList;
 			data.infoFixedTableList=infoModeFixedList;
 			data.infoModeInputs=infoModeInputs;
-			console.log(data);
 			//多选和多选加备注特殊处理
 			$.each(fields_value1, function() {			
 				var field = $(this);
@@ -222,28 +223,17 @@
 			});
 		
 			data.infoTableModelList = infoTableModelList;
-			data.deletedRowIds = deletedRowIds;
-			/*console.log('表格开始');
 			console.log(data);
-			console.log('表格结束');*/
-			/*sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateInfo , 
+			data.deletedRowIds = deletedRowIds;
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateDraftBox , 
 					data,
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							updateInforTime(projectInfo.id,"NO2");
-							layer.msg('保存成功');
-							$('#'+id_code).show();
-							$('#b_'+id_code).remove();
-							$(".bj_hui_on").hide();
-							btn_disable(0);
-							$(".h#a_"+id_code).css("background","#fff");
-							var pid=$('#a_'+id_code).attr("data-section-id");
-							setDate(pid,true);			
-						    toggle_btn($('.anchor_btn span'),0,save_this);
+							
 						} else {
 
 						}
-				}) */
+				}) 
 	}

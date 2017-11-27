@@ -23,7 +23,7 @@
 	        	<div class='task-item task-item-right'>
 	        		<li>项目编码：<span id="projectCode">27000021</span></li>
 	       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
-	       			<span class='pro-detail'>项目详细信息 ></span>
+	       			<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
 	        	</div> 
         	</div>
         	<div class='taskDetail-mesage-table'>
@@ -44,8 +44,8 @@
 	        				<td>2017-08-04</td>
 	        				<td>已上传</td>
 	        				<td class='task-operation'>
-	        					<span>查看</span>
-	        					<span>查看历史</span>
+	        					<a href='#'>查看</a>
+	        					<a href='#'>查看历史</a>
 	        				</td>
 	        				
 	        			</tr>
@@ -54,8 +54,8 @@
 	        	</table>
         	</div>
         	<div class='taskDetail-mesage-update'>
-        		<span class="upate-task" id="file-upload-btn">更新尽调报告</span>
-        		<span class='upate-task submit-success' id="complete-task-btn" disabled="disabled" class="disabled">提交完成</span>
+        		<a href='javascript:;' class="upate-task" id="file-upload-btn">${btnTxt }</a>
+        		<a href='javascript:;'  class='upate-task submit-success disabled' id="complete-task-btn" disabled="disabled">提交完成</a>
         	</div>
         </div>
 	</div>
@@ -115,14 +115,14 @@
 			$tr.append('<td>'+this.fileStatusDesc+'</td>');
 			if(isBlank(this.fileName)){
 				$tr.append('<td></td>');
-				//$("#complete-task-btn").addClass('disabled');
+				$("#complete-task-btn").addClass('disabled');
 			}
 			else
 			{
 				$tr.append('<td class="task-operation"><span onclick="downloadFile(this)">查看</span></td>');
-				/* 
 				$("#complete-task-btn").removeClass('disabled');
 				$("#complete-task-btn").removeProp("disabled");
+				/* 
 				var btnText = $("#show-upload-btn").text();
 				if(btnText != null && btnText.indexOf('上传')>-1)
 				{
