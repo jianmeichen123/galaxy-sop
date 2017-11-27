@@ -207,8 +207,6 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew2.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness2.js'></script>
 <!-- 校验 -->
- <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script type="text/javascript">
