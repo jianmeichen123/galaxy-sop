@@ -2031,6 +2031,30 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 
 	/**
+	 * Ajax判断项目名称，组织机构代码是否重复
+	 */
+	@RequestMapping(value = "checkProjectName",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<Project> checkProjectName(@RequestBody Project project) {
+	    	ResponseData<Project> resp = new ResponseData<Project>();
+		    //验证项目名是否重复
+	    	 Project obj = new Project();
+		      if(null==project.getProjectName()||"".equals(project.getProjectName())){
+		    	  resp.setResult(new Result(Status.ERROR, "param-lost", "参数丢失!"));
+		      }else{
+		    	  obj.setProjectName(project.getProjectName());
+		    	  if(null!=project.getId()&&!"".equals(project.getId())){
+		    		  obj.setId(project.getId());	
+		    	   }
+		      }
+		      List<Project> projectList = projectService.queryList(obj);
+			  if (null != projectList && projectList.size() > 0) {
+					resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
+			   }
+				return resp;
+	}
+
+	/**
 	 * 验证sop流程中按钮是否可用
 	 */
 	@RequestMapping(value = "/checkCanUse", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
