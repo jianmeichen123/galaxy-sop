@@ -1230,12 +1230,20 @@ var platformUrl = {
 	/**
 	 * 传入题 id,返回子标题的结果
 	 */
+	getTitleResultsDraftBox : Constants.sopEndpointURL + "galaxy/draftBox/infoData/getTitleResults/",
+	/**
+	 * 传入题 id,返回子标题的结果
+	 */
 	getRelateTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getRelateTitleResults/",
 	
 	/**
 	 * 保存result
 	 */
 	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo",
+	/**
+	 * 保存MOGO
+	 */
+	saveOrUpdateDraftBox : Constants.sopEndpointURL + "galaxy/draftBox/infoData/saveOrUpdateInfo",
 	
 	/**
 	 * 保存result
