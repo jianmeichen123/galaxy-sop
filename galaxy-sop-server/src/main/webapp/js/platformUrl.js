@@ -408,6 +408,11 @@ var platformUrl = {
 	 */
 	checkProject:Constants.sopEndpointURL + "/galaxy/project/checkProject",
 	/**
+	 * Ajax判断项目名称，组织机构代码是否重复
+	 */
+	checkProjectName:Constants.sopEndpointURL + "/galaxy/project/checkProjectName",
+	
+	/**
 	 * 档案管理发送邮件窗口
 	 */
 	showFileMailDialog:Constants.sopEndpointURL + "/galaxy/sopFile/showMailDialog",
