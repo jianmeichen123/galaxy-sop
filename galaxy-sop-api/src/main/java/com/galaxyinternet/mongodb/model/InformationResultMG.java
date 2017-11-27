@@ -1,7 +1,7 @@
 package com.galaxyinternet.mongodb.model;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -35,7 +35,7 @@ public class InformationResultMG {
 
     private String updateId;
     
-    private Set<String> titleIds;
+    private List<String> titleIds;
 
     /**information_title_relate start**/
     @QueryField(attribute="parentId")
@@ -70,13 +70,13 @@ public class InformationResultMG {
 		this.valueName = valueName;
 	}
 
-	public Set<String> getTitleIds()
-	{
+
+
+	public List<String> getTitleIds() {
 		return titleIds;
 	}
 
-	public void setTitleIds(Set<String> titleIds)
-	{
+	public void setTitleIds(List<String> titleIds) {
 		this.titleIds = titleIds;
 	}
 

@@ -1,9 +1,11 @@
 package com.galaxyinternet.mongodb.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -301,6 +303,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		List<InformationTitle> list = null;
 		Map<String,InformationTitle> titleMap = getChildTitleMap(parentId);
 		Set<String> titleIds = titleMap.keySet();
+		
+		List<String> valueList = getListByMap(titleMap,true);
 		list = new ArrayList<InformationTitle>(titleMap.values());
 		//reset info
 		if(list != null)
@@ -328,7 +332,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		//查询result
 		InformationResultMG resultQuery = new InformationResultMG();
 		resultQuery.setProjectId(projectId);
-		resultQuery.setParentId(parentId);
+		//resultQuery.setParentId(parentId);
+		resultQuery.setTitleIds(valueList);
 		Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 		List<InformationResultMG> resultList = null;
 		try {
@@ -369,7 +374,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		//查询FixedTable
 		InformationFixedTableMG fixedTableQuery = new InformationFixedTableMG();
 		fixedTableQuery.setProjectId(projectId);
-		fixedTableQuery.setParentId(parentId);
+		//fixedTableQuery.setParentId(parentId);
+		resultQuery.setTitleIds(valueList);
 		List<InformationFixedTableMG> fixedTableList = null;
 		try {
 			fixedTableList = informationFixedTableMGService.find(fixedTableQuery);
@@ -427,7 +433,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		//查询表格
 		InformationListdataMG listdataQuery = new InformationListdataMG();
 		listdataQuery.setProjectId(projectId);
-		listdataQuery.setParentId(parentId);
+		//listdataQuery.setParentId(parentId);
+		resultQuery.setTitleIds(valueList);
 		Map<String,String> userMap=initCache();
 		List<InformationListdataMG> listdataList = null;
 		try {
@@ -571,4 +578,20 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			return tList;
 
 		}
+		public static List<String> getListByMap(Map<String, InformationTitle> map,  
+	            boolean isKey) {  
+	        List<String> list = new ArrayList<String>();  
+	  
+	        Iterator<String> it = map.keySet().iterator();  
+	        while (it.hasNext()) {  
+	            String key = it.next().toString();  
+	            if (isKey) {  
+	                list.add(key);  
+	            } else {  
+	                list.add(map.get(key).getId().toString());  
+	            }  
+	        }  
+	  
+	        return list;  
+	    }  
 }
