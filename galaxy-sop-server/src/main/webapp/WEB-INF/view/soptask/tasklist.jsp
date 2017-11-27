@@ -31,7 +31,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	 <!--页眉-->
         <div class="top clearfix task-top">
-        <h2>待办任务</h2>
+        <h2>${title }</h2>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink">
             	<li class="on task-tips-li"><a href="javascript:;" id="all" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/all">全部<span><!-- (14) --></span></a></li>
@@ -46,7 +46,7 @@
                 </c:if>
                 <c:if test="${fx:hasPremission('task_list_dep') }">	
                 <li class='bottom_none'>|</li> 
-                <li class='task-tips-li'><a href="javascript:;" id="urgent" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/depUnfinished">部门待完工<span><!-- (2) --></span></a></li>
+                <li class='task-tips-li'><a href="javascript:;" id="dep-unfinished" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/depUnfinished">部门待完工<span><!-- (2) --></span></a></li>
                 </c:if>
            </ul>
           <div class="searchbox clearfix task-searchbox"  id="custom-toolbar">
@@ -105,7 +105,6 @@ $(window).resize(function(){
 })	
 function projectNameFormatter(value,row,index){
 		var str=row.projectName;
-		console.log(str);
 		if(str.length>12){
 			subStr = str.substring(0,12);
 			var options = "<span title='"+str+"'>"+subStr+"</span>";
