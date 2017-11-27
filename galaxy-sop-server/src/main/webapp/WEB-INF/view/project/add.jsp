@@ -52,7 +52,7 @@
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
-                        <li style='margin-top:25px;'>
+                        <li style='margin-top:16px;'>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
                             <span class="m_r30"><input type="text" class='new_nputr addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span style='letter-spacing:0.8px;'>本轮融资轮次：</span></span>
@@ -62,7 +62,7 @@
 			                    </select>
 							</span>
                         </li>
-                        <li style='margin-top:52px;margin-bottom:20px;'>
+                        <li style='margin-top:16px;margin-bottom:20px;'>
                         	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '>
