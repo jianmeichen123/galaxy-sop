@@ -26,6 +26,7 @@
 	       			<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
 	        	</div> 
         	</div>
+        	<div class='task-no-need'><label class='task-no-label'></label><input type='checkbox' value=''/>不需要提供</div>
         	<div class='taskDetail-mesage-table'>
 	        	<table width='100%' class='task-detail-table' border='0' cellspacing='0' cellpadding='0'>
 	        		<thead>
@@ -137,6 +138,9 @@
 	};
 	sendPostRequestByJsonObj(url, data, callback);
 	/**********************显示文件 END ************************/
-	
+	//checkbox按钮选中
+	$('.task-no-label').click(function(){
+		$(this).toggleClass('label-checked');
+	})
 </script>
 
