@@ -763,15 +763,15 @@ function buildRowDraft(row,showOpts,titleId)
 
 }
 function buildfinxedTableDraft(sec,title,readonly){
-	if(null!=title.fixedTableList&&title.fixedTableList.length>0){
+	if(null!=title.fixedTableMGList&&title.fixedTableMGList.length>0){
 	  if(readonly == true)
 		{
-		  $.each(title.fixedTableList,function(i,n){
+		  $.each(title.fixedTableMGList,function(i,n){
 				$("td[data-format='"+n.rowNo+"_"+n.colNo+"']").text(n.valueName);
 			});
 		}else
 		{
-			$.each(title.fixedTableList,function(i,n){
+			$.each(title.fixedTableMGList,function(i,n){
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").attr('checked','true');
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"']").attr('data-value-id',n.id);
 				
