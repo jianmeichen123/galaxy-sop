@@ -2768,8 +2768,47 @@
             </#if>
         </#list>
         </#if>
+
         </w:tbl>
 
+
+        <w:p w:rsidR="00F45604" w:rsidRDefault="0070238F" w:rsidP="00F45604">
+            <w:pPr>
+                <w:spacing w:line="360" w:lineRule="exact"/>
+                <w:jc w:val="left"/>
+                <w:rPr>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                    <w:b/>
+                    <w:sz w:val="22"/>
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                    <w:b/>
+                    <w:sz w:val="22"/>
+                </w:rPr>
+                <w:t>投资经理意见：</w:t>
+            </w:r>
+        </w:p>
+        <w:p w:rsidR="00F45604" w:rsidRPr="00CD6BFB" w:rsidRDefault="00F45604" w:rsidP="00F45604">
+            <w:pPr>
+                <w:spacing w:line="360" w:lineRule="exact"/>
+                <w:ind w:left="420"/>
+                <w:jc w:val="left"/>
+                <w:rPr>
+                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                    <w:sz w:val="22"/>
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                    <w:sz w:val="22"/>
+                </w:rPr>
+                <w:t>${NO1_2_6!"-"}</w:t>
+            </w:r>
+        </w:p>
 
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC"/>
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -14201,6 +14240,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
+                            <#--<#if isit.field3??>${isit.field3!""}万<#if isit.field6??>${isit.field6!""}</#if><#else>-</#if>-->
                             <w:t><#if isit.field3?? || isit.field6??> ${isit.field3!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
