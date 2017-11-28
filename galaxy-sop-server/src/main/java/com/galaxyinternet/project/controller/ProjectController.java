@@ -2050,6 +2050,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		      List<Project> projectList = projectService.queryList(obj);
 			  if (null != projectList && projectList.size() > 0) {
 					resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
+			   }else{
+				   resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
 			   }
 				return resp;
 	}
