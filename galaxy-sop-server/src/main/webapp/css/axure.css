@@ -3984,8 +3984,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-abandon-content{width:580px;}
 .task-pop{border-radius:2px;border:none;}
 .abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:MicrosoftYaHei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
-.qualifications_all p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
-.qualifications_all p {padding:30px 0 0 118px;color:#666666;font-size:14px;}
+.task-qulification p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
+.task-qulification p {padding:30px 0 0 118px;color:#666666;font-size:14px;}
 .task-textarea{width:444px;font-size:14px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
 .tast-content{margin-left:38px;}
 .tast-content em{display:inline-block;margin-right:8px;color:#666666;font-size:14px;}

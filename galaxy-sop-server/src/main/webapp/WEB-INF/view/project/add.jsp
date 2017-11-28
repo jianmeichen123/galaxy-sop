@@ -324,13 +324,15 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		return null;
 	}
 //项目名称重复checkProjectName
-/* $('#projectName').blur(function(){
+ $('#projectName').blur(function(){
 	alert('ddd')
 	var projectName=$("#projectName").val().trim();
 	var data2 = {
-			projectName : projectName
+			'projectName' : projectName
 	}
+	
 	var data2 = JSON.stringify(data2)
+	console.log(typeof(data2))
 	sendPostRequestBySignJsonStr(platformUrl.checkProjectName,data2,function(data){
 		console.log(data)
 			if(data.result.errorCode == "mccf"){
@@ -339,7 +341,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	})
 	
 	
-}) */
+}) 
 
 
 
