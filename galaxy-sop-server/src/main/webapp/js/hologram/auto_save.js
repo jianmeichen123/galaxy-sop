@@ -7,7 +7,8 @@
 		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id]");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
 		var data = {
-				projectId : projectInfo.id
+				projectId : projectInfo.id,
+				parentId:sec.data('section-id')
 			};
 			var infoModeList = new Array();
 			var infoModeFixedList = new Array();
@@ -31,12 +32,10 @@
 					titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 					tochange:_tochange,
 					resultId:_resultId,
-					type : type,
-					parentId:field.closest('.radius').data('section-id')
+					type : type
 				};
 				var infoModeFixed = {
 						titleId	: field.data('titleId'),
-						parentId:field.closest('.radius').data('section-id'),
 						type : type,
 						rowNo:"",
 						colNo:""
@@ -186,7 +185,6 @@
 					}
 					var infoMode = {
 							titleId : field.data('titleId'),
-							parentId:field.closest('.radius').data('section-id'),
 							type : field.data('type'),
 							tochange:_tochange,
 							resultId:_resultId,

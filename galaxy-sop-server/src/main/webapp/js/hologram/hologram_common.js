@@ -2630,7 +2630,7 @@ function tableDictColumn(code){
 function resizetable(table){
     var dict_map = {};
     var title_id = table.attr("data-title-id")
-    var  code = table.attr("data-code")
+    var  code = table.attr("data-code");
     var fields_json=tableDictColumn(code);
     if (fields_json && code in fields_json){
         var fields = fields_json[code]
