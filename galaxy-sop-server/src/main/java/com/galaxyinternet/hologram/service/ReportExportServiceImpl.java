@@ -4,6 +4,7 @@ package com.galaxyinternet.hologram.service;
 import com.aliyun.oss.ServiceException;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
@@ -252,6 +253,15 @@ public class ReportExportServiceImpl implements ReportExportService {
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
             map.put("NO1_1_1_n", project.getProjectName());
+
+            //项目来源
+            if(StringUtils.isNotBlank(project.getFaFlag())){
+                if( "projectSource:1".equals(project.getFaFlag())){
+                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getProjectName());
+                }else{
+                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()));
+                }
+            }
 
             User createUser = userService.queryById(project.getCreateUid());
             //project.setCreateUname(createUser.getRealName());

@@ -13088,7 +13088,7 @@
                 </w:rPr>
             </w:pPr>
             <w:r w:rsidRPr="00677582">
-                <w:rPr>
+                <w:r Pr>
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
