@@ -31,7 +31,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	 <!--页眉-->
         <div class="top clearfix task-top">
-        <h2>${title }<div class='come-back'><span class='task-back'></span><span class='task-back-msg'>返回</span></div></h2>
+        <h2>${title }<div class='come-back' onclick="window.history.back();"><span class='task-back'></span><span class='task-back-msg'>返回</span></div></h2>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink">
             	<li class="on task-tips-li"><a href="javascript:;" id="all" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/all">全部<span><!-- (14) --></span></a></li>

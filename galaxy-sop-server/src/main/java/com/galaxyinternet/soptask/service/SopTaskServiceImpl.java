@@ -284,7 +284,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("3");
-				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				caozuohtml.append("<a href='javascript:void(0)' id='doclaim' class='blue'").append(" >查看").append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/></a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			sopTaskBo.setProjectId(sopTasknew.getProjectId());

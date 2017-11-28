@@ -256,9 +256,13 @@ function back(){
 			deleteCookie("cooki_flag","/");	
 		}
 		var href_url=getCookieValue("href_url");
-		if(href_url){
+		if(href_url && href_url.length>0){
 			deleteCookie("href_url","/");
 			window.location=href_url;
+		}
+		else
+		{
+			window.history.back();
 		}
 	}
 }
