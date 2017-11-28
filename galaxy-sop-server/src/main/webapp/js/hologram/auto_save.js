@@ -32,9 +32,11 @@
 					tochange:_tochange,
 					resultId:_resultId,
 					type : type,
+					parentId:field.closest('.radius').data('section-id')
 				};
 				var infoModeFixed = {
 						titleId	: field.data('titleId'),
+						parentId:field.closest('.radius').data('section-id'),
 						type : type,
 						rowNo:"",
 						colNo:""
@@ -184,6 +186,7 @@
 					}
 					var infoMode = {
 							titleId : field.data('titleId'),
+							parentId:field.closest('.radius').data('section-id'),
 							type : field.data('type'),
 							tochange:_tochange,
 							resultId:_resultId,
