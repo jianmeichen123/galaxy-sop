@@ -170,4 +170,14 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH, mapList);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, Map<String, Object> params) 
+	{
+		if(params == null)
+		{
+			params = new HashMap<String, Object>();
+		}
+		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
 }
