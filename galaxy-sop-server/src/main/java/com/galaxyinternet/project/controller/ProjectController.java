@@ -2044,9 +2044,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		      }else{
 		    	  obj.setProjectName(project.getProjectName());
 		    	  if(null!=project.getId()&&!"".equals(project.getId())){
-		    		 
 		    		Project pro= projectService.queryById(project.getId());
-		    		 obj.setProjectName(pro.getProjectName());
 		    		if(pro.getProjectName().equals(project.getProjectName())){
 		    			 obj.setId(project.getId());	
 		    	   }
