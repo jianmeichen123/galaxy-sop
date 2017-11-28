@@ -346,9 +346,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	
 	
 })  
-
-
-
+//添加项目页面保存按钮
 	function add(){
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
