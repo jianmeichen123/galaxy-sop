@@ -323,7 +323,26 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		}
 		return null;
 	}
-//项目名称重复
+//项目名称重复checkProjectName
+/* $('#projectName').blur(function(){
+	alert('ddd')
+	var projectName=$("#projectName").val().trim();
+	var data2 = {
+			projectName : projectName
+	}
+	var data2 = JSON.stringify(data2)
+	sendPostRequestBySignJsonStr(platformUrl.checkProjectName,data2,function(data){
+		console.log(data)
+			if(data.result.errorCode == "mccf"){
+				alert('项目名称重')
+			}
+	})
+	
+	
+}) */
+
+
+
 	function add(){
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
@@ -342,8 +361,6 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				return TOKEN;
 			});
 		} 
-		 
-		 if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -362,7 +379,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				}
 				
 			},TOKEN);
-		}
+		
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){
