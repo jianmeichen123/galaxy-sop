@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
-import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 @Component

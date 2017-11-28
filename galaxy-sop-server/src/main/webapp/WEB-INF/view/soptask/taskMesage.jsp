@@ -66,68 +66,8 @@
         </div>
 	</div>
 </div>
-<!-- 弹出上传页面  START-->
-<div id="upload-dialog" style="display: none;">
-	<div class="title_bj"></div>
-	<div class="archivestc margin_45" >
-	<form>
-		<input type="hidden" name="id">
-		<dl class="fmdl clearfix">
-	    	<dt>档案来源：</dt>
-	        <dd class="clearfix">
-	        	<label><input name="fileSource" type="radio" value = "1" checked/>内部</label>
-	            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
-	        </dd>
-	    </dl>
-	    <dl class="fmdl clearfix">
-	    	<dt>存储类型：</dt>
-	        <dd>
-	        	<select name="fileType" class="disabled" disabled="disabled">
-	        		<option value="">请选择</option>
-	        		<option value="fileType:1">文档</option>
-	        		<option value="fileType:2">音频文件</option>
-	        		<option value="fileType:3">视频文件</option>
-	        		<option value="fileType:4">图片</option>
-	        	</select>
-	        </dd>
-	    </dl>
-	    <dl class="fmdl clearfix">
-	    	<dt>业务分类：</dt>
-	        <dd>
-	        	<select name="fileWorktype" class="disabled" disabled="disabled">
-	        		<option value="">请选择</option>
-	        		<option value="fileWorktype:2">人力资源尽职调查报告</option>
-	        		<option value="fileWorktype:3">法务资源尽职调查报告</option>
-	        		<option value="fileWorktype:4">财务资源尽职调查报告</option>
-	        		<option value="fileWorktype:8">工商转让凭证</option>
-	        		<option value="fileWorktype:9">资金拨付凭证</option>
-	        	</select>
-	        </dd>
-	    <!--     <dd>
-	        	<label><input type="checkbox"/>签署凭证</label>
-	        </dd> -->
-	    </dl>
-	    <dl class="fmdl clearfix">
-	    	<dt>所属项目：</dt>
-	        <dd>
-	        	<input type="text" name="projectName" disabled="disabled" class="txt disabled"/>
-	        </dd>
-	    </dl>
-	    
-	     <dl class="fmdl clearfix">
-	    	<dt>文档上传：</dt>
-	        <dd>
-	        	<input type="text" class="txt" name="fileName" disabled/>
-	        </dd>
-	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
-	    </dl> 
-	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
-	</form>
-	</div>
-</div>
-<!-- 弹出上传页面  END-->
 <script type="text/javascript">
-
+	$("#task-title").text('${task.taskName}');
 	/**********************显示任务详情 START************************/
 	var url = platformUrl.detailProject+"/${projectId}";
 	var data = {};
@@ -206,26 +146,12 @@
 	}
 	/**********************显示文件 END ************************/
 	/**********************文件上传 START ************************/
-	$("#file-upload-btn").click(function(){
-		var title_name=$(this).text();
-		showUploadPopup(title_name);
-	});
-	function showUploadPopup(title_name)
+	initUpload();
+	function initUpload()
 	{
-		$.popup({
-			txt:$("#upload-dialog").html(),
-			showback:function(){
-				$('.title_bj').html(title_name)
-				var _this = this;
-				initUpload(_this);
-				initForm(_this);
-			}
-		});
-	}
-	function initUpload(_dialog){
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,html4,flash,silverlight',
-			browse_button : $(_dialog.id).find("#file-select-btn")[0], 
+			browse_button : $("#file-upload-btn")[0], 
 			url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 			multi_selection:false,
 			filters : {
@@ -238,21 +164,6 @@
 			},
 	
 			init: {
-				PostInit: function(up) {
-					$(_dialog.id).find("#upload-btn").click(function(){
-						var fileName = $(_dialog.id).find('[name="fileName"]').val();
-						if(fileName == null || fileName == '')
-						{
-							layer.msg("请选择文件");
-							return;
-						}
-						uploader.start();
-	
-						layer.load(2);
-						return false;
-					});
-				},
-	
 				FilesAdded: function(up, files) {
 					$.each(uploader.files,function(){
 						if(this != files[0])
@@ -260,16 +171,21 @@
 							uploader.removeFile(this);
 						}
 					});
+					uploader.start();
+					layer.load(2);
+					/* 
 					$.each(files, function() {
 						$(_dialog.id).find("input[name='fileName']").val(this.name);
 						var fileType = getFileTypeByName(this.name);
 						$(_dialog.id).find("[name='fileType']").val(fileType);
 					});
+					 */
 				},
-				BeforeUpload:function(up){
-					var $form =$(_dialog.id).find("form")
-					var data = JSON.parse($form.serializeObject());
-					data['fileType']=$(_dialog.id).find("[name='fileType']").val();
+				BeforeUpload: function(up){
+					var file = up.files[0];
+					var fileType = getFileTypeByName(file.name);
+					var id = $(".task-detail-table tbody tr").attr('data-id');
+					var data = {id:id, fileType: fileType};
 					up.settings.multipart_params = data;
 				},
 				FileUploaded: function(up, files, rtn) {
@@ -280,7 +196,6 @@
 						layer.closeAll('loading');
 						layer.msg("上传成功.");
 						$("#complete-task-btn").removeProp("disabled");
-						$(_dialog.id).find("[data-close='close']").click();
 						loadRows();
 					}
 					else
@@ -290,32 +205,14 @@
 					}
 				},
 				Error: function(up, err) {
-				 	var txt=$(_dialog.id).find("input[name='fileName']");
 					layer.msg(err.message);
 				  	setTimeout(function(){
 					  	layer.closeAll('loading');
-				  		txt.val("");
 				  	}, 2000);
 				}
 			}
 		});
 		uploader.init();
-	}
-
-	function initForm(_dialog)
-	{
-		var $row = $(".task-detail-table tbody tr");
-		var fileType = $row.data('file-type') == 'undefined' ? 'fileType:1' : $row.data('file-type');
-		var fileName = $row.data('file-name');
-		var fileSource = $row.data('file-source');
-		var worktype = $row.data('file-worktype');
-		
-		$(_dialog.id).find("[name='id']").val($row.data('id'));
-		$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
-		$(_dialog.id).find("[name='fileWorktype']").val(worktype);
-		$(_dialog.id).find("[name='fileType']").val(fileType);
-		//$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
-		$(_dialog.id).find("[name='projectName']").val($(".taskDetail-mesage-top #projectName").text());
 	}
 	/**********************文件上传 START ************************/
 

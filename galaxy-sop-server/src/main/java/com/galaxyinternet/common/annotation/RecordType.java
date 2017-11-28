@@ -11,8 +11,9 @@ public enum RecordType {
 	PROJECT((byte) 0, "项目"), 
 	IDEAS((byte) 1, "创意"), 
 	IDEAZIXUN((byte) 3, "创意资讯"), 
-	OPERATION_MEETING((byte) 2, "运营会议");
-
+	OPERATION_MEETING((byte) 2, "运营会议"),
+	TASK((byte) 4, "待办任务");
+	
 	private byte type;
 	private String name;
 

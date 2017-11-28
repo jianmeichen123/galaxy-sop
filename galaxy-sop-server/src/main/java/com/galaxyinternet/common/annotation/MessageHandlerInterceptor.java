@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.galaxyinternet.OperationLogs.component.OperationLogGenerator;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -23,7 +24,6 @@ import com.galaxyinternet.iosMessage.operType.IosMeaageOperation;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.iosMessage.IosMessage;
 import com.galaxyinternet.model.operationLog.OperationLogType;
-import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.sopfile.SopParentFile;
@@ -33,12 +33,9 @@ import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
-import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
 import com.tencent.xinge.XGPush;
-
-import net.sf.json.JSONObject;
 
 /**
  * @description 消息提醒拦截器
@@ -89,7 +86,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	OperationMessageService operationMessageService;
 	
 	@Autowired
-	OperationLogsService operationLogsService;
+	OperationLogGenerator logGenerator;
 	@Autowired
 	MessageGenerator messageGenerator;
 	@Autowired
@@ -132,8 +129,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 											
 											    
 									     }
-									} else if (ltype == LogType.LOG) {
-										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
+									} else if (ltype == LogType.LOG) 
+									{
+										logGenerator.generate(operLogType, user, map, recordType);
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IOSPUSHMESS) {
@@ -182,7 +180,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			if(message == null){
 				return;
 			}
-			Long c=operationMessageService.insert(message);
+			operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
 			
 			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
@@ -320,7 +318,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				message.setBelongDepartmentId(user.getDepartmentId());
 				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
-			}else if(message.getAssistColumn().equals("1")){
+			}else if("1".equals(message.getAssistColumn())){
 				content.append("项目")
 				.append(ControllerUtils.getProjectNameLink(message))
 				.append("需要于每月1日开始填写上月的运营数据。");
@@ -343,17 +341,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	/**
-	 * 
-	 * @Description:产生操作日志的方法
-	 */
-	private void insertOperationLog(OperationLogs operationLog) {
-		try {
-			operationLogsService.insert(operationLog);
-		} catch (Exception e3) {
-			loger.error("产生SOP操作日志异常，请求数据：" + operationLog, e3);
-		}
-	}
 
 	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map, Logger logger) {
 		String uniqueKey = logger.unique();
@@ -366,43 +353,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		return uniqueKey;
-	}
-
-	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map, RecordType recordType) {
-		OperationLogs entity = new OperationLogs();
-		
-		entity.setOperationContent(type.getContent());
-		if(type.getUniqueKey().contains("progress/reject")){
-			entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
-		}
-		entity.setOperationType(type.getType());
-		entity.setUid(user.getId());
-		entity.setUname(user.getRealName());
-		entity.setDepartName(user.getDepartmentName());
-		entity.setUserDepartid(user.getDepartmentId());
-		
-		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
-		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
-		
-		if(map.containsKey(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)&& map.get(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)!=null){
-			entity.setSopstage(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)));
-		}else{
-			Object flag=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
-			Object obj=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_STAGE);
-			if(null!=flag&&null!=obj){
-				boolean f=(boolean) flag;
-				String stage=(String)obj;
-				if(f==true&&!"".equals(stage)){
-					entity.setSopstage(stage);
-				 }
-			}else{
-				entity.setSopstage(type.getSopstage());
-			}
-		}
-		entity.setReason(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON)));
-		entity.setRecordType(recordType.getType());
-		
-		return entity;
 	}
 
 	// 创意动态
@@ -425,9 +375,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		return messageGenerator.generate(type, user, map);
 	}
-	
-	
-	
 	// ios message push
 	private void toPushIosMessage(IosMeaageOperation type, User user, Map<String, Object> map) {
 		try{
