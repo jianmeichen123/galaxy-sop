@@ -17,13 +17,14 @@
     <result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="record_type"  property="recordType" jdbcType="TINYINT" />
+    <result column="record_id"  property="recordId" jdbcType="BIGINT" />
     <result column="reason"  property="reason" jdbcType="VARCHAR" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
     id, uid, uname, user_roleId, user_role, user_departId, depart_name, operation_type, 
-    project_id, project_name,sop_stage, operation_content, created_time,record_type,reason
+    project_id, project_name,sop_stage, operation_content, created_time,record_type,record_id,reason
   </sql>
   
   
@@ -51,6 +52,7 @@
 					</foreach>
 				</if>
 				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+				<if test="recordId != null"> and record_id = #{recordId,jdbcType=BIGINT} </if>
 				<if test="reason != null" >and reason = #{reason,jdbcType=VARCHAR} </if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
@@ -89,13 +91,13 @@
 		    insert into sop_operation_logs (id, uid, uname, 
 		      user_roleId, user_role, user_departId, 
 		      depart_name, operation_type, project_id, 
-		      project_name, sop_stage, operation_content, created_time,record_type,reason
+		      project_name, sop_stage, operation_content, created_time,record_type,record_id,reason
 		      )
 		    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, 
 		      #{userRoleid,jdbcType=BIGINT}, #{userRole,jdbcType=VARCHAR}, #{userDepartid,jdbcType=BIGINT}, 
 		      #{departName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, 
 		      #{projectName,jdbcType=VARCHAR}, #{sopstage,jdbcType=VARCHAR},#{operationContent,jdbcType=VARCHAR}, 
-		      #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, #{reason,jdbcType=VARCHAR}
+		      #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, #{recordId,jdbcType=BIGINT},#{reason,jdbcType=VARCHAR}
 		      )
 	    ]]>
     </insert>

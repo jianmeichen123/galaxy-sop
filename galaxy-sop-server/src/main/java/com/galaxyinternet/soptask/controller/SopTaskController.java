@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.annotation.GalaxyResource;
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
@@ -40,6 +43,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -47,6 +51,8 @@ import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
+import com.galaxyinternet.platform.constant.PlatformConst;
+import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -77,6 +83,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OperationLogsService logService;
 	
 
 	@Override
@@ -142,65 +150,75 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE,LogType.IOSPUSHMESS})
-	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
-	public String goClaimtcPage(HttpServletRequest request) {
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE, LogType.IOSPUSHMESS })
+	@RequestMapping(value = "/goClaimtcPage", method = RequestMethod.GET)
+	public String goClaimtcPage(HttpServletRequest request)
+	{
 
-		//当前登录人
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
-		SopTask sopTask=new SopTask();
+		// 当前登录人
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		SopTask sopTask = new SopTask();
 		Result result = new Result();
-		String id=request.getParameter("id");
-		if(id!=null&&!"".equals(id)){
+		String id = request.getParameter("id");
+		if (id != null && !"".equals(id))
+		{
 			sopTask.setId(Long.parseLong(id));
 		}
 		sopTask.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		
-		try {
+
+		try
+		{
 			SopTask queryById = sopTaskService.queryById(Long.parseLong(id));
-			UrlNumber urlNum=null;
+			UrlNumber urlNum = null;
 			String messageType = null;
 			boolean flag = true;
-			switch(queryById.getTaskFlag())
+			switch (queryById.getTaskFlag())
 			{
-				case 0: //完善简历
-				  urlNum=UrlNumber.one;
-					break;
-				case 2 : //人事尽职调查报告
-					 urlNum=UrlNumber.two;
-					 messageType="8.1";
-					break;
-				case 3 : //法务尽职调查报告
-					urlNum=UrlNumber.five;
-					messageType="8.3";
-					break;
-				case 4 : //财务尽调报告
-					urlNum=UrlNumber.three;
-					messageType="8.2";
-					break;
-				case 8 : //资金拨付凭证
-					messageType="8.5";
-					urlNum=UrlNumber.four;
-					break;
-				case 9 : //工商变更登记凭证
-					messageType="8.4";
-					urlNum=UrlNumber.six;
-					break;
-				default :
-					flag=false;
+			case 0: // 完善简历
+				urlNum = UrlNumber.one;
+				break;
+			case 2: // 人事尽职调查报告
+				urlNum = UrlNumber.two;
+				messageType = "8.1";
+				break;
+			case 3: // 法务尽职调查报告
+				urlNum = UrlNumber.five;
+				messageType = "8.3";
+				break;
+			case 4: // 财务尽调报告
+				urlNum = UrlNumber.three;
+				messageType = "8.2";
+				break;
+			case 8: // 资金拨付凭证
+				messageType = "8.5";
+				urlNum = UrlNumber.four;
+				break;
+			case 9: // 工商变更登记凭证
+				messageType = "8.4";
+				urlNum = UrlNumber.six;
+				break;
+			default:
+				flag = false;
 			}
 			Project project = projectService.queryById(queryById.getProjectId());
 			User manager = userService.queryById(project.getCreateUid());
 			sopTask.setAssignUid(user.getId());
 			sopTask.setTaskFlag(queryById.getTaskFlag());
 			sopTask.setProjectId(queryById.getProjectId());
-			 sopTaskService.updateById(sopTask);
-			 request.setAttribute("taskid", id);	
-			 ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
-		} catch (PlatformException e) {
+			sopTaskService.updateById(sopTask);
+			request.setAttribute("taskid", id);
+			Map<String, Object> params = new HashMap<>();
+			params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, project.getProjectName());
+			params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, project.getId());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNum.name());
+			params.put(PlatformConst.REQUEST_SCOPE_RECORD_ID, id);
+			ControllerUtils.setRequestParamsForMessageTip(request, manager, params);
+		} catch (PlatformException e)
+		{
 			result.addError(e.getMessage());
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			result.addError("生成任务失败");
 			logger.error("生成任务失败", e);
 		}
@@ -496,12 +514,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	
 	@RequestMapping(value = "/toTaskLog")
-	public String toTaskLog(HttpServletRequest request) {
-		return "soptask/taskLog";
+	public ModelAndView toTaskLog(Long taskId) 
+	{
+		ModelAndView mv = new ModelAndView("soptask/taskLog");
+		mv.addObject("taskId", taskId);
+		return mv;
 	}
 	
 	@RequestMapping(value = "/toTaskMesage")
-	public ModelAndView toTtaskMesage(Long taskId) 
+	public ModelAndView toTaskMesage(Long taskId) 
 	{
 		ModelAndView mv = new ModelAndView("soptask/taskMesage");
 		SopTask task = sopTaskService.queryById(taskId);
@@ -662,6 +683,18 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			logger.error("任务列表查询失败", e);
 		}
 		data.setResult(result);
+		return data;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/{id}/logs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationLogs> searchTaskLogs(@PathVariable(value="id") Long id,@RequestBody PageRequest pageable)
+	{
+		ResponseData<OperationLogs> data = new ResponseData<OperationLogs>();
+		OperationLogs query = new OperationLogs();
+		query.setRecordType(RecordType.TASK.getType());
+		query.setRecordId(id);
+		Page<OperationLogs> page = logService.queryPageList(query, pageable);
+		data.setPageList(page);
 		return data;
 	}
 	
