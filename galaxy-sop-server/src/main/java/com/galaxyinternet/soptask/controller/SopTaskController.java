@@ -28,6 +28,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
@@ -504,12 +505,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	{
 		ModelAndView mv = new ModelAndView("soptask/taskMesage");
 		SopTask task = sopTaskService.queryById(taskId);
+		Project project = projectService.queryById(task.getProjectId());
 		mv.addObject("task", task);
 		mv.addObject("taskId", taskId);
 		mv.addObject("projectId", task.getProjectId());
 		mv.addObject("taskFlag", task.getTaskFlag());
 		String fileWType = null;
-		String btnTxt = "";
+		String btnTxt = ""; //按钮信息
+		boolean showIgnore = false; //是否可以不提供附件
+		boolean isCreated = projectType.创建.getCode().equals(project.getProjectType());
 		switch (task.getTaskFlag())
 		{
 		case 2:
@@ -519,14 +523,17 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		case 3:
 			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.法务尽职调查报告.getCode();
+			showIgnore = isCreated;
 			break;
 		case 4:
 			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.财务尽职调查报告.getCode();
+			showIgnore = isCreated;
 			break;
 		case 8:
 			btnTxt = "上传资金拨付凭证";
 			fileWType = fileWorktype.资金拨付凭证.getCode();
+			showIgnore = true;
 			break;
 		case 9:
 			btnTxt = "上传工商变更登记凭证";
@@ -534,6 +541,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			break;
 
 		}
+		mv.addObject("showIgnore", showIgnore);
 		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("fileWorktype", fileWType);
 		return mv;

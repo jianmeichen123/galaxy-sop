@@ -55,18 +55,6 @@ public class TZHandler implements ProgressChangeHandler
 		{
 			throw new BusinessException("没有投资的会议记录");
 		}
-		//待办任务 - 上传投资协议
-		SopTask task = new SopTask();
-		task.setProjectId(project.getId());
-		task.setTaskName(SopConstant.TASK_NAME_SCTZYXS);
-		task.setTaskType(DictEnum.taskType.协同办公.getCode());
-		task.setTaskFlag(SopConstant.TASK_FLAG_SCTZYXS);
-		task.setTaskOrder(SopConstant.NORMAL_STATUS);
-		task.setDepartmentId(project.getProjectDepartid());
-		task.setAssignUid(project.getCreateUid());
-		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		task.setCreatedTime(System.currentTimeMillis());
-		taskService.insert(task);
 		
 		Project po = new Project();
 		po.setId(project.getId());

@@ -87,12 +87,6 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	@Transactional
 	public void undoProjectTransfer(ProjectTransfer projectTransfer) {
 		projectTransferDao.updateById(projectTransfer);
-		SopTask task = new SopTask();
-		task.setProjectId(projectTransfer.getProjectId());
-		task.setTaskFlag(SopConstatnts.TaskCode._accept_project_flag_);
-		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-		task.setQueryTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		sopTaskDao.updateByIdSelective(task);
 	}
 	
 	

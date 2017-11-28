@@ -227,35 +227,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			pro.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			pro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); 
 			projectDao.updateById(pro);
-			
-			//投资协议  任务生成
-			SopTask task1 = new SopTask();
-			task1.setProjectId(pid);                     
-			task1.setDepartmentId(udepartid);  		   //任务分派到: 投资经理
-			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
-			task1.setTaskFlag(6);   //0 完善简历、 1 投资意向书、 2 人事尽职调查报告、 3 法务尽职调查报告、 4 财务尽调报告、
-									//5 业务尽调报告、 6 投资协议、 7 股权转让协议、 8 资金拨付凭证、 9 工商变更登记凭证
-			task1.setAssignUid(userid);             
-			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				
-			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				
-			sopTaskDao.insert(task1);
-			
-			/*if(pro.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
-				//股权转让协议  任务生成
-				SopTask task2 = new SopTask();
-				task2.setProjectId(pid);                   
-				task2.setDepartmentId(udepartid);  		//任务分派到: 投资经理
-				task2.setTaskName("上传股权转让协议");       //任务名称：  上传股权转让协议
-				task2.setTaskFlag(7);
-				task2.setAssignUid(userid);           
-				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				
-				task2.setTaskType(DictEnum.taskType.协同办公.getCode());				
-				sopTaskDao.insert(task2);
-			}*/
 		}
-		/*else{
-			projectDao.updateById(pro);
-		}*/
 	}
 	
 	
@@ -430,16 +402,6 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		projectDao.updateById(project);
 		
-		//业务dd  任务生成
-		SopTask task1 = new SopTask();
-		task1.setProjectId(project.getId());         //项目id
-		task1.setDepartmentId(departid);  		 //任务分派到: 投资经理
-		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
-		task1.setTaskFlag(5);
-		task1.setAssignUid(userid);             //任务认领人id 
-		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
-		task1.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
-		sopTaskDao.insert(task1);
 		
 		//人事dd  任务生成
 		SopTask task2 = new SopTask();
