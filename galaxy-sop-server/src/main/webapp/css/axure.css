@@ -3930,8 +3930,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 /* V1.10 */
 .history_block{color:#ff6565;font-size:14px;position:absolute;top:20px;display:none;}
 .history_block .btn{color:#3ca6ff;}
-.h_edit{padding-top:100px;}
-.h_edit .h_title{top:60px;}
+.h_edit.history_block_edit{padding-top:100px;}
+.h_edit.history_block_edit .h_title{top:60px;}
 .h_compete_look{z-index:999;background:#fff;}
 .h_title_conpetition{border-left:4px solid #fafafa;}
 .h_edit_competition{padding-top:75px;}

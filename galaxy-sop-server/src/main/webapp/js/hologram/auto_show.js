@@ -40,6 +40,10 @@ $.fn.showResultsDrafts = function(readonly,flag){
         					});
         					if(sum>0){
         						$('.history_block').show();
+        						$('.history_block').closest('.h_edit').addClass('history_block_edit');
+        					}else{
+        						$('.history_block').hide();
+        						$('.history_block').closest('.h_edit').removeClass('history_block_edit');
         					}
         					
         				}
