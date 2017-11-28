@@ -4,6 +4,7 @@
         $("#detail-form").validate({
              submitHandler:function(form){
                  save_person();
+                 $('#b_NO3_1').attr('tochange',true);   //团队成员表格模块更改添加tochange属性
              }
         });
         $.validator.setDefaults({
