@@ -455,7 +455,6 @@ function showConstarct(thisSelect,tid,type){
 	if(nextSelect && nextSelect.length == 1){
 		
 		var vid = _this.find("option:selected").val();
-		alert(vid)
 		
 		if(vid){
 			var li_htm = li;
