@@ -76,7 +76,7 @@
 			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
 			        <th data-field="taskDeadlineformat"  class="col-md-1 status ">发起时间</th>
 			        <th data-field="createUname"  class="col-md-2" >发起人</th>
-			        <th data-field="taskStatus"  class="col-md-2" >任务状态</th>
+			        <th data-field="taskStatusDesc"  class="col-md-2" >任务状态</th>
 					<th  class="col-md-2" data-field="caozuohtml" >操作</th>
 			 	</tr>	
 			 	</thead>
