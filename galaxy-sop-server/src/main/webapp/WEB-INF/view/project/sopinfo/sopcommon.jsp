@@ -101,6 +101,7 @@ position:absolute;
 						<td>
 							<span>项目名称：</span>
 							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空" aria-required="true"/>
+							<label class='projectname-edit-label'>*项目名称重复</label>
 						</td>
 					</tr>
 					<tr>
@@ -304,6 +305,29 @@ function projectList(){
 	var url=Constants.sopEndpointURL+"/galaxy/mpl";
 	forwardWithHeader(url);
 }
+
+//项目名称重复限制
+$('#project_name_edit').blur(function(){
+	var projectName = $('#project_name_edit').val().trim();
+	var projectID = '${projectId}';
+	var data1 = {
+		'projectName':projectName,
+		'id' : projectID
+	}
+	sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
+		console.log(data)
+			if(data.result.status=="ERROR"){
+				if(data.result.errorCode == "name-repeat"){
+					$('.projectname-edit-label').css('display','block');
+					return false
+				}
+			}else if(data.result.status ==='OK'){
+				$('.projectname-edit-label').css('display','none');
+			}
+	})
+	
+	
+})
 </script>
 
 </html>
