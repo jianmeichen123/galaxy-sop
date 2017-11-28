@@ -1,5 +1,6 @@
 package com.galaxyinternet.mongodb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,11 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
+import com.galaxyinternet.mongodb.model.InformationListdataMG;
 import com.galaxyinternet.mongodb.service.InformationMGService;
 
 import io.swagger.annotations.Api;
@@ -119,6 +122,50 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		
 		return responseBody;
 	}
+	
+	 /*
+     *根据projectId 和 titleId查询表格列表
+     */
+    @RequestMapping("/queryRowsList/{titleId}/{projectId}")
+    @ResponseBody
+    public ResponseData<InformationTitle> queryList(@PathVariable("titleId") String titleId, @PathVariable("projectId") String projectId ){
+        ResponseData<InformationTitle> resp = new ResponseData<>();
+        if(null == projectId || null == titleId){
+            resp.setResult(new Result(Result.Status.ERROR,null, "projectId或titleId缺失"));
+            logger.error("queryRowsList 失败 :projectId或titleId缺失");
+            return resp;
+        }
+        try{
+            List<InformationTitle> tvList = informationMGService.searchWithData(titleId,projectId);
+            List<InformationListdataMG> resultList = new ArrayList<InformationListdataMG>();
+            if(tvList.size()>0){
+                //获取核心成员
+                InformationTitle title = null;
+                for(InformationTitle t:tvList){
+                    if(t.getType()==10){
+                        title = t;
+                    }
+                }
+                List<InformationListdataMG> dataList = title.getDataMGList();
+
+                if(dataList!=null && dataList.size()>0){
+                    for(InformationListdataMG data :dataList){
+                        if(data.getParentId()==null){
+                            //查询成员的工作学习创业经历
+                            InformationListdataMG info = informationMGService.queryMemberById(data.getUuid());
+                            resultList.add(info);
+                        }
+                    }
+                }
+                title.setDataMGList(resultList);
+            }
+            resp.setEntityList(tvList);
+        }catch(Exception e){
+            resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
+            logger.error("queryRowsList 失败 ",e);
+        }
+        return resp;
+    }
 	
 
 	

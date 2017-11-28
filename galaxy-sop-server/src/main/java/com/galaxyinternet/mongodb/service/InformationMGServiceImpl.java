@@ -242,7 +242,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		try {
 			 if(null!=data.getInfoModeList()&&data.getInfoModeList().size()>0){
 				InformationResultMG param=new InformationResultMG();
-				param.setParentId(data.getParentId());
+				//param.setParentId(data.getParentId());
 				param.setProjectId(data.getProjectId());
 				findInfoModeList = informationResultMGService.find(param);
 				if(null!=findInfoModeList&&findInfoModeList.size()>0){
@@ -273,7 +273,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					if(null!=findInfoFixTableModelList&&findInfoFixTableModelList.size()>0){
 						informationFixedTableMGService.deleteByCondition(param);
 					}
-			
 				}
 			} catch (MongoDBException e1) {
 				// TODO Auto-generated catch block
@@ -286,8 +285,12 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		try {
 			if(null!=data.getInfoTableModelList()&&data.getInfoTableModelList().size()>0){
 				InformationListdataMG param=new InformationListdataMG();
-				param.setParentId(data.getParentId());
+				Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
+				Set<String> titleIds = titleMap.keySet();
+				//param.setParentId(data.getParentId());
 				param.setProjectId(data.getProjectId());
+				List<String> list=new ArrayList<String>(titleIds);
+				param.setTitleIds(list);
 				param.setTitleId(data.getInfoTableModelList().get(0).getTitleId().toString());
 				findInfoTableModelList=informationListdataMGService.find(param);
 				if(null!=findInfoTableModelList&&findInfoTableModelList.size()>0){
@@ -440,7 +443,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		InformationListdataMG listdataQuery = new InformationListdataMG();
 		listdataQuery.setProjectId(projectId);
 		//listdataQuery.setParentId(parentId);
-		resultQuery.setTitleIds(valueList);
+		listdataQuery.setTitleIds(valueList);
 		Map<String,String> userMap=initCache();
 		List<InformationListdataMG> listdataList = null;
 		try {
@@ -896,6 +899,69 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			}
 			
 		}
-		
+		private final String STUDYEXPERIENCE ="study-experience";
+
+		private final String WORKEXPERIENCE ="work-experience";
+
+		private final String STARTUPEXPERIENCE="entrepreneurial-experience";
+		/**
+		 * 先根据 id 查 成员,再根据成员查学习经历
+		 * @param id
+		 * @return
+		 */
+		@Override
+		public InformationListdataMG queryMemberById(String id) {
+			InformationListdataMG one=new InformationListdataMG();
+			one.setUuid(id);
+			InformationListdataMG data = null;
+			try {
+				data = informationListdataMGService.findOne(one);
+			} catch (MongoDBException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			if(data != null){
+				InformationListdataMG query = new InformationListdataMG();
+				query.setParentId(data.getUuid());
+				//按毕业时间倒序查询学习经历
+				query.setCode(STUDYEXPERIENCE);
+				query.setProperty("field_1");
+				query.setDirection("desc");
+				List<InformationListdataMG> studyList = null;
+				try {
+					studyList = informationListdataMGService.find(query);
+				} catch (MongoDBException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//按结束时间倒序查询创业经历
+				query.setCode(WORKEXPERIENCE);
+				query.setProperty("field_2");
+				query.setDirection("desc");
+				List<InformationListdataMG> workList = null;
+				try {
+					workList = informationListdataMGService.find(query);
+				} catch (MongoDBException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//按结束时间倒序查询创业经历
+				query.setCode(STARTUPEXPERIENCE);
+				query.setProperty("field_2");
+				query.setDirection("desc");
+				List<InformationListdataMG> startupList = null;
+				try {
+					startupList = informationListdataMGService.find(query);
+				} catch (MongoDBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				data.setWorkList(workList);
+				data.setStudyList(studyList);
+				data.setStartupList(startupList);
+			}
+			return data;
+		}
+
 		
 }

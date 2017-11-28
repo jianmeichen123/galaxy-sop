@@ -2044,8 +2044,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		      }else{
 		    	  obj.setProjectName(project.getProjectName());
 		    	  if(null!=project.getId()&&!"".equals(project.getId())){
-		    		  obj.setId(project.getId());	
+		    		 
+		    		Project pro= projectService.queryById(project.getId());
+		    		 obj.setProjectName(pro.getProjectName());
+		    		if(pro.getProjectName().equals(project.getProjectName())){
+		    			 obj.setId(project.getId());	
 		    	   }
+		      }
 		      }
 		      List<Project> projectList = projectService.queryList(obj);
 			  if (null != projectList && projectList.size() > 0) {
@@ -2054,6 +2059,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				   resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
 			   }
 				return resp;
+				
 	}
 
 	/**
