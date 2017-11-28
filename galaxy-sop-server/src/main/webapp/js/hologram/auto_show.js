@@ -504,7 +504,7 @@ function buildMemberTableDraft(sec,title){
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
-    		var tables = $("table[data-title-id='"+header.titleId+"']");
+    		var tables = $("table.editable[data-title-id='"+header.titleId+"']");
     		$.each(tables,function(){
     			var table = $(this);
     			table.attr('data-code',header.code);
@@ -529,7 +529,7 @@ function buildMemberTableDraft(sec,title){
     	    var list = title.dataMGList;
     		$.each(list,function(){
     			var row = this;
-    			var tables = $("table[data-title-id='"+row.titleId+"']");
+    			var tables = $("table.editable[data-title-id='"+row.titleId+"']");
 
     			$.each(tables,function(){
     				var table = $(this);
@@ -618,7 +618,7 @@ function buildTableDraft(sec,title)
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
-		var tables = $("table[data-title-id='"+header.titleId+"']");
+		var tables = $("table.editable[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
@@ -666,7 +666,7 @@ function buildTableDraft(sec,title)
 	{
 		$.each(title.dataMGList,function(){
 			var row = this;
-			var tables = $("table[data-title-id='"+row.titleId+"']");
+			var tables = $("table.editable[data-title-id='"+row.titleId+"']");
 			tables.show();   //有数据表格显示
 			$.each(tables,function(){
 				var table = $(this);
@@ -715,7 +715,7 @@ function buildTableDraft(sec,title)
 }
 function buildRowDraft(row,showOpts,titleId)
 {
-	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
+	var table =$('table.editable[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	var titleId = table.attr('data-title-id');
@@ -772,7 +772,7 @@ function buildRowDraft(row,showOpts,titleId)
 		}
 			
 	});
-	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
+	var funFlg=$('table.editable[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
