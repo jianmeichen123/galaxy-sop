@@ -1,4 +1,4 @@
-$.fn.showResultsDrafts = function(readonly){
+$.fn.showResultsDrafts = function(readonly,flag){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
 		if(pid == 1302){
@@ -25,13 +25,23 @@ $.fn.showResultsDrafts = function(readonly){
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
+        					var sum=0;
         					$.each(entityList,function(){
         						var title = this;
-        						buildResultsDraft(sec,title,readonly);
-        						buildTableDraft(sec,title);
-        						buildfinxedTableDraft(sec,title,readonly);
-        						dtWidth();
+        						if(title.resultMGList && title.resultMGList.length>0){
+        							sum++;
+        						}
+        						if(flag=='result'){
+        							buildResultsDraft(sec,title,readonly);
+            						buildTableDraft(sec,title);
+            						buildfinxedTableDraft(sec,title,readonly);
+            						dtWidth();
+        						}
         					});
+        					if(sum>0){
+        						$('.history_block').show();
+        					}
+        					
         				}
         			}
         		})
