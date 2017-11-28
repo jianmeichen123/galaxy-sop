@@ -29,7 +29,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
         					console.log(entityList)
         					$.each(entityList,function(){
         						var title = this;
-        						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0)){
+        						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
         							sum++;
         						}
         						if(flag=='result'){
