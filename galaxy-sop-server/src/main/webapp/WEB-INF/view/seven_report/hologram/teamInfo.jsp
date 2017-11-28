@@ -219,9 +219,9 @@
         			var table_id = $(this).attr('data-title-id');
         			var noedi_table = $('table[data-title-id='+table_id+']');
         			if($(this).find('tr:gt(0)').length<=0){
-        				if(noedi_table.parents('dl').find('dd').length<= 2){
+        				/* if(noedi_table.parents('dl').find('dd').length<= 2){
         					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-        				}
+        				} */
         				noedi_table.hide();
         			}
         			else{

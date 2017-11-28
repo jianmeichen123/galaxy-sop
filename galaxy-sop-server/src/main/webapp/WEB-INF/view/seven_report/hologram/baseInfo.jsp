@@ -163,7 +163,7 @@ $(function() {
 					$('.history_block .btn').click(function(){
 						sec.showResultsDrafts(null,'result');
 						//文本域剩余字符数
-						var textarea_h = section.find('.textarea_h');
+						var textarea_h = sec.find('.textarea_h');
 						for(var i=0;i<textarea_h.length;i++){
 							var len=textarea_h.eq(i).val().length;
 							var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
