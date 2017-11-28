@@ -367,7 +367,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				title = titleMap.get(item.getTitleId());
 				if(title != null)
 				{
-					if(title.getResultList() == null)
+					if(title.getResultMGList() == null)
 					{
 						tempList = new ArrayList<>();
 						title.setResultMGList(tempList);
