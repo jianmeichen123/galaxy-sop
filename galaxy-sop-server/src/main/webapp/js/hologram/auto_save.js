@@ -4,7 +4,7 @@
 	
 	//保存方法
 	function auto_save(sec){
-		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id]");
+		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id],select[name]");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
 		var data = {
 				projectId : projectInfo.id,

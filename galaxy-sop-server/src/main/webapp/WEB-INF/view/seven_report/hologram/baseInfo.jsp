@@ -162,6 +162,7 @@ $(function() {
 				if($('.history_block .btn').is(':visible')){   //点击恢复
 					$('.history_block .btn').click(function(){
 						sec.showResultsDrafts(null,'result');
+						showConstarct('select[name="1110"]','1110','4');
 						//文本域剩余字符数
 						var textarea_h = sec.find('.textarea_h');
 						for(var i=0;i<textarea_h.length;i++){
