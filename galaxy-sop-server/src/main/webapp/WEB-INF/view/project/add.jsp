@@ -51,7 +51,7 @@
                         </li>
                         <li>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'>*项目名称重复</label></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
@@ -328,24 +328,24 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		return null;
 	}
 //项目名称重复checkProjectName
-/*  $('#projectName').blur(function(){
-	alert('ddd')
+  $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
 	var data2 = {
 			'projectName' : projectName
 	}
-	
-	var data2 = JSON.stringify(data2)
-	console.log(typeof(data2))
-	sendPostRequestBySignJsonStr(platformUrl.checkProjectName,data2,function(data){
+	sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
 		console.log(data)
-			if(data.result.errorCode == "mccf"){
-				alert('项目名称重')
+			if(data.result.status=="ERROR"){
+				if(data.result.errorCode == "name-repeat"){
+					$('.project-name').css('display','block');
+				}
+			}else if(data.result.status ==='OK'){
+				$('.project-name').css('display','none');
 			}
 	})
 	
 	
-})  */
+})  
 
 
 
