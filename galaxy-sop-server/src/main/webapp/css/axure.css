@@ -4070,4 +4070,5 @@ select.addpro-input{width:278px;height:32px;}
 .task-no-need input[type='checkbox']{-webkit-appearance:none;appearance:none;-moz-appearance:none;}
 .task-no-label{vertical-align: inherit;width:12px;height:12px;display:inline-block;background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -101px -5px !important;cursor:pointer;margin-right:5px;}
 .task-no-label.label-checked{background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -86px -5px !important;}
-.project-name{display:none;color:#ff0000;}
+.project-name,.projectname-edit-label{display:none;color:#ff0000;}
+.projectname-edit-label{margin-left:115px;font-family: Microsoft YaHei;font-size: 14px;}

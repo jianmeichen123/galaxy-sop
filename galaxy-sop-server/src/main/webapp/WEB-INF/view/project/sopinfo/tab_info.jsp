@@ -111,6 +111,7 @@
 			</div>		
 		</div>
 		<input type="hidden" id="pid" name="id" value="${projectId}"/>
+		
 	</div>
 	<!-- 编辑页面 -->
 	<div class="basic_on basic_common_width tab_info_common_width">
@@ -536,6 +537,8 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">	
+console.log(${projectId}+'=========')
+console.log(${pid})
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
