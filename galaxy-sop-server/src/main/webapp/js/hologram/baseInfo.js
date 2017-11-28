@@ -653,7 +653,9 @@ function type_8_html(title,mark){
 
 		var r_value = '';
 		if(results && results[0] && results[0].contentDescribe1) r_value = results[0].contentDescribe1;
-		var result_id=title.resultList[0].id;	
+		if(title.resultList){
+			var result_id=title.resultList[0].id;
+		}
 		var eresult =
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" resultId='"+result_id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +

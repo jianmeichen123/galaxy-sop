@@ -521,9 +521,13 @@ function buildResults(sec,title,readonly)
 				}
 				dds.html((title.resultList[0].contentDescribe1==undefined || sum==0) ?"未填写":str);
 			}
-	        else{
+			else{
 				var str=title.resultList[0].contentDescribe1;
-				var result_id=title.resultList[0].id
+				var result_id=title.resultList[0].id;
+				var div=$(".inputs_block").closest(".h_edit_txt");
+				if(str !=undefined){
+					 div.children("dd").find("input").attr("resultId",result_id);
+				}
 				if(str !=undefined && str.indexOf("<sitg>")>-1){
 					var str=str.split("<sitg>");
 					var inputsValueList=[];
@@ -533,9 +537,8 @@ function buildResults(sec,title,readonly)
 							inputsValueList.push(inputsValue);
 						}
 					}
-				   var div=$(".inputs_block").closest(".h_edit_txt");
 				   for(var j=0;j<div.children("dd").length;j++){
-					   div.children("dd").eq(j).find("input").val(inputsValueList[j].trim()).attr("resultId",result_id);
+					   div.children("dd").eq(j).find("input").val(inputsValueList[j].trim());
 					   
 				   }
 				}
