@@ -78,7 +78,7 @@ public class InformationListdataMG {
 
     private Long updateId;
     
-    private Set<String> titleIds;
+    private List<String> titleIds;
 
     private List<InformationListdataMG> dataList;
 
@@ -113,20 +113,19 @@ public class InformationListdataMG {
     private Boolean field5NotNull;
 
 
-    public Set<String> getTitleIds()
-	{
-		return titleIds;
-	}
-
-	public void setTitleIds(Set<String> titleIds)
-	{
-		this.titleIds = titleIds;
-	}
-
+  
 
    
 
-    public Long getTime(){
+    public List<String> getTitleIds() {
+		return titleIds;
+	}
+
+	public void setTitleIds(List<String> titleIds) {
+		this.titleIds = titleIds;
+	}
+
+	public Long getTime(){
 		return time;
 	}
 

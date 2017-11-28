@@ -419,7 +419,7 @@ $(function() {
 		{
 			return;
 		}
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateDraftBox, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");

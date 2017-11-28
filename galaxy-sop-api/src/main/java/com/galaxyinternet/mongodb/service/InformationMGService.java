@@ -10,5 +10,8 @@ public interface InformationMGService extends BaseService<InformationDataMG> {
 	public void save(InformationDataMG data) throws CloneNotSupportedException;
 	public List<InformationTitle> searchWithData(String parentId,String projectId);
 	public List<InformationTitle> selectChildsByPid(Long pid);
+	public InformationTitle selectTitleByPinfo(String pinfoKey);
+	public InformationTitle selectAreaTitleResutl(String pid, String pinfoKey) ;
+	public InformationTitle selectTChildsByPinfo(String pinfoKey);
 
 }

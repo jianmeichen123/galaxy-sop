@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.mongodb.dao.InformationResultMGDao;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
-import com.galaxyinternet.mongodb.model.InformationScoreMG;
 
 
 @Service("com.galaxyinternet.mongodb.service.InformationResultMGService")

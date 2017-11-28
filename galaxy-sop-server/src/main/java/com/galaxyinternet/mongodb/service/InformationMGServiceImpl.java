@@ -11,11 +11,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
@@ -29,6 +31,7 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.hologram.util.RegexUtil;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
@@ -85,6 +88,10 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity = new InformationResultMG();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
+			//项目融资状态（阶段）可以为文本(尚未获投/不明确)
+			if (!StringEx.isNullOrEmpty(model.getValue()) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))) {
+				entity.setContentChoose(model.getValue());
+			}
 			if (!StringEx.isNullOrEmpty(model.getRemark1())) {
 				if (model.getType().equals("5") || model.getType().equals("6") || model.getType().equals("8")
 						|| model.getType().equals("15")) {
@@ -100,7 +107,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
-			entity.setContentChoose(model.getValue());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -593,5 +599,303 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	        }  
 	  
 	        return list;  
-	    }  
+	    }
+		
+		/**
+		 * 查看题和保存的结果信息
+		 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+		 * return : 
+		 *       title  - title
+		 *                  - resultList
+		 *              - title  
+		 *                  - resultList   
+		 */
+		@Override
+		public InformationTitle selectAreaTitleResutl(String pid, String pinfoKey) {
+			List<InformationTitle> tchilds = null;
+			List<InformationResultMG> results = null;
+			
+			InformationTitle title = selectTChildsByPinfo(pinfoKey); //得到父title
+			if(title != null && title.getSign().intValue() == 2){
+				List<InformationResultMG> title_r =  selectResultByPidTids(pid ,null,title.getId());
+				title.setResultMGList(title_r);
+			}
+			
+			if(title != null) tchilds = title.getChildList();  //得到子title
+			
+			//得到子title 所有  result 集合
+			if( tchilds != null && !tchilds.isEmpty()){
+				Set<String> tids = new HashSet<String>();
+				for(InformationTitle at : tchilds ){
+					tids.add(at.getId()+"");
+				}
+				results = selectResultByPidTids(pid , tids, null);   
+			}
+			
+			//各 title result 对应封装
+			titleSwitchByType( pid, tchilds, results);
+			/*if(results!=null && !results.isEmpty()){
+			}*/
+			
+			return title;
+		}
+		public List<InformationResultMG> selectResultByPidTids(String pid,Set<String> tids,Long tid){
+			InformationResultMG rq = new InformationResultMG();
+			rq.setProjectId(pid);
+			rq.setIsValid(0+"");
+			List<String> titles=new ArrayList<String>(tids);
+			if(tids != null) rq.setTitleIds(titles);
+			if(tid != null) rq.setTitleId(tid+"");
+			List<InformationResultMG> list=new ArrayList<InformationResultMG>();
+			try {
+				list= informationResultMGService.find(rq);
+			} catch (MongoDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return list;
+		}
+		/**
+		 * 根据题的各 type 分类，分别封装 题：结果
+		 * 
+		 * //1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+		   //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)  14select 15:2_textarea
+		 */
+		public void titleSwitchByType(String pid,List<InformationTitle> titles,List<InformationResultMG> results){
+			Set<String> title_tableids = new HashSet<String>();
+			for(InformationTitle atitle : titles ){
+				if(atitle.getType() != null){
+					
+					if(results != null && !results.isEmpty()){
+						//Type ： 1 2 8 11
+						if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || 
+								atitle.getType().intValue() == 11 || atitle.getType().intValue() == 14){
+							findResultByArecord(atitle, results);
+						}//Type ： 3 4 5 6 12 13
+						else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
+								atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13 || 
+								atitle.getType().intValue() == 15 || atitle.getType().intValue() == 21 ){
+							findResultByNrecord(atitle, results);  //findResultByNcontact
+						}
+					}
+					
+					//Type ： 7 
+					if(atitle.getType().intValue() == 7){
+						
+					}//Type ： 9
+					else if(atitle.getType().intValue() == 9){
+						
+					}//Type ： 10
+					else if(atitle.getType().intValue() == 10){
+						title_tableids.add(atitle.getId()+"");
+					}
+				}
+			}
+			
+			if(!title_tableids.isEmpty()){
+				findResultByTable(titles,title_tableids,pid); 
+			}
+		}
+		/**
+		 * 拼装 table head body
+		 * Type ：10
+		 */
+		public void findResultByTable(List<InformationTitle> titles, Set<String> title_tableids, String pid ){
+			//查询表格头
+			InformationListdataRemark headerQuery = new InformationListdataRemark();
+			headerQuery.setTitleIds(title_tableids);
+			List<InformationListdataRemark> headerList = headerDao.selectList(headerQuery);
+			if(headerList != null && headerList.size() > 0){
+				for(InformationListdataRemark item : headerList){
+					if(item.getSubCode() == null){
+						for(InformationTitle at : titles){
+							if(at.getId().longValue() == item.getTitleId().longValue()){
+								at.setTableHeader(item);
+								break;
+							}
+						}
+					}
+					
+				}
+			}
+			//查询表格
+			InformationListdataMG listdataQuery = new InformationListdataMG();
+			List<String> paramList=new ArrayList<String>(title_tableids);
+			listdataQuery.setTitleIds(paramList);
+			//listdataQuery.setProperty("title_id");
+			//listdataQuery.setDirection(Direction.ASC.toString());
+			List<InformationListdataMG> listdataList = null;
+			try {
+				listdataList = informationListdataMGService.find(listdataQuery);
+			} catch (MongoDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(listdataList != null && listdataList.size() > 0){
+				for(InformationListdataMG item : listdataList){
+					for(InformationTitle at : titles){
+						if(at.getId().equals(item.getTitleId())){
+							if(at.getDataList() == null){
+								List<InformationListdataMG> tempList = new ArrayList<InformationListdataMG>();
+								tempList.add(item);
+								at.setDataMGList(tempList);
+							}else{
+								at.getDataMGList().add(item);
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		/**
+		 * 题的值只能有一条记录的
+		 * Type ： 1 2 5 8 11
+		 */
+		@SuppressWarnings("unchecked")
+		public void findResultByArecord(InformationTitle atitle, List<InformationResultMG> results){
+			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
+			List<InformationDictionary> values = atitle.getValueList();
+			
+			InformationResultMG isr = null;
+			for(InformationResultMG aresult : results){
+				
+				if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
+					
+					isr = new InformationResultMG();
+					
+					isr.setUuid(aresult.getUuid());
+					if(aresult.getContentChoose() != null){
+						if(!isNumeric(aresult.getContentChoose())){
+							isr.setValueId(null);
+							isr.setValueName(aresult.getContentChoose());
+						}else{
+							isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+							isr.setValueName(dict.get(isr.getValueId()));
+						}
+						
+					}
+					isr.setContentDescribe1(aresult.getContentDescribe1());
+					isr.setContentDescribe2(aresult.getContentDescribe2());
+					
+					//对应的结果放入 title ResultList 中
+					List<InformationResultMG> isv = atitle.getResultMGList();
+					if(isv == null){
+						List<InformationResultMG> t_resultList = new ArrayList<InformationResultMG>();
+						t_resultList.add(isr);
+						atitle.setResultMGList(t_resultList);
+					}else{
+						atitle.getResultMGList().add(isr);
+					}
+					
+					//结果对应 value list 中的数据，设置选中状态
+					if(values != null && !values.isEmpty() && isr.getValueId()!=null){
+						for(InformationDictionary avalue : values){
+							if(avalue.getId().longValue() == isr.getValueId().longValue()){
+								avalue.setChecked(true);
+								break;
+							}
+						}
+					}
+					
+					results.remove(aresult);
+					break;
+				}
+			}
+		}
+		/**
+		 * 根据 code 或   id ， 查询 该题 及其下一级的 题 信息
+		 */
+		@Override
+		public InformationTitle selectTChildsByPinfo(String pinfoKey) {
+			
+			InformationTitle ptitle = selectTitleByPinfo(pinfoKey);
+			
+			List<InformationTitle> ptitleList = null;
+			if(ptitle != null){
+				ptitleList = selectChildsByPid(ptitle.getId());
+				ptitle.setChildList(ptitleList);
+			}
+			return ptitle;
+		}
+		
+		public static boolean isNumeric(String str){
+			 for (int i = str.length();--i>=0;){  
+			  if (!Character.isDigit(str.charAt(i))){
+			  return false;
+			  }
+			 }
+			 return true;
+			}
+		/**
+		 * 根据 code 或 id 查询 本 title
+		 */
+		@Override
+		public InformationTitle selectTitleByPinfo(String pinfoKey) {
+			InformationTitleBo pquery = new InformationTitleBo();
+			pquery.setIdcodekey(pinfoKey);
+			
+			InformationTitle title = informationTitleDao.selectOne(pquery);
+			if(title!=null && title.getSign() != null && title.getSign().intValue() == 2){
+				title.setName(title.getName()+":");
+			}
+			return title;
+		}
+		/**
+		 * 题的值可能有多条记录的
+		 * Type ： 3 4 6
+		 */
+		@SuppressWarnings("unchecked")
+		public void findResultByNrecord(InformationTitle atitle, List<InformationResultMG> results){
+			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
+			List<InformationResultMG> resultList_toremove = new ArrayList<InformationResultMG>();
+			
+			List<InformationDictionary> values = atitle.getValueList();
+			
+			InformationResultMG isr = null;
+			for(InformationResultMG aresult: results){
+				
+				if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
+					isr = new InformationResultMG();
+					
+					isr.setUuid(aresult.getUuid());
+					if(aresult.getContentChoose() != null){
+						isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+						isr.setValueName(dict.get(isr.getValueId()));
+					}
+					isr.setContentDescribe1(aresult.getContentDescribe1());
+					isr.setContentDescribe2(aresult.getContentDescribe2());
+					
+					//对应的结果放入 title ResultList 中
+					List<InformationResultMG> isv = atitle.getResultMGList();
+					if(isv == null){
+						List<InformationResultMG> t_resultList = new ArrayList<InformationResultMG>();
+						t_resultList.add(isr);
+						atitle.setResultMGList(t_resultList);
+					}else{
+						atitle.getResultMGList().add(isr);
+					}
+					
+					//结果对应 value list 中的数据，设置选中状态
+					if(values != null && !values.isEmpty() && isr.getValueId()!=null){
+						for(InformationDictionary avalue : values){
+							if(avalue.getId().longValue() == isr.getValueId().longValue()){
+								avalue.setChecked(true);
+								break;
+							}
+						}
+					}
+					
+					//remove add
+					resultList_toremove.add(aresult);
+				}
+			}
+			
+			for(InformationResultMG ar : resultList_toremove){
+				results.remove(ar);
+			}
+			
+		}
+		
+		
 }
