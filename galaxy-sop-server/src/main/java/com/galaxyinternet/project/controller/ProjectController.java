@@ -2046,7 +2046,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		    	  if(null!=project.getId()&&!"".equals(project.getId())){
 		    		Project pro= projectService.queryById(project.getId());
 		    		if(pro.getProjectName().equals(project.getProjectName())){
-		    			 obj.setId(project.getId());	
+		    			 resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
+		    			return resp;
 		    	   }
 		      }
 		      }
