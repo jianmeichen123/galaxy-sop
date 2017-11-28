@@ -26,9 +26,10 @@ $.fn.showResultsDrafts = function(readonly,flag){
         				if(entityList && entityList.length >0)
         				{
         					var sum=0;
+        					console.log(entityList)
         					$.each(entityList,function(){
         						var title = this;
-        						if(title.resultMGList && title.resultMGList.length>0){
+        						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0)){
         							sum++;
         						}
         						if(flag=='result'){
@@ -38,6 +39,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
+        					console.log(sum)
         					if(sum>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
