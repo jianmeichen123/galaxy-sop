@@ -44,9 +44,9 @@ var path = '<%=path%>';
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
 		
-			<div class="h radius" id="NO1_1"> </div>
+			<div class="h radius" id="NO1_1" data-section-id="1101"> </div>
 			
-			<div class="h radius base_con2" id="NO1_2"> </div>
+			<div class="h radius base_con2" id="NO1_2" data-section-id="1101"> </div>
 			
 		</div>
 	</div>
@@ -92,7 +92,8 @@ var path = '<%=path%>';
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path %>/js/hologram/auto_save.js" type="text/javascript"></script>			
+<script src="<%=path %>/js/hologram/auto_save.js" type="text/javascript"></script>	
+<script src="<%=path %>/js/hologram/auto_show.js" type="text/javascript"></script>		
 
 <script type="text/javascript">
 createMenus(5);
@@ -151,9 +152,33 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
-				$('.h_title').click(function(){
-					auto_save(sec);
+				sec.showResultsDrafts();   //提示历史数据信息
+				$('.h_title').click(function(){  //保存
+					var _tochange=sec.find('form').attr('tochange');
+					if(_tochange=='true'){
+						auto_save(sec);
+					}
 				})
+				if($('.history_block .btn').is(':visible')){   //点击恢复
+					$('.history_block .btn').click(function(){
+						sec.showResultsDrafts(null,'result');
+						//文本域剩余字符数
+						var textarea_h = section.find('.textarea_h');
+						for(var i=0;i<textarea_h.length;i++){
+							var len=textarea_h.eq(i).val().length;
+							var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+							textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
+						}
+						/* 文本域自适应高度 */
+						for(var i=0;i<$("textarea").length;i++){
+							var textareaId=$("textarea").eq(i).attr("id");
+							autoTextarea(textareaId);
+						}
+						//检查表格tr是否10行
+						check_table_tr_edit();
+						check_table();
+					})
+				}
 				var sTop=$(window).scrollTop();
 				$(window).scrollTop(sTop);
 				validate();

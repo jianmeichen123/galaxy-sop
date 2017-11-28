@@ -63,9 +63,9 @@ function SopTaskCallback(data){
 			 var tr='<tr>'+
 				/*  '<td style="width:20%">'+ taskOrderDesc+'</td>'+ */
 				 '<td style="width:20%" title="'+ temp.taskName+'" >'+ temp.taskName+'</td>'+
-				 '<td style="width:25%">'+ temp.taskStatus+'</td>'+
+				 '<td style="width:25%">'+ temp.taskStatusDesc+'</td>'+
 				 '<td style="width:20%" title="'+ temp.projectName+'">'+ getValue(temp.projectName)+'</td>'+
-				 '<td style="width:15%">'+ temp.caozuohtml+'</td>'+
+				 '<td style="width:15%">'+ getValue(temp.caozuohtml)+'</td>'+
 				' </tr>'; 
 			 tbodyList.append(tr);
 		  });

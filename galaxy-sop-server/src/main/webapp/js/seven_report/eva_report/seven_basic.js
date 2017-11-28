@@ -166,6 +166,10 @@
 				}else if(type==22 ){
 					if(tableTr.length==1&&tableTr.eq(0).hasClass(".black")){
 					}else{
+						if($(radioShow).find("input").length<=0){
+							$(radioShow).html("<p style='margin-left:10px'>暂无数据</p>");
+							return false;
+						}
 						$.each(tableTr,function(){
 							var heightL=$(this).closest("tr").find(".heightL");
 							var _sel=heightL.find("select").val();
@@ -177,6 +181,7 @@
 								"inpScore":_inp
 							});
 							$(radioShow).find("input[value='"+val+"']").attr("checked",true);
+							
 							
 						})
 					}

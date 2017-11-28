@@ -44,7 +44,7 @@
                     <ul class="basic_ul addpro-basi-ul">
                     	<li>
                         	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
-                            <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
+                            <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
                              <span class="m_r30"><input type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
@@ -222,7 +222,11 @@ $(window).resize(function(){
 //radio样式切换
 $('.inpu-self').click(function(){
 	$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
+	$('.inpu-self-checked').find('input').attr('checked',true);
+	$('.inpu-self-checked').siblings().find('input').attr('checked',false);
 });
+
+
 $('.addpro-basi-ul li select.addpro-input-arrow').click(function(){
 	var _this = $(this);
 	_this.toggleClass('addpro-input-arrow-up')
@@ -323,7 +327,28 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		}
 		return null;
 	}
-//项目名称重复
+//项目名称重复checkProjectName
+/*  $('#projectName').blur(function(){
+	alert('ddd')
+	var projectName=$("#projectName").val().trim();
+	var data2 = {
+			'projectName' : projectName
+	}
+	
+	var data2 = JSON.stringify(data2)
+	console.log(typeof(data2))
+	sendPostRequestBySignJsonStr(platformUrl.checkProjectName,data2,function(data){
+		console.log(data)
+			if(data.result.errorCode == "mccf"){
+				alert('项目名称重')
+			}
+	})
+	
+	
+})  */
+
+
+
 	function add(){
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
@@ -335,6 +360,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			return;
 		} 
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
+		console.log()
 		if(formData != data1){
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
@@ -342,8 +368,6 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				return TOKEN;
 			});
 		} 
-		 
-		 if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
@@ -362,7 +386,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				}
 				
 			},TOKEN);
-		}
+		
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){

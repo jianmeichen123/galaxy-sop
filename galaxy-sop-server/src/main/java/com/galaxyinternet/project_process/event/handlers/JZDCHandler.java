@@ -70,18 +70,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		}
 		long now = System.currentTimeMillis();
 		
-		//待办任务 - 上传业务尽职调查报告
-		SopTask task = new SopTask();
-		task.setProjectId(project.getId());
-		task.setTaskOrder(0);
-		task.setTaskName(SopConstant.TASK_NAME_YWJD);
-		task.setTaskType(DictEnum.taskType.协同办公.getCode());
-		task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
-		task.setAssignUid(project.getCreateUid());
-		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		task.setDepartmentId(project.getProjectDepartid());
-		task.setCreatedTime(now);
-		taskService.insert(task);
+		SopTask task = null;
 		
 		//待办任务 - 上传人事尽职调查报告
 		task = new SopTask();

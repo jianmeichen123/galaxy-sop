@@ -31,7 +31,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	 <!--页眉-->
         <div class="top clearfix task-top">
-        <h2>${title }<div class='come-back'><span class='task-back'></span><span class='task-back-msg'>返回</span></div></h2>
+        <h2>${title }<div class='come-back' onclick="window.history.back();"><span class='task-back'></span><span class='task-back-msg'>返回</span></div></h2>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink">
             	<li class="on task-tips-li"><a href="javascript:;" id="all" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/all">全部<span><!-- (14) --></span></a></li>
@@ -76,7 +76,7 @@
 			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
 			        <th data-field="taskDeadlineformat"  class="col-md-1 status ">发起时间</th>
 			        <th data-field="createUname"  class="col-md-2" >发起人</th>
-			        <th data-field="taskStatus"  class="col-md-2" >任务状态</th>
+			        <th data-field="taskStatusDesc"  class="col-md-2" >任务状态</th>
 					<th  class="col-md-2" data-field="caozuohtml" >操作</th>
 			 	</tr>	
 			 	</thead>

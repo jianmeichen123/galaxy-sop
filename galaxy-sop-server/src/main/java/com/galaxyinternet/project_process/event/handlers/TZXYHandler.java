@@ -99,20 +99,6 @@ public class TZXYHandler implements ProgressChangeHandler
 			throw new BusinessException("会后商务谈判”阶段的结论不是“投资”");
 		}
 		
-		//待办任务 - 上传投资协议、股权转让协议
-		SopTask task = new SopTask();
-		task.setProjectId(project.getId());
-		task.setTaskName(SopConstant.TASK_NAME_TZXY);
-		task.setTaskType(DictEnum.taskType.协同办公.getCode());
-		task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
-		task.setTaskOrder(SopConstant.NORMAL_STATUS);
-		task.setDepartmentId(project.getProjectDepartid());
-		task.setAssignUid(project.getCreateUid());
-		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		task.setCreatedTime(System.currentTimeMillis());
-		taskService.insert(task);
-		
-		
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.投资协议.getCode());

@@ -24,6 +24,7 @@ public class SopTaskBo extends  SopTask{
 	private String concatcode;
 	private String assignUidName; //认领人的名字(配合APP端)
 	private String mark;
+	private String taskStatusDesc;
 	
 	
 	public String getAssignUidName() {
@@ -160,6 +161,16 @@ public class SopTaskBo extends  SopTask{
 
 	public void setMark(String mark) {
 		this.mark = mark;
+	}
+
+	public String getTaskStatusDesc()
+	{
+		return taskStatusDesc;
+	}
+
+	public void setTaskStatusDesc(String taskStatusDesc)
+	{
+		this.taskStatusDesc = taskStatusDesc;
 	}
 	
 	

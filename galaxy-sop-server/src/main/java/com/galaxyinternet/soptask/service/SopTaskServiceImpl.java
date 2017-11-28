@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
@@ -248,13 +249,12 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setOrderRemark(sopTasknew.getTaskOrder()==null?"":DictUtil.getTaskOrderName(sopTasknew.getTaskOrder()));
 			sopTaskBo.setDepartmentId(sopTasknew.getDepartmentId());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
+			sopTaskBo.setTaskStatusDesc(taskStatus.getNameByCode(sopTaskBo.getTaskStatus()));
 			String mark=ResourceMark(sopTasknew);
 			sopTaskBo.setMark(mark);
-			if(sopTasknew.getTaskStatus().equals("taskStatus:1")){
+			if(sopTasknew.getTaskStatus().equals("taskStatus:1") && FXFunctionTags.hasPremission("task_claim")){
 				StringBuffer caozuohtml=new StringBuffer();
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
-				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));	
-//				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
 				
 				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
 					caozuohtml.append("<a ").append(" >").append("认领").append("</a>");
@@ -265,12 +265,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				}
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
-			if(sopTasknew.getTaskStatus().equals("taskStatus:2")){
+			if(sopTasknew.getTaskStatus().equals("taskStatus:2") && FXFunctionTags.hasPremission("task_claim")){
 				StringBuffer caozuohtml=new StringBuffer();
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
-				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
-			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
 					caozuohtml.append("<a ").append(" >").append("处理").append("</a>");
 				}else{
@@ -286,7 +284,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("3");
-				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				caozuohtml.append("<a href='javascript:void(0)' id='doclaim' class='blue'").append(" >查看").append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/></a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			sopTaskBo.setProjectId(sopTasknew.getProjectId());

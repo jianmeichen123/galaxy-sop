@@ -2,6 +2,7 @@ package com.galaxyinternet.soptask.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
@@ -220,47 +222,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			throw new PlatformException(ExceptionMessage.QUERY_LIST_FAIL.getMessage(),e);
 		}
 		return mv;
-	}
-	
-
-	/**
-	 * @category 根据角色获取当前登录人所属角色的所有任务
-	 * @author chenjianmei
-	 * @serialData 2016-02-26
-	 * @param pageable
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/taskListByRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTaskBo> taskListByRole(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
-		ResponseData<SopTaskBo> responseBody = new ResponseData<SopTaskBo>();
-		//SopTaskBo sopTaskBo=new SopTaskBo();
-		//当前登录人
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
-		sopTaskBo.setAssignUid(user.getId());
-		if(null==sopTaskBo.getFlagUrl()){
-			sopTaskBo.setFlagUrl("");
-		}
-		sopTaskBo.setDepartmentId(user.getDepartmentId());
-		Result result = new Result();
-		try {
-			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(),sopTaskBo.getPageSize()), sopTaskBo,request);
-			if(null==list.getContent()){
-				List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();
-				list.setTotal((long)0);
-				list.setContent(SopTaskBoList);
-			}
-			responseBody.setPageList(list);	
-			result.setStatus(Status.OK);
-		} catch (PlatformException e) {
-			result.addError(e.getMessage());
-		} catch (Exception e) {
-			result.addError("任务列表查询失败");
-			logger.error("任务列表查询失败", e);
-		}
-		responseBody.setResult(result);
-		return responseBody;
 	}
 
 	/**
@@ -544,11 +505,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	{
 		ModelAndView mv = new ModelAndView("soptask/taskMesage");
 		SopTask task = sopTaskService.queryById(taskId);
+		Project project = projectService.queryById(task.getProjectId());
+		mv.addObject("task", task);
 		mv.addObject("taskId", taskId);
 		mv.addObject("projectId", task.getProjectId());
 		mv.addObject("taskFlag", task.getTaskFlag());
 		String fileWType = null;
-		String btnTxt = "";
+		String btnTxt = ""; //按钮信息
+		boolean showIgnore = false; //是否可以不提供附件
+		boolean isCreated = projectType.创建.getCode().equals(project.getProjectType());
 		switch (task.getTaskFlag())
 		{
 		case 2:
@@ -558,14 +523,17 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		case 3:
 			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.法务尽职调查报告.getCode();
+			showIgnore = isCreated;
 			break;
 		case 4:
 			btnTxt = "上传尽调报告";
 			fileWType = fileWorktype.财务尽职调查报告.getCode();
+			showIgnore = isCreated;
 			break;
 		case 8:
 			btnTxt = "上传资金拨付凭证";
 			fileWType = fileWorktype.资金拨付凭证.getCode();
+			showIgnore = true;
 			break;
 		case 9:
 			btnTxt = "上传工商变更登记凭证";
@@ -573,6 +541,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			break;
 
 		}
+		mv.addObject("showIgnore", showIgnore);
 		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("fileWorktype", fileWType);
 		return mv;
@@ -645,6 +614,23 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ResponseData<SopTaskBo> searchDepUnfinished(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
 	{
 		sopTaskBo.setTaskStatus(taskStatus.待完工.getCode());
+		return search(sopTaskBo, request);
+	}
+	/**
+	 * 桌面快捷显示
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/quickSearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> quickSearch(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request)
+	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Long assignUid = user.getId();
+		sopTaskBo.setAssignUid(assignUid);
+		String[] taskStatusArray = {taskStatus.待完工.getCode(),taskStatus.待认领.getCode()};
+		sopTaskBo.setTaskStatusList(Arrays.asList(taskStatusArray));
 		return search(sopTaskBo, request);
 	}
 	

@@ -1,4 +1,4 @@
-$.fn.showResultsDrafts = function(readonly){
+$.fn.showResultsDrafts = function(readonly,flag){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
 		if(pid == 1302){
@@ -25,13 +25,29 @@ $.fn.showResultsDrafts = function(readonly){
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
+        					var sum=0;
+        					console.log(entityList)
         					$.each(entityList,function(){
         						var title = this;
-        						buildResultsDraft(sec,title,readonly);
-        						buildTableDraft(sec,title);
-        						buildfinxedTableDraft(sec,title,readonly);
-        						dtWidth();
+        						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
+        							sum++;
+        						}
+        						if(flag=='result'){
+        							buildResultsDraft(sec,title,readonly);
+            						buildTableDraft(sec,title);
+            						buildfinxedTableDraft(sec,title,readonly);
+            						dtWidth();
+        						}
         					});
+        					console.log(sum)
+        					if(sum>0){
+        						$('.history_block').show();
+        						$('.history_block').closest('.h_edit').addClass('history_block_edit');
+        					}else{
+        						$('.history_block').hide();
+        						$('.history_block').closest('.h_edit').removeClass('history_block_edit');
+        					}
+        					
         				}
         			}
         		})
@@ -93,25 +109,40 @@ function buildResultsDraft(sec,title,readonly)
 				});
 			}
 		}
-		/*else if(title.type == 5)
+		else if(title.type == 5)
 		{
 			$.each(title.resultMGList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
+				if(readonly == true){
+					if(n.contentChoose!=null){
+						//单选按钮回显
+						$(".type_radio[data-id='"+title.id+"']").text(n.valueName);
+						
 					}else{
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1);
+						$(".field[data-title-id='"+n.titleId+"']").html((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0)?"未填写":n.contentDescribe1);
 					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+				}else{
+					var str=n.contentDescribe1;
+					var result_id = n.id;
+					if(str){
+						str=str.replace(/<br\/>/g,'\n');
+						str=str.replace(/<br>/g,'\n');
+						str=str.replace(/&nbsp;/g," ");
+					}
+
+						
+					if(n.contentChoose!=null){
+						//单选按钮回显
+						$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
+						$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
 					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+						$("textarea[data-title-id='"+n.titleId+"']").val((n.contentDescribe1==undefined || textarea_show(n.contentDescribe1)==0 )?"":str).attr("resultId",result_id);
 					}
+				
+					
+					
 				}
 			});
-		}*/
+		}
 		else if(title.type == 12)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
@@ -493,9 +524,9 @@ function buildMemberTableDraft(sec,title){
     		});
     	}
     	//列表Row
-    	if(title.dataList)
+    	if(title.dataMGList)
     	{
-    	    var list = title.dataList;
+    	    var list = title.dataMGList;
     		$.each(list,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
@@ -631,9 +662,9 @@ function buildTableDraft(sec,title)
 		});
 	}
 	//列表Row
-	if(title.dataList)
+	if(title.dataMGList)
 	{
-		$.each(title.dataList,function(){
+		$.each(title.dataMGList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			tables.show();   //有数据表格显示

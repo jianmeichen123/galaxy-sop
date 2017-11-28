@@ -2051,6 +2051,7 @@ function selectContext(formId){
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');
+	var formBox=$(ele).closest('form');
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		addRowCompete(ele,id_code);
@@ -2076,6 +2077,7 @@ function addRow(ele)
 	            selectContext("detail-form");
 	            $("#save-detail-btn").click(function(){
 	                saveForm($("#detail-form"));
+	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
 	                check_table_tr_edit();
 	            });
@@ -2090,6 +2092,7 @@ function addRow(ele)
 }
 //竞争表格新增
 function addRowCompete(ele,id_code){
+	var formBox=$(ele).closest('form');
 	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 			function(data) {
 				var result = data.result.status;
@@ -2107,6 +2110,7 @@ function addRowCompete(ele,id_code){
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
 						var form=$(this).closest('form')
 						saveForm($(form));
+						formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 						$(form).remove();
 						$(ele).closest('form').show();		
 						 check_table();
@@ -2193,6 +2197,7 @@ function editRow(ele)
 {
 	var row = $(ele).closest('tr');
 	var code = $(ele).closest('table').data('code');
+	var formBox=$(ele).closest('form');
 	var txt=$(ele).text();
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
@@ -2387,6 +2392,7 @@ function editRow(ele)
 				$("#detail-form input[name='index']").val(row.index());
 				$("#save-detail-btn").click(function(){
 					saveForm($("#detail-form"));
+					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
 				});
 			}//模版反回成功执行	
 		});
@@ -2394,6 +2400,7 @@ function editRow(ele)
 };
 //竞争对手编辑
 function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr
+	var formBox=$(ele).closest('form');
 	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
 			function(data) {
 				var result = data.result.status;
@@ -2457,6 +2464,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
 						var form=$(this).closest('form')
 						saveForm($(form));
+						formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 						$(form).remove();
 						$(ele).closest('form').show();		
 						 check_table();
