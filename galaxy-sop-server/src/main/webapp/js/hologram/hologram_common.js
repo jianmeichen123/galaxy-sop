@@ -2109,7 +2109,10 @@ function addRowCompete(ele,id_code){
 					var _val=$('table.editable').attr('data-code');
 					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
-						var form=$(this).closest('form')
+						var form=$(this).closest('form');
+						if(!$(form).validate().form()){
+							return ;
+						}
 						saveForm($(form));
 						formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 						$(form).remove();
@@ -2461,9 +2464,13 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 						autoTextarea(textareaId);
 					}
 					$("#b_"+id_code+"_1").find("input[name='index']").val(row.index());
+					validate();
 					//保存
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
-						var form=$(this).closest('form')
+						var form=$(this).closest('form');
+						if(!$(form).validate().form()){
+							return ;
+						}
 						saveForm($(form));
 						formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 						$(form).remove();
