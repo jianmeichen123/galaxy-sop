@@ -266,9 +266,11 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			try {
 				if(null!=data.getInfoFixedTableList()&&data.getInfoFixedTableList().size()>0){
 					InformationFixedTableMG param=new InformationFixedTableMG();
-					param.setParentId(data.getParentId());
+					Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
+					Set<String> titleIds = titleMap.keySet();
 					param.setProjectId(data.getProjectId());
-					param.setTitleId(data.getInfoFixedTableList().get(0).getTitleId().toString());
+					List<String> list=new ArrayList<String>(titleIds);
+					param.setTitleIds(list);
 					findInfoFixTableModelList=informationFixedTableMGService.find(param);
 					if(null!=findInfoFixTableModelList&&findInfoFixTableModelList.size()>0){
 						informationFixedTableMGService.deleteByCondition(param);
@@ -291,8 +293,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				param.setProjectId(data.getProjectId());
 				List<String> list=new ArrayList<String>(titleIds);
 				param.setTitleIds(list);
-			//	param.setTitleId(data.getInfoTableModelList().get(0).getTitleId().toString());
-				findInfoTableModelList=informationListdataMGService.find(param);
 				if(null!=findInfoTableModelList&&findInfoTableModelList.size()>0){
 					informationListdataMGService.deleteByCondition(param);
 				}
@@ -442,7 +442,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		//查询表格
 		InformationListdataMG listdataQuery = new InformationListdataMG();
 		listdataQuery.setProjectId(projectId);
-		//listdataQuery.setParentId(parentId);
 		listdataQuery.setTitleIds(valueList);
 		Map<String,String> userMap=initCache();
 		List<InformationListdataMG> listdataList = null;
@@ -975,7 +974,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			paramResult.setProjectId(projectId);
 			paramResult.setTitleIds(list);
 			paramFixtable.setProjectId(projectId);
-			paramFixtable.setTitleIds(titleIds);
+			paramFixtable.setTitleIds(list);
 			try {
 				informationResultMGService.deleteByCondition(paramResult);
 				informationListdataMGService.deleteByCondition(paramTable);

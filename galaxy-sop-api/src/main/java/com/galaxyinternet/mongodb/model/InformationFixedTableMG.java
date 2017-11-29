@@ -1,5 +1,6 @@
 package com.galaxyinternet.mongodb.model;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,18 +36,18 @@ public class InformationFixedTableMG {
 
     private String updateId;
     
-    private Set<String> titleIds;
+    private List<String> titleIds;
 
     private String valueName;
 
 
-	public Set<String> getTitleIds()
-	{
+
+
+	public List<String> getTitleIds() {
 		return titleIds;
 	}
 
-	public void setTitleIds(Set<String> titleIds)
-	{
+	public void setTitleIds(List<String> titleIds) {
 		this.titleIds = titleIds;
 	}
 
