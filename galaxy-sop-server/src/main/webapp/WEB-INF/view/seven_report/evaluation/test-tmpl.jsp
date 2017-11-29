@@ -399,8 +399,8 @@
 													<option value="">请选择</option>
 												</select>
 												<div class="score-div">
-													<input class="result-weight" type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}" onblur="countGrade(this)">
-							                   		 <em>(0-\${scoreMax}分)</em>
+													<input class="result-weight" type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="100" onblur="countGrade(this)">
+							                   		 <em>(0-100分)</em>
 												</div>
 											</td>
 										{{/if}}
