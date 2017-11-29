@@ -380,13 +380,13 @@ function nselectHtml(values,title,cid,l_i){
 	if(title.resultList!=undefined && title.resultList[l_i-1]){
 		if (title.resultList[l_i-1].id){
 			var relu_ht =
-				"<select resultId='"+title.resultList[l_i-1].id+"' onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
+				"<select resultId='"+title.resultList[l_i-1].id+"' onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
 					li +
 				"</select>" ;
 		}
 	}else{
 		var relu_ht =
-			"<select  onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
+			"<select  onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
 				li +
 			"</select>" ;
 	}

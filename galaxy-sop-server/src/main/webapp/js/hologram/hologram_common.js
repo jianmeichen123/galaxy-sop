@@ -69,6 +69,7 @@ function edit_bsaicfun(data){
 	$(".check_label").click(function(event){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
+		$(this).closest('form').attr("tochange",true);
 		  $(this).toggleClass('active');
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.hasClass("pro_innovation")){
