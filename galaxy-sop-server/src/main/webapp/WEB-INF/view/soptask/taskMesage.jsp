@@ -129,14 +129,12 @@
 					$tr.append('<td class="task-operation"><span onclick="downloadFile(this)">查看</span></td>');
 					$("#complete-task-btn").removeClass('disabled');
 					$("#complete-task-btn").removeProp("disabled");
-					/* 
-					var btnText = $("#show-upload-btn").text();
+					var btnText = $("#file-upload-btn").text();
 					if(btnText != null && btnText.indexOf('上传')>-1)
 					{
-						$("#show-upload-btn").text(btnText.replace('上传','更新'))
+						$("#file-upload-btn").text(btnText.replace('上传','更新'))
 					}
-					$(".task_noprovide").hide();
-					 */
+					$(".task-no-need").hide();
 				}
 				$(".task-detail-table tbody").append($tr);
 			});
@@ -173,13 +171,6 @@
 					});
 					uploader.start();
 					layer.load(2);
-					/* 
-					$.each(files, function() {
-						$(_dialog.id).find("input[name='fileName']").val(this.name);
-						var fileType = getFileTypeByName(this.name);
-						$(_dialog.id).find("[name='fileType']").val(fileType);
-					});
-					 */
 				},
 				BeforeUpload: function(up){
 					var file = up.files[0];
@@ -215,9 +206,47 @@
 		uploader.init();
 	}
 	/**********************文件上传 START ************************/
-
+	/**********************提交完成 START ************************/
+	$("#complete-task-btn").click(function(){
+		//判断是否放弃该任务的提交
+		var btn=$(".task-no-need input");
+		var giveUp=false;
+		if(btn.prop( "checked" )==true){
+			giveUp=true;
+		}
+		var url = platformUrl.submitTask;
+		var data = {
+				id:"${taskId}",
+				taskStatus:"taskStatus:3",
+				giveUp:giveUp
+			};
+		var callback = function(data){
+			if(data.result.status=="OK"){
+				layer.msg("提交成功。");
+				var url = $("#menus .on a").attr('href');
+				window.location=url;
+			}
+			else
+			{
+				layer.msg("提交失败。");
+			}
+		};
+		//更新task为完成状态
+		sendPostRequestByJsonObj(url, data, callback);
+	});
+	/**********************提交完成 END ************************/
 	$('.task-no-label').click(function(){
-		$(this).toggleClass('label-checked');
+		var _this = $(this);
+		if(_this.hasClass('label-checked'))
+		{
+			_this.removeClass('label-checked').next().attr('checked',false);
+			$("#complete-task-btn").addClass('disabled').prop("disabled","disabled");
+		}
+		else
+		{
+			_this.addClass('label-checked').next().attr('checked',true);
+			$("#complete-task-btn").removeClass('disabled').prop("disabled","false");
+		}
 	})
 </script>
 

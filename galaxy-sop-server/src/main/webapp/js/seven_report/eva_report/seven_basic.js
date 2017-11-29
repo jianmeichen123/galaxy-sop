@@ -167,7 +167,7 @@
 					if(tableTr.length==1&&tableTr.eq(0).hasClass(".black")){
 					}else{
 						if($(radioShow).find("input").length<=0){
-							$(radioShow).html("<p style='margin-left:10px'>暂无数据</p>");
+							$(radioShow).html("<p style='margin-left:10px; color:#b2b2b2;'>暂无数据</p>");
 							return false;
 						}
 						$.each(tableTr,function(){

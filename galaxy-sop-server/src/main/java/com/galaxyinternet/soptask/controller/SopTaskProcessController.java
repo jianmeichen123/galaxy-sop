@@ -3,7 +3,9 @@ package com.galaxyinternet.soptask.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,13 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
@@ -45,13 +46,13 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
-import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Controller
@@ -78,88 +79,11 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		return sopTaskService;
 	}
 	
-	@RequestMapping("/showFileList")
-	public ModelAndView showFileList(@RequestParam Integer taskFlag,@RequestParam Long projectId)
-	{
-		Project project=new Project();
-		project.setId(projectId);
-		Project queryOne = projectService.queryOne(project);
-		ModelAndView mv = new ModelAndView();
-		String viewName = "";
-		String btnTxt = "";
-		String fileWorktype = "";
-		boolean isShow=false;
-		switch(taskFlag)
-		{
-			case 0: //完善简历
-				viewName = "/resumetc/wanshanjianli";
-				break;
-			case 1 : //表示投资意向书
-				fileWorktype = "fileWorktype:5";
-				viewName = "/taskProcess/tzyxs";
-				break;
-			case 2 : //人事尽职调查报告
-				btnTxt = "上传尽调报告";
-				fileWorktype = "fileWorktype:2";
-				viewName = "/taskProcess/singleFileUpload";
-				break;
-			case 3 : //法务尽职调查报告
-				btnTxt = "上传尽调报告";
-				fileWorktype = "fileWorktype:3";
-				if(queryOne.getProjectType().equals("projectType:2")){
-					isShow=true;
-				}
-				viewName = "/taskProcess/singleFileUpload";
-				break;
-			case 4 : //财务尽调报告
-				btnTxt = "上传尽调报告";
-				fileWorktype = "fileWorktype:4";
-				if(queryOne.getProjectType().equals("projectType:2")){
-					isShow=true;
-				}
-				viewName = "/taskProcess/singleFileUpload";
-				break;
-			case 5 : //业务尽调报告
-				viewName = "/taskProcess/ywjd";
-				break;
-			case 6 : //投资协议
-			case 7 : //股权转让协议
-				viewName = "/taskProcess/tzxy";
-				break;
-			case 8 : //资金拨付凭证
-				btnTxt = "上传资金拨付凭证";
-				fileWorktype = "fileWorktype:9";
-				viewName = "/taskProcess/singleFileUpload";
-				//if(queryOne.getProjectType().equals("projectType:2")){
-					isShow=true;
-				//}
-				break;
-			case 9 : //工商变更登记凭证
-				btnTxt = "上传工商变更登记凭证";
-				fileWorktype = "fileWorktype:8";
-				viewName = "/taskProcess/singleFileUpload";
-				/*if(queryOne.getProjectType().equals("projectType:2")){
-					isShow=true;
-				}*/
-				break;
-			case SopConstatnts.TaskCode._accept_project_flag_ : //工商变更登记凭证
-				btnTxt = "接收项目";
-				viewName = "/project/projectTransfer/receiveTask";
-				break;
-			default :
-				logger.error("Error taskFlag "+ taskFlag);
-		}
-		mv.setViewName(viewName);
-		mv.addObject("fileWorktype", fileWorktype);
-		mv.addObject("btnTxt", btnTxt);
-		mv.addObject("taskFlag", taskFlag);
-		mv.addObject("isShow", isShow);
-		return mv;
-	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/uploadFile")
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	public Result uploadFile(SopFile bo, HttpServletRequest request)
 	{
 		Result result = new Result();
@@ -230,7 +154,19 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 						}
 						if(messageType != null)
 						{
-							ControllerUtils.setRequestParamsForMessageTip(request, manager, project.getProjectName(), project.getId(), messageType, number);
+							SopTask task = sopTaskService.getByFileInfo(bo.getId());
+							
+							Map<String, Object> params = new HashMap<>();
+							params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, project.getProjectName());
+							params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, project.getId());
+							params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+							params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+							if(task != null)
+							{
+								params.put(PlatformConst.REQUEST_SCOPE_RECORD_ID, task.getId());
+							}
+							params.put(PlatformConst.REQUEST_SCOPE_USER, manager);
+							ControllerUtils.setRequestParamsForMessageTip(request, params);
 						}
 					}
 					

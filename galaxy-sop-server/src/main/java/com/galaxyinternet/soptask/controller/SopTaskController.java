@@ -213,7 +213,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
 			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNum.name());
 			params.put(PlatformConst.REQUEST_SCOPE_RECORD_ID, id);
-			ControllerUtils.setRequestParamsForMessageTip(request, manager, params);
+			params.put(PlatformConst.REQUEST_SCOPE_USER, manager);
+			ControllerUtils.setRequestParamsForMessageTip(request, params);
 		} catch (PlatformException e)
 		{
 			result.addError(e.getMessage());
@@ -345,96 +346,109 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE,LogType.IOSPUSHMESS})
 	@ResponseBody
 	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
+	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity, HttpServletRequest request)
+	{
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		entity.setAssignUid(user.getId());
-		SopFile sipFile =new SopFile();
-		if(entity.getId() == null){
-			responseBody.setResult(new Result(Status.ERROR,null,"缺失必须的参数!"));
-			return responseBody;
-		}
-		SopTask soptask=sopTaskService.queryById(entity.getId());
-		if(null==soptask){
-			responseBody.setResult(new Result(Status.ERROR,null,"找不到该任务!"));
-			return responseBody;
-		}
-		boolean flag=true;
-		String fileWorktype = "";
-		UrlNumber urlNum=null;
-		String messageType=null;
-		switch(soptask.getTaskFlag())
+		SopFile sipFile = new SopFile();
+		if (entity.getId() == null)
 		{
-			case 0: //完善简历
-			  urlNum=UrlNumber.one;
-				break;
-			case 1 : //表示投资意向书
-				fileWorktype = "fileWorktype:5";
-				break;
-			case 2 : //人事尽职调查报告
-				 urlNum=UrlNumber.two;
-				 messageType="9.1";
-				fileWorktype = "fileWorktype:2";
-				break;
-			case 3 : //法务尽职调查报告
-				urlNum=UrlNumber.five;
-				messageType="9.3";
-				fileWorktype = "fileWorktype:3";
-				break;
-			case 4 : //财务尽调报告
-				urlNum=UrlNumber.three;
-				messageType="9.2";
-				fileWorktype = "fileWorktype:4";
-				break;
-			case 5 : //业务尽调报告	
-				urlNum=UrlNumber.seven;
-				messageType="9.6";
-				fileWorktype = "fileWorktype:1";
-				break;
-			case 6 : //投资协议
-				fileWorktype = "fileWorktype:6";
-				break;
-			case 7 : //股权转让协议
-				fileWorktype = "fileWorktype:7";
-				break;
-			case 8 : //资金拨付凭证
-				urlNum=UrlNumber.four;
-				messageType="9.5";
-				fileWorktype = "fileWorktype:9";
-				break;
-			case 9 : //工商变更登记凭证
-				messageType="9.4";
-			//	btnTxt = "上传工商变更登记凭证";
-				urlNum=UrlNumber.six;
-				fileWorktype = "fileWorktype:8";
-				break;
-			default :
-				flag=false;
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必须的参数!"));
+			return responseBody;
+		}
+		SopTask soptask = sopTaskService.queryById(entity.getId());
+		if (null == soptask)
+		{
+			responseBody.setResult(new Result(Status.ERROR, null, "找不到该任务!"));
+			return responseBody;
+		}
+		String fileWorktype = "";
+		UrlNumber urlNum = null;
+		String messageType = null;
+		switch (soptask.getTaskFlag())
+		{
+		case 0: // 完善简历
+			urlNum = UrlNumber.one;
+			break;
+		case 1: // 表示投资意向书
+			fileWorktype = "fileWorktype:5";
+			break;
+		case 2: // 人事尽职调查报告
+			urlNum = UrlNumber.two;
+			messageType = "9.1";
+			fileWorktype = "fileWorktype:2";
+			break;
+		case 3: // 法务尽职调查报告
+			urlNum = UrlNumber.five;
+			messageType = "9.3";
+			fileWorktype = "fileWorktype:3";
+			break;
+		case 4: // 财务尽调报告
+			urlNum = UrlNumber.three;
+			messageType = "9.2";
+			fileWorktype = "fileWorktype:4";
+			break;
+		case 5: // 业务尽调报告
+			urlNum = UrlNumber.seven;
+			messageType = "9.6";
+			fileWorktype = "fileWorktype:1";
+			break;
+		case 6: // 投资协议
+			fileWorktype = "fileWorktype:6";
+			break;
+		case 7: // 股权转让协议
+			fileWorktype = "fileWorktype:7";
+			break;
+		case 8: // 资金拨付凭证
+			urlNum = UrlNumber.four;
+			messageType = "9.5";
+			fileWorktype = "fileWorktype:9";
+			break;
+		case 9: // 工商变更登记凭证
+			messageType = "9.4";
+			urlNum = UrlNumber.six;
+			fileWorktype = "fileWorktype:8";
+			break;
+		default:
 		}
 		sipFile.setProjectId(soptask.getProjectId());
 		sipFile.setFileWorktype(fileWorktype);
 		SopFile queryOne = sopFileService.queryOne(sipFile);
 		Project project = projectService.queryById(queryOne.getProjectId());
-		if(null!=queryOne&&!entity.getGiveUp()){
-			if(queryOne.getFileStatus().equals("fileStatus:1")){
-				responseBody.setResult(new Result(Status.ERROR,null,"文件未上传，任务提交失败!"));
+		if (null != queryOne && !entity.getGiveUp())
+		{
+			if (queryOne.getFileStatus().equals("fileStatus:1"))
+			{
+				responseBody.setResult(new Result(Status.ERROR, null, "文件未上传，任务提交失败!"));
 				return responseBody;
 			}
-		/*  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
-				responseBody.setResult(new Result(Status.ERROR,null,"签署证明未上传，任务提交失败"));
-		        return responseBody;
-		     }*/
 		}
-		try {
-			int r = sopTaskService.submitTask(entity);
+		try
+		{
 			User manager = userService.queryById(project.getCreateUid());
-			if(r == 1){
-				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),StageChangeHandler._6_10_,urlNum,messageType);
-			}else{
-				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, project.getProjectName());
+			params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, project.getId());
+			params.put(PlatformConst.REQUEST_SCOPE_USER, manager);
+			params.put(PlatformConst.REQUEST_SCOPE_RECORD_ID, entity.getId());
+			
+			if(urlNum != null){
+				params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNum.name());
 			}
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null,"异常，请重试!"));
+			int r = sopTaskService.submitTask(entity);
+			if (r == 1)
+			{
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, StageChangeHandler._6_10_);
+				params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, messageType);
+			} else
+			{
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request, params);
+		} catch (Exception e)
+		{
+			responseBody.setResult(new Result(Status.ERROR, null, "异常，请重试!"));
 			return responseBody;
 		}
 		return responseBody;
