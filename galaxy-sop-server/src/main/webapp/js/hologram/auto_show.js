@@ -539,6 +539,7 @@ function buildResultsDraft(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
 			}else{
 				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find("li").removeClass('active');
+				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find('input').val('').removeAttr('required').attr('disabled',true);
 			}
 		}
 	}
