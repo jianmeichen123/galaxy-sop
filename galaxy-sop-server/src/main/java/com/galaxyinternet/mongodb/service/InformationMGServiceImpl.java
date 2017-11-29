@@ -963,5 +963,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			return data;
 		}
 
-		
+		public void removeData(String parentId,String projectId){
+			
+		}
 }

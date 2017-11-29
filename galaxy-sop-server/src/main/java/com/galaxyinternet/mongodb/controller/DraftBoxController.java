@@ -166,6 +166,26 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
         }
         return resp;
     }
+    
+    @ResponseBody
+	@RequestMapping("/removeData/{titleId}/{projectId}")
+	public ResponseData<InformationTitle> removeData(@PathVariable String titleId,@PathVariable String projectId)
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		
+		try
+		{
+			List<InformationTitle> list = informationMGService.searchWithData(titleId, projectId);
+			data.setEntityList(list);
+			
+		} catch (Exception e)
+		{
+			logger.error("获取标题失败，信息:titleId="+titleId,e);
+			data.getResult().addError("获取标题失败");
+		}
+		
+		return data;
+	}
 	
 
 	

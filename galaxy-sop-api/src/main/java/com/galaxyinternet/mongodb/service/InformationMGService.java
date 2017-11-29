@@ -3,7 +3,6 @@ package com.galaxyinternet.mongodb.service;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
@@ -16,5 +15,6 @@ public interface InformationMGService extends BaseService<InformationDataMG> {
 	public InformationTitle selectAreaTitleResutl(String pid, String pinfoKey) ;
 	public InformationTitle selectTChildsByPinfo(String pinfoKey);
 	public InformationListdataMG queryMemberById(String id) ;
+	public void removeData(String parentId,String projectId);
 
 }
