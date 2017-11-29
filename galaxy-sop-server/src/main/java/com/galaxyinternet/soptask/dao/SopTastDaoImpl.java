@@ -96,17 +96,4 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectXXXXXX")), e);
 		}
 	}
-
-	@Override
-	public int updateAtProjectTranfer(SopTask task) {
-		Assert.notNull(task);
-		try {
-			return sqlSessionTemplate.update(getSqlName("updateAtProjectTranfer"), task);
-		} catch (Exception e) {
-			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName(SqlId.SQL_UPDATE_BY_ID)), e);
-		}
-	}
-	
-	
-	
 }

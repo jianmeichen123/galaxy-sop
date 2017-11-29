@@ -3,6 +3,7 @@ package com.galaxyinternet.model.sopfile;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.model.common.PagableRecordEntity;
 
+@SuppressWarnings("serial")
 public class SopParentFile extends PagableRecordEntity  {
 	public Long getInterviewRecordId() {
 		return interviewRecordId;

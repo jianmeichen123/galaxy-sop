@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import io.swagger.annotations.ApiModelProperty;
 @Document(collection="galaxy.sop.FixedTableModelMG")
 public class FixedTableModelMG  {
-	private static final long serialVersionUID = 1L;
 	
 	private String titleId;
 

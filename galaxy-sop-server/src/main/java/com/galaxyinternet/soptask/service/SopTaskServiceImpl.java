@@ -575,10 +575,4 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return result;
 	}
-
-	@Override
-	public int updateAtProjectTranfer(SopTask task) {
-		return sopTaskDao.updateAtProjectTranfer(task);
-	}
-	
 }

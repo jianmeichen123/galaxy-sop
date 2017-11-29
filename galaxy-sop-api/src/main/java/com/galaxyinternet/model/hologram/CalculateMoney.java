@@ -1,7 +1,5 @@
 package com.galaxyinternet.model.hologram;
 
-import java.math.BigDecimal;
-
 public class CalculateMoney {
 	
 	private String investment;

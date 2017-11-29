@@ -3,7 +3,6 @@ package com.galaxyinternet.mongodb.service;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.exception.MongoDBException;
-import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.mongodb.model.InformationScoreMG;
 
 public interface InformationScoreMGService {

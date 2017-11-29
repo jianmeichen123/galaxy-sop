@@ -6,7 +6,6 @@ import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 public class InformationModelMG  {
-	private static final long serialVersionUID = 1L;
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;

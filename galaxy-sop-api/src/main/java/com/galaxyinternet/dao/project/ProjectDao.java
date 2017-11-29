@@ -9,8 +9,6 @@ import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.PageRequest;
-import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 
 public interface ProjectDao extends BaseDao<Project, Long> {

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface InformationDictionaryDao extends BaseDao<InformationDictionary, Long>{
 

@@ -9,7 +9,6 @@ import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 
 public class InformationTitleMG {
-	private static final long serialVersionUID = 1L;
 
 	private Set<String> titleIds;
 	
