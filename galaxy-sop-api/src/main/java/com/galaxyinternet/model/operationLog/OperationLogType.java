@@ -224,6 +224,12 @@ public enum OperationLogType {
 	//认领任务-法务工商变更
 	UPLOAD_EQUITY_CLAIMT_SOPTASK_FW_GSBG("/galaxy/soptask/goClaimtcPage/"+UrlNumber.six, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_FW_GSBG.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
+	/**上传尽调报告**/
+	UPLOAD_JD("/galaxy/taskprocess/uploadFile/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), Target.DUE_DILIGENCE_RS_JD.getTargetName(), SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**更新尽调报告**/
+	UPDATE_JD("/galaxy/taskprocess/uploadFile/"+UrlNumber.two, OperType.UPDATE.getOperationType(), Target.DUE_DILIGENCE_RS_JD.getTargetName(), SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	
+	
 	//完成任务-业务尽调
 	UPLOAD_EQUITY_SUBMIT_SOPTASK_YW("/galaxy/soptask/submitTask/"+UrlNumber.seven, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_YW.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
     //完成任务-人事完善简历

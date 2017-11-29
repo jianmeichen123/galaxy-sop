@@ -171,13 +171,12 @@ public class ControllerUtils {
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
 	
-	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, Map<String, Object> params) 
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, Map<String, Object> params) 
 	{
 		if(params == null)
 		{
 			params = new HashMap<String, Object>();
 		}
-		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
 }
