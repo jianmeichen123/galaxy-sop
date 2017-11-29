@@ -24,6 +24,10 @@
 	        	<div class='task-item task-item-right'>
 	        		<li>项目编码：<span id="projectCode">27000021</span></li>
 	       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
+	       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
+	       			<li>认领人：<span>${assignUname }</span></li>
+	       			</c:if>
+	       			
 	       			<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
 	        	</div> 
         	</div>

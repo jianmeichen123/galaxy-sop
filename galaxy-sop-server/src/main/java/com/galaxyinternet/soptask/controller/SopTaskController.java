@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -171,7 +169,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			SopTask queryById = sopTaskService.queryById(Long.parseLong(id));
 			UrlNumber urlNum = null;
 			String messageType = null;
-			boolean flag = true;
 			switch (queryById.getTaskFlag())
 			{
 			case 0: // 完善简历
@@ -198,7 +195,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				urlNum = UrlNumber.six;
 				break;
 			default:
-				flag = false;
 			}
 			Project project = projectService.queryById(queryById.getProjectId());
 			User manager = userService.queryById(project.getCreateUid());
@@ -545,6 +541,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		mv.addObject("taskId", taskId);
 		mv.addObject("projectId", task.getProjectId());
 		mv.addObject("taskFlag", task.getTaskFlag());
+		Long assignUid = task.getAssignUid();
+		String assignUname = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+assignUid, "realName");
+		mv.addObject("assignUname", assignUname);
 		String fileWType = null;
 		String btnTxt = ""; //按钮信息
 		boolean showIgnore = false; //是否可以不提供附件

@@ -116,9 +116,9 @@ function getDetailUrl(code)
 			var originalCols = options.columns[0];
 			var columns = new Array();
 			columns.push({checkbox:true});
-			columns.concat(originalCols.slice(0,5));
+			columns = columns.concat(originalCols.slice(0,5));
 			columns.push({field:'assignUidName',title:'认领人'});
-			columns.concat(originalCols.slice(5));
+			columns = columns.concat(originalCols.slice(5));
 			opts.columns = columns;
 		}
 		else
