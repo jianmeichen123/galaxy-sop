@@ -369,6 +369,7 @@ getData();
 								$(".loading-indicator").remove();
 								dtWidth();
 								var pid=$('#a_'+id_code).attr("data-section-id");
+								removeAutoData(pid);   //保存删除草稿箱数据
 								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);

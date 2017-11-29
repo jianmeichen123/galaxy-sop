@@ -385,6 +385,7 @@ $(function() {
 								deletedRowIds = new Array();
 								var parent = $(sec).parent();
 								var id = parent.data('sectionId');
+								removeAutoData(id);   //保存删除草稿箱数据
 								$(btn).next().click();
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();

@@ -241,6 +241,7 @@
                     	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
                         var id = parent.data('sectionId');
+                        removeAutoData(id);   //保存删除草稿箱数据
                         $(btn).next().click();
                         refreshSection(id);
                         toggle_btn($('.anchor_btn span'),0,save_this);

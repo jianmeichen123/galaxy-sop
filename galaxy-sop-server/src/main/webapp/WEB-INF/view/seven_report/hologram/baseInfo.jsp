@@ -453,6 +453,8 @@ $(function() {
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");
 				layer.msg('保存成功');
+				var pid = $('#'+id_code).data('sectionId');
+				removeAutoData(pid);   //保存删除草稿箱数据
 				showArea(id_code);
 				$(".bj_hui_on").hide();
 				btn_disable(0);

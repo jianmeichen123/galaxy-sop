@@ -1,4 +1,8 @@
-	setInterval(function(){    //定时保存
+	//保存删除草稿箱数据
+function removeAutoData(pid){
+	sendGetRequest(platformUrl.removeData+'/'+pid+'/'+projectInfo.id,null,null);
+}
+setInterval(function(){    //定时保存
 		
 	},1000)
 	

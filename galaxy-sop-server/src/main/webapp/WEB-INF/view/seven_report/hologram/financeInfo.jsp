@@ -216,6 +216,7 @@
 							btn_disable(0);
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
+							removeAutoData(pid);   //保存删除草稿箱数据
 							setDate(pid,true);
 						    toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
