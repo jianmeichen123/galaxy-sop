@@ -190,6 +190,7 @@ $(function() {
 		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -299,6 +300,18 @@ $(function() {
 			}
 			
 		});
+		//多选不选择的时候：
+		var deletedResultTids = new Array();
+		$.each(dt_type_3, function() {
+			var _this = $(this);
+			var _tochange =_this.attr("tochange");
+			var active = _this.parent().find('dd .active');
+			if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+				var tid = _this.attr('data-id');
+				deletedResultTids.push(tid);
+			}
+		});
+		data.deletedResultTids = deletedResultTids;
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
@@ -383,6 +396,7 @@ $(function() {
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".bj_hui_on").hide();
 								deletedRowIds = new Array();
+								deletedResultTids = new Array();
 								var parent = $(sec).parent();
 								var id = parent.data('sectionId');
 								removeAutoData(id);   //保存删除草稿箱数据

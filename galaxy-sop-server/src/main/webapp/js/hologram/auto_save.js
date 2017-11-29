@@ -8,8 +8,15 @@ setInterval(function(){    //定时保存
 	
 	//保存方法
 	function auto_save(sec){
+		var id_code=sec.attr('id');
+		if(id_code.indexOf('a_')>-1){
+			id_code=id_code.replace('a_','');
+		}else{
+			id_code=id_code;
+		}
 		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id],select[name]");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 				projectId : projectInfo.id,
 				parentId:sec.data('section-id')
@@ -172,47 +179,53 @@ setInterval(function(){    //定时保存
 	                infoModeList.push(infoMode);
 	            }
 			});
-			data.infoModeList = infoModeList;
-			data.infoFixedTableList=infoModeFixedList;
-			data.infoModeInputs=infoModeInputs;
+			//多选不选择的时候：
+			var deletedResultTids = new Array();
+			$.each(dt_type_3, function() {
+				var _this = $(this);
+				var _tochange =_this.attr("tochange");
+				var active = _this.parent().find('dd .active');
+				if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+					var tid = _this.attr('data-tid') || _this.attr('data-title-id');
+					deletedResultTids.push(tid);
+				}
+			});
+			data.deletedResultTids = deletedResultTids;
 			//多选和多选加备注特殊处理
 			$.each(fields_value1, function() {			
 				var field = $(this);
 				var _tochange =field.parents("dd").prev().attr("tochange");
 				if(_tochange==undefined){
 					_tochange=false;
-				}			
-				if(_tochange == true||_tochange == "true"){
-					var _resultId = field.attr("resultId");
-					if(_resultId==undefined  || _resultId=="undefined"){
-						_resultId=null
-					}
-					var infoMode = {
-							titleId : field.data('titleId'),
-							type : field.data('type'),
-							tochange:_tochange,
-							resultId:_resultId,
-							value : field.attr('value') || field.attr('data-value')
-						};
-					var type = field.data('type');
-					if(type==13){
-						var field_v = field.data('id');
-		                 var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
-		                 var dt = field.closest('dt[data-type="13"]');
-		                 if ( field_v == last_id)
-		                 {
-		                 	//其他
-		                     infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
-		                 }
-		                 else
-		                 {
-		                     infoMode.remark1 = '' ;
-		                 }
-					}
-		             
-					infoModeList.push(infoMode);
+				}	
+				var _resultId = field.attr("resultId");
+				if(_resultId==undefined  || _resultId=="undefined"){
+					_resultId=null
 				}
-				
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : field.attr('value') || field.attr('data-value')
+					};
+				var type = field.data('type');
+				if(type==13){
+					var field_v = field.data('id');
+	                 var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                 var dt = field.closest('dt[data-type="13"]');
+	                 if ( field_v == last_id)
+	                 {
+	                 	//其他
+	                     infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+	                 }
+	                 else
+	                 {
+	                     infoMode.remark1 = '' ;
+	                 }
+				}
+	             
+				infoModeList.push(infoMode);
 			});
 			//表格
 			var infoTableModelList = new Array();
@@ -226,10 +239,12 @@ setInterval(function(){    //定时保存
 					infoTableModelList.push($(this).data());
 				});
 			});
-		
+			data.infoModeList = infoModeList;
+			data.infoFixedTableList=infoModeFixedList;
+			data.infoModeInputs=infoModeInputs;
 			data.infoTableModelList = infoTableModelList;
-			console.log(data);
 			data.deletedRowIds = deletedRowIds;
+			console.log(data);
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateDraftBox , 
 					data,

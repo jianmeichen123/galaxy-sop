@@ -528,6 +528,8 @@ function buildResultsDraft(sec,title,readonly)
 				});
 				var dd='<dd>未选择</dd>';
 				$("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().append(dd);
+			}else{
+				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find("li").removeClass('active');
 			}
 		}else if(title.type == 13){
 			if (readonly == true)
@@ -535,6 +537,9 @@ function buildResultsDraft(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
+			}else{
+				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find("li").removeClass('active');
+				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find('input').val('').removeAttr('required').attr('disabled',true);
 			}
 		}
 	}
