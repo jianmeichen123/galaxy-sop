@@ -100,7 +100,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				SopFile po = sopFileService.queryById(bo.getId());
 				String fileName = file.getOriginalFilename();
 				int dotPos = fileName.lastIndexOf(".");
-				String key = po != null && po.getFileKey() != null ? po.getFileKey() : String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 				String prefix = fileName.substring(0, dotPos);
 				String suffix = fileName.substring(dotPos);
 				
@@ -120,7 +120,9 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 						bo.setFileUid(user.getId());
 					}
 					sopFileService.updateById(bo);
-					
+					SopFile history = new SopFile();
+					history.setFileId(bo.getId());
+					sopFileService.insertHistory(history);
 					/*****Log/Message Start*****/
 					Project project = projectService.queryById(po.getProjectId());
 					if(project != null && project.getCreateUid() != null)

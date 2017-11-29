@@ -49,5 +49,10 @@ public interface SopFileDao extends BaseDao<SopFile, Long> {
 	 */
 	public Long selectQueryCount(Query query);
 	
+	public Page<SopFile> selectHistory(SopFile query, Pageable pageable);
+	
+	public Long insertHistory(SopFile entity);
+	
+	public SopFile selectHistoryById(Long id);
 	
 }

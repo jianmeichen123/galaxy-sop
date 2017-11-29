@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
-import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -81,10 +80,55 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 	public int updateDepartmentId(SopFile f) {
 		return sqlSessionTemplate.update(getSqlName("updateDepartmentId"), f);
 	}
-	
 
+	@Override
+	public Page<SopFile> selectHistory(SopFile query, Pageable pageable)
+	{
+		try
+		{
+			List<SopFile> contentList = sqlSessionTemplate.selectList(getSqlName("selectHistory"), getParams(query, pageable));
+			Long count = selectHistoryCount(query);
+			return new Page<SopFile>(contentList, pageable, count);
+		} catch (Exception e)
+		{
+			throw new DaoException(String.format("根据分页对象查询列表出错！语句:%s", getSqlName("selectHistory")), e);
+		}
+	}
 
+	public Long selectHistoryCount(SopFile query)
+	{
+		try
+		{
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectOne(getSqlName("selectHistoryCount"), params);
+		} catch (Exception e)
+		{
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectHistoryCount")), e);
+		}
+	}
 
+	@Override
+	public Long insertHistory(SopFile entity)
+	{
+		try
+		{
+			sqlSessionTemplate.insert(getSqlName("insertHistory"), entity);
+			return entity.getId();
+		} catch (Exception e)
+		{
+			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName("insertHistory")), e);
+		}
+	}
+
+	@Override
+	public SopFile selectHistoryById(Long id)
+	{
+		try {
+			return sqlSessionTemplate.selectOne(getSqlName("selectHistoryById"), id);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据ID查询对象出错！语句：%s", getSqlName("selectHistoryById")), e);
+		}
+	}
 	
 	
 }

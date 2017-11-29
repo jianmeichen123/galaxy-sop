@@ -99,4 +99,10 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * 项目移交时修改文档部门ID
 	 */
 	int updateDepartmentId(SopFile f);
+	
+	Page<SopFile> selectHistory(SopFile query, Pageable pageable);
+	
+	Long insertHistory(SopFile entity);
+	
+	SopFile selectHistoryById(Long id);
 }

@@ -211,6 +211,10 @@ public class SopFile extends SopParentFile implements Serializable{
   	private String fileWorktypeNullFilter;
   	
   	private MultipartFile multipartFile;
+  	/**
+  	 * 文件历史对应的文件id
+  	 */
+  	private Long fileId;
 
   
 	public MultipartFile getMultipartFile() {
@@ -583,8 +587,12 @@ public class SopFile extends SopParentFile implements Serializable{
 	public void setIds(List<Long> ids) {
 		this.ids = ids;
 	}
-    
-	
-	
-	
+	public Long getFileId()
+	{
+		return fileId;
+	}
+	public void setFileId(Long fileId)
+	{
+		this.fileId = fileId;
+	}
 }

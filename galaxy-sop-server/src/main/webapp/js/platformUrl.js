@@ -1307,6 +1307,11 @@ var platformUrl = {
      */
     downNOdoc : Constants.sopEndpointURL + "/galaxy/binfo/downxNO/",
     downENdoc : Constants.sopEndpointURL + "/galaxy/binfo/downxEN/",
+    
+    /**
+	 * 文件历史
+	 */	
+    toFileHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toFileHistory",
 }
 
 /**

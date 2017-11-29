@@ -432,7 +432,66 @@
 		</where>
 	</select>
 	
-
+	<resultMap id="HistoryResultMap" type="SopFilePO" extends="BaseResultMap">
+		<result column="file_id" jdbcType="BIGINT" property="fileId" />
+	</resultMap>
+	
+	<sql id="HistoryWhere">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id}</if>
+				<if test="fileId != null"> and file_id = #{fileId}</if>
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="selectHistory" resultMap="HistoryResultMap" parameterType="java.util.Map">	
+		select
+		<include refid="Base_Column_List" />
+		,file_id 
+		from sop_file_history
+		<include refid="HistoryWhere" />
+		order by created_time desc
+	</select>
+	<select id="selectHistoryById" resultMap="HistoryResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_file_history
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectHistoryCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id)
+		from sop_file_history
+		<include refid="HistoryWhere" />
+	</select>
+	
+	<insert id="insertHistory" useGeneratedKeys="true" keyProperty="id"  parameterType="SopFilePO">
+ 		INSERT INTO sop_file_history (
+			id,
+			project_id, belong_uid, file_valid, 
+			project_progress,file_worktype, career_line, 
+			file_source,file_type, remark, 
+			voucher_id, file_status,file_uid, 
+			fil_uri, updated_time,
+			created_time, file_length, file_key,
+			bucket_name,file_name,file_suffix,
+			record_type,meeting_id,interview_record_id,
+			meeting_record_id,file_id) 
+		SELECT 
+			#{id,jdbcType=BIGINT},
+			project_id, belong_uid, file_valid, 
+			project_progress,file_worktype, career_line, 
+			file_source,file_type, remark, 
+			voucher_id, file_status,file_uid, 
+			fil_uri, updated_time,
+			created_time, file_length, file_key,
+			bucket_name,file_name,file_suffix,
+			record_type,meeting_id,interview_record_id,
+			meeting_record_id,id 
+		FROM sop_file WHERE id = #{fileId}
+ 	</insert>
+	
+	
 	
 	
 	

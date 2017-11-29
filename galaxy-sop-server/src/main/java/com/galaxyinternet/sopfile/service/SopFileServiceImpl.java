@@ -1,16 +1,39 @@
 package com.galaxyinternet.sopfile.service;
 
-import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.ProjectBo;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
-import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.StrUtils;
-import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
-import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.FileResult;
@@ -24,44 +47,15 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
-import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 
 
@@ -74,10 +68,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	private SopFileDao sopFileDao;
 	@Autowired
 	private SopVoucherFileDao voucherFileDao;
-	@Autowired
-	private SopTaskDao sopTaskDao;
-	@Autowired
-	private ProjectDao projectDao;
 	@Autowired
 	private DepartmentService departmentService;
 	@Autowired
@@ -156,42 +146,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return departmentService.queryAll();
 	}
 	
-	private List<User> getUser(List<SopFile> sopFileList){
-		User user = new User();
-		List<Long> ids = new ArrayList<Long>();	
-		for(SopFile sopFile : sopFileList){
-			if(sopFile.getFileUid()!=null && !ids.contains(sopFile.getFileUid())){
-				ids.add(sopFile.getFileUid());
-			}	
-		}
-		user.setIds(ids);
-		if(ids.size() > 0){
-			return userService.queryList(user);
-		}
-		return null;
-	}
-	
-	private List<Project> getProject(List<SopFile> sopFileList){
-		ProjectBo project = new ProjectBo();
-		List<String> ids = new ArrayList<String>();
-		for(SopFile sopFile : sopFileList){
-			if(sopFile.getProjectId()!=null && !ids.contains(sopFile.getProjectId().toString())){
-				ids.add(sopFile.getProjectId().toString());
-			}	
-		}
-		project.setIds(ids);
-		if(ids.size() > 0){
-			return projectDao.selectList(project);
-		}
-		return null;
-	}
-	
-
-	
-	
-
-
-
 	@Override
 	@Transactional
 	public List<SopFile> queryList(SopFile query) {
@@ -259,6 +213,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * 上传新文件
 	 * 更新sopfile表记录
 	 */
+	@SuppressWarnings("unchecked")
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception{
 		
 		SopFile queryfile = sopFileDao.selectById(fid);
@@ -718,6 +673,23 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	@Override
 	public int updateDepartmentId(SopFile f) {
 		return sopFileDao.updateDepartmentId(f);
-	}    
-    
+	}
+
+	@Override
+	public Page<SopFile> selectHistory(SopFile query, Pageable pageable)
+	{
+		return sopFileDao.selectHistory(query, pageable);
+	}
+
+	@Override
+	public Long insertHistory(SopFile entity)
+	{
+		return sopFileDao.insertHistory(entity);
+	}
+
+	@Override
+	public SopFile selectHistoryById(Long id)
+	{
+		return sopFileDao.selectHistoryById(id);
+	}  
 }

@@ -131,7 +131,7 @@
 				}
 				else
 				{
-					$tr.append('<td class="task-operation"><span onclick="downloadFile(this)">查看</span></td>');
+					$tr.append('<td class="task-operation"><span onclick="downloadFile(this)">查看</span><span onclick="viewHistory('+this.id+')">查看历史</span></td>');
 					$("#complete-task-btn").removeClass('disabled');
 					$("#complete-task-btn").removeProp("disabled");
 					var btnText = $("#file-upload-btn").text();
@@ -243,6 +243,66 @@
 		sendPostRequestByJsonObj(url, data, callback);
 	});
 	/**********************提交完成 END ************************/
+	
+	function viewHistory(fileId)
+	{
+		$.getHtml({
+			url:platformUrl.toFileHistory,
+			data:{},
+			okback:function(){
+				var title = '${task.taskName}'.replace('上传','')+'-历史列表'
+				$("#file-history-dialog .title_bj").text(title);
+				var url = '<%=path%>/galaxy/sopFile/'+fileId+'/history';
+				var columns = [
+					{
+						field:'fileName', 
+						title: '文档名称',
+						formatter: function(val, row, index){
+							return row.fileName+'.'+row.fileSuffix;
+						}
+					},
+					{
+						field:'fileStatusDesc', 
+						title: '状态'
+					},
+					{
+						field:'createdTime', 
+						title: '更新时间', 
+						formatter: 'longTimeFormat'
+					},
+					{
+						field:'opt', 
+						title: '操作',
+						formatter: function(val, row, index){
+							return '<a href="#" class="blue" onclick="downloadHistory('+row.id+')">下载</a>';
+						}
+					}
+				];
+				$("#file-history-dialog #file_history_grid").bootstrapTable({
+					url: url,
+					columns: columns,
+					queryParamsType: 'size|page', 
+					pageSize:10,
+					showRefresh : false ,
+					sidePagination: 'server',
+					method : 'post',
+					sortOrder : 'desc',
+					sortName : 'created_time',
+					pagination: true,
+				    search: false,
+				    queryParams: function(params){
+				    	params.page = params.pageNum;
+				    	params.size = params.pageSize;
+				    	return params;
+				    }
+				});
+			}	
+		});
+	}
+	function downloadHistory(id)
+	{
+		forwardWithHeader(platformUrl.downLoadFile+"/"+id+'?type=history');
+	}
 	$('.task-no-label').click(function(){
 		var _this = $(this);
 		if(_this.hasClass('label-checked'))
