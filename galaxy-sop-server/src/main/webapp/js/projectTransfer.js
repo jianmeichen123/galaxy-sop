@@ -70,8 +70,10 @@ function callbackFun(data){
 	if (data.result.status != "OK") {
 			layer.msg(data.result.message);
 	} else {
-		layer.msg("提交成功")
-		window.location=window.location;
+		layer.msg("移交成功",{time:1000},function(){
+			var url = $("#menus .on a").attr('href');
+			window.location=url;
+		});
 	}
 
 }

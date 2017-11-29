@@ -41,8 +41,4 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 
 
 	public List<SopTask> selectXXXXXX(SopTask taQ);
-	
-	
-	int updateAtProjectTranfer(SopTask task);
-	
 }

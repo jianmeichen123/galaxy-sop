@@ -2,7 +2,6 @@ package com.galaxyinternet.bo.project;
 
 import java.util.List;
 
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 
 public class ProjectTransferBo extends ProjectTransfer {

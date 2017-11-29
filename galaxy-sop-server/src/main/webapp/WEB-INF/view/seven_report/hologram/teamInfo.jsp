@@ -478,6 +478,7 @@
         					var parent = $(sec).parent();
         					//console.log(parent[0]);
         					var id = parent.data('sectionId');
+        					removeAutoData(id);   //保存删除草稿箱数据
         					//console.log(id);
         					$(btn).next().click();
         					refreshSection(id);

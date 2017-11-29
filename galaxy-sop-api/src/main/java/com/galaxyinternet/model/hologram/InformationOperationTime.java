@@ -1,8 +1,6 @@
 package com.galaxyinternet.model.hologram;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 

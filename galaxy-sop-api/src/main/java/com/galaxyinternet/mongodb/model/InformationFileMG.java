@@ -9,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Document(collection="galaxy.sop.InformationFileMG")
 public class InformationFileMG {
 	
-	private static final long serialVersionUID = 1L;
-
     private Long projectId;
 
     private Long titleId;

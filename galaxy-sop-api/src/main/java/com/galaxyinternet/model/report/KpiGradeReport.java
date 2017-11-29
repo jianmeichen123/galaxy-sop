@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.report;
 
+@SuppressWarnings("serial")
 public class KpiGradeReport extends DataReport {
 	
 	/**

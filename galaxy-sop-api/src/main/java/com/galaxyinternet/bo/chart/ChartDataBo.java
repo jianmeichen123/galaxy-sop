@@ -1,7 +1,6 @@
 package com.galaxyinternet.bo.chart;
 
 
-import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.model.report.DataReport;
 
 /**

@@ -87,6 +87,7 @@ function buildResultsDraft(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
+			$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find("li").removeClass('active');
 			$.each(title.resultMGList,function(i,n)
 			{
 				if(readonly == true)
@@ -212,6 +213,10 @@ function buildResultsDraft(sec,title,readonly)
 				var inputText = dl.find('input[type="text"]:last');
 				if ( n.contentChoose == last_id ){
 					inputText.attr('disabled',false);
+				}else{
+					inputText.attr('disabled',true);
+					inputText.removeAttr('required');
+					inputText.val('');
 				}
 				$.each(radios , function ( i ,n )
 				{
