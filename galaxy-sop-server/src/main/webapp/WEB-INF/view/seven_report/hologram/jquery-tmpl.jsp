@@ -473,7 +473,7 @@
 				   <dl class="h_edit_txt clearfix">		
 					{{if type=="1"}}
 					<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-					<dd><input type="text" data-title-id="\${id}" name="field\${j+1}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+					<dd><input type="text" data-title-id="\${id}" name="field\${j+1}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
 
 					{{else type=="2"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
