@@ -1,7 +1,6 @@
 package com.galaxyinternet.mongodb.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,20 +31,15 @@ import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationFixedTable;
-import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.FixedTableModelMG;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.model.InformationFixedTableMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
-import com.galaxyinternet.mongodb.model.InformationListdataRemarkMG;
 import com.galaxyinternet.mongodb.model.InformationModelMG;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
-import com.galaxyinternet.mongodb.model.InformationTitleMG;
 import com.galaxyinternet.mongodb.model.TableModelMG;
 
 @Service("com.galaxyinternet.mongodb.service.InformationMGService")

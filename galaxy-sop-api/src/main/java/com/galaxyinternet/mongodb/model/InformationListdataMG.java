@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
+import com.galaxyinternet.framework.core.dao.utils.QueryType;
 import com.galaxyinternet.framework.core.utils.CommonUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 @Document(collection="galaxy.sop.InformationListdataMG")
@@ -76,7 +77,7 @@ public class InformationListdataMG {
     private Long updateTime;
 
     private Long updateId;
-    
+    @QueryField(attribute="titleId",type=QueryType.IN)
     private List<String> titleIds;
 
     private List<InformationListdataMG> dataList;

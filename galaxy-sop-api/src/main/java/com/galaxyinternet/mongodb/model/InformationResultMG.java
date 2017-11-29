@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
+import com.galaxyinternet.framework.core.dao.utils.QueryType;
 @Document(collection="galaxy.sop.InformationResultMG")
 public class InformationResultMG {
 
@@ -34,7 +35,7 @@ public class InformationResultMG {
     private String updateTime;
 
     private String updateId;
-    
+    @QueryField(attribute="titleId",type=QueryType.IN)
     private List<String> titleIds;
 
     /**information_title_relate start**/

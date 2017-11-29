@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
+import com.galaxyinternet.framework.core.dao.utils.QueryType;
 @Document(collection="galaxy.sop.InformationFixedTableMG")
 public class InformationFixedTableMG {
 
@@ -35,7 +36,7 @@ public class InformationFixedTableMG {
     private String updateTime;
 
     private String updateId;
-    
+    @QueryField(attribute="titleId",type=QueryType.IN)
     private List<String> titleIds;
 
     private String valueName;
