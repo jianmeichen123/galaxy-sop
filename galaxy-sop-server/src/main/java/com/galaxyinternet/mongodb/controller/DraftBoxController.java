@@ -175,13 +175,12 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		
 		try
 		{
-			List<InformationTitle> list = informationMGService.searchWithData(titleId, projectId);
-			data.setEntityList(list);
-			
+			informationMGService.removeData(titleId, projectId);
+			data.setResult(new Result(Status.OK,"清空草稿箱成功"));
 		} catch (Exception e)
 		{
-			logger.error("获取标题失败，信息:titleId="+titleId,e);
-			data.getResult().addError("获取标题失败");
+			logger.error("清空草稿箱失败，信息:titleId="+titleId,e);
+			data.getResult().addError("清空草稿箱失败");
 		}
 		
 		return data;

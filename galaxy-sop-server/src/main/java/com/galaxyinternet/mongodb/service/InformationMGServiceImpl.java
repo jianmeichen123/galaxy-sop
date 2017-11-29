@@ -291,7 +291,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				param.setProjectId(data.getProjectId());
 				List<String> list=new ArrayList<String>(titleIds);
 				param.setTitleIds(list);
-				param.setTitleId(data.getInfoTableModelList().get(0).getTitleId().toString());
+			//	param.setTitleId(data.getInfoTableModelList().get(0).getTitleId().toString());
 				findInfoTableModelList=informationListdataMGService.find(param);
 				if(null!=findInfoTableModelList&&findInfoTableModelList.size()>0){
 					informationListdataMGService.deleteByCondition(param);
@@ -964,6 +964,25 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		}
 
 		public void removeData(String parentId,String projectId){
-			
+			InformationListdataMG paramTable=new InformationListdataMG();
+			InformationResultMG   paramResult=new InformationResultMG();
+			InformationFixedTableMG paramFixtable=new InformationFixedTableMG();
+			Map<String,InformationTitle> titleMap = getChildTitleMap(parentId);
+			Set<String> titleIds = titleMap.keySet();
+			List<String> list=new ArrayList<String>(titleIds);
+			paramTable.setTitleIds(list);
+			paramTable.setProjectId(projectId);
+			paramResult.setProjectId(projectId);
+			paramResult.setTitleIds(list);
+			paramFixtable.setProjectId(projectId);
+			paramFixtable.setTitleIds(titleIds);
+			try {
+				informationResultMGService.deleteByCondition(paramResult);
+				informationListdataMGService.deleteByCondition(paramTable);
+				informationFixedTableMGService.deleteByCondition(paramFixtable);
+			} catch (MongoDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 }
