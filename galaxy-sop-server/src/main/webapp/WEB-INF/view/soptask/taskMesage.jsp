@@ -221,10 +221,12 @@
 				giveUp:giveUp
 			};
 		var callback = function(data){
+			layer.closeAll('loading');
 			if(data.result.status=="OK"){
-				layer.msg("提交成功。");
-				var url = $("#menus .on a").attr('href');
-				window.location=url;
+				layer.msg("提交成功。",{time:1000},function(){
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
+				});
 			}
 			else
 			{
@@ -232,6 +234,7 @@
 			}
 		};
 		//更新task为完成状态
+		layer.load(2);
 		sendPostRequestByJsonObj(url, data, callback);
 	});
 	/**********************提交完成 END ************************/
