@@ -212,6 +212,10 @@ function buildResultsDraft(sec,title,readonly)
 				var inputText = dl.find('input[type="text"]:last');
 				if ( n.contentChoose == last_id ){
 					inputText.attr('disabled',false);
+				}else{
+					inputText.attr('disabled',true);
+					inputText.removeAttr('required');
+					inputText.val('');
 				}
 				$.each(radios , function ( i ,n )
 				{
