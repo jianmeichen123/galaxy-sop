@@ -87,6 +87,7 @@ function buildResultsDraft(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
+			$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"']").next('dd').find("li").removeClass('active');
 			$.each(title.resultMGList,function(i,n)
 			{
 				if(readonly == true)
