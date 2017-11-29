@@ -9,27 +9,28 @@
  	<div class="taskDetail-ritmin">
  		 <div class='taskDetail-mesage'>
  		 	<div class='taskDetail-mesage-top'>
-	        	<div class='task-item task-item-left'>
-	        		<ul>
-	        			<li>项目名称：<span id="projectName">创投</span></li>
-	        			<li>创建时间：<span id="createDate">2016-12-22</span></li>
-	        			<li>事业部总经理：<span id="hhrName">李凯</span></li>
-	        		</ul>
-	        	</div>
-	        	<div class='task-item'>
-	        		<li>项目类型：<span id="type">投资</span></li>
-	       			<li>投资事业线：<span id="projectCareerline">人工智能</span></li>
-	       			<li>公司名称：<span id="projectCompany">星河互联集团</span></li>
-	        	</div>
-	        	<div class='task-item task-item-right'>
-	        		<li>项目编码：<span id="projectCode">27000021</span></li>
-	       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
-	       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
-	       			<li>认领人：<span>${assignUname }</span></li>
-	       			</c:if>
-	       			
-	       			<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
-	        	</div> 
+ 		 		<div class='message-detail-top'>
+ 		 			<div class='task-item task-item-left'>
+		        		<ul>
+		        			<li>项目名称：<span id="projectName">创投</span></li>
+		        			<li>创建时间：<span id="createDate">2016-12-22</span></li>
+		        			<li>事业部总经理：<span id="hhrName">李凯</span></li>
+		        		</ul>
+		        	</div>
+		        	<div class='task-item'>
+		        		<li>项目类型：<span id="type">投资</span></li>
+		       			<li>投资事业线：<span id="projectCareerline">人工智能</span></li>
+		       			<li>公司名称：<span id="projectCompany">星河互联集团</span></li>
+		        	</div>
+		        	<div class='task-item task-item-right'>
+		        		<li>项目编码：<span id="projectCode">27000021</span></li>
+		       			<li>投资经理：<span id="createUname">人工智能-投资经理</span></li>
+		       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
+		       			<li>认领人：<span>${assignUname }</span></li>
+		       			</c:if>
+		        	</div> 
+ 		 		</div>
+	        	<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
         	</div>
         	<c:if test="${showIgnore }">
         	<div class='task-no-need'><label class='task-no-label'></label><input type='checkbox' value=''/>不需要提供</div>

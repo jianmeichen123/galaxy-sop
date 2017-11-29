@@ -3960,7 +3960,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
 .pagebox .taskDetail-ritmin{margin:0px;padding-left:10px;}
 .taskDetail-mesage{margin-top:20px;width:100%;}
-.taskDetail-mesage-top{height:170px;background:#fff; display:flex;justify-content:space-between;flex-wrap:wrap;}
+.taskDetail-mesage-top{height:170px;background:#fff; }
+.taskDetail-mesage-top .message-detail-top{width:100%;display:flex;justify-content:space-between;flex-wrap:wrap;}
 .taskDetail-mesage-top div ul li,span{font-family:MicrosoftYaHei;}
 .taskDetail-mesage-table{margin-top:10px;}
 .task-item{height:auto;}
@@ -3968,7 +3969,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table .on td{background:none !important;}
 .task-item-left{margin-left:20px;}
 .task-item-right{margin-right:20px;}
-.pro-detail{float:right;margin-top:60px;color:#3ca6ff;font-size:14px;font-family:MicrosoftYaHei;}
+.pro-detail{float:right;margin-top:20px;color:#3ca6ff;font-size:14px;font-family:MicrosoftYaHei;margin-right:20px;}
 .task-detail-table th{font-family:MicrosoftYaHei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
