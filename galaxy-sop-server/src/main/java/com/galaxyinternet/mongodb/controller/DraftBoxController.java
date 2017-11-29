@@ -1,7 +1,9 @@
 package com.galaxyinternet.mongodb.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -27,6 +30,7 @@ import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
+import com.galaxyinternet.mongodb.service.InformationListdataMGService;
 import com.galaxyinternet.mongodb.service.InformationMGService;
 
 import io.swagger.annotations.Api;
@@ -42,6 +46,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	
 	@Autowired
 	private InformationMGService informationMGService;
+	@Autowired
+	private InformationListdataMGService informationListdataMGService;
 	
 	@Override
 	protected BaseService<InformationDataMG> getBaseService() {
@@ -185,7 +191,82 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		
 		return data;
 	}
-	
+    /**
+     * 成员简历保存
+     */
+    @RequestMapping(value = "/saveOrUpdateTeam", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseData<InformationListdata> saveOrUpdateTeam(@RequestBody InformationListdataMG data,HttpServletRequest request){
+        ResponseData<InformationListdata> responseBody = new ResponseData<>();
+        try{
+
+            List<InformationListdataMG> listdataList = data.getDataList();
+            
+            InformationListdataMG query = new InformationListdataMG();
+            query.setTitleId(data.getTitleId());
+            query.setProjectId(data.getProjectId());
+            List<InformationListdataMG> poList = informationListdataMGService.find(query);
+            Set<String> ids = new HashSet<>(poList.size());
+            for(InformationListdataMG po : poList)
+            {
+            	String uuid=po.getUuid();
+            	InformationListdataMG de=new InformationListdataMG();
+            	de.setUuid(uuid);
+            	informationListdataMGService.deleteByCondition(de);
+            	de=new InformationListdataMG();
+            	de.setParentId(uuid);
+            	informationListdataMGService.deleteByCondition(de);
+            }
+            if(listdataList != null && !listdataList.isEmpty()){
+                for (InformationListdataMG entity : listdataList){
+                    if(null != entity.getCode() && entity.getCode().equals("team-members")){
+                    	removeIfExists(ids,entity.getUuid());
+                    	informationListdataMGService.save(entity);
+                        String id = entity.getUuid();
+                        List<InformationListdataMG> studyList = entity.getStudyList();
+                        List<InformationListdataMG> workList = entity.getWorkList();
+                        List<InformationListdataMG> startupList = entity.getStartupList();
+                        if(studyList!=null &&!studyList.isEmpty()){
+                            for(InformationListdataMG study:studyList){
+                            	removeIfExists(ids,study.getUuid());
+                                study.setParentId(id);
+                            }
+                            informationListdataMGService.saveBatch(studyList);
+                        }
+                        if(workList!=null &&!workList.isEmpty()){
+                            for(InformationListdataMG work:workList){
+                                work.setParentId(id);
+                            }
+                            informationListdataMGService.saveBatch(workList);
+                        }
+                        if(startupList!=null &&!startupList.isEmpty()){
+                            for(InformationListdataMG startup:startupList){
+                                startup.setParentId(id);
+                            }
+                            informationListdataMGService.saveBatch(startupList);
+                        }
+
+                    }
+                }
+               
+            }
+        }catch(Exception e ){
+            responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
+            logger.error("save 保存失败 ",e);
+        }
+        return responseBody;
+    }
+    
+    private void removeIfExists(Set<String> ids, String id)
+    {
+    	if(ids.size()>0)
+    	{
+    		if(ids.contains(id))
+    		{
+    			ids.remove(id);
+    		}
+    	}
+    }
 
 	
 }

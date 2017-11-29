@@ -290,6 +290,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				param.setProjectId(data.getProjectId());
 				List<String> list=new ArrayList<String>(titleIds);
 				param.setTitleIds(list);
+				findInfoTableModelList=informationListdataMGService.find(param);
 				if(null!=findInfoTableModelList&&findInfoTableModelList.size()>0){
 					informationListdataMGService.deleteByCondition(param);
 				}

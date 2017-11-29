@@ -23,6 +23,9 @@ public class InformationListdataMG {
     private String  titleId;
     @QueryField(attribute="parentId")
     private String parentId;
+    private String rowId;
+    @QueryField(attribute="uuid",type=QueryType.IN)
+    private List<String> uuids;
 
     private String code;
 
@@ -570,6 +573,24 @@ public class InformationListdataMG {
 
 	public void setTitleId(String titleId) {
 		this.titleId = titleId;
+	}
+	
+
+	public String getRowId() {
+		return rowId;
+	}
+
+	public void setRowId(String rowId) {
+		this.rowId = rowId;
+	}
+	
+
+	public List<String> getUuids() {
+		return uuids;
+	}
+
+	public void setUuids(List<String> uuids) {
+		this.uuids = uuids;
 	}
 
 	@Override

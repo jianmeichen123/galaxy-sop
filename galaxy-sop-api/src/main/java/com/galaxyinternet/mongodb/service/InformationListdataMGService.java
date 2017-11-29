@@ -20,5 +20,7 @@ public interface InformationListdataMGService {
 	void deleteById(String id) throws MongoDBException;
 
 	void deleteByCondition(InformationListdataMG project) throws MongoDBException;
+	
+	void saveBatch(List<InformationListdataMG> studyList) throws MongoDBException;
 
 }

@@ -49,5 +49,17 @@ public class InformationListdataMGServiceImpl implements InformationListdataMGSe
 	public void deleteByCondition(InformationListdataMG project) throws MongoDBException {
 		informationListdataMGDao.deleteByCondition(project);
 	}
+
+	@Override
+	public void saveBatch(List<InformationListdataMG> list) throws MongoDBException {
+		// TODO Auto-generated method stub
+		for(int i=0;i<list.size();i++){
+			InformationListdataMG value=list.get(i);
+				informationListdataMGDao.save(value);
+		}
+		
+	}
+	
+	
 	
 }
