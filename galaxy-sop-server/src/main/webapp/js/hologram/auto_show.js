@@ -111,18 +111,22 @@ function buildResultsDraft(sec,title,readonly)
 		}
 		else if(title.type == 4)
 		{
-			/*console.log($('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(0))
-			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(0).val(title.resultMGList[0].contentChoose);
-			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(1).val(title.resultMGList[1].contentChoose);
-			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(2).val(title.resultMGList[2].contentChoose);
-			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(3).val(title.resultMGList[3].contentChoose);
-			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(4).val(title.resultMGList[4].contentChoose);*/
-		   for(var i=0;i<title.resultMGList.length;i++){
-			   
-				$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(i).val(title.resultMGList[i].contentChoose).attr("resultId", title.resultMGList[i].id);
-				
-			}
-			
+			for(var i=0;i<title.resultMGList.length;i++){
+					$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(i).find('option[value="'+title.resultMGList[i].contentChoose+'"]').attr('selected','selected').attr("resultId", title.resultMGList[i].id);
+					if(title.resultMGList[i].contentChoose){
+						var options=''
+						sendGetRequest(platformUrl.queryValuesByVpid + title.resultMGList[i].contentChoose, null, function(data) {
+				    		var result = data.result.status;
+				    		if (result == 'OK') {
+				    			var entitys = data.entityList;
+				    			$.each(entitys,function(i,o){
+				    				options+="<option value='"+o.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + o.name + "</option>"
+				    			});
+				    		}
+				    		$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').eq(i+1).append(options);
+				    	});
+					}
+			   }
 		}
 		else if(title.type == 5)
 		{
