@@ -44,9 +44,9 @@ var path = '<%=path%>';
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
 		
-			<div class="h radius" id="NO1_1" data-section-id="1101"> </div>
+			<div class="h radius" id="NO1_1" data-section-id="1116"> </div>
 			
-			<div class="h radius base_con2" id="NO1_2" data-section-id="1101"> </div>
+			<div class="h radius base_con2" id="NO1_2" data-section-id="1117"> </div>
 			
 		</div>
 	</div>
