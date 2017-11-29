@@ -32,7 +32,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
         <!--页眉-->
         <div class="top clearfix task-top taskdetail-top">
-        <h2 id="task-title"></h2>
+        	<div class='taskdetail-top-title'><h2 id="task-title"></h2><div class='come-back' onclick="window.history.back();"><span class='task-back'></span><span class='task-back-msg'>返回</span></div></div>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink to-task-tips">
             	<li data-tab="nav" class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">任务详情<span></span></a></li>

@@ -3939,7 +3939,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  /* CHEN */
  .task-pagebox{min-width:auto;}
 .task-top{height:108px;background:#fff;margin:51px 0 0 150px;}
-.task-top h2{height:64px;background:#fff;line-height:64px;margin-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYaHei;}
+.task-top .taskdetail-top-title{height:64px;background:#fff;line-height:64px;margin-left:39px;color:#202533;font-family:MicrosoftYaHei;}
+.task-top h2{font-size:24px;font-weight:normal;}
+.taskdetail-top h2{float:left}
 .task-top .task_tipslink{display: inline-block;margin:8px 0 0 39px;font-size:14px;color:#33363e;}
 .task-top .task_tipslink li{padding-bottom:13px;}
 .task-tips-li.on{border-bottom:4px solid #45aaff;}
