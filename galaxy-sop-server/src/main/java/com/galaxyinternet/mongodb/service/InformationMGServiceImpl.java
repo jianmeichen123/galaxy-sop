@@ -242,8 +242,11 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		try {
 			 if(null!=data.getInfoModeList()&&data.getInfoModeList().size()>0){
 				InformationResultMG param=new InformationResultMG();
-				//param.setParentId(data.getParentId());
+				Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
+				Set<String> titleIds = titleMap.keySet();
 				param.setProjectId(data.getProjectId());
+				List<String> list=new ArrayList<String>(titleIds);
+				param.setTitleIds(list);
 				findInfoModeList = informationResultMGService.find(param);
 				if(null!=findInfoModeList&&findInfoModeList.size()>0){
 					try {
