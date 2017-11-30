@@ -212,11 +212,18 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity.setField15(model.getField15());
 			entity.setField16(model.getField16());
 			entity.setRelateFileId(model.getRelateFileId());
+			entity.setCreateId(model.getCreateId());
+			entity.setCreateTimeStr(model.getCreateTimeStr());
+			entity.setCreateUserName(model.getCreateUserName());
+			entity.setCreatedTime(model.getCreatedTime());
+			entity.setUpdateId(model.getUpdateId());
+			entity.setUpdateTime(model.getUpdateTime());
+			entity.setUpdateUserName(model.getUpdateUserName());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			entity.setCreateId(userId);
-			entity.setCreateTime(now);
+			entity.setCreateId(userId.toString());
+			entity.setCreateTime(now.toString());
 				try {
 					informationListdataMGService.save(entity);
 				} catch (MongoDBException e) {
@@ -480,11 +487,11 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					}
 					if(item.getCreateTime() != null)
 					{
-						item.setCreateTimeStr(DateUtil.longString(item.getCreateTime()));
+						item.setCreateTimeStr(item.getCreateTime());
 					}
 					if(item.getUpdateTime() != null)
 					{
-						item.setUpdateTimeStr(DateUtil.longToString(item.getUpdateTime()));
+						item.setUpdateTimeStr(item.getUpdateTime());
 					}
 					tempList.add(item);
 				}

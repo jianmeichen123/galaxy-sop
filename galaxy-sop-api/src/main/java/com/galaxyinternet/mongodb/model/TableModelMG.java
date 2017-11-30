@@ -6,7 +6,7 @@ public class TableModelMG  {
 	private static final long serialVersionUID = 1L;
 	
 		private String  id;
-	 private Long titleId;
+	    private Long titleId;
 
 	    private Long parentId;
 
@@ -31,6 +31,15 @@ public class TableModelMG  {
 	    private String field8;
 
 	    private String field9;
+	    
+	    private String  createId;
+	    private String createTimeStr;
+	    private String createUserName;
+	    private String  createdTime;
+	    private String updateId;
+	    private String  updateTime;
+	    private String updateUserName;
+
 
 	    public String getId() {
 			return id;
@@ -256,6 +265,62 @@ public class TableModelMG  {
 
 		public void setDataList(List<InformationListdataMG> dataList) {
 			this.dataList = dataList;
+		}
+
+		public String getCreateId() {
+			return createId;
+		}
+
+		public void setCreateId(String createId) {
+			this.createId = createId;
+		}
+
+		public String getCreateTimeStr() {
+			return createTimeStr;
+		}
+
+		public void setCreateTimeStr(String createTimeStr) {
+			this.createTimeStr = createTimeStr;
+		}
+
+		public String getCreateUserName() {
+			return createUserName;
+		}
+
+		public void setCreateUserName(String createUserName) {
+			this.createUserName = createUserName;
+		}
+
+		public String getCreatedTime() {
+			return createdTime;
+		}
+
+		public void setCreatedTime(String createdTime) {
+			this.createdTime = createdTime;
+		}
+
+		public String getUpdateId() {
+			return updateId;
+		}
+
+		public void setUpdateId(String updateId) {
+			this.updateId = updateId;
+		}
+
+		public String getUpdateTime() {
+			return updateTime;
+		}
+
+		public void setUpdateTime(String updateTime) {
+			this.updateTime = updateTime;
+		}
+
+		public String getUpdateUserName() {
+			return updateUserName;
+		}
+
+		public void setUpdateUserName(String updateUserName) {
+			this.updateUserName = updateUserName;
 		}
 
 	    

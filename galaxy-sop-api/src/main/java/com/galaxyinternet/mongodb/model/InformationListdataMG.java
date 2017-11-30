@@ -76,13 +76,15 @@ public class InformationListdataMG {
     
     private String relateFileId;
 
-	private Long createTime;
+	private String createTime;
 
-    private Long createId;
+    private String createId;
 
-    private Long updateTime;
+    private String updateTime;
 
-    private Long updateId;
+    private String updateId;
+    
+    private String  createdTime;
     @QueryField(attribute="titleId",type=QueryType.IN)
     private List<String> titleIds;
 
@@ -259,39 +261,40 @@ public class InformationListdataMG {
         this.isValid = isValid;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
+   
+    public String getCreateTime() {
+		return createTime;
+	}
 
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 
-    public Long getCreateId() {
-        return createId;
-    }
+	public String getCreateId() {
+		return createId;
+	}
 
-    public void setCreateId(Long createId) {
-        this.createId = createId;
-    }
+	public void setCreateId(String createId) {
+		this.createId = createId;
+	}
 
-    public Long getUpdateTime() {
-        return updateTime;
-    }
+	public String getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public Long getUpdateId() {
-        return updateId;
-    }
+	public String getUpdateId() {
+		return updateId;
+	}
 
-    public void setUpdateId(Long updateId) {
-        this.updateId = updateId;
-    }
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
 
-    public List<InformationListdataMG> getWorkList() {
+	public List<InformationListdataMG> getWorkList() {
         return workList;
     }
 
@@ -598,6 +601,14 @@ public class InformationListdataMG {
 	
 
 	
+
+	public String getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(String createdTime) {
+		this.createdTime = createdTime;
+	}
 
 	public String getResultId() {
 		return resultId;
