@@ -1462,6 +1462,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			InformationDictionary dict = null;
 			for(InformationListdata item : list)
 			{
+				if(StringUtils.isBlank(item.getField1()))
+				{
+					continue;
+				}
 				dict = new InformationDictionary();
 				dict.setName(item.getField1());
 				dict.setValue(item.getId()+"");

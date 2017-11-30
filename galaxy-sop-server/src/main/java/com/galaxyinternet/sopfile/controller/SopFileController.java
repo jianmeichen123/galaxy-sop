@@ -2,8 +2,6 @@ package com.galaxyinternet.sopfile.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.PolicyConditions;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -80,7 +77,6 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
@@ -118,8 +114,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private ProjectService projectService;
 	@Autowired
 	private SopVoucherFileService sopVoucherFileService;
-	@Autowired
-	private SopTaskService sopTaskService;
 	@Autowired
 	Cache cache;
 	
@@ -504,7 +498,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		String type = request.getParameter("type");
 		try {
 			SopDownLoad downloadEntity = new SopDownLoad();
-			if("voucher".equals(type))
+			if("history".equals(type))
+			{
+				SopFile history = sopFileService.selectHistoryById(id);
+				if(history == null)
+				{
+					throw new Exception();
+				}
+				downloadEntity.setFileName(history.getFileName());
+				downloadEntity.setFileSuffix("." + history.getFileSuffix());
+				downloadEntity.setFileSize(history.getFileLength());
+				downloadEntity.setFileKey(history.getFileKey());
+			}
+			else if("voucher".equals(type))
 			{
 				SopVoucherFile file = sopVoucherFileService.queryById(id);
 				if(file == null)
@@ -819,7 +825,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 					return responseBody;
 				}
-				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
 				Map<String, String> nameMap = FileUtils.transFileNames(sopVoucherFile.getFileName());
 				sopVoucherFile.setFileName(nameMap.get("fileName"));
 				sopVoucherFile.setFileSuffix(nameMap.get("fileSuffix"));
@@ -1544,11 +1549,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	 * @throws Exception
 	 */
 	public void download(Entry<Long, String> enter) throws Exception{
-
-		InputStream fis = null;
-		OutputStream out = null;
-		
-				
 		File tempDir = new File("G:\\test");
 		File tempFile = new File("G:\\test", enter.getKey().toString());
 		
@@ -1561,29 +1561,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 						enter.getValue());
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@RequestMapping(value="/toFileHistory")
+	public String toFileHistory(){
+		return "sopFile/fileHistory";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/{id}/history", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
+	public ResponseData<SopFile> searchHisory(@PathVariable(value="id") Long fileId,@RequestBody PageRequest pageable)
+	{
+		ResponseData<SopFile> data = new ResponseData<SopFile>();
+		SopFile query = new SopFile();
+		query.setFileId(fileId);
+		Page<SopFile> page = sopFileService.selectHistory(query, pageable);
+		data.setPageList(page);
+		return data;
+	}
 }
