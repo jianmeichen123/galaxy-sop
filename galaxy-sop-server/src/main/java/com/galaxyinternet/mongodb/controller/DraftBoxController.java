@@ -203,7 +203,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
             List<InformationListdataMG> listdataList = data.getDataList();
             
             InformationListdataMG query = new InformationListdataMG();
-            query.setTitleId(data.getTitleId());
+            query.setTitleId(data.getParentId());
             query.setProjectId(data.getProjectId());
             List<InformationListdataMG> poList = informationListdataMGService.find(query);
             Set<String> ids = new HashSet<>(poList.size());

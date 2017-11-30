@@ -22,6 +22,7 @@ public class InformationListdataMG {
 	private String resultId;
     @QueryField(attribute="projectId")
     private String projectId;
+    @QueryField(attribute="titleId")
     private String  titleId;
     @QueryField(attribute="parentId")
     private String parentId;
