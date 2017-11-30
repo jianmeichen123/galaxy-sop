@@ -651,6 +651,9 @@ function updataReport(projectInfoList){
 	    			$.each(entityList,function(){
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
+						if(title.resultId){
+							$("input[data-title-id='"+title.titleId+"']").attr("data-result-id",title.resultId);	
+						}
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val = title.value;
 							_val=_parsefloat(_val);
@@ -691,7 +694,10 @@ function updataReport(projectInfoList){
 	    		if(entityList && entityList.length>0){
 	    			$.each(entityList,function(){
 	    				var title = this;
-						$("input[data-title-id='"+title.titleId+"']").attr({"data-type":title.type});	
+						$("input[data-title-id='"+title.titleId+"']").attr({"data-type":title.type});
+						if(title.resultId){
+							$("input[data-title-id='"+title.titleId+"']").attr("data-result-id",title.resultId);	
+						}
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
