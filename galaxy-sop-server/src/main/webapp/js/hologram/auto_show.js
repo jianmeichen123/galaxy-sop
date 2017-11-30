@@ -2,10 +2,11 @@ $.fn.showResultsDrafts = function(readonly,flag){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
 		if(pid == 1302){
-		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
+		     sendGetRequest(platformUrl.queryRowsListMG+"/"+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
+                	console.log(data);
                    var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){

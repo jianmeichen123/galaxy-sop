@@ -245,15 +245,30 @@ setInterval(function(){    //定时保存
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 			console.log(data);
-			sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateDraftBox , 
-					data,
-					function(data) {
-						var result = data.result.status;
-						if (result == 'OK') {
-							
-						} else {
+			if(sec.attr('data-section-id')==1302){
+				sendPostRequestByJsonObj(
+						platformUrl.saveOrUpdateTeam , 
+						data,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								
+							} else {
 
-						}
-				}) 
+							}
+					}) 
+			}else{
+				sendPostRequestByJsonObj(
+						platformUrl.saveOrUpdateDraftBox , 
+						data,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								
+							} else {
+
+							}
+					}) 
+			}
+			
 	}
