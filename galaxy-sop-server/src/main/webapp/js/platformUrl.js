@@ -1249,6 +1249,15 @@ var platformUrl = {
 	 * 保存MOGO
 	 */
 	saveOrUpdateDraftBox : Constants.sopEndpointURL + "galaxy/draftBox/infoData/saveOrUpdateInfo",
+	
+	/**
+	 * 保存MOGO
+	 */
+	saveOrUpdateTeam : Constants.sopEndpointURL + "galaxy/draftBox/infoData/saveOrUpdateTeam",
+
+	queryProjectAreaInfoMG:Constants.sopEndpointURL + "galaxy/draftBox/infoData/queryProjectAreaInfo",
+	
+	queryRowsListMG:Constants.sopEndpointURL + "galaxy/draftBox/infoData/queryRowsList",
 	/**
 	 * 保存清空草稿箱
 	 */
