@@ -6,15 +6,22 @@ $.fn.showResultsDrafts = function(readonly,flag){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
-                	console.log(data);
                    var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){
                             data = $(this)[0]
                         }
                     })
-                    
-                    buildMemberTableDraft(sec,data);
+                    if(entityList[0].dataMGList.length>0){
+                    	$('.history_block').show();
+						$('.history_block').closest('.h_edit').addClass('history_block_edit');
+                    }else{
+                    	$('.history_block').hide();
+						$('.history_block').closest('.h_edit').removeClass('history_block_edit');
+                    }
+                    if(flag=='result'){
+                    	 buildMemberTableDraft(sec,data);
+                    }
                 }
 		     })
 		}else{
@@ -547,7 +554,6 @@ function buildResultsDraft(sec,title,readonly)
 }
 function buildMemberTableDraft(sec,title){
         //列表Header
-	
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -577,7 +583,7 @@ function buildMemberTableDraft(sec,title){
     		$.each(list,function(){
     			var row = this;
     			var tables = $("table.editable[data-title-id='"+row.titleId+"']");
-
+    			tables.show();   //有数据表格显示
     			$.each(tables,function(){
     				var table = $(this);
     				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");

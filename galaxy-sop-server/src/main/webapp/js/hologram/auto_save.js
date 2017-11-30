@@ -21,6 +21,52 @@ setInterval(function(){    //定时保存
 				projectId : projectInfo.id,
 				parentId:sec.data('section-id')
 			};
+		//团队成员表格特殊处理
+		if(sec.attr('data-section-id')==1302){
+    		//表格
+    		var titleId = sec.find("table.editable").attr("data-title-id");
+            var json = {"projectId":projectInfo.id,"titleId":titleId};
+    		var dataList = new Array();
+    		$.each(sec.find("table.editable"),function(){
+    			$.each($(this).find('tr:gt(0)'),function(){
+    				var row = $(this).data("person");
+    				if(row.id=="")
+    				{
+    					row.id=null;
+    				}
+    				row.projectId=projectInfo.id;
+    				dataList.push(row);
+    			});
+    		});
+            json["dataList"]=dataList;
+          //团队表格显示隐藏
+    		$.each($('table.editable'),function(){
+    			var table_id = $(this).attr('data-title-id');
+    			var noedi_table = $('table[data-title-id='+table_id+']');
+    			if($(this).find('tr:gt(0)').length<=0){
+    				noedi_table.hide();
+    			}
+    			else{
+    				noedi_table.show();
+    				noedi_table.parents('dl').find('.no_enter').remove();
+    				
+    			}
+    		})
+            sendPostRequestByJsonObj(
+            platformUrl.saveOrUpdateTeam,
+            json,
+            function(data) {
+                var result = data.result.status;
+                if (result == 'OK') {
+                } else {
+
+                }
+        })
+        return;
+    }
+		
+		
+		//其他保存
 			var infoModeList = new Array();
 			var infoModeFixedList = new Array();
 			var infoModeInputs=new Array();
@@ -245,30 +291,16 @@ setInterval(function(){    //定时保存
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 			console.log(data);
-			if(sec.attr('data-section-id')==1302){
-				sendPostRequestByJsonObj(
-						platformUrl.saveOrUpdateTeam , 
-						data,
-						function(data) {
-							var result = data.result.status;
-							if (result == 'OK') {
-								
-							} else {
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateDraftBox , 
+					data,
+					function(data) {
+						var result = data.result.status;
+						if (result == 'OK') {
+							
+						} else {
 
-							}
-					}) 
-			}else{
-				sendPostRequestByJsonObj(
-						platformUrl.saveOrUpdateDraftBox , 
-						data,
-						function(data) {
-							var result = data.result.status;
-							if (result == 'OK') {
-								
-							} else {
-
-							}
-					}) 
-			}
+						}
+				}) 
 			
 	}
