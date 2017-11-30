@@ -175,7 +175,7 @@ var deleteJSON={};
 							}
 							//查询数据字典
 							var table=$(this).closest('form').find('table')
-							$("table").each(function(){resizetable(table)})
+							$(table).each(function(){resizetable($(this))})
 							//检查表格tr是否10行
 							check_table_tr_edit();
 							check_table();
