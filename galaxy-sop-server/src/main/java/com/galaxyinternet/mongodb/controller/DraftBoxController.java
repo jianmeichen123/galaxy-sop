@@ -207,17 +207,18 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
             query.setProjectId(data.getProjectId());
             List<InformationListdataMG> poList = informationListdataMGService.find(query);
             Set<String> ids = new HashSet<>(poList.size());
-            for(InformationListdataMG po : poList)
-            {
-            	String uuid=po.getUuid();
-            	InformationListdataMG de=new InformationListdataMG();
-            	de.setUuid(uuid);
-            	informationListdataMGService.deleteByCondition(de);
-            	de=new InformationListdataMG();
-            	de.setParentId(uuid);
-            	informationListdataMGService.deleteByCondition(de);
-            }
             if(listdataList != null && !listdataList.isEmpty()){
+	            for(InformationListdataMG po : poList)
+	            {
+	            	String uuid=po.getUuid();
+	            	InformationListdataMG de=new InformationListdataMG();
+	            	de.setUuid(uuid);
+	            	informationListdataMGService.deleteByCondition(de);
+	            	de=new InformationListdataMG();
+	            	de.setParentId(uuid);
+	            	informationListdataMGService.deleteByCondition(de);
+	            }
+            }
                 for (InformationListdataMG entity : listdataList){
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){
                     	removeIfExists(ids,entity.getUuid());
@@ -249,7 +250,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
                     }
                 }
                
-            }
+          
         }catch(Exception e ){
             responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
             logger.error("save 保存失败 ",e);
