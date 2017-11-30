@@ -2,12 +2,10 @@ package com.galaxyinternet.mongodb.model;
 
 import java.util.List;
 
-import com.galaxyinternet.framework.core.model.PagableEntity;
-
-public class TableModelMG extends PagableEntity {
+public class TableModelMG  {
 	private static final long serialVersionUID = 1L;
 	
-		private Long id;
+		private String  id;
 	 private Long titleId;
 
 	    private Long parentId;
@@ -34,7 +32,15 @@ public class TableModelMG extends PagableEntity {
 
 	    private String field9;
 
-	    public String getField11() {
+	    public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getField11() {
 			return field11;
 		}
 
@@ -120,13 +126,7 @@ public class TableModelMG extends PagableEntity {
 			this.updateTimeStr = updateTimeStr;
 		}
 
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
+		
 
 		public Long getTitleId() {
 			return titleId;
