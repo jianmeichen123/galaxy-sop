@@ -193,7 +193,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity.setParentId(data.getParentId());
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId().toString());
-			entity.setId(model.getId());
+			entity.setResultId(model.getId());
 			entity.setCode(model.getCode());
 			entity.setField1(model.getField1());
 			entity.setField2(model.getField2());

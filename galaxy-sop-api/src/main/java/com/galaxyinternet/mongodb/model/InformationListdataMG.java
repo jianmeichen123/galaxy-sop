@@ -19,7 +19,7 @@ public class InformationListdataMG {
 	@QueryField(attribute="uuid")
 	private String uuid;
 	
-	private String id;
+	private String resultId;
     @QueryField(attribute="projectId")
     private String projectId;
     private String  titleId;
@@ -596,12 +596,14 @@ public class InformationListdataMG {
 	}
 	
 
-	public String getId() {
-		return id;
+	
+
+	public String getResultId() {
+		return resultId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setResultId(String resultId) {
+		this.resultId = resultId;
 	}
 
 	@Override
