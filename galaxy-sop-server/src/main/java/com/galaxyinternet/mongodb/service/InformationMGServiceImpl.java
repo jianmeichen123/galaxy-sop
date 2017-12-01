@@ -927,7 +927,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			}
 			if(data != null){
 				InformationListdataMG query = new InformationListdataMG();
-				query.setParentId(data.getUuid());
+				query.setParentId(data.getId());
 				//按毕业时间倒序查询学习经历
 				query.setCode(STUDYEXPERIENCE);
 				query.setProperty("field_1");

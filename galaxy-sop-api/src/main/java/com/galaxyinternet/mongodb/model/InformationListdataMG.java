@@ -30,7 +30,7 @@ public class InformationListdataMG {
     private String rowId;
     @QueryField(attribute="uuid",type=QueryType.IN)
     private List<String> uuids;
-
+    @QueryField(attribute="code")
     private String code;
 
     private String field1;
