@@ -43,6 +43,19 @@ setInterval(function(){    //定时保存
     			});
     		});
             json["dataList"]=dataList;
+          //团队表格显示隐藏
+    		$.each($('table.editable'),function(){
+    			var table_id = $(this).attr('data-title-id');
+    			var noedi_table = $('table.editable[data-title-id='+table_id+']');
+    			if($(this).find('tr:gt(0)').length<=0){
+    				noedi_table.hide();
+    			}
+    			else{
+    				noedi_table.show();
+    				noedi_table.parents('dl').find('.no_enter').remove();
+    				
+    			}
+    		})
             sendPostRequestByJsonObj(
             platformUrl.saveOrUpdateTeam,
             json,
@@ -281,14 +294,18 @@ setInterval(function(){    //定时保存
 			data.infoModeInputs=infoModeInputs;
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
-			console.log(data);
+			if(sec.attr('data-section-id')==1324){
+				data.deletedRowIds = deletedRowIdsGq;
+			}
+			console.log(data.deletedRowIds);
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateDraftBox , 
 					data,
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							
+							deletedRowIds = new Array();	
+							deletedRowIdsGq = new Array();
 						} else {
 
 						}
