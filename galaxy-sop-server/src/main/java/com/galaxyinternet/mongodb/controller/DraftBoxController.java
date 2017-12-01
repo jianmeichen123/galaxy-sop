@@ -217,6 +217,11 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	            	de.setParentId(uuid);
 	            	informationListdataMGService.deleteByCondition(de);
 	            }
+            }else{
+            	InformationListdataMG de=new InformationListdataMG();
+            	List<String> ids2 = data.getIds();
+            	de.setIds(ids2);
+            	informationListdataMGService.deleteByCondition(de);
             }
                 for (InformationListdataMG entity : listdataList){
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){

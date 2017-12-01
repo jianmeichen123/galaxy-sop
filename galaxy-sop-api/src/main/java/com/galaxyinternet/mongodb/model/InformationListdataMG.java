@@ -103,8 +103,8 @@ public class InformationListdataMG {
     private List<String> codes;
     
     private List<InformationFileMG> fileList;
-
-	private Set<String> ids;
+    @QueryField(attribute="id",type=QueryType.IN)
+	private List<String> ids;
 
     private String property;
 
@@ -328,15 +328,17 @@ public class InformationListdataMG {
         return codes;
     }
 
-	public Set<String> getIds() {
+
+
+    public List<String> getIds() {
 		return ids;
 	}
 
-	public void setIds(Set<String> ids) {
+	public void setIds(List<String> ids) {
 		this.ids = ids;
 	}
 
-    public void setDataList(List<InformationListdataMG> dataList) {
+	public void setDataList(List<InformationListdataMG> dataList) {
         this.dataList = dataList;
     }
 
