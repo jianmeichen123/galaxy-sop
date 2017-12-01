@@ -34,12 +34,13 @@ setInterval(function(){    //定时保存
     				{
     					row.id=null;
     				}
-    				if(row.id!='' && row.id.length>5){
+    				if(row.id!=''){
     					row.resultId=row.id;
+    					row.id=null;
     				}
-    				if(row.id!='' && row.id.length==5){
+    				/*if(row.id!='' && row.id.length==5){
     					row.resultId=null;
-    				}
+    				}*/
     				row.projectId=projectInfo.id;
     				dataList.push(row);
     			});
