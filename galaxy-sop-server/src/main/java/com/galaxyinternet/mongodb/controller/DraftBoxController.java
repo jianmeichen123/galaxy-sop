@@ -157,7 +157,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
                     for(InformationListdataMG data :dataList){
                         if(data.getParentId()==null){
                             //查询成员的工作学习创业经历
-                            InformationListdataMG info = informationMGService.queryMemberById(data.getUuid());
+                            InformationListdataMG info = informationMGService.queryMemberById(data.getId());
                             resultList.add(info);
                         }
                     }

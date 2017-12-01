@@ -917,7 +917,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		@Override
 		public InformationListdataMG queryMemberById(String id) {
 			InformationListdataMG one=new InformationListdataMG();
-			one.setUuid(id);
+			one.setId(id);
 			InformationListdataMG data = null;
 			try {
 				data = informationListdataMGService.findOne(one);

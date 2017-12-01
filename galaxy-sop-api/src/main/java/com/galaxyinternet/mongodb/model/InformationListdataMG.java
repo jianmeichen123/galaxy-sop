@@ -18,6 +18,7 @@ public class InformationListdataMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
+	@QueryField(attribute="id")
 	private String id;
 	
 	private String resultId;
