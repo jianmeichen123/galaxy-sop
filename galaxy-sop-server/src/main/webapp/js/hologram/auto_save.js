@@ -34,8 +34,11 @@ setInterval(function(){    //定时保存
     				{
     					row.id=null;
     				}
-    				if(row.id!=''){
+    				if(row.id!='' && row.id.length>5){
     					row.resultId=row.id;
+    				}
+    				if(row.id!='' && row.id.length==5){
+    					row.resultId=null;
     				}
     				row.projectId=projectInfo.id;
     				dataList.push(row);
