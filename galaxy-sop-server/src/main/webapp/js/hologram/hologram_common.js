@@ -2556,7 +2556,8 @@ function delRow(ele)
 		var id = tr.data('id');
 
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
-		var ch_opration =$(ele).closest('.h_team_look')
+		var ch_opration =$(ele).closest('.h_team_look');
+		var form=$(ele).closest('.radius').find('form');
         if(typeof id != 'undefined' && id>0)
         {
             //股权合理性
@@ -2573,6 +2574,10 @@ function delRow(ele)
 		check_table();
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
+		//团队成员删除添加tochange属性，用于草稿箱保存
+		if(sectionId==1302){
+			form.attr('tochange',true);
+		}
 		//$(".layui-layer-btn1").click();
 	}, function(index) {
 	});
