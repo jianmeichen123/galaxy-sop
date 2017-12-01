@@ -125,10 +125,14 @@ public class ReportExportServiceImpl implements ReportExportService {
         String result = text.replace("<br/>","<w:br />")
                 .replace("<br>","<w:br />")
                 .replace("&nbsp;"," ")
-                //.replace("&amp;","&")
-                .replace("&gt;",">")
-                .replace("&lt;","<")
-                .replace("&","&amp;");
+                .replace("&","&amp;")
+                .replace("&amp;gt;","&gt;")
+                .replace("&amp;lt;","&lt;");
+
+        result = result.replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("&lt;w:", "<w:")
+                .replaceAll("w:br /&gt;", "w:br />");
 
         try{
             Double.parseDouble(result);
@@ -252,7 +256,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
-            map.put("NO1_1_1_n", project.getProjectName());
+            map.put("NO1_1_1_n", textConversion(project.getProjectName()));
 
             //项目来源
             if(StringUtils.isNotBlank(project.getFaFlag())){
