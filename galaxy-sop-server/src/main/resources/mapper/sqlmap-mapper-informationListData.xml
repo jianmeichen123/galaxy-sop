@@ -173,7 +173,7 @@
 			#{isValid,jdbcType=INTEGER}, 
 			#{createdTime,jdbcType=BIGINT}, 
 			#{createId,jdbcType=BIGINT}, 
-			#{updatedTime,jdbcType=BIGINT}, 
+			#{updateTime,jdbcType=BIGINT}, 
 			#{updateId,jdbcType=BIGINT}
 		)
 	    ]]>
