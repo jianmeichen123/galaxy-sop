@@ -257,7 +257,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             //项目来源
             if(StringUtils.isNotBlank(project.getFaFlag())){
                 if( "projectSource:1".equals(project.getFaFlag())){
-                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getProjectName());
+                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getFaName());
                 }else{
                     map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()));
                 }
