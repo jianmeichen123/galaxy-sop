@@ -133,7 +133,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
      */
     @RequestMapping("/queryRowsList/{titleId}/{projectId}")
     @ResponseBody
-    public ResponseData<InformationTitle> queryList(@PathVariable("titleId") String titleId, @PathVariable("projectId") String projectId ){
+    public ResponseData<InformationTitle> queryRowsList(@PathVariable("titleId") String titleId, @PathVariable("projectId") String projectId ){
         ResponseData<InformationTitle> resp = new ResponseData<>();
         if(null == projectId || null == titleId){
             resp.setResult(new Result(Result.Status.ERROR,null, "projectId或titleId缺失"));
@@ -202,16 +202,16 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
             List<InformationListdataMG> listdataList = data.getDataList();
             
             InformationListdataMG query = new InformationListdataMG();
-            query.setTitleId(data.getParentId());
+            query.setTitleId(data.getTitleId());
             query.setProjectId(data.getProjectId());
             List<InformationListdataMG> poList = informationListdataMGService.find(query);
             Set<String> ids = new HashSet<>(poList.size());
             if(listdataList != null && !listdataList.isEmpty()){
 	            for(InformationListdataMG po : poList)
 	            {
-	            	String uuid=po.getUuid();
+	            	String uuid=po.getId();
 	            	InformationListdataMG de=new InformationListdataMG();
-	            	de.setUuid(uuid);
+	            	de.setId(uuid);
 	            	informationListdataMGService.deleteByCondition(de);
 	            	de=new InformationListdataMG();
 	            	de.setParentId(uuid);
@@ -222,7 +222,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){
                     	removeIfExists(ids,entity.getUuid());
                     	informationListdataMGService.save(entity);
-                        String id = entity.getUuid();
+                        String id = entity.getId();
                         List<InformationListdataMG> studyList = entity.getStudyList();
                         List<InformationListdataMG> workList = entity.getWorkList();
                         List<InformationListdataMG> startupList = entity.getStartupList();

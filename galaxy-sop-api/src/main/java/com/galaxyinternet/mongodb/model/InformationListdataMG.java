@@ -18,6 +18,7 @@ public class InformationListdataMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
+	private String id;
 	
 	private String resultId;
     @QueryField(attribute="projectId")
@@ -616,6 +617,14 @@ public class InformationListdataMG {
 
 	public void setResultId(String resultId) {
 		this.resultId = resultId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

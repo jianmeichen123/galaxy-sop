@@ -781,7 +781,7 @@ public enum DictEnum {
 		}
 		// 融资状态
 				public enum projectSource {
-					自开发("自开发", "projectSource:0"),
+					事业部("事业部", "projectSource:0"),
 					FA("FA", "projectSource:1"),
 					创业者("创业者", "projectSource:2"),
 					外部独立合伙人("外部独立合伙人", "projectSource:3"),
