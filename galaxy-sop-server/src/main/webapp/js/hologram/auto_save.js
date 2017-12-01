@@ -30,15 +30,14 @@ setInterval(function(){    //定时保存
     		$.each(sec.find("table.editable"),function(){
     			$.each($(this).find('tr:gt(0)'),function(){
     				var row = $(this).data("person");
-    				var regString = /[a-zA-Z]+/;
     				if(row.id=="")
     				{
     					row.id=null;
     				}
-    				if(row.id!='' && !regString.test(row.id)){
+    				if(row.id && row.id!='' && row.id.length!=24){
     					row.resultId=row.id;
     				}
-    				if(row.resultId){
+    				if(row.resultId && row.resultId.length==24){
     					row.id=null;
     				}
     				row.projectId=projectInfo.id;
