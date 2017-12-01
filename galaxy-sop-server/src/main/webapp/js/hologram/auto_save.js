@@ -38,27 +38,11 @@ setInterval(function(){    //定时保存
     					row.resultId=row.id;
     					row.id=null;
     				}
-    				/*if(row.id!='' && row.id.length==5){
-    					row.resultId=null;
-    				}*/
     				row.projectId=projectInfo.id;
     				dataList.push(row);
     			});
     		});
             json["dataList"]=dataList;
-          //团队表格显示隐藏
-    		$.each($('table.editable'),function(){
-    			var table_id = $(this).attr('data-title-id');
-    			var noedi_table = $('table[data-title-id='+table_id+']');
-    			if($(this).find('tr:gt(0)').length<=0){
-    				noedi_table.hide();
-    			}
-    			else{
-    				noedi_table.show();
-    				noedi_table.parents('dl').find('.no_enter').remove();
-    				
-    			}
-    		})
             sendPostRequestByJsonObj(
             platformUrl.saveOrUpdateTeam,
             json,
