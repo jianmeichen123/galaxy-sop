@@ -201,9 +201,13 @@
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
         				var row = $(this).data("person");
+        				console.log(row.resultId);
         				if(row.id=="")
         				{
         					row.id=null;
+        				}
+        				if(row.resultId){
+        					row.id=row.resultId;
         				}
         				row.projectId=projectInfo.id;
         				dataList.push(row);
