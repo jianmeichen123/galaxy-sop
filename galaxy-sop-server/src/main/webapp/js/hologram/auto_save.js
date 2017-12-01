@@ -30,12 +30,15 @@ setInterval(function(){    //定时保存
     		$.each(sec.find("table.editable"),function(){
     			$.each($(this).find('tr:gt(0)'),function(){
     				var row = $(this).data("person");
+    				var regString = /[a-zA-Z]+/;
     				if(row.id=="")
     				{
     					row.id=null;
     				}
-    				if(row.id!=''){
+    				if(row.id!='' && !regString.test(row.id)){
     					row.resultId=row.id;
+    				}
+    				if(row.resultId){
     					row.id=null;
     				}
     				row.projectId=projectInfo.id;
@@ -43,6 +46,7 @@ setInterval(function(){    //定时保存
     			});
     		});
             json["dataList"]=dataList;
+            json.deletedRowIds = deletedRowIds;
           //团队表格显示隐藏
     		$.each($('table.editable'),function(){
     			var table_id = $(this).attr('data-title-id');
@@ -62,6 +66,7 @@ setInterval(function(){    //定时保存
             function(data) {
                 var result = data.result.status;
                 if (result == 'OK') {
+                	deletedRowIds = new Array();	
                 } else {
 
                 }
@@ -297,7 +302,6 @@ setInterval(function(){    //定时保存
 			if(sec.attr('data-section-id')==1324){
 				data.deletedRowIds = deletedRowIdsGq;
 			}
-			console.log(data.deletedRowIds);
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateDraftBox , 
 					data,
