@@ -11064,6 +11064,8 @@
                 <w:t>5.6综合竞争比较</w:t>
             </w:r>
         </w:p>
+
+<#if competition_comparison?? && (competition_comparison?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="7112" w:type="dxa"/>
@@ -11225,6 +11227,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list competition_comparison as ccom>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="480"/>
@@ -11252,7 +11256,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>美</w:t>
+                            <w:t>${ccom.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11281,7 +11285,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>8</w:t>
+                            <w:t>${ccom.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11310,7 +11314,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>5</w:t>
+                            <w:t>${ccom.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11339,7 +11343,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>快</w:t>
+                            <w:t>${ccom.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -11366,12 +11370,39 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>是</w:t>
+                            <w:t>${ccom.field5!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+            </#list>
         </w:tbl>
+<#else>
+        <w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+            <w:pPr>
+                <w:spacing w:line="360" w:lineRule="auto"/>
+                <w:ind w:firstLine="420"/>
+                <w:jc w:val="left"/>
+                <w:rPr>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                    <w:sz w:val="18"/>
+                    <w:szCs w:val="18"/>
+                </w:rPr>
+            </w:pPr>
+            <w:r w:rsidRPr="00B55D46">
+                <w:rPr>
+                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                    <w:sz w:val="18"/>
+                    <w:szCs w:val="18"/>
+                </w:rPr>
+                <w:t>-</w:t>
+            </w:r>
+        </w:p>
+</#if>
+
+
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -12892,16 +12923,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>需要在交割前解决的事项</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>需要在交割前解决的事项：<#if !delivery_before?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if delivery_before?? && (delivery_before?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6573" w:type="dxa"/>
@@ -13017,6 +13043,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+<#list delivery_before as dbef>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="365"/>
@@ -13050,7 +13078,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${dbef.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13083,7 +13111,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>当</w:t>
+                            <w:t>${dbef.updateUserName!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13116,12 +13144,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${dbef.updateTimeStr!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+</#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -13137,16 +13168,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>需要在交割后解决的事项</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>需要在交割后解决的事项：<#if !delivery_after?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if delivery_after?? && (delivery_after?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6573" w:type="dxa"/>
@@ -13263,6 +13289,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+<#list delivery_after as daft>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="365"/>
@@ -13296,7 +13324,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${daft.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13329,7 +13357,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>当</w:t>
+                            <w:t>${daft.updateUserName!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13362,12 +13390,16 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${daft.updateTimeStr!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -13435,30 +13467,12 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>融资历史</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t xml:space="preserve">：  </w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
+                <w:t>融资历史：<#if !finance_history?? > - </#if> </w:t>
             </w:r>
         </w:p>
+
+<#if finance_history?? && (finance_history?size > 0) >
+<#list finance_history as fhis>
         <w:tbl>
             <w:tblPr>
                 <w:tblStyle w:val="aa"/>
@@ -13496,7 +13510,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>融资时间：2</w:t>
+                            <w:t>融资时间：${fhis.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13521,7 +13535,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>币种：人</w:t>
+                            <w:t>币种：${fhis.field6!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13547,7 +13561,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>融资轮次：天</w:t>
+                            <w:t>融资轮次：${fhis.field7!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13577,7 +13591,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>新老股：新</w:t>
+                            <w:t>新老股：${fhis.field8!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13601,7 +13615,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权占比：1</w:t>
+                            <w:t>股权占比：${fhis.field4!"-"}<#if fhis.field4??>% </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13626,7 +13640,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资金额：1</w:t>
+                            <w:t>投资金额：${fhis.field3!"-"}<#if fhis.field3??>万 </#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13649,7 +13663,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>估值金额：1</w:t>
+                            <w:t>估值金额：${fhis.field5!"-"}<#if fhis.field5??>万 </#if> </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13674,7 +13688,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资方（机构或个人）：阿</w:t>
+                            <w:t>投资方（机构或个人）：${fhis.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13699,7 +13713,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>合同关键条款：阿</w:t>
+                            <w:t>合同关键条款：${fhis.field9!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13724,7 +13738,7 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>对赌或业绩承诺条款：阿</w:t>
+                            <w:t>对赌或业绩承诺条款：${fhis.field10!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13742,6 +13756,9 @@
                 </w:rPr>
             </w:pPr>
         </w:p>
+        </#list>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
@@ -13833,9 +13850,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>完整股权结构：</w:t>
+                <w:t>完整股权结构：<#if !equity_structure?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if equity_structure?? && (equity_structure?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6848" w:type="dxa"/>
@@ -13902,7 +13921,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>名称（填写）</w:t>
+                            <w:t>股东名称</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13929,7 +13948,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权比例</w:t>
+                            <w:t>占股比例(%)</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13961,6 +13980,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list equity_structure as estr>
             <w:tr w:rsidR="00EF76AC" w:rsidTr="00D36A61">
                 <w:trPr>
                     <w:trHeight w:val="450"/>
@@ -13989,7 +14010,7 @@
                                 <w:sz w:val="22"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>第</w:t>
+                            <w:t>第<#if estr_index == 0 >一<#elseif estr_index == 1>二<#elseif estr_index == 2>三<#elseif estr_index ==3>四<#elseif estr_index == 4>五<#elseif estr_index == 5>六<#elseif estr_index == 6>七<#elseif estr_index== 7>八<#elseif estr_index == 8>九<#elseif estr_index == 9>十<#else>${estr_index +1}</#if>大股东</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14016,7 +14037,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>张</w:t>
+                            <w:t>${estr.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14043,7 +14064,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>4</w:t>
+                            <w:t>${estr.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14070,12 +14091,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>创</w:t>
+                            <w:t>${estr.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -14136,71 +14160,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>主要战略投资人、财务投资人投资情况：</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:b/>
-                    <w:sz w:val="18"/>
-                    <w:szCs w:val="18"/>
-                </w:rPr>
-                <w:tab/>
+                <w:t>主要战略投资人、财务投资人投资情况：<#if !investor_situation?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if investor_situation?? && (investor_situation?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6936" w:type="dxa"/>
@@ -14247,7 +14211,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资人</w:t>
+                            <w:t>投资人类型</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14280,7 +14244,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>名称</w:t>
+                            <w:t>投资人名称</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14384,6 +14348,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list investor_situation as isit>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="675"/>
@@ -14417,7 +14383,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>财</w:t>
+                            <w:t>${isit.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14450,7 +14416,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>苏</w:t>
+                            <w:t>${isit.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14483,8 +14449,8 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>9</w:t>
-                        </w:r>
+                            <w:t><#if isit.field3?? || isit.field6??> ${isit.field3!""}万${isit.field6!""} <#else>-</#if></w:t>
+                    </w:r>
                     </w:p>
                 </w:tc>
                 <w:tc>
@@ -14516,7 +14482,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>1</w:t>
+                            <w:t>${isit.field4!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14549,12 +14515,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>5</w:t>
+                            <w:t><#if isit.field5?? || isit.field6??> ${isit.field5!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -14655,9 +14624,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>上一轮融资后关键运营指标的变化：</w:t>
+                <w:t>上一轮融资后关键运营指标的变化：<#if !operation_indices?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if operation_indices?? && (operation_indices?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6914" w:type="dxa"/>
@@ -14791,6 +14762,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list operation_indices as oind>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="384"/>
@@ -14824,7 +14797,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>指</w:t>
+                            <w:t>${oind.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14857,7 +14830,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>${oind.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14890,12 +14863,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>${oind.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15238,16 +15214,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>市场同类公司估值参考</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>市场同类公司估值参考：<#if !valuation_reference?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if valuation_reference?? && (valuation_reference?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6530" w:type="dxa"/>
@@ -15329,6 +15300,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list valuation_reference as vref>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="379"/>
@@ -15362,7 +15335,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>不</w:t>
+                            <w:t>${vref.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15395,12 +15368,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t xml:space="preserve">　1</w:t>
+                            <w:t>${vref.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -15571,10 +15547,11 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:lastRenderedPageBreak/>
-                <w:t>每次融资的里程碑和时间节点如何：</w:t>
+                <w:t>每次融资的里程碑和时间节点如何：<#if !financing_milestone?? >-</#if></w:t>
             </w:r>
         </w:p>
+
+<#if financing_milestone?? && (financing_milestone?size > 0) >
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6914" w:type="dxa"/>
@@ -15690,6 +15667,8 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <#list financing_milestone as fmil>
             <w:tr w:rsidR="00EF76AC">
                 <w:trPr>
                     <w:trHeight w:val="384"/>
@@ -15723,7 +15702,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>1</w:t>
+                            <w:t>${fmil.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15756,7 +15735,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>策</w:t>
+                            <w:t>${fmil.field2!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -15789,12 +15768,15 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>2</w:t>
+                            <w:t>${fmil.field3!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
+        </#list>
         </w:tbl>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00EF76AC">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -16083,16 +16065,12 @@
                     <w:b/>
                     <w:sz w:val="22"/>
                 </w:rPr>
-                <w:t>现金流量表</w:t>
-            </w:r>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                    <w:sz w:val="22"/>
-                </w:rPr>
-                <w:t>：</w:t>
+                <w:t>现金流量表：<#if !NO9_3_7?? > - </#if></w:t>
             </w:r>
         </w:p>
+
+<#if (NO9_3_7)?? >
+<#list NO9_3_7 as ps937>
         <w:p w:rsidR="00063076" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -16113,9 +16091,9 @@
                 <w:lastRenderedPageBreak/>
                 <w:drawing>
                     <wp:inline distT="0" distB="0" distL="114300" distR="114300">
-                        <wp:extent cx="3704590" cy="2495550"/>
+                        <wp:extent cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                         <wp:effectExtent l="0" t="0" r="10160" b="0"/>
-                        <wp:docPr id="11" name="图片 11" descr="5"/>
+                        <wp:docPr id="11${ps937_index}" name="图片 11" descr="5"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
                         </wp:cNvGraphicFramePr>
@@ -16129,7 +16107,7 @@
                                         </pic:cNvPicPr>
                                     </pic:nvPicPr>
                                     <pic:blipFill>
-                                        <a:blip r:embed="rId13"/>
+                                        <a:blip r:embed="${ps937.rid}"/>
                                         <a:stretch>
                                             <a:fillRect/>
                                         </a:stretch>
@@ -16137,7 +16115,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3704590" cy="2495550"/>
+                                            <a:ext cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -16150,6 +16128,9 @@
                 </w:drawing>
             </w:r>
         </w:p>
+        </#list>
+</#if>
+
         <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
             <w:pPr>
                 <w:spacing w:beforeLines="50" w:before="120" w:afterLines="50" w:after="120" w:line="360" w:lineRule="exact"/>
