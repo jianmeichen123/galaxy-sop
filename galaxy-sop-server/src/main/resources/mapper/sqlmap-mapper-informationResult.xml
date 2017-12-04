@@ -146,6 +146,14 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from information_result where id = #{id}
 	</delete>
+	<!-- 竞争对手信息变更时，清理无效数据 -->
+	<delete id="deleteNonexistent" parameterType="java.lang.Long">
+		DELETE information_result  
+		FROM information_result  
+		INNER JOIN information_title ON information_result.title_id = information_title.id AND information_title.type = 22
+		LEFT JOIN information_listdata ON information_listdata.id = information_result.content_choose
+		WHERE information_listdata.id IS NULL
+	</delete>
 	 <!-- 更新 -->
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationResult">
 		update information_result
