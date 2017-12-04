@@ -178,10 +178,10 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			return;
 		}
 		List<TableModelMG> list = data.getInfoTableModelList();
-		if(list == null || list.size() ==0)
+	/*	if(list == null || list.size() ==0)
 		{
 			return;
-		}
+		}*/
 		InformationListdataMG entity = null;
 		Set<String> titleIds = new HashSet<>();
 		judgeAndDeleteTableModel(data);
@@ -242,7 +242,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	public void judgeAndDeleteModel(InformationDataMG data){
 		List<InformationResultMG> findInfoModeList=new ArrayList<InformationResultMG>();
 		try {
-			 if(null!=data.getInfoModeList()&&data.getInfoModeList().size()>0){
 				InformationResultMG param=new InformationResultMG();
 				Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
 				Set<String> titleIds = titleMap.keySet();
@@ -258,7 +257,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 						e.printStackTrace();
 					}
 				}
-			}
 		} catch (MongoDBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -269,7 +267,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			
 			List<InformationFixedTableMG> findInfoFixTableModelList=new ArrayList<InformationFixedTableMG>();
 			try {
-				if(null!=data.getInfoFixedTableList()&&data.getInfoFixedTableList().size()>0){
 					InformationFixedTableMG param=new InformationFixedTableMG();
 					Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
 					Set<String> titleIds = titleMap.keySet();
@@ -280,7 +277,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					if(null!=findInfoFixTableModelList&&findInfoFixTableModelList.size()>0){
 						informationFixedTableMGService.deleteByCondition(param);
 					}
-				}
 			} catch (MongoDBException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -290,7 +286,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	public void judgeAndDeleteTableModel(InformationDataMG data){
 		List<InformationListdataMG> findInfoTableModelList=new ArrayList<InformationListdataMG>();
 		try {
-			if(null!=data.getInfoTableModelList()&&data.getInfoTableModelList().size()>0){
+			
 				InformationListdataMG param=new InformationListdataMG();
 				Map<String,InformationTitle> titleMap = getChildTitleMap(data.getParentId());
 				Set<String> titleIds = titleMap.keySet();
@@ -303,7 +299,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					informationListdataMGService.deleteByCondition(param);
 				}
 			
-			}
+			
 		} catch (MongoDBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
