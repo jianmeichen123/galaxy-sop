@@ -125,10 +125,14 @@ public class ReportExportServiceImpl implements ReportExportService {
         String result = text.replace("<br/>","<w:br />")
                 .replace("<br>","<w:br />")
                 .replace("&nbsp;"," ")
-                //.replace("&amp;","&")
-                .replace("&gt;",">")
-                .replace("&lt;","<")
-                .replace("&","&amp;");
+                .replace("&","&amp;")
+                .replace("&amp;gt;","&gt;")
+                .replace("&amp;lt;","&lt;");
+
+        result = result.replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("&lt;w:", "<w:")
+                .replaceAll("w:br /&gt;", "w:br />");
 
         try{
             Double.parseDouble(result);
@@ -252,12 +256,12 @@ public class ReportExportServiceImpl implements ReportExportService {
 
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
-            map.put("NO1_1_1_n", project.getProjectName());
+            map.put("NO1_1_1_n", textConversion(project.getProjectName()));
 
             //项目来源
             if(StringUtils.isNotBlank(project.getFaFlag())){
                 if( "projectSource:1".equals(project.getFaFlag())){
-                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getProjectName());
+                    map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getFaName());
                 }else{
                     map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()));
                 }
@@ -572,7 +576,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
             }
 
-            for(int i=1; i<11;i++){
+            for(int i=1; i<17;i++){
                 try {
                     String tid = CacheOperationServiceImpl.table_remarkCode_field_tid.get(remarkCode).get(preField+i);
                     Integer type = CacheOperationServiceImpl.table_fieldTid_type.get(tid);
@@ -781,11 +785,11 @@ public class ReportExportServiceImpl implements ReportExportService {
      * 图片数据
      * map code - list<FileUtilModel>   rels_no : rid 100+
      *@param currentMark  imageDir 图片存储路径 currentMark_tempName
-     NO4_1_2     rId101 2345 image101.png image105.png
-     NO4_2_2     rId201 2345 image201.png image10.png
-     NO4_2_5_3   rId301 2345 image301.png image15.png
-     NO4_2_6_3   rId401 2345 image401.png image20.png
-     NO9_3_7     rId501 2345 image501.png image25.png
+    NO4_1_2     rId101 2345 image101.png image105.png
+    NO4_2_2     rId201 2345 image201.png image10.png
+    NO4_2_5_3   rId301 2345 image301.png image15.png
+    NO4_2_6_3   rId401 2345 image401.png image20.png
+    NO9_3_7     rId501 2345 image501.png image25.png
      */
     public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath,String precode)
             throws Exception
