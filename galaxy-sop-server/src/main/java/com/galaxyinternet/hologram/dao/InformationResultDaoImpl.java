@@ -2,7 +2,9 @@ package com.galaxyinternet.hologram.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.stereotype.Repository;
+
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -27,6 +29,16 @@ public class InformationResultDaoImpl extends BaseDaoImpl<InformationResult, Lon
 		} catch (Exception e) {
 			throw new DaoException(String.format("根据Relate查询titile出错！语句:%s", getSqlName("selectResultByRelateType")), e);
 		}
+	}
+	@Override
+	public int deleteNonexistent()
+	{
+		try {
+			return sqlSessionTemplate.delete(getSqlName("deleteNonexistent"));
+		} catch (Exception e) {
+			throw new DaoException(String.format("删除所有对象出错！语句：%s", getSqlName("deleteNonexistent")), e);
+		}
+		
 	}
 
 	

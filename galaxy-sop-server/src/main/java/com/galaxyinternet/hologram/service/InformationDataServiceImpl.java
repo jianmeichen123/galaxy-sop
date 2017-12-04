@@ -65,6 +65,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		saveFixedTable(data);
 		saveScore(data);
 		saveFiles(data);
+		resultDao.deleteNonexistent();
 	}
 	private void saveResult(InformationData data)
 	{
