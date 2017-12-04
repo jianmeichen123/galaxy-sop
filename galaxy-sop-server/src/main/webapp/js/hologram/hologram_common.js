@@ -2554,6 +2554,7 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
+		var resultId=tr.data('resultId')
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
 		var ch_opration =$(ele).closest('.h_team_look');
 		var form=$(ele).closest('.radius').find('form');
@@ -2562,8 +2563,14 @@ function delRow(ele)
             //股权合理性
             if (sectionId ==1324){
                deletedRowIdsGq.push(id);
+               if(resultId){
+            	   deletedRowIdsGq.push(resultId);
+               }
             }else{
                deletedRowIds.push(id);
+               if(resultId){
+            	   deletedRowIds.push(resultId);
+               }
             }
             if (ch_opration.hasClass("ch_opration")){
             	
