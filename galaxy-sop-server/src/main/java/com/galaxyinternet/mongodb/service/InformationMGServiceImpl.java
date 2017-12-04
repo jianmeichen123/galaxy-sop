@@ -26,7 +26,6 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.hologram.util.RegexUtil;
@@ -219,6 +218,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity.setUpdateId(model.getUpdateId());
 			entity.setUpdateTime(model.getUpdateTime());
 			entity.setUpdateUserName(model.getUpdateUserName());
+			entity.setUpdateTimeStr(model.getUpdateTimeStr());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -475,7 +475,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					{
 						tempList = title.getDataMGList();
 					}
-					if(item.getCreateId() != null)
+				/*	if(item.getCreateId() != null)
 					{
 						String createUserName =userMap.get(item.getCreateId().toString());
 						item.setCreateUserName(createUserName);
@@ -492,7 +492,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					if(item.getUpdateTime() != null)
 					{
 						item.setUpdateTimeStr(item.getUpdateTime());
-					}
+					}*/
 					tempList.add(item);
 				}
 			}

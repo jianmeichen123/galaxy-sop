@@ -307,6 +307,12 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setField8(model.getField8());
 			entity.setField9(model.getField9());
 			entity.setField10(model.getField10());
+			entity.setField11(model.getField11());
+			entity.setField12(model.getField12());
+			entity.setField13(model.getField13());
+			entity.setField14(model.getField14());
+			entity.setField15(model.getField15());
+			entity.setField16(model.getField16());
 			entity.setRelateFileId(model.getRelateFileId());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
