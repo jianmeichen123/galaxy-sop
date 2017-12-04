@@ -90,11 +90,12 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		String currTime = System.currentTimeMillis()+"";
+		String ymd = DateUtil.convertDateToStringForTeamCode(new Date());
 
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO",currTime,tempfilePath);
 
-		String docxName = project.getProjectName() + "全息报告.docx";
+		String docxName = project.getProjectName() + "全息报告"+ymd+".docx";
 
 		try {
 			/*

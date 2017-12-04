@@ -2614,7 +2614,11 @@
                         <w:tcW w:w="7083" w:type="dxa"/>
                         <w:gridSpan w:val="4"/>
                         <w:tcBorders>
+                            <#if !team_members?? >
+                            <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            <#else>
                             <w:bottom w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                            </#if>
                         </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
@@ -2651,7 +2655,9 @@
                     <w:tcPr>
                         <w:tcW w:w="1853" w:type="dxa"/>
                         <w:tcBorders>
+                            <#if tm_index = 0 >
                             <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                            </#if>
                             <w:right w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
                         </w:tcBorders>
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
@@ -2680,7 +2686,9 @@
                     <w:tcPr>
                         <w:tcW w:w="1239" w:type="dxa"/>
                         <w:tcBorders>
+                            <#if tm_index = 0 >
                             <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                        </#if>
                             <w:left w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
                             <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                         </w:tcBorders>
@@ -2709,7 +2717,9 @@
                     <w:tcPr>
                         <w:tcW w:w="1858" w:type="dxa"/>
                         <w:tcBorders>
+                            <#if tm_index = 0 >
                             <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                        </#if>
                             <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                             <w:right w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
                         </w:tcBorders>
@@ -2738,7 +2748,9 @@
                     <w:tcPr>
                         <w:tcW w:w="2133" w:type="dxa"/>
                         <w:tcBorders>
+                            <#if tm_index = 0 >
                             <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                        </#if>
                             <w:left w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
                         </w:tcBorders>
                     </w:tcPr>
