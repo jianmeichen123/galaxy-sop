@@ -13689,7 +13689,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>名称（填写）</w:t>
+                            <w:t>股东名称</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -13722,7 +13722,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>股权比例(%)</w:t>
+                            <w:t>占股比例(%)</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14014,7 +14014,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>投资人</w:t>
+                            <w:t>投资人类型</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14047,7 +14047,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>名称</w:t>
+                            <w:t>投资人名称</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
