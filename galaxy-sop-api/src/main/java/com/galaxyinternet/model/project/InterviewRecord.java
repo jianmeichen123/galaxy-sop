@@ -32,6 +32,8 @@ public class InterviewRecord extends BaseEntity{
     private String interviewResult;
     private String interviewResultStr;
     
+    private Long interviewvalid;
+    
     public String getInterviewResultStr() {
        return interviewResultStr;
 	}
@@ -218,6 +220,16 @@ public class InterviewRecord extends BaseEntity{
 
 	public void setResultReasonStr(String resultReasonStr) {
 		this.resultReasonStr = resultReasonStr;
+	}
+	
+	
+    
+	public Long getInterviewvalid() {
+		return interviewvalid;
+	}
+
+	public void setInterviewvalid(Long interviewvalid) {
+		this.interviewvalid = interviewvalid;
 	}
 
 	@Override
