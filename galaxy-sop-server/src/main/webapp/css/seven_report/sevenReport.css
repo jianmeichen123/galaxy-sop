@@ -107,7 +107,7 @@ table td:first-child+td+td+td+td+td+td{
 }
 
 table .on td{
-	background:#fff !important;
+	background:none !important;
 }
 
 .align_left{
