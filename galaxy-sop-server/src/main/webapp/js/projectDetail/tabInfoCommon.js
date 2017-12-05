@@ -234,7 +234,9 @@ $(function(){
 						});
 						updateReportMoneyBasic(); 
 					}else {
+						if(data2.result.errorCode!="mccf"){
 							layer.msg(data2.result.message);
+						}
 					}
 					
 				});
