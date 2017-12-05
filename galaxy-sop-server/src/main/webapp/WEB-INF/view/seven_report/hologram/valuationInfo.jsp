@@ -384,9 +384,9 @@ var deleteJSON={};
 			var table_id = $(this).attr('data-title-id');
 			var noedi_table = $('table[data-title-id='+table_id+']')
 			if($(this).find('tr').length<=1){
-				/* if(noedi_table.parents('dl').find('dd').length<= 2){
-					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-				} */
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('.mb_24 table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				} 
 				noedi_table.hide();
 			}
 			else{

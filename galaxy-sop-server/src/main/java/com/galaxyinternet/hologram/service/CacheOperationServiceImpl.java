@@ -288,6 +288,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	*/
 
 
+
 	/**
 	 *辅助确定表格关系
 	 * 根据 title id -> title 对应的题目 remarkCode (不能完全确定，需要 listdata 结果表辅助)
@@ -347,15 +348,39 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 				field_tid.put("field10",temp.getSubTitleId10());
 				table_tids.add(temp.getSubTitleId10());
 			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId11())){
+				field_tid.put("field11",temp.getSubTitleId11());
+				table_tids.add(temp.getSubTitleId11());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId12())){
+				field_tid.put("field12",temp.getSubTitleId12());
+				table_tids.add(temp.getSubTitleId12());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId13())){
+				field_tid.put("field13",temp.getSubTitleId13());
+				table_tids.add(temp.getSubTitleId13());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId14())){
+				field_tid.put("field14",temp.getSubTitleId14());
+				table_tids.add(temp.getSubTitleId14());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId15())){
+				field_tid.put("field15",temp.getSubTitleId15());
+				table_tids.add(temp.getSubTitleId15());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId16())){
+				field_tid.put("field16",temp.getSubTitleId16());
+				table_tids.add(temp.getSubTitleId16());
+			}
 
 			table_remarkCode_field_tid.put(temp.getCode(),field_tid);
+		}
 
-			InformationTitle titleQuery = new InformationTitle();
-			titleQuery.setTitleIds(table_tids);
-			List<InformationTitle> titleList = informationTitleDao.selectList(titleQuery);
-			for(InformationTitle tempTitle : titleList){
-				table_fieldTid_type.put(tempTitle.getId() + "", tempTitle.getType());
-			}
+		InformationTitle titleQuery = new InformationTitle();
+		titleQuery.setTitleIds(table_tids);
+		List<InformationTitle> titleList = informationTitleDao.selectList(titleQuery);
+		for(InformationTitle tempTitle : titleList){
+			table_fieldTid_type.put(tempTitle.getId() + "", tempTitle.getType());
 		}
 	}
 
