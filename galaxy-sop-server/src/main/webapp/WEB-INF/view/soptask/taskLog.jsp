@@ -10,7 +10,7 @@
  		 <div class='taskDetail-mesage'>
  		 
 	        	<!--操作日志table  -->
-	        	<table class='opretion-log' width='100%' cellspacing='0' cellpadding='0' border='0' data-url="<%=request.getContextPath() %>/galaxy/soptask/${taskId}/logs">
+	        	<table class='opretion-log table_new_style' width='100%' cellspacing='0' cellpadding='0' border='0' data-url="<%=request.getContextPath() %>/galaxy/soptask/${taskId}/logs">
 	        		<thead>
 	        			<tr>
 	        				<th data-field="createdTime" data-formatter="longTimeFormat">时间</th>
