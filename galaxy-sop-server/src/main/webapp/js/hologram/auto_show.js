@@ -47,7 +47,12 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
-        					console.log(sum)
+        					if(data.userData){
+        						var creatTime=data.userData.informationCreateTimeMG.createTime;
+        						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+        						$('.history_time').text(creatTime);
+        					}
+                				
         					if(sum>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
