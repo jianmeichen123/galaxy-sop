@@ -36,7 +36,7 @@
         	<div class='task-no-need'><label class='task-no-label'></label><input type='checkbox' value=''/>不需要提供</div>
         	</c:if>
         	<div class='taskDetail-mesage-table'>
-	        	<table width='100%' class='task-detail-table' border='0' cellspacing='0' cellpadding='0'>
+	        	<table width='100%' class='task-detail-table table_new_style' border='0' cellspacing='0' cellpadding='0'>
 	        		<thead>
 	        			<tr>
 	        				<th>上传日期</th>

@@ -66,18 +66,18 @@
  	<div class="ritmin task-ritmin">
  	<div>
         <!--表格内容-->
-			<table class='no-radius' width="100%"  cellspacing="0" cellpadding="0" 
+			<table class='no-radius table_new_style' width="100%"  cellspacing="0" cellpadding="0" 
 			 id="task-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/list/all"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
 			        <th data-field="taskName"  width="200px" >任务名称</th>
-			        <th data-field="taskType"  >任务类型</th>
+			        <th data-field="taskType"  data-align='center'>任务类型</th>
 			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
-			        <th data-field="taskDeadlineformat"  class="col-md-1 status ">发起时间</th>
-			        <th data-field="createUname"  class="col-md-2" >发起人</th>
-			        <th data-field="taskStatusDesc"  class="col-md-2" >任务状态</th>
-					<th  class="col-md-2" data-field="caozuohtml" >操作</th>
+			        <th data-field="taskDeadlineformat"  class="col-md-1 status " data-align='center'>发起时间</th>
+			        <th data-field="createUname"  class="col-md-2" data-align='center'>发起人</th>
+			        <th data-field="taskStatusDesc"  class="col-md-2" data-align='center'>任务状态</th>
+					<th  class="col-md-2" data-field="caozuohtml" data-align='center'>操作</th>
 			 	</tr>	
 			 	</thead>
 		</table>

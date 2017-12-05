@@ -3947,7 +3947,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task_tipslink li{margin:0 40px 0 0;}
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;font-family:MicrosoftYaHei;}
-.task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:MicrosoftYaHei;}
+.pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:MicrosoftYaHei;}
 .task-searchbox{width:auto !important;display:inline-block;float:right !important;margin-top:-49px;}
 .task-cx{height:29px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;margin-right:12px;font-size:12px;font-family:MicrosoftYaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
@@ -4012,6 +4012,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 input::input-placeholder{color:red !important;}
  .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
+.table_new_style th,.table_new_style td{height:40px;font-size:14px;font-family:Microsoft YaHei;color:#5a626d;}
+.table_new_style th{font-weight:bold;}
+.table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
+.fixed-table-container .table_new_style thead th .th-inner{padding:8px}
 /* 添加项目 */
 .add-project-title{height:62px;position:fixed;z-index:999;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
