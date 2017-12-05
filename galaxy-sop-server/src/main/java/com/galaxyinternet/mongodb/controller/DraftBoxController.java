@@ -92,8 +92,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getTitleResults/{titleId}/{projectId}/{parentId}")
-	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId,@PathVariable String parentId)
+	@RequestMapping("/getTitleResults/{titleId}/{projectId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
 		
@@ -102,7 +102,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 			List<InformationTitle> list = informationMGService.searchWithData(titleId, projectId);
 			data.setEntityList(list);
 			InformationCreateTimeMG InformationCreateTimeMG=new InformationCreateTimeMG();
-			InformationCreateTimeMG.setParentId(parentId);
+			InformationCreateTimeMG.setParentId(titleId);
 			InformationCreateTimeMG.setProjectId(projectId);
 			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(InformationCreateTimeMG);
 			Map<String,Object> map=new HashMap<String,Object>() ;
