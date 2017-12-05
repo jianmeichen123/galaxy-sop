@@ -202,7 +202,7 @@ $(function(){
 						layer.msg(data2.result.message);
 						saveBaseInfo("basicForm1");
 						if(data2.result.errorCode=='mccf'){   //项目名重复
-							layer.msg(data2.result.message);
+							//layer.msg(data2.result.message);
 							return;
 						}
 						//弹窗关闭
