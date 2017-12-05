@@ -303,11 +303,10 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		Long now = new Date().getTime();
 	
 		informationCreateTimeMG.setProjectId(data.getProjectId());
-		informationCreateTimeMG.setParentId(data.getParentId());
+		informationCreateTimeMG.setParentId("1302");
 		try {
 			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(informationCreateTimeMG);
 			if(null!=findOne&&!"".equals(findOne)){
-				informationCreateTimeMG.setParentId(data.getTitleId());
 				informationCreateTimeMGService.deleteByCondition(informationCreateTimeMG);
 			}
 			informationCreateTimeMG.setCreateId(userId.toString());
