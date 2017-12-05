@@ -6,17 +6,17 @@ $.fn.showResultsDrafts = function(readonly,flag){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
+                	if(!$.isEmptyObject(data.userData)){
+						var creatTime=data.userData.informationCreateTimeMG.createTime;
+						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+						$('.history_time').text(creatTime);
+					}
                    var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){
                             data = $(this)[0]
                         }
                     })
-                   if(!$.isEmptyObject(data.userData)){
-						var creatTime=data.userData.informationCreateTimeMG.createTime;
-						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
-						$('.history_time').text(creatTime);
-					}
                     if(entityList[0].dataMGList.length>0){
                     	$('.history_block').show();
 						$('.history_block').closest('.h_edit').addClass('history_block_edit');
