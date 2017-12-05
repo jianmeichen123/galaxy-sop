@@ -12,6 +12,11 @@ $.fn.showResultsDrafts = function(readonly,flag){
                             data = $(this)[0]
                         }
                     })
+                   if(data.userData.informationCreateTimeMG){
+						var creatTime=data.userData.informationCreateTimeMG.createTime;
+						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+						$('.history_time').text(creatTime);
+					}
                     if(entityList[0].dataMGList.length>0){
                     	$('.history_block').show();
 						$('.history_block').closest('.h_edit').addClass('history_block_edit');
