@@ -107,7 +107,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 			InformationCreateTimeMG InformationCreateTimeMG=new InformationCreateTimeMG();
 			InformationCreateTimeMG.setParentId(titleId);
 			InformationCreateTimeMG.setProjectId(projectId);
-			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(InformationCreateTimeMG);
+			InformationCreateTimeMG findOne = new InformationCreateTimeMG();
+			findOne=informationCreateTimeMGService.findOne(InformationCreateTimeMG);
 			Map<String,Object> map=new HashMap<String,Object>() ;
 			map.put("informationCreateTimeMG",findOne);
 			data.setUserData(map);
@@ -179,6 +180,14 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
                 title.setDataMGList(resultList);
             }
             resp.setEntityList(tvList);
+            InformationCreateTimeMG InformationCreateTimeMG=new InformationCreateTimeMG();
+			InformationCreateTimeMG.setParentId(titleId);
+			InformationCreateTimeMG.setProjectId(projectId);
+			InformationCreateTimeMG findOne = new InformationCreateTimeMG();
+			findOne=informationCreateTimeMGService.findOne(InformationCreateTimeMG);
+			Map<String,Object> map=new HashMap<String,Object>() ;
+			map.put("informationCreateTimeMG",findOne);
+			resp.setUserData(map);
         }catch(Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
             logger.error("queryRowsList 失败 ",e);
@@ -221,6 +230,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
             List<InformationListdataMG> poList = informationListdataMGService.find(query);
             Set<String> ids = new HashSet<>(poList.size());
             if(listdataList != null && !listdataList.isEmpty()){
+            	saveTime(data);
 	            for(InformationListdataMG po : poList)
 	            {
 	            	String uuid=po.getId();
@@ -297,7 +307,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		try {
 			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(informationCreateTimeMG);
 			if(null!=findOne&&!"".equals(findOne)){
-				informationCreateTimeMGService.deleteById(findOne.getId());
+				informationCreateTimeMG.setParentId(data.getTitleId());
+				informationCreateTimeMGService.deleteByCondition(informationCreateTimeMG);
 			}
 			informationCreateTimeMG.setCreateId(userId.toString());
 			informationCreateTimeMG.setCreateTime(now.toString());

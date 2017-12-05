@@ -12,7 +12,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
                             data = $(this)[0]
                         }
                     })
-                   if(data.userData.informationCreateTimeMG){
+                   if(data.userData){
 						var creatTime=data.userData.informationCreateTimeMG.createTime;
 						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
 						$('.history_time').text(creatTime);
@@ -51,7 +51,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
-        					if(data.userData.informationCreateTimeMG){
+        					if(data.userData){
         						var creatTime=data.userData.informationCreateTimeMG.createTime;
         						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
         						$('.history_time').text(creatTime);
