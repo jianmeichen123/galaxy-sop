@@ -292,15 +292,6 @@ function buildResultsDraft(sec,title,readonly)
 				var dd = dt.siblings();
 				var last_id = dd.find('li.check_label:last').attr('data-id');
 				var inputText = dd.find('input[type="text"]:last');
-				if ( title.resultMGList[0].contentChoose == last_id ){
-					inputText.attr('disabled',false);
-					inputText.removeClass('disabled');
-				}else{
-					inputText.val('');
-					inputText.attr('disabled',true);
-					inputText.addClass('disabled');
-					inputText.removeAttr('required');
-				}
 				$("dt[data-id='"+ title.id +"'],dt[data-tid='"+ title.id +"']").next('dd').find("li").removeClass('active');
 				$.each(title.resultMGList,function(i,n){
 					var result_id= n.id;	
@@ -311,6 +302,14 @@ function buildResultsDraft(sec,title,readonly)
 						inputText.attr('disabled',false);
 						inputText.removeClass('disabled');
 						inputText.attr('required' , true);
+					}
+					if (n.contentChoose == last_id ){
+						inputText.attr('disabled',false);
+						inputText.removeClass('disabled');
+					}else{
+						inputText.val('');
+						inputText.attr('disabled',true);
+						inputText.removeAttr('required');
 					}
 				})
 			}
