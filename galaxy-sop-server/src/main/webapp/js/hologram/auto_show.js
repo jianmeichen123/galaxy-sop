@@ -47,7 +47,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
-        					if(data.userData.informationCreateTimeMG.createTime){
+        					if(data.userData.informationCreateTimeMG){
         						var creatTime=data.userData.informationCreateTimeMG.createTime;
         						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
         						$('.history_time').text(creatTime);
