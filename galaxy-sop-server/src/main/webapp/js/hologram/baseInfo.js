@@ -350,7 +350,6 @@ function getNextSelect(title,cid,i){
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entitys = data.entityList;
-			console.log(data);
 			rselect = nselectHtml(entitys,title,cid,i);
 		}
 	});

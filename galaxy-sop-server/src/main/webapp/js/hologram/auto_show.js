@@ -34,7 +34,6 @@ $.fn.showResultsDrafts = function(readonly,flag){
         				if(entityList && entityList.length >0)
         				{
         					var sum=0;
-        					console.log(entityList)
         					$.each(entityList,function(){
         						var title = this;
         						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
