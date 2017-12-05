@@ -1005,8 +1005,9 @@ select::-ms-expand { display: none; }
     line-height: 1.5;
 } 
 .score-div input{
-	padding-right: 16px;
+	padding-right: 15px;
 	width: 48px;
+    margin-left: 2px;
 }
 .score-div i.unit{
 	color:#666;
