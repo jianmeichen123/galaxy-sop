@@ -71,9 +71,9 @@
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
-			        <th data-field="taskName"  width="200px" >任务名称</th>
+			        <th data-field="taskName"  data-width="20%" >任务名称</th>
 			        <th data-field="taskType"  data-align='center'>任务类型</th>
-			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
+			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter" data-width="20%">所属项目</th>
 			        <th data-field="taskDeadlineformat"  class="col-md-1 status " data-align='center'>发起时间</th>
 			        <th data-field="createUname"  class="col-md-2" data-align='center'>发起人</th>
 			        <th data-field="taskStatusDesc"  class="col-md-2" data-align='center'>任务状态</th>

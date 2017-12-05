@@ -3972,7 +3972,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table th{font-family:MicrosoftYaHei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
-.task-detail-table tr td:nth-child(1){text-align:left;padding-left:20px;}
+.task-detail-table tr td:nth-child(1){text-align:left;}
+.table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
 .upate-task{font-family:MicrosoftYaHei;display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
@@ -4015,7 +4016,9 @@ input::input-placeholder{color:red !important;}
 .table_new_style th,.table_new_style td{height:40px;font-size:14px;font-family:Microsoft YaHei;color:#5a626d;}
 .table_new_style th{font-weight:bold;}
 .table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
-.fixed-table-container .table_new_style thead th .th-inner{padding:8px}
+.fixed-table-container .table_new_style thead th .th-inner{padding:8px;}
+.fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
+.task-pagebox .fixed-table-body{border-radius:0}
 /* 添加项目 */
 .add-project-title{height:62px;position:fixed;z-index:999;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
