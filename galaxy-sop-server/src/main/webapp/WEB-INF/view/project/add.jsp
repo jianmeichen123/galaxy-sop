@@ -71,7 +71,11 @@
 	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
 				                    	<option value="">请选择</option>
 				                </select>
-	                             <input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"/>
+								<input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"/>
+								<!-- <input type="text" class="new_nputr addpro-input addpro-input-fh"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-ly"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-ct"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-mtbd"  placeholder="请输入名称" id="" name=""/> -->
                        		</span>
                         </li>
                     </ul>  
@@ -211,14 +215,14 @@
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script type="text/javascript">
 //计算距离的左边距
-detailHeaderWidth();
-function detailHeaderWidth(){
-	  var  w_lft=$(".lft").width();
-	  	$('.add-project-title').css({'margin-left':w_lft});
-}
-$(window).resize(function(){
-	detailHeaderWidth();
-})	
+// detailHeaderWidth();
+// function detailHeaderWidth(){
+// 	  var  w_lft=$(".lft").width();
+// 	  	$('.add-project-title').css({'margin-left':w_lft});
+// }
+// $(window).resize(function(){
+// 	detailHeaderWidth();
+// })	
 //radio样式切换
 $('.inpu-self').click(function(){
 	$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
@@ -374,9 +378,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 						layer.msg("必要的参数丢失!");
 					}else if(data.result.errorCode == "myqx"){
 						layer.msg("没有权限添加项目!");
-					}else if(data.result.errorCode == "mccf"){
-						layer.msg("项目名重复!");
 					}
+					// else if(data.result.errorCode == "mccf"){
+					// 	layer.msg("项目名重复!");
+					// }
 					formData = JSON.stringify(getUpdateData());
 				}else{
 					saveBaseInfo("add_form",data.id,data.id);

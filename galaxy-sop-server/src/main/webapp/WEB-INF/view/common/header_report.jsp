@@ -247,10 +247,12 @@ $(function(){
  if(w_win<=1280){   //浏览器屏幕等于1280，默认加载样式
       $("#mainCss").attr("href","<%=path%>/css/less1280.css");
       $(".pagebox .lft").css("width","60px");
+      $(".add-project-title").css("left","60px");
       disposedWidth();
        w_lft=$(".lft").width();        
    }else{
      $(".pagebox .lft").css("width","9.375%");
+      $(".add-project-title").css("left","9.375%");
       disposedWidth();
    }
 //浏览器窗口该变，自适应
@@ -259,11 +261,12 @@ $(window).resize(function(){
    //getScript();
    if(w_win<=1280){
        $("#mainCss").attr("href","<%=path%>/css/less1280.css");
-       $(".pagebox .lft").css("width","60px");
+       $(".pagebox .lft").css("width","60px");       
+      $(".add-project-title").css("left","60px");
     }else{
       $("#mainCss").attr("href","<%=path%>/css/more1280.css");
        $(".pagebox .lft").css("width","9.375%");
-
+      $(".add-project-title").css("left","9.375%");
     }
    disposedWidth();
  })
