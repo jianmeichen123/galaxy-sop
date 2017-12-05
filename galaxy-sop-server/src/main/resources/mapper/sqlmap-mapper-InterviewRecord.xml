@@ -28,7 +28,7 @@
   
   <sql id="Base_Where_Clause">
 		<where>
-		     interview_valid=0
+		     interview_valid=0 and 
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
