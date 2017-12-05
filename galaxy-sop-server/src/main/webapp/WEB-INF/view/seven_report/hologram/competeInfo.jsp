@@ -321,6 +321,9 @@ $(function() {
 				{
 					row.id=null;
 				}
+				if(row.resultId){
+					row.id=row.resultId;
+				}
 				infoTableModelList.push($(this).data());
 			});
 		});
