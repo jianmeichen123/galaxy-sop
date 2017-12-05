@@ -313,8 +313,7 @@ setInterval(function(){    //定时保存
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							deletedRowIds = new Array();	
-							deletedRowIdsGq = new Array();
+							
 						} else {
 
 						}
