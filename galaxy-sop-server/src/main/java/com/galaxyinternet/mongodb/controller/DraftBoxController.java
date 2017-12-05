@@ -1,8 +1,10 @@
 package com.galaxyinternet.mongodb.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,10 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.mongodb.model.InformationCreateTimeMG;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
+import com.galaxyinternet.mongodb.service.InformationCreateTimeMGService;
 import com.galaxyinternet.mongodb.service.InformationListdataMGService;
 import com.galaxyinternet.mongodb.service.InformationMGService;
 
@@ -47,7 +51,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	private InformationMGService informationMGService;
 	@Autowired
 	private InformationListdataMGService informationListdataMGService;
-	
+	@Autowired
+	private InformationCreateTimeMGService informationCreateTimeMGService;
 	@Override
 	protected BaseService<InformationDataMG> getBaseService() {
 		return this.informationMGService;
@@ -75,7 +80,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	   // Project project = projectService.queryById(projectId);
 		User user = (User) getUserFromSession(request);
 		try{
-			informationMGService.save(informationData);
+				informationMGService.save(informationData);
 		   // logger.info("全息图编辑项目相关信息["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 		    responseBody.setResult(new Result(Status.OK, null,"编辑项目部分成功"));
 
@@ -87,8 +92,8 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getTitleResults/{titleId}/{projectId}")
-	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId)
+	@RequestMapping("/getTitleResults/{titleId}/{projectId}/{parentId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId,@PathVariable String parentId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
 		
@@ -96,7 +101,13 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 		{
 			List<InformationTitle> list = informationMGService.searchWithData(titleId, projectId);
 			data.setEntityList(list);
-			
+			InformationCreateTimeMG InformationCreateTimeMG=new InformationCreateTimeMG();
+			InformationCreateTimeMG.setParentId(parentId);
+			InformationCreateTimeMG.setProjectId(projectId);
+			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(InformationCreateTimeMG);
+			Map<String,Object> map=new HashMap<String,Object>() ;
+			map.put("informationCreateTimeMG",findOne);
+			data.setUserData(map);
 		} catch (Exception e)
 		{
 			logger.error("获取标题失败，信息:titleId="+titleId,e);

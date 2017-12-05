@@ -34,6 +34,7 @@ import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.mongodb.model.FixedTableModelMG;
+import com.galaxyinternet.mongodb.model.InformationCreateTimeMG;
 import com.galaxyinternet.mongodb.model.InformationDataMG;
 import com.galaxyinternet.mongodb.model.InformationFixedTableMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
@@ -57,6 +58,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	private InformationListdataRemarkDao headerDao;
 	@Autowired
 	private InformationTitleDao informationTitleDao;
+	@Autowired
+	private InformationCreateTimeMGService informationCreateTimeMGService;
 	
 	@Autowired
 	private Cache cache;
@@ -65,7 +68,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	private AuthRequestUtil authReq;
 	@Override
 	public void save(InformationDataMG data) throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubime
+		saveTime(data);
 		saveResult(data);
 	    saveListData(data);
 		saveFixedTable(data);
@@ -984,6 +988,27 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			} catch (MongoDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+		public void saveTime(InformationDataMG data){
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			InformationCreateTimeMG informationCreateTimeMG=new InformationCreateTimeMG();
+			Long now = new Date().getTime();
+		
+			informationCreateTimeMG.setProjectId(data.getProjectId());
+			informationCreateTimeMG.setParentId(data.getParentId());
+			try {
+				InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(informationCreateTimeMG);
+				if(null!=findOne&&!"".equals(findOne)){
+					informationCreateTimeMGService.deleteById(findOne.getId());
+				}
+				informationCreateTimeMG.setCreateId(userId.toString());
+				informationCreateTimeMG.setCreateTime(now.toString());
+				informationCreateTimeMGService.save(informationCreateTimeMG);
+			} catch (MongoDBException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 }

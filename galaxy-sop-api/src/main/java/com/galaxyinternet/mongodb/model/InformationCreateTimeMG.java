@@ -9,6 +9,7 @@ public class InformationCreateTimeMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
+	private String id;
 	
 	@QueryField(attribute="tiltleId")
 	private String tiltleId;
@@ -16,12 +17,23 @@ public class InformationCreateTimeMG {
 	private String projectId;
 	private String createTime;
 	private String createId;
+	@QueryField(attribute="parentId")
+	private String parentId;
 	public String getTiltleId() {
 		return tiltleId;
 	}
 
 	public void setTiltleId(String tiltleId) {
 		this.tiltleId = tiltleId;
+	}
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getProjectId() {
@@ -55,6 +67,15 @@ public class InformationCreateTimeMG {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	
 	
 	
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.mongodb.model.InformationCreateTimeMG;
 import com.galaxyinternet.mongodb.model.InformationFixedTableMG;
 import com.galaxyinternet.mongodb.model.InformationListdataMG;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
@@ -43,7 +44,7 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 	private String valRuleMark;
 	private String valRuleFormula;
 	
-	
+	private InformationCreateTimeMG informationCreateTimeMG;
 	private List<InformationTitle> childList;
 	private List<InformationDictionary> valueList;
 	private List<InformationResult> resultList;
@@ -412,6 +413,15 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 
 	public void setDataMGList(List<InformationListdataMG> dataMGList) {
 		this.dataMGList = dataMGList;
+	}
+
+	
+	public InformationCreateTimeMG getInformationCreateTimeMG() {
+		return informationCreateTimeMG;
+	}
+
+	public void setInformationCreateTimeMG(InformationCreateTimeMG informationCreateTimeMG) {
+		this.informationCreateTimeMG = informationCreateTimeMG;
 	}
 
 	@Override
