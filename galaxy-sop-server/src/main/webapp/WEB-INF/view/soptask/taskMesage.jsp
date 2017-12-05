@@ -64,7 +64,7 @@
         	</div>
         	<c:if test="${'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
         	<div class='taskDetail-mesage-update'>
-        		<a href='javascript:;' class="upate-task" id="file-upload-btn">${btnTxt }</a>
+        		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
         		<a href='javascript:;'  class='upate-task submit-success disabled' id="complete-task-btn" disabled="disabled">提交完成</a>
         	</div>
         	</c:if>

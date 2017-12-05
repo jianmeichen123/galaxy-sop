@@ -54,7 +54,7 @@
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
              <span class='more-task fr' style='display:none'>指派任务</span>
-            <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch" id="search-task-btn">搜索</a>
+            <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
 	          <ul class='task-toggle'>
 	          	<li data-code='transfer-task'>移交任务</li>
 	          	<li data-code='abandon-task'>放弃任务</li>

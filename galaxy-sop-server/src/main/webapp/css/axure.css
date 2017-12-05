@@ -3784,7 +3784,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .version19_detail_header .m_one{margin-right:8px;}
 .version19_detail_header .b_span{background-image:url(../img/base_info/base_icon.png);background-position: -45px -5px;width:34px;padding-left:34px;}
 .version19_blue_btn{border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;}
-.version19_blue_btn:hover,.version19_blue_btn:active,.version19_save_btn:hover,.version19_save_btn:active, .borderRadius a:hover,.tzlc_btn:hover,.yjxm_btn:hover{background-color:#0084f5;}
+.version19_blue_btn:hover,.version19_blue_btn:active,.version19_save_btn:hover,.version19_save_btn:active, .borderRadius a:hover,.tzlc_btn:hover,.yjxm_btn:hover,.bluebtn_new:hover{background-color:#0084f5;}
 .version19_edit_btn{font-size:12px;color:#45aaff;line-height:32px;margin-right:16px;cursor:pointer;}
 .pagebox .version19_ritmin{margin-top:220px;}
 .version19_new_right{margin-top:0;}
@@ -4071,8 +4071,9 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul select::-ms-expand { display: none; }
 .tips-no-backgroud{width:auto !important;}
 .task-back{display:inline-block;width:20px;height:17px;background:url(../img/back.png) no-repeat center center;vertical-align:text-bottom;margin-right:7px;cursor:pointer;}
-.task-back:hover{background:url(../img/back-hover.png) no-repeat center center;}
+.come-back:hover .task-back{background:url(../img/back-hover.png) no-repeat center center;}
 .come-back{width:auto;float:right;margin-right:22px;}
+.come-back:hover .task-back-msg{color:#0084F5;}
 .task-back-msg{font-family:MicrosoftYaHei;font-size:12px;color:#3ca6ff;cursor:pointer;}
 .task-operation a{font-family:MicrosoftYaHei;color:#45aaff;margin-left:16px;}
 .task-no-need{margin-top:10px;margin-left:10px;font-family:MicrosoftYaHei;}
