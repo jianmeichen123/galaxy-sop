@@ -9,6 +9,7 @@ public class InformationCreateTimeMG {
 	/*唯一编码*/
 	@QueryField(attribute="uuid")
 	private String uuid;
+	@QueryField(attribute="id")
 	private String id;
 	
 	@QueryField(attribute="tiltleId")

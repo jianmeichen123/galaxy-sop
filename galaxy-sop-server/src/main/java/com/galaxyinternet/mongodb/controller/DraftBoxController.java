@@ -1,6 +1,7 @@
 package com.galaxyinternet.mongodb.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -283,6 +286,27 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
     		}
     	}
     }
+    public void saveTime(InformationListdataMG data){
+		User user = WebUtils.getUserFromSession();
+		Long userId = user != null ? user.getId() : null;
+		InformationCreateTimeMG informationCreateTimeMG=new InformationCreateTimeMG();
+		Long now = new Date().getTime();
+	
+		informationCreateTimeMG.setProjectId(data.getProjectId());
+		informationCreateTimeMG.setParentId(data.getParentId());
+		try {
+			InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(informationCreateTimeMG);
+			if(null!=findOne&&!"".equals(findOne)){
+				informationCreateTimeMGService.deleteById(findOne.getId());
+			}
+			informationCreateTimeMG.setCreateId(userId.toString());
+			informationCreateTimeMG.setCreateTime(now.toString());
+			informationCreateTimeMGService.save(informationCreateTimeMG);
+		} catch (MongoDBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	
 }

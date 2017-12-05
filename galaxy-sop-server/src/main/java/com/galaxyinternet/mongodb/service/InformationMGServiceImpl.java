@@ -117,8 +117,12 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		for (int i=0;i<entityList.size();i++) {
 			InformationResultMG result=entityList.get(i);
 			  try {
-			    result.setParentId(data.getParentId());
-				informationResultMGService.save(result);
+				  if((null!=result.getContentChoose()&&!"".equals(result.getContentChoose()))||
+						  (null!=result.getContentDescribe1()&&!"".equals(result.getContentDescribe1()))||  
+						 ( null!=result.getContentDescribe2()&&!"".equals(result.getContentDescribe2()) )){
+					  result.setParentId(data.getParentId());
+						informationResultMGService.save(result);
+				  }
 			} catch (MongoDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1001,7 +1005,7 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			try {
 				InformationCreateTimeMG findOne = informationCreateTimeMGService.findOne(informationCreateTimeMG);
 				if(null!=findOne&&!"".equals(findOne)){
-					informationCreateTimeMGService.deleteById(findOne.getId());
+					informationCreateTimeMGService.deleteByCondition(informationCreateTimeMG);
 				}
 				informationCreateTimeMG.setCreateId(userId.toString());
 				informationCreateTimeMG.setCreateTime(now.toString());
