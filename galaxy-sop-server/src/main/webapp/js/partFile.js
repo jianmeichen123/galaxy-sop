@@ -133,7 +133,7 @@ var  showbar;
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
-		$("body").showLoading();
+		layer.load(2,{time:15000});
 		if(key){
 			
 			var i=0;
@@ -153,7 +153,7 @@ var  showbar;
 			    }
 			});
 		}
-		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传文件
 			var result = dataParam.result.status;
 			if(result == "OK"){
@@ -179,15 +179,14 @@ var  showbar;
 					infoTableModelList.push(infoMode);
 			    } 
 				data.infoTableModelList = infoTableModelList;
-				//console.log(JSON.stringify(data));
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
 						true,
 						function(data) {
 							var result = data.result.status;
+							layer.closeAll('loading');
 							if (result == 'OK') {
-								$("body").hideLoading();
 								if(code == null){
 									$("#powindow").remove();
 									$("#popbg").remove();
@@ -238,6 +237,7 @@ var  showbar;
 						params["fileName"] = name;
 					},
 					FileUploaded:function(up,file,rtn){
+						layer.closeAll('loading');
 		             }, 
 					FilesAdded: function(up, files) {
 						var max_files = 10;
@@ -266,6 +266,7 @@ var  showbar;
 							params.newFileName = file.id;
 							up.settings.multipart_params = params;
 							uploader.start();
+							layer.load(2);
 						
 						});
 						
