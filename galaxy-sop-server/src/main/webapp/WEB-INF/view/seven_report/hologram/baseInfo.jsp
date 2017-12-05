@@ -327,7 +327,7 @@ $(function() {
 			if(_tochange==undefined){
 				_tochange=false;
 			}
-			if(typ == '5'){
+			if(typ == '5' || typ=='8'){
 				field.val(field.val().replace(/ /g,"&nbsp;"));
 			}
 			var value = field.val().replace(/\n/g,'<br/>');
