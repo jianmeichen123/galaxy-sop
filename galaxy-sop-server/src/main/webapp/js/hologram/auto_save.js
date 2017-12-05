@@ -290,6 +290,12 @@ setInterval(function(){    //定时保存
 					{
 						row.id=null;
 					}
+					if(row.id && row.id!='' && row.id.length!=24){
+    					row.resultId=row.id;
+    				}
+    				if(row.resultId && row.resultId.length==24){
+    					row.id=null;
+    				}
 					infoTableModelList.push($(this).data());
 				});
 			});
