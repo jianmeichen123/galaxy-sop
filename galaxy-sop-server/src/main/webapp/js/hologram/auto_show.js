@@ -12,6 +12,11 @@ $.fn.showResultsDrafts = function(readonly,flag){
                             data = $(this)[0]
                         }
                     })
+                   if(data.userData.informationCreateTimeMG){
+						var creatTime=data.userData.informationCreateTimeMG.createTime;
+						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+						$('.history_time').text(creatTime);
+					}
                     if(entityList[0].dataMGList.length>0){
                     	$('.history_block').show();
 						$('.history_block').closest('.h_edit').addClass('history_block_edit');
@@ -34,7 +39,6 @@ $.fn.showResultsDrafts = function(readonly,flag){
         				if(entityList && entityList.length >0)
         				{
         					var sum=0;
-        					console.log(entityList)
         					$.each(entityList,function(){
         						var title = this;
         						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
@@ -47,7 +51,12 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
-        					console.log(sum)
+        					if(data.userData.informationCreateTimeMG){
+        						var creatTime=data.userData.informationCreateTimeMG.createTime;
+        						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+        						$('.history_time').text(creatTime);
+        					}
+                				
         					if(sum>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
@@ -283,15 +292,6 @@ function buildResultsDraft(sec,title,readonly)
 				var dd = dt.siblings();
 				var last_id = dd.find('li.check_label:last').attr('data-id');
 				var inputText = dd.find('input[type="text"]:last');
-				if ( title.resultMGList[0].contentChoose == last_id ){
-					inputText.attr('disabled',false);
-					inputText.removeClass('disabled');
-				}else{
-					inputText.val('');
-					inputText.attr('disabled',true);
-					inputText.addClass('disabled');
-					inputText.removeAttr('required');
-				}
 				$("dt[data-id='"+ title.id +"'],dt[data-tid='"+ title.id +"']").next('dd').find("li").removeClass('active');
 				$.each(title.resultMGList,function(i,n){
 					var result_id= n.id;	
@@ -302,6 +302,14 @@ function buildResultsDraft(sec,title,readonly)
 						inputText.attr('disabled',false);
 						inputText.removeClass('disabled');
 						inputText.attr('required' , true);
+					}
+					if (n.contentChoose == last_id ){
+						inputText.attr('disabled',false);
+						inputText.removeClass('disabled');
+					}else{
+						inputText.val('');
+						inputText.attr('disabled',true);
+						inputText.removeAttr('required');
 					}
 				})
 			}

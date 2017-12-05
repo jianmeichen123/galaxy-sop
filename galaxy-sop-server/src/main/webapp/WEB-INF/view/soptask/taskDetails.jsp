@@ -10,10 +10,6 @@
 <head>
 <meta charset="utf-8">
 <title>星河投</title>
-<style>
-.fixed-table-container{padding-left:20px !important;padding-right:20px !important;border-radius:0px !important;}
-.fixed-table-body{border-radius:0px !important;}
-</style>
 <%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
    <!--bootstrap-table-->

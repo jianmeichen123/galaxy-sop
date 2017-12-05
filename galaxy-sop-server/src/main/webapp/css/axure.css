@@ -3784,7 +3784,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .version19_detail_header .m_one{margin-right:8px;}
 .version19_detail_header .b_span{background-image:url(../img/base_info/base_icon.png);background-position: -45px -5px;width:34px;padding-left:34px;}
 .version19_blue_btn{border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;}
-.version19_blue_btn:hover,.version19_blue_btn:active,.version19_save_btn:hover,.version19_save_btn:active, .borderRadius a:hover,.tzlc_btn:hover,.yjxm_btn:hover{background-color:#0084f5;}
+.version19_blue_btn:hover,.version19_blue_btn:active,.version19_save_btn:hover,.version19_save_btn:active, .borderRadius a:hover,.tzlc_btn:hover,.yjxm_btn:hover,.bluebtn_new:hover{background-color:#0084f5;}
 .version19_edit_btn{font-size:12px;color:#45aaff;line-height:32px;margin-right:16px;cursor:pointer;}
 .pagebox .version19_ritmin{margin-top:220px;}
 .version19_new_right{margin-top:0;}
@@ -3972,7 +3972,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table th{font-family:MicrosoftYaHei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
-.task-detail-table tr td:nth-child(1){text-align:left;padding-left:20px;}
+.task-detail-table tr td:nth-child(1){text-align:left;}
+.table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
 .upate-task{font-family:MicrosoftYaHei;display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
@@ -4015,7 +4016,9 @@ input::input-placeholder{color:red !important;}
 .table_new_style th,.table_new_style td{height:40px;font-size:14px;font-family:Microsoft YaHei;color:#5a626d;}
 .table_new_style th{font-weight:bold;}
 .table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
-.fixed-table-container .table_new_style thead th .th-inner{padding:8px}
+.fixed-table-container .table_new_style thead th .th-inner{padding:8px;}
+.fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
+.task-pagebox .fixed-table-body{border-radius:0}
 /* 添加项目 */
 .add-project-title{height:62px;position:fixed;z-index:999;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
@@ -4068,8 +4071,9 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul select::-ms-expand { display: none; }
 .tips-no-backgroud{width:auto !important;}
 .task-back{display:inline-block;width:20px;height:17px;background:url(../img/back.png) no-repeat center center;vertical-align:text-bottom;margin-right:7px;cursor:pointer;}
-.task-back:hover{background:url(../img/back-hover.png) no-repeat center center;}
+.come-back:hover .task-back{background:url(../img/back-hover.png) no-repeat center center;}
 .come-back{width:auto;float:right;margin-right:22px;}
+.come-back:hover .task-back-msg{color:#0084F5;}
 .task-back-msg{font-family:MicrosoftYaHei;font-size:12px;color:#3ca6ff;cursor:pointer;}
 .task-operation a{font-family:MicrosoftYaHei;color:#45aaff;margin-left:16px;}
 .task-no-need{margin-top:10px;margin-left:10px;font-family:MicrosoftYaHei;}

@@ -54,7 +54,7 @@
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
              <span class='more-task fr' style='display:none'>指派任务</span>
-            <a href="javascript:;" class="bluebtn ico cx task-cx"  action="querySearch" id="search-task-btn">搜索</a>
+            <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
 	          <ul class='task-toggle'>
 	          	<li data-code='transfer-task'>移交任务</li>
 	          	<li data-code='abandon-task'>放弃任务</li>
@@ -71,9 +71,9 @@
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
-			        <th data-field="taskName"  width="200px" >任务名称</th>
+			        <th data-field="taskName"  data-width="20%" >任务名称</th>
 			        <th data-field="taskType"  data-align='center'>任务类型</th>
-			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
+			        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter" data-width="20%">所属项目</th>
 			        <th data-field="taskDeadlineformat"  class="col-md-1 status " data-align='center'>发起时间</th>
 			        <th data-field="createUname"  class="col-md-2" data-align='center'>发起人</th>
 			        <th data-field="taskStatusDesc"  class="col-md-2" data-align='center'>任务状态</th>
