@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.framework.core.exception.MongoDBException;
-import com.galaxyinternet.mongodb.dao.InformationCreateTimeMGDao;
+import com.galaxyinternet.mongodb.dao.InformationModelMGDao;
 import com.galaxyinternet.mongodb.model.InformationModelMG;
 
 @Service("com.galaxyinternet.mongodb.service.InformationModelMGService")
 public class InformationModelMGServiceImpl implements InformationModelMGService {
 	
 	@Autowired
-	private InformationCreateTimeMGDao informationModelMGDao;
+	private InformationModelMGDao informationModelMGDao;
 	
 	@Override
 	public void save(InformationModelMG project) throws MongoDBException {
