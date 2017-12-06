@@ -656,7 +656,6 @@ function type_8_html(title,mark){
 		if(title.resultList){
 			var result_id=title.resultList[0].id;
 		}
-			
 		var eresult =
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" resultId='"+result_id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +

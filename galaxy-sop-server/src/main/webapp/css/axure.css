@@ -3768,7 +3768,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .relative_box .img_box{color:#4f52a0;}
 .relative_box .img_box+#plan_name{margin-top: -8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:30px;text-indent:-5px;}
 .relative_box .plan_update_time{color:#8b8db8;}
- .version19_detail_header_box{width:100%;background:#fff;padding-top:20px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
+ .version19_detail_header_box{width:100%;background:#fff;padding-top:30px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:10;}
  .version19_detail_header .top div{margin-right:10px;}
  .version19_detail_header_box{visibility:hidden;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
@@ -3926,6 +3926,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .member table.team_info .on td{ background:none;}
  .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
+<<<<<<< HEAD
 /* V1.10 */
 .history_block{color:#ff6565;font-size:14px;position:absolute;top:20px;display:none;}
 .history_block .btn{color:#3ca6ff;}
@@ -4082,3 +4083,26 @@ select.addpro-input{width:278px;height:32px;}
 .task-no-label.label-checked{background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -86px -5px !important;}
 .project-name,.projectname-edit-label{display:none;color:#ff0000;}
 .projectname-edit-label{margin-left:115px;font-family: Microsoft YaHei;font-size: 14px;}
+.finicial_current table .basic_mes_input{
+	padding-right:25px;
+    width: 405px;
+}
+.invest_current table .basic_mes_input{
+	padding-right:25px;
+    width: 360px;
+}
+.finicial_current table td.million::after,.finicial_current table td.percent::after,.invest_current table td.million::after,.invest_current table td.percent::after{
+	content:"万元";
+	font-family:"Microsoft YaHei";
+	font-size:12px;
+	color:#666;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+}
+.invest_current table td.million::after,.invest_current table td.percent::after{
+    right: -385px;
+}
+.finicial_current table td.percent::after,.invest_current table td.percent::after{
+	content:"%";
+}

@@ -244,7 +244,7 @@ $(function(){
  } --%>
 //浏览器小于1280的时候左侧导航
  var w_win=$(window).width();
- if(w_win<=1280){   //浏览器屏幕等于1280，默认加载样式
+ if(w_win<=1290){   //浏览器屏幕等于1280，默认加载样式
       $("#mainCss").attr("href","<%=path%>/css/less1280.css");
       $(".pagebox .lft").css("width","60px");
       $(".add-project-title").css("left","60px");
@@ -259,7 +259,7 @@ $(function(){
 $(window).resize(function(){
 	var w_win=$(window).width();
    //getScript();
-   if(w_win<=1280){
+   if(w_win<=1290){
        $("#mainCss").attr("href","<%=path%>/css/less1280.css");
        $(".pagebox .lft").css("width","60px");       
       $(".add-project-title").css("left","60px");

@@ -528,7 +528,7 @@ function buildResults(sec,title,readonly)
 				}
 				dds.html((title.resultList[0].contentDescribe1==undefined || sum==0) ?"未填写":str);
 			}
-	        else{
+			else{
 				var str=title.resultList[0].contentDescribe1;
 				var result_id=title.resultList[0].id;
 				var div=$(".inputs_block").closest(".h_edit_txt");
