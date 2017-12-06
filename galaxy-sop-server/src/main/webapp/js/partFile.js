@@ -138,18 +138,20 @@ var  showbar;
 			
 			var i=0;
 			var isComplete = true;
-			showbar=setInterval("setbar()",1000);  
+			//showbar=setInterval("setbar()",1000);  
 			console.log(i)
 			if(100 -i >= 15){
 				 i+=15; 
 			}
-		    if(!isComplete)  
+		    /*if(!isComplete)  
 		    {   
 		    	window.clearInterval(showbar);  
-		    }  
+		    } */ 
 		    $("#filelist").find("tr").each(function(index,value){
 		    	if(index != 0){
-				    $(this).children().eq(3).html('<span>'+ i + "%</span>"); 
+		    		if($(this).children().eq(3).text()==''){
+		    			$(this).children().eq(3).html('<span style="font-family:\'宋体\'">'+ i + "%</span>"); 
+		    		}
 			    }
 			});
 		}
@@ -159,10 +161,10 @@ var  showbar;
 			if(result == "OK"){
 				isComplete = false;
 				i = 0;
-				window.clearInterval(showbar);  
+				/*window.clearInterval(showbar);*/  
 				$("#filelist").find("tr").each(function(index,value){
 				    	if(index != 0){
-						    $(this).children().eq(3).html('<span>'+ 100 + "%</span>"); 
+						    $(this).children().eq(3).html('<span style="font-family:\'宋体\'">'+ 100 + "%</span>"); 
 					    }
 				});
 				var fids = dataParam.entity.fids;
