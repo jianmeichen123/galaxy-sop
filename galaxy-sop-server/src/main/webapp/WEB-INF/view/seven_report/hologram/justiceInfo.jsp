@@ -91,12 +91,12 @@ var deleteJSON={};
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
 					sec.showResultsDrafts();   //提示历史数据信息
-					$('.h_title').click(function(){  //保存
+					setInterval(function(){    //定时保存
 						var _tochange=sec.find('form').attr('tochange');
 						if(_tochange=='true'){
 							auto_save(sec);
 						}
-					})
+					},60000)
 					if($('.history_block .btn').is(':visible')){   //点击恢复
 						$('.history_block .btn').click(function(){
 							sec.showResultsDrafts(null,'result');

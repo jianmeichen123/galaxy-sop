@@ -338,7 +338,7 @@ setInterval(function(){    //定时保存
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							
+							sec.find('form').removeAttr('tochange');
 						} else {
 
 						}
