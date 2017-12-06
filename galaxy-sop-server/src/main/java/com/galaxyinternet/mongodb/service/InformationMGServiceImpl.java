@@ -1007,6 +1007,10 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				if(null!=findOne&&!"".equals(findOne)){
 					informationCreateTimeMGService.deleteByCondition(informationCreateTimeMG);
 				}
+				if(null!=data.getDeletedRowIds()&&data.getDeletedRowIds().size()>0){
+					List<String> deleteRows=new ArrayList<String>(data.getDeletedRowIds());
+					informationCreateTimeMG.setDeleteIds(deleteRows);
+				}
 				informationCreateTimeMG.setCreateId(userId.toString());
 				informationCreateTimeMG.setCreateTime(now.toString());
 				informationCreateTimeMGService.save(informationCreateTimeMG);

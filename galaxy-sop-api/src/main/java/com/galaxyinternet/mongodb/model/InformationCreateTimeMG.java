@@ -1,5 +1,7 @@
 package com.galaxyinternet.mongodb.model;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
@@ -20,6 +22,8 @@ public class InformationCreateTimeMG {
 	private String createId;
 	@QueryField(attribute="parentId")
 	private String parentId;
+	
+	private List<String> deleteIds;
 	public String getTiltleId() {
 		return tiltleId;
 	}
@@ -75,6 +79,14 @@ public class InformationCreateTimeMG {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public List<String> getDeleteIds() {
+		return deleteIds;
+	}
+
+	public void setDeleteIds(List<String> deleteIds) {
+		this.deleteIds = deleteIds;
 	}
 	
 	
