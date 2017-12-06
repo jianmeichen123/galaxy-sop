@@ -36,6 +36,19 @@ $.fn.showResultsDrafts = function(readonly,flag){
         			if (result == 'OK')
         			{
         				var entityList = data.entityList;
+        				if(!$.isEmptyObject(data.userData)){
+    						var creatTime=data.userData.informationCreateTimeMG.createTime;
+    						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
+    						$('.history_time').text(creatTime);
+    						//表格删除的id
+    						var deleteRowIds=data.userData.informationCreateTimeMG.deleteIds;
+    						var deleteRowIdsNewArray=new Array();
+    						$.each(deleteRowIds,function(i,n){
+    							if(n.length!=24){
+    								deleteRowIdsNewArray.push(n)
+    							}
+    						})
+    					}
         				if(entityList && entityList.length >0)
         				{
         					var sum=0;
@@ -46,17 +59,11 @@ $.fn.showResultsDrafts = function(readonly,flag){
         						}
         						if(flag=='result'){
         							buildResultsDraft(sec,title,readonly);
-            						buildTableDraft(sec,title);
+            						buildTableDraft(sec,title,deleteRowIdsNewArray);
             						buildfinxedTableDraft(sec,title,readonly);
             						dtWidth();
         						}
         					});
-        					if(!$.isEmptyObject(data.userData)){
-        						var creatTime=data.userData.informationCreateTimeMG.createTime;
-        						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
-        						$('.history_time').text(creatTime);
-        					}
-                				
         					if(sum>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
@@ -672,7 +679,7 @@ function buildMemberRowDraft(headerList,row,showOpts)
     }
 	return tr;
 }
-function buildTableDraft(sec,title)
+function buildTableDraft(sec,title,deleteRowIdsNewArray)
 {
 	//列表Header
 	
@@ -683,7 +690,8 @@ function buildTableDraft(sec,title)
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
-			table.attr('data-funFlag',header.funFlag);			
+			table.attr('data-funFlag',header.funFlag);	
+			table.attr('data-deleteRowIds',deleteRowIdsNewArray);
 			table.empty();
 			var tr="<tr>";
 			for(var key in header)

@@ -59,7 +59,6 @@ var deleteJSON={};
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
-		console.log(data);
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -367,6 +366,7 @@ var deleteJSON={};
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
+			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
 			$.each($(this).find('tr:gt(0)'),function(){
 				var row = $(this).data();
 				if(row.id=="")

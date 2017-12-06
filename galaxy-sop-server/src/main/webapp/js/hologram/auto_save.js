@@ -2,6 +2,21 @@
 function removeAutoData(pid){
 	sendGetRequest(platformUrl.removeData+'/'+pid+'/'+projectInfo.id,null,null);
 }
+//删除数据库表格rowId,存草稿箱后，恢复数据再保存数据库
+function deletedRowIdsDraft(obj){
+	var deletedRowIdsDraft=obj.data('deleterowids');
+	if(deletedRowIdsDraft){
+		if(deletedRowIdsDraft.length>1){
+			var deletedRowIdsDraftArry=deletedRowIdsDraft.split(',');
+			for(var i=0;i<deletedRowIdsDraftArry.length;i++){
+				deletedRowIds.push(Number(deletedRowIdsDraftArry[i]));
+			}
+		}else{
+			deletedRowIds.push(Number(deletedRowIdsDraft));
+		}
+	} 
+}
+
 setInterval(function(){    //定时保存
 		
 	},1000)
