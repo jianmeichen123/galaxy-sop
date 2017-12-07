@@ -274,12 +274,32 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 			});
 	    }
+	    CallBackD(data)
 	}
+
+	/**
+	 * 项目来源
+	 * @version 2017-12-07
+	 */
+	function CallBackD(data){
+	    var _dom=$("select[name='faFlag']");
+	        _dom.html("");
+	        _dom.append('<option value="">请选择</option>');
+	    var childNum = _dom.find("option").length;
+	    var entity=data.entity.childList[1];
+	    if(!childNum || childNum !=0 ){
+	    	$.each(entity.valueList,function(){
+	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+			});
+	    }
+	}
+
+
 	/**
 	 * 获取项目来源下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
+	//createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
 	
    var TOKEN;
    var formData;
