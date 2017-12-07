@@ -201,21 +201,21 @@
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
-								<td>
+								<td class="million">
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额万元"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="percent">
 									<span>出让股份：</span>
-									<input type="text" class="basic_mes_input" placeholder="出让股份(%)"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数" data-title-id="1917">
+									<input type="text" class="basic_mes_input" placeholder="出让股份"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数" data-title-id="1917">
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="million">
 									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" placeholder="项目估值万元" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
+									<input type="text" class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
 								</td>
 							</tr>
 							
@@ -236,28 +236,28 @@
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
-								<td>
+								<td class="million">
 									<span>投资金额：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额万元" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="percent">
 									<span>股权占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的两位小数"  data-title-id="3010"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的两位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="million">
 									<span>项目估值：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值万元" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							
 							<tr>
-								<td>
+								<td class="percent">
 									<span>加速服务费占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比(%)" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的两位小数"  data-title-id="3011"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的两位小数"  data-title-id="3011"/>
 								</td>
 							</tr>
 							<tr>
