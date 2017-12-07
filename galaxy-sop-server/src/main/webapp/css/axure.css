@@ -3823,7 +3823,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
  .edit_com_color{font-size:14px;color:#666666;}
- .basic_message_cont{margin:0 auto;height:100%;width: 100%; margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;    padding-top: 30px;padding-bottom:20px;}
+ .basic_message_cont{margin:0 auto;height:100%;width: 100%;overflow-x:hidden; margin: 0 auto;height: 100%;padding: 0 40px;box-sizing: border-box;-webkit-box-sizing: border-box;    padding-top: 30px;padding-bottom:20px;}
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;position: relative;}
  .edit_basic_table tr{display:block;margin-bottom:16px;}
@@ -3934,7 +3934,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	padding-right:25px;
     width: 360px;
 }
-.finicial_current table td.million::after,.finicial_current table td.percent::after,.invest_current table td.million::after,.invest_current table td.percent::after{
+.finicial_current table .million,.finicial_current table .percent,.invest_current table .million,.invest_current table .percent{position:relative;}
+.finicial_current table .million::after,.finicial_current table .percent::after,.invest_current table .million::after,.invest_current table .percent::after{
 	content:"万元";
 	font-family:"Microsoft YaHei";
 	font-size:12px;
@@ -3943,9 +3944,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     right: 15px;
     top: 3px;
 }
-.invest_current table td.million::after,.invest_current table td.percent::after{
-    right: -385px;
+.invest_current table .million::after,.invest_current table .percent::after{
+    top: 8px;
+    right:22px;
 }
-.finicial_current table td.percent::after,.invest_current table td.percent::after{
+.finicial_current table .percent::after,.invest_current table .percent::after{
 	content:"%";
 }
