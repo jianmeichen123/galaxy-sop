@@ -111,7 +111,6 @@
 			</div>		
 		</div>
 		<input type="hidden" id="pid" name="id" value="${projectId}"/>
-		
 	</div>
 	<!-- 编辑页面 -->
 	<div class="basic_on basic_common_width tab_info_common_width">
@@ -236,27 +235,27 @@
 	 	   		<div class="compile_on_center edit_com_color invest_max_height">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
-							<tr>
-								<td class="million">
+							<tr class="million">
+								<td >
 									<span>投资金额：</span>
 									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
-							<tr>
-								<td class="percent">
+							<tr class="percent">
+								<td >
 									<span>股权占比：</span>
 									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的两位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
-							<tr>
-								<td class="million">
+							<tr class="million">
+								<td>
 									<span>项目估值：</span>
 									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							
-							<tr>
-								<td class="percent">
+							<tr class="percent">
+								<td>
 									<span>加速服务费占比：</span>
 									<input type="text" value="" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="加速服务费占比" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的两位小数"  data-title-id="3011"/>
 								</td>
@@ -537,8 +536,6 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">	
-console.log(${projectId}+'=========')
-console.log(${pid})
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
