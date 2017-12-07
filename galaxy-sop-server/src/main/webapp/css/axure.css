@@ -3906,7 +3906,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .institue_inputs{display:inline-table;vertical-align: top;position: absolute;left: 116px;top: 0px;}
  .invest_max_height{max-height:365px;overflow:auto;} 
  .institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
- #basicForm .invest_current label.error{ color: #ff0000;display: block!important;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
+ #basicForm .invest_current label.error{ color: #ff0000;display: block;margin-left: 6px;white-space:nowrap;padding:0;;padding-top: 5px;}
  #basicForm .invest_max_height tr label.error{margin-left: 116px;}.
  institue_content .input_box{position: relative; display: inline-block;height: auto;vertical-align: top;}
  .institue_content .input_box:nth-child(1),.institue_content .input_box:nth-child(2){width:111px;}
