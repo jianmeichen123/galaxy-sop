@@ -805,6 +805,12 @@ function buildTable(sec,title)
 					if((header.code=='delivery-before' || header.code=='delivery-after') && (key == 'field3')){
 						continue;
 					}
+					if(header.code=='competitor_obvious'&&(key != 'field1')){
+						continue;
+					}
+					if(header.code=='competitor_potential'&&(key != 'field1')){
+						continue;
+					}
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
