@@ -57,6 +57,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -505,7 +506,33 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
                 value = textConversion(tempResult.getContentDescribe1()) + unit;
             }
+        } else if(type == 22){
+            // 写死  ENO4_4_3  ENO4_4_4
+            //22:复选题（选项来自列表题一部分，评分每个选项单独评）
+            List<Map<String, String>> results = new ArrayList<>();
+
+            Set<Long> resultIds = new HashSet<>();
+            for (int i = 0; i < resultList.size(); i++){
+                resultIds.add(resultList.get(i).getId());
+            }
+
+            Map<String, Object> params = new HashMap<String,Object>();
+            params.put("resultIds",resultIds);
+            params.put("notAllNUll",true);
+            List<Map<String,String>> relsl = informationTitleDao.selectResultsAndGradeForType22(params);
+
+            for(Map<String,String> tempmap : relsl){
+                Map<String, String> hmap = new HashMap<>();
+                hmap.put("value", textConversion(tempmap.get("field_1")));
+                hmap.put("grade", textConversion(tempmap.get("grade1")));
+                hmap.put("weight", textConversion(tempmap.get("grade_percentage")));
+
+                results.add(hmap);
+            }
+
+            return resultIds;
         }
+
 
         return value;
     }

@@ -161,7 +161,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	}*/
 	/**
 	 * 全息报告 ： doc 下载
-	 */
+
 	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
 	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
 	@RequestMapping("/downNO/{pid}")
@@ -196,14 +196,53 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			logger.error("downDoc ",e);
 		}
 	}
-
-
+	 */
 
 
 
 	/**
-	 * 评测报告 ： docx 下载
+	 * 全息报告 ： docx 下载
 	 */
+	public static final String pc_tempath = "/template/pcbg";    //  模板地址
+	public static final String[] pc_temp_xml = new String[]{"document.xml","header2.xml"};
+	public static final String pc_temp_docx = "pcbg_temp.docx";   //内容 .xml .docx
+
+	@RequestMapping("/downxEN/{pid}")
+	public void downENdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+		String currTime = System.currentTimeMillis()+"";
+		String ymd = DateUtil.convertDateToStringForTeamCode(new Date());
+
+		Project project = projectService.queryById(pid);
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"EN",currTime,tempfilePath);
+
+		String docxName = project.getProjectName() + "评测报告"+ymd+".docx";
+
+		try {
+			/*
+			 * request
+			 * @param templatePath 模板文件位置
+			 * @param filePath 保存路径
+			 * @param fileName 保存名称,  生成的docx文件
+			 */
+			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,response,pc_tempath, tempfilePath, docxName);
+			docExportUtil1.downDocxAsZip(map,currTime,pc_temp_xml,pc_temp_docx);
+
+			/*String zipName = project.getProjectName() + "全息报告.zip";
+			Map<String, String> dname_sname = new HashMap<>();
+			dname_sname.put(dfn1,fn1);
+			dname_sname.put(dfn2,fn2);
+
+			DocxExportUtil.downZip(zipName,dname_sname,tempfilePath,request,response);*/
+		} catch (Exception e) {
+			logger.error("downDoc ",e);
+		}
+	}
+	/**
+	 * 评测报告 ： docx 下载
+
 	public static final String temp1x_pc = "pcbg_gl_temp";   //概览 .xml .docx
 	public static final String temp2x_pc = "pcbg_lr_temp";   //内容 .xml .docx
 	public static final String tempath_pc = "/template/pcbg";    //  模板地址
@@ -229,13 +268,6 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		String dfn2 = currTime + "pclr";
 
 		try {
-			/*
-			 * request
-			 * @param templatePath 模板文件位置
-			 * @param templateName  xml docx 模板文件名称
-			 * @param filePath 保存路径
-			 * @param fileName 保存名称, xml docx 模板生成的文件
-			 */
 			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,tempath_pc, temp1x_pc, tempfilePath, dfn1);
 			DocxExportUtil docExportUtil2 = new DocxExportUtil(request,tempath_pc, temp2x_pc, tempfilePath, dfn2);
 			docExportUtil1.creatDocxAsZip(map,currTime,false);
@@ -251,7 +283,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			logger.error("downDoc ",e);
 		}
 	}
-
+		*/
 
 
 }

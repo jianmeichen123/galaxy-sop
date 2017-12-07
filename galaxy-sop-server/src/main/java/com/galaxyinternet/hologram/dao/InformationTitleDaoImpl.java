@@ -104,6 +104,21 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 		}
 	}
 
+	/**
+	 * 特殊 type22 查询results
+	 */
+	@Override
+	public List<Map<String,String>> selectResultsAndGradeForType22(Map<String, Object> params) {
+
+		try {
+			List<Map<String,String>> contentList = sqlSessionTemplate.selectList(getSqlName("selectResultsAndGradeForType22") ,params);
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return contentList;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titiles查询file results出错！语句:%s", getSqlName("selectResultsAndGradeForType22")), e);
+		}
+	}
+
 
 	/**
 	 * 根据 title id 查询results,  统计 title 记录数
