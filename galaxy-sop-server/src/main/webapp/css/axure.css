@@ -3864,7 +3864,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .finacing_plan{ height:auto;max-height:505px;display:none;}
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
 .real_investment{display:none; height:auto;max-height: 505px}
-.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;display:inline-block;vertical-align:middle;}
+.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;display:inline-block;vertical-align:middle;}
 .basic_common_width  table tr td label{font-family:PingFangSC-Regular;}
 .basic_common_width  table tr td label.error{color: #ff0000;}
 .basic_common_width  table tr td label.no_info_icon_xhhl{color:#bbb;}
