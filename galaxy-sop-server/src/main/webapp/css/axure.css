@@ -3864,7 +3864,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .finacing_plan{ height:auto;max-height:505px;display:none;}
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
 .real_investment{display:none; height:auto;max-height: 505px}
-.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;color:#666666;display:inline-block;vertical-align:middle;}
+.basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:Microsoft YaHei;font-size:14px;display:inline-block;vertical-align:middle;}
 .basic_common_width  table tr td label{font-family:PingFangSC-Regular;}
 .basic_common_width  table tr td label.error{color: #ff0000;}
 .basic_common_width  table tr td label.no_info_icon_xhhl{color:#bbb;}
@@ -4090,7 +4090,8 @@ select.addpro-input{width:278px;height:32px;}
 	padding-right:25px;
     width: 360px;
 }
-.finicial_current table td.million::after,.finicial_current table td.percent::after,.invest_current table td.million::after,.invest_current table td.percent::after{
+.finicial_current table .million,.finicial_current table .percent,.invest_current table .million,.invest_current table .percent{position:relative;}
+.finicial_current table .million::after,.finicial_current table .percent::after,.invest_current table .million::after,.invest_current table .percent::after{
 	content:"万元";
 	font-family:"Microsoft YaHei";
 	font-size:12px;
@@ -4099,9 +4100,10 @@ select.addpro-input{width:278px;height:32px;}
     right: 15px;
     top: 3px;
 }
-.invest_current table td.million::after,.invest_current table td.percent::after{
-    right: -385px;
+.invest_current table .million::after,.invest_current table .percent::after{
+    top: 8px;
+    right:22px;
 }
-.finicial_current table td.percent::after,.invest_current table td.percent::after{
+.finicial_current table .percent::after,.invest_current table .percent::after{
 	content:"%";
 }
