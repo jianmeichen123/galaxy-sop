@@ -191,12 +191,16 @@ function type_1_html(title,mark){
 		var value = '';
 		if(results && results[0] && results[0].contentDescribe1) value = results[0].contentDescribe1;
 		var placeholder = '';
-		if(title.placeholder) placeholder = title.placeholder;
-		var result_id=title.resultList[0].id;		
+		if(title.placeholder) placeholder = title.placeholder;		
+		if(title.resultList){
+			var result_id=title.resultList[0].id;		
+			
+		}
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-					"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
+				"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
-	}
+
+		}
 	
 }
 
