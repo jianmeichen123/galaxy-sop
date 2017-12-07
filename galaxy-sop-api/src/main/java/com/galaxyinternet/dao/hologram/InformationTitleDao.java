@@ -30,7 +30,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	public List<InformationTitle> selectTitleOfFileResults(Map<String, Object> params);
 
 	//写死 type22
-	public List<Map<String,String>> selectResultsAndGradeForType22(Map<String, Object> params);
+	public List<Map<String,Object>> selectResultsAndGradeForType22(Map<String, Object> params);
 
 	/**
 	 * 根据 title id 查询results,  统计 title 记录数

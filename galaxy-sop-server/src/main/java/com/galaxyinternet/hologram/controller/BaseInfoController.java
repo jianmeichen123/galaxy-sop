@@ -201,7 +201,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 
 
 	/**
-	 * 全息报告 ： docx 下载
+	 * 评测报告 ： docx 下载
 	 */
 	public static final String pc_tempath = "/template/pcbg";    //  模板地址
 	public static final String[] pc_temp_xml = new String[]{"document.xml","header2.xml"};
@@ -217,6 +217,11 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"EN",currTime,tempfilePath);
+
+		map.putAll(reportExportService.titleScoreResult(pid,"EN"));
+
+		Map<String,String>  weight = scoreInfoService.getTabWeight("EN",pid);
+		map.putAll(weight);
 
 		String docxName = project.getProjectName() + "评测报告"+ymd+".docx";
 

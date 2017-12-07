@@ -519,18 +519,21 @@ public class ReportExportServiceImpl implements ReportExportService {
             Map<String, Object> params = new HashMap<String,Object>();
             params.put("resultIds",resultIds);
             params.put("notAllNUll",true);
-            List<Map<String,String>> relsl = informationTitleDao.selectResultsAndGradeForType22(params);
+            List<Map<String,Object>> relsl = informationTitleDao.selectResultsAndGradeForType22(params);
 
-            for(Map<String,String> tempmap : relsl){
+            for(Map<String,Object> tempmap : relsl){
                 Map<String, String> hmap = new HashMap<>();
-                hmap.put("value", textConversion(tempmap.get("field_1")));
-                hmap.put("grade", textConversion(tempmap.get("grade1")));
-                hmap.put("weight", textConversion(tempmap.get("grade_percentage")));
+                if(tempmap.get("field_1") != null)
+                    hmap.put("value", textConversion(tempmap.get("field_1")+""));
+                if(tempmap.get("grade1") != null)
+                    hmap.put("grade", textConversion(tempmap.get("grade1")+""));
+                if(tempmap.get("grade_percentage") != null)
+                    hmap.put("weight", textConversion(tempmap.get("grade_percentage")+""));
 
                 results.add(hmap);
             }
 
-            return resultIds;
+            return results;
         }
 
 

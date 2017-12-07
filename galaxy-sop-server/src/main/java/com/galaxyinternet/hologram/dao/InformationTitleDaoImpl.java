@@ -108,10 +108,10 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 	 * 特殊 type22 查询results
 	 */
 	@Override
-	public List<Map<String,String>> selectResultsAndGradeForType22(Map<String, Object> params) {
+	public List<Map<String,Object>> selectResultsAndGradeForType22(Map<String, Object> params) {
 
 		try {
-			List<Map<String,String>> contentList = sqlSessionTemplate.selectList(getSqlName("selectResultsAndGradeForType22") ,params);
+			List<Map<String,Object>> contentList = sqlSessionTemplate.selectList(getSqlName("selectResultsAndGradeForType22") ,params);
 			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
 			return contentList;
 		} catch (Exception e) {
