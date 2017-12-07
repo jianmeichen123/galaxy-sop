@@ -121,6 +121,7 @@ $(function(){
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
 				$("body").css('overflow','hidden');
+				updateReportMoney();   //编辑显示融资计划值
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
@@ -681,7 +682,8 @@ function updataReport(projectInfoList){
 							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
 							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");
-							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide()
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();
+							$("input[data-title-id='"+title.titleId+"']").val("");
 							if(title.titleId=="1917"){
 								$("#finance_chart").html("");
 							}
@@ -725,7 +727,7 @@ function updataReport(projectInfoList){
 								}
 							}
 							
-							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val).removeClass("font-normal");;;
+							$(".new_color_black[data-title-id='"+title.titleId+"']").text(_val).removeClass("font-normal");
 							$("input[data-title-id='"+title.titleId+"']").val(title.value==undefined ?"":I_val).attr({"data-result-id":title.resultId});	
 							if(title.titleId=="3010"){
 								if(_val==undefined||_val=="暂无数据"){
@@ -741,7 +743,8 @@ function updataReport(projectInfoList){
 							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").show()
 						}else{
 							$(".new_color_black[data-title-id='"+title.titleId+"']").text("暂无数据").addClass("font-normal");;
-							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide()
+							$(".new_color_black[data-title-id='"+title.titleId+"']").next("span").hide();
+							$("input[data-title-id='"+title.titleId+"']").val("");	
 							if(title.titleId=="3010"){
 								$("#invest_chart").html("");
 						}}
