@@ -120,12 +120,7 @@
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
                         		 <span class="m_r30">
 									<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
-									    <option>cow</option>
-									    <option>bull</option>
-									    <option>ASD</option>
-									    <option selected>Bla</option>
-									    <option>Ble</option>
-									    </optgroup>
+									    
 									  </select>
 								</span>
                         	</div>
@@ -310,11 +305,21 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 */
 	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
 	/**
-	 * 获取融资状态下拉项
+	 * 获取项目承揽人下拉项
 	 * @version 2016-06-21
 	 */
-	//createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
-	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
+	 sendGetRequest(platformUrl.queryAllTitleValues+'NO1?reportType=4', null,CallBackE);
+function CallBackE(data){
+	var data_list = data.entity.childList[0].childList;
+	var dataresu =data_list.filter(o=>o.id=="1118")[0].valueList;
+	var res="";
+	$.each(dataresu,function(){
+		res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
+	})
+	$("#selectRadio").html(res)
+	}
+	 
+	 sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 	function CallBackB(data){
 	    var _dom=$("select[name='financeStatus']");
 	        _dom.html("");
@@ -380,8 +385,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		});
 		//项目来源切换
 		 $('.selectpicker').selectpicker({
-			 dropupAuto:false,
-                'selectedText': 'cat'
+			 	dropupAuto:false,
+                'selectedText': '请选择'
             });
 		projectSelect();
 		
@@ -458,7 +463,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 					// }
 					formData = JSON.stringify(getUpdateData());
 				}else{
-					//alert(data.id);
+					alert(data.id);
 					saveBaseInfo("add_form",data.id,data.id);
 					
 				}
