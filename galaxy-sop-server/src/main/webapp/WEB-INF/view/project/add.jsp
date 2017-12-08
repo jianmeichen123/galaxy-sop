@@ -433,7 +433,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			return;
 		} 
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
-		console.log(data1)
+		console.log()
 		if(formData != data1){
 			
 			//获取TOKEN 用于验证表单提交
@@ -442,7 +442,9 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				return TOKEN;
 			});
 		} 
+		console.log(data1);
 			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
+				console.log(data);
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
@@ -456,8 +458,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 					// }
 					formData = JSON.stringify(getUpdateData());
 				}else{
-					debugger;
-					alert(data.id);
+					//alert(data.id);
 					saveBaseInfo("add_form",data.id,data.id);
 					
 				}
@@ -523,9 +524,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var projectType=$('input:radio[name="projectType"]:checked').val();
 		var projectName=$("#projectName").val().trim();
 		var createDate=$("#createDate").val().trim();
-		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");
-		 
-		
+		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
 		var formatData={
 					   "projectType":projectType,
 				       "projectName":projectName,
