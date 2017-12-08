@@ -993,7 +993,7 @@ function addRow(ele)
    /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
         var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
-        if(id_code=='DNO5_5' || id_code=='DNO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
+        if(id_code=='DNO5_5' || id_code=='DNO5_4' || id_code=='GNO5_4' || id_code=='GNO5_5'){   //显在竞争对手||潜在竞争对手表格特殊处理
     		addRowCompete(ele,id_code);
     	}else{
     		//总注资校验
@@ -1084,7 +1084,10 @@ function addRowCompete(ele,id_code){
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					if(entity){
+						$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					}
+					
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('添加显在竞争对手')
 					}else{
