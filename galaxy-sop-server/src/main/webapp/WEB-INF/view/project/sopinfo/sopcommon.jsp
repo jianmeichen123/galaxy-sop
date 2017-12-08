@@ -24,8 +24,12 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!-- 保存进度条 -->
 <link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <style type="text/css">
+body{
+		background-color:#E9EBF2;
+	}
 div.tip-yellowsimple {
     visibility: hidden;
     position: absolute;
@@ -123,11 +127,7 @@ position:absolute;
 							<span>本轮融资轮次：</span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)" placeholder='请选择'  value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
-									<ul class='base_select_ul finance_status_ul'> 
-										<li>企业服务</li> 
-										<li>数字娱乐</li> 
-										<li>互联网教育</li> 
-										<li>互联网医疗</li> 
+									<ul class='base_select_ul finance_status_ul'>  
 									</ul> 
 							</div> 
 						</td>
@@ -137,14 +137,71 @@ position:absolute;
 							<span>项目来源：</span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
-									<ul class='base_select_ul'> 
-										<li>企业服务</li> 
-										<li>数字娱乐</li> 
-										<li>互联网教育</li> 
-										<li>互联网医疗</li> 
+									<ul class='base_select_ul'>  
 									</ul> 
 							</div>
 							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+						</td>
+					</tr>
+					<tr class="trSouce projectSource6 ">
+						<td>
+							<span>FA推荐：</span>
+							<div> 
+								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+							</div>
+							
+						</td>
+					</tr>
+					<tr class="trSouce projectSource7">
+						<td>
+							<span>孵化器名称：</span>
+							<div> 
+								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+							</div>
+							
+						</td>
+					</tr>
+					<tr class="trSouce projectSource8">
+						<td>
+							<span>路演活动名称：</span>
+							<div> 
+								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+							</div>
+							
+						</td>
+					</tr>
+					<tr class="trSouce projectSource9">
+						<td>
+							<span>各创投数据库：</span>
+							<div> 
+								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+							</div>
+							
+						</td>
+					</tr>
+					<tr class="trSouce projectSource10">
+						<td>
+							<span>专业媒体报道 ：</span>
+							<div> 
+								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+							</div>
+							
+						</td>
+					</tr>
+					<tr class="trSouce projectSource11">
+						<td>
+							<span>项目承揽人：</span>
+							<div> 
+								<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
+									    <option>cow</option>
+									    <option>bull</option>
+									    <option>ASD</option>
+									    <option selected>Bla</option>
+									    <option>Ble</option>
+									    </optgroup>
+								  </select>
+							</div>
+							
 						</td>
 					</tr>
 				</table>
@@ -168,6 +225,7 @@ position:absolute;
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <script src="<%=path %>/js/projectDetail/tabInfoCommon.js" type="text/javascript"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js" type="text/javascript"></script>
 <script>
 /* var number_on;
 $(function(){
@@ -180,6 +238,10 @@ $(function(){
 		setCookie("number_on",number_on,24,'/');
 	}
 }); */
+ $('.selectpicker').selectpicker({
+			 dropupAuto:false,
+                'selectedText': 'cat'
+            });
 var isCreatedByUser = "${isCreatedByUser}";
 var isEditable = "${isEditable}";
 var pid='${pid}';
@@ -194,11 +256,12 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 //项目基本信息
 var projectInfoDetail = '';
 var projectInfoReport=[];
+var projectInfoSource='';
 sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 	if(data.result.status=='OK'){
-		console.log(data)
+		console.log(data);
 		projectInfoDetail=data.userData.pro;
-		projectInfoList=data.userData.report[0].childList;
+		projectInfoList=data.userData.report[0].childList; 
 	}
 })
 if(projectInfoDetail.projectName.length>24){

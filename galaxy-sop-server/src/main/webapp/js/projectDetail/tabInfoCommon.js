@@ -114,6 +114,9 @@ $(function(){
 				var target = $(this).closest('#dropdown').find('input');
 				target.removeClass('up')
 				var txt = $(this).text(); 
+				var code = $(this).attr("code"); 
+				$(".trSouce.projectSource").hide();
+				$(".trSouce."+code).show();
 				target.val(txt);
 				$("#dropdown ul").hide(); 
 				$(this).closest('#dropdown').find('input').attr('tochange',true);
@@ -136,7 +139,7 @@ $(function(){
 		    $("#finance_status_sel").attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 		    if(!childNum || childNum !=0 ){
 		    	$.each(entity.valueList,function(){ 
-		    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
+		    		_dom.append("<li value='"+this.id+"' code='"+this.code+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
 					
 				});
 		    }

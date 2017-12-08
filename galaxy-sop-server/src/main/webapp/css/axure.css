@@ -4129,3 +4129,9 @@ li .projectSource11 span.m_r30{
 	float:none;
 	display:inline-block;
 }
+.inputSouce{
+	
+}
+#updateProjectInfo tr.trSouce{
+	display:none;
+}
