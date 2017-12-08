@@ -16,15 +16,20 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/bootstrap//css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
-
+<style>
+	body{
+		background-color:#E9EBF2;
+	}
+</style>
 </head>
 
-<body>
+<body >
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 		<div class="new_tit_b add-project-title">
@@ -43,7 +48,7 @@
                     <div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">基本信息</span>
                     </div>  
-                    <ul class="basic_ul addpro-basi-ul">
+                    <ul class="basic_ul addpro-basi-ul clearfix">
                     	<li>
                         	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
@@ -80,41 +85,41 @@
 			                    </select>
                             </span>
                         </li>
-                        <li>
+                        <li class="projectSourceli">
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入FA名称" id="proS6" name="proS6"/>
+									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"  placeholder="请输入FA名称" id="proS6" name="proS6"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>孵化器名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
+									<input type="text" class="addpro-input" data-title-id="1123" data-type="1"  placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>路演活动名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入机构及路演名称" id="proS68" name="proS68"/>
+									<input type="text" class="addpro-input" data-title-id="1124" data-type="1"  placeholder="请输入机构及路演名称" id="proS68" name="proS68"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>各创投数据库 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
+									<input type="text" class="addpro-input" data-title-id="1125" data-type="1"  placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>专业媒体报道 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入媒体名称" id="proS10" name="proS10"/>
+									<input type="text" class="addpro-input" data-title-id="1126" data-type="1"  placeholder="请输入媒体名称" id="proS10" name="proS10"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource11">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
                         		 <span class="m_r30">
-									<select id="selectRadio" class="selectpicker" multiple data-live-search="true">
+									<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
 									    <option>cow</option>
 									    <option>bull</option>
 									    <option>ASD</option>
@@ -375,6 +380,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		});
 		//项目来源切换
 		 $('.selectpicker').selectpicker({
+			 dropupAuto:false,
                 'selectedText': 'cat'
             });
 		projectSelect();
@@ -427,7 +433,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			return;
 		} 
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
-		console.log()
+		console.log(data1)
 		if(formData != data1){
 			
 			//获取TOKEN 用于验证表单提交
@@ -450,6 +456,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 					// }
 					formData = JSON.stringify(getUpdateData());
 				}else{
+					debugger;
+					alert(data.id);
 					saveBaseInfo("add_form",data.id,data.id);
 					
 				}
@@ -469,7 +477,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var type = field.data('type');
 			var sele = field.get(0).tagName;
 			var _resultId = field.attr("data-result-id");
-			if(field.data('titleId')=="1120"&&!field.closest(".projectSource").is(":visible")&&sele!="SELECT"){
+			if(field.data('titleId')=="1118"){
 				
 				return;
 			}
@@ -487,8 +495,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				infoMode.value = field.val();
 			}else if(type==19){
 				infoMode.remark1 = field.val();
-			}else if(field.data('titleId')=="1120"&&field.closest(".projectSource").is(":visible")&&type==1){ 
-				
+			}else if(type==1){ 				
 				infoMode.value=field.val();
 			}	
 			if (infoMode != null) {
@@ -517,21 +524,13 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var projectName=$("#projectName").val().trim();
 		var createDate=$("#createDate").val().trim();
 		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");
-		var faFlag=$('select[name="faFlag"] option:selected').attr("value");
-		var faName="";
-		if(faFlag=='projectSource:1'){
-			faName=$("input[name='faName']").val();
-		}else{
-			faName="";
-		}
+		 
 		
 		var formatData={
 					   "projectType":projectType,
 				       "projectName":projectName,
 				       "createDate":createDate,
-				       "industryOwn":industryOwn,
-	  	               "faFlag":faFlag,
-	  	               "faName":faName
+				       "industryOwn":industryOwn
 		};
 		return formatData;
 	}
