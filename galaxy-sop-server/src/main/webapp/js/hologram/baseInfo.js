@@ -18,7 +18,7 @@ function resouceShow(mark){
 	var valruleformula=dts.attr('data-valruleformula');
 	$.each(dts,function(i,n){
 		var _id=$(n).attr('data-tid');
-		if(_id=1120){
+		if(_id=='1120'){
 			if(mark=='s'){
 				var valueId=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').attr('data-value');
 				resourceBranchShow(_id,valueId,'s');
@@ -26,7 +26,7 @@ function resouceShow(mark){
 			if(mark=='e'){
 				var val=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').find('select option:selected').val();
 				resourceBranchShow(_id,val,'e');
-				$('div').delegate(n, "change", function(event){
+				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
 					$('.resource_branch').hide();
 					var _val=$(this).find("option:selected").val();
 					if(_val){
@@ -50,8 +50,6 @@ function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的�
 	if(val){
 		var resource_branch=$('#NO1_1').find('.resource_branch');
 		var valruleformulaList=[];
-		var textOther=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').find('dd').text();
-		console.log(textOther);
 		$.each(resource_branch,function(i,o){
 			var valruleformula=$(o).find('dt').attr('data-valruleformula');
 			valruleformulaList.push(valruleformula.split(',')[1]);
@@ -59,13 +57,6 @@ function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的�
 				$('.resource_branch').hide();
 				if(mark=='e'){
 					$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').show();
-				}else{
-					var textResource=$('#NO1_1').find('dt[data-tid="'+_id+'"]').next('dd').text();
-					if(textOther!=""){
-						$('#NO1_1').find('dt[data-tid="'+_id+'"]').next('dd').text(textResource+'-'+textOther);
-					}else{
-						$('#NO1_1').find('dt[data-tid="'+_id+'"]').next('dd').text(textResource);
-					}
 				}
 			}
 		});
@@ -158,7 +149,6 @@ function toGetHtmlByMark(title,mark){
 	}
 	
 	var tilelist = title.childList;
-	
 	$.each(tilelist,function(i,o){
 		if(this.sign  && this.sign == 3){
 			html += "<div class=\"mb_24 clearfix sign_title\">" + this.name + "</div>";
@@ -170,13 +160,13 @@ function toGetHtmlByMark(title,mark){
 				}
 			});
 		}else{
-			html += switchTypeByMark(this,mark);
+			html += switchTypeByMark(title,this,mark);
 		}
 	});
 	return html;
 }
 //title_指每一个题
-function switchTypeByMark(title,mark){
+function switchTypeByMark(entity,title,mark){
 	var html = "";
 	switch (title.type) {
         case 1:  
@@ -219,7 +209,7 @@ function switchTypeByMark(title,mark){
         	html += type_13_html(title,mark);
             break;
         case 14:   
-        	html += type_14_html(title,mark);
+        	html += type_14_html(entity,title,mark);
             break;
         case 15:   
         	html += type_15_html(title,mark);
@@ -1043,14 +1033,33 @@ function type_13_html(title,mark){
 
 
 //14:单选
-function type_14_html(title,mark){
-	
+function type_14_html(entity,title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
 		if(results && results[0] && results[0].valueName){
-			hresult = "<dd data-value='"+results[0].valueId+"'>"+results[0].valueName+"</dd>";
+			if(title.id=='1120'){
+				var valRuleFormula='';
+				var contentDescribe1='';
+					$.each(entity.childList,function(i,n){
+						if(n.type==1){
+							valRuleFormula=n.valRuleFormula;
+							if(valRuleFormula && valRuleFormula.indexOf(results[0].valueId)>-1){
+								if(n.resultList){
+									contentDescribe1=n.resultList[0].contentDescribe1;
+								}
+							}
+						}
+					});
+					if(contentDescribe1 && contentDescribe1!=""){
+						hresult = "<dd data-value='"+results[0].valueId+"'>"+results[0].valueName+'-'+contentDescribe1+"</dd>";
+					}else{
+						hresult = "<dd data-value='"+results[0].valueId+"'>"+results[0].valueName+"</dd>";
+					}
+			}else{
+				hresult = "<dd>"+results[0].valueName+"</dd>";
+			}
 		}
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
