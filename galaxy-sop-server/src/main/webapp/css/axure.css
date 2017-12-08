@@ -4109,4 +4109,8 @@ select.addpro-input{width:278px;height:32px;}
 }
 .projectSource{
 	height:50px;
+	display:none;
+}
+.open>.dropdown-menu {
+    display: block;
 }

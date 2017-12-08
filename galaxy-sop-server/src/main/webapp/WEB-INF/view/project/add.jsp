@@ -16,9 +16,11 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap//css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 
 </head>
 
@@ -63,7 +65,7 @@
                         	
                             <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
                             <span class="m_r30">
-	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
+	                            <select name="proSource" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
 				                </select>
 								<!-- <input type="text" class="new_nputr addpro-input addpro-input-fh"  placeholder="请输入名称" id="" name=""/>
@@ -82,38 +84,45 @@
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入FA名称" id="faName" name="faName"/>
+									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入FA名称" id="proS6" name="proS6"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>孵化器名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入孵化器名称" id="faName" name="faName"/>
+									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>路演活动名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入机构及路演名称" id="faName" name="faName"/>
+									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入机构及路演名称" id="proS68" name="proS68"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>各创投数据库 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入创投机构名称" id="faName" name="faName"/>
+									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>专业媒体报道 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入媒体名称" id="faName" name="faName"/>
+									<input type="text" class="addpro-input" data-title-id="1120" data-type="1"  placeholder="请输入媒体名称" id="proS10" name="proS10"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource11">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input"  placeholder="请输入星河其他部门项目承揽人名称" id="faName" name="faName"/>
-								 </span>
+									<select id="selectRadio" class="selectpicker" multiple data-live-search="true">
+									    <option>cow</option>
+									    <option>bull</option>
+									    <option>ASD</option>
+									    <option selected>Bla</option>
+									    <option>Ble</option>
+									    </optgroup>
+									  </select>
+								</span>
                         	</div>
                         </li>
                     </ul>  
@@ -320,14 +329,14 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 * @version 2017-12-07
 	 */
 	function CallBackD(data){
-	    var _dom=$("select[name='faFlag']");
+	    var _dom=$("select[name='proSource']");
 	        _dom.html("");
 	        _dom.append('<option value="">请选择</option>');
 	    var childNum = _dom.find("option").length;
 	    var entity=data.entity.childList[1];
 	    if(!childNum || childNum !=0 ){
 	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    		_dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 			});
 	    }
 	}
@@ -365,22 +374,20 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			$("#projectTypeTip").css("display","none");
 		});
 		//项目来源切换
-		$("select[name='faFlag']").change(function(){
-			var text=$(this).find("option:checked").text();
-			if(text=="FA"){
-				$(this).siblings(".new_nputr").css('display','block');
-			}else{
-				$(this).siblings(".new_nputr").hide();
-				$('#faName-error').remove();
-				/* $(".tip-yellowsimple").each(function(){
-		            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
-		            	$(this).remove();
-		            }
-		        });  */
-			}
-		})
+		 $('.selectpicker').selectpicker({
+                'selectedText': 'cat'
+            });
+		projectSelect();
 		
 	});
+	function projectSelect(){
+		$("select[name='proSource']").change(function(){
+			$(".projectSource").hide();
+			var selCode=$(this).find("option:checked").attr("code");
+			$("."+selCode).show();
+			 
+		})
+	}
 	function calculationValuations(){
 		var projectShareRatio = $("#formatShareRatio").val();
 		var projectContribution = $("#formatContribution").val();
@@ -422,6 +429,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
 		console.log()
 		if(formData != data1){
+			
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
 				TOKEN=data.TOKEN;
@@ -451,7 +459,6 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	}
 	
 	function saveBaseInfo(dom,projectId,Id){
-		
 		var infoModeList = new Array();
 		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
 		var data = {
@@ -462,6 +469,10 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var type = field.data('type');
 			var sele = field.get(0).tagName;
 			var _resultId = field.attr("data-result-id");
+			if(field.data('titleId')=="1120"&&!field.closest(".projectSource").is(":visible")&&sele!="SELECT"){
+				
+				return;
+			}
 			if(_resultId==undefined){
 				_resultId=null;
 			}
@@ -476,12 +487,17 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 				infoMode.value = field.val();
 			}else if(type==19){
 				infoMode.remark1 = field.val();
+			}else if(field.data('titleId')=="1120"&&field.closest(".projectSource").is(":visible")&&type==1){ 
+				
+				infoMode.value=field.val();
 			}	
 			if (infoMode != null) {
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
 		});
+		console.log(data);
+		
 		sendPostRequestByJsonObjNoCache(
 				platformUrl.saveOrUpdateInfo , 
 				data,
