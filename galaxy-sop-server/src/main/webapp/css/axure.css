@@ -4135,3 +4135,9 @@ li .projectSource11 span.m_r30{
 #updateProjectInfo tr.trSouce{
 	display:none;
 }
+.h_edit .bootstrap-select .selectpicker{width:259px;height:36px;background:#fff;border:1px solid #dadada;border-radius:0px;margin:-10px 10px 10px 0}
+.h_edit .bootstrap-select .dropdown-menu{margin-top:-11px;background:#fff; height:350px !important;}
+.h_edit .bootstrap-select .dropdown-menu .dropdown-menu li{height:30px;line-height:30px;}
+.h_edit .bootstrap-select.btn-group .dropdown-menu.inner{max-height:300px;}
+.h_edit .bootstrap-select.btn-group .dropdown-menu li > a{display:inline-block;width:100%;padding:0 10px;box-sizing:border-box;font-size:14px;}
+.h_edit .bootstrap-select.btn-group .dropdown-menu li  a .glyphicon{display:inine-block;width:6px;height:6px;background:red;}

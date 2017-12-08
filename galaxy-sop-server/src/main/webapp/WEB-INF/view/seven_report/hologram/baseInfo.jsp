@@ -13,6 +13,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var path = '<%=path%>';
 </script>
@@ -93,7 +94,10 @@ var path = '<%=path%>';
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
 <script src="<%=path %>/js/hologram/auto_save.js" type="text/javascript"></script>	
-<script src="<%=path %>/js/hologram/auto_show.js" type="text/javascript"></script>		
+<script src="<%=path %>/js/hologram/auto_show.js" type="text/javascript"></script>	
+<!-- 下拉多选框 -->	
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 createMenus(5);
@@ -152,6 +156,7 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				resouceShow('e');   //项目来源特殊处理
+				$('.selectpicker').selectpicker();    //项目承揽人多选
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息

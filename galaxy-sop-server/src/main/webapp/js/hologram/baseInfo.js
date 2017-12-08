@@ -346,12 +346,22 @@ function one_select_edit(title,inputtype,type){
 		});
     	if(title.resultList!=undefined){
     		if(title.isMust=='0'){
-    			eresult = 
-            		"<dd>" +
-        		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
-        					li +
-        				"</select>" +
-        	    	"</dd>";
+    			if(title.type=='23'){
+    				eresult = 
+                		"<dd>" +
+            		    	"<select class=\"selectpicker\" multiple data-live-search=\"true\" resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            					li +
+            				"</select>" +
+            	    	"</dd>";
+    			}else{
+    				eresult = 
+                		"<dd>" +
+            		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            					li +
+            				"</select>" +
+            	    	"</dd>";
+    			}
+    			
     		}else{
     			eresult = 
             		"<dd>" +
@@ -363,12 +373,23 @@ function one_select_edit(title,inputtype,type){
     		
     	}else{
     		if(title.isMust=='0'){
-    			eresult = 
-            		"<dd>" +
-        		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
-        					li +
-        				"</select>" +
-        	    	"</dd>";
+    			if(title.type=='23'){
+    				console.log(title)
+    				eresult = 
+                		"<dd>" +
+            		    	"<select class=\"selectpicker\" multiple data-live-search=\"true\" data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            					li +
+            				"</select>" +
+            	    	"</dd>";
+    			}else{
+    				eresult = 
+                		"<dd>" +
+            		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            					li +
+            				"</select>" +
+            	    	"</dd>";
+    			}
+    			
     		}else{
     			eresult = 
             		"<dd>" +
@@ -1191,7 +1212,7 @@ function type_23_html(title,mark){
 		}
 		return  "<div class=\"mb_24 division_dd resource_branch clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'select','select');
+		var eresult = one_select_edit(title,'select','23');
 		var res = "" ;		
 		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
 			res="<input type=\"text\" class=\"txt input_21 disabled\"  disabled=\"disabled\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
