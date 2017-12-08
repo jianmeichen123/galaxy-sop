@@ -12,10 +12,7 @@
 				industryOwn:{
 					required:true
 				},
-				faFlag :{
-					required:true
-				},
-				faName :{
+				proS6 :{
 					required:true,
 					faname : true
 				}
@@ -30,11 +27,8 @@
 				industryOwn:{
 					required:'*行业归属不能为空'
 				},
-				faFlag:{
-					required:'*项目来源不能为空'
-				},
-				faName :{
-					required:'*不能以空格开头，字符最大长度为20',
+				proS6:{
+					required:'*不能以空格开头，字符最大长度为20'
 				}
 				
 			},

@@ -17,7 +17,7 @@
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+<%-- <link href="<%=path %>/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/> --%>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
@@ -89,7 +89,7 @@
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"  placeholder="请输入FA名称" id="proS6" name="proS6"/>
+									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"   maxlength="20"  placeholder="请输入FA名称（必填）" id="proS6" name="proS6"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
@@ -101,7 +101,7 @@
                         	<div class="projectSource projectSource8">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>路演活动名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1124" data-type="1"  placeholder="请输入机构及路演名称" id="proS68" name="proS68"/>
+									<input type="text" class="addpro-input" data-title-id="1124" data-type="1"  placeholder="请输入机构及路演名称" id="proS8" name="proS8"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
@@ -483,10 +483,7 @@ function CallBackE(data){
 			var type = field.data('type');
 			var sele = field.get(0).tagName;
 			var _resultId = field.attr("data-result-id");
-			if(field.data('titleId')=="1118"){
-				
-				return;
-			}
+			
 			if(_resultId==undefined){
 				_resultId=null;
 			}
@@ -496,6 +493,10 @@ function CallBackE(data){
 				resultId:_resultId,
 				type : type
 			};
+			if(field.data('titleId')=="1118"){
+				//获取多选带备注数据
+				console.log($("#selectRadio").val());				
+			}
 			if(type==14 )
 			{
 				infoMode.value = field.val();
@@ -518,7 +519,7 @@ function CallBackE(data){
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
-						forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+						//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 					} else {
 						
 					}
