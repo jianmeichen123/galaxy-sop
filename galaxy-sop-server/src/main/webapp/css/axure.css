@@ -4107,3 +4107,6 @@ select.addpro-input{width:278px;height:32px;}
 .finicial_current table .percent::after,.invest_current table .percent::after{
 	content:"%";
 }
+.projectSource{
+	height:50px;
+}

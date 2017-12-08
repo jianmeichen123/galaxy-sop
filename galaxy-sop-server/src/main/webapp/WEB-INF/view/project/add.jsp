@@ -60,23 +60,61 @@
 							</span>
                         </li>
                         <li>
-                        	<span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
+                        	
+                            <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
+                            <span class="m_r30">
+	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
+				                    	<option value="">请选择</option>
+				                </select>
+								<!-- <input type="text" class="new_nputr addpro-input addpro-input-fh"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-ly"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-ct"  placeholder="请输入名称" id="" name=""/>
+								<input type="text" class="new_nputr addpro-input addpro-input-mtbd"  placeholder="请输入名称" id="" name=""/> -->
+                       		</span>                       		
+                       		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow '>
 			                    	<option value="">请选择</option>
 			                    </select>
                             </span>
-                            <span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
-                            <span class="m_r30">
-	                            <select name="faFlag" class='new_nputr addpro-input addpro-input-arrow '>
-				                    	<option value="">请选择</option>
-				                </select>
-								<input type="text" class="new_nputr addpro-input addpro-input-fa"  placeholder="请输入FA名称" id="faName" name="faName"/>
-								<!-- <input type="text" class="new_nputr addpro-input addpro-input-fh"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-ly"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-ct"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-mtbd"  placeholder="请输入名称" id="" name=""/> -->
-                       		</span>
+                        </li>
+                        <li>
+                        	<div class="projectSource projectSource6">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入FA名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
+                        	<div class="projectSource projectSource7">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>孵化器名称 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入孵化器名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
+                        	<div class="projectSource projectSource8">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>路演活动名称 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入机构及路演名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
+                        	<div class="projectSource projectSource9">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>各创投数据库 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入创投机构名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
+                        	<div class="projectSource projectSource10">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>专业媒体报道 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入媒体名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
+                        	<div class="projectSource projectSource11">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input"  placeholder="请输入星河其他部门项目承揽人名称" id="faName" name="faName"/>
+								 </span>
+                        	</div>
                         </li>
                     </ul>  
                 </div>
