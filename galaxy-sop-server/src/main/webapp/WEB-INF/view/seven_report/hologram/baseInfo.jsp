@@ -124,6 +124,7 @@ $(function() {
 		$(".h#"+id_code).css("background","#fff");
 		dtWidth();
 		btn_disable(0);
+		resouceShow('s');  //项目来源特殊处理
 		event.stopPropagation();
 		//base_half
 		if(_this.is(':visible')){
@@ -150,6 +151,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				resouceShow('e');   //项目来源特殊处理
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息
@@ -462,6 +464,7 @@ $(function() {
 				$(".h_look .ismust").hide();
 				$(".h#"+id_code).css("background","#fff");
 				 $('html,body').scrollTop(sTop);  //定位
+				 resouceShow('s');  //项目来源特殊处理
 			} else {
 				layer.msg('保存失败');
 			}
