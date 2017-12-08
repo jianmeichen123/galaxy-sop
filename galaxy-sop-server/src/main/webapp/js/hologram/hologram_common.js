@@ -1258,6 +1258,13 @@ function validate(){
 						"data-msg-verify_40":"<font color=red>*</font>不能超过40字且不能全为空格"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="20"){
+				var validate={
+						"data-rule-verify_20":"true",
+						"name":i,
+						"data-msg-verify_20":"<font color=red>*</font>不能超过20字且不能全为空格"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="12"){
 				var validate={
 						"data-rule-verify_12":"true",
@@ -1412,6 +1419,10 @@ jQuery.validator.addMethod("verify_200", function(value, element) {
 	var verify_200 = /^(?!.{201}|^\s*$)/;
 	return this.optional(element) || (verify_200.test(value));
 }, "不能超过200字");
+jQuery.validator.addMethod("verify_20", function(value, element) {  
+	var verify_20 = /^(?!.{21}|^\s*$)/;
+	return this.optional(element) || (verify_20.test(value));
+}, "不能超过20字");
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
 	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;

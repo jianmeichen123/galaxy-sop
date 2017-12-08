@@ -29,6 +29,10 @@ function resouceShow(mark){
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
 					$('.resource_branch').hide();
 					var _val=$(this).find("option:selected").val();
+					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
+					if(isMust=='0'){
+						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input[data-must="'+isMust+'"]').attr({'required':true,'data-msg-required':'<font color=red>*</font>不能超过20字且不能全为空格'});
+					}
 					if(_val){
 						var resource_branch=$('#NO1_1').find('.resource_branch');
 						$.each(resource_branch,function(i,o){
@@ -57,6 +61,10 @@ function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的�
 				$('.resource_branch').hide();
 				if(mark=='e'){
 					$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').show();
+					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input').attr('data-must');
+					if(isMust=='0'){
+						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input[data-must="'+isMust+'"]').attr({'required':true,'data-msg-required':'<font color=red>*</font>不能超过20字且不能全为空格'});
+					}
 				}
 			}
 		});
@@ -258,7 +266,7 @@ function type_1_html(title,mark){
 			
 		}
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-				"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
+				"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-valrulemark='"+title.valRuleMark+"'/>";
 		if(title.valRuleFormula.indexOf('1120')>-1){
 			return  "<div class=\"mb_24 resource_branch clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
 		}else{
@@ -337,19 +345,39 @@ function one_select_edit(title,inputtype,type){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";}
 		});
     	if(title.resultList!=undefined){
-    		eresult = 
-        		"<dd>" +
-    		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
-    					li +
-    				"</select>" +
-    	    	"</dd>";
+    		if(title.isMust=='0'){
+    			eresult = 
+            		"<dd>" +
+        		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+        					li +
+        				"</select>" +
+        	    	"</dd>";
+    		}else{
+    			eresult = 
+            		"<dd>" +
+        		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
+        					li +
+        				"</select>" +
+        	    	"</dd>";
+    		}
+    		
     	}else{
-    		eresult = 
-        		"<dd>" +
-    		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
-    					li +
-    				"</select>" +
-    	    	"</dd>";
+    		if(title.isMust=='0'){
+    			eresult = 
+            		"<dd>" +
+        		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+        					li +
+        				"</select>" +
+        	    	"</dd>";
+    		}else{
+    			eresult = 
+            		"<dd>" +
+        		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>" +
+        					li +
+        				"</select>" +
+        	    	"</dd>";
+    		}
+    		
     	}
     	
 	}
