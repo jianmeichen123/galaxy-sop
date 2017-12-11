@@ -507,26 +507,31 @@ function CallBackE(data){
 				resultId:_resultId,
 				type : type
 			};
-			if(field.data('titleId')=="1118"){
-				//获取多选带备注数据
-				var values = $("#selectRadio").val().toString();
-				values = values.split(',');
+			if(field.data('titleId')=="1118"&&type=="13"){
+				//获取多选带备注数据 
+				var values =[] ; 
+				var doms = $(".selectcheck li.selected span");
+				$.each(doms,function(){ 
+					values.push($(this).attr('data-value'))
+				})  
 				var remark = $('.selectcheck .addpro-input').val();
-				var other = $('.selectcheck .addpro-input').attr("ovalue"); 
-				debugger;
-				$.each(values,function(){
-					var that = $(this);
-					infoMode.value=that.toString(); 
-					if(other==that&&remark!=''&&remark!=null){ 
-						debugger
-						infoMode.remark1=remark
+				var other = $('.selectcheck .addpro-input').attr("ovalue");  
+				for(i=0;i<values.length;i++){ 
+					var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:'true',
+							resultId:_resultId,
+							type : type
+						};
+					var that = values[i]; 
+					infoMode.value=that;  
+					if(other==that&&remark!=''&&remark!=null){  
+						infoMode.remark1=remark;
 					}
-					infoModeList.push(infoMode);
-					data.infoModeList = infoModeList;
-				})
-				console.log(data);
-			}
-			if(type==14 )
+					infoModeList.push(infoMode); 
+				}  
+
+			}else if(type==14 )
 			{
 				infoMode.value = field.val();
 			}else if(type==19){
@@ -534,7 +539,7 @@ function CallBackE(data){
 			}else if(type==1){ 				
 				infoMode.value=field.val();
 			}
-			if (infoMode != null) {
+			if (infoMode != null&&type!="13") {
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
@@ -548,7 +553,7 @@ function CallBackE(data){
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
-						//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+						forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 					} else {
 						
 					}
