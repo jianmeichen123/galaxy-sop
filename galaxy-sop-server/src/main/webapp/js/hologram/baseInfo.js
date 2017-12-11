@@ -1203,7 +1203,7 @@ function type_21_html(title,mark){
 	
 }
 function type_23_html(title,mark){
-	var htitle = "<dt class='select_21' data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"' data-valRuleFormula='"+title.valRuleFormula+"' data-valRuleMark='"+title.valRuleMark+"'>"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"' data-valRuleFormula='"+title.valRuleFormula+"' data-valRuleMark='"+title.valRuleMark+"'>"+title.name+"</dt>";
 	var has_beizhu = false;
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";

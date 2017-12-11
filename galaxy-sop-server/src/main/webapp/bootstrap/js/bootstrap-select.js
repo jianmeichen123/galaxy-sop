@@ -129,7 +129,6 @@
 
             this.$element.find('option').each(function() {
                 var $this = $(this);
-
                 //Get the class and text for the option
                 var optionClass = $this.attr('class') || '';
                 var inline = $this.attr('style') || '';
@@ -142,7 +141,7 @@
 
                 if (!$this.data('content')) {
                     //Prepend any icon and append any subtext to the main text.
-                    text = icon + '<span class="text">' + text + subtext + '</span>';
+                    text = icon + '<span class="text" data-value="'+$this.attr('value')+'" data-title-id="'+$this.attr('value')+'">' + text + subtext + '</span>';
                 }
 
                 if (that.options.hideDisabled && ($this.is(':disabled') || $this.parent().is(':disabled'))) {
