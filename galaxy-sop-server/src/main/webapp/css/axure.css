@@ -4151,11 +4151,12 @@ li .projectSource11 span.m_r30{
 .selectcheck .selected .text{background: url(../img/seven_report/myboxB.png) no-repeat; background-position: 245px 3px;}
 .selectcheck .addpro-input{display:inline-block;vertical-align: top;margin-left:10px; display:none;}
 .select_input{display:none}
-
-
-
-
-
+.edit_basic_table .selectcheck{width:405px;position: absolute;left: 116px;top: 0px;}
+.edit_basic_table .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width: 100%;}
+.edit_basic_table .selectcheck .text{width:395px!important; padding:0 0 0 10px; text-align-last:auto!important;text-align:auto!important;}
+.edit_basic_table .selectcheck .btn-default, .selectcheck .open > .dropdown-toggle.btn-default{width:100%;}
+.edit_basic_table .selectcheck .filter-option.pull-left{width:80%!important;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;text-align-last:auto!important;text-align:auto!important;}
+.edit_basic_table .selectcheck .text,.edit_basic_table .selectcheck .selected .text{background-position-x:375px; text-align-last:auto!important;text-align:auto!important;}
 
 
 

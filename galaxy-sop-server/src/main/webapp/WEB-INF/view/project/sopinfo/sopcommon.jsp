@@ -191,14 +191,9 @@ position:absolute;
 					<tr class="trSouce projectSource11">
 						<td>
 							<span>项目承揽人：</span>
-							<div> 
+							<div class="selectcheck"> 
 								<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
-									    <option>cow</option>
-									    <option>bull</option>
-									    <option>ASD</option>
-									    <option selected>Bla</option>
-									    <option>Ble</option>
-									    </optgroup>
+
 								  </select>
 							</div>
 							
@@ -238,10 +233,6 @@ $(function(){
 		setCookie("number_on",number_on,24,'/');
 	}
 }); */
- $('.selectpicker').selectpicker({
-			 dropupAuto:false,
-                'selectedText': 'cat'
-            });
 var isCreatedByUser = "${isCreatedByUser}";
 var isEditable = "${isEditable}";
 var pid='${pid}';
