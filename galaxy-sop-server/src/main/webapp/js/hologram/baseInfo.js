@@ -21,7 +21,6 @@ function resouceShow(mark){
 		if(_id=='1120'){
 			if(mark=='s'){
 				var valueId=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').attr('data-value');
-				console.log(valueId)
 				resourceBranchShow(_id,valueId,'s');
 			}
 			if(mark=='e'){
@@ -385,7 +384,6 @@ function one_select_edit(title,inputtype,type){
     	}else{
     		if(title.isMust=='0'){
     			if(title.type=='23'){
-    				console.log(title)
     				eresult = 
                 		"<dd>" +
             		    	"<select class=\"selectpicker\" multiple data-live-search=\"true\" data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
@@ -1216,7 +1214,6 @@ function type_23_html(title,mark){
 		var results = title.resultList;
 		if(results){
 			var valueList=[];
-			console.log(results)
 			$.each(results,function(i,n){
 				var val=n.valueName
 				if(val=='其他'){
@@ -1225,7 +1222,9 @@ function type_23_html(title,mark){
 				valueList.push(val);
 			})
 		}
-		hresult = "<dd>"+valueList.join('、')+"</dd>";
+		if(valueList){
+			hresult = "<dd>"+valueList.join('、')+"</dd>";
+		}
 		return  "<div class=\"mb_24 division_dd resource_branch clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','23');

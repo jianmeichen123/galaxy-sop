@@ -272,7 +272,7 @@ $(function() {
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		//var fields_value1 = $("#b_" + id_code).find(".check_label");
 		var fields_value1 = $("#b_" + id_code).find(".active");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='6'],dt[data-type='13']");	
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='6'],dt[data-type='13'],dt[data-type='23']");	
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -433,10 +433,18 @@ $(function() {
 		$.each(dt_type_3, function() {
 			var _this = $(this);
 			var _tochange =_this.attr("tochange");
-			var active = _this.parent().find('dd .active');
-			if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
-				var tid = _this.data('titleId');
-				deletedResultTids.push(tid);
+			if(_this.data('type')=='23'){
+				var active = _this.parent().find('select option:selected');
+				if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+					var tid = _this.data('tid');
+					deletedResultTids.push(tid);
+				}
+			}else{
+				var active = _this.parent().find('dd .active');
+				if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+					var tid = _this.data('titleId');
+					deletedResultTids.push(tid);
+				}
 			}
 		});
 		data.deletedResultTids = deletedResultTids;
