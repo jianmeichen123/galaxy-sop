@@ -32,6 +32,8 @@ function resouceShow(mark){
 					$('.resource_branch').find('input').val('');
 					$('.resource_branch').find('dt').attr('tochange',true);
 					$('.resource_branch').hide();
+					//清空项目承揽人
+					$('.resource_branch').find('.selectpicker option').removeAttr('selected');
 					var _val=$(this).find("option:selected").val();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){

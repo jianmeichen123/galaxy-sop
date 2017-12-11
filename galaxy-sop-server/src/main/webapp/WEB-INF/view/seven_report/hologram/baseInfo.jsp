@@ -308,6 +308,8 @@ $(function() {
 							var remark=true
 						}
 						var _resultId = field.data("resultId");
+					}else if(field.parent().get(0).name=='1120'){
+						var _resultId = field.parent().attr("resultid");
 					}
 					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
 						_resultId=null
@@ -339,7 +341,6 @@ $(function() {
 				
 				infoModeList.push(infoMode);
 			}
-			
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
@@ -507,7 +508,7 @@ $(function() {
 			} else {
 				layer.msg('保存失败');
 			}
-		}); 
+		});  
 		//base_half
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
