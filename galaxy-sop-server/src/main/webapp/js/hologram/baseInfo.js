@@ -27,6 +27,9 @@ function resouceShow(mark){
 				var val=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').find('select option:selected').val();
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
+					//清空关联题目input值
+					$('.resource_branch').find('input').val('');
+					$('.resource_branch').find('dt').attr('tochange',true);
 					$('.resource_branch').hide();
 					var _val=$(this).find("option:selected").val();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
