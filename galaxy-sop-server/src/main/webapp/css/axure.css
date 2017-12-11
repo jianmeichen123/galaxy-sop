@@ -4135,7 +4135,7 @@ li .projectSource11 span.m_r30{
 #updateProjectInfo tr.trSouce{
 	display:none;
 }
-.h_edit .bootstrap-select .selectpicker{width:259px;height:36px;background:#fff;border:1px solid #dadada;border-radius:0px;margin:-10px 10px 10px 0}
+.h_edit .bootstrap-select .selectpicker{width:259px;height:36px;background:#fff;border:1px solid #dadada;border-radius:0px;margin:-10px 10px 0px 0}
 .h_edit .bootstrap-select .dropdown-menu{margin-top:-11px;background:#fff; height:350px !important;}
 .h_edit .bootstrap-select .dropdown-menu .dropdown-menu li{height:30px;line-height:30px;}
 .h_edit .bootstrap-select.btn-group .dropdown-menu.inner{max-height:300px;}
@@ -4157,7 +4157,7 @@ li .projectSource11 span.m_r30{
 .edit_basic_table .selectcheck .btn-default, .selectcheck .open > .dropdown-toggle.btn-default{width:100%;}
 .edit_basic_table .selectcheck .filter-option.pull-left{width:80%!important;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;text-align-last:auto!important;text-align:auto!important;}
 .edit_basic_table .selectcheck .text,.edit_basic_table .selectcheck .selected .text{background-position-x:375px; text-align-last:auto!important;text-align:auto!important;}
-
+.resource_branch  .bootstrap-select.btn-group .btn .caret{border-top:6px dashed !important;border-bottom:none !important;border-right:3px solid transparent;border-left:3px solid transparent}
 
 
 
