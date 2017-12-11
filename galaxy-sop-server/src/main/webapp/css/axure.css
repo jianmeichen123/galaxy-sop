@@ -4032,7 +4032,7 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul .letter-space,.addpro-finacing-ul .letter-space{letter-spacing:7px;width:auto;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
 .addpro-basi-ul .letter-space.rzlc_span{letter-spacing:0.7px;}
 .addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:MicrosoftYaHei;font-size:12px;color:#333333;}
-.addpro-basi-ul select{border:1px solid #d8d8d8;border-radius:2px;font-family:MicrosoftYaHei;font-size:14px;color:#333333;padding-left:10px !important}
+.addpro-basi-ul select,.selectcheck button.btn-default,.selectcheck  .open > .dropdown-toggle.btn-default{border:1px solid #d8d8d8;border-radius:2px;font-family:MicrosoftYaHei;font-size:14px;color:#333333; padding-left:10px !important}
 .addpro-basic-span{width:auto;padding-left:10px;}
 .addpro-basi-ul{margin-left:9px;min-width:1088px;padding-top:10px;overflow:visible;}
 .addpro-basi-ul li{margin:0;}
@@ -4141,3 +4141,32 @@ li .projectSource11 span.m_r30{
 .h_edit .bootstrap-select.btn-group .dropdown-menu.inner{max-height:300px;}
 .h_edit .bootstrap-select.btn-group .dropdown-menu li > a{display:inline-block;width:100%;padding:0 10px;box-sizing:border-box;font-size:14px;}
 .h_edit .bootstrap-select.btn-group .dropdown-menu li  a .glyphicon{display:inine-block;width:6px;height:6px;background:red;}
+.selectcheck .btn-default,.selectcheck .open > .dropdown-toggle.btn-default{background: #fff;width: 278px;height: 32px; background: url(../img/base_info/down.png) no-repeat right 7px center;}
+.selectcheck .btn-default .caret{display:none;}
+.selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
+.open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
+.selectcheck .text{width:100%;color:#333; padding-left:10px; border-bottom:1px solid #f0f0f0;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
+.selectcheck .text:hover{color:#333;}
+.selectcheck .open>.dropdown-menu{background:#fff;right:0;border-radius:1px;}
+.selectcheck .selected .text{background: url(../img/seven_report/myboxB.png) no-repeat; background-position: 245px 3px;}
+.selectcheck .addpro-input{display:inline-block;vertical-align: top;margin-left:10px; display:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

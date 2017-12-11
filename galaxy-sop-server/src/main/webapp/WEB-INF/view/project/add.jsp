@@ -118,10 +118,11 @@
                         	</div>
                         	<div class="projectSource projectSource11">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
-                        		 <span class="m_r30">
+                        		 <span class="m_r30 selectcheck" >
 									<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
 									    
 									  </select>
+									  <input type="text" class="addpro-input"/>
 								</span>
                         	</div>
                         </li>
@@ -350,7 +351,20 @@ function CallBackE(data){
 			});
 	    }
 	}
-
+	$("#selectRadio").change(function(){
+		var otherValue = $(this).find("option").last().val();
+		var value = $(this).val();
+		if(value==null){
+			$(".selectcheck .addpro-input").hide();
+			return;
+		}
+		var filt = value.filter(o=>o==otherValue);
+		if(filt.length>0){
+			$(".selectcheck .addpro-input").show();
+		}else{
+			$(".selectcheck .addpro-input").hide();
+		}
+	})
 
 	/**
 	 * 获取项目来源下拉项
@@ -428,6 +442,7 @@ function CallBackE(data){
 })  
 //添加项目页面保存按钮
 	function add(){
+	debugger;
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
 			return false;	

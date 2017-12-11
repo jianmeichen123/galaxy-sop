@@ -16,6 +16,8 @@ $(function(){
 		
 	})
 	 $("[data-on='data-open-basic']").click(function (){
+		 
+		 		debugger;
         	    isDelete=[];
 				if($(this).hasClass('limits_gray'))
 				{
@@ -115,7 +117,7 @@ $(function(){
 				target.removeClass('up')
 				var txt = $(this).text(); 
 				var code = $(this).attr("code"); 
-				$(".trSouce.projectSource").hide();
+				$(".trSouce").hide();
 				$(".trSouce."+code).show();
 				target.val(txt);
 				$("#dropdown ul").hide(); 
