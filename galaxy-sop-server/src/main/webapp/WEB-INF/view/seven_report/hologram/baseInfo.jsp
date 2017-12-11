@@ -338,7 +338,6 @@ $(function() {
 				}
 				
 				infoModeList.push(infoMode);
-				console.log(infoModeList)
 			}
 			
 		});
@@ -386,7 +385,6 @@ $(function() {
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(typ=="21" || typ=="23"){
-				console.log('4444')
 				return;
 			}
 			if(_resultId==undefined||_resultId=="undefined"){
