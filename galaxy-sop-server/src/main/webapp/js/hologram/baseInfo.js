@@ -27,6 +27,7 @@ function resouceShow(mark){
 				var val=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').find('select option:selected').val();
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
+					$(this).closest('.resource_branch').find('dt').attr('tochange',true);
 					//清空关联题目input值
 					$('.resource_branch').find('input').val('');
 					$('.resource_branch').find('dt').attr('tochange',true);
@@ -340,7 +341,9 @@ function one_select_edit(title,inputtype,type){
 		}else{
 			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
 		}*/
-		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
+		if(title.type!='23'){
+			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
+		}
     	$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
@@ -1218,7 +1221,7 @@ function type_23_html(title,mark){
 		var eresult = one_select_edit(title,'select','23');
 		var res = "" ;		
 		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
-			res="<input type=\"text\" class=\"txt input_21 disabled\"  disabled=\"disabled\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+			res="<input type=\"text\" class=\"txt input_21 \"  value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
 			var i_val= title.resultList[0].contentDescribe1;
 			res="<input type=\"text\" class=\"txt input_21\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
