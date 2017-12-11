@@ -304,7 +304,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					}//Type ： 3 4 5 6 12 13
 					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
 							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13 || 
-							atitle.getType().intValue() == 15 || atitle.getType().intValue() == 21 ){
+							atitle.getType().intValue() == 15 || atitle.getType().intValue() == 21|| atitle.getType().intValue() == 23 ){
 						findResultByNrecord(atitle, results);  //findResultByNcontact
 					}
 				}
