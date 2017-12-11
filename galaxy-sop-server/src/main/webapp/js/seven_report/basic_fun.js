@@ -466,16 +466,23 @@ function editRow(ele)
 	var txt= $(ele).text();
 	var valtr=row.find("td[data-field-name='field3']").text(); // 当前编辑的金额
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
-	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
+	var id_code_new='';
+	if(id_code=='DNO5_5' || id_code=='GNO5_5'){
+		id_code_new='NO5_5';
+	}
+	if(id_code=='DNO5_4' || id_code=='GNO5_4'){
+		id_code_new='NO5_4';
+	}
+	if(id_code_new=='NO5_5' || id_code_new=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		if(txt=='查看'){
 			var flag=false;
 			var formObj=$(ele).closest('table');
 			if(formObj.is('.editable')){
 				flag=true;
 			}
-			showRowCompete(ele,id_code,row,code,flag);
+			showRowCompete(ele,id_code,id_code_new,row,code,flag);
 		}else{
-			editRowCompete(ele,id_code,row,code);
+			editRowCompete(ele,id_code,id_code_new,row,code);
 		}
 	}else{
 		if(code == 'grant-part' || code == 'grant-actual'){
@@ -798,15 +805,16 @@ function editRow(ele)
 	}
 }
 //竞争对手编辑
-function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr
+function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr
 	var formBox=$(ele).closest('form');
-	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code_new+'_1', null,
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
+					console.log(entity)
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					if(id_code=='NO5_4'){
+					if(id_code_new=='NO5_4'){
 						$('.h_title_conpetition').text('编辑显在竞争对手')
 					}else{
 						$('.h_title_conpetition').text('编辑潜在竞争对手')
@@ -815,7 +823,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 					var _val=$('table.editable').attr('data-code');
 					$(ele).closest('.radius').find('input[name="subCode"]').val(_val);
 					//编辑回显
-					$.each($("#b_"+id_code+"_1").find("input, select, textarea"),function(){
+					$.each($("#b_"+id_code+"").siblings('form').find("input, select, textarea"),function(){
 						var ele = $(this);
 						var name = ele.attr('name');
 						var type=ele.attr('type');
@@ -881,8 +889,8 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 		}) 
 }
 //查看竞争对手
-function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr,flag是否编辑状态下查看
-	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+function showRowCompete(ele,id_code,id_code_new,row,code,flag){  //ele指代this,id_code是模块code值,code是table的data-code,row是表格tr,flag是否编辑状态下查看
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code_new+'_1', null,
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
@@ -993,8 +1001,15 @@ function addRow(ele)
    /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
         var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
+        var id_code_new='';
         if(id_code=='DNO5_5' || id_code=='DNO5_4' || id_code=='GNO5_4' || id_code=='GNO5_5'){   //显在竞争对手||潜在竞争对手表格特殊处理
-    		addRowCompete(ele,id_code);
+        	 if(id_code=='DNO5_5' || id_code=='GNO5_5' ){   //拥有查询全息报告的接口
+             	id_code_new='NO5_5'
+             }
+             if(id_code=='DNO5_4' || id_code=='GNO5_4'){
+            	 id_code_new='NO5_4'
+             }
+    		addRowCompete(ele,id_code,id_code_new);
     	}else{
     		//总注资校验
     		if(code == 'grant-part' || code == 'grant-actual'){
@@ -1077,18 +1092,15 @@ function addRow(ele)
         
 }
 //竞争表格新增
-function addRowCompete(ele,id_code){
+function addRowCompete(ele,id_code,id_code_new){
 	var formBox=$(ele).closest('form');
-	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code+'_1', null,
+	sendGetRequest(Constants.sopEndpointURL +'/galaxy/tvalue/queryAllTitleForTable/'+id_code_new+'_1', null,
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					if(entity){
-						$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					}
-					
-					if(id_code=='NO5_4'){
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					if(id_code_new=='NO5_4'){
 						$('.h_title_conpetition').text('添加显在竞争对手')
 					}else{
 						$('.h_title_conpetition').text('添加潜在竞争对手')

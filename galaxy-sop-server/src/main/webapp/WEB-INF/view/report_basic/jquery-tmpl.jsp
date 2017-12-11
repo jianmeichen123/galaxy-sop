@@ -5,8 +5,8 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-	<form id="b_\${relateCode}" onsubmit="return false;">
-{{if code!='NO5_4_1' && code!='NO5_5_1'}}
+{{if code!='DNO5_4_1' && code!='DNO5_5_1' && code!='GNO5_4_1' && code!='GNO5_5_1' && code!='NO5_4_1' && code!='NO5_5_1'}}
+<form id="b_\${relateCode}" onsubmit="return false;">
 		<div class="h_edit section">
 			<div class="h_btnbox">
 				<span class="h_save_btn" attr-save="\${relateCode}">保存</span>
@@ -455,8 +455,10 @@
 			</div>
 
 		</div>
+</form>
 <!-竞争弹窗开始->
 {{else}}
+<form id="b_\${code}" onsubmit="return false;">
 <div class="h_edit section h_edit_competition">
 	<input name="index" type="hidden" value="">
 	<input name="id" type="hidden">
