@@ -196,6 +196,9 @@ position:absolute;
 								<select id="selectRadio" class="selectpicker" multiple data-type="13" data-live-search="true" data-title-id="1118">
 
 								  </select>
+								  
+								  <input type="text" class="trSouceOther addpro-input"/>
+							</div>
 							</div>
 							</div>
 							

@@ -105,6 +105,9 @@ $(function(){
 							if(that.contentChoose==spanValue){ 
 								valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
+								if(that2.text()=="其他"){
+									$(".addpro-input").show().val(that.contentDescribe1);
+								}
 								return false;
 							}
 						}) 
@@ -115,7 +118,7 @@ $(function(){
 					$('#selectRadio').selectpicker({
 					 	dropupAuto:false
 		            });
-					
+					selectRadio();
 					
 				}
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
@@ -189,8 +192,9 @@ $(function(){
 				$("#selectRadio").html(res);
 
 		    $('#selectRadio').selectpicker({
-		   			 dropupAuto:false
-		               });
+	   			 dropupAuto:false
+               });
+		    selectRadio();
 		}
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel").next('ul');
@@ -378,3 +382,20 @@ $(function(){
 			})
 		}
 })
+function selectRadio(){
+	$("#selectRadio").change(function(){
+		var otherValue = $(this).find("option").last().val();
+		var value = $(this).val();
+		if(value==null){
+			$(".selectcheck .addpro-input").hide();
+			return;
+		}
+		var filt = value.filter(o=>o==otherValue);
+		if(filt.length>0){
+			$(".selectcheck .addpro-input").show();
+			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
+		}else{
+			$(".selectcheck .addpro-input").hide();
+		}
+	})
+}
