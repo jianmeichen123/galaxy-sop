@@ -1246,6 +1246,7 @@ function countGrade(data){
 			num+=parseInt(_val);
 		}
 	}) 
+	;
 	//alert(num);
 	if(num>100){
 //		手动加红字
@@ -1262,5 +1263,7 @@ function countGrade(data){
 				}
 			})
 		}
+	}else{
+		tables.find("span.oError").hide();
 	}
 }
