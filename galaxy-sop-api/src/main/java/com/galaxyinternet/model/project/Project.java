@@ -103,7 +103,7 @@ public class Project extends PagableEntity {
      
     private List<FinanceHistory> financeList;
     
-    private InformationTitle listInfoTitle;
+    private List<InformationTitle> listInfoTitle;
     
     /**
      * 投后运营新增字段
@@ -808,13 +808,15 @@ public class Project extends PagableEntity {
 		this.faFlagStr = faFlagStr;
 	}
 
-	public InformationTitle getListInfoTitle() {
+	public List<InformationTitle> getListInfoTitle() {
 		return listInfoTitle;
 	}
 
-	public void setListInfoTitle(InformationTitle listInfoTitle) {
+	public void setListInfoTitle(List<InformationTitle> listInfoTitle) {
 		this.listInfoTitle = listInfoTitle;
 	}
+
+
 
 
 	

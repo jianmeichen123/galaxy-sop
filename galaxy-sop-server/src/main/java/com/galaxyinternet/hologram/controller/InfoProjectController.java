@@ -464,10 +464,17 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 					project.setFaFlagStr(project.getFaFlag());
 				}
 			}
-			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, Long.parseLong("7033"), projectId);
+			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, Long.parseLong("7001"), projectId);
+			List<InformationTitle> listNew=new ArrayList<InformationTitle>();
 			if(null!=list&&list.size()>0){
-				project.setListInfoTitle(list.get(0));
+				for(int i=0;i<list.size();i++){
+					InformationTitle titile=list.get(i);
+					if(titile.getCode().equals("FNO1_10")||titile.getCode().equals("FNO1_11")){
+						listNew.add(titile);
+					}
+				}
 			}
+			project.setListInfoTitle(listNew);
 			InformationResult ir = new InformationResult();
 			ir.setProjectId(projectId.toString());
 			ir.setReportType(reportType.toString());
