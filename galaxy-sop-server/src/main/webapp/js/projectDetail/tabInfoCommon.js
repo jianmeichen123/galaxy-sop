@@ -15,9 +15,7 @@ $(function(){
 		$('.radio_cont').removeClass('radio_checked');
 		
 	})
-	 $("[data-on='data-open-basic']").click(function (){
-		 
-		 		debugger;
+	 $("[data-on='data-open-basic']").click(function (){ 
         	    isDelete=[];
 				if($(this).hasClass('limits_gray'))
 				{
@@ -49,6 +47,7 @@ $(function(){
 				$(window).resize(function(){
 					popMiddle()
 				});
+				
 				//错误提示
 				$('#finance_status_sel').closest('tr').css('height','auto');
 				$('.finance_status_ul').css('margin-top','0px');
@@ -80,6 +79,7 @@ $(function(){
 			    	 * 查询项目来源
 			    	 * @version 2017-09-18
 			    	 */
+			    	
 //			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 //			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
@@ -94,6 +94,8 @@ $(function(){
 			
 			})
 			function CallBackB(data){
+
+	    	debugger;
 		    var _dom=$("#finance_status_sel").next('ul');
 		        _dom.html("");
 		        //_dom.append('<option value="">--请选择--</option>');
@@ -136,8 +138,8 @@ $(function(){
 		        //_dom.append('<option value="">--请选择--</option>');
 		    var childNum = _dom.find("option").length;
 		    var valueId=$("#financeStatusDs").attr("value");
-		    var resultId=$("#financeStatusDs").attr("data-result-id");
-		    var entity=data.entity.childList[1];
+		    var resultId=$("#financeStatusDs").attr("data-result-id"); 
+		    var entity=data.entity.childList.filter(o=>o.id=="7032")[0];
 		    $("#finance_status_sel").attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 		    if(!childNum || childNum !=0 ){
 		    	$.each(entity.valueList,function(){ 
@@ -145,6 +147,18 @@ $(function(){
 					
 				});
 		    }
+		  //项目承揽人渲染器
+		    var dataresu =data.entity.childList.filter(o=>o.id=="7033")[0];
+		    var res=""
+		    $.each(dataresu.valueList,function(){	
+		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
+		    } );
+		    console.log(res);
+				$("#selectRadio").html(res);
+
+		    $('#selectRadio').selectpicker({
+		   			 dropupAuto:false
+		               });
 		}
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel").next('ul');
@@ -235,7 +249,7 @@ $(function(){
 						$('.bj_hui_on_common').hide();
 						$("body").css('overflow-y','auto');
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
-							projectInfoDetail=data.userData.pro;
+							projectInfoDetail=data.userData.pro; 
 							$("#project_name_t").text(projectInfoDetail.projectName);
 							$("#project_name_t").attr("title",projectInfoDetail.projectName);
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);

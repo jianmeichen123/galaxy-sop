@@ -21,6 +21,7 @@ function resouceShow(mark){
 		if(_id=='1120'){
 			if(mark=='s'){
 				var valueId=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').attr('data-value');
+				console.log(valueId)
 				resourceBranchShow(_id,valueId,'s');
 			}
 			if(mark=='e'){
@@ -68,6 +69,10 @@ function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的�
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){
 						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input[data-must="'+isMust+'"]').attr({'required':true,'data-msg-required':'<font color=red>*</font>不能超过20字且不能全为空格'});
+					}
+				}else{
+					if(val=='2262'){
+						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').show();
 					}
 				}
 			}
@@ -346,7 +351,7 @@ function one_select_edit(title,inputtype,type){
 		}
     	$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
+				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\">"  + this.name + "</option>";
 			}else{
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";}
 		});
@@ -408,6 +413,7 @@ function one_select_edit(title,inputtype,type){
     	}
     	
 	}
+	
 	
 	return eresult;
 }
@@ -1208,23 +1214,38 @@ function type_23_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
-		if(results && results[0] && results[0].valueName){
-			if(results[0].valueName=="其他"){
-				hresult = "<dd>"+results[0].contentDescribe1+"</dd>";
-			}else{
-				hresult = "<dd>"+results[0].valueName+"</dd>";
-			}
-			
+		if(results){
+			var valueList=[];
+			console.log(results)
+			$.each(results,function(i,n){
+				var val=n.valueName
+				if(val=='其他'){
+					val=n.contentDescribe1;
+				}
+				valueList.push(val);
+			})
 		}
+		hresult = "<dd>"+valueList.join('、')+"</dd>";
 		return  "<div class=\"mb_24 division_dd resource_branch clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','23');
-		var res = "" ;		
-		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
-			res="<input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
-		}else{
-			var i_val= title.resultList[0].contentDescribe1;
-			res="<input type=\"text\" class=\"txt input_21 select_input\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
+		var res = "" ;	
+		if(title.resultList!=undefined){
+			var valList=[];
+			var other='';
+			var resultId='';
+			$.each(title.resultList,function(i,n){
+				if(n.valueName=='其他'){
+					other=n.contentDescribe1
+					resultId=n.id;
+				};
+				valList.push(n.valueName);
+				if(JSON.stringify(valList).indexOf('其他')>-1){
+					res="<input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+				}else{
+					res="<input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+				}
+			})
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24 resource_branch clearfix\">" + htitle + eresult + "</div>";
