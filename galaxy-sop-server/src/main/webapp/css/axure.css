@@ -2514,7 +2514,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_compile_ul{overflow:hidden;}
 .team_compile_ul li span{color:#999;}
 .team_compile_ul li span.error{color:#ff0000;}
-span.error,label.error{color:#ff0000 !important;}
+span.error,label.error,span.error_span{color:#ff0000 !important;}
 .team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden; height: 33px;}
 .team_compile_ul li.wid_li{width:100%;}
 .team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
