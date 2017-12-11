@@ -465,16 +465,21 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 				}
 			}
 			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, Long.parseLong("7001"), projectId);
-			List<InformationTitle> listNew=new ArrayList<InformationTitle>();
 			if(null!=list&&list.size()>0){
 				for(int i=0;i<list.size();i++){
 					InformationTitle titile=list.get(i);
-					if(titile.getCode().equals("FNO1_10")||titile.getCode().equals("FNO1_11")){
-						listNew.add(titile);
+					if(titile.getCode().equals("FNO1_10")){
+						if(null!=titile.getResultList()&&titile.getResultList().size()>0){
+							String resultId=titile.getResultList().get(0).getId().toString();
+							project.setResultId(resultId);
+						}
+					}
+					if(titile.getCode().equals("FNO1_11")){
+						project.setListInfoTitle(titile);;
 					}
 				}
 			}
-			project.setListInfoTitle(listNew);
+			
 			InformationResult ir = new InformationResult();
 			ir.setProjectId(projectId.toString());
 			ir.setReportType(reportType.toString());

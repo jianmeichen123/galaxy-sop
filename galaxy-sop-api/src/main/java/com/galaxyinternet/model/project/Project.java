@@ -103,7 +103,7 @@ public class Project extends PagableEntity {
      
     private List<FinanceHistory> financeList;
     
-    private List<InformationTitle> listInfoTitle;
+    private InformationTitle listInfoTitle;
     
     /**
      * 投后运营新增字段
@@ -137,6 +137,8 @@ public class Project extends PagableEntity {
    private List<Long> isDelete;
    
    private Long updateUid;
+   
+   private String resultId;
 	
     public Long getId() {
         return id;
@@ -808,15 +810,25 @@ public class Project extends PagableEntity {
 		this.faFlagStr = faFlagStr;
 	}
 
-	public List<InformationTitle> getListInfoTitle() {
+
+
+	public InformationTitle getListInfoTitle() {
 		return listInfoTitle;
 	}
 
-	public void setListInfoTitle(List<InformationTitle> listInfoTitle) {
+	public void setListInfoTitle(InformationTitle listInfoTitle) {
 		this.listInfoTitle = listInfoTitle;
 	}
 
+	public String getResultId() {
+		return resultId;
+	}
 
+	public void setResultId(String resultId) {
+		this.resultId = resultId;
+	}
+
+     
 
 
 	
