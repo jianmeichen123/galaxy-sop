@@ -812,7 +812,6 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity)
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					if(id_code_new=='NO5_4'){
 						$('.h_title_conpetition').text('编辑显在竞争对手')
@@ -866,7 +865,7 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					$("#b_"+id_code+"_1").find("input[name='index']").val(row.index());
+					$("#b_"+id_code+"").siblings('form').find("input[name='index']").val(row.index());
 					//保存
 					$('div').delegate(".save-competeInfo-btn","click",function(event){
 						var form=$(this).closest('form')
