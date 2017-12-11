@@ -141,7 +141,7 @@
 
                 if (!$this.data('content')) {
                     //Prepend any icon and append any subtext to the main text.
-                    text = icon + '<span class="text" data-value="'+$this.attr('value')+'" data-title-id="'+$this.attr('value')+'">' + text + subtext + '</span>';
+                    text = icon + '<span class="text" data-value="'+$this.attr('value')+'" data-title-id="'+$this.attr('data-title-id')+'">' + text + subtext + '</span>';
                 }
 
                 if (that.options.hideDisabled && ($this.is(':disabled') || $this.parent().is(':disabled'))) {

@@ -1221,10 +1221,10 @@ function type_23_html(title,mark){
 		var eresult = one_select_edit(title,'select','23');
 		var res = "" ;		
 		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
-			res="<input type=\"text\" class=\"txt input_21 \"  value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+			res="<input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
 			var i_val= title.resultList[0].contentDescribe1;
-			res="<input type=\"text\" class=\"txt input_21\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
+			res="<input type=\"text\" class=\"txt input_21 select_input\" placeholder='"+title.placeholder+"' value='"+i_val+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24 resource_branch clearfix\">" + htitle + eresult + "</div>";
