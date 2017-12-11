@@ -90,7 +90,12 @@ $(function(){
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
 					$(".trSouce."+className).show();
 					$(".trSouce."+className).find("input").val(projectInfoDetail.faName ? projectInfoDetail.faName : '');
-				}
+				} 
+//				sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code,null,resultId);
+//				function resultId(data){
+//					debugger;
+//					
+//				}
 				//项目承揽人 
 				var clPerson=projectInfoDetail.listInfoTitle; 
 				if(projectInfoDetail.faFlag="2262"&&clPerson.resultList){

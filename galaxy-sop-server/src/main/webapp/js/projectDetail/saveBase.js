@@ -41,11 +41,11 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var other = $('.selectcheck .addpro-input').attr("ovalue");  
 				for(i=0;i<values.length;i++){ 
 					var infoMode = {
-							titleId	: field.data('titleId'),
-							tochange:'true',
-							resultId:_resultId,
-							type : type
-						};
+						titleId	: field.data('titleId'),
+						tochange:true,
+						resultId:_resultId,
+						type : type
+					};
 					var that = values[i]; 
 					infoMode.value=that;  
 					if(other==that&&remark!=''&&remark!=null){  
@@ -62,7 +62,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 		}else if(type==19 ){
 			infoMode.remark1 = field.val();
 		}	
-		if (infoMode != null) {
+		if (infoMode != null&&type!="13") {
 	        infoModeList.push(infoMode);
 	    }
 		data.infoModeList = infoModeList;
