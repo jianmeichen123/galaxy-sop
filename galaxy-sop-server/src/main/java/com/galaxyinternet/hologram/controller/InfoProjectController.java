@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -89,6 +91,8 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	@Autowired
 	private DictService dictService;
 	
+	@Autowired
+	com.galaxyinternet.framework.cache.Cache cache;
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
@@ -444,18 +448,31 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 				return data;
 			}
 			
-			InformationResult ir = new InformationResult();
-			ir.setProjectId(projectId.toString());
-			ir.setReportType(reportType.toString());
+			//项目来源
+			if(project.getFaFlag() != null)
+			{
+				if(NumberUtils.isNumber(project.getFaFlag()))
+				{
+					Object dictVal = cache.hget(SopConstant.TITLE_DICT_KEY_PREFIX+project.getFaFlag(), "name");
+					if(dictVal != null)
+					{
+						project.setFaFlagStr((String)dictVal);
+					}
+				}
+				else
+				{
+					project.setFaFlagStr(project.getFaFlag());
+				}
+			}
 			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, Long.parseLong("7033"), projectId);
 			if(null!=list&&list.size()>0){
 				project.setListInfoTitle(list.get(0));
 			}
 			//全息报告信息
-			List<Node> childs= informationResultService.selectResults(ir);
-			List<Node> child = NodeUtil.bulid(childs);
+			//<Node> childs= informationResultService.selectResults(ir);
+			///List<Node> child = NodeUtil.bulid(childs);
 				proInfo.put("pro", project);
-				proInfo.put("report", child);
+				//proInfo.put("report", child);
 				data.setUserData(proInfo);
 			
 		} catch (Exception e)
