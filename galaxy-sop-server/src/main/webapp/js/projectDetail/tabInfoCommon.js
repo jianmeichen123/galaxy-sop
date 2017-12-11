@@ -66,13 +66,7 @@ $(function(){
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
 				$("#faNameEdit").val(projectInfoDetail.faName);
 				//投资形式合投，领头编辑页面投资列表处理
-				$("input[name='projectSource']").val(projectInfoDetail.faFlag )	;
-				if(projectInfoDetail.faFlag){
-					$(".trSouce").hide();
-					var val = projectInfoDetail.faFlag;
-					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
-					$(".trSouce."+code).show();
-				}
+				
 				 p=projectInfoDetail.industryOwn;
 			    fs=projectInfoDetail.financeStatus;
 			    var sectionName = $(this).data('name');
@@ -89,6 +83,13 @@ $(function(){
 //			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 //			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
+			    $("input[name='projectSource']").val(projectInfoDetail.faFlag )	;
+				if(projectInfoDetail.faFlag){
+					$(".trSouce").hide();					
+					var val = projectInfoDetail.faFlag;
+					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
+					$(".trSouce."+className).show();
+				}
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
 					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
 					$("#faNameEdit").css("display","block");
@@ -100,8 +101,6 @@ $(function(){
 			
 			})
 			function CallBackB(data){
-
-	    	debugger;
 		    var _dom=$("#finance_status_sel").next('ul');
 		        _dom.html("");
 		        //_dom.append('<option value="">--请选择--</option>');
