@@ -137,7 +137,7 @@ position:absolute;
 							<span>项目来源：</span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
-									<ul class='base_select_ul'>  
+									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div>
 							<input type="text" value="" class="basic_mes_input  input_FA" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>

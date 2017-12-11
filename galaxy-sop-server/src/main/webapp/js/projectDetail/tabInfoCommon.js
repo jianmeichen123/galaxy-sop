@@ -66,7 +66,13 @@ $(function(){
 				$("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr('data-flag',projectInfoDetail.faFlag);
 				$("#faNameEdit").val(projectInfoDetail.faName);
 				//投资形式合投，领头编辑页面投资列表处理
-				
+				$("input[name='projectSource']").val(projectInfoDetail.faFlag )	;
+				if(projectInfoDetail.faFlag){
+					$(".trSouce").hide();
+					var val = projectInfoDetail.faFlag;
+					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
+					$(".trSouce."+code).show();
+				}
 				 p=projectInfoDetail.industryOwn;
 			    fs=projectInfoDetail.financeStatus;
 			    var sectionName = $(this).data('name');
@@ -152,8 +158,7 @@ $(function(){
 		    var res=""
 		    $.each(dataresu.valueList,function(){	
 		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
-		    } );
-		    console.log(res);
+		    } ); 
 				$("#selectRadio").html(res);
 
 		    $('#selectRadio').selectpicker({
