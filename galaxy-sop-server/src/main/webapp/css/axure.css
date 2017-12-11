@@ -4136,11 +4136,12 @@ li .projectSource11 span.m_r30{
 	display:none;
 }
 .h_edit .bootstrap-select .selectpicker{width:259px;height:36px;background:#fff;border:1px solid #dadada;border-radius:0px;margin:-10px 10px 0px 0}
-.h_edit .bootstrap-select .dropdown-menu{margin-top:-11px;background:#fff; height:350px !important;}
+.h_edit .bootstrap-select .dropdown-menu{margin-top:-1px;background:#fff; height:350px !important;border-radius:0;}
+.h_edit .bootstrap-select.btn-group .dropdown-menu{min-width:258px;padding:0;}
 .h_edit .bootstrap-select .dropdown-menu .dropdown-menu li{height:30px;line-height:30px;}
 .h_edit .bootstrap-select.btn-group .dropdown-menu.inner{max-height:300px;}
 .h_edit .bootstrap-select.btn-group .dropdown-menu li > a{display:inline-block;width:100%;padding:0 10px;box-sizing:border-box;font-size:14px;}
-.h_edit .bootstrap-select.btn-group .dropdown-menu li  a .glyphicon{display:inine-block;width:6px;height:6px;background:red;}
+.h_edit .bootstrap-select.btn-group .dropdown-menu li  a .glyphicon::before{display:inine-block;content:'√';font-size:12px;font-family:Microsoft YaHei;font-weight:bold;}
 .selectcheck .btn-default,.selectcheck .open > .dropdown-toggle.btn-default{background: #fff;width: 278px;height: 32px; background: url(../img/base_info/down.png) no-repeat right 7px center;}
 .selectcheck .btn-default .caret{display:none;}
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
