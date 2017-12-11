@@ -371,7 +371,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 						{{else type=="22"}}
