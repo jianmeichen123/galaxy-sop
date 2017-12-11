@@ -78,7 +78,7 @@
 .bootstrap-select.btn-group .btn .filter-option {
     overflow: hidden;
     position: absolute;
-    left: 12px;
+    left: 5px;
     right: 25px;
     text-align: left;
 }
