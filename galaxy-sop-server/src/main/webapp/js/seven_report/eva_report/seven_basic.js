@@ -638,15 +638,14 @@ function right(obj,type){
 			table.empty();
 			table.append(resString); 
 		}else{
-			if(val_checkbox.length==1){
-
-				resString.find(".score-div").hide();
-			}else{
-
-				resString.find(".score-div").show();
-			}
-			var resString = table.find("tr:first-child").clone();
-			table.empty();
+				var resString = table.find("tr:first-child").clone(); 
+				resString.find(".result-weight").show();
+				if(val_checkbox.length==1){
+					resString.find(".score-div").hide();
+				}else{
+					resString.find(".score-div").show();					
+				}
+				table.empty();
 				resString.find(".score-div").prev().removeAttr("disabled").removeClass("disabled");
 				resString.find(".score-div input").removeAttr("disabled").removeClass("disabled");
 			var iNum = 0;
