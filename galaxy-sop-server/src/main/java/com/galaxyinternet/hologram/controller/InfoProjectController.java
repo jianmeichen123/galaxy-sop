@@ -447,6 +447,10 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			InformationResult ir = new InformationResult();
 			ir.setProjectId(projectId.toString());
 			ir.setReportType(reportType.toString());
+			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, Long.parseLong("7033"), projectId);
+			if(null!=list&&list.size()>0){
+				project.setListInfoTitle(list.get(0));
+			}
 			//全息报告信息
 			List<Node> childs= informationResultService.selectResults(ir);
 			List<Node> child = NodeUtil.bulid(childs);

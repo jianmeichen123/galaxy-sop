@@ -7,6 +7,7 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.NumberUtils;
+import com.galaxyinternet.model.hologram.InformationTitle;
 
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -101,6 +102,8 @@ public class Project extends PagableEntity {
     
      
     private List<FinanceHistory> financeList;
+    
+    private InformationTitle listInfoTitle;
     
     /**
      * 投后运营新增字段
@@ -804,4 +807,15 @@ public class Project extends PagableEntity {
 	{
 		this.faFlagStr = faFlagStr;
 	}
+
+	public InformationTitle getListInfoTitle() {
+		return listInfoTitle;
+	}
+
+	public void setListInfoTitle(InformationTitle listInfoTitle) {
+		this.listInfoTitle = listInfoTitle;
+	}
+
+
+	
 }
