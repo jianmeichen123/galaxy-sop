@@ -1,5 +1,6 @@
 package com.galaxyinternet.hologram.service;
 
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
@@ -75,7 +76,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	 * 1、清空缓存
 	 * 2、写入缓存
 	*/
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event)
 	{
@@ -750,6 +750,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 				object.add(infom);
 				cache.set(infom.getTitleId()+"_info", object);
 			}
+			cache.hset(SopConstant.TITLE_DICT_KEY_PREFIX+infom.getId(), "name", infom.getName());
 		}
 	}
 	

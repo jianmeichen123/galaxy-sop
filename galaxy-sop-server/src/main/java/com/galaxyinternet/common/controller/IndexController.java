@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.galaxyinternet.bo.IndexConfigBo;
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.sopIndex.IndexConfig;
@@ -34,6 +34,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.IndexConfigService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.template.controller.SopTemplateController;
 
@@ -55,6 +56,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	private SopTemplateController templateController;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private InformationDictionaryService infoDictService;
 	
 	private String serverUrl;
 	
@@ -213,6 +216,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 		}else{
 			request.setAttribute("backSign", "false");
 		}
+		InformationDictionary query = new InformationDictionary();
+		query.setTitleId(1120L);
+		List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
+		request.setAttribute("projectSourceList", projectSourceList);
 		return "project/list";
 	}
 	

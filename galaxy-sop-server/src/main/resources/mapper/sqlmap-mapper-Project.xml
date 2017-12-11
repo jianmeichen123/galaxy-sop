@@ -60,11 +60,35 @@
     project_valuations,industry_own, final_valuations, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,
+    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,
 	(SELECT r.content_choose
 	FROM information_title t
 	INNER JOIN information_result r ON t.id = r.title_id 
-	WHERE r.project_id = sop_project.id AND t.code = 'NO1_1_7') AS finance_status
+	WHERE r.project_id = sop_project.id AND t.code = 'NO1_1_7') AS finance_status,
+	(
+	SELECT 
+		r.content_choose 
+	FROM information_result r 
+	WHERE r.project_id = sop_project.id AND r.title_id = 1120
+	) AS fa_flag,
+    (
+    SELECT 
+		(CASE r.content_choose 
+		WHEN 2252 THEN r1.content_describe1
+		WHEN 2257 THEN r2.content_describe1	
+		WHEN 2258 THEN r3.content_describe1
+		WHEN 2260 THEN r5.content_describe1	
+		WHEN 2261 THEN r6.content_describe1	
+		ELSE NULL
+		END) 
+	FROM information_result r
+	LEFT JOIN information_result r1 ON r1.project_id = r.project_id AND r1.title_id = 1121
+	LEFT JOIN information_result r2 ON r2.project_id = r.project_id AND r2.title_id = 1122
+	LEFT JOIN information_result r3 ON r3.project_id = r.project_id AND r3.title_id = 1123
+	LEFT JOIN information_result r5 ON r5.project_id = r.project_id AND r5.title_id = 1125
+	LEFT JOIN information_result r6 ON r6.project_id = r.project_id AND r6.title_id = 1126
+	WHERE r.project_id = sop_project.id AND r.title_id = 1120
+	) AS fa_name
   </sql>
     <sql id="Base_Where_Clause">
 		<where>
@@ -219,7 +243,11 @@
 					and idea_id = #{ideaId}
 				</if>
 				<if test="faFlag != null">
-					and fa_flag = #{faFlag}
+					AND EXISTS(
+					SELECT 1 
+					FROM information_result rst 
+					WHERE rst.title_id = 1120 AND rst.project_id = sop_project.id AND rst.content_choose = #{faFlag}
+					)
 				</if>
 				<if test="faName != null">
 					and fa_name = #{faName}

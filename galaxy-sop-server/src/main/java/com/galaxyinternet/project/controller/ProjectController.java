@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,6 +264,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
 					p.setProjectCareerline(d.getName());
 					break;
+				}
+			}
+			//项目来源
+			if(p.getFaFlag() != null)
+			{
+				if(NumberUtils.isNumber(p.getFaFlag()))
+				{
+					Object dictVal = cache.hget(SopConstant.TITLE_DICT_KEY_PREFIX+p.getFaFlag(), "name");
+					if(dictVal != null)
+					{
+						p.setFaFlagStr((String)dictVal);
+					}
+				}
+				else
+				{
+					p.setFaFlagStr(p.getFaFlag());
 				}
 			}
 		}

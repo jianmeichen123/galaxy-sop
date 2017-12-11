@@ -103,6 +103,9 @@
 		                <label><input type="radio" name="faFlag" value = "0"/>否</label> -->
 		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 	                    	<option value="">--请选择--</option>
+	                    	<c:forEach items="${projectSourceList }" var="item">
+	                    		<option value="${item.id }">${item.name }</option>
+	                    	</c:forEach>
 	                    </select>
 	            	</dd>
          		</dl> 
@@ -349,7 +352,7 @@
 	 * 查询项目来源
 	 * @version 2017-09-19
 	 */
-	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
+	 //createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
@@ -559,17 +562,16 @@
 	 */
 	function projectFaFormat(value,row,index){
 		var retStr = '-';
-		if(row.faFlag=='projectSource:1'){
-			if(row.faName && row.faName.length>4){
-				var faName=row.faName.substring(0,4);
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
-			}else{
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
-			}
-		}else{
-			retStr = "<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
+		if(!row.faFlag)
+		{
+			return '-';
 		}
-		return retStr;
+		if(row.faName)
+		{
+			return row.faFlagStr+'-'+row.faName;
+		}
+		return row.faFlagStr;
+		
 	}
 	/**
 	 * 项目进度格式化

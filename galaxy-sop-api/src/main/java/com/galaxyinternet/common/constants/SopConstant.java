@@ -83,6 +83,7 @@ public interface SopConstant {
 	public static final String BUSINESS_TYPE_ST = "ST"; 
 	
 	
+	public static final String TITLE_DICT_KEY_PREFIX = "title:dict:";
 	
 	
 }

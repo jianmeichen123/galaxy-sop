@@ -622,9 +622,6 @@ public class Project extends PagableEntity {
 
 	public void setFaFlag(String faFlag) {
 		this.faFlag = faFlag == null ? null: faFlag.trim();
-        if(faFlag != null){
-			this.faFlagStr = DictEnum.projectSource.getNameByCode(faFlag);
-		}
 	}
 
 	public String getFaName() {
@@ -798,13 +795,13 @@ public class Project extends PagableEntity {
 	public void setIsDelete(List<Long> isDelete) {
 		this.isDelete = isDelete;
 	}
-
+	
 	public String getFaFlagStr() {
 		return faFlagStr;
 	}
 
-    
-
-
-
+	public void setFaFlagStr(String faFlagStr)
+	{
+		this.faFlagStr = faFlagStr;
+	}
 }
