@@ -156,7 +156,20 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				resouceShow('e');   //项目来源特殊处理
-				$('.selectpicker').selectpicker();    //项目承揽人多选
+				//下拉多选添加resultId
+				$.each(entity.childList,function(i,n){
+					if(n.type=='23'){
+						if(n.resultList){
+							$.each(n.resultList,function(i,o){
+								if(o.id){
+									$('.selectpicker').find('option[value="'+o.valueId+'"]').attr('data-result-id',o.id)
+								}
+							})
+						}
+					}
+				})
+				//项目承揽人多选
+				$('.selectpicker').selectpicker();    
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息
@@ -294,7 +307,7 @@ $(function() {
 						if(inpu.is(':visible') && valu==last_id){
 							var remark=true
 						}
-						var _resultId = field.attr("resultId");
+						var _resultId = field.data("resultId");
 					}
 					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
 						_resultId=null

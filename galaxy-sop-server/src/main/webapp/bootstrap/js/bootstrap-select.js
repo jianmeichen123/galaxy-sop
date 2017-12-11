@@ -857,7 +857,7 @@
         dropupAuto: true,
         header: false,
         liveSearch: false,
-        multipleSeparator: ', ',
+        multipleSeparator: '、 ',
         iconBase: 'glyphicon',
         tickIcon: 'glyphicon-ok'
     };
