@@ -225,6 +225,10 @@ $(function() {
 				//23类型操作
 				$('.selectpicker').change(function(){
 					var valList=$(this).val();
+					var val=$(this).val();
+					if(val!='请选择'){
+						$(this).closest('.resource_branch').find('.error_span').addClass('select_input');   //隐藏bitianxian
+					}
 					var lastId=$(this).find('option:last').attr('value');
 					 if(JSON.stringify(valList).indexOf(lastId)>-1){
 						 $(this).closest('.resource_branch').find('input').show();
@@ -486,7 +490,13 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		if(!$("#c_"+id_code).validate().form())
+		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch').find('.filter-option').text();
+		if(txtOption=='请选择'){
+			$('dt[data-tid=\'1118\']').closest('.resource_branch').find('span.error_span').removeClass('select_input');
+		}else{
+			$('span.select_input').hide();
+		}
+		if(!$("#c_"+id_code).validate().form() || txtOption=='请选择')
 		{
 			return;
 		}

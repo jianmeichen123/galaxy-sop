@@ -1242,11 +1242,13 @@ function type_23_html(title,mark){
 				};
 				valList.push(n.valueName);
 				if(JSON.stringify(valList).indexOf('其他')>-1){
-					res="<input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 				}else{
-					res="<input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 				}
 			})
+		}else{
+			res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24 resource_branch clearfix\">" + htitle + eresult + "</div>";
