@@ -209,6 +209,16 @@ $(function() {
 						$(this).parent().next().attr("disabled","disabled").addClass("disabled");
 					}
 				})
+				//23类型操作
+				$('.selectpicker').change(function(){
+					var valList=$(this).val();
+					var lastId=$(this).find('option:last').attr('value');
+					 if(JSON.stringify(valList).indexOf(lastId)>-1){
+						 $(this).closest('.resource_branch').find('input').show();
+					} else{
+						$(this).closest('.resource_branch').find('input').hide();
+					}
+				})
 				btn_disable(1);
 				edit_bsaicfun("base");
 				/*基本信息 多级联动change特殊  */
@@ -249,7 +259,7 @@ $(function() {
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		//var fields_value1 = $("#b_" + id_code).find(".check_label");
 		var fields_value1 = $("#b_" + id_code).find(".active");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='6'],dt[data-type='13']");		
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='6'],dt[data-type='13']");	
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -275,18 +285,20 @@ $(function() {
 						}else{
 							valu=field.val();
 						}
+						var _resultId = field.parent().attr("resultId");
 					}else if(field.parent().get(0).name=='1118'){
 						valu=field.val();
-						var inpu = field.closest("dd").next();
+						var inpu=field.closest('.resource_branch').find('input');
 						var rvalue = inpu.val();
-						var disabled = inpu.attr("disabled");
-						if(disabled == "disabled"){  //其它未选中
-							
-						}else{
+						var last_id=field.closest('select').find('option:last').attr('value');
+						if(inpu.is(':visible') && valu==last_id){
 							var remark=true
 						}
+						var _resultId = field.attr("resultId");
 					}
-					var _resultId = field.parent().attr("resultId");
+					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
+						_resultId=null
+					}
 					infoMode = {
 							titleId : field.data('titleId'),
 							type : field.data('type'),
@@ -313,6 +325,7 @@ $(function() {
 				}
 				
 				infoModeList.push(infoMode);
+				console.log(infoModeList)
 			}
 			
 		});
@@ -359,7 +372,8 @@ $(function() {
 			var name = field.data('name');
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
-			if(typ=="21"){
+			if(typ=="21" || typ=="23"){
+				console.log('4444')
 				return;
 			}
 			if(_resultId==undefined||_resultId=="undefined"){
@@ -368,7 +382,7 @@ $(function() {
 			if(_tochange==undefined){
 				_tochange=false;
 			}
-			if(typ == '5' || typ == '8'){
+			if(typ == '5'){
 				field.val(field.val().replace(/ /g,"&nbsp;"));
 			}
 			var value = field.val().replace(/\n/g,'<br/>');
@@ -400,6 +414,7 @@ $(function() {
 			event.stopPropagation();
 			return;
 		}
+		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -473,7 +488,7 @@ $(function() {
 			} else {
 				layer.msg('保存失败');
 			}
-		});
+		}); 
 		//base_half
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
