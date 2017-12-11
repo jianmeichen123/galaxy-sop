@@ -468,11 +468,14 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			if(null!=list&&list.size()>0){
 				project.setListInfoTitle(list.get(0));
 			}
+			InformationResult ir = new InformationResult();
+			ir.setProjectId(projectId.toString());
+			ir.setReportType(reportType.toString());
 			//全息报告信息
-			//<Node> childs= informationResultService.selectResults(ir);
-			///List<Node> child = NodeUtil.bulid(childs);
+			List<Node> childs= informationResultService.selectResults(ir);
+			List<Node> child = NodeUtil.bulid(childs);
 				proInfo.put("pro", project);
-				//proInfo.put("report", child);
+				proInfo.put("report", child);
 				data.setUserData(proInfo);
 			
 		} catch (Exception e)
