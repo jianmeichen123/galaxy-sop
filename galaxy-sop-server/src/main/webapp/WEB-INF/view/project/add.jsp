@@ -119,10 +119,10 @@
                         	<div class="projectSource projectSource11">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
                         		 <span class="m_r30 selectcheck" >
-									<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
+									<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input"/>
+									  <input type="text" class="addpro-input"  />
 								</span>
                         	</div>
                         </li>
@@ -361,6 +361,7 @@ function CallBackE(data){
 		var filt = value.filter(o=>o==otherValue);
 		if(filt.length>0){
 			$(".selectcheck .addpro-input").show();
+			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
 		}else{
 			$(".selectcheck .addpro-input").hide();
 		}
@@ -442,7 +443,6 @@ function CallBackE(data){
 })  
 //添加项目页面保存按钮
 	function add(){
-	debugger;
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
 			return false;	
@@ -478,7 +478,6 @@ function CallBackE(data){
 					// }
 					formData = JSON.stringify(getUpdateData());
 				}else{
-					alert(data.id);
 					saveBaseInfo("add_form",data.id,data.id);
 					
 				}
@@ -510,7 +509,22 @@ function CallBackE(data){
 			};
 			if(field.data('titleId')=="1118"){
 				//获取多选带备注数据
-				console.log($("#selectRadio").val());				
+				var values = $("#selectRadio").val().toString();
+				values = values.split(',');
+				var remark = $('.selectcheck .addpro-input').val();
+				var other = $('.selectcheck .addpro-input').attr("ovalue"); 
+				debugger;
+				$.each(values,function(){
+					var that = $(this);
+					infoMode.value=that.toString(); 
+					if(other==that&&remark!=''&&remark!=null){ 
+						debugger
+						infoMode.remark1=remark
+					}
+					infoModeList.push(infoMode);
+					data.infoModeList = infoModeList;
+				})
+				console.log(data);
 			}
 			if(type==14 )
 			{
@@ -519,7 +533,7 @@ function CallBackE(data){
 				infoMode.remark1 = field.val();
 			}else if(type==1){ 				
 				infoMode.value=field.val();
-			}	
+			}
 			if (infoMode != null) {
 		        infoModeList.push(infoMode);
 		    }
