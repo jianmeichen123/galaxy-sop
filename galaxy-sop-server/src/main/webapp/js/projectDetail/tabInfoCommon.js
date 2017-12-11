@@ -83,12 +83,40 @@ $(function(){
 //			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 //			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
 		    	}
-			    $("input[name='projectSource']").val(projectInfoDetail.faFlag )	;
+			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr);
 				if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
 					$(".trSouce."+className).show();
+					$(".trSouce."+className).find("input").val(projectInfoDetail.faName ? projectInfoDetail.faName : '');
+				}
+				//项目承揽人 
+				var clPerson=projectInfoDetail.listInfoTitle; 
+				if(projectInfoDetail.faFlag="2262"&&clPerson.resultList){
+					var valueL="";
+					$.each(projectInfoDetail.listInfoTitle.resultList,function(){ 
+						var that=$(this)[0];
+						
+						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("selected",true); 
+						$.each($("ul.selectpicker li"),function(){ 
+							var that2=$(this);							
+							var spanValue = that2.find("span").attr("data-value");							
+							if(that.contentChoose==spanValue){ 
+								valueL+=that2.find("span").text()+"、";
+								that2.addClass("selected");
+								return false;
+							}
+						}) 
+					}) 
+					valueL=valueL.substring(0,valueL.length-1);
+					$("button.selectpicker ").attr("title",valueL);
+					$("button.selectpicker span").text(valueL)
+					$('#selectRadio').selectpicker({
+					 	dropupAuto:false
+		            });
+					
+					
 				}
 				if(typeof(projectInfoDetail.faFlag)!="underfined" && projectInfoDetail.faFlag=="projectSource:1"){
 					$("select[name='projectSource']").find("option[value='"+projectInfoDetail.faFlag+"']").prop("selected",true);
@@ -240,6 +268,7 @@ $(function(){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){
 						layer.msg(data2.result.message);
+						debugger;
 						saveBaseInfo("basicForm1");
 						if(data2.result.errorCode=='mccf'){   //项目名重复
 							//layer.msg(data2.result.message);
@@ -259,8 +288,8 @@ $(function(){
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
 							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 							$("#projectType").text(projectInfoDetail.type);
-							$("#faName").text(projectInfoDetail.faFlagStr);
-							if(projectInfoDetail.faFlag=="projectSource:1"){
+							$("#faName").text(projectInfoDetail.faFlagStr); 
+							if(projectInfoDetail.faName){
 								$("#faName").attr('data-original-title',projectInfoDetail.faName);
 								$("#faName[data-toggle='tooltip']").tooltip();//提示
 							}else{

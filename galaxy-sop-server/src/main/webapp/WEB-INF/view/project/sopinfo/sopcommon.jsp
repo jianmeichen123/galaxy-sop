@@ -136,7 +136,7 @@ position:absolute;
 						<td>
 							<span>项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text"  autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div>
@@ -147,7 +147,7 @@ position:absolute;
 						<td>
 							<span>FA推荐：</span>
 							<div> 
-								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 							</div>
 							
 						</td>
@@ -156,7 +156,7 @@ position:absolute;
 						<td>
 							<span>孵化器名称：</span>
 							<div> 
-								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+								<input type="text" value="" data-title-id="1123" data-type="1" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 							</div>
 							
 						</td>
@@ -165,7 +165,7 @@ position:absolute;
 						<td>
 							<span>路演活动名称：</span>
 							<div> 
-								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+								<input type="text" value="" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 							</div>
 							
 						</td>
@@ -174,7 +174,7 @@ position:absolute;
 						<td>
 							<span>各创投数据库：</span>
 							<div> 
-								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+								<input type="text" value="" data-title-id="1125" data-type="1" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 							</div>
 							
 						</td>
@@ -183,18 +183,20 @@ position:absolute;
 						<td>
 							<span>专业媒体报道 ：</span>
 							<div> 
-								<input type="text" value="" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+								<input type="text" value="" data-title-id="1126" data-type="1" class="basic_mes_input inputSouce" placeholder="请输入FA名称" name="faName" id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 							</div>
 							
 						</td>
 					</tr>
 					<tr class="trSouce projectSource11">
-						<td>
+						<td >
 							<span>项目承揽人：</span>
-							<div class="selectcheck"> 
-								<select id="selectRadio" class="selectpicker" multiple data-live-search="true" data-title-id="1118">
+							<div class="selectcheck">
+								
+								<select id="selectRadio" class="selectpicker" multiple data-type="13" data-live-search="true" data-title-id="1118">
 
 								  </select>
+							</div>
 							</div>
 							
 						</td>
