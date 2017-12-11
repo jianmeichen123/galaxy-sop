@@ -21,10 +21,16 @@ function resouceShow(mark){
 		if(_id=='1120'){
 			if(mark=='s'){
 				var valueId=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').attr('data-value');
+				if(valueId!='2257'){
+					$('#NO1_1').find('dt[data-type="23"]').closest('.resource_branch_01').show();
+				}else{
+					$('#NO1_1').find('dt[data-type="23"]').closest('.resource_branch_01').hide();
+				}
 				resourceBranchShow(_id,valueId,'s');
 			}
 			if(mark=='e'){
 				var val=$('#NO1_1').find('.mb_24 dt[data-tid="'+_id+'"]').next('dd').find('select option:selected').val();
+				$('.resource_branch_01').hide();
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
 					$(this).closest('.resource_branch').find('dt').attr('tochange',true);
@@ -33,14 +39,14 @@ function resouceShow(mark){
 					$('.resource_branch').find('dt').attr('tochange',true);
 					$('.resource_branch').hide();
 					//清空项目承揽人
-					$('.resource_branch').find('.selectpicker option').removeAttr('selected');
+					$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
 					var _val=$(this).find("option:selected").val();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){
 						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input[data-must="'+isMust+'"]').attr({'required':true,'data-msg-required':'<font color=red>*</font>不能超过20字且不能全为空格'});
 					}
 					if(_val){
-						var resource_branch=$('#NO1_1').find('.resource_branch');
+						var resource_branch=$('#NO1_1').find('.resource_branch,.resource_branch_01');
 						$.each(resource_branch,function(i,o){
 							var valruleformula=$(o).find('dt').attr('data-valruleformula');
 							if(valruleformula.indexOf(_val)>-1){
@@ -58,7 +64,7 @@ function resouceShow(mark){
 }
 function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的显示隐藏
 	if(val){
-		var resource_branch=$('#NO1_1').find('.resource_branch');
+		var resource_branch=$('#NO1_1').find('.resource_branch,.resource_branch_01');
 		var valruleformulaList=[];
 		$.each(resource_branch,function(i,o){
 			var valruleformula=$(o).find('dt').attr('data-valruleformula');
@@ -1227,7 +1233,7 @@ function type_23_html(title,mark){
 		if(valueList){
 			hresult = "<dd>"+valueList.join('、')+"</dd>";
 		}
-		return  "<div class=\"mb_24 division_dd resource_branch clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 division_dd resource_branch_01 clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','23');
 		var res = "" ;	
@@ -1251,7 +1257,7 @@ function type_23_html(title,mark){
 			res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 		}
 		eresult+=res;
-		return  "<div class=\"mb_24 resource_branch clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24 resource_branch_01 clearfix\">" + htitle + eresult + "</div>";
 	}
 	
 }
