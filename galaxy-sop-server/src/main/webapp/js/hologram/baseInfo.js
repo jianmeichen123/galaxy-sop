@@ -37,9 +37,16 @@ function resouceShow(mark){
 					//清空关联题目input值
 					$('.resource_branch').find('input').val('');
 					$('.resource_branch').find('dt').attr('tochange',true);
-					$('.resource_branch').hide();
+					$('.resource_branch,.resource_branch_01').hide();
 					//清空项目承揽人
-					$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
+					if($(this).val()=='2257'){
+						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
+						$('.resource_branch_01').find('dt').attr('tochange',true);
+					}else if($(this).val()!='2257'){
+						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
+						$('.resource_branch_01').find('.selectpicker option:last').attr('selected',true);
+						$('.resource_branch_01').find('dt').attr('tochange',true);
+					}					
 					var _val=$(this).find("option:selected").val();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){
@@ -73,13 +80,14 @@ function resourceBranchShow(_id,val,mark){  //控制项目来源关联题目的�
 				$('.resource_branch').hide();
 				if(mark=='e'){
 					$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').show();
+					$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch_01').show();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){
 						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').next('input[data-must="'+isMust+'"]').attr({'required':true,'data-msg-required':'<font color=red>*</font>不能超过20字且不能全为空格'});
 					}
 				}else{
 					if(val=='2262'){
-						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch').show();
+						$('#NO1_1').find('dt[data-valruleformula="'+_id+','+val+'"]').closest('.resource_branch_01').show();
 					}
 				}
 			}
