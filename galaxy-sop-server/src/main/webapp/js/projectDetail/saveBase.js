@@ -31,6 +31,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			type : type
 		};
 		if(field.data('titleId')=="1118"&&type=="13"){
+
 				//获取多选带备注数据 
 				var values =[] ; 
 				var doms = $(".selectcheck li.selected span");
@@ -40,10 +41,11 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var remark = $('.selectcheck .addpro-input').val();
 				var other = $('.selectcheck .addpro-input').attr("ovalue");  
 				for(i=0;i<values.length;i++){ 
+					var resultId13=
 					var infoMode = {
 						titleId	: field.data('titleId'),
 						tochange:true,
-						resultId:_resultId,
+						resultId:resultId13,
 						type : type
 					};
 					var that = values[i]; 
@@ -54,19 +56,26 @@ function saveBaseInfo(dom,val1,val2,val3){
 					infoModeList.push(infoMode); 
 				}  
 
-			}else if(type==1){ 				
+			}else if(field.hasClass("inputSouce")&&type==1){ 			
+				var infoMode = {
+						titleId	: field.data('titleId'),
+						tochange:true,
+						resultId:_resultId,
+						type : type
+					};	 
 				infoMode.value=field.val();
 			}else if(type==14 )
 		{
-			infoMode.value = field.attr('data-flag');
+						debugger;
+			infoMode.value = field.attr('m-val');
 		}else if(type==19 ){
 			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null&&type!="13") {
 	        infoModeList.push(infoMode);
-	    }
+	    } 
 		data.infoModeList = infoModeList;
-	});
+	}); 
 	sendPostRequestByJsonObjNoCache(
 			platformUrl.saveOrUpdateInfo , 
 			data,

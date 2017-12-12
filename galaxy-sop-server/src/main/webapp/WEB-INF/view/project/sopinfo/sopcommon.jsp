@@ -136,7 +136,7 @@ position:absolute;
 						<td>
 							<span>项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text"  autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" data-title-id="1120"  data-type="14" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div> 
@@ -192,7 +192,7 @@ position:absolute;
 							<span>项目承揽人：</span>
 							<div class="selectcheck">
 								
-								<select id="selectRadio" class="selectpicker" multiple data-type="13" data-live-search="true" data-title-id="1118">
+								<select id="selectRadio" class="selectpicker" multiple data-type="13" data-live-search="true" data-title-id="1118" >
 
 								  </select>
 								  
@@ -249,12 +249,13 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 	projectInfo = data.entity;
 });
 //项目基本信息
+var reportResult='';
 var projectInfoDetail = '';
 var projectInfoReport=[];
 var projectInfoSource='';
 sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
-	if(data.result.status=='OK'){
-		console.log(data);
+	if(data.result.status=='OK'){		
+		reportResult=data.userData.report; 
 		projectInfoDetail=data.userData.pro;
 		projectInfoList=data.userData.report[0].childList; 
 	}
