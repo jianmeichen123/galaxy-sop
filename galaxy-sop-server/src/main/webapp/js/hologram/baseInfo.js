@@ -77,6 +77,9 @@ function resouceShow(mark){
 							var valruleformula=$(o).find('dt').attr('data-valruleformula');
 							if(valruleformula.indexOf(_val)>-1){
 								$(o).show();
+								if(_val=='2262'){
+									$(o).find('input').hide();
+								}
 							}
 						})
 					}

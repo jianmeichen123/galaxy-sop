@@ -169,7 +169,7 @@ $(function() {
 					}
 				})
 				//项目承揽人多选
-				$('.selectpicker').selectpicker();    
+				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息
@@ -226,6 +226,7 @@ $(function() {
 				$('.selectpicker').change(function(){
 					var valList=$(this).val();
 					var val=$(this).val();
+					$(this).closest('.resource_branch_01').find('input').val('');    //清空其他输入框的值
 					if(val!='请选择'){
 						$(this).closest('.resource_branch_01').find('.error_span').addClass('select_input');   //隐藏bitianxian
 					}
