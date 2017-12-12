@@ -534,6 +534,26 @@ function buildResultsDraft(sec,title,readonly)
 			})
 			$('select[data-title-id="' + result_parentId + '"]').closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 			
+		}else if(title.type==23){
+			var titleId=title.id;
+			var valList=[];
+			var last_id=$('dt[data-tid="'+titleId+'"]').siblings('dd').find('select option:last').attr('value');
+			var inputText=$('dt[data-tid="'+titleId+'"]').closest('.mb_24').find('input');
+			$.each(title.resultMGList,function(i,n){
+				$('dt[data-tid="'+titleId+'"]').siblings('dd').find('span[data-value="'+n.contentChoose+'"]').closest('li').addClass('selected');
+				$('dt[data-tid="'+titleId+'"]').siblings('dd').find('option[value="'+n.contentChoose+'"]').attr('selected',true);
+				valList.push(n.valueName);
+				if (n.contentChoose == last_id ){
+					inputText.show();
+					inputText.val(n.contentDescribe1);
+				}else{
+					inputText.val('');
+					inputText.hide();
+					inputText.removeAttr('required');
+				}
+			})
+		    $('dt[data-tid="'+titleId+'"]').siblings('dd').find('.selectpicker').attr('title',valList.join('、'));
+			$('dt[data-tid="'+titleId+'"]').siblings('dd').find('.filter-option').text(valList.join('、'))
 		}
 	//最外部else
 	}else{

@@ -41,6 +41,7 @@ setInterval(function(){    //定时保存
 		}
 		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id],select[name]");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
+		var fields_value_li=$("#b_" + id_code).find(".selectpicker li.selected");   //23类型特殊处理
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 				projectId : projectInfo.id,
@@ -106,6 +107,9 @@ setInterval(function(){    //定时保存
 			$.each(fields,function(){
 				var field = $(this);
 				var type = field.data('type') || field.closest('.h_edit_txt').find(':first-child').data('type');
+				if(type==23){
+					return;
+				}
 				var _resultId = null;
 				var _tochange =field.parents("dl.h_edit_txt").find("dt").attr("tochange") || field.parents(".mb_24").find("dt").attr("tochange");
 				var sele = field.parent().get(0).tagName;
@@ -257,6 +261,37 @@ setInterval(function(){    //定时保存
 				if (infoMode != null) {
 	                infoModeList.push(infoMode);
 	            }
+			});
+			//下拉多选保存
+			$.each(fields_value_li, function() {   
+				var field = $(this);
+				var valu = null;
+				var _tochange =field.closest(".resource_branch_01").find("dt").attr("tochange");
+				if(_tochange && _tochange == 'true'){
+		                var infoMode = null;
+						valu=field.find('span').attr('data-value');
+						var inpu=field.closest('.resource_branch_01').find('input');
+						var rvalue = inpu.val();
+						var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');
+						if(valu==last_id){
+							var remark=true
+						}
+						var _resultId = field.closest(".resource_branch_01").find('option[value="'+valu+'"]').data("resultId");
+						if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
+							_resultId=null
+						}
+						infoMode = {
+								titleId : field.find('span').data('titleId'),
+								type : field.find('span').data('type'),
+								tochange:_tochange,
+								resultId:_resultId,
+								value : valu
+							};
+						if(remark==true){
+							infoMode.remark1=rvalue;
+						}
+					infoModeList.push(infoMode);
+				}
 			});
 			//多选不选择的时候：
 			var deletedResultTids = new Array();
