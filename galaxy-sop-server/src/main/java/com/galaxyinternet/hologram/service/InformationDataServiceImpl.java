@@ -100,7 +100,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 			if (model.getType() != null
-					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13")|| model.getType().equals("22"))) {
+					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13")|| model.getType().equals("23")|| model.getType().equals("22"))) {
 				titleIds.add(model.getTitleId());
 				model.setResultId(null);
 			}

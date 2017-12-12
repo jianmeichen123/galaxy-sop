@@ -62,10 +62,17 @@
 	        	
 	        	</table>
         	</div>
+        	<!-- 处理任务 -->
         	<c:if test="${'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
         	<div class='taskDetail-mesage-update'>
         		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
         		<a href='javascript:;'  class='upate-task submit-success disabled' id="complete-task-btn" disabled="disabled">提交完成</a>
+        	</div>
+        	</c:if>
+        	<!-- 已完成任务再处理 -->
+        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
+        	<div class='taskDetail-mesage-update'>
+        		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
         	</div>
         	</c:if>
         </div>

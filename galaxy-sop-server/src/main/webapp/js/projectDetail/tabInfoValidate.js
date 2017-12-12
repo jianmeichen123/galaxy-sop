@@ -9,26 +9,38 @@
 				financeStatus :{
 					required: true
 				},
+				proSource:{
+					required: true
+				},	
+				projectContractor:{
+					required: true
+				},
 				industryOwn:{
 					required:true
 				},
 				proS6 :{
 					required:true,
-					faname : true
+					limit20 : true
 				}
 			},
 			messages :{
 				projectName:{
 					required:'*项目名称不能为空'
 				},
+				projectContractor:{
+					required:'*项目承揽人不能为空'
+				},
 				financeStatus:{
 					required:'*本轮融资轮次不能为空'
+				},
+				proSource:{
+					required:'*项目来源不能为空'
 				},
 				industryOwn:{
 					required:'*行业归属不能为空'
 				},
 				proS6:{
-					required:'*不能以空格开头，字符最大长度为20'
+					required:'*不能以空格开头，字符最大长度为20，必填'
 				}
 				
 			},
@@ -45,12 +57,15 @@
 		var share = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 		return this.optional(element) || (share.test(value));
 	}, "0到100之间的两位小数");
-	
-	//来源fa
-	jQuery.validator.addMethod("faname", function (value, element) {
-		var faname = /^[^\s](.{0,19})$/;
-		return this.optional(element) || (faname.test(value));
-	}, "*不能以空格开头，字符最大长度为20");
+	 
+	jQuery.validator.addMethod("limit12", function (value, element) {
+		var limit12 =  /^(?!.{13}|^\s*$)/;
+		return this.optional(element) || (limit12.test(value));
+	}, "*不能超过12字且不能全为空格"); 
+	jQuery.validator.addMethod("limit20", function (value, element) {
+		var limit20 =  /^(?!.{21}|^\s*$)/;
+		return this.optional(element) || (limit20.test(value));
+	}, "*不能超过20字且不能全为空格")
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;

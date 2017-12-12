@@ -13,6 +13,8 @@ function backFun(data){
 	}
 }
 function resouceShow(mark){
+	//获取用户名称
+	var userName=$('.man_info .name').text();
 	//项目来源特殊处理
 	var dts=$('#NO1_1').find('.mb_24 dt');
 	var valruleformula=dts.attr('data-valruleformula');
@@ -39,12 +41,29 @@ function resouceShow(mark){
 					$('.resource_branch').find('dt').attr('tochange',true);
 					$('.resource_branch,.resource_branch_01').hide();
 					//清空项目承揽人
+					$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
+					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('.selectpicker').attr('title','请选择');
+					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('.filter-option').text('请选择');
+					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('ul li').removeClass('selected');
 					if($(this).val()=='2257'){
-						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
 						$('.resource_branch_01').find('dt').attr('tochange',true);
-					}else if($(this).val()!='2257'){
-						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
-						$('.resource_branch_01').find('.selectpicker option:last').attr('selected',true);
+					}else if($(this).val()!='2257' && $(this).val()!='2262'){
+						//项目承揽人是否包含当前用户
+						var userNameList=[];
+						$.each($('.resource_branch_01 .selectpicker option'),function(i,n){
+							var usertxt=$(n).text();
+							var valueOptionId=$(n).attr('value');
+							userNameList.push(usertxt);
+							if($.inArray(userName, userNameList)<0){     //项目承揽人select下拉包含当前用户 ，选中当前用户option
+								$('dt[data-tid="1118"]').closest('.resource_branch_01').find('ul li:last').addClass('selected');
+								$('.resource_branch_01').find('input').val(userName);
+							}else{    //项目承揽人select下拉不包含当前用户，选中其他 option
+								if(usertxt==userName){
+									$('dt[data-tid="1118"]').closest('.resource_branch_01').find('ul li').removeClass('selected');
+									$('dt[data-tid="1118"]').closest('.resource_branch_01').find('ul span[data-value="'+valueOptionId+'"]').closest('li').addClass('selected');
+								}
+							}
+						})
 						$('.resource_branch_01').find('dt').attr('tochange',true);
 					}					
 					var _val=$(this).find("option:selected").val();
@@ -292,9 +311,9 @@ function type_1_html(title,mark){
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
 				"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-valrulemark='"+title.valRuleMark+"'/>";
 		if(title.valRuleFormula.indexOf('1120')>-1){
-			return  "<div class=\"mb_24 resource_branch clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
+			return  "<div class=\"mb_24 resource_branch clearfix\" style='margin-bottom:22px;'>" + htitle + eresult + "</div>";
 		}else{
-			return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
+			return  "<div class=\"mb_24 clearfix\" style='margin-bottom:22px;'>" + htitle + eresult + "</div>";
 		}
 
 		}

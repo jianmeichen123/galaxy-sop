@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -678,7 +679,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		Result result = new Result();
 		try
 		{
-			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(), sopTaskBo.getPageSize()), sopTaskBo, request);
+			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(), sopTaskBo.getPageSize(),Direction.DESC,"created_time"), sopTaskBo, request);
 			if (null == list.getContent())
 			{
 				List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();

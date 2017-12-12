@@ -5,6 +5,7 @@ import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -419,9 +420,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			Integer taskFlag = this.getTaskFlagByWorktype(po.getFileWorktype());
 			if(taskFlag != null)
 			{
-				SopTask taskQuery = new SopTask();
+				SopTaskBo taskQuery = new SopTaskBo();
 				taskQuery.setProjectId(po.getProjectId());
-				taskQuery.setTaskFlag(taskFlag);;
+				taskQuery.setTaskFlag(taskFlag);
+				String[] taskStatusArray = {taskStatus.待完工.getCode(),taskStatus.待认领.getCode(),taskStatus.已完成.getCode()};
+				taskQuery.setTaskStatusList(Arrays.asList(taskStatusArray));
 				task = queryOne(taskQuery);
 			}
 		}

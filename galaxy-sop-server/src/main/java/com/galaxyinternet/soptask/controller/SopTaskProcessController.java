@@ -109,7 +109,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				if(ur.getResult() != null && Result.Status.OK.equals(ur.getResult().getStatus()))
 				{
 					bo.setFileKey(key);
-					bo.setFileValid(0);
+					bo.setFileValid(1);
 					bo.setFileLength(ur.getContentLength());
 					bo.setFileName(prefix);
 					bo.setFileSuffix(suffix.replaceAll("\\.", ""));
