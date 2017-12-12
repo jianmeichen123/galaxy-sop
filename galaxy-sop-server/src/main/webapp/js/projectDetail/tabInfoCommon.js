@@ -81,11 +81,9 @@ $(function(){
 				if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;
-					
+					debugger;//baocuo
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
-					$(".trSouce."+className).show();
-					
-					$(".trSouce."+className).find("input").val(projectInfoDetail.faName ? projectInfoDetail.faName : '');
+					$(".trSouce."+className).show(); 
 				} 
 				sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,resultId);
 				function resultId(data){
@@ -96,26 +94,29 @@ $(function(){
 						if(!domId){return false;}
 						var resList = valList.filter(o=>o.id==domId)[0]; 
 						if(resList.resultList){
-							$(this).find("input").attr("data-result-id",resList.resultList[0].id);							
+							$(this).find("input").attr("data-result-id",resList.resultList[0].id);		
+							if(resList.resultList[0].contentDescribe1){
+								$(this).find("input").val(resList.resultList[0].contentDescribe1)
+							}					
 						}
 					})
 					projectInfoDetail.faName 
 					
 				}
 				//数据互通加的resultID
-				var reportly = reportResult[0].childList.filter(o=>o.titleId=="1120")[0].resultId;
+				var reportly = reportResult[0].childList.filter(o=>o.titleId=="1120")[0].resultId; 
 				$("input[data-title-id=1120]").attr("data-result-id",reportly);
 				var reportSelect = reportResult[0].childList.filter(o=>o.titleId=="1118");
 				$.each(reportSelect,function(){
-					var con = $(this).value
-					$("select#selectRadio").find("option[value="+con+"]").attr("data-result-id",$(this).resultId)
+					 
+					$("select#selectRadio").find("option[value="+$(this).value+"]").attr("data-result-id",$(this).resultId)
 				})
 				
 				//项目承揽人 
 				var clPerson=projectInfoDetail.listInfoTitle; 
-				if(projectInfoDetail.faFlag="2262"&&clPerson.resultList){
+				if(projectInfoDetail.faFlag=="2262"&&clPerson.resultList){
 					$(".trSouce").hide();
-					$(".trSouce.projectSource11").show();
+					$("select[data-title-id=1118]").closest(".trSouce").show();
 					var valueL="";
 					$.each(projectInfoDetail.listInfoTitle.resultList,function(){ 
 						var that=$(this)[0];
@@ -161,7 +162,7 @@ $(function(){
 		    var valueId=$("#financeStatusDs").attr("value");
 		    var resultId=$("#financeStatusDs").attr("data-result-id");
 		    var entity=data.entity.childList[0];
-		    $("#finance_status_sel").attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
+		    $("#finance_status_sel").attr({"data-type":entity.type,"data-result-id":resultId});
 		    if(!childNum || childNum !=0 ){
 		    	$.each(entity.valueList,function(){ 
 		    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
@@ -172,13 +173,24 @@ $(function(){
 		    $("select[data-title-id]").change(function(){
 		    	$(this).attr("tochange",true)
 		    })
+		    $("#selectSource li").click(function(){
+				var code = $(this).attr("code"); 
+				$(".trSouce").hide();
+				$(".trSouce."+code).show();
+				$(".trSouce input").val("");
+				$("#selectRadio option").attr("selected",false);
+				$("button.selectpicker").attr("title",'请选择');
+				$("button.selectpicker span").text("请选择");
+				$("ul.selectpicker li").removeClass("selected");
+				$(".trSouceOther").hide().val("")
+				 $('#selectRadio').selectpicker({
+		   			 dropupAuto:false
+	               });
+		    })
 			$("#dropdown ul li").click(function(){
 				var target = $(this).closest('#dropdown').find('input');
 				target.removeClass('up')
 				var txt = $(this).text(); 
-				var code = $(this).attr("code"); 
-				$(".trSouce").hide();
-				$(".trSouce."+code).show();
 				target.val(txt);
 				$("#dropdown ul").hide(); 
 				$(this).closest('#dropdown').find('input').attr('tochange',true);
@@ -198,7 +210,7 @@ $(function(){
 		    var valueId=$("#financeStatusDs").attr("value");
 		    var resultId=$("#financeStatusDs").attr("data-result-id"); 
 		    var entity=data.entity.childList.filter(o=>o.id=="7032")[0];
-		    $("#finance_status_sel").attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
+		    $("#finance_status_sel").attr({"data-type":entity.type,"data-result-id":resultId});
 		    if(!childNum || childNum !=0 ){
 		    	$.each(entity.valueList,function(){ 
 		    		_dom.append("<li value='"+this.id+"' code='"+this.code+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
@@ -308,6 +320,7 @@ $(function(){
 						$("body").css('overflow-y','auto');
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;   
+							reportResult=data.userData.report; 
 							$("#project_name_t").text(projectInfoDetail.projectName);
 							$("#project_name_t").attr("title",projectInfoDetail.projectName);
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);

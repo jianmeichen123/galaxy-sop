@@ -192,7 +192,7 @@ position:absolute;
 							<span>项目承揽人：</span>
 							<div class="selectcheck">
 								
-								<select id="selectRadio" class="selectpicker" multiple data-type="13" data-live-search="true" data-title-id="1118" >
+								<select id="selectRadio" class="selectpicker" multiple data-type="23" data-live-search="true" data-title-id="1118" >
 
 								  </select>
 								  

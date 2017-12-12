@@ -30,43 +30,73 @@ function saveBaseInfo(dom,val1,val2,val3){
 			resultId:_resultId,
 			type : type
 		};
-		if(field.data('titleId')=="1118"&&type=="13"){
+		if(field.data('titleId')=="1118"&&type=="23"){ 
+				var judgment = $("input[name=projectSource]").attr("m-val");
+				if(judgment!='2257'&&judgment!='2262'){ 
+					var judgName = $(".man_info .name").text();
+					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
+					 if(val!=undefined){
+						 var infoMode = {
+								titleId	: field.data('titleId'),
+								tochange:true,
+								resultId:resultId13,
+								type : type,
+								value:val
+							};						 
+					 }else{
+						 val = $("select[data-title-id=1118]").find("option").last().attr("value");
+						 var infoMode = {
+								titleId	: field.data('titleId'),
+								tochange:true,
+								resultId:resultId13,
+								type : type,
+								value:val,
+								remark1:judgName
+								
+							};
+					 }
+					 infoModeList.push(infoMode); 
+					 data.infoModeList = infoModeList;
+					 return;
+				}else if(judgment=='2257'){
+					data.deletedResultTids=['1118'];
+					return;
+				}else{
+					//获取多选带备注数据 
+					var values =[] ; 
+					var doms = $(".selectcheck li.selected span");
+					$.each(doms,function(){ 
+						values.push($(this).attr('data-value'))
+					})  
+					var remark = $('.selectcheck .addpro-input').val();
+					var other = $('.selectcheck .addpro-input').attr("ovalue");  
+					for(i=0;i<values.length;i++){ 
+						var resultId13=$("select#selectRadio").find("option[value="+values[i]+"]").attr("data-result-id")
+						var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:true,
+							resultId:resultId13,
+							type : type
+						};
+						var that = values[i]; 
+						infoMode.value=that;  
+						if(other==that&&remark!=''&&remark!=null){  
+							infoMode.remark1=remark;
+						}
+						infoModeList.push(infoMode); 
+					}  
+				}
 
-				//获取多选带备注数据 
-				var values =[] ; 
-				var doms = $(".selectcheck li.selected span");
-				$.each(doms,function(){ 
-					values.push($(this).attr('data-value'))
-				})  
-				var remark = $('.selectcheck .addpro-input').val();
-				var other = $('.selectcheck .addpro-input').attr("ovalue");  
-				for(i=0;i<values.length;i++){ 
-					var resultId13=
-					var infoMode = {
-						titleId	: field.data('titleId'),
-						tochange:true,
-						resultId:resultId13,
-						type : type
-					};
-					var that = values[i]; 
-					infoMode.value=that;  
-					if(other==that&&remark!=''&&remark!=null){  
-						infoMode.remark1=remark;
-					}
-					infoModeList.push(infoMode); 
-				}  
-
-			}else if(field.hasClass("inputSouce")&&type==1){ 			
+			}else if(field.hasClass("inputSouce")&&type==1){  
 				var infoMode = {
 						titleId	: field.data('titleId'),
 						tochange:true,
 						resultId:_resultId,
 						type : type
 					};	 
-				infoMode.value=field.val();
+				infoMode.remark1=field.val();
 			}else if(type==14 )
 		{
-						debugger;
 			infoMode.value = field.attr('m-val');
 		}else if(type==19 ){
 			infoMode.remark1 = field.val();
