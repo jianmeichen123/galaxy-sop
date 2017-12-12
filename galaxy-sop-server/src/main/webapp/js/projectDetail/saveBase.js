@@ -30,8 +30,10 @@ function saveBaseInfo(dom,val1,val2,val3){
 			resultId:_resultId,
 			type : type
 		};
-		if(field.data('titleId')=="1118"&&type=="23"){ 
+		if(field.data('titleId')=="1118"&&type=="23"){  
 				var judgment = $("input[name=projectSource]").attr("m-val");
+				alert(judgment);
+				debugger;
 				if(judgment!='2257'&&judgment!='2262'){ 
 					var judgName = $(".man_info .name").text();
 					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
@@ -39,7 +41,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 						 var infoMode = {
 								titleId	: field.data('titleId'),
 								tochange:true,
-								resultId:resultId13,
+								resultId:"",
 								type : type,
 								value:val
 							};						 
@@ -61,8 +63,8 @@ function saveBaseInfo(dom,val1,val2,val3){
 				}else if(judgment=='2257'){
 					data.deletedResultTids=['1118'];
 					return;
-				}else{
-					//获取多选带备注数据 
+				}else{ 
+					debugger;
 					var values =[] ; 
 					var doms = $(".selectcheck li.selected span");
 					$.each(doms,function(){ 
@@ -72,6 +74,9 @@ function saveBaseInfo(dom,val1,val2,val3){
 					var other = $('.selectcheck .addpro-input').attr("ovalue");  
 					for(i=0;i<values.length;i++){ 
 						var resultId13=$("select#selectRadio").find("option[value="+values[i]+"]").attr("data-result-id")
+						if(resultId13==undefined){
+							resultId13=null
+						}
 						var infoMode = {
 							titleId	: field.data('titleId'),
 							tochange:true,
@@ -85,6 +90,8 @@ function saveBaseInfo(dom,val1,val2,val3){
 						}
 						infoModeList.push(infoMode); 
 					}  
+					data.infoModeList = infoModeList;
+					return;
 				}
 
 			}else if(field.hasClass("inputSouce")&&type==1){  

@@ -77,7 +77,7 @@ $(function(){
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
 		    	}
-			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr);
+			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr("m-val",projectInfoDetail.faFlag);
 				if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;
@@ -85,6 +85,7 @@ $(function(){
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
 					$(".trSouce."+className).show(); 
 				} 
+				
 				sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,resultId);
 				function resultId(data){
 					var domList = $(".trSouce");
@@ -303,7 +304,7 @@ $(function(){
 					}
 					return;
 				}
-				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
+				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){					
 					if(data2.result.status=="OK"){
 						layer.msg(data2.result.message); 
 						saveBaseInfo("basicForm1");
@@ -317,29 +318,25 @@ $(function(){
 						$('.'+close+'_on').hide();
 						$('.'+close+'_center').show();
 						$('.bj_hui_on_common').hide();
-						$("body").css('overflow-y','auto');
-						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
+						$("body").css('overflow-y','auto');						
+						updateReportMoneyBasic();sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;   
 							reportResult=data.userData.report; 
 							$("#project_name_t").text(projectInfoDetail.projectName);
 							$("#project_name_t").attr("title",projectInfoDetail.projectName);
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
 							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-							$("#projectType").text(projectInfoDetail.type);
-							$("#faName").text(projectInfoDetail.faFlagStr); 
-							if(projectInfoDetail.faName){
-								$("#faName").attr('data-original-title',projectInfoDetail.faName);
-								$("#faName[data-toggle='tooltip']").tooltip();//提示
-							}else{
-								$("#faName").removeAttr('data-original-title');
-							}
+							$("#projectType").text(projectInfoDetail.type); 
+							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
+							$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+							showFaname()
 							if(projectInfoDetail.projectName.length>20){
 								$('.project_name_t').css('font-size','24px')
 							}else{
 								$('.project_name_t').css('font-size','28px')
 							}
+							//FA类型展示
 						});
-						updateReportMoneyBasic(); 
 					}else {
 						if(data2.result.errorCode!="mccf"){
 							layer.msg(data2.result.message);
