@@ -311,9 +311,9 @@ function type_1_html(title,mark){
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
 				"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-valrulemark='"+title.valRuleMark+"'/>";
 		if(title.valRuleFormula.indexOf('1120')>-1){
-			return  "<div class=\"mb_24 resource_branch clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
+			return  "<div class=\"mb_24 resource_branch clearfix\" style='margin-bottom:22px;'>" + htitle + eresult + "</div>";
 		}else{
-			return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
+			return  "<div class=\"mb_24 clearfix\" style='margin-bottom:22px;'>" + htitle + eresult + "</div>";
 		}
 
 		}
