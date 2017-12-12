@@ -378,6 +378,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			if(id != null){
 				SopFile sopfile = new SopFile();
 			    sopfile.setMeetingId(id);
+			    sopfile.setFileValid(1);
 				List<SopFile> sopFileList = sopFileService.queryList(sopfile);
 				meeting.setFiles(sopFileList);
 				data.setEntity(meeting);
