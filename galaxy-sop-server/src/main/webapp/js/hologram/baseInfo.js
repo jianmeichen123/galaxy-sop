@@ -13,6 +13,8 @@ function backFun(data){
 	}
 }
 function resouceShow(mark){
+	//获取用户名称
+	var userName=$('.man_info .name').text();
 	//项目来源特殊处理
 	var dts=$('#NO1_1').find('.mb_24 dt');
 	var valruleformula=dts.attr('data-valruleformula');
@@ -42,9 +44,24 @@ function resouceShow(mark){
 					if($(this).val()=='2257'){
 						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
 						$('.resource_branch_01').find('dt').attr('tochange',true);
-					}else if($(this).val()!='2257'){
+					}else if($(this).val()!='2257' && $(this).val()!='2262'){
 						$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
-						$('.resource_branch_01').find('.selectpicker option:last').attr('selected',true);
+						//项目承揽人是否包含当前用户
+						var userNameList=[];
+						var usertxt='';
+						$.each($('.resource_branch_01 .selectpicker option'),function(i,n){
+							usertxt=$(n).text();
+							userNameList.push(usertxt);
+							if($.inArray(userName, userNameList)<0){     //项目承揽人select下拉包含当前用户 ，选中当前用户option
+								$('.resource_branch_01').find('.selectpicker option:last').attr('selected',true);
+								$('.resource_branch_01').find('input').val(userName);
+							}else{    //项目承揽人select下拉不包含当前用户，选中其他 option
+								if(usertxt==userName){
+									$('.resource_branch_01').find('.selectpicker option').removeAttr('selected');
+									$(n).attr('selected',true);
+								}
+							}
+						})
 						$('.resource_branch_01').find('dt').attr('tochange',true);
 					}					
 					var _val=$(this).find("option:selected").val();

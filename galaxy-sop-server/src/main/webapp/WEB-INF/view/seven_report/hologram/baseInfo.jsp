@@ -272,7 +272,7 @@ $(function() {
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
-		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
+		var fields_value = $("#b_" + id_code).find("input:checked,option:selected,.selectpicker option[selected]");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		//var fields_value1 = $("#b_" + id_code).find(".check_label");
 		var fields_value1 = $("#b_" + id_code).find(".active");
@@ -308,7 +308,7 @@ $(function() {
 						var inpu=field.closest('.resource_branch_01').find('input');
 						var rvalue = inpu.val();
 						var last_id=field.closest('select').find('option:last').attr('value');
-						if(inpu.is(':visible') && valu==last_id){
+						if(valu==last_id){
 							var remark=true
 						}
 						var _resultId = field.data("resultId");
@@ -437,7 +437,7 @@ $(function() {
 			var _this = $(this);
 			var _tochange =_this.attr("tochange");
 			if(_this.data('type')=='23'){
-				var active = _this.parent().find('select option:selected');
+				var active = _this.parent().find('select option[selected]');
 				if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
 					var tid = _this.data('tid');
 					deletedResultTids.push(tid);
@@ -500,7 +500,7 @@ $(function() {
 		{
 			return;
 		}
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+	   sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");
@@ -518,7 +518,7 @@ $(function() {
 			} else {
 				layer.msg('保存失败');
 			}
-		});  
+		}); 
 		//base_half
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
