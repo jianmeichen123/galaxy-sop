@@ -98,11 +98,11 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
 		insert into sop_interview_record (id, project_id, file_id,view_date, 
-		  view_target, view_notes,view_notes_text, created_time,created_id,update_time,interview_result,result_reason,reason_other,interview_valid
+		  view_target, view_notes,view_notes_text, created_time,created_id,update_time,interview_result,result_reason,reason_other
       	)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
 	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{viewNotesText,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{createdId,jdbcType=BIGINT}
-		,#{createdTime,jdbcType=BIGINT},#{interviewResult,jdbcType=VARCHAR},#{resultReason,jdbcType=VARCHAR},#{reasonOther,jdbcType=VARCHAR},#{interviewvalid,jdbcType=BIGINT})
+		,#{createdTime,jdbcType=BIGINT},#{interviewResult,jdbcType=VARCHAR},#{resultReason,jdbcType=VARCHAR},#{reasonOther,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
