@@ -3976,8 +3976,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
-.upate-task{font-family:MicrosoftYaHei;display:inline-block;width:124px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
-.submit-success{font-family:MicrosoftYaHei;width:96px;color:#3ca6ff;background:#fff;margin-left:20px;}
+.upate-task{font-family:MicrosoftYaHei;display:inline-block;padding:0 20px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
+.submit-success{font-family:MicrosoftYaHei;color:#3ca6ff;background:#fff;margin-left:20px;}
+.taskDetail-mesage-update .disabled{color:#999;background:#d8d8d8 !important;}
 /*操作日志*/
 .opretion-log thead th{font-size:14px;color:#5a626d;font-weight:bold;text-align:center;}
 .opretion-log thead th:nth-child(1){text-align:left;padding-left:20px;}
