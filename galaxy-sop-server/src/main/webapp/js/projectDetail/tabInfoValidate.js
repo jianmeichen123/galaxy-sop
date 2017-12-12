@@ -21,6 +21,10 @@
 				proS6 :{
 					required:true,
 					limit20 : true
+				},
+				pickeother:{
+					required:true,
+					limit12 : true
 				}
 			},
 			messages :{
@@ -40,7 +44,10 @@
 					required:'*行业归属不能为空'
 				},
 				proS6:{
-					required:'*不能以空格开头，字符最大长度为20，必填'
+					required:'*不能超过20字且不能全为空格，必填'
+				},
+				pickeother:{
+					required:'*不能超过12字且不能全为空格，必填'
 				}
 				
 			},
