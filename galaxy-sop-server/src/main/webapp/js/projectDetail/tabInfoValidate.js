@@ -9,6 +9,12 @@
 				financeStatus :{
 					required: true
 				},
+				proSource:{
+					required: true
+				},	
+				projectContractor:{
+					required: true
+				},
 				industryOwn:{
 					required:true
 				},
@@ -21,8 +27,14 @@
 				projectName:{
 					required:'*项目名称不能为空'
 				},
+				projectContractor:{
+					required:'*项目承揽人不能为空'
+				},
 				financeStatus:{
 					required:'*本轮融资轮次不能为空'
+				},
+				proSource:{
+					required:'*项目来源不能为空'
 				},
 				industryOwn:{
 					required:'*行业归属不能为空'
@@ -47,10 +59,20 @@
 	}, "0到100之间的两位小数");
 	
 	//来源fa
-	jQuery.validator.addMethod("faname", function (value, element) {
-		var faname = /^[^\s](.{0,19})$/;
-		return this.optional(element) || (faname.test(value));
+	jQuery.validator.addMethod("limit12", function (value, element) {
+		var limit12 = /^[^\s](.{0,11})$/;
+		return this.optional(element) || (limit12.test(value));
+	}, "*不能以空格开头，字符最大长度为12");
+	//来源fa
+	jQuery.validator.addMethod("limit20", function (value, element) {
+		var limit20 = /^[^\s](.{0,19})$/;
+		return this.optional(element) || (limit20.test(value));
 	}, "*不能以空格开头，字符最大长度为20");
+	//来源fa
+	jQuery.validator.addMethod("limit50", function (value, element) {
+		var limit50 = /^[^\s](.{0,49})$/;
+		return this.optional(element) || (limit50.test(value));
+	}, "*不能以空格开头，字符最大长度为50");
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;

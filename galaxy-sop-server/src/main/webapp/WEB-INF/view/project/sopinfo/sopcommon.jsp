@@ -226,17 +226,7 @@ position:absolute;
 <script src="<%=path %>/js/projectDetail/tabInfoCommon.js" type="text/javascript"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js" type="text/javascript"></script>
 <script>
-/* var number_on;
-$(function(){
-	if(getCookieValue("number_on")==''){
-		setCookie("number_on", '1',24,'/')
-		number_on=getCookieValue("number_on");
-	}else{
-		number_on=getCookieValue("number_on");
-		number_on++;
-		setCookie("number_on",number_on,24,'/');
-	}
-}); */
+ 
 var isCreatedByUser = "${isCreatedByUser}";
 var isEditable = "${isEditable}";
 var pid='${pid}';
@@ -285,13 +275,12 @@ if(projectInfoDetail.projectName.length>20){
 			$("#projectStatusDs").text(projectInfoDetail.projectProgress=="projectProgress:10"?"":projectInfoDetail.projectStatusDs);
 			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-			$("#faName").text(projectInfoDetail.faFlagStr);
-			if(projectInfoDetail.faFlag=="projectSource:1"){
-				$("#faName").attr('data-original-title',projectInfoDetail.faName);
-				$("#faName[data-toggle='tooltip']").tooltip();//提示
-			}else{
-				$("#faName").removeAttr('data-original-title');
-			}
+			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+
+			showFaname()
+
+
+
 			$('.version19_detail_header_box').css('visibility','visible')
 			//report信息
 			if(roleId==4){   //投资经理a看投资经理B的项目，团队，法人，股权，融资隐藏
@@ -387,6 +376,24 @@ $('#project_name_edit').blur(function(){
 	
 	
 })
+//查询 FAtitke 
+function showFaname(){
+
+sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,showName);
+function showName(data){
+	var code = $("#faName").attr("data"); 
+	code="1120,"+code;
+	var valList =data.entity.childList ;
+	var content = valList.filter(o=>o.valRuleFormula==code)[0].resultList[0].contentDescribe1;
+	if(content){		
+		$("#faName").attr('data-original-title',content);
+		$("#faName[data-toggle='tooltip']").tooltip();//提示
+	}else{
+		$("#faName").removeAttr('data-original-title');
+	}
+}
+}
+
 </script>
 
 </html>
