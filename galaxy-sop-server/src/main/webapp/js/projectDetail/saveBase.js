@@ -30,17 +30,52 @@ function saveBaseInfo(dom,val1,val2,val3){
 			resultId:_resultId,
 			type : type
 		};
-		if(type==14 )
+		if(field.data('titleId')=="1118"&&type=="13"){
+
+				//获取多选带备注数据 
+				var values =[] ; 
+				var doms = $(".selectcheck li.selected span");
+				$.each(doms,function(){ 
+					values.push($(this).attr('data-value'))
+				})  
+				var remark = $('.selectcheck .addpro-input').val();
+				var other = $('.selectcheck .addpro-input').attr("ovalue");  
+				for(i=0;i<values.length;i++){ 
+					var resultId13=
+					var infoMode = {
+						titleId	: field.data('titleId'),
+						tochange:true,
+						resultId:resultId13,
+						type : type
+					};
+					var that = values[i]; 
+					infoMode.value=that;  
+					if(other==that&&remark!=''&&remark!=null){  
+						infoMode.remark1=remark;
+					}
+					infoModeList.push(infoMode); 
+				}  
+
+			}else if(field.hasClass("inputSouce")&&type==1){ 			
+				var infoMode = {
+						titleId	: field.data('titleId'),
+						tochange:true,
+						resultId:_resultId,
+						type : type
+					};	 
+				infoMode.value=field.val();
+			}else if(type==14 )
 		{
-			infoMode.value = field.attr('data-flag');
-		}else if(type==19 || type==1){
+						debugger;
+			infoMode.value = field.attr('m-val');
+		}else if(type==19 ){
 			infoMode.remark1 = field.val();
 		}	
-		if (infoMode != null) {
+		if (infoMode != null&&type!="13") {
 	        infoModeList.push(infoMode);
-	    }
+	    } 
 		data.infoModeList = infoModeList;
-	});
+	}); 
 	sendPostRequestByJsonObjNoCache(
 			platformUrl.saveOrUpdateInfo , 
 			data,

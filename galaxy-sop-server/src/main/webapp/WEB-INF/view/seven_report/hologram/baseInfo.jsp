@@ -227,13 +227,13 @@ $(function() {
 					var valList=$(this).val();
 					var val=$(this).val();
 					if(val!='请选择'){
-						$(this).closest('.resource_branch').find('.error_span').addClass('select_input');   //隐藏bitianxian
+						$(this).closest('.resource_branch_01').find('.error_span').addClass('select_input');   //隐藏bitianxian
 					}
 					var lastId=$(this).find('option:last').attr('value');
 					 if(JSON.stringify(valList).indexOf(lastId)>-1){
-						 $(this).closest('.resource_branch').find('input').show();
+						 $(this).closest('.resource_branch_01').find('input').show();
 					} else{
-						$(this).closest('.resource_branch').find('input').hide();
+						$(this).closest('.resource_branch_01').find('input').hide();
 					}
 				})
 				btn_disable(1);
@@ -305,7 +305,7 @@ $(function() {
 						var _resultId = field.parent().attr("resultId");
 					}else if(field.parent().get(0).name=='1118'){
 						valu=field.val();
-						var inpu=field.closest('.resource_branch').find('input');
+						var inpu=field.closest('.resource_branch_01').find('input');
 						var rvalue = inpu.val();
 						var last_id=field.closest('select').find('option:last').attr('value');
 						if(inpu.is(':visible') && valu==last_id){
@@ -490,13 +490,13 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch').find('.filter-option').text();
+		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('.filter-option').text();
 		if(txtOption=='请选择'){
-			$('dt[data-tid=\'1118\']').closest('.resource_branch').find('span.error_span').removeClass('select_input');
+			$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('span.error_span').removeClass('select_input');
 		}else{
 			$('span.select_input').hide();
 		}
-		if(!$("#c_"+id_code).validate().form() || txtOption=='请选择')
+		if(!$("#c_"+id_code).validate().form() || ($('span.error_span').closest('.resource_branch_01').is(':visible') && txtOption=='请选择'))
 		{
 			return;
 		}

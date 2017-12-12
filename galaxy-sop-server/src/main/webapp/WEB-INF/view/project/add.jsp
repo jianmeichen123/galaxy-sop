@@ -400,8 +400,7 @@ function CallBackE(data){
 		});
 		//项目来源切换
 		 $('.selectpicker').selectpicker({
-			 	dropupAuto:false,
-                'selectedText': '请选择'
+			 	dropupAuto:false
             });
 		projectSelect();
 		
