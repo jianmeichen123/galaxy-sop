@@ -429,7 +429,7 @@ var editPostMeetingDialog = {
 					sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,operator.initDataCallBack);
 					if(_formdata.id){
 						//filelist(_formdata.id);
-						sendGetRequest(Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+_formdata.id,null,operator.fileInitDataCallBack);
+						sendGetRequest(Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+_formdata.id+'?projectId='+pInfo.id,null,operator.fileInitDataCallBack);
 					}
 					
 					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
