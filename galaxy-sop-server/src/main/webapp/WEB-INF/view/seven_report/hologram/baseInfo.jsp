@@ -272,11 +272,12 @@ $(function() {
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
-		var fields_value = $("#b_" + id_code).find("input:checked,option:selected,.selectpicker option[selected]");
+		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		//var fields_value1 = $("#b_" + id_code).find(".check_label");
 		var fields_value1 = $("#b_" + id_code).find(".active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='6'],dt[data-type='13'],dt[data-type='23']");	
+		var fields_value_li=$("#b_" + id_code).find(".selectpicker li.selected");   //23类型特殊处理
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -287,6 +288,9 @@ $(function() {
 			var field = $(this);
 			var valu = null;
 			var sele = field.parent().get(0).tagName;
+			if(field.parent().get(0).name=='1118'){
+				return;
+			}
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
@@ -303,15 +307,6 @@ $(function() {
 							valu=field.val();
 						}
 						var _resultId = field.parent().attr("resultId");
-					}else if(field.parent().get(0).name=='1118'){
-						valu=field.val();
-						var inpu=field.closest('.resource_branch_01').find('input');
-						var rvalue = inpu.val();
-						var last_id=field.closest('select').find('option:last').attr('value');
-						if(valu==last_id){
-							var remark=true
-						}
-						var _resultId = field.data("resultId");
 					}else if(field.parent().get(0).name=='1120'){
 						var _resultId = field.parent().attr("resultid");
 					}
@@ -325,10 +320,6 @@ $(function() {
 							resultId:_resultId,
 							value : valu
 						};
-					if(remark==true){
-						infoMode.remark1=rvalue;
-					}
-					
 				}else{
 					var _resultId = field.closest("dd").attr("resultId");
 					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
@@ -343,6 +334,36 @@ $(function() {
 						};
 				}
 				
+				infoModeList.push(infoMode);
+			}
+		});
+		$.each(fields_value_li, function() {   //下拉多选
+			var field = $(this);
+			var valu = null;
+			var _tochange =field.closest(".resource_branch_01").find("dt").attr("tochange");
+			if(_tochange && _tochange == 'true'){
+	                var infoMode = null;
+					valu=field.find('span').attr('data-value');
+					var inpu=field.closest('.resource_branch_01').find('input');
+					var rvalue = inpu.val();
+					var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');
+					if(valu==last_id){
+						var remark=true
+					}
+					var _resultId = field.closest(".resource_branch_01").find('option[value="'+valu+'"]').data("resultId");
+					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
+						_resultId=null
+					}
+					infoMode = {
+							titleId : field.find('span').data('titleId'),
+							type : field.find('span').data('type'),
+							tochange:_tochange,
+							resultId:_resultId,
+							value : valu
+						};
+					if(remark==true){
+						infoMode.remark1=rvalue;
+					}
 				infoModeList.push(infoMode);
 			}
 		});
@@ -500,7 +521,7 @@ $(function() {
 		{
 			return;
 		}
-	   sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+	    sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");
@@ -518,7 +539,7 @@ $(function() {
 			} else {
 				layer.msg('保存失败');
 			}
-		}); 
+		});   
 		//base_half
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
