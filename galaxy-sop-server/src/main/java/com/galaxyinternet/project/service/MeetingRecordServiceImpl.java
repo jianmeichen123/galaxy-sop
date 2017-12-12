@@ -484,8 +484,9 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//设置头后运营会议是否存在文件
 			SopFile tempQuery = new SopFile();
 			tempQuery.setMeetingId(meetingRecord.getId());
-		    List<SopFile> sopFileList = sopFileDao.selectList(tempQuery);
-			if(sopFileList!=null && sopFileList.size() > 0){
+			tempQuery.setProjectId(query.getProjectId());
+		    Long size = sopFileDao.selectCount(tempQuery);
+			if(size != null && size.intValue()>0){
 				meetingRecord.setHasFile("true");
 			}else{
 				meetingRecord.setHasFile("false");

@@ -72,11 +72,7 @@
                             <span class="m_r30">
 	                            <select name="proSource" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
-				                </select>
-								<!-- <input type="text" class="new_nputr addpro-input addpro-input-fh"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-ly"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-ct"  placeholder="请输入名称" id="" name=""/>
-								<input type="text" class="new_nputr addpro-input addpro-input-mtbd"  placeholder="请输入名称" id="" name=""/> -->
+				                </select> 
                        		</span>                       		
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
@@ -122,7 +118,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input"  />
+									  <input type="text" class="addpro-input" name="pickeother" />
 								</span>
                         	</div>
                         </li>
@@ -352,10 +348,11 @@ function CallBackE(data){
 	    }
 	}
 	$("#selectRadio").change(function(){
+        $(".add-project-tabtable #selectRadio-error").hide();
 		var otherValue = $(this).find("option").last().val();
 		var value = $(this).val();
 		if(value==null){
-			$(".selectcheck .addpro-input").hide();
+			$(".selectcheck .addpro-input").hide().val("");
 			return;
 		}
 		var filt = value.filter(o=>o==otherValue);
@@ -363,7 +360,7 @@ function CallBackE(data){
 			$(".selectcheck .addpro-input").show();
 			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
 		}else{
-			$(".selectcheck .addpro-input").hide();
+			$(".selectcheck .addpro-input").hide().val("");
 		}
 	})
 
@@ -442,6 +439,7 @@ function CallBackE(data){
 })  
 //添加项目页面保存按钮
 	function add(){
+        $("#selectRadio[name=projectContractor]").css("display","inline-block")
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
 			return false;	

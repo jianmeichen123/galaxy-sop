@@ -81,7 +81,6 @@ $(function(){
 				if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;
-					debugger;//baocuo
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
 					$(".trSouce."+className).show(); 
 				} 
@@ -418,15 +417,15 @@ function selectRadio(){
 		var otherValue = $(this).find("option").last().val();
 		var value = $(this).val();
 		if(value==null){
-			$(".selectcheck .addpro-input").hide();
+			$(".selectcheck .trSouceOther").hide().val("");
 			return;
 		}
 		var filt = value.filter(o=>o==otherValue);
 		if(filt.length>0){
-			$(".selectcheck .addpro-input").show();
-			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
+			$(".selectcheck .trSouceOther").show();
+			$(".selectcheck .trSouceOther").attr("ovalue",filt[0])
 		}else{
-			$(".selectcheck .addpro-input").hide();
+			$(".selectcheck .trSouceOther").hide().val("");
 		}
 	})
 }

@@ -196,7 +196,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" class="trSouceOther addpro-input"/>
+								  <input type="text" class="trSouceOther addpro-input basic_mes_input"/>
 							</div>
 							</div>
 							</div>

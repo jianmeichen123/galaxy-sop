@@ -3871,6 +3871,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #updateProjectInfo .basic_message_cont table tr td span:nth-child(1),.invest_max_height table tr td span:nth-child(1),.invest_institue span.invest_type{display:block;width:113px;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .title_bj_tzjl{font-family:Microsoft YaHei;font-size:14px;position:relative;}
 #updateProjectInfo .basic_message_cont .basic_mes_left,#updateProjectInfo .basic_message_cont #dropdown,#updateProjectInfo .basic_message_cont .basic_mes_input,.real_ivestest_input{margin: 0; width:385px;position: absolute;left: 116px;top: 0px;}
+#updateProjectInfo .basic_message_cont .trSouceOther{    top: 39px;left: 0px;}
 #updateProjectInfo .basic_message_cont .basic_mes_input{width:395px;}
 #updateProjectInfo .basic_message_cont #dropdown+input.basic_mes_input{position:relative;top: 10px;}
 #updateProjectInfo .basic_message_cont .input_select{width:393px;}
@@ -4160,8 +4161,8 @@ li .projectSource11 span.m_r30{
 .edit_basic_table .selectcheck .filter-option.pull-left{width:80%!important;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;text-align-last:auto!important;text-align:auto!important;}
 .edit_basic_table .selectcheck .text,.edit_basic_table .selectcheck .selected .text{background-position-x:375px; text-align-last:auto!important;text-align:auto!important;}
 .resource_branch_01  .bootstrap-select.btn-group .btn .caret{border-top:6px dashed !important;border-bottom:none !important;border-right:3px solid transparent;border-left:3px solid transparent}
-
-
+#selectRadio[name='projectContractor']{opacity: 0;height: 0;width:0;}
+.add-project-tabtable #selectRadio-error,.add-project-tabtable #pickeother-error{float:right;}
 
 
 

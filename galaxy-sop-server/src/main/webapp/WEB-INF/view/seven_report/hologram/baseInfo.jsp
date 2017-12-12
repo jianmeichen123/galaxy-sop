@@ -169,7 +169,7 @@ $(function() {
 					}
 				})
 				//项目承揽人多选
-				$('.selectpicker').selectpicker();    
+				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息

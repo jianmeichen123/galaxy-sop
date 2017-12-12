@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -44,18 +44,14 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.touhou.controller.DeliveryController;
 import com.galaxyinternet.utils.BatchUploadFile;
 
 @Controller
@@ -70,11 +66,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	@Autowired
 	private ProjectHealthService projectHealthService;
 	@Autowired
-	private DeliveryService deliveryService;
-	@Autowired
 	private DictService dictService;
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private SopFileService sopFileService;
 	@Autowired
@@ -189,7 +181,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	@RequestMapping(value="getMeetNumberByType/{projectId}/{meetingType}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> getMeetNumberByType(@PathVariable Long projectId,@PathVariable String meetingType){
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
-		if(projectId==null && projectId.equals(0) ){
+		if(projectId==null || projectId.equals(0) ){
 			responseBody.setResult(new Result(Status.ERROR,"参数错误"));
 			return responseBody;
 		}
@@ -370,7 +362,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	 */
 	@ResponseBody
 	@RequestMapping(value="/selectFile/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord> selectFile(@PathVariable("id") Long id, HttpServletRequest request)
+	public ResponseData<MeetingRecord> selectFile(@PathVariable("id") Long id,@RequestParam(name="projectId",required=false) Long projectId, HttpServletRequest request)
 	{
 		ResponseData<MeetingRecord> data = new ResponseData<MeetingRecord>();
 		MeetingRecord meeting = new MeetingRecord();
@@ -379,6 +371,10 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 				SopFile sopfile = new SopFile();
 			    sopfile.setMeetingId(id);
 			    sopfile.setFileValid(1);
+			    if(projectId != null)
+			    {
+			    	sopfile.setProjectId(projectId);
+			    }
 				List<SopFile> sopFileList = sopFileService.queryList(sopfile);
 				meeting.setFiles(sopFileList);
 				data.setEntity(meeting);
