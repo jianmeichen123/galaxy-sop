@@ -173,16 +173,27 @@ $(function() {
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				sec.showResultsDrafts();   //提示历史数据信息
-				setInterval(function(){    //定时保存
+				$('.h_title').click(function(){
 					var _tochange=sec.find('form').attr('tochange');
 					if(_tochange=='true'){
 						auto_save(sec);
 					}
-				},60000)
+				})
+				/* setInterval(function(){    //定时保存
+					var _tochange=sec.find('form').attr('tochange');
+					if(_tochange=='true'){
+						auto_save(sec);
+					}
+				},60000) */
 				if($('.history_block .btn').is(':visible')){   //点击恢复
 					$('.history_block .btn').click(function(){
 						sec.showResultsDrafts(null,'result');
-						showConstarct('select[name="1110"]','1110','4');
+						//级联下拉渲染
+						showConstarct('select[name="1110"]','1110','4');   
+						//项目来源关联题目显示隐藏处理
+						valueId=$('dt[data-tid="1120"]').siblings('dd').find('select').val();
+						$('.resource_branch,.resource_branch_01').hide();
+						$('dt[data-valruleformula="1120,'+valueId+'"]').closest('.mb_24').show();
 						//文本域剩余字符数
 						var textarea_h = sec.find('.textarea_h');
 						for(var i=0;i<textarea_h.length;i++){
@@ -307,9 +318,8 @@ $(function() {
 							valu=field.val();
 						}
 						var _resultId = field.parent().attr("resultId");
-					}else if(field.parent().get(0).name=='1120'){
-						var _resultId = field.parent().attr("resultid");
 					}
+					var _resultId = field.parent().attr("resultId");
 					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
 						_resultId=null
 					}
@@ -521,7 +531,7 @@ $(function() {
 		{
 			return;
 		}
-	    sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+	   sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");
@@ -539,7 +549,7 @@ $(function() {
 			} else {
 				layer.msg('保存失败');
 			}
-		});   
+		});  
 		//base_half
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');

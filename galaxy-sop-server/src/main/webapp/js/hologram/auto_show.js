@@ -552,6 +552,7 @@ function buildResultsDraft(sec,title,readonly)
 					inputText.removeAttr('required');
 				}
 			})
+			 $('dt[data-tid="'+titleId+'"]').attr('tochange',true);
 		    $('dt[data-tid="'+titleId+'"]').siblings('dd').find('.selectpicker').attr('title',valList.join('、'));
 			$('dt[data-tid="'+titleId+'"]').siblings('dd').find('.filter-option').text(valList.join('、'))
 		}
