@@ -45,9 +45,9 @@ function resouceShow(mark){
 					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('.selectpicker').attr('title','请选择');
 					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('.filter-option').text('请选择');
 					$('dt[data-tid="1118"]').closest('.resource_branch_01').find('ul li').removeClass('selected');
-					if($(this).val()=='2257'){
+					if($(this).val()=='2257'){     //FA项目承揽人清空
 						$('.resource_branch_01').find('dt').attr('tochange',true);
-					}else if($(this).val()!='2257' && $(this).val()!='2262'){
+					}else if($(this).val()!='2257' && $(this).val()!='2262'){     //非FA && 非星河员工推荐 项目承揽人保存当前用户
 						//项目承揽人是否包含当前用户
 						var userNameList=[];
 						$.each($('.resource_branch_01 .selectpicker option'),function(i,n){
@@ -65,7 +65,8 @@ function resouceShow(mark){
 							}
 						})
 						$('.resource_branch_01').find('dt').attr('tochange',true);
-					}					
+					}	
+					//项目来源关联题目的显示
 					var _val=$(this).find("option:selected").val();
 					var isMust=$('#NO1_1').find('dt[data-valruleformula="'+_id+','+_val+'"]').next('input').attr('data-must');
 					if(isMust=='0'){
