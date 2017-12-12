@@ -380,18 +380,24 @@ $('#project_name_edit').blur(function(){
 function showFaname(){
 
 sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,showName);
-function showName(data){
-	var code = $("#faName").attr("data"); 
-	code="1120,"+code;
-	var valList =data.entity.childList ;
-	var content = valList.filter(o=>o.valRuleFormula==code)[0].resultList[0].contentDescribe1;
-	if(content){		
-		$("#faName").attr('data-original-title',content);
-		$("#faName[data-toggle='tooltip']").tooltip();//提示
-	}else{
-		$("#faName").removeAttr('data-original-title');
+	function showName(data){
+		var code = $("#faName").attr("data"); 
+		code="1120,"+code;
+		var valList =data.entity.childList ;
+		console.log(valList.filter(o=>o.valRuleFormula==code)[0])
+		if(valList.filter(o=>o.valRuleFormula==code)[0].resultList==undefined){
+
+		}else{
+			var content = valList.filter(o=>o.valRuleFormula==code)[0].resultList[0].contentDescribe1;
+		if(content){		
+			$("#faName").attr('data-original-title',content);
+			$("#faName[data-toggle='tooltip']").tooltip();//提示
+		}else{
+			$("#faName").removeAttr('data-original-title');
+		}
+		}
+		
 	}
-}
 }
 
 </script>

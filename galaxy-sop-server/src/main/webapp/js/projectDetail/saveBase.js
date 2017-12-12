@@ -30,9 +30,10 @@ function saveBaseInfo(dom,val1,val2,val3){
 			resultId:_resultId,
 			type : type
 		};
-		if(field.data('titleId')=="1118"&&type=="23"){ 
+		if(field.data('titleId')=="1118"&&type=="23"){  
 				var judgment = $("input[name=projectSource]").attr("m-val");
 				alert(judgment);
+				debugger;
 				if(judgment!='2257'&&judgment!='2262'){ 
 					var judgName = $(".man_info .name").text();
 					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");

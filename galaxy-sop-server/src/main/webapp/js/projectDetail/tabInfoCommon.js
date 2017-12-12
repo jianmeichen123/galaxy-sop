@@ -77,7 +77,7 @@ $(function(){
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
 		    	}
-			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr);
+			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr("m-val",projectInfoDetail.faFlag);
 				if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;

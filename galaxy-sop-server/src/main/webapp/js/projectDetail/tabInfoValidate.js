@@ -69,9 +69,9 @@
 		return this.optional(element) || (limit20.test(value));
 	}, "*不能以空格开头，字符最大长度为20");
 	//来源fa
-	jQuery.validator.addMethod("limit50", function (value, element) {
-		var limit50 = /^[^\s](.{0,49})$/;
-		return this.optional(element) || (limit50.test(value));
+	jQuery.validator.addMethod("limit50  ", function (value, element) {
+		var limit50   = /^[^\s](.{0,49})$/;
+		return this.optional(element) || (limit50  .test(value));
 	}, "*不能以空格开头，字符最大长度为50");
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
