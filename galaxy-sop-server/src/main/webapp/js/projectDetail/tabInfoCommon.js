@@ -335,7 +335,7 @@ $(function(){
 		function getUpdateDataBasic(){
 			var id=pid;
 			var pname=$("#project_name_edit").val().trim();
-			var industry_own=$("#industry_own_sel").attr('data-flag');
+			var industry_own=$("#industry_own_sel").attr('m-val');
 			//处理投资形式
 			var investForm= $(".radio_checked input").attr("value");
 			var arr=[];
