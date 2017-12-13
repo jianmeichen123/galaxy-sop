@@ -204,6 +204,7 @@ $(function() {
 						 $(this).closest('.resource_branch_01').find('input').show();
 					} else{
 						$(this).closest('.resource_branch_01').find('input').hide();
+						$(this).closest('.resource_branch_01').find('span.error').hide();
 					}
 				})
 				btn_disable(1);
