@@ -421,7 +421,7 @@ function CallBackE(data){
 //项目名称重复checkProjectName
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
-	if(projectName==""){
+	if(projectName==""||projectName=="undefined"){
 		return false
 	}else{
 		var data2 = {

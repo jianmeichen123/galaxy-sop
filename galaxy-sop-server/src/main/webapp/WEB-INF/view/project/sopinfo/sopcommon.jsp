@@ -357,25 +357,27 @@ function projectList(){
 //项目名称重复限制
 $('#project_name_edit').blur(function(){
 	var projectName = $('#project_name_edit').val().trim();
-	if(projectName==""){
+	if(projectName==""||projectName=="undefined"){
 		$('.projectname-edit-label').hide();
 		return false;
-	}
-	var projectID = '${projectId}';
-	var data1 = {
-		'projectName':projectName,
-		'id' : projectID
-	}
-	sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
-			if(data.result.status=="ERROR"){
-				if(data.result.errorCode == "name-repeat"){
-					$('.projectname-edit-label').show();
-					return false
+	}else{
+		var projectID = '${projectId}';
+		var data1 = {
+			'projectName':projectName,
+			'id' : projectID
+		}
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
+				if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "name-repeat"){
+						$('.projectname-edit-label').show();
+						return false
+					}
+				}else if(data.result.status ==='OK'){
+					$('.projectname-edit-label').hide();
 				}
-			}else if(data.result.status ==='OK'){
-				$('.projectname-edit-label').hide();
-			}
-	})
+		})
+	}
+	
 	
 	
 })
