@@ -2689,7 +2689,7 @@ input::-moz-placeholder {
     color:#b3b3b3;
      font-size:12px;
 }
-input:-ms-input-placeholder { 
+input::-ms-input-placeholder { 
     color:#b3b3b3;
      font-size:12px;
 }
