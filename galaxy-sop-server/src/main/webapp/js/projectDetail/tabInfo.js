@@ -776,15 +776,11 @@ function dropdown_select(data,event){
 	var _this = $(data);
 	var inputId=_this.attr('id');
 	var ul = _this.closest('#dropdown').find('ul');
-	$('#dropdown ul').slideUp('fast');
-	$('#dropdown ul').hide('fast');
-	if(ul.css("display")=="none"){
-		_this.addClass('up');
-		ul.slideDown("fast");
-	}else{ 
-		ul.slideUp("fast");
-		_this.removeClass('up');
-	} 
+	_this.closest("tr").siblings().find(".base_select_ul").slideUp("fast");
+	_this.closest("tr").siblings().find(".input_select").removeClass("up");	
+	$(".bootstrap-select.show-tick").removeClass("open");
+	_this.toggleClass("up");
+	ul.slideToggle("fast");
 	if(inputId=='finance_status_sel'){
 		$('#finance_status_sel').blur(function(){
 			if($('#finance_status_sel-error').is(':visible')){
@@ -793,24 +789,19 @@ function dropdown_select(data,event){
 			}
 			
 		});
-		
-		
 	}
 	event.stopPropagation(); 
-	$("#dropdown ul li").click(function(){
+	$("ul.selectpickerc li").click(function(){
 		event.stopPropagation(); 
 		var target = $(this).closest('#dropdown').find('input');
 		target.removeClass('up')
 		var txt = $(this).text(); 
 		target.val(txt).attr("m-val",$(this).attr("value"));
-		$("#dropdown ul").hide(); 
+		$("ul.selectpickerc").hide(); 
 	});
 	$(document).on("click", function(){
-		if(ul.css("display")!="none"){
-			ul.slideUp("fast");
-			_this.removeClass('up');
-		}
-		
+		$(".base_select_ul").slideUp("fast");
+		$(".input_select").removeClass('up');		
     });
 }
 

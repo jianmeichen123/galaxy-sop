@@ -104,7 +104,7 @@ position:absolute;
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空" aria-required="true"/>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空"/>
 							<label class='projectname-edit-label'>*项目名称重复</label>
 						</td>
 					</tr>
@@ -112,7 +112,7 @@ position:absolute;
 						<td>
 							<span>行业归属：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -196,7 +196,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother"/>
+								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
 							</div>
 							</div>
 							</div>
@@ -207,7 +207,7 @@ position:absolute;
 			
 			</div>
 	    </div>
-	   		<div class="btn btnbox basic_mes_button">
+	   		<div class="btn btnbox basic_mes_button basicSpButton">
               <button  class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type='save_basic'>保存</button>
               <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 

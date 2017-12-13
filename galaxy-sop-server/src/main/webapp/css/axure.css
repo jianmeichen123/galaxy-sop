@@ -3860,6 +3860,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_cancel_btn:hover,.version19_cancel_btn:active{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
 .basic_mes_button{margin: 37px auto 27px;display:block;}
+.basicSpButton{margin-top:55px;}
 .basic_common_width{width:600px;font-family:Microsoft YaHei;border-radius:0px !important;}
 .finacing_plan{ height:auto;max-height:505px;display:none;}
 .finacing_plan .inves_plan_btn{margin-bottom: 27px;}
@@ -3926,6 +3927,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #add_meet_dialog dd #meetingType{width:225px;}
  .member table.team_info .on td{ background:none;}
  .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
+ .basic_message_cont #pickeother-error{margin-left: 4px;margin-top: 36px;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
 /* V1.10 */
 .history_block{color:#ff6565;font-size:14px;position:absolute;top:20px;display:none;}
