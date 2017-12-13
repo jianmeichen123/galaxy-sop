@@ -4133,7 +4133,9 @@ li .projectSource11 span.basic_span {
 li .projectSource11 span.m_r30{
 	float:none;
 	display:inline-block;
+	vertical-align:top;
 }
+.projectSource11 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){margin-left:-6px;}
 .inputSouce{
 	
 }
