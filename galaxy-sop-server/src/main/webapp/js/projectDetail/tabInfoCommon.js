@@ -182,7 +182,8 @@ $(function(){
 				var code = $(this).attr("code"); 
 				$(".trSouce").hide();
 				$(".trSouce."+code).show();
-				$(".trSouce input").val("");
+				$(".trSouce."+code).find("input").attr("required",true);
+				$(".trSouce input").val("").removeAttr("required");
 				$("#selectRadio option").attr("selected",false);
 				$("button.selectpicker").attr("title",'请选择');
 				$("button.selectpicker span").text("请选择");
