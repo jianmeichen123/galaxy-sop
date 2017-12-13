@@ -146,7 +146,7 @@ position:absolute;
 						<td>
 							<span>FA推荐：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" data-rule-limit20="true" required name="proS6"  data-msg-required="<font color=red>*</font>不能超过20字且不能全为空格，必填" maxlength="20"/>
 							</div>
 							
 						</td>
@@ -155,7 +155,7 @@ position:absolute;
 						<td>
 							<span>孵化器名称：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1123" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1123" data-type="1" class="basic_mes_input inputSouce" name="proS7"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -164,7 +164,7 @@ position:absolute;
 						<td>
 							<span>路演活动名称：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" name="proS8"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -173,7 +173,7 @@ position:absolute;
 						<td>
 							<span>各创投数据库：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1125" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1125" data-type="1" class="basic_mes_input inputSouce" name="proS9"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -182,7 +182,7 @@ position:absolute;
 						<td>
 							<span>专业媒体报道 ：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1126" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1126" data-type="1" class="basic_mes_input inputSouce" name="proS10" maxlength="50" />
 							</div>
 							
 						</td>
@@ -196,7 +196,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
+								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
 							</div>
 							</div>
 							</div>

@@ -791,7 +791,7 @@ function dropdown_select(data,event){
 		});
 	}
 	event.stopPropagation(); 
-	$("ul.selectpickerc li").click(function(){
+	$("ul.base_select_ul li").click(function(){
 		event.stopPropagation(); 
 		var target = $(this).closest('#dropdown').find('input');
 		target.removeClass('up')
