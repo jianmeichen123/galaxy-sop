@@ -539,6 +539,22 @@ function buildResultsDraft(sec,title,readonly)
 			var valList=[];
 			var last_id=$('dt[data-tid="'+titleId+'"]').siblings('dd').find('select option:last').attr('value');
 			var inputText=$('dt[data-tid="'+titleId+'"]').closest('.mb_24').find('input');
+			//下拉渲染
+			var options='';
+			sendGetRequest(platformUrl.editProjectAreaInfo + projectInfo.id +'/'+title.id, null, function(data) {   
+			var result = data.result.status;
+			if (result == 'OK') {
+			    var entitys = data.entity.valueList;
+			    $.each(entitys,function(i,o){
+				    options+="<option value='"+o.id+ "' data-title-id='"+o.id+"' data-type='"+title.type+"' >"  + o.name + "</option>"
+				   });
+			  }
+			});
+			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').html('');
+			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').append(options);
+			//回显赋值
+			$('dt[data-tid="'+titleId+'"]').siblings('dd').find('option').removeAttr('selected');
+			$('dt[data-tid="'+titleId+'"]').siblings('dd').find('li').removeClass('selected');
 			$.each(title.resultMGList,function(i,n){
 				$('dt[data-tid="'+titleId+'"]').siblings('dd').find('span[data-value="'+n.contentChoose+'"]').closest('li').addClass('selected');
 				$('dt[data-tid="'+titleId+'"]').siblings('dd').find('option[value="'+n.contentChoose+'"]').attr('selected',true);
@@ -553,8 +569,8 @@ function buildResultsDraft(sec,title,readonly)
 				}
 			})
 			 $('dt[data-tid="'+titleId+'"]').attr('tochange',true);
-		    $('dt[data-tid="'+titleId+'"]').siblings('dd').find('.selectpicker').attr('title',valList.join('、'));
-			$('dt[data-tid="'+titleId+'"]').siblings('dd').find('.filter-option').text(valList.join('、'))
+		     $('dt[data-tid="'+titleId+'"]').siblings('dd').find('.selectpicker').attr('title',valList.join('、'));
+			 $('dt[data-tid="'+titleId+'"]').siblings('dd').find('.filter-option').text(valList.join('、'));
 		}
 	//最外部else
 	}else{
@@ -584,6 +600,11 @@ function buildResultsDraft(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"'],dt[data-tid='"+ title.id +"']").next('dd').find("li").removeClass('active');
 				$("dt[data-id='"+ title.id +"'],dt[data-title-id='"+ title.id +"'],dt[data-tid='"+ title.id +"']").next('dd').find('input').val('').removeAttr('required').attr('disabled',true);
 			}
+		}else if(title.type == 23){
+			$('dt[data-tid="'+title.id+'"]').next('dd').find('button.selectpicker').attr('title','请选择');
+			$('dt[data-tid="'+title.id+'"]').next('dd').find('.filter-option').text('请选择');
+			$('dt[data-tid="'+title.id+'"]').next('dd').find('ul li').removeClass('selected');
+			$('dt[data-tid="'+title.id+'"]').siblings('dd').find('select.selectpicker option').removeAttr('selected');
 		}
 	}
 }

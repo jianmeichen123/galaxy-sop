@@ -42,7 +42,7 @@ setInterval(function(){    //定时保存
 		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select[data-title-id],select[name]");
 		var fields_value1=sec.find("li[class='check_label active'],li.active");
 		var fields_value_li=$("#b_" + id_code).find(".selectpicker li.selected");   //23类型特殊处理
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13'],dt[data-type='23']");
 		var data = {
 				projectId : projectInfo.id,
 				parentId:sec.data('section-id')
@@ -298,10 +298,18 @@ setInterval(function(){    //定时保存
 			$.each(dt_type_3, function() {
 				var _this = $(this);
 				var _tochange =_this.attr("tochange");
-				var active = _this.parent().find('dd .active');
-				if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
-					var tid = _this.attr('data-tid') || _this.attr('data-title-id');
-					deletedResultTids.push(tid);
+				if(_this.data('type')=='23'){
+					var active = _this.parent().find('ul li.selected');
+					if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+						var tid = _this.data('tid');
+						deletedResultTids.push(tid);
+					}
+				}else{
+					var active = _this.parent().find('dd .active');
+					if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
+						var tid = _this.attr('data-tid') || _this.attr('data-title-id');
+						deletedResultTids.push(tid);
+					}
 				}
 			});
 			data.deletedResultTids = deletedResultTids;
