@@ -119,9 +119,9 @@ function saveBaseInfo(dom,val1,val2,val3){
 				if (result == 'OK') {
 					layer.msg('保存成功');
 					updateReportMoneyBasic();	
-					if(dom=="basicForm"&&val1=="finance"){	
+					/*if(dom=="basicForm"&&val1=="finance"){	
 						updateReportMoney(); 
-					}
+					}*/
 //					弹窗关闭
 					var close="basic"
 					$('.'+close+'_current').hide();//basic_current
@@ -141,4 +141,39 @@ function saveBaseInfo(dom,val1,val2,val3){
 					layer.msg("操作失败!");
 				}
 		});
+}
+
+
+
+
+function updateReportMoneyBasic(){
+	var projectInfoListNew=[];
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
+		if(data.result.status=='OK'){
+			projectInfoListNew=data.userData.report[0].childList;
+			if(projectInfoListNew && projectInfoListNew.length>0){
+			    	$.each(projectInfoListNew,function(i,o){
+				    	if(o.nodeName=='本轮融资轮次'){
+				    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
+				    	}		    	
+				    })
+			    }
+			projectInfoDetail=data.userData.pro;   
+			reportResult=data.userData.report; 
+			$("#project_name_t").text(projectInfoDetail.projectName);
+			$("#project_name_t").attr("title",projectInfoDetail.projectName);
+			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
+			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
+			$("#projectType").text(projectInfoDetail.type); 
+			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
+			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+			showFaname()
+			if(projectInfoDetail.projectName.length>20){
+				$('.project_name_t').css('font-size','24px')
+			}else{
+				$('.project_name_t').css('font-size','28px')
+			}
+			//FA类型展示
+		}
+	})
 }
