@@ -622,6 +622,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				sopfile.setBucketName(sopfile.getBucketName());
 				sopfile.setFileName(sopfile.getFileName());
 				sopfile.setFileSuffix(sopfile.getFileSuffix());
+				sopfile.setFileValid(1);
 			}
 			sopFileDao.insertInBatch(sopFileList);	
 		}
