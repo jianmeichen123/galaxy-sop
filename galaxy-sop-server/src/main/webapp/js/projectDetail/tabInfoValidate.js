@@ -4,7 +4,8 @@
 		$('#add_form').validate({
 			rules :{
 				projectName :{
-					required :true
+					required :true,
+					limit24 :true
 				},
 				financeStatus :{
 					required: true
@@ -72,7 +73,13 @@
 	jQuery.validator.addMethod("limit20", function (value, element) {
 		var limit20 =  /^(?!.{21}|^\s*$)/;
 		return this.optional(element) || (limit20.test(value));
-	}, "*不能超过20字且不能全为空格，必填")
+	}, "*不能超过20字且不能全为空格，必填");
+	jQuery.validator.addMethod("limit24", function (value, element) {
+		var limit24 =  /^(?!.{25}|^\s*$)/;
+		return this.optional(element) || (limit24.test(value));
+	}, "*不能超过24字且不能全为空格，必填");
+	
+	
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;

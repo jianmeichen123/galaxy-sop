@@ -104,7 +104,7 @@ position:absolute;
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空"/>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-rule-limit24="true" data-msg-required="<font color=red>*</font>项目名称不能为空"/>
 							<label class='projectname-edit-label'>*项目名称重复</label>
 						</td>
 					</tr>
