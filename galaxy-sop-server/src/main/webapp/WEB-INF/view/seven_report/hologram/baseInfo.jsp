@@ -172,48 +172,7 @@ $(function() {
 				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
-				sec.showResultsDrafts();   //提示历史数据信息
-				$('.h_title').click(function(){
-					var _tochange=sec.find('form').attr('tochange');
-					if(_tochange=='true'){
-						auto_save(sec);
-					}
-				})
-				/* setInterval(function(){    //定时保存
-					var _tochange=sec.find('form').attr('tochange');
-					if(_tochange=='true'){
-						auto_save(sec);
-					}
-				},60000) */
-				if($('.history_block .btn').is(':visible')){   //点击恢复
-					$('.history_block .btn').click(function(){
-						sec.showResultsDrafts(null,'result');
-						//级联下拉渲染
-						showConstarct('select[name="1110"]','1110','4');   
-						//项目来源关联题目显示隐藏处理
-						valueId=$('dt[data-tid="1120"]').siblings('dd').find('select').val();
-						$('.resource_branch,.resource_branch_01').hide();
-						$('dt[data-valruleformula="1120,'+valueId+'"]').closest('.mb_24').show();
-						//文本域剩余字符数
-						var textarea_h = sec.find('.textarea_h');
-						for(var i=0;i<textarea_h.length;i++){
-							var len=textarea_h.eq(i).val().length;
-							var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
-							textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
-						}
-						/* 文本域自适应高度 */
-						for(var i=0;i<$("textarea").length;i++){
-							var textareaId=$("textarea").eq(i).attr("id");
-							autoTextarea(textareaId);
-						}
-						//查询数据字典
-						var table=$(this).closest('form').find('table')
-						$("table").each(function(){resizetable(table)})
-						//检查表格tr是否10行
-						check_table_tr_edit();
-						check_table();
-					})
-				}
+				draftbox(sec);    //草稿箱保存，回显公共方法
 				var sTop=$(window).scrollTop();
 				$(window).scrollTop(sTop);
 				validate();
