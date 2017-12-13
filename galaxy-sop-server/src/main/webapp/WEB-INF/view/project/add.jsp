@@ -118,7 +118,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" />
+									  <input type="text" class="addpro-input" name="pickeother" placeholder='请输入星河其他部门项目承揽人名称'/>
 								</span>
                         	</div>
                         </li>
