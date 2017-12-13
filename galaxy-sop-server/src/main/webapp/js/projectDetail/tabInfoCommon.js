@@ -308,38 +308,20 @@ $(function(){
 					return;
 				}
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){					
-					if(data2.result.status=="OK"){
-						layer.msg(data2.result.message); 
+					if(data2.result.status=="OK"){ 
 						saveBaseInfo("basicForm1");
 						if(data2.result.errorCode=='mccf'){   //项目名重复
 							//layer.msg(data2.result.message);
 							return;
 						}
 						//弹窗关闭
-						var close="basic"
-						$('.'+close+'_current').hide();//basic_current
-						$('.'+close+'_on').hide();
-						$('.'+close+'_center').show();
-						$('.bj_hui_on_common').hide();
-						$("body").css('overflow-y','auto');						
-						updateReportMoneyBasic();sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
-							projectInfoDetail=data.userData.pro;   
-							reportResult=data.userData.report; 
-							$("#project_name_t").text(projectInfoDetail.projectName);
-							$("#project_name_t").attr("title",projectInfoDetail.projectName);
-							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-							$("#projectType").text(projectInfoDetail.type); 
-							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-							$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
-							showFaname()
-							if(projectInfoDetail.projectName.length>20){
-								$('.project_name_t').css('font-size','24px')
-							}else{
-								$('.project_name_t').css('font-size','28px')
-							}
-							//FA类型展示
-						});
+							var close="basic"
+							$('.'+close+'_current').hide();//basic_current
+							$('.'+close+'_on').hide();
+							$('.'+close+'_center').show();
+							$('.bj_hui_on_common').hide();
+							$("body").css('overflow-y','auto');						
+							//updateReportMoneyBasic();						 
 					}else {
 						if(data2.result.errorCode!="mccf"){
 							layer.msg(data2.result.message);
@@ -412,6 +394,22 @@ $(function(){
 				if(data.result.status=='OK'){
 					projectInfoListNew=data.userData.report[0].childList;
 					updataReportBasic(projectInfoListNew);
+					projectInfoDetail=data.userData.pro;   
+					reportResult=data.userData.report; 
+					$("#project_name_t").text(projectInfoDetail.projectName);
+					$("#project_name_t").attr("title",projectInfoDetail.projectName);
+					$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
+					$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
+					$("#projectType").text(projectInfoDetail.type); 
+					$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
+					$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+					showFaname()
+					if(projectInfoDetail.projectName.length>20){
+						$('.project_name_t').css('font-size','24px')
+					}else{
+						$('.project_name_t').css('font-size','28px')
+					}
+					//FA类型展示
 				}
 			})
 		}

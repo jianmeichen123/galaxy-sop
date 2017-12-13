@@ -118,6 +118,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					updateReportMoneyBasic();	
 					if(dom=="basicForm"&&val1=="finance"){	
 						updateReportMoney(); 
 					}
