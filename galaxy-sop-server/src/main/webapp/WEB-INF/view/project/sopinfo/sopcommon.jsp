@@ -196,7 +196,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" class="trSouceOther addpro-input basic_mes_input"/>
+								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother"/>
 							</div>
 							</div>
 							</div>
@@ -357,20 +357,23 @@ function projectList(){
 //项目名称重复限制
 $('#project_name_edit').blur(function(){
 	var projectName = $('#project_name_edit').val().trim();
+	if(projectName==""){
+		$('.projectname-edit-label').hide();
+		return false;
+	}
 	var projectID = '${projectId}';
 	var data1 = {
 		'projectName':projectName,
 		'id' : projectID
 	}
-	sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
-		console.log(data)
+	sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
 			if(data.result.status=="ERROR"){
 				if(data.result.errorCode == "name-repeat"){
-					$('.projectname-edit-label').css('display','block');
+					$('.projectname-edit-label').show();
 					return false
 				}
 			}else if(data.result.status ==='OK'){
-				$('.projectname-edit-label').css('display','none');
+				$('.projectname-edit-label').hide();
 			}
 	})
 	
@@ -398,10 +401,11 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 			var  List =valList.filter(o=>o.valRuleFormula==code)[0].resultList;
 			if(valList.filter(o=>o.valRuleFormula==code)[0].id=="1118"&&List){
 					var Str=""
-				$.each(List,function(){
-			debugger;
-					Str+=$(this)[0].valueName=="其他"?$(this)[0].contentDescribe1:$(this)[0].valueName;					
-				})
+				$.each(List,function(){ 
+					Str+=$(this)[0].valueName=="其他"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
+					Str+='、'; 
+				}) 
+				Str=Str.substring(0,Str.length-1); 
 				$("#faName").attr('data-original-title',Str);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}

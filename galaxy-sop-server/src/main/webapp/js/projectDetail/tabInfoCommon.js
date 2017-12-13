@@ -129,7 +129,7 @@ $(function(){
 								valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
 								if(that2.text()=="其他"){
-									$(".addpro-input").show().val(that.contentDescribe1);
+									$(".addpro-input").show().val(that.contentDescribe1).attr("ovalue",that2.find("span").data("value"));
 								}
 								return false;
 							}
