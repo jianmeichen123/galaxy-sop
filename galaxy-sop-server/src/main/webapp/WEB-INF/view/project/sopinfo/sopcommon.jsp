@@ -104,7 +104,7 @@ position:absolute;
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空" aria-required="true"/>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空"/>
 							<label class='projectname-edit-label'>*项目名称重复</label>
 						</td>
 					</tr>
@@ -112,7 +112,7 @@ position:absolute;
 						<td>
 							<span>行业归属：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空"/> 
 									<ul class='base_select_ul'> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -146,7 +146,7 @@ position:absolute;
 						<td>
 							<span>FA推荐：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" data-rule-limit20="true" required name="proS6"  data-msg-required="<font color=red>*</font>不能超过20字且不能全为空格，必填" maxlength="20"/>
 							</div>
 							
 						</td>
@@ -155,7 +155,7 @@ position:absolute;
 						<td>
 							<span>孵化器名称：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1123" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1123" data-type="1" class="basic_mes_input inputSouce" name="proS7"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -164,7 +164,7 @@ position:absolute;
 						<td>
 							<span>路演活动名称：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" name="proS8"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -173,7 +173,7 @@ position:absolute;
 						<td>
 							<span>各创投数据库：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1125" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1125" data-type="1" class="basic_mes_input inputSouce" name="proS9"  maxlength="50"/>
 							</div>
 							
 						</td>
@@ -182,7 +182,7 @@ position:absolute;
 						<td>
 							<span>专业媒体报道 ：</span>
 							<div> 
-								<input type="text" value="" data-title-id="1126" data-type="1" class="basic_mes_input inputSouce" tochange="" />
+								<input type="text" value="" data-title-id="1126" data-type="1" class="basic_mes_input inputSouce" name="proS10" maxlength="50" />
 							</div>
 							
 						</td>
@@ -196,7 +196,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother"/>
+								  <input type="text" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
 							</div>
 							</div>
 							</div>
@@ -207,7 +207,7 @@ position:absolute;
 			
 			</div>
 	    </div>
-	   		<div class="btn btnbox basic_mes_button">
+	   		<div class="btn btnbox basic_mes_button basicSpButton">
               <button  class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type='save_basic'>保存</button>
               <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 
@@ -357,25 +357,27 @@ function projectList(){
 //项目名称重复限制
 $('#project_name_edit').blur(function(){
 	var projectName = $('#project_name_edit').val().trim();
-	if(projectName==""){
+	if(projectName==""||projectName=="undefined"){
 		$('.projectname-edit-label').hide();
 		return false;
-	}
-	var projectID = '${projectId}';
-	var data1 = {
-		'projectName':projectName,
-		'id' : projectID
-	}
-	sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
-			if(data.result.status=="ERROR"){
-				if(data.result.errorCode == "name-repeat"){
-					$('.projectname-edit-label').show();
-					return false
+	}else{
+		var projectID = '${projectId}';
+		var data1 = {
+			'projectName':projectName,
+			'id' : projectID
+		}
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
+				if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "name-repeat"){
+						$('.projectname-edit-label').show();
+						return false
+					}
+				}else if(data.result.status ==='OK'){
+					$('.projectname-edit-label').hide();
 				}
-			}else if(data.result.status ==='OK'){
-				$('.projectname-edit-label').hide();
-			}
-	})
+		})
+	}
+	
 	
 	
 })

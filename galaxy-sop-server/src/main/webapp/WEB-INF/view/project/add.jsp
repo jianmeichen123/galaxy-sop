@@ -421,19 +421,26 @@ function CallBackE(data){
 //项目名称重复checkProjectName
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
-	var data2 = {
-			'projectName' : projectName
-	}
-	sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
-		console.log(data)
-			if(data.result.status=="ERROR"){
-				if(data.result.errorCode == "name-repeat"){
-					$('.project-name').css('display','block');
+	if(projectName==""||projectName=="undefined"){
+		return false
+	}else{
+		var data2 = {
+				'projectName' : projectName
+		}
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
+			console.log(data)
+				if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "name-repeat"){
+						$('.project-name').css('display','block');
+					}
+				}else if(data.result.status ==='OK'){
+					$('.project-name').css('display','none');
 				}
-			}else if(data.result.status ==='OK'){
-				$('.project-name').css('display','none');
-			}
-	})
+		})
+		
+		
+	}
+
 	
 	
 })  
