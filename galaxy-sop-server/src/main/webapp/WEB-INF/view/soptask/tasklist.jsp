@@ -35,9 +35,9 @@
             <!--tips连接-->
         	<ul class="tipslink task_tipslink">
             	<li class="on task-tips-li"><a href="javascript:;" id="all" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/all">全部<span><!-- (14) --></span></a></li>
-                <c:if test="${fx:hasPremission('task_list_claim') }">	
+               <%--  <c:if test="${fx:hasPremission('task_list_claim') }">	
                 <li class='task-tips-li'><a href="javascript:;" id="claim" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/unclaimed">待认领<span><!-- (10) --></span></a></li>
-                </c:if>
+                </c:if> --%>
                 <c:if test="${fx:hasPremission('task_list_dispose') }">	
                 <li class='task-tips-li'><a href="javascript:;" id="todeal" data-query-url="<%=request.getContextPath() %>/galaxy/soptask/list/unfinished">待完工<span><!-- (4) --></span></a></li>
                 </c:if>
