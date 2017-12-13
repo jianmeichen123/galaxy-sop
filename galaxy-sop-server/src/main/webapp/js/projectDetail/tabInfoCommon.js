@@ -78,7 +78,12 @@ $(function(){
 			    	
 		    	}
 			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr("m-val",projectInfoDetail.faFlag);
-				if(projectInfoDetail.faFlag){
+				if(projectInfoDetail.faFlagStr=="创业者"||projectInfoDetail.faFlagStr=="创业者"||projectInfoDetail.faFlagStr=="创业者"){
+					$(".historyData").show();
+				}else{
+					$(".historyData").hide();
+				}
+			    if(projectInfoDetail.faFlag){
 					$(".trSouce").hide();					
 					var val = projectInfoDetail.faFlag;
 					var className = $("#selectSource").find("li[value="+val+"]").attr("code");
