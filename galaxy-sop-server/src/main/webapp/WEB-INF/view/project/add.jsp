@@ -407,7 +407,15 @@ function CallBackE(data){
 			$(".projectSource").hide();
 			var selCode=$(this).find("option:checked").attr("code");
 			$("."+selCode).show();
-			 
+			$(".trSouce input").val("");
+			$("#selectRadio option").attr("selected",false);
+			$("button.selectpicker").attr("title",'请选择');
+			$("button.selectpicker span").text("请选择");
+			$("ul.selectpicker li").removeClass("selected");
+			$(".trSouceOther").hide().val("")
+			 $('#selectRadio').selectpicker({
+	   			 dropupAuto:false
+               });
 		})
 	}
 	function calculationValuations(){
