@@ -179,14 +179,16 @@ $(function(){
 		    	$(this).attr("tochange",true)
 		    })
 		    $("#selectSource li").click(function(){
+		    	debugger;
 				var code = $(this).attr("code"); 
 				$(".trSouce").hide();
-				$(".trSouce."+code).show();
+				$(".trSouce."+code).show(); 
 				$("#selectRadio option").attr("selected",false);
 				$("button.selectpicker").attr("title",'请选择');
 				$("button.selectpicker span").text("请选择");
 				$("ul.selectpicker li").removeClass("selected");
-				$(".trSouceOther").hide().val("")
+				$(".trSouce input").val("");
+				$(".trSouceOther").hide().val("");
 				 $('#selectRadio').selectpicker({
 		   			 dropupAuto:false
 	               });
