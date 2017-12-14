@@ -140,7 +140,7 @@ position:absolute;
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div> 
-							<span class="historyData">历史数据红字</span>
+							<span class="historyData">项目来源选项已更新，请重新选择</span>
 						</td>
 					</tr>
 					<tr class="trSouce projectSource6 ">

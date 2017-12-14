@@ -188,6 +188,7 @@ $(function(){
 				$("ul.selectpicker li").removeClass("selected");
 				$(".trSouce input").val("");
 				$(".trSouceOther").hide().val("");
+				$(".historyData").hide();
 				 $('#selectRadio').selectpicker({
 		   			 dropupAuto:false
 	               });
