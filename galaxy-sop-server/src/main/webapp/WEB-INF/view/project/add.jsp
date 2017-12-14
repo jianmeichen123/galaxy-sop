@@ -339,8 +339,8 @@ function CallBackE(data){
 	    var _dom=$("select[name='proSource']");
 	        _dom.html("");
 	        _dom.append('<option value="">请选择</option>');
-	    var childNum = _dom.find("option").length; 
-	    var entity=data.entity.childList[1];
+	    var childNum = _dom.find("option").length;  
+	    var entity=data.entity.childList.filter(function(val){return val.titleId=="1120"})[0];  
 	    if(!childNum || childNum !=0 ){
 	    	$.each(entity.valueList,function(){
 	    		_dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
