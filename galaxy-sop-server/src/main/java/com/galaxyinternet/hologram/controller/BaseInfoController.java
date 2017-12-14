@@ -95,6 +95,9 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO",currTime,tempfilePath);
 
+
+
+
 		String docxName = project.getProjectName() + "全息报告"+ymd+".docx";
 
 		try {

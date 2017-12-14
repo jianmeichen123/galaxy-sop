@@ -148,6 +148,14 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 			boolean isToEval = false;
 			if(code.equals("NO")){
+				// 简单处理， 仅在 result表中移除
+				for(Long temp : CacheOperationServiceImpl.NO_always){
+					if(result_ids.contains(temp)){
+						result_ids.remove(temp);
+					}
+				}
+
+
 				Project pro = projectDao.selectById(proId);
 				if(com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode().equals(pro.getFinanceStatus())){
 					isToEval = true;

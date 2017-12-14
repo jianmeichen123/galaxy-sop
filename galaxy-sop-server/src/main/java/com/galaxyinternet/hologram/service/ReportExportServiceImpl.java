@@ -260,13 +260,13 @@ public class ReportExportServiceImpl implements ReportExportService {
             map.put("NO1_1_1_n", textConversion(project.getProjectName()));
 
             //项目来源
-            if(StringUtils.isNotBlank(project.getFaFlag())){
+            /*if(StringUtils.isNotBlank(project.getFaFlag())){
                 if( "projectSource:1".equals(project.getFaFlag())){
                     map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()) +"-"+project.getFaName());
                 }else{
                     map.put("NO1_flag", DictEnum.projectSource.getNameByCode(project.getFaFlag()));
                 }
-            }
+            }*/
 
             User createUser = userService.queryById(project.getCreateUid());
             //project.setCreateUname(createUser.getRealName());
@@ -294,6 +294,7 @@ public class ReportExportServiceImpl implements ReportExportService {
     /**
      * result 结果表 结果查询封装
      * title-type :  ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20, 21
+     *
      * 【6 18 无】
      *
      */
@@ -332,6 +333,14 @@ public class ReportExportServiceImpl implements ReportExportService {
             List<InformationResult> resultList = tempTitle.getResultList();
             if(resultList!=null && !resultList.isEmpty())
             {
+                //项目来源 title NO1_1_10—1120 CLR承揽人关系 写死
+                //定义是否显示承揽人  information_dictionary id_2257:FA推荐 -> 不显示承揽人
+                if(tempTitle.getCode().equals("NO1_1_10")){
+                    if(!("2257".equals(resultList.get(0).getContentChoose()))){
+                        map.put("CLR_tos", "y");
+                    }
+                }
+
                 value = resultTypeConver(tempTitle,valueIdNameMap);
                 if(value != null){
                     map.put(tempTitle.getCode(), value);
@@ -407,6 +416,8 @@ public class ReportExportServiceImpl implements ReportExportService {
         } else if (type == 12 || type == 13 || type == 21) {
             // 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
             // 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose
+            // 21: 下拉选择加备注
+            // 23: 下拉复选加备注
             // map : code-value
             StringBuffer stringBuffer = new StringBuffer();
 
