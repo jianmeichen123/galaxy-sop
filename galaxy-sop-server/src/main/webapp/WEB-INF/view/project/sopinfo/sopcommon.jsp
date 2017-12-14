@@ -401,8 +401,8 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 			}else{
 				$("#faName").removeAttr('data-original-title');
 			}
-			var  List =valList.filter(o=>o.valRuleFormula==code)[0].resultList;
-			if(valList.filter(o=>o.valRuleFormula==code)[0].id=="1118"&&List){
+			var  List =valList.filter(function(val){return val.valRuleFormula==code})[0].resultList;
+			if(valList.filter(function(val){return val.valRuleFormula==code})[0].id=="1118"&&List){
 					var Str=""
 				$.each(List,function(){ 
 					Str+=$(this)[0].valueName=="其他"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
