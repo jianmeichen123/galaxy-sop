@@ -118,7 +118,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" />
+									  <input type="text" class="addpro-input" name="pickeother" placeholder='请输入星河其他部门项目承揽人名称'/>
 								</span>
                         	</div>
                         </li>
@@ -308,7 +308,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 sendGetRequest(platformUrl.queryAllTitleValues+'NO1?reportType=4', null,CallBackE);
 function CallBackE(data){
 	var data_list = data.entity.childList[0].childList;
-	var dataresu =data_list.filter(o=>o.id=="1118")[0].valueList;
+	var dataresu =data_list.filter(function(val){return val=="1118"})[0].valueList;
 	var res="";
 	$.each(dataresu,function(){
 		res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
@@ -355,7 +355,7 @@ function CallBackE(data){
 			$(".selectcheck .addpro-input").hide().val("");
 			return;
 		}
-		var filt = value.filter(o=>o==otherValue);
+		var filt = value.filter(function(val){return val==otherValue});
 		if(filt.length>0){
 			$(".selectcheck .addpro-input").show();
 			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
@@ -407,7 +407,16 @@ function CallBackE(data){
 			$(".projectSource").hide();
 			var selCode=$(this).find("option:checked").attr("code");
 			$("."+selCode).show();
-			 
+			$(".trSouce input").val("");
+			$("#selectRadio option").attr("selected",false);
+			$("button.selectpicker").attr("title",'请选择');
+			$("button.selectpicker span").text("请选择");
+			$("ul.selectpicker li").removeClass("selected");
+			$(".trSouce input").val("");
+			$(".trSouceOther").hide().val("")
+			 $('#selectRadio').selectpicker({
+	   			 dropupAuto:false
+               });
 		})
 	}
 	function calculationValuations(){

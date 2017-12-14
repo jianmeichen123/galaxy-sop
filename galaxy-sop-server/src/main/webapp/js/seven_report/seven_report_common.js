@@ -1223,6 +1223,15 @@ function validate(){
 						"data-msg-vinputValRule_3":"<font color=red>*</font>0到100之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="3,2,0"){   //包含0
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3_0":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3_0":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -1472,6 +1481,10 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100");
+jQuery.validator.addMethod("vinputValRule_3_0", function(value, element) {   
+	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|0|100|100\.0{1,2})$/;
+	return this.optional(element) || (vinputValRule_3.test(value));
+}, "不能超过100"); 
 jQuery.validator.addMethod("verify_32_0", function(value, element) {   
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));

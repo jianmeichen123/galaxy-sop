@@ -161,19 +161,27 @@ function showResultAndScoreList(relateId)
                     if(!isEditable || isEditable != 'true'){
                         $("#save-rpt-btn").remove();
                         $.each($(".score-column"),function(){
-                            var _input =$(this).find("input");
-                            var _select =$(this).find("select");
-                            if(_input.val()==""){
-                                $(this).html("未打分");
-                                $(this).css("color","#b2b2b2")
-                            }else{
-                                $(this).html(_input.val());
+                            var _input =$(this).find("input").val();
+                            var _select =$(this).find("select").val();  
+                            if($(this).hasClass("result-score-column")){
+                            	var _i=_input==""?"-":_input;
+                            	var _s=_select=="未选择"?"未选择":_select; 
+                            	var res=_s +"/"+ _i+"%";
+                    			$(this).html(res); 
+                            	$(this).css("color","#b2b2b2");
+                            	return;
                             }
-                            if(_select.val()=="请选择"){
+                            if(_input==""){
                                 $(this).html("未打分");
                                 $(this).css("color","#b2b2b2")
                             }else{
-                                $(this).html(_select.val());
+                                $(this).html(_input);
+                            }
+                            if(_select=="请选择"){
+                                $(this).html("未打分");
+                                $(this).css("color","#b2b2b2")
+                            }else{
+                                $(this).html(_select);
                             }
                         })
 					}

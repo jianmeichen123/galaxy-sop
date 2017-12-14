@@ -104,7 +104,7 @@ position:absolute;
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font>项目名称不能为空"/>
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-rule-limit24="true" data-msg-required="<font color=red>*</font>项目名称不能为空"/>
 							<label class='projectname-edit-label'>*项目名称重复</label>
 						</td>
 					</tr>
@@ -140,6 +140,7 @@ position:absolute;
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div> 
+							<span class="historyData">历史数据红字</span>
 						</td>
 					</tr>
 					<tr class="trSouce projectSource6 ">
@@ -388,20 +389,19 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 	function showName(data){
 		var code = $("#faName").attr("data"); 
 		code="1120,"+code;
-		var valList =data.entity.childList ;
-		console.log(valList.filter(o=>o.valRuleFormula==code)[0])
-		if(valList.filter(o=>o.valRuleFormula==code)[0]==undefined||valList.filter(o=>o.valRuleFormula==code)[0].resultList==undefined){
+		var valList =data.entity.childList ; 
+		if(valList.filter(function(val){return val.valRuleFormula==code})[0]==undefined||valList.filter(function(val){return val.valRuleFormula==code})[0].resultList==undefined){
 
 		}else{
-			var content = valList.filter(o=>o.valRuleFormula==code)[0].resultList[0].contentDescribe1;
+			var content = valList.filter(function(val){ return val.valRuleFormula==code})[0].resultList[0].contentDescribe1;
 			if(content){		
 				$("#faName").attr('data-original-title',content);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}else{
 				$("#faName").removeAttr('data-original-title');
 			}
-			var  List =valList.filter(o=>o.valRuleFormula==code)[0].resultList;
-			if(valList.filter(o=>o.valRuleFormula==code)[0].id=="1118"&&List){
+			var  List =valList.filter(function(val){return val.valRuleFormula==code})[0].resultList;
+			if(valList.filter(function(val){return val.valRuleFormula==code})[0].id=="1118"&&List){
 					var Str=""
 				$.each(List,function(){ 
 					Str+=$(this)[0].valueName=="其他"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
