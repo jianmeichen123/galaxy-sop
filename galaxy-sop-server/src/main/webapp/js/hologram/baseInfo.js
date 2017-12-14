@@ -1254,8 +1254,9 @@ function type_23_html(title,mark){
 		if(results){
 			var valueList=[];
 			$.each(results,function(i,n){
+				var valId=n.valueId;
 				var val=n.valueName
-				if(val=='其他'){
+				if(val=='非投资线员工'){
 					val=n.contentDescribe1;
 				}
 				valueList.push(val);
@@ -1273,12 +1274,12 @@ function type_23_html(title,mark){
 			var other='';
 			var resultId='';
 			$.each(title.resultList,function(i,n){
-				if(n.valueName=='其他'){
+				if(n.valueName=='非投资线员工'){
 					other=n.contentDescribe1
 					resultId=n.id;
 				};
 				valList.push(n.valueName);
-				if(JSON.stringify(valList).indexOf('其他')>-1){
+				if(JSON.stringify(valList).indexOf('非投资线员工')>-1){
 					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 				}else{
 					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能为空\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
