@@ -1345,13 +1345,13 @@ function metcolumnFormat(value, row, index){
  * sop阶段中富文本弹出层的静态资源加载
  */
 function loadJs(){
-	$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
+	/*$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
 	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload.full.min.js");
 	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload/zh_CN.js");
 	$("#b").attr("src",Constants.sopEndpointURL + "/ueditor/dialogs/map/map.js");
 	$("#c").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.config.js");
 	$("#d").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.min.js");
-	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");
+	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");*/
 	
 }
 /**

@@ -17,7 +17,7 @@
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<%-- <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet"> --%>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
 <style>
