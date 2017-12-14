@@ -405,8 +405,19 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	public static Map<String,Integer> code_titleNum = new HashMap<>();
 	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds = new HashMap<>();
 	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds_forAllgrade = new HashMap<>(); //打分报告所有题
+	/****** 排除项 *****/
 	// NO9_1 ： 历史上的融资及估值
 	public static Set<Long> NO9_1$tids$qx = new TreeSet<>();
+	public static Set<Long> NO_always = new TreeSet<>();
+	static {
+		NO_always.add(1121l);
+		NO_always.add(1122l);
+		NO_always.add(1123l);
+		NO_always.add(1124l);
+		NO_always.add(1125l);
+		NO_always.add(1126l);
+	}
+
 
 	public static final String result_titletype = ",1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,21,";
 	public static final String pre_reports_codes[] = new String[]{"NO","DN","PN","GN","ON","EN","CN"};

@@ -1974,7 +1974,81 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+
+
             <w:tr w:rsidR="00EF76AC">
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="7083" w:type="dxa"/>
+                        <w:gridSpan w:val="2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72" w:rsidP="00465934">
+                        <w:pPr>
+                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:jc w:val="left"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>项目来源：</w:t>
+                        </w:r>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>${NO1_1_17!"-"}<#if NO1_1_11?? >-${NO1_1_11!"-"}</#if><#if NO1_1_12?? >-${NO1_1_12!"-"}</#if><#if NO1_1_13?? >-${NO1_1_13!"-"}</#if><#if NO1_1_14?? >-${NO1_1_14!"-"}</#if><#if NO1_1_15?? >-${NO1_1_15!"-"}</#if><#if NO1_1_16?? >-${NO1_1_16!"-"}</#if></w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+            <#if CLR_tos?? >
+            <w:tr w:rsidR="00EF76AC">
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="7083" w:type="dxa"/>
+                        <w:gridSpan w:val="2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72" w:rsidP="00465934">
+                        <w:pPr>
+                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:jc w:val="left"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>项目承揽人：</w:t>
+                        </w:r>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>${NO1_1_10!"-"}</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+        </#if>
+
+            <#-- <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="3119" w:type="dxa"/>
@@ -2039,7 +2113,7 @@
                         </w:r>
                     </w:p>
                 </w:tc>
-            </w:tr>
+            </w:tr> -->
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
