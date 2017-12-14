@@ -389,9 +389,8 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 	function showName(data){
 		var code = $("#faName").attr("data"); 
 		code="1120,"+code;
-		var valList =data.entity.childList ;
-		console.log(valList.filter(function(val){return val.valRuleFormula==code})[0])
-		if(valList.filter(o=>o.valRuleFormula==code)[0]==undefined||valList.filter(o=>o.valRuleFormula==code)[0].resultList==undefined){
+		var valList =data.entity.childList ; 
+		if(valList.filter(function(val){return val.valRuleFormula==code})[0]==undefined||valList.filter(function(val){return val.valRuleFormula==code)[0].resultList==undefined}){
 
 		}else{
 			var content = valList.filter(function(val){ return val.valRuleFormula==code})[0].resultList[0].contentDescribe1;
