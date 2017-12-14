@@ -178,8 +178,7 @@ $(function(){
 		    $("select[data-title-id]").change(function(){
 		    	$(this).attr("tochange",true)
 		    })
-		    $("#selectSource li").click(function(){
-		    	debugger;
+		    $("#selectSource li").click(function(){ 
 				var code = $(this).attr("code"); 
 				$(".trSouce").hide();
 				$(".trSouce."+code).show(); 

@@ -412,6 +412,7 @@ function CallBackE(data){
 			$("button.selectpicker").attr("title",'请选择');
 			$("button.selectpicker span").text("请选择");
 			$("ul.selectpicker li").removeClass("selected");
+			$(".trSouce input").val("");
 			$(".trSouceOther").hide().val("")
 			 $('#selectRadio').selectpicker({
 	   			 dropupAuto:false
