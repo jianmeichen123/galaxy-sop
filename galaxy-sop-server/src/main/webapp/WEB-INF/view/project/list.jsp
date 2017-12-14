@@ -106,6 +106,9 @@
 	                    	<c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
 	                    	</c:forEach>
+	                    	<option>创业者</option>
+	                    	<option>外部独立合伙人</option>
+	                    	<option>自开发</option>
 	                    </select>
 	            	</dd>
          		</dl> 
