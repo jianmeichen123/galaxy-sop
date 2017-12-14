@@ -559,7 +559,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			for(int i =0 ; i< downloadEntityList.size(); i++){
 				SopDownLoad downloadEntity = downloadEntityList.get(i);
 				File tempDir = new File(tempfilePath);
-				File tempFile = new File(tempfilePath, downloadEntity.getFileKey() + "_" +downloadEntity.getFileName());
+				File tempFile = new File(tempfilePath, (downloadEntity.getFileKey() + "_" +downloadEntity.getFileName()).replaceAll(" ", "_").replaceAll(":", "_"));;
 				
 				if (!tempDir.exists()) {
 					tempDir.mkdirs();
@@ -577,7 +577,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 					
 				}
 			     FileInputStream fiso = new FileInputStream(tempFile); 
-			     outzip.putNextEntry(new ZipEntry(downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
+			     outzip.putNextEntry(new ZipEntry((downloadEntity.getFileName()+downloadEntity.getFileSuffix()).replaceAll(" ", "_").replaceAll(":", "_"))); 
 	             //设置压缩文件内的字符编码，不然会变成乱码    
 			     //outzip.setEncoding("GBK");    
 	             int len;    
