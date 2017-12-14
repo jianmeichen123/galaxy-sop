@@ -267,7 +267,6 @@ setInterval(function(){    //定时保存
 				var field = $(this);
 				var valu = null;
 				var _tochange =field.closest(".resource_branch_01").find("dt").attr("tochange");
-				if(_tochange && _tochange == 'true'){
 		                var infoMode = null;
 						valu=field.find('span').attr('data-value');
 						var inpu=field.closest('.resource_branch_01').find('input');
@@ -291,7 +290,6 @@ setInterval(function(){    //定时保存
 							infoMode.remark1=rvalue;
 						}
 					infoModeList.push(infoMode);
-				}
 			});
 			//多选不选择的时候：
 			var deletedResultTids = new Array();
