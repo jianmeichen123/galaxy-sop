@@ -97,7 +97,7 @@ $(function(){
 					$.each(domList,function(){
 						var domId = $(this).find("input").attr("data-title-id");
 						if(!domId){return false;}
-						var resList = valList.filter(o=>o.id==domId)[0]; 
+						var resList = valList.filter(function(val){return val.id==domId})[0]; 
 						if(resList.resultList){
 							$(this).find("input").attr("data-result-id",resList.resultList[0].id);		
 							if(resList.resultList[0].contentDescribe1){
@@ -109,9 +109,9 @@ $(function(){
 					
 				}
 				//数据互通加的resultID
-				var reportly = reportResult[0].childList.filter(o=>o.titleId=="1120")[0].resultId; 
+				var reportly = reportResult[0].childList.filter(function(val){return val.titleId=="1120"})[0].resultId; 
 				$("input[data-title-id=1120]").attr("data-result-id",reportly);
-				var reportSelect = reportResult[0].childList.filter(o=>o.titleId=="1118");
+				var reportSelect = reportResult[0].childList.filter(function (val){return val.titleId=="1118"});
 				$.each(reportSelect,function(){
 					 
 					$("select#selectRadio").find("option[value="+$(this).value+"]").attr("data-result-id",$(this).resultId)
@@ -214,7 +214,7 @@ $(function(){
 		    var childNum = _dom.find("option").length;
 		    var valueId=$("#financeStatusDs").attr("value");
 		    var resultId=$("#financeStatusDs").attr("data-result-id"); 
-		    var entity=data.entity.childList.filter(o=>o.id=="7032")[0];
+		    var entity=data.entity.childList.filter(function(val){return val.id=="7032"})[0];
 		    $("#finance_status_sel").attr({"data-type":entity.type,"data-result-id":resultId});
 		    if(!childNum || childNum !=0 ){
 		    	$.each(entity.valueList,function(){ 
@@ -223,7 +223,7 @@ $(function(){
 				});
 		    }
 		  //项目承揽人渲染器
-		    var dataresu =data.entity.childList.filter(o=>o.id=="7033")[0];
+		    var dataresu =data.entity.childList.filter(function(val){return val.id=="7033"})[0];
 		    var res=""
 		    $.each(dataresu.valueList,function(){	
 		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
@@ -389,7 +389,9 @@ function selectRadio(){
 			$(".selectcheck .trSouceOther").hide().val("");
 			return;
 		}
-		var filt = value.filter(o=>o==otherValue);
+		var filt = value.filter(function(val){
+			return val==otherValue
+		});
 		if(filt.length>0){
 			$(".selectcheck .trSouceOther").show();
 			$(".selectcheck .trSouceOther").attr("ovalue",filt[0])
