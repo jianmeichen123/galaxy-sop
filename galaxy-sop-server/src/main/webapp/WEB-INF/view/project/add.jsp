@@ -306,9 +306,9 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 * @version 2016-06-21
 	 */
 	 sendGetRequest(platformUrl.queryAllTitleValues+'NO1?reportType=4', null,CallBackE);
-function CallBackE(data){
+function CallBackE(data){ 
 	var data_list = data.entity.childList[0].childList;
-	var dataresu =data_list.filter(function(val){return val=="1118"})[0].valueList;
+	var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
 	var res="";
 	$.each(dataresu,function(){
 		res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
@@ -317,7 +317,7 @@ function CallBackE(data){
 	}
 	 
 	 sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
-	function CallBackB(data){
+	function CallBackB(data){ 
 	    var _dom=$("select[name='financeStatus']");
 	        _dom.html("");
 	        _dom.append('<option value="">请选择</option>');
@@ -335,11 +335,11 @@ function CallBackE(data){
 	 * 项目来源
 	 * @version 2017-12-07
 	 */
-	function CallBackD(data){
+	function CallBackD(data){ 
 	    var _dom=$("select[name='proSource']");
 	        _dom.html("");
 	        _dom.append('<option value="">请选择</option>');
-	    var childNum = _dom.find("option").length;
+	    var childNum = _dom.find("option").length; 
 	    var entity=data.entity.childList[1];
 	    if(!childNum || childNum !=0 ){
 	    	$.each(entity.valueList,function(){

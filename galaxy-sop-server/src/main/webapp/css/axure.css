@@ -4173,6 +4173,7 @@ li .projectSource11 span.m_r30{
 .add-project-tabtable{overflow:visible;}
 .historyData{color: red;  margin-left: 118px;display:none;}
 .h_look .resource_branch_01 dd{width:90%;}
+.tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 
 
 

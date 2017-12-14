@@ -404,7 +404,7 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 			if(valList.filter(function(val){return val.valRuleFormula==code})[0].id=="1118"&&List){
 					var Str=""
 				$.each(List,function(){ 
-					Str+=$(this)[0].valueName=="其他"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
+					Str+=$(this)[0].valueName=="非投资线员工"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
 					Str+='、'; 
 				}) 
 				Str=Str.substring(0,Str.length-1); 
