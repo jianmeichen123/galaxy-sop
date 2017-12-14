@@ -146,15 +146,16 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			Set<Long> file_ids = titletype_titleIds.get("file");
 			Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
+			boolean isToNo = false;
 			boolean isToEval = false;
 			if(code.equals("NO")){
+				isToNo = true;
 				// 简单处理， 仅在 result表中移除
 				for(Long temp : CacheOperationServiceImpl.NO_always){
 					if(result_ids.contains(temp)){
 						result_ids.remove(temp);
 					}
 				}
-
 
 				Project pro = projectDao.selectById(proId);
 				if(com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode().equals(pro.getFinanceStatus())){
@@ -200,9 +201,14 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			MathContext mc = new MathContext(5);
 			BigDecimal b1 = new BigDecimal((project_completed + result_completed + listdata_completed + fixedtable_completed + file_completed + resultGrage_completed) + "");
 			BigDecimal b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code)));
-			if(isToEval == true){
-				b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code) - CacheOperationServiceImpl.NO9_1$tids$qx.size()));
+			if(isToNo == true ){
+				if(isToEval == false){
+					b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code) - CacheOperationServiceImpl.NO_always.size()));
+				}else{
+					b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code) - CacheOperationServiceImpl.NO_always.size() - CacheOperationServiceImpl.NO9_1$tids$qx.size()));
+				}
 			}
+
 			result = b1.divide(b2,mc).doubleValue();
 
 			logger.debug(String.format("计算进度 code：%s   \n  totleNum : %d , result : %f  \n"+
