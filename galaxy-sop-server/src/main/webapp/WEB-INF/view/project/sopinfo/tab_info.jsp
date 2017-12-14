@@ -539,7 +539,7 @@
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
-	$("[data-toggle='tooltip']").tooltip("show");//提示
+	$("[data-toggle='tooltip']").tooltip();//提示
 	//运营数据分析返回
 /* 	if(getCookieValue('backListOperation')=='7'){
 		 if(document.URL.indexOf("back=operateList")>0){
