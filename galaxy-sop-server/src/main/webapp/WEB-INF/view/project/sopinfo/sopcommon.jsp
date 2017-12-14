@@ -390,11 +390,11 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 		var code = $("#faName").attr("data"); 
 		code="1120,"+code;
 		var valList =data.entity.childList ;
-		console.log(valList.filter(o=>o.valRuleFormula==code)[0])
+		console.log(valList.filter(function(val){return val.valRuleFormula==code})[0])
 		if(valList.filter(o=>o.valRuleFormula==code)[0]==undefined||valList.filter(o=>o.valRuleFormula==code)[0].resultList==undefined){
 
 		}else{
-			var content = valList.filter(o=>o.valRuleFormula==code)[0].resultList[0].contentDescribe1;
+			var content = valList.filter(function(val){ return val.valRuleFormula==code})[0].resultList[0].contentDescribe1;
 			if(content){		
 				$("#faName").attr('data-original-title',content);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
