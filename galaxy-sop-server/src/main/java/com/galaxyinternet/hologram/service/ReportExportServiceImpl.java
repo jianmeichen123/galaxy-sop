@@ -413,7 +413,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                     }
                 }
             }
-        } else if (type == 12 || type == 13 || type == 21) {
+        } else if (type == 12 || type == 13 || type == 21 || type == 23) {
             // 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
             // 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose
             // 21: 下拉选择加备注
