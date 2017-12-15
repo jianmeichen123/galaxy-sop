@@ -85,7 +85,14 @@ function resouceShow(mark){
 						})
 					}
 					event.stopPropagation();
-				})
+				});
+				//项目来源历史数据处理
+				var valSelect=$('dt[data-tid="1120"]').closest('div').find('select').val();
+				if(!valSelect){
+					$('dt[data-tid="1120"]').closest('div').find('span.select_input').show();
+				}else{
+					$('dt[data-tid="1120"]').closest('div').find('span.select_input').hide();
+				}
 			}
 			
 		}
@@ -1162,7 +1169,13 @@ function type_14_html(entity,title,mark){
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','radio');
-		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
+		var span='<span class="error select_input">项目来源选项已更新，请重新选择</span>'
+			if(title.id=='1120'){
+				return  "<div class=\"mb_24  clearfix\">" + htitle + eresult +span+ "</div>";
+			}else{
+				return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
+			}
+		
 	}
 }
 
@@ -1249,7 +1262,11 @@ function type_23_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"' data-valRuleFormula='"+title.valRuleFormula+"' data-valRuleMark='"+title.valRuleMark+"'>"+title.name+"</dt>";
 	var has_beizhu = false;
 	if(mark == 's'){
-		var hresult = "<dd>未选择</dd>";
+		if(title.type=='23'){
+			var hresult=$('.man_info span').text();
+		}else{
+			var hresult = "<dd>未选择</dd>";
+		}
 		var results = title.resultList;
 		if(results){
 			var valueList=[];
