@@ -740,6 +740,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					if(sopFile.getId() != null){
 						sopFileService.updateFile(sopFile);
 					}else{
+						sopFile.setFileValid(1);
 						sopFileService.insert(sopFile);
 					}
 					
