@@ -217,6 +217,14 @@
 			    <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
 			    <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
 			    <auth.uri>http://fx.qa.galaxyinternet.com/authority_service</auth.uri>
+			       	<!-- mongodb 开始 --> 
+                <mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
+				 <!-- mongodb 结束-->
+			    
 			</properties>
 		</profile>
 		<profile>
