@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
+	<parent> 
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.2.Q-SNAPSHOT</version>
 	</parent>
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
-		<dependency.project>1.0.2-SNAPSHOT</dependency.project>
+		<dependency.project>1.0.2.Q-SNAPSHOT</dependency.project>
 	</properties>
 
 	<repositories>
@@ -53,7 +53,7 @@
 					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>7878</port>
+							<port>8888</port>
 						</connector>
 					</connectors>
 					<contextPath>/sop</contextPath>
@@ -80,23 +80,23 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
 				<jdbc.url>
-					jdbc:mysql://10.9.11.234:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
+					jdbc:mysql://10.9.11.232:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
 				</jdbc.url>
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy/tmp</log4j.path>
+				<log4j.path>d:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8086</dubbo.protocol.port>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
 				
@@ -104,13 +104,13 @@
 				<galaxy.project.platform.endpoint>http://zfeng.local.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://zfeng.local.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://zfeng.local.com/sop/</galaxy.project.sop.endpoint>
-                <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+
 			</properties>
 		</profile>
 		<profile>
 			<id>nginx</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
@@ -121,31 +121,25 @@
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy</log4j.path>
+				<log4j.path>D:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8087</dubbo.protocol.port>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
+				
 				<xinge.enviroment>2</xinge.enviroment>
+				
 				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>127.0.0.1:2181</cluster.zk.address>
                 <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-              <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+                <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
                	<!--  <galaxy.project.bury.endpoint>http://10.8.233.150:8888/bury</galaxy.project.bury.endpoint> -->
                	 <auth.uri>http://fx.dev.galaxyinternet.com/authority_service/</auth.uri>
-               	 
-               	<!-- mongodb 开始 --> 
-                <mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27017</mongo.port>
-				<mongo.username>sop</mongo.username>
-				<mongo.password>sop</mongo.password>
-				<mongo.dbname>sop</mongo.dbname>
-				 <!-- mongodb 结束-->
 			</properties>
 		</profile>
 		<profile>
@@ -176,7 +170,7 @@
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>10.9.210.22:12181</cluster.zk.address>
-				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
+			<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>				
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
 					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
@@ -185,17 +179,10 @@
 				<!-- redis集群配置 -->
 				<!-- <redis1.url>101.200.78.14:6379</redis1.url> <redis2.url>101.200.78.14:6379</redis2.url> 
 					<redis.master>galaxymaster</redis.master> -->
-
+     
 				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
               <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
 			   <auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
-			      	<!-- mongodb 开始 --> 
-                <mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27017</mongo.port>
-				<mongo.username>sop</mongo.username>
-				<mongo.password>sop</mongo.password>
-				<mongo.dbname>sop</mongo.dbname>
-				 <!-- mongodb 结束-->
 			</properties>
 		</profile>
 		<profile>
@@ -228,15 +215,8 @@
 				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 			    <cluster.zk.address>10.9.210.22:12182</cluster.zk.address>
 			    <buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
-			    <galaxy.project.bury.endpoint>http://fx.qa.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-			    <auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
-			       	<!-- mongodb 开始 --> 
-                <mongo.host>10.9.210.22</mongo.host>
-				<mongo.port>27012</mongo.port>
-				<mongo.username>sop</mongo.username>
-				<mongo.password>sop</mongo.password>
-				<mongo.dbname>sop</mongo.dbname>
-				 <!-- mongodb 结束-->
+			    <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
+			    <auth.uri>http://fx.qa.galaxyinternet.com/authority_service</auth.uri>
 			</properties>
 		</profile>
 		<profile>
@@ -580,7 +560,6 @@
 			<version>1.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
