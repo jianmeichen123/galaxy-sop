@@ -145,7 +145,7 @@ position:absolute;
 					</tr>
 					<tr class="trSouce projectSource6 ">
 						<td>
-							<span>FA推荐：</span>
+							<span>FA名称：</span>
 							<div> 
 								<input type="text" value="" data-title-id="1122" data-type="1" class="basic_mes_input inputSouce" data-rule-limit20="true" required name="proS6"  data-msg-required="<font color=red>*</font>不能超过20字且不能全为空格，必填" maxlength="20"/>
 							</div>
