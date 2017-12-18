@@ -143,6 +143,15 @@ position:absolute;
 							<span class="historyData">项目来源选项已更新，请重新选择</span>
 						</td>
 					</tr>
+					<tr class="trSouce projectSource5 ">
+						<td>
+							<span>合投机构名称：</span>
+							<div> 
+								<input type="text" value="" placeholder="请输入合投机构名称" data-title-id="1121" data-type="1" class="basic_mes_input inputSouce" data-rule-limit20="true" required name="proS6"  data-msg-required="<font color=red>*</font>不能超过20字且不能全为空格，必填" maxlength="50"/>
+							</div>
+							
+						</td>
+					</tr>
 					<tr class="trSouce projectSource6 ">
 						<td>
 							<span>FA名称：</span>
