@@ -123,8 +123,7 @@
 		var url = platformUrl.queryFile;
 		var data = {
 			"projectId":"${projectId}",
-			"fileWorktype":"${fileWorktype}",
-			"fileValid":"1"
+			"fileWorktype":"${fileWorktype}"
 		};
 		var callback = function(data){
 			$(".task-detail-table tbody").empty();
