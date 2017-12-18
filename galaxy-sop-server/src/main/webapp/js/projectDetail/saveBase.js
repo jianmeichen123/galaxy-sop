@@ -102,7 +102,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			}else if(type==14 )
 		{
 			infoMode.value = field.attr('m-val');
-		}else if(type==19 ){
+		}else if(type==19 || (!field.hasClass("inputSouce")&&type==1)){
 			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null&&type!="13") {
