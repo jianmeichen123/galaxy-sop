@@ -107,7 +107,7 @@
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
-                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>专业媒体报道 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>媒体名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/>
 								 </span>
@@ -118,7 +118,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" placeholder='请输入星河其他部门项目承揽人名称'/>
+									  <input type="text" class="addpro-input" name="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填）'/>
 								</span>
                         	</div>
                         </li>
