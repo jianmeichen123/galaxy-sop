@@ -286,12 +286,12 @@ if(projectInfoDetail.projectName.length>20){
 			$("#create_date").text(projectInfoDetail.createDate);
 			$("#createUname").text(projectInfoDetail.createUname);
 			$("#projectCareerline").text(projectInfoDetail.projectCareerline);
-			$("#projectType").text(projectInfoDetail.type);
+			$("#projectType").text(projectInfoDetail.type==null?"-":projectInfoDetail.type);
 			$("#projectProgress").text(projectInfoDetail.progress);
 			$("#projectStatusDs").text(projectInfoDetail.projectProgress=="projectProgress:10"?"":projectInfoDetail.projectStatusDs);
 			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+			$("#faName").text(projectInfoDetail.faFlagStr==null?"-":projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
 
 			showFaname()
 
