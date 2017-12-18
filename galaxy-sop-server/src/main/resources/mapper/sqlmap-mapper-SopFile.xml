@@ -451,7 +451,10 @@
 		,file_id 
 		from sop_file_history
 		<include refid="HistoryWhere" />
-		order by created_time desc
+		order by updated_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	<select id="selectHistoryById" resultMap="HistoryResultMap" parameterType="java.lang.Long">
 		select

@@ -274,7 +274,7 @@
 						title: '状态'
 					},
 					{
-						field:'createdTime', 
+						field:'updatedTime', 
 						title: '更新时间', 
 						formatter: 'longTimeFormat'
 					},
