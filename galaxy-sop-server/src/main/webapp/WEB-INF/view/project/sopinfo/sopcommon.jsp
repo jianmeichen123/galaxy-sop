@@ -206,7 +206,7 @@ position:absolute;
 
 								  </select>
 								  
-								  <input type="text" placeholder='请输入非投资线项目承揽人名称(必填） class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
+								  <input type="text" placeholder="请输入非投资线项目承揽人名称(必填)" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
 							</div>
 							</div>
 							</div>
