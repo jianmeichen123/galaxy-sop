@@ -563,24 +563,27 @@
 	 * 项目FA格式化
 	 * @version 2016-06-21
 	 */
-	function projectFaFormat(value,row,index){
-		var retStr = '-';
-		if(!row.faFlag)
-		{
-			return '-';
-		}
-		if(row.faName)
-		{
-			if(row.faName.length>6){
-				return row.faFlagStr+'-'+row.faName.substring(0,6);
-			}else{
-				return row.faFlagStr+'-'+row.faName;
+		function projectFaFormat(value,row,index){
+			var retStr = '-';
+			if(!row.faFlag)
+			{
+				return '-';
 			}
+			if(row.faName)
+			{
+				if(row.faName.length>4){
+					var faName=row.faName.substring(0,4);
+					retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
+				}else{
+					retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
+				}
+				
+			}else{
+				retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
+			}
+			return retStr;
 			
 		}
-		return row.faFlagStr;
-		
-	}
 	/**
 	 * 项目进度格式化
 	 * @version 2016-06-21
