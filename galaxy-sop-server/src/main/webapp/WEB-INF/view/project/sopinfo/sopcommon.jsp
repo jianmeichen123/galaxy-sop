@@ -202,7 +202,7 @@ position:absolute;
 							<span>项目承揽人：</span>
 							<div class="selectcheck">
 								
-								<select id="selectRadio" class="selectpicker" multiple data-type="23" data-live-search="true" data-title-id="1118" >
+								<select id="selectRadio"  style="width:0;height:0;opacity:0;display:block;" required   data-msg-required="<font color=red>*</font>项目承揽人不能为空"  class="selectpicker" multiple data-type="23" data-live-search="true" data-title-id="1118" >
 
 								  </select>
 								  
