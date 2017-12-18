@@ -397,9 +397,7 @@ var editPostMeetingDialog = {
 									$.each(data.entity.files,function(){
 										var but = "";
 										if(_formdata.isEdit){
-											 var but = 	"<button type='button' id='"+this.id+"btn' " +
-											 			"onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>" +
-											 			"删除</button>" ;
+											 var but = 	"<button type='button' id='"+this.id+"btn' onclick=\"del('"+this.id+"','"+this.fileName+"','textarea2')\">删除</button>" ;
 											}
 										var htm = "<tr id='"+this.id+"tr'>"+
 														"<td>"+this.fileName+"."+this.fileSuffix+
