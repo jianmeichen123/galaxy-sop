@@ -571,7 +571,12 @@
 		}
 		if(row.faName)
 		{
-			return row.faFlagStr+'-'+row.faName;
+			if(row.faName.length>6){
+				return row.faFlagStr+'-'+row.faName.substring(0,6);
+			}else{
+				return row.faFlagStr+'-'+row.faName;
+			}
+			
 		}
 		return row.faFlagStr;
 		
