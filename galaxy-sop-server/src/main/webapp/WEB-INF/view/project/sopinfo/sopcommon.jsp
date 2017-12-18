@@ -163,7 +163,7 @@ position:absolute;
 					</tr>
 					<tr class="trSouce projectSource8">
 						<td>
-							<span>路演活动名称：</span>
+							<span>机构名称及路演名称：</span>
 							<div> 
 								<input type="text" value="" placeholder="请输入机构及路演名称" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" name="proS8"  maxlength="50"/>
 							</div>
@@ -172,7 +172,7 @@ position:absolute;
 					</tr>
 					<tr class="trSouce projectSource9">
 						<td>
-							<span>各创投数据库：</span>
+							<span>创投机构名称：</span>
 							<div> 
 								<input type="text" value="" data-title-id="1125" placeholder="请输入创投机构名称" data-type="1" class="basic_mes_input inputSouce" name="proS9"  maxlength="50"/>
 							</div>
