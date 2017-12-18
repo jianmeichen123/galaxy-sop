@@ -1297,13 +1297,13 @@ function type_23_html(title,mark){
 				};
 				valList.push(n.valueName);
 				if(JSON.stringify(valList).indexOf('非投资线员工')>-1){
-					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>项目承揽人不能为空</span><input type=\"text\" class=\"txt input_21\" value='"+other+"' placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 				}else{
-					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+					res="<span class=\"error_span select_input\"><font color=\"red\">*</font>项目承揽人不能为空</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 				}
 			})
 		}else{
-			res="<span class=\"error_span select_input\"><font color=\"red\">*</font>必填</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
+			res="<span class=\"error_span select_input\"><font color=\"red\">*</font>项目承揽人不能为空</span><input type=\"text\" class=\"txt input_21 select_input\" value=''  placeholder='"+title.placeholder+"' data-valrulemark='"+title.valRuleMark+"' required data-msg-required=\"<font color=red>*</font>不能超过12字且不能全为空格\"  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' data-result-id='"+resultId+"'>"
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24 resource_branch_01 clearfix\">" + htitle + eresult + "</div>";
