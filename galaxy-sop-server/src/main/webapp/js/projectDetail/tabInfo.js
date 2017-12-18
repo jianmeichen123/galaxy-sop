@@ -421,7 +421,7 @@ $(function(){
 				}
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){ 
-						layer.msg(data2.result.message);
+						//layer.msg(data2.result.message);
 						saveBaseInfo("basicForm");
 						if(data2.result.errorCode=='mccf'){  //项目名重复
 							//layer.msg(data2.result.message);
