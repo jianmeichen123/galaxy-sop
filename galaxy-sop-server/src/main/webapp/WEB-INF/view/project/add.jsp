@@ -26,6 +26,18 @@
 	body{
 		background-color:#E9EBF2;
 	}
+	.after{
+		position:relative;
+	}
+	.after::after{content: "万元";
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+    color: #666;
+    position: absolute;
+    right: 15px;
+    top: 1px;
+	}
+	.after2::after{content: "%";} 
 </style>
 </head>
 
@@ -138,23 +150,23 @@
                     <ul class="basic_ul addpro-finacing-ul">
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='融资金额（万元）' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
+                            <span class="m_r15 after after1">
+                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
                         </li>
                         <li>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='出让股份（%）' class='new_nputr_number addpro-input' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
+                            <span class="m_r15 after after2">
+                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
                             </span>
                             <!-- <span class="m_r30">% </span> -->
 	                    </li>
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='项目估值（万元）' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
+                            <span class="m_r15 after after3">
+                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>
