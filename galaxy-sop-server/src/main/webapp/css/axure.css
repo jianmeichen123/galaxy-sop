@@ -4167,6 +4167,7 @@ li .projectSource11 span.m_r30{
 .edit_basic_table .selectcheck .filter-option.pull-left{width:80%!important;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;text-align-last:auto!important;text-align:auto!important;}
 .edit_basic_table .selectcheck .text,.edit_basic_table .selectcheck .selected .text{background-position-x:375px; text-align-last:auto!important;text-align:auto!important;}
 .resource_branch_01  .bootstrap-select.btn-group .btn .caret{border-top:6px dashed !important;border-bottom:none !important;border-right:3px solid transparent;border-left:3px solid transparent}
+.h_look .resource_branch_01{font-size:12px;}
 #selectRadio[name='projectContractor']{opacity: 0;height: 0;width:0;padding:0 !important;}
 .add-project-tabtable #selectRadio-error,.add-project-tabtable #pickeother-error{float:right;margin-top: -8px;}
 #add_form .selectcheck .show-tick{margin-top: -18px;margin-left: -7px;}

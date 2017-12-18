@@ -26,6 +26,18 @@
 	body{
 		background-color:#E9EBF2;
 	}
+	.after{
+		position:relative;
+	}
+	.after::after{content: "万元";
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+    color: #666;
+    position: absolute;
+    right: 15px;
+    top: 1px;
+	}
+	.after2::after{content: "%";} 
 </style>
 </head>
 
@@ -82,6 +94,12 @@
                             </span>
                         </li>
                         <li class="projectSourceli">
+                        <div class="projectSource projectSource5">
+                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>合投机构名称 ：</span></span>
+                        		 <span class="m_r30">
+									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS6"/>
+								 </span>
+                        	</div>
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
@@ -89,25 +107,25 @@
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
-                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>孵化器名称 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>孵化器名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1123" data-type="1" maxlength="50" placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
-                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>路演活动名称 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>机构名称及路演名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
-                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>各创投数据库 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>创投机构名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1125" data-type="1" maxlength="50" placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
-                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>专业媒体报道 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>媒体名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/>
 								 </span>
@@ -118,7 +136,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" placeholder='请输入星河其他部门项目承揽人名称'/>
+									  <input type="text" class="addpro-input" name="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
 								</span>
                         	</div>
                         </li>
@@ -132,23 +150,23 @@
                     <ul class="basic_ul addpro-finacing-ul">
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='融资金额（万元）' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
+                            <span class="m_r15 after after1">
+                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
                         </li>
                         <li>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='出让股份（%）' class='new_nputr_number addpro-input' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
+                            <span class="m_r15 after after2">
+                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
                             </span>
                             <!-- <span class="m_r30">% </span> -->
 	                    </li>
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
-                            <span class="m_r15">
-                            	<input type="text" placeholder='项目估值（万元）' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
+                            <span class="m_r15 after after3">
+                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>
@@ -406,12 +424,12 @@ function CallBackE(data){
 		$("select[name='proSource']").change(function(){
 			$(".projectSource").hide();
 			var selCode=$(this).find("option:checked").attr("code");
-			$("."+selCode).show();
-			$(".trSouce input").val("");
+			$("."+selCode).show(); 
 			$("#selectRadio option").attr("selected",false);
 			$("button.selectpicker").attr("title",'请选择');
 			$("button.selectpicker span").text("请选择");
 			$("ul.selectpicker li").removeClass("selected");
+			$(".projectSource input").val("")
 			$(".trSouce input").val("");
 			$(".trSouceOther").hide().val("")
 			 $('#selectRadio').selectpicker({
@@ -547,17 +565,15 @@ function CallBackE(data){
 			}else if(type==14 )
 			{
 				infoMode.value = field.val();
-			}else if(type==19){
+			}else if(type==19 || type==1){
 				infoMode.remark1 = field.val();
-			}else if(type==1){ 				
-				infoMode.value=field.val();
 			}
 			if (infoMode != null&&type!="13") {
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
 		});
-		console.log(data);
+		
 		
 		sendPostRequestByJsonObjNoCache(
 				platformUrl.saveOrUpdateInfo , 

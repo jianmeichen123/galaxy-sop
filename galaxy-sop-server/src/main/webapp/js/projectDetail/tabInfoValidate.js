@@ -45,10 +45,10 @@
 					required:'*行业归属不能为空'
 				},
 				proS6:{
-					required:'*不能超过20字且不能全为空格，必填'
+					required:'*不能超过20字且不能全为空格'
 				},
 				pickeother:{
-					required:'*不能超过12字且不能全为空格，必填'
+					required:'*不能超过12字且不能全为空格'
 				}
 				
 			},
@@ -73,11 +73,11 @@
 	jQuery.validator.addMethod("limit20", function (value, element) {
 		var limit20 =  /^(?!.{21}|^\s*$)/;
 		return this.optional(element) || (limit20.test(value));
-	}, "*不能超过20字且不能全为空格，必填");
+	}, "*不能超过20字且不能全为空格");
 	jQuery.validator.addMethod("limit24", function (value, element) {
 		var limit24 =  /^(?!.{25}|^\s*$)/;
 		return this.optional(element) || (limit24.test(value));
-	}, "*不能超过24字且不能全为空格，必填");
+	}, "*不能超过24字且不能全为空格");
 	
 	
 	//融资金额LIMIT_11_NUMBER
