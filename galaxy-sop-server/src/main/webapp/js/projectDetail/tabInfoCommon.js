@@ -229,11 +229,13 @@ $(function(){
 		    $.each(dataresu.valueList,function(){	
 		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
 		    } ); 
-				$("#selectRadio").html(res);
+				$("#selectRadio").html(res).show();
+
 
 		    $('#selectRadio').selectpicker({
 	   			 dropupAuto:false
                });
+		    $("#selectRadio").css("display","block")
 		    selectRadio();
 		}
 		function CallBackA(data){
