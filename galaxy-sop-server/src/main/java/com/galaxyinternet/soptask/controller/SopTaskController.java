@@ -571,7 +571,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			showIgnore = true;
 			break;
 		case 9:
-			btnTxt = "上传工商变更登记凭证";
+			btnTxt = "上传工商转让凭证";
 			fileWType = fileWorktype.工商转让凭证.getCode();
 			break;
 

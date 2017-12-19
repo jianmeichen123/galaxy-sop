@@ -28,6 +28,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.hologram.model.ReportScoreCalculator;
 import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ReportParam;
@@ -296,4 +297,11 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 		}
 		return null;
 	}
+	@Override
+	public List<InformationScore> selectScore(InformationScore query)
+	{
+		return scoreInfoDao.selectScore(query);
+	}
+	
+	
 }

@@ -27,6 +27,7 @@ public class ScoreInfo extends BaseEntity
 	private List<ScoreAutoInfo> autoList;
 	private List<ScoreValue> valueList;
 	private Set<Long> ids;
+	private Long resultId;
 	public String getPk()
 	{
 		return pk;
@@ -147,4 +148,13 @@ public class ScoreInfo extends BaseEntity
 	{
 		this.ids = ids;
 	}
+	public Long getResultId()
+	{
+		return resultId;
+	}
+	public void setResultId(Long resultId)
+	{
+		this.resultId = resultId;
+	}
+	
 }

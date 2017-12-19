@@ -51,6 +51,7 @@ public class InformationResult extends PagableEntity{
     
     private BigDecimal weight;
     private BigDecimal score;
+    private Long relateId;
     
     public Long getValueId() {
 		return valueId;
@@ -253,7 +254,14 @@ public class InformationResult extends PagableEntity{
 	{
 		this.score = score;
 	}
-	
-	
-    
+
+	public Long getRelateId()
+	{
+		return relateId;
+	}
+
+	public void setRelateId(Long relateId)
+	{
+		this.relateId = relateId;
+	}
 }

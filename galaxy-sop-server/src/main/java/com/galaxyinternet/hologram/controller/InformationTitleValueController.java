@@ -1,21 +1,12 @@
 package com.galaxyinternet.hologram.controller;
 
 
-import com.galaxyinternet.bo.hologram.InformationTitleBo;
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.exception.PlatformException;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.project.controller.ProjectProgressController;
-import com.galaxyinternet.service.hologram.CacheOperationService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.galaxyinternet.bo.hologram.InformationTitleBo;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.project.controller.ProjectProgressController;
+import com.galaxyinternet.service.hologram.CacheOperationService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
 
 
 @Controller
@@ -40,8 +41,6 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
 	
-	@Autowired
-	private Cache cache;
 	
 	@Autowired
 	private CacheOperationService cacheOperationService;

@@ -598,6 +598,7 @@ function buildResult(title)
 			res.find(".title-value").text(_this.valueName).attr({
 				"contentc":_this.contentChoose,
 				"resultId":_this.id,
+				"data-result-id":_this.id
 			});
 			res.find(".score-div input").val(_this.weight?_this.weight:"");
 			res.find(".heightL select").val(_this.score?_this.score:"请选择");

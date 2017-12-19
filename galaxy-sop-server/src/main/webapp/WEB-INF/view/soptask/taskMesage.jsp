@@ -198,14 +198,14 @@
 					if(data.status == "OK")
 					{
 						layer.closeAll('loading');
-						layer.msg("上传成功.");
+						layer.msg("上传成功");
 						$("#complete-task-btn").removeProp("disabled");
 						loadRows();
 					}
 					else
 					{
 						layer.closeAll('loading');
-						layer.msg("上传失败.");
+						layer.msg("上传失败");
 					}
 				},
 				Error: function(up, err) {
@@ -236,14 +236,14 @@
 		var callback = function(data){
 			layer.closeAll('loading');
 			if(data.result.status=="OK"){
-				layer.msg("提交成功。",{time:1000},function(){
+				layer.msg("提交成功",{time:1000},function(){
 					var url = $("#menus .on a").attr('href');
 					window.location=url;
 				});
 			}
 			else
 			{
-				layer.msg("提交失败。");
+				layer.msg("提交失败");
 			}
 		};
 		//更新task为完成状态

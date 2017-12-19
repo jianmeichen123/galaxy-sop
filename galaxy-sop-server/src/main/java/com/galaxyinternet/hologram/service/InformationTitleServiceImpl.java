@@ -46,6 +46,7 @@ import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
@@ -1259,7 +1260,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		{
 			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
-			
+			//type = 22的题
+			List<InformationTitle> titleList = new ArrayList<>();
 			for(InformationResult item : resultList)
 			{
 				String val = item.getContentChoose();
@@ -1282,12 +1284,50 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					List<InformationResult> list = null;
 					for(InformationTitle title : titles)
 					{
+						if(title.getType() != null && title.getType().intValue() == 22)
+						{
+							titleList.add(title);
+						}
 						if(title.getResultList() == null)
 						{
 							list = new ArrayList<>();
 							title.setResultList(list);
 						}
 						title.getResultList().add(item);
+					}
+				}
+			}
+			//type = 22,设置分数/权重
+			if(titleList.size() >0)
+			{
+				for(InformationTitle title : titleList)
+				{
+					Long relateId = title.getRelateId();
+					List<InformationResult> rtList = title.getResultList();
+					if(rtList == null || rtList.size() == 0)
+					{
+						continue;
+					}
+					InformationScore query = new InformationScore();
+					query.setProjectId(projectId);
+					query.setRelateId(relateId);
+					List<InformationScore> scoreList = scoreInfoService.selectScore(query);
+					if(scoreList == null || scoreList.size() == 0)
+					{
+						continue;
+					}
+					for(InformationResult rt : rtList)
+					{
+						for(InformationScore score : scoreList)
+						{
+							if(rt.getId() != null 
+									&& score.getResultId() != null 
+									&& rt.getId().intValue() == score.getResultId().intValue())
+							{
+								rt.setScore(score.getScore1());
+								rt.setWeight(score.getWeight());
+							}
+						}
 					}
 				}
 			}
