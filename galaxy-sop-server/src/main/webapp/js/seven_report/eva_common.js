@@ -163,9 +163,9 @@ function showResultAndScoreList(relateId)
                         $.each($(".score-column"),function(){
                             var _input =$(this).find("input").val();
                             var _select =$(this).find("select").val();  
-                            if($(this).hasClass("result-score-column")){
+                            if($(this).hasClass("heightL")){
                             	var _i=_input==""?"-":_input;
-                            	var _s=_select=="未选择"?"未选择":_select; 
+                            	var _s=_select=="请选择"?"未打分":_select; 
                             	var res=_s +"/"+ _i+"%";
                     			$(this).html(res); 
                             	$(this).css("color","#b2b2b2");
