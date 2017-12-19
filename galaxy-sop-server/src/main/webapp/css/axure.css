@@ -3965,7 +3965,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .taskDetail-mesage{margin-top:20px;width:100%;}
 .taskDetail-mesage-top{height:170px;background:#fff; }
 .taskDetail-mesage-top .message-detail-top{width:100%;display:flex;justify-content:space-between;flex-wrap:wrap;}
-.taskDetail-mesage-top div ul li,span{font-family:Microsoft YaHei;}
+.taskDetail-mesage-top li span{font-family:Microsoft YaHei;}
 .taskDetail-mesage-table{margin-top:10px;background:#fff;}
 .task-item{height:auto;}
 .task-item li{margin-top:20px;color:#5a626d;font-size:14px;font-family:Microsoft YaHei;} 
