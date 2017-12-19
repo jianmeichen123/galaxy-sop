@@ -667,6 +667,11 @@ function right(obj,type){
 		 $(".score-column select,input").change(function(){
 				calcScore();
 		 });
+		 $(".score-column select,input").click(function(){ 
+				$(".pagebox").attr("data-result",true);
+				$("#save-rpt-btn").removeAttr("disabled"); 
+				$("#save-rpt-btn em").removeClass("disabled")
+			})
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
