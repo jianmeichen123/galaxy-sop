@@ -2147,6 +2147,11 @@ function addRowCompete(ele,id_code){
 						var form=$(this).closest('form')
 						$(form).remove();							
 					})
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}
