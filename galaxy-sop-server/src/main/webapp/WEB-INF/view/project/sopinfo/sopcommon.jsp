@@ -39,7 +39,7 @@ div.tip-yellowsimple {
 .tip-yellowsimple .tip-arrow-left{
 position:absolute;
 }
-.selectRadio-error{
+#selectRadio-error{
 position: absolute;
     top: 45px;
     left: 0px;
@@ -142,7 +142,7 @@ position: absolute;
 						<td>
 							<span>项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" data-title-id="1120"  data-type="14" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" data-title-id="1120"  data-type="14" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空"/> 
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div> 
@@ -208,11 +208,11 @@ position: absolute;
 							<span>项目承揽人：</span>
 							<div class="selectcheck">
 								
-								<select id="selectRadio"  style="width:0;height:0;opacity:0;display:block!important;" required   data-msg-required="<font color=red>*</font>项目承揽人不能为空"  class="selectpicker" multiple data-type="23" data-live-search="true" data-title-id="1118" >
+								<select id="selectRadio"  style="width:0;height:0;opacity:0;margin:0;padding:0!important;display:block!important;" required   data-msg-required="<font color=red>*</font>项目承揽人不能为空"  class="selectpicker" multiple data-type="23" data-live-search="true" data-title-id="1118" >
 
 								  </select>
 								  
-								  <input type="text" placeholder="请输入非投资线项目承揽人名称(必填)" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格，必填"/>
+								  <input type="text" placeholder="请输入非投资线项目承揽人名称(必填)" class="trSouceOther addpro-input basic_mes_input" maxlength="12" name="pickeother" required data-rule-limit12="true" data-msg-required="<font color=red>*</font>不能超过12字且不能全为空格"/>
 							</div>
 							</div>
 							</div>

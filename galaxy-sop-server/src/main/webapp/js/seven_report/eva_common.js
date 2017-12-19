@@ -163,9 +163,9 @@ function showResultAndScoreList(relateId)
                         $.each($(".score-column"),function(){
                             var _input =$(this).find("input").val();
                             var _select =$(this).find("select").val();  
-                            if($(this).hasClass("result-score-column")){
+                            if($(this).hasClass("heightL")){
                             	var _i=_input==""?"-":_input;
-                            	var _s=_select=="未选择"?"未选择":_select; 
+                            	var _s=_select=="请选择"?"未打分":_select; 
                             	var res=_s +"/"+ _i+"%";
                     			$(this).html(res); 
                             	$(this).css("color","#b2b2b2");
@@ -200,6 +200,40 @@ function showResultAndScoreList(relateId)
 					$("#table_box").validate();
 					//渲染数据结束对字体颜色进行操作
 					font_color($(".condition"));
+					//权限判断， 没有编辑权限
+                    if(!isEditable || isEditable != 'true'){
+                        $("#save-rpt-btn").remove();
+                        $.each($(".score-column"),function(){
+                            var _input =$(this).find("input").val();
+                            var _select =$(this).find("select").val();  
+                            if(_input==undefined&&_select==undefined){return;}
+                            if($(this).hasClass("heightL")){                                 
+                            	var _i=_input==""?"-":_input;
+                            	var _s=_select=="请选择"?"未打分":_select; 
+                            	var res=_s +"/"+ _i+"%";
+                    			$(this).html(res);  
+                            	$(this).css("color","#b2b2b2");
+                            	if(res!="未打分/-%"){
+                            		$(this).css("color","#333");
+                            	}
+                            	return;
+                            }   
+                            if(_input==""||_input==undefined){
+                                $(this).html("未打分");
+                                $(this).css("color","#b2b2b2")
+                            }else{
+                                $(this).html(_input); 
+                                $(this).css("color","#333")
+                            }
+                            if(_select=="请选择"||_select==undefined){
+                                $(this).html("未打分");
+                                $(this).css("color","#b2b2b2")
+                            }else{
+                                $(this).html(_select);  
+                                $(this).css("color","#333")
+                            }
+                        })
+					}
 				}
 			}
 		);
@@ -598,9 +632,10 @@ function buildResult(title)
 			res.find(".title-value").text(_this.valueName).attr({
 				"contentc":_this.contentChoose,
 				"resultId":_this.id,
+				"data-result-id":_this.id
 			});
-			res.find(".score-div input").val(_this.weight?_this.weight:"");
-			res.find(".heightL select").val(_this.score?_this.score:"请选择");
+			res.find(".score-div input").val(_this.weight?_this.weight:""); 
+			res.find(".heightL select").val(_this.score||_this.score==0?_this.score:"请选择");
 			_tableInner.append(res);
 		})
 	}

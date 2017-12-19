@@ -17,18 +17,18 @@
 		        			<li>事业部总经理：<span id="hhrName"></span></li>
 		        		</ul>
 		        	</div>
-		        	<div class='task-item'>
+		        	<ul class='task-item'>
 		        		<li>项目类型：<span id="type"></span></li>
 		       			<li>投资事业线：<span id="projectCareerline"></span></li>
 		       			<li>公司名称：<span id="projectCompany"></span></li>
-		        	</div>
-		        	<div class='task-item task-item-right'>
+		        	</ul>
+		        	<ul class='task-item task-item-right'>
 		        		<li>项目编码：<span id="projectCode"></span></li>
 		       			<li>投资经理：<span id="createUname"></span></li>
 		       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
 		       			<li>认领人：<span>${assignUname }</span></li>
 		       			</c:if>
-		        	</div> 
+		        	</ul> 
  		 		</div>
 	        	<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
         	</div>
@@ -97,7 +97,14 @@
 			{
 				return;
 			}
-			_item.text(project[id]);
+			var str='';
+			if(project[id].length>20){
+				str=project[id].substring(0,20);
+				_item.attr('title',project[id]);
+			}else{
+				str=project[id];
+			}
+			_item.text(str);
 		});
 	};
 	sendGetRequest(url,data,callback);
@@ -198,14 +205,14 @@
 					if(data.status == "OK")
 					{
 						layer.closeAll('loading');
-						layer.msg("上传成功.");
+						layer.msg("上传成功");
 						$("#complete-task-btn").removeProp("disabled");
 						loadRows();
 					}
 					else
 					{
 						layer.closeAll('loading');
-						layer.msg("上传失败.");
+						layer.msg("上传失败");
 					}
 				},
 				Error: function(up, err) {
@@ -236,14 +243,14 @@
 		var callback = function(data){
 			layer.closeAll('loading');
 			if(data.result.status=="OK"){
-				layer.msg("提交成功。",{time:1000},function(){
+				layer.msg("提交成功",{time:1000},function(){
 					var url = $("#menus .on a").attr('href');
 					window.location=url;
 				});
 			}
 			else
 			{
-				layer.msg("提交失败。");
+				layer.msg("提交失败");
 			}
 		};
 		//更新task为完成状态

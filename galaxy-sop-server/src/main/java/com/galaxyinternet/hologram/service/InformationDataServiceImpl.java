@@ -69,6 +69,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	}
 	private void saveResult(InformationData data)
 	{
+		User user = WebUtils.getUserFromSession();
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
 		String investment = "";
@@ -80,16 +81,23 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 
 		InformationResult entity = null;
 		List<InformationResult> entityList = new ArrayList<>(); // 增加
-		List<InformationResult> uodateList = new ArrayList<>(); // 修改
+		List<InformationResult> updateList = new ArrayList<>(); // 修改
 
 		Set<String> titleIds = new HashSet<>(); // 多条结果集 删除 （projectid titleid）
 		if (data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()) {
 			titleIds = data.getDeletedResultTids();
 		}
 		Map<InformationResult,InformationModel> poAndVOMap = new HashMap<>();
+		//type == 22,结果评分项
+		List<InformationModel> modelList = new ArrayList<>();
 		for (InformationModel model : list) {
 			if (!"true".equals(model.getTochange()) || model.getTitleId() == null)
 				continue;
+			if("22".equals(model.getType()))
+			{
+				modelList.add(model);
+				continue;
+			}
 			// 判断是否为决策报告里面，处理投资金额字段
 			if (null != model.getReportType() && model.getReportType() == 3 && model.getType().equals("19")) {
 				if (model.getTitleId().equals("3004")) {
@@ -100,7 +108,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 			if (model.getType() != null
-					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13")|| model.getType().equals("23")|| model.getType().equals("22"))) {
+					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13")|| model.getType().equals("23"))) {
 				titleIds.add(model.getTitleId());
 				model.setResultId(null);
 			}
@@ -129,7 +137,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 
-			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
 			if (null == model.getResultId() || model.getResultId().equals("")) {
@@ -142,7 +149,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				entity.setUpdatedTime(now);
 				entity.setUpdateId(userId.toString());
 				entity.setIsValid("0");
-				uodateList.add(entity); // 修改
+				updateList.add(entity); // 修改
 			}
 		}
 
@@ -152,11 +159,11 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			query.setTitleIds(titleIds);
 			resultDao.delete(query);
 		}
-		if (uodateList.size() > 0) {
+		if (updateList.size() > 0) {
 			// ===== 待 1.7 rc环境时 删除
 			List<InformationResult> toVaild1_list = new ArrayList<>();
 			InformationResult toVaild1;
-			for (InformationResult tempUp : uodateList) {
+			for (InformationResult tempUp : updateList) {
 				toVaild1 = new InformationResult();
 				toVaild1.setProjectId(tempUp.getProjectId());
 				toVaild1.setTitleId(tempUp.getTitleId());
@@ -165,7 +172,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 			resultDao.updateInBatch(toVaild1_list);
 			// ==== end
-			resultDao.updateInBatch(uodateList);
+			resultDao.updateInBatch(updateList);
 		}
 		// 插入数据
 		if (entityList.size() > 0) {
@@ -179,6 +186,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 		}
+		//type == 22,结果评分项
+		saveOtherResult(modelList, projectId, user);
 		InformationResult resultUpdate = new InformationResult();
 		// 决策报告编辑估值安排时候计算项目投资额
 		if ((null != investment && !"".equals(investment))||(!"".equals(resulId)&&"".equals(investment))) {
@@ -189,7 +198,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			titleids.add("3010");
 			result.setTitleIds(titleids);
 			result.setIsValid("0");
-			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
 			List<InformationResult> selectList = resultDao.selectList(result);
@@ -222,9 +230,110 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 			
 		}
-	}			
+	}	
+	/**
+	 * type == 22时特殊处理
+	 * @param modelList
+	 * @param projectId
+	 * @param user
+	 */
+	private void saveOtherResult(List<InformationModel> modelList, String projectId, User user)
+	{
+		if(modelList == null || modelList.size() == 0)
+		{
+			return;
+		}
+		Map<Long,List<InformationModel>> valueMap = new HashMap<>();
+		for(InformationModel item : modelList)
+		{
+			Long tid = Long.valueOf(item.getTitleId());
+			List<InformationModel> values = valueMap.get(tid);
+			if(values == null)
+			{
+				values = new ArrayList<>();
+				valueMap.put(tid, values);
+			}
+			if(!StringUtils.isEmpty(item.getValue()))
+			{
+				values.add(item);
+			}
+		}
+		Set<Long> titleIds = valueMap.keySet();
+		long now = new Date().getTime();
+		for(Long titleId : titleIds)
+		{
+			InformationResult query = new InformationResult();
+			query.setProjectId(projectId);
+			query.setTitleId(titleId+"");
+			List<InformationResult> poList = resultDao.selectList(query);
+			List<InformationModel> voList = valueMap.get(titleId);
 			
-		
+			Map<String,InformationResult> poValueMap = new HashMap<>();
+			if(poList != null && poList.size()>0)
+			{
+				for(InformationResult po : poList)
+				{
+					poValueMap.put(po.getContentChoose(), po);
+				}
+			}
+			
+			Map<String,InformationModel> voValueMap = new HashMap<>();
+			if(voList != null && voList.size()>0)
+			{
+				for(InformationModel vo : voList)
+				{
+					if(StringUtils.isNotEmpty(vo.getValue()))
+					{
+						voValueMap.put(vo.getValue(), vo);
+					}
+				}
+			}
+			//删除
+			List<Long> delIds = new ArrayList<>();
+			Set<String> poValues = poValueMap.keySet();
+			for(String value : poValues)
+			{
+				if(!voValueMap.containsKey(value))
+				{
+					Long id = poValueMap.get(value).getId();
+					resultDao.deleteById(id);
+				}
+			}
+			
+			//添加/更新
+			Set<String> voValues = voValueMap.keySet();
+			InformationResult entity = null;
+			for(String value : voValues)
+			{
+				InformationModel vo = voValueMap.get(value);
+				if(!poValueMap.containsKey(value))
+				{
+					entity = new InformationResult();
+					entity.setContentChoose(vo.getValue());
+					entity.setProjectId(projectId);
+					entity.setTitleId(vo.getTitleId());
+					entity.setCreatedTime(now);
+					entity.setCreateId(user.getId().toString());
+					resultDao.insert(entity);
+					//设置resultid，保存分数时使用
+					vo.setResultId(entity.getId()+"");
+				}
+				else
+				{
+					//设置resultid，保存分数时使用
+					InformationResult po = poValueMap.get(value);
+					vo.setResultId(po.getId()+"");
+				}
+			}
+			if(delIds.size() >0)
+			{
+				for(Long id : delIds)
+				{
+					resultDao.deleteById(id);
+				}
+			}
+		}
+	}
 		
 
 	private void saveFixedTable(InformationData data)
@@ -397,7 +506,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			return;
 		}
-		List<InformationScore> resultScoreList = new ArrayList<>();
+		final List<InformationScore> resultScoreList = new ArrayList<>();
 		Set<Long> relateIds = new HashSet<>();
 		InformationScore entity = null;
 		for(InformationModel item : resultList)
@@ -427,9 +536,46 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		if(resultScoreList.size()>0)
 		{
+			final Long projectId = Long.valueOf(data.getProjectId());
 			scoreInfoDao.insertScoreBatch(resultScoreList);
+			ExecutorService pool = GalaxyThreadPool.getExecutorService();
+			pool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					copyResultScore(resultScoreList, projectId);
+				}
+			});
 		}
 		
+	}
+	
+	public void copyResultScore(List<InformationScore> resultScoreList, Long projectId)
+	{
+		Set<Long> relateIds = new HashSet<>();
+		for(InformationScore item : resultScoreList)
+		{
+			Long fromId = item.getRelateId();
+			Long targetId = fromId;
+			if(fromId != null && fromId.intValue() > 8000)
+			{
+				targetId = fromId-8000L;
+			}
+			else
+			{
+				continue;
+			}
+			item.setRelateId(targetId);
+			relateIds.add(targetId);
+		}
+		if(relateIds.size() >0)
+		{
+			InformationScore query = new InformationScore();
+			query.setRelateIds(relateIds);
+			query.setProjectId(projectId);
+			scoreInfoDao.deleteScoreBatch(query);
+			scoreInfoDao.insertScoreBatch(resultScoreList);
+		}
 	}
 	/**
 	 * 评测报告与初评报告分数保持一致
@@ -442,13 +588,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			Long fromId = item.getRelateId();
 			Long targetId = fromId;
-			if(fromId.intValue() > 8000)
+			if(fromId != null && fromId.intValue() > 8000)
 			{
 				targetId = fromId-8000L;
 			}
 			else
 			{
-				return;
+				continue;
 			}
 			item.setRelateId(targetId);
 			relateIds.add(targetId);

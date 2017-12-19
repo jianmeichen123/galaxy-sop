@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.ReportParam;
 
 public interface ScoreInfoService extends BaseService<ScoreInfo>
@@ -19,4 +20,6 @@ public interface ScoreInfoService extends BaseService<ScoreInfo>
 	 * @return W1001项目、W1002团队、运营、、的比重
 	 */
 	public Map<String,String> getTabWeight(String preCode, Long projectId);
+	
+	public List<InformationScore> selectScore(InformationScore query);
 }

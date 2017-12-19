@@ -18,7 +18,6 @@ import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ResultParam;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.model.hologram.ScoreValue;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
 /**
  * 计算报告分数

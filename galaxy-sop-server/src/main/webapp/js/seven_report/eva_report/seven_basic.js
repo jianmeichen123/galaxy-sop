@@ -52,7 +52,8 @@
 			//编辑数据请求
 			//请求成功，数据添加
 			get_result(id_code,1,radioShow);
-			_td.closest(".table_inner").find(".heightL").addClass("disabled");
+			_td.closest(".table_inner").find(".heightL input").addClass("disabled");
+			_td.closest(".table_inner").find(".heightL select").addClass("disabled").attr("disabled",true);
 			var pText = $(obj).parent().find('p');
 			var pSpan = $(obj).parent().find('span');
 			_this.hide();
@@ -490,7 +491,8 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 function closeX(obj){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
-	$(obj).closest(".table_inner").find(".heightL").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL input").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled").removeAttr("disabled")
 	//对号,x号消失
 	$(obj).parent().hide();
 	//radio 消失
@@ -523,7 +525,8 @@ function right(obj,type){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	//验证
-	$(obj).closest(".table_inner").find(".heightL").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL input").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled").removeAttr("disabled")
 	if(type=="checkbox" || type=="radio"){
 		var form = $(obj).closest("form");
 		if(!form.validate().form())
@@ -667,6 +670,11 @@ function right(obj,type){
 		 $(".score-column select,input").change(function(){
 				calcScore();
 		 });
+		 $(".score-column select,input").click(function(){ 
+				$(".pagebox").attr("data-result",true);
+				$("#save-rpt-btn").removeAttr("disabled"); 
+				$("#save-rpt-btn em").removeClass("disabled")
+			})
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){

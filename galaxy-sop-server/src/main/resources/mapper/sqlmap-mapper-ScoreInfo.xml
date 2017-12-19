@@ -44,16 +44,17 @@
 		CASE WHEN a.process_mode = 5 THEN rt.content_describe1 ELSE rt.content_choose END AS VALUE, 
 		rg.id AS score_id, 
 		CASE WHEN g.sub_id = 2 THEN rg.grade2 ELSE rg.grade1 END AS score,
-		rg2.grade_percentage,
-		rg2.grade1 AS result_score
+		CASE WHEN rg2.id IS NOT NULL THEN rg2.grade_percentage ELSE rg3.grade_percentage END AS grade_percentage,
+		CASE WHEN rg2.id IS NOT NULL THEN rg2.grade1 ELSE rg3.grade1 END AS result_score 
 		</if>
 		FROM information_title_relate r
 		LEFT JOIN information_grade g ON r.id = g.title_relate_id
 		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
 		<if test="projectId != null">
 		LEFT JOIN (SELECT * FROM information_result WHERE project_id = #{projectId})  rt ON rt.title_id = r.title_id
-		LEFT JOIN information_result_grade rg ON rg.title_relate_id = r.id AND rg.project_id = #{projectId} 
+		LEFT JOIN information_result_grade rg ON rg.title_relate_id = r.id AND rg.result_id IS NULL AND rg.project_id = #{projectId} 
 		LEFT JOIN information_result_grade rg2 ON rg2.title_relate_id =r.id AND rg2.result_id = rt.id and rg2.project_id = #{projectId} 
+		LEFT JOIN information_result_grade rg3 ON rg3.title_relate_id =(r.id+8000) AND rg3.result_id = rt.id AND r.id<![CDATA[ < ]]>8000 AND rg3.project_id = #{projectId}
 		</if>
 		<where>
 			<trim prefixOverrides="and">
@@ -72,10 +73,12 @@
 	</select>
 	<resultMap id="InformationScoreMap" type="com.galaxyinternet.model.hologram.InformationScore">
 		<id column="id" 					property="id"				jdbcType="BIGINT"/>
-		<id column="projectId" 				property="project_id"		jdbcType="BIGINT"/>
-		<id column="relateId" 				property="title_relate_id"	jdbcType="BIGINT"/>
+		<id column="project_id" 			property="projectId"		jdbcType="BIGINT"/>
+		<id column="title_relate_id" 		property="relateId"			jdbcType="BIGINT"/>
+		<id column="result_id" 				property="resultId"			jdbcType="BIGINT"/>
 		<id column="grade1" 				property="score1"			jdbcType="NUMERIC"/>
 		<id column="grade2" 				property="score2"			jdbcType="NUMERIC"/>
+		<id column="grade_percentage" 		property="weight"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<select id="selectScore" resultMap="InformationScoreMap" parameterType="java.util.Map">

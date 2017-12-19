@@ -22,6 +22,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -410,6 +411,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	public static Set<Long> NO9_1$tids$qx = new TreeSet<>();
 	public static Set<Long> NO_always = new TreeSet<>();
 	static {
+		NO_always.add(1118l);
 		NO_always.add(1121l);
 		NO_always.add(1122l);
 		NO_always.add(1123l);

@@ -164,8 +164,8 @@
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
-			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
-			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
+			        	<th data-field="projectCareerline"  class="data-input" data-width="12%">事业部</th>
+			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
 			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">

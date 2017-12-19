@@ -306,7 +306,7 @@ $(function(){
 			if(s_type=="save_basic"){
 				data=getUpdateDataBasic();
 				if(!$("#basicForm1").validate().form())
-				{
+				{						
 					if($('#finance_status_sel-error').is(':visible')){
 						$('#finance_status_sel-error').closest('tr').css('height','65px');
 						$('.finance_status_ul').css('margin-top','-30px');
@@ -315,6 +315,10 @@ $(function(){
 						$('.finance_status_ul').css('margin-top','0px');
 					}
 					return;
+				}
+				if($("input[name=projectSource]").val()=="请选择"){
+					$(".historyData").text("项目来源不能为空")
+					return
 				}
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){					
 					if(data2.result.status=="OK"){ 
