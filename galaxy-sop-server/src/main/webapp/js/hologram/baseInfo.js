@@ -1167,7 +1167,12 @@ function type_14_html(entity,title,mark){
 				hresult = "<dd>"+results[0].valueName+"</dd>";
 			}
 		}
-		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
+		if(title.id=='1120'){
+			return  "<div class=\"mb_24 division_dd clearfix\">" + htitle + hresult + "</div>";
+		}else{
+			return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
+		}
+		
 	}else{
 		var eresult = one_select_edit(title,'select','radio');
 		var span='<span class="error select_input">项目来源选项已更新，请重新选择</span>'
