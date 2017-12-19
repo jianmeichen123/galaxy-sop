@@ -95,7 +95,7 @@
                         </li>
                         <li class="projectSourceli">
                         <div class="projectSource projectSource5">
-                        		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>合投机构名称 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>合投机构名称 ：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS6"/>
 								 </span>
