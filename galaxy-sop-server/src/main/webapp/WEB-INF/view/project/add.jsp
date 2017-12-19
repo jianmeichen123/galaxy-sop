@@ -432,6 +432,8 @@ function CallBackE(data){
 			$(".projectSource input").val("")
 			$(".trSouce input").val("");
 			$(".trSouceOther").hide().val("")
+			$("span.error").hide();
+			$(".selectcheck input.addpro-input").hide();
 			 $('#selectRadio').selectpicker({
 	   			 dropupAuto:false
                });
