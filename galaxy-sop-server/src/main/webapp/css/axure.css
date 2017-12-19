@@ -3942,7 +3942,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  /* CHEN */
  .task-pagebox{min-width:auto;}
 .task-top{height:108px;background:#fff;margin:51px 0 0 150px;}
-.task-top .taskdetail-top-title{height:64px;background:#fff;line-height:64px;margin-left:39px;color:#202533;font-family:MicrosoftYa Hei;}
+.task-top .taskdetail-top-title{height:64px;background:#fff;line-height:64px;margin-left:39px;color:#202533;font-family:Microsoft YaHei;}
 .task-top h2{font-size:24px;font-weight:normal;}
 .taskdetail-top h2{float:left}
 .task-top .task_tipslink{display: inline-block;margin:8px 0 0 39px;font-size:14px;color:#33363e;}
@@ -3950,10 +3950,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-tips-li.on{border-bottom:4px solid #45aaff;}
 .task_tipslink li{margin:0 40px 0 0;}
 .bottom_none:hover{border-bottom:none !important;}
-.task_tipslink li a{color:#33363e;font-size:14px;font-family:MicrosoftYa Hei;}
-.pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:MicrosoftYa Hei;}
+.task_tipslink li a{color:#33363e;font-size:14px;font-family:Microsoft YaHei;}
+.pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
 .task-searchbox{width:auto !important;display:inline-block;float:right !important;margin-top:-49px;}
-.task-cx{height:29px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;margin-right:12px;font-size:12px;font-family:MicrosoftYa Hei;}
+.task-cx{height:29px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
 .more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
@@ -3968,20 +3968,20 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .taskDetail-mesage-top div ul li,span{font-family:Microsoft YaHei;}
 .taskDetail-mesage-table{margin-top:10px;background:#fff;}
 .task-item{height:auto;}
-.task-item li{margin-top:20px;color:#5a626d;font-size:14px;font-family:MicrosoftYa Hei;} 
+.task-item li{margin-top:20px;color:#5a626d;font-size:14px;font-family:Microsoft YaHei;} 
 .task-detail-table .on td{background:none !important;}
 .task-item-left{margin-left:20px;}
 .task-item-right{margin-right:20px;}
-.pro-detail{float:right;margin-top:20px;color:#3ca6ff;font-size:14px;font-family:MicrosoftYa Hei;margin-right:20px;}
-.task-detail-table th{font-family:MicrosoftYa Hei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
+.pro-detail{float:right;margin-top:20px;color:#3ca6ff;font-size:14px;font-family:Microsoft YaHei;margin-right:20px;}
+.task-detail-table th{font-family:Microsoft YaHei-Bold;font-size:14px;color:#5a626d;text-align: center;font-weight:bold;}
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
 .task-detail-table tr td:nth-child(1){text-align:left;}
 .table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
-.upate-task{font-family:MicrosoftYa Hei;display:inline-block;padding:0 20px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
-.submit-success{font-family:MicrosoftYa Hei;color:#3ca6ff;background:#fff;margin-left:20px;}
+.upate-task{font-family:Microsoft YaHei;display:inline-block;padding:0 20px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}
+.submit-success{font-family:Microsoft YaHei;color:#3ca6ff;background:#fff;margin-left:20px;}
 .taskDetail-mesage-update .disabled{color:#999;background:#d8d8d8 !important;}
 /*操作日志*/
 .opretion-log thead th{font-size:14px;color:#5a626d;font-weight:bold;text-align:center;}
@@ -3991,7 +3991,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 /* 指派任务 */
 .task-abandon-content{width:580px;}
 .task-pop{border-radius:2px;border:none;}
-.abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:MicrosoftYa Hei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
+.abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:Microsoft YaHei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
 .task-qulification p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
 .task-qulification p {padding:30px 0 0 118px;color:#666666;font-size:14px;}
 .task-textarea{width:444px;font-size:14px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
@@ -4025,9 +4025,9 @@ input::input-placeholder{color:red !important;}
 .fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
 .task-pagebox .fixed-table-body{border-radius:0}
 /* 添加项目 */
-.add-project-title{width:100%;height:62px;position:fixed;z-index:10;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:MicrosoftYa Hei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
+.add-project-title{width:100%;height:62px;position:fixed;z-index:10;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:Microsoft YaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
-.add-project-title span{font-family:MicrosoftYa Hei;font-size:24px;color:#202533;}
+.add-project-title span{font-family:Microsoft YaHei;font-size:24px;color:#202533;}
 .pagebox .add-project-ritmin{margin:122px 0px 0 10.505%;padding-left:16px;}
 .add-project-tabtable{border-radius:0px;background-color:inherit;}
 .add-pro-basicmessage{font-size:16px;color:#333333;margin-left:0px;}
@@ -4036,8 +4036,8 @@ input::input-placeholder{color:red !important;}
 select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul .letter-space,.addpro-finacing-ul .letter-space{width:115px;font-family:Microsoft YaHei;font-size:14px;color:#666666;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .addpro-basi-ul .letter-space.rzlc_span{letter-spacing:0.7px;}
-.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:MicrosoftYa Hei;font-size:12px;color:#333333;}
-.addpro-basi-ul select,.selectcheck button.btn-default,.selectcheck  .open > .dropdown-toggle.btn-default{border:1px solid #d8d8d8;border-radius:2px;font-family:MicrosoftYa Hei;font-size:14px;color:#333333; padding-left:10px !important}
+.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:12px;color:#333333;}
+.addpro-basi-ul select,.selectcheck button.btn-default,.selectcheck  .open > .dropdown-toggle.btn-default{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:14px;color:#333333; padding-left:10px !important}
 .addpro-basic-span{width:auto;padding-left:10px;}
 .addpro-basi-ul{margin-left:9px;min-width:1088px;padding-top:10px;overflow:visible;}
 .addpro-basi-ul li{margin:0;}
@@ -4055,15 +4055,15 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-compile{padding-bottom:30px;}
 .addpro-business-plan table{border-radius:0px !important;border:1px solid #d8d8d8;}
 .addpro-business-plan table th{text-align:center;font-size:14px;font-weight:bold;height:40px;}
-.addpro-business-plan table td{text-align:center;height:40px;font-family:MicrosoftYa Hei;font-size:14px;color:#5a626d;}
+.addpro-business-plan table td{text-align:center;height:40px;font-family:Microsoft YaHei;font-size:14px;color:#5a626d;}
 .addpro-business-plan table th:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table td:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table th:nth-child(3){text-align:right;padding-right:40px;}
 .addpro-business-plan table td:nth-child(3){text-align:right;padding-right:25px;}
-.addpro-business-plan table .add_ico_pgn{font-family:MicrosoftYa Hei;font-size:14px;color:#3ca6ff;}
-.compile_on_left span.adddpro-save{background:#3ca6ff;border-radius:2px;width:92px;height:32px;font-size:14px;color:#ffffff;line-height:32px;font-family:MicrosoftYa Hei;}
+.addpro-business-plan table .add_ico_pgn{font-family:Microsoft YaHei;font-size:14px;color:#3ca6ff;}
+.compile_on_left span.adddpro-save{background:#3ca6ff;border-radius:2px;width:92px;height:32px;font-size:14px;color:#ffffff;line-height:32px;font-family:Microsoft YaHei;}
 .compile_on_left span.adddpro-save:hover{background-color:#0084f5;}
-.compile_on_left span.addpro-cacel{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-family:MicrosoftYa Hei;font-size:14px;color:#3ca6ff;line-height:32px;}
+.compile_on_left span.addpro-cacel{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-family:Microsoft YaHei;font-size:14px;color:#3ca6ff;line-height:32px;}
 .compile_on_left span.addpro-cacel:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .task-cancle:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .inpu-radio{opacity:0;filter:alpha(opacity=0);}
@@ -4079,9 +4079,9 @@ select.addpro-input{width:278px;height:32px;}
 .come-back:hover .task-back{background:url(../img/back-hover.png) no-repeat center center;}
 .come-back{width:auto;float:right;margin-right:22px;}
 .come-back:hover .task-back-msg{color:#0084F5;}
-.task-back-msg{font-family:MicrosoftYa Hei;font-size:12px;color:#3ca6ff;cursor:pointer;}
-.task-operation a{font-family:MicrosoftYa Hei;color:#45aaff;margin-left:16px;}
-.task-no-need{margin-top:10px;margin-left:20px;font-family:MicrosoftYa Hei;padding-top:10px;}
+.task-back-msg{font-family:Microsoft YaHei;font-size:12px;color:#3ca6ff;cursor:pointer;}
+.task-operation a{font-family:Microsoft YaHei;color:#45aaff;margin-left:16px;}
+.task-no-need{margin-top:10px;margin-left:20px;font-family:Microsoft YaHei;padding-top:10px;}
 .task-no-need input[type='checkbox']{-webkit-appearance:none;appearance:none;-moz-appearance:none;}
 .task-no-label{vertical-align: inherit;width:12px;height:12px;display:inline-block;background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -100px -5px !important;cursor:pointer;margin-right:5px;}
 .task-no-label.label-checked{background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -86px -5px !important;}
