@@ -4177,7 +4177,16 @@ li .projectSource11 span.m_r30{
 .h_look .division_dd dd{width:80%;}
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 #file-history-dialog{height:400px;}
-
+#file-history-dialog .title_bj_tzjl{position:absolute;}
+/* 分页样式20171219 */
+.task-ritmin .pagination-info,.task-ritmin .page-list,.taskDetail-mesage .pagination-info,.taskDetail-mesage .page-list{color:#5a626d;letter-spacing:2px;}
+.task-ritmin .fixed-table-pagination li a,.taskDetail-mesage .fixed-table-pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
+.task-ritmin .pagination > .active > a, .task-ritmin .pagination > .active > span, .task-ritmin .pagination > .active > a:hover, .task-ritmin .pagination > .active > span:hover, .task-ritmin .pagination > .active > a:focus,.task-ritmin  .pagination > .active > span:focus{
+	background:#45aaff;color:#fff;
+}
+.taskDetail-mesage .pagination > .active > a, .taskDetail-mesage .pagination > .active > span, .taskDetail-mesage .pagination > .active > a:hover, .taskDetail-mesage .pagination > .active > span:hover, .taskDetail-mesage .pagination > .active > a:focus,.taskDetail-mesage  .pagination > .active > span:focus{
+	background:#45aaff;color:#fff;
+}
 
 
 
