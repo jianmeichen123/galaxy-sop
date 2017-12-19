@@ -35,6 +35,7 @@ function resouceShow(mark){
 				$('.resource_branch_01').hide();
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
+					$('.resource_branch_01').find('.error_span').addClass('select_input');
 					$(this).closest('.resource_branch').find('dt').attr('tochange',true);
 					//清空关联题目input值
 					$('.resource_branch').find('input').val('');
@@ -412,7 +413,7 @@ function one_select_edit(title,inputtype,type){
     			}else{
     				eresult = 
                 		"<dd>" +
-            		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>项目来源不能为空\">" +
             					li +
             				"</select>" +
             	    	"</dd>";
@@ -1166,7 +1167,12 @@ function type_14_html(entity,title,mark){
 				hresult = "<dd>"+results[0].valueName+"</dd>";
 			}
 		}
-		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
+		if(title.id=='1120'){
+			return  "<div class=\"mb_24 division_dd clearfix\">" + htitle + hresult + "</div>";
+		}else{
+			return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
+		}
+		
 	}else{
 		var eresult = one_select_edit(title,'select','radio');
 		var span='<span class="error select_input">项目来源选项已更新，请重新选择</span>'

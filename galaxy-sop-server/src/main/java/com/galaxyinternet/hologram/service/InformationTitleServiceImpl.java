@@ -545,7 +545,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(tids != null) rq.setTitleIds(tids);
 		if(tid != null) rq.setTitleId(tid+"");
 		//rq.setProperty("title_id sort");
-		rq.setProperty("title_id");
+		rq.setProperty("title_id,id");
 		rq.setDirection(Direction.ASC.toString());
 		return resultDao.selectList(rq);
 	}

@@ -922,7 +922,7 @@ function showRowCompete(ele,id_code,id_code_new,row,code,flag){  //ele指代this
 							var map=dictCache(titleId,subCode,filed);
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
 						}else if(type==8 || type==1){
-							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未填写":val_text);
+							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
 						}
 					});
 					/*var name=$('dd[name="field1"]').text();  //竞争对手名称
@@ -1122,6 +1122,11 @@ function addRowCompete(ele,id_code,id_code_new){
 						var form=$(this).closest('form')
 						$(form).remove();							
 					})
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}

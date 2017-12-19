@@ -97,7 +97,7 @@
                         <div class="projectSource projectSource5">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>合投机构名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS6"/>
+									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS5"/>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource6">
@@ -432,6 +432,8 @@ function CallBackE(data){
 			$(".projectSource input").val("")
 			$(".trSouce input").val("");
 			$(".trSouceOther").hide().val("")
+			$("span.error").hide();
+			$(".selectcheck input.addpro-input").hide();
 			 $('#selectRadio').selectpicker({
 	   			 dropupAuto:false
                });

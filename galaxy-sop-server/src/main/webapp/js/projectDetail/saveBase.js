@@ -161,11 +161,11 @@ function updateReportMoneyBasic(){
 		if(data.result.status=='OK'){
 			projectInfoListNew=data.userData.report[0].childList;
 			if(projectInfoListNew && projectInfoListNew.length>0){
-			    	$.each(projectInfoListNew,function(i,o){
-				    	if(o.nodeName=='本轮融资轮次'){
-				    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
-				    	}		    	
-				    })
+		    	$.each(projectInfoListNew,function(i,o){
+			    	if(o.nodeName=='本轮融资轮次'){
+			    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
+			    	}		    	
+			    })
 			    }
 			projectInfoDetail=data.userData.pro;   
 			reportResult=data.userData.report; 
@@ -175,14 +175,14 @@ function updateReportMoneyBasic(){
 			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 			$("#projectType").text(projectInfoDetail.type); 
 			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
-			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
-			showFaname()
+			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag).removeAttr('data-original-title');
 			if(projectInfoDetail.projectName.length>20){
 				$('.project_name_t').css('font-size','24px')
 			}else{
 				$('.project_name_t').css('font-size','28px')
 			}
 			//FA类型展示
+			showFaname()
 		}
 	})
 }
