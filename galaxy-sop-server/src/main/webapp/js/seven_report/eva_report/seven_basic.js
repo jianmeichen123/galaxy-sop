@@ -53,7 +53,7 @@
 			//请求成功，数据添加
 			get_result(id_code,1,radioShow);
 			_td.closest(".table_inner").find(".heightL input").addClass("disabled");
-			_td.closest(".table_inner").find(".heightL select").addClass("disabled");
+			_td.closest(".table_inner").find(".heightL select").addClass("disabled").attr("disabled",true);
 			var pText = $(obj).parent().find('p');
 			var pSpan = $(obj).parent().find('span');
 			_this.hide();
@@ -492,7 +492,7 @@ function closeX(obj){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	$(obj).closest(".table_inner").find(".heightL input").removeClass("disabled")
-	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled").removeAttr("disabled")
 	//对号,x号消失
 	$(obj).parent().hide();
 	//radio 消失
@@ -526,7 +526,7 @@ function right(obj,type){
 	$('body').css('overflow', 'auto');
 	//验证
 	$(obj).closest(".table_inner").find(".heightL input").removeClass("disabled")
-	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled")
+	$(obj).closest(".table_inner").find(".heightL select").removeClass("disabled").removeAttr("disabled")
 	if(type=="checkbox" || type=="radio"){
 		var form = $(obj).closest("form");
 		if(!form.validate().form())
