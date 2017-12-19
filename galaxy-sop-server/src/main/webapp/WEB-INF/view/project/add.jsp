@@ -113,7 +113,7 @@
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
-                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>机构名称及路演名称 ：</span></span>
+                        		 <span class="basic_span addpro-basic-span"><span class='letter-space'>机构及路演名称：</span></span>
                         		 <span class="m_r30">
 									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/>
 								 </span>

@@ -178,7 +178,7 @@ position: absolute;
 					</tr>
 					<tr class="trSouce projectSource8">
 						<td>
-							<span>机构名称及路演名称：</span>
+							<span>机构及路演名称：</span>
 							<div> 
 								<input type="text" value="" placeholder="请输入机构及路演名称" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" name="proS8"  maxlength="50"/>
 							</div>
