@@ -178,7 +178,7 @@ position: absolute;
 					</tr>
 					<tr class="trSouce projectSource8">
 						<td>
-							<span>机构名称及路演名称：</span>
+							<span>机构及路演名称：</span>
 							<div> 
 								<input type="text" value="" placeholder="请输入机构及路演名称" data-title-id="1124" data-type="1" class="basic_mes_input inputSouce" name="proS8"  maxlength="50"/>
 							</div>
@@ -286,12 +286,12 @@ if(projectInfoDetail.projectName.length>20){
 			$("#create_date").text(projectInfoDetail.createDate);
 			$("#createUname").text(projectInfoDetail.createUname);
 			$("#projectCareerline").text(projectInfoDetail.projectCareerline);
-			$("#projectType").text(projectInfoDetail.type);
+			$("#projectType").text(projectInfoDetail.type==null?"-":projectInfoDetail.type);
 			$("#projectProgress").text(projectInfoDetail.progress);
 			$("#projectStatusDs").text(projectInfoDetail.projectProgress=="projectProgress:10"?"":projectInfoDetail.projectStatusDs);
 			$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
-			$("#faName").text(projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
+			$("#faName").text(projectInfoDetail.faFlagStr==null?"-":projectInfoDetail.faFlagStr).attr("data",projectInfoDetail.faFlag);
 
 			showFaname()
 

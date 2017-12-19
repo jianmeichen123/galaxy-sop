@@ -2689,7 +2689,7 @@ input::-moz-placeholder {
     color:#b3b3b3;
      font-size:12px;
 }
-input::-ms-input-placeholder { 
+input:-ms-input-placeholder { 
     color:#b3b3b3;
      font-size:12px;
 }
@@ -4174,6 +4174,7 @@ li .projectSource11 span.m_r30{
 .add-project-tabtable{overflow:visible;}
 .historyData{color: red;  margin-left: 118px;display:none;}
 .h_look .resource_branch_01 dd{width:90%;}
+.h_look .division_dd dd{width:80%;}
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 
 

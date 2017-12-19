@@ -15,7 +15,7 @@
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>	
 							<div class="radioShow radioShow_1"></div>						
-							<div class="Button">
+							<div clasfs="Button">
 								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
@@ -399,8 +399,8 @@
 													<option value="">请选择</option>
 												</select>
 												<div class="score-div">
-													<i class="unit">%</i><input class="result-weight" type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="100" onblur="countGrade(this)">
-							                   		 <em>(0-100分)</em>
+													<i class="unit">%</i><input class="result-weight" type="text" value="" placeholder="权重"  name="\${isScore}" rulermarket="100" onblur="countGrade(this)">
+							                   		 <em>(0-100)</em>
 												</div>
 											</td>
 										{{/if}}

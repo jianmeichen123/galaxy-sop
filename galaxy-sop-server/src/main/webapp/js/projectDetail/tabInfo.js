@@ -420,14 +420,13 @@ $(function(){
 					return;
 				}
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
-					if(data2.result.status=="OK"){
-						layer.msg(data2.result.message);
+					if(data2.result.status=="OK"){ 
+						//layer.msg(data2.result.message);
 						saveBaseInfo("basicForm");
 						if(data2.result.errorCode=='mccf'){  //项目名重复
 							//layer.msg(data2.result.message);
 							return;
-						}
-						
+						} 
 						//弹窗关闭
 						var close="basic"
 						$('.'+close+'_current').hide();//basic_current
@@ -435,6 +434,7 @@ $(function(){
 						$('.'+close+'_center').show();
 						$('.bj_hui_on').hide();
 						$("body").css('overflow-y','auto');
+
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;
 							$("#project_name_t").text(projectInfoDetail.projectName);
@@ -448,8 +448,8 @@ $(function(){
 							}else{
 								$("#faName").removeAttr('data-original-title');
 							}
+							updateReportMoney(); 
 						});
-						updateReportMoney(); 
 						jointDeliveryList(projectInfoDetail.jointDeliveryList);//合投机构 
 						$("#financeMode").text(typeof(projectInfoDetail.fModeRemark)=="undefined"?"投资形式未填":(projectInfoDetail.fModeRemark==0?"投资形式未填":projectInfoDetail.fModeRemark));
 						$("#financeMode").attr("data-original-title",typeof(projectInfoDetail.fModeRemark)=="undefined"?"—":(projectInfoDetail.fModeRemark==0?"—":"点击查看投资机构列表"));
@@ -756,7 +756,7 @@ function updataReport(projectInfoList){
 	    })
     }
 }
-function updateReportMoney(){
+function updateReportMoney(){ 
 	var projectInfoListNew=[];
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 		if(data.result.status=='OK'){

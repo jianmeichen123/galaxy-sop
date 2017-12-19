@@ -78,8 +78,13 @@ $(function(){
 			    	
 		    	}
 			    $("input[name='projectSource']").val(projectInfoDetail.faFlagStr).attr("m-val",projectInfoDetail.faFlag);
-				if(projectInfoDetail.faFlagStr=="创业者"||projectInfoDetail.faFlagStr=="创业者"||projectInfoDetail.faFlagStr=="创业者"){
+				if(projectInfoDetail.faFlagStr=="创业者"||projectInfoDetail.faFlagStr=="外部独立合伙人"||projectInfoDetail.faFlagStr=="自开发"){
 					$(".historyData").show();
+					$("input[name=projectSource]").val("请选择").attr({
+						"data-flag":"",
+						"m-val":"",
+						
+					})
 				}else{
 					$(".historyData").hide();
 				}
