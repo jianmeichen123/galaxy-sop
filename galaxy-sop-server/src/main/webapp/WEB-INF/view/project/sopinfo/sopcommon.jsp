@@ -142,7 +142,7 @@ position: absolute;
 						<td>
 							<span>项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" data-title-id="1120"  data-type="14" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空" aria-required="true"/> 
+								<input class="input_select" type="text" data-title-id="1120"  data-type="14" autocomplete="off" readonly="readonly" onclick="dropdown_select(this,event)"  placeholder='请选择' value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font>项目来源不能为空"/> 
 									<ul class='base_select_ul' id="selectSource">  
 									</ul> 
 							</div> 
