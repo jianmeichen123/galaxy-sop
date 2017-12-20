@@ -488,6 +488,7 @@ function buildResult(title)
 				}
 			}else{
 				_ele.html(results[0].contentDescribe1);
+				_ele.attr("data-title-value",results[0].contentDescribe1);
 			}
 		}
 		_ele.attr("data-result-id",results[0].id);
