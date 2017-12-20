@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,6 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
-import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -66,7 +66,6 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.chart.DataFormat;
@@ -90,7 +89,6 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
@@ -98,9 +96,6 @@ import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
-import com.galaxyinternet.project.service.HandlerManager;
-import com.galaxyinternet.project.service.handler.Handler;
-import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -117,7 +112,6 @@ import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
-import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
@@ -130,8 +124,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
-import java.util.Set;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -162,20 +154,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private SopFileService sopFileService;
 	@Autowired
-	private SopVoucherFileService sopVoucherFileService;
-	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
-	@Autowired
-	private HandlerManager handlerManager;
-
 	@Autowired
 	private DepartmentService departmentService;
 	@Autowired
 	private PassRateService passRateService;
-	
-	@Autowired
-	private YwjzdcHandler ywjzdcHandler;
-	
 	@Autowired
 	private ProjectGradeService reportService;
 	
@@ -1022,377 +1005,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/updatePerson";
 	}
 
-	/**
-	 * 项目阶段中的文档上传 该项目对应的创建人操作
-	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
-	@ResponseBody
-	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectQuery> stageChange(ProjectQuery p,
-			HttpServletRequest request) {
-		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
-		// 解析文件上传的非file表单值
-		if (p.getPid() == null) {
-			String json = JSONUtils.getBodyString(request);
-			p = GSONUtil.fromJson(json, ProjectQuery.class);
-		}
-		/**
-		 * 1.参数校验
-		 */
-		// 所有都必须附带pid和stage
-		if (p.getPid() == null
-				|| p.getStage() == null
-				|| !SopConstant._progress_pattern_.matcher(p.getStage())
-						.matches() || p.getParseDate() == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
-			return responseBody;
-		}
-		// 如果是内评会、CEO评审会、立项会、投决会,则会议类型和会议结论不能缺少
-		if (p.getStage().equals(DictEnum.projectProgress.内部评审.getCode())
-				|| p.getStage()
-						.equals(DictEnum.projectProgress.CEO评审.getCode())
-				|| p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
-				|| p.getStage()
-						.equals(DictEnum.projectProgress.投资决策会.getCode())) {
-			if (p.getMeetingType() == null
-					|| !SopConstant._meeting_type_pattern_.matcher(
-							p.getMeetingType()).matches()
-					|| p.getResult() == null
-					|| !SopConstant._meeting_result_pattern_.matcher(
-							p.getResult()).matches()) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"必要的参数丢失!"));
-				return responseBody;
-			}
-			// 已有通过的会议，不能再添加会议纪要
-			MeetingRecord mrQuery = new MeetingRecord();
-			mrQuery.setProjectId(p.getPid());
-			mrQuery.setMeetingType(p.getMeetingType());
-			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-			Long mrCount = meetingRecordService.queryCount(mrQuery);
-			if (mrCount != null && mrCount.longValue() > 0L) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"已有通过的会议，不能再添加会议纪要!"));
-				return responseBody;
-			}
-
-			// 排期池校验
-			if (p.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())
-					|| p.getMeetingType().equals(
-							DictEnum.meetingType.投决会.getCode())) {
-				MeetingScheduling ms = new MeetingScheduling();
-				ms.setProjectId(p.getPid());
-				ms.setMeetingType(p.getMeetingType());
-				ms.setStatus(DictEnum.meetingResult.待定.getCode());
-				List<MeetingScheduling> mslist = meetingSchedulingService
-						.queryList(ms);
-				if (mslist == null || mslist.isEmpty()) {
-					responseBody.setResult(new Result(Status.ERROR, "",
-							"未在排期池中，不能添加会议记录!"));
-					return responseBody;
-				}
-			}
-
-		}
-		Project project = projectService.queryById(p.getPid());
-		if (project == null) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "未找到相应的项目信息!"));
-			return responseBody;
-		}
-
-		// 投资意向书、尽职调查及投资协议的文档上传只能在当前阶段才能进行
-		if (p.getStage().equals(DictEnum.projectProgress.投资意向书.getCode())
-				|| p.getStage().equals(DictEnum.projectProgress.尽职调查.getCode())
-				|| p.getStage().equals(DictEnum.projectProgress.投资协议.getCode())) {
-			if (p.getType() == null
-					|| p.getFileType() == null
-					|| !SopConstant._file_type_pattern_
-							.matcher(p.getFileType()).matches()
-					|| p.getFileWorktype() == null
-					|| !SopConstant._file_worktype_pattern_.matcher(
-							p.getFileWorktype()).matches()) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"必要的参数丢失!"));
-				return responseBody;
-			}
-
-			int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
-			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
-			if (in < pin) {
-				//if(!utilsService.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, p.getPid())){
-				if(!utilsService.checkProIsGreenChannel(p.getPid())){
-					responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
-					return responseBody;				
-				}
-			}
-			
-			
-			// 如果是创建/未勾选"涉及股权转让"没有股权转让文档
-			if (p.getFileWorktype().equals(
-					DictEnum.fileWorktype.股权转让协议.getCode())) {
-				if (project != null
-						&& project.getProjectType() != null
-						&& project.getProjectType().equals(
-								DictEnum.projectType.创建.getCode())) {
-					responseBody.setResult(new Result(Status.ERROR, null,
-							"创建项目不需要股权转让协议!"));
-					return responseBody;
-				} else if (project.getStockTransfer() == null
-						|| project.getStockTransfer() == 0) {
-					responseBody.setResult(new Result(Status.ERROR, null,
-							"项目未选择涉及股权转让!"));
-					return responseBody;
-				}
-			}
-			/**
-			 * 上传签署凭证时要对相对应的文档是否已上传进行校验
-			 */
-			if (p.getVoucherType() != null
-					&& p.getVoucherType().intValue() == 1) {
-				SopFile fileQuery = null;
-				if (p.getFileWorktype().equals(
-						DictEnum.fileWorktype.投资意向书.getCode())) {
-					// file表
-					fileQuery = new SopFile();
-					fileQuery.setProjectId(p.getPid());
-					fileQuery.setFileWorktype(DictEnum.fileWorktype.投资意向书
-							.getCode());
-					fileQuery = sopFileService.queryOne(fileQuery);
-					if (fileQuery.getFileKey() == null
-							|| fileQuery.getBucketName() == null) {
-						responseBody.setResult(new Result(Status.ERROR, null,
-								"前置文件缺失!"));
-						return responseBody;
-					}
-				} else if (p.getFileWorktype().equals(
-						DictEnum.fileWorktype.投资协议.getCode())) {
-					fileQuery = new SopFile();
-					fileQuery.setProjectId(p.getPid());
-					fileQuery.setFileWorktype(DictEnum.fileWorktype.投资协议
-							.getCode());
-					fileQuery = sopFileService.queryOne(fileQuery);
-					if (fileQuery.getFileKey() == null
-							|| fileQuery.getBucketName() == null) {
-						responseBody.setResult(new Result(Status.ERROR, null,
-								"前置文件缺失!"));
-						return responseBody;
-					}
-				} else if (p.getFileWorktype().equals(
-						DictEnum.fileWorktype.股权转让协议.getCode())) {
-					fileQuery = new SopFile();
-					fileQuery.setProjectId(p.getPid());
-					fileQuery.setFileWorktype(DictEnum.fileWorktype.股权转让协议
-							.getCode());
-					fileQuery = sopFileService.queryOne(fileQuery);
-					if (fileQuery.getFileKey() == null
-							|| fileQuery.getBucketName() == null) {
-						responseBody.setResult(new Result(Status.ERROR, null,
-								"前置文件缺失!"));
-						return responseBody;
-					}
-
-					// 验证投资协议签署证明是否已上传
-					SopFile fq = new SopFile();
-					fq.setProjectId(p.getPid());
-					fq.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
-					fq = sopFileService.queryOne(fq);
-					Long voucherId = fq.getVoucherId();
-					if (voucherId == null) {
-						responseBody.setResult(new Result(Status.ERROR, null,
-								"数据异常!"));
-						return responseBody;
-					}
-					SopVoucherFile f = sopVoucherFileService
-							.queryById(voucherId);
-					if (f.getFileKey() == null || f.getBucketName() == null) {
-						responseBody.setResult(new Result(Status.ERROR, null,
-								"缺失投资协议签署证明!"));
-						return responseBody;
-					}
-				}
-			}
-		}
-
-		User user = (User) getUserFromSession(request);
-		// 项目创建者用户ID与当前登录人ID是否一样
-		if (user.getId().longValue() != project.getCreateUid().longValue()) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
-			return responseBody;
-		}
-		p.setCreatedUid(user.getId());
-		p.setDepartmentId(user.getDepartmentId());
-		/**
-		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
-		 */
-		String fileKey = String
-				.valueOf(IdGenerator.generateId(OSSHelper.class));
-		UploadFileResult result = uploadFileToOSS(request, fileKey,
-				tempfilePath);
-
-		// 验证是否文件是必须的
-		if (!p.getStage().equals(DictEnum.projectProgress.接触访谈.getCode())
-				&& !p.getStage()
-						.equals(DictEnum.projectProgress.内部评审.getCode())
-				&& !p.getStage().equals(
-						DictEnum.projectProgress.CEO评审.getCode())
-				&& !p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
-				&& !p.getStage().equals(
-						DictEnum.projectProgress.投资决策会.getCode())) {
-			if (result == null
-					|| !result.getResult().getStatus().equals(Result.Status.OK)) {
-				responseBody
-						.setResult(new Result(Status.ERROR, null, "缺失相应文档!"));
-				return responseBody;
-			}
-		}
-
-		/**
-		 * 3.处理业务
-		 */
-		try {
-			if (result != null
-					&& result.getResult().getStatus().equals(Result.Status.OK)) {
-				p.setFileName(result.getFileName());
-				p.setSuffix(result.getFileSuffix());
-				p.setBucketName(result.getBucketName());
-				p.setFileKey(fileKey);
-				p.setFileSize(result.getContentLength());
-			}
-			if (handlerManager.getStageHandlers().containsKey(p.getStage())) {
-				Handler handler = handlerManager.getStageHandlers().get(
-						p.getStage());
-				SopResult r = handler.handler(p, project);
-				if (r != null && r.getStatus().equals(Result.Status.OK)) {
-					responseBody.setResult(r);
-					// 记录操作日志
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							project.getProjectName(), project.getId(),
-							r.getMessageType(), r.getNumber(),r.getAttachment());
-				}
-			}
-		} catch (Exception e) {
-			_common_logger_.error("操作失败", e);
-			responseBody.getResult().addError("操作失败!");
-		}
-
-		return responseBody;
-	}
 	
-	/**
-	 * 上传业务尽调报告
-	 */
-	/**
-	 * 项目阶段中的文档上传 该项目对应的创建人操作
-	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
-	@ResponseBody
-	@RequestMapping(value = "/businessAdjustment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectQuery> businessAdjustment(ProjectQuery p,
-			HttpServletRequest request) {
-		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
-		
-		// 解析文件上传的非file表单值
-		if (p.getPid() == null) {
-			String json = JSONUtils.getBodyString(request);
-			p = GSONUtil.fromJson(json, ProjectQuery.class);
-		}
-		/**
-		 * 1.参数校验
-		 */
-		// 所有都必须附带pid和stage
-		if (p.getPid() == null
-				|| p.getStage() == null
-				|| !SopConstant._progress_pattern_.matcher(p.getStage())
-						.matches() || p.getParseDate() == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
-			return responseBody;
-		}
-		
-		Project project = projectService.queryById(p.getPid());
-		if (project == null) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "未找到相应的项目信息!"));
-			return responseBody;
-		}
-		//上传只能在当前阶段才能进行
-		if (p.getType() == null
-				|| p.getFileType() == null
-				|| !SopConstant._file_type_pattern_
-						.matcher(p.getFileType()).matches()
-				|| p.getFileWorktype() == null
-				|| !SopConstant._file_worktype_pattern_.matcher(
-						p.getFileWorktype()).matches()) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"必要的参数丢失!"));
-			return responseBody;
-		}
-		
-		int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
-		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
-		if (in < pin) {
-			if(!utilsService.checkProIsGreenChannel(p.getPid())){
-				responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
-				return responseBody;				
-			}
-		}
-		
-		User user = (User) getUserFromSession(request);
-		// 项目创建者用户ID与当前登录人ID是否一样
-		if (user.getId().longValue() != project.getCreateUid().longValue()) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
-			return responseBody;
-		}
-		p.setCreatedUid(user.getId());
-		p.setDepartmentId(user.getDepartmentId());
-		/**
-		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
-		 */
-		String fileKey = String
-				.valueOf(IdGenerator.generateId(OSSHelper.class));
-		UploadFileResult result = uploadFileToOSS(request, fileKey,
-				tempfilePath);
-
-		// 验证是否文件是必须的
-		if (result == null
-				|| !result.getResult().getStatus().equals(Result.Status.OK)) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "缺失相应文档!"));
-			return responseBody;
-		}
-
-		/**
-		 * 3.处理业务
-		 */
-		try {
-			if (result != null
-					&& result.getResult().getStatus().equals(Result.Status.OK)) {
-				p.setFileName(result.getFileName());
-				p.setSuffix(result.getFileSuffix());
-				p.setBucketName(result.getBucketName());
-				p.setFileKey(fileKey);
-				p.setFileSize(result.getContentLength());
-			}
-			if (handlerManager.getStageHandlers().containsKey(p.getStage())) {
-				SopResult r = ywjzdcHandler.handler(p, project);
-				if (r != null && r.getStatus().equals(Result.Status.OK)) {
-					responseBody.setResult(r);
-					// 记录操作日志
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							project.getProjectName(), project.getId(),
-							r.getMessageType(), r.getNumber(),r.getAttachment());
-				}
-			}
-		} catch (Exception e) {
-			_common_logger_.error("操作失败", e);
-			responseBody.getResult().addError("操作失败!");
-		}
-
-		
-		return responseBody;
-	}
 	
 	
 	
@@ -4038,7 +3651,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@ResponseBody
 	@RequestMapping(value="/exportProjectGrade")
 	public void exportProjectGrade(HttpServletRequest request,HttpServletResponse response){
-		@SuppressWarnings("unchecked")
 		Page<Project> pageProject=new Page<Project>(null, null);
 		Project project = (Project) request.getSession().getAttribute("projectDataList");	
 		project.setPageNum(0);

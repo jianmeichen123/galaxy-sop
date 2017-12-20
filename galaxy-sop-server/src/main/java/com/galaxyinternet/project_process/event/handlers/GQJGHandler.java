@@ -10,7 +10,6 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
-import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;

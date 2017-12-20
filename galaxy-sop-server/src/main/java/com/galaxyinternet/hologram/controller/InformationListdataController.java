@@ -48,14 +48,9 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     @Autowired
     private InformationListdataService informationListdataService;
 
-    @Autowired
-    private InformationDataService infoDataService;
 
     @Autowired
     private InformationTitleService informationTitleService;
-
-    @Autowired
-    private InformationResultService informationResultService;
 
     @Autowired
     private InformationListdataRemarkService informationListdataRemarkService;

@@ -1,7 +1,6 @@
 package com.galaxyinternet.project_process.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -229,17 +228,6 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		}else{
 			initMark = "has";
 		}
-/*
-		if(file.getId() != null){
-			if( file.getFileKey() != null){
-				initMark = "has";
-			}else{
-				initMark = "init";
-			}
-			oldFile = sopFileDao.selectById(file.getId());
-			//BeanUtils.copyProperties(resultFile, oldFile);
-		} 
-	*/
 		
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		//	Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
@@ -308,17 +296,6 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 	    }else{
 	    	return null;
 	    }
-		
-		if(ProFlowUtilImpl.filetype_taskflag_about.get(file.getFileWorktype()) != null){
-			SopTask task = new SopTask();
-			task.setProjectId(file.getProjectId());
-			task.setTaskType(DictEnum.taskType.协同办公.getCode());
-			task.setTaskFlag(ProFlowUtilImpl.filetype_taskflag_about.get(file.getFileWorktype()));
-			Date time=new Date();
-			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-			task.setTaskDeadline(time);
-			sopTaskDao.updateTask(task);
-		}
 		
 		resultFile = ProFlowUtilImpl.setNumForFile(initMark,resultFile);
 		

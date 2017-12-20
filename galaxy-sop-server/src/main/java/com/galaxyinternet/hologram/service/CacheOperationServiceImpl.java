@@ -35,16 +35,11 @@ import java.util.TreeSet;
 @Order
 public class CacheOperationServiceImpl implements CacheOperationService,ApplicationListener<ContextRefreshedEvent>{
 	
-	//public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
-	//public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
-	
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
 	public static final String CACHE_KEY_VALUE_ID_NAME = "QXT_VALUE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
-	//public static final String CACHE_KEY_VALUE_ID_LIST = "QXT_VALUE_ID_LIST"; //各区域块下的   题：value   ==  Map<Long,String>
 
-	
 	@Autowired
 	private Cache cache;
 
@@ -68,8 +63,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	private InformationDictionaryService informationDictionaryService;
 
 
-	
-	
 
 
 	/**
@@ -88,13 +81,9 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		initValueIdName();
 		tableRelationInti();
 		initReportsCodeIdsAndNum();
-		//initAreaTitleAndTValue();
 	}
 	
-	
-	
-	
-	
+
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -110,8 +99,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		if(kv != null){
 			t_title = (InformationTitle) kv;
 		}
-		
-		
+
 		if(t_title == null){
 			cache.set(key_pre+code, title);
 			
@@ -124,29 +112,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	}
 	
 	
-	
-	/**
-	 * CACHE_KEY_PAGE_AREA_TITLE 中没有的数据 存入缓存中
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public synchronized void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo){
-		
-		List<String> cacheKey = new ArrayList<String>();
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
-		if(getK != null){
-			cacheKey = (List<String>) getK;
-		}
-		if(!cacheKey.contains(hasKey_toAddkey)){
-			cacheKey.add(hasKey_toAddkey);
-			
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY, cacheKey);
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +hasKey_toAddkey, area_tinfo);
-		}
-	}
-	 */
-
-	
 	/**
 	 * CACHE_KEY_PAGE_AREA 中没有的数据 存入缓存中
 	 */
@@ -208,86 +174,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	}
 	
 	
-	/*
-	public void initAreaTitleAndTValue() {
-		//Map<String,List<InformationTitle>> pagesAreacode = new HashMap<String,List<InformationTitle>>();
-		List<String> cacheAreascode = new ArrayList<String>();
-		
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
-		if(getK != null){
-			List<String> cacheKey = (List<String>) getK;
-			for(String ak : cacheKey){
-				cache.remove(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +ak);
-			}
-		}
-		
-		//顶级：基本信息 ……
-		List<InformationTitle> title_0_List = selectFirstTitle();
-		
-		for(InformationTitle title_0 : title_0_List){
-			List<InformationTitle> title_List =  selectChildsByPid(title_0.getId()); //第一页下的各区域：基础信息 、事业部……
-			for(InformationTitle title_1 : title_List){
-				List<InformationTitle> title_title_value = selectTsTvalueInfo(title_1.getId());
-				title_1.setChildList(title_title_value);
-				//pagesAreacode.put(title_1.getCode(), title_title_value);
-				cacheAreascode.add(title_1.getCode());
-				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +title_1.getCode(), title_1);
-			}
-		}
-		
-		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY, cacheAreascode);
-	}
-	*/
-	
-	
-	
-	/*
-	private List<InformationTitle> selectFirstTitle() {
-		List<InformationTitle> ptitleList = informationTitleDao.selectFirstTitle();
-		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
-		return ptitleList;
-	}
-	private List<InformationTitle> selectChildsByPid(Long pid) {
-		Direction direction = Direction.ASC;
-		String property = "index_no";
-		
-		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("parentId",pid);
-		params.put("isValid",0);
-		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
-		List<InformationTitle> ptitleList = informationTitleDao.selectChildsByPid(params);
-		
-		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
-		
-		for(InformationTitle title : ptitleList){
-			if(title.getSign() != null && title.getSign().intValue() == 2){
-				title.setName(title.getName()+":");
-			}
-		}
-		return ptitleList;
-	}
-	private List<InformationTitle> selectTsTvalueInfo(Object pinfoKey) {
-		List<InformationTitle> ts = selectChildsByPid((long)pinfoKey);
-		for(InformationTitle title : ts){
-			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
-			title.setValueList(valueList);
-		}
-		return ts;
-	}
-	private List<InformationDictionary> selectValuesByTid(Long tid) {
-		Direction direction = Direction.ASC;
-		String property = "sort";
-		
-		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("titleId",tid);
-		params.put("isValid",0);
-		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
-		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
-		
-		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
-	}
-	*/
-
 
 
 	/**
@@ -384,9 +270,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 			table_fieldTid_type.put(tempTitle.getId() + "", tempTitle.getType());
 		}
 	}
-
-
-
 
 
 
@@ -509,7 +392,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		/*System.err.println(" NO  tnum " + noNum);
 		System.err.println(" NO  ids " + code_titletype_titleIds.get("NO"));*/
 
-
 		Integer dnNum = 0;
 		Integer pnNum = 0;
 		Integer gnNum = 0;
@@ -586,6 +468,13 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 
 				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
+				/*System.err.println(title_0.getRelateCode() + " : " + num);
+                System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
+                System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
+                System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
+                System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
+                System.err.println("file_ids　" + file_ids.size() + " : " +Arrays.toString(file_ids.toArray()));
+                System.err.println("resultGrage_ids　" + resultGrage_ids.size() + " : " +Arrays.toString(resultGrage_ids.toArray()));*/
 
 				project_ids.clear();
 				result_ids.clear();
@@ -677,11 +566,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 					project_ids.add(titleId);
 					break;
 				default:
-					/*if(StringUtils.isNotBlank(title.getRelateCode()) && (title.getRelateCode().startsWith("EN") ||title.getRelateCode().startsWith("CN"))){
-						result_ids.add(titleId);
-					}else {
-
-					}*/
 					result_ids.add(title.getId());
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
 
@@ -695,7 +579,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 			}
 		}
 	}
-
 
 
 
@@ -736,6 +619,9 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 							resultGrage_ids.add(title.getId());
 							break;
 						case 2:
+							resultGrage_ids.add(title.getId());
+							break;
+						case 5:
 							resultGrage_ids.add(title.getId());
 							break;
 					}
@@ -779,9 +665,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 			}
 		}
 	}
-
-		
-   
 
 
 
