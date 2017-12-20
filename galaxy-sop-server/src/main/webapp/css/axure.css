@@ -4191,7 +4191,7 @@ li .projectSource11 span.m_r30{
 .h_look .division_dd dd{width:80%;}
 .h_look .resource_branch_01 dd{width:calc(100% - 80px);}
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
-#file-history-dialog{height:400px;}
+#file-history-dialog{height:465px;width:600px;overflow-y:auto;}
 /* 分页样式20171219 */
 .task-ritmin .pagination-info,.task-ritmin .page-list,.taskDetail-mesage .pagination-info,.taskDetail-mesage .page-list{color:#5a626d;letter-spacing:2px;}
 .task-ritmin .fixed-table-pagination li a,.taskDetail-mesage .fixed-table-pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
