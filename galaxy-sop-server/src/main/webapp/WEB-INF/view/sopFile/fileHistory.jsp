@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<div id="file-history-dialog">
+<div id="file-history-dialog" style="width:700px">
 <form id="mail-form" >
 <div class="margin_45" >
 <div class="title_bj"></div>
