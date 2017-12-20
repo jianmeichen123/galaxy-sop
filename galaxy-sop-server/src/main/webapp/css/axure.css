@@ -4185,7 +4185,7 @@ li .projectSource11 span.m_r30{
 .taskDetail-mesage .pagination > .active > a, .taskDetail-mesage .pagination > .active > span, .taskDetail-mesage .pagination > .active > a:hover, .taskDetail-mesage .pagination > .active > span:hover, .taskDetail-mesage .pagination > .active > a:focus,.taskDetail-mesage  .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
-
+.opretion-log td{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 
 
 
