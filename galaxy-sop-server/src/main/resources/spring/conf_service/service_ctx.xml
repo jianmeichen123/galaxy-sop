@@ -16,20 +16,6 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	
-	<bean id="com.galaxyinternet.project.service.HandlerManager" class="com.galaxyinternet.project.service.HandlerManager">
-        <property name="stageHandlers">
-            <map>
-                <entry key="projectProgress:1" value-ref="interviewHandler" />
-                <entry key="projectProgress:2" value-ref="inMeetingHandler" />
-                <entry key="projectProgress:3" value-ref="ceoMeetingHandler" />
-                <entry key="projectProgress:4" value-ref="lxMeetingHandler" />
-                <entry key="projectProgress:5" value-ref="tzyxsHandler" />
-                <entry key="projectProgress:6" value-ref="ywjzdcHandler" />
-                <entry key="projectProgress:7" value-ref="sureMeetingHandler" />
-                <entry key="projectProgress:8" value-ref="tzxyHandler" />
-            </map>
-        </property>
-	</bean>
 
 	<bean id="com.galaxyinternet.common.utils.StaticParamService" class="com.galaxyinternet.common.utils.StaticParamService">
 		<property name="roleMessageType">

@@ -24,11 +24,9 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 /**
  * 投决会->投资协议，前置条件判定，需要一条“通过”的会议记录，同时判定该项目在“会后商务谈判”阶段的结论是“投资”，然后进入“投资协议”阶段
@@ -42,8 +40,6 @@ public class TZXYHandler implements ProgressChangeHandler
 	private ProjectService projectService;
 	@Autowired
 	private MeetingRecordService meetingService;
-	@Autowired
-	private SopTaskService taskService;
 	@Autowired
 	private MeetingSchedulingDao meetingSchedulingDao;
 	

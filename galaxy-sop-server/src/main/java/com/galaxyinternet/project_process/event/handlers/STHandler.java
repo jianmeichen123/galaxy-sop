@@ -10,17 +10,14 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopTaskService;
 /**
  * 会后商务谈判->签订投资协议书（闪投）：前置条件判定，必须一条“闪投”结果的会议记录。然后进入“投资协议”阶段
  * @author wangsong
@@ -34,8 +31,6 @@ public class STHandler implements ProgressChangeHandler
 	private MeetingRecordService meetingService;
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private SopTaskService taskService;
 	@Override
 	public boolean support(ProgressChangeEvent event)
 	{
