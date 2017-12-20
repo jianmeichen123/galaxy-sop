@@ -576,6 +576,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			break;
 
 		}
+		if(taskStatus.已完成.getCode().equals(task.getTaskStatus()))
+		{
+			showIgnore = false;
+		}
 		mv.addObject("showIgnore", showIgnore);
 		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("fileWorktype", fileWType);
