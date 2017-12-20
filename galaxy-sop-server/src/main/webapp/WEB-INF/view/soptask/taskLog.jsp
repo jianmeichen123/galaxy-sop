@@ -18,7 +18,7 @@
 	        				<th data-field="operationType">动作</th>
 	        				<th data-field="operationContent">对象</th>
 	        				<th data-field="projectName">项目</th>
-	        				<th data-field="reason">原因</th>
+	        				<th data-field="reason" data-formatter='reason'>原因</th>
 	        				<th data-field="sopstage">业务</th>
 	        			</tr>
 	        		</thead>
@@ -46,5 +46,23 @@ $(".opretion-log").bootstrapTable({
     	return params;
     }
 });
+function reason(value,row,index){
+    var id=row.id;
+	var str=row.reason;
+	if(str){
+		if(str.length>20){
+			subStr = str.substring(0,20);
+			var options = '<span title="'+str+'">'+subStr+'</span>';
+			return options;
+		}
+		else{
+			var options = '<span title="'+str+'">'+str+'</span>';
+			return options;
+		}
+	}else{
+		return '-';
+	}
+	
+}
 </script>
 

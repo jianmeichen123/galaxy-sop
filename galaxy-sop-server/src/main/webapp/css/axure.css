@@ -2677,22 +2677,6 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
      font-size:12px;
       line-height:22px;
 }
-input::-webkit-input-placeholder{
-	 color:#b3b3b3;
-     font-size:12px;
-}
-input:-moz-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
-input::-moz-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
-input:-ms-input-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
@@ -3843,7 +3827,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     font-family:Microsoft YaHei;
 	font-size:12px;
 }
-.basic_mes_input:-ms-input-placeholder,.inputsForm input::-ms-input-placeholder { /* Internet Explorer 10+ */
+.basic_mes_input:-ms-input-placeholder,.inputsForm input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:#d8d8d8;
     font-family:Microsoft YaHei;
 	font-size:12px;
@@ -4191,7 +4175,7 @@ li .projectSource11 span.m_r30{
 .h_look .division_dd dd{width:80%;}
 .h_look .resource_branch_01 dd{width:calc(100% - 80px);}
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
-#file-history-dialog{height:400px;}
+#file-history-dialog{height:465px;width:600px;overflow-y:auto;}
 /* 分页样式20171219 */
 .task-ritmin .pagination-info,.task-ritmin .page-list,.taskDetail-mesage .pagination-info,.taskDetail-mesage .page-list{color:#5a626d;letter-spacing:2px;}
 .task-ritmin .fixed-table-pagination li a,.taskDetail-mesage .fixed-table-pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
@@ -4205,6 +4189,21 @@ li .projectSource11 span.m_r30{
 
 
 
-
-
+/* 为了兼容IE 最好放下边 */
+input::-webkit-input-placeholder{
+	 color:#b3b3b3;
+     font-size:12px;
+}
+input:-moz-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
+input::-moz-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
+input:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
 

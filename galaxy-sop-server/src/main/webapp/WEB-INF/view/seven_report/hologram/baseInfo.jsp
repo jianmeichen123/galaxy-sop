@@ -201,10 +201,10 @@ $(function() {
 					}
 					var lastId=$(this).find('option:last').attr('value');
 					 if(JSON.stringify(valList).indexOf(lastId)>-1){
-						 $(this).closest('.resource_branch_01').find('input').show();
+						 $(this).closest('.resource_branch_01').find('input').removeClass('select_input');
 					} else{
-						$(this).closest('.resource_branch_01').find('input').hide();
-						$(this).closest('.resource_branch_01').find('span.error').hide();
+						$(this).closest('.resource_branch_01').find('input').addClass('select_input');
+						$(this).closest('.resource_branch_01').find('span.error').addClass('select_input');
 					}
 				})
 				btn_disable(1);
