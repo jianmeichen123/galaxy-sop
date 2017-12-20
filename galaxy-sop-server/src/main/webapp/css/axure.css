@@ -2677,22 +2677,6 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
      font-size:12px;
       line-height:22px;
 }
-input::-webkit-input-placeholder{
-	 color:#b3b3b3;
-     font-size:12px;
-}
-input:-moz-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
-input::-moz-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
-input:-ms-input-placeholder { 
-    color:#b3b3b3;
-     font-size:12px;
-}
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
@@ -4206,5 +4190,21 @@ li .projectSource11 span.m_r30{
 
 
 
-
+/* 为了兼容IE 最好放下边 */
+input::-webkit-input-placeholder{
+	 color:#b3b3b3;
+     font-size:12px;
+}
+input:-moz-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
+input::-moz-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
+input:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
 
