@@ -425,6 +425,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 					sopFile.setCreatedTime(new Date().getTime());
+					sopFile.setFileValid(1);
 					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
 			}

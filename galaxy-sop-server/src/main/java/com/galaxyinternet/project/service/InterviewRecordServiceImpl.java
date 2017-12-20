@@ -287,6 +287,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 			file.setBucketName(result.getBucketName());
 			file.setFileName(result.getFileName());
 			file.setFileSuffix(result.getFileSuffix());
+			file.setFileValid(1);
 			fid = sopFileDao.insert(file);
 			ir.setFileId(fid);
 			if (result != null
