@@ -586,6 +586,13 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 
 				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
+				/*System.err.println(title_0.getRelateCode() + " : " + num);
+                System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
+                System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
+                System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
+                System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
+                System.err.println("file_ids　" + file_ids.size() + " : " +Arrays.toString(file_ids.toArray()));
+                System.err.println("resultGrage_ids　" + resultGrage_ids.size() + " : " +Arrays.toString(resultGrage_ids.toArray()));*/
 
 				project_ids.clear();
 				result_ids.clear();
@@ -736,6 +743,9 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 							resultGrage_ids.add(title.getId());
 							break;
 						case 2:
+							resultGrage_ids.add(title.getId());
+							break;
+						case 5:
 							resultGrage_ids.add(title.getId());
 							break;
 					}
