@@ -67,7 +67,7 @@
  	<div>
         <!--表格内容-->
 			<table class='no-radius table_new_style' width="100%"  cellspacing="0" cellpadding="0" 
-			 id="task-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/list/all"  data-page-list="[10, 20, 30]" data-show-refresh="true" 
+			 id="task-table" data-url=""  data-page-list="[10, 20, 30]" data-show-refresh="true" 
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
