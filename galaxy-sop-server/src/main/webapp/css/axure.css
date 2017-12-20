@@ -3843,7 +3843,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     font-family:Microsoft YaHei;
 	font-size:12px;
 }
-.basic_mes_input:-ms-input-placeholder,.inputsForm input::-ms-input-placeholder { /* Internet Explorer 10+ */
+.basic_mes_input:-ms-input-placeholder,.inputsForm input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:#d8d8d8;
     font-family:Microsoft YaHei;
 	font-size:12px;
