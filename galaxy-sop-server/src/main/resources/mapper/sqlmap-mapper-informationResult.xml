@@ -147,6 +147,8 @@
 		INNER JOIN information_title ON information_result.title_id = information_title.id AND information_title.type = 22
 		LEFT JOIN information_listdata ON information_listdata.id = information_result.content_choose
 		WHERE information_listdata.id IS NULL
+		OR information_listdata.field_1 IS NULL
+		OR LENGTH(TRIM(information_listdata.field_1)) = 0
 	</delete>
 	 <!-- 更新 -->
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationResult">
