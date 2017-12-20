@@ -948,6 +948,10 @@ function draftbox(sec){
 				valueId=$('dt[data-tid="1120"]').siblings('dd').find('select').val();
 				$('.resource_branch,.resource_branch_01').hide();
 				$('dt[data-valruleformula="1120,'+valueId+'"]').closest('.mb_24').show();
+				var val=$('dt[data-tid="1118"]').siblings('dd').find('.filter-option').text();
+				if(val=='请选择'){
+					$('dt[data-tid="1118"]').closest('.mb_24').find('input').addClass('select_input');
+				}
 			}
 			//文本域剩余字符数
 			var textarea_h = sec.find('.textarea_h');

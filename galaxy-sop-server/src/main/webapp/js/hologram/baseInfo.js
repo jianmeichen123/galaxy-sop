@@ -36,6 +36,7 @@ function resouceShow(mark){
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
 					$('.resource_branch_01').find('.error_span').addClass('select_input');
+					$('.resource_branch_01').find('input').val('');
 					$(this).closest('.resource_branch').find('dt').attr('tochange',true);
 					//清空关联题目input值
 					$('.resource_branch').find('input').val('');
@@ -80,7 +81,7 @@ function resouceShow(mark){
 							if(valruleformula.indexOf(_val)>-1){
 								$(o).show();
 								if(_val=='2262'){
-									$(o).find('input').hide();
+									$(o).find('input').addClass('select_input');
 								}
 							}
 						})
