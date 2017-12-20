@@ -153,7 +153,7 @@ position: absolute;
 						<td>
 							<span>合投机构名称：</span>
 							<div> 
-								<input type="text" value="" placeholder="请输入合投机构名称" data-title-id="1121" data-type="1" class="basic_mes_input inputSouce" data-rule-limit20="true" required name="proS6"  data-msg-required="<font color=red>*</font>不能超过20字且不能全为空格" maxlength="50"/>
+								<input type="text" value="" placeholder="请输入合投机构名称" data-title-id="1121" data-type="1" class="basic_mes_input inputSouce" name="proS5"   maxlength="50"/>
 							</div>
 							
 						</td>
