@@ -157,34 +157,7 @@ function showResultAndScoreList(relateId)
 						buildFileList(this);
 					});
 
-					//权限判断， 没有编辑权限
-                    if(!isEditable || isEditable != 'true'){
-                        $("#save-rpt-btn").remove();
-                        $.each($(".score-column"),function(){
-                            var _input =$(this).find("input").val();
-                            var _select =$(this).find("select").val();  
-                            if($(this).hasClass("heightL")){
-                            	var _i=_input==""?"-":_input;
-                            	var _s=_select=="请选择"?"未打分":_select; 
-                            	var res=_s +"/"+ _i+"%";
-                    			$(this).html(res); 
-                            	$(this).css("color","#b2b2b2");
-                            	return;
-                            }
-                            if(_input==""){
-                                $(this).html("未打分");
-                                $(this).css("color","#b2b2b2")
-                            }else{
-                                $(this).html(_input);
-                            }
-                            if(_select=="请选择"){
-                                $(this).html("未打分");
-                                $(this).css("color","#b2b2b2")
-                            }else{
-                                $(this).html(_select);
-                            }
-                        })
-					}
+					 
                     $("#save-rpt-btn").show();
 					//权重==0的时候有红字
 					var part_weight =$("#part-weight").text();
