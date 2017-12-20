@@ -1259,7 +1259,7 @@ function countGrade(data){
 	if(num>100){
 //		手动加红字
 		tables.find("span.oError").hide();
-		var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
+		var errorSpan = "<span class='error oError'>主要的潜在竞争对手的权重之和不能大于100</span>";
 		if(_this.val()!=""){
 			_this.after(errorSpan);
 		}else {
