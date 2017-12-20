@@ -278,28 +278,6 @@ function buildResultsDraft(sec,title,readonly)
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
-			if(readonly == true){
-				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
-				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
-				$.each(title.resultMGList,function(i,n){
-					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-					if(n.contentDescribe1){ 
-						$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
-						$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
-					}
-					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
-				})
-				//判断是否选择
-				var i=0;
-				if($("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").is(":visible")){
-					i++;
-				}
-				if(i==0){
-					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
-				}else{
-					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
-				}
-			}else{
 				var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"'],dt[data-type='13'][data-tid='"+ title.id +"']");
 				var dd = dt.siblings();
 				var last_id = dd.find('li.check_label:last').attr('data-id');
@@ -314,6 +292,11 @@ function buildResultsDraft(sec,title,readonly)
 						inputText.attr('disabled',false);
 						inputText.removeClass('disabled');
 						inputText.attr('required' , true);
+					}else{
+						$("dt[data-id='"+ title.id +"'],dt[data-tid='"+ title.id +"']").next('dd').find("input[type='text']").val('').attr("resultId",result_id);
+						inputText.attr('disabled',false);
+						inputText.removeClass('disabled');
+						inputText.attr('required' , true);
 					}
 					if (n.contentChoose == last_id ){
 						inputText.attr('disabled',false);
@@ -324,7 +307,7 @@ function buildResultsDraft(sec,title,readonly)
 						inputText.removeAttr('required');
 					}
 				})
-			}
+			
 			
 		}
 		else if(title.type == 15)
