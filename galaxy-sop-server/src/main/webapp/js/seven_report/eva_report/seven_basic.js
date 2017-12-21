@@ -1229,7 +1229,7 @@ function iCheck(){
 		 $(this).parents('.radioShow').find('.others_text').attr("required",false);
 	})
 }
-function countGrade(data){
+function countGrade(data,msg){
 	var _this = $(data);
 	var tables = _this.closest(".table_inner");
 	var inputs = tables.find(".score-div input[type='text']");
@@ -1259,7 +1259,11 @@ function countGrade(data){
 	if(num>100){
 //		手动加红字
 		tables.find("span.oError").hide();
-		var errorSpan = "<span class='error oError'>主要的潜在竞争对手的权重之和不能大于100</span>";
+		if(_this.closest("table").closest("td").prev("td").text()=="主要的潜在竞争对手"){
+			var errorSpan = "<span class='error oError'>主要的潜竞争对手的权重之和不能大于100</span>";
+		} else{			
+			var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
+		}
 		if(_this.val()!=""){
 			_this.after(errorSpan);
 		}else {
