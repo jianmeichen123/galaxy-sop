@@ -28,7 +28,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
         <!--页眉-->
         <div class="top clearfix task-top taskdetail-top">
-        	<div class='taskdetail-top-title'><h2 id="task-title"></h2><div class='come-back' onclick="window.history.back();"><span class='task-back'></span><span class='task-back-msg'>返回</span></div></div>
+        	<div class='taskdetail-top-title'><h2 id="task-title"></h2><div class='come-back' onclick="backToTaskList()"><span class='task-back'></span><span class='task-back-msg'>返回</span></div></div>
             <!--tips连接-->
         	<ul class="tipslink task_tipslink to-task-tips">
             	<li data-tab="nav" class="on task-tips-li"><a href="javascript:;" id="all" query-by="all" query-val="all">任务详情<span></span></a></li>
@@ -120,7 +120,16 @@ $(window).resize(function(){
 			num=11;
 		}
 		createMenus(num);
-		
+		$("#menus a").click(function(){
+			deleteCookie('task-active-tab','/');
+			deleteCookie('task-curr-page','/');
+			deleteCookie('task-curr-q','/');
+		});
 	});
+	function backToTaskList()
+	{
+		var url = $("#menus li.on a").attr('href');
+		window.location.href = url;
+	}
 </script>
 </html>
