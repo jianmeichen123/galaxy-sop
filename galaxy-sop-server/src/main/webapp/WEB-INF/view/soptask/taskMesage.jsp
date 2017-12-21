@@ -245,8 +245,19 @@
 			layer.closeAll('loading');
 			if(data.result.status=="OK"){
 				layer.msg("提交成功",{time:1000},function(){
-					var url = $("#menus .on a").attr('href');
-					window.location=url;
+					var menu = $("#menus .on a");
+					if(menu.length == 0)
+					{
+						$.each($("#menus li a"),function(){
+							var href = $(this).attr('href');
+							if(href.indexOf('galaxy/soptask')>-1)
+							{
+								menu = $(this);
+								return false;
+							}
+						});
+					}
+					window.location=menu.attr('href');
 				});
 			}
 			else

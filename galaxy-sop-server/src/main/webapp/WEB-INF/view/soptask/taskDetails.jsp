@@ -128,8 +128,19 @@ $(window).resize(function(){
 	});
 	function backToTaskList()
 	{
-		var url = $("#menus li.on a").attr('href');
-		window.location.href = url;
+		var menu = $("#menus .on a");
+		if(menu.length == 0)
+		{
+			$.each($("#menus li a"),function(){
+				var href = $(this).attr('href');
+				if(href.indexOf('galaxy/soptask')>-1)
+				{
+					menu = $(this);
+					return false;
+				}
+			});
+		}
+		window.location=menu.attr('href');
 	}
 </script>
 </html>
