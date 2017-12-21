@@ -571,8 +571,6 @@
 			}
 			if(row.faName)
 			{
-
-				debugger;
 				if(row.faName.length>4){
 					var faName=row.faName.substring(0,4);
 					retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";

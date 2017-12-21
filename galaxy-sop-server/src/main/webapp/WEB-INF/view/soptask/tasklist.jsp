@@ -94,6 +94,8 @@
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
+$(function(){
+	
 //计算距离的左边距
 detailHeaderWidth();
 function detailHeaderWidth(){
@@ -103,6 +105,7 @@ function detailHeaderWidth(){
 $(window).resize(function(){
 	detailHeaderWidth();
 })	
+})
 function projectNameFormatter(value,row,index){
 		var str=row.projectName;
 		if(str.length>12){

@@ -60,6 +60,9 @@
 
 <script type="text/javascript">
 //计算距离的左边距
+$(function(){
+	
+//计算距离的左边距
 detailHeaderWidth();
 function detailHeaderWidth(){
 	  var  w_lft=$(".lft").width();
@@ -67,17 +70,18 @@ function detailHeaderWidth(){
 }
 $(window).resize(function(){
 	detailHeaderWidth();
+})	
 })
 	//ul tab切换显示
-	$('.to-task-tips').tabLazyChange({
-		defaultnum:0,
-		onchangeSuccess : function(index){
-			switch(index){
-				case 0 : initTabTaskMessage();break;
-				case 1 :initTabTaskLog();break;
-			}
+$('.to-task-tips').tabLazyChange({
+	defaultnum:0,
+	onchangeSuccess : function(index){
+		switch(index){
+			case 0 : initTabTaskMessage();break;
+			case 1 :initTabTaskLog();break;
 		}
-	})	
+	}
+})	
 	//页面请求地址
 	function initTabTaskMessage(){
 		$.getTabHtml({
