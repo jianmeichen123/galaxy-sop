@@ -1612,6 +1612,12 @@ function getTableRowLimit(code)
 	   case "operation-indices":
 	       num=20; 
 	       break;
+	   case "competitor_obvious":
+	       num=20; 
+	       break;
+	   case "competitor_potential":
+	       num=20; 
+	       break;
 	   case "grant-part":
 	       num=Infinity; 
 	       break;
