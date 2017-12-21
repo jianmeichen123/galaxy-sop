@@ -827,6 +827,7 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 						var name = ele.attr('name');
 						var type=ele.attr('type');
 						var idVal=ele.attr('id');
+						var dataType=ele.attr('data-type');
 						var val_text =row.data(name);
 						if(type=="radio"){
 							if(ele.val()==row.data(name)){
@@ -849,6 +850,13 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 							}
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 						}else{
+							if(dataType=="8"){
+								if(val_text){
+									val_text=val_text.replace(/<br\/>/g,'\n');
+									val_text=val_text.replace(/<br>/g,'\n');
+									val_text=val_text.replace(/&nbsp;/g," ");
+								}
+							}
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 						}
 					});
@@ -921,7 +929,9 @@ function showRowCompete(ele,id_code,id_code_new,row,code,flag){  //ele指代this
 							var filed=obj.attr('name');
 							var map=dictCache(titleId,subCode,filed);
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
-						}else if(type==8 || type==1){
+						}else if(type==8){
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+						}else if(type==1){
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
 						}
 					});
@@ -1155,6 +1165,14 @@ function saveForm(form)
 function saveRow(data)
 {
 	data = JSON.parse(data);
+	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
+		for(var key in data){
+			if(key.indexOf('field')>-1 ){
+				data[key]=data[key].replace(/\n|\r\n/g,"<br>");
+				data[key]=data[key].replace(/\s/g,"&nbsp;");
+			}
+		}
+	}
 	var titleId = data.titleId;
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
@@ -1168,6 +1186,12 @@ function saveRow(data)
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
 		for(var key in data)
 		{
+			if(titleId=="1582" || titleId=="1583"){   //竞争对手特殊处理
+				if(key.indexOf('field')>-1 ){     
+					data[key]=data[key].replace(/\n|\r\n/g,"<br>");
+					data[key]=data[key].replace(/\s/g,"&nbsp;");
+				}
+			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
