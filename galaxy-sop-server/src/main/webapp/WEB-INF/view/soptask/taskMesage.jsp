@@ -40,7 +40,7 @@
 	        	<table width='100%' class='task-detail-table table_new_style' border='0' cellspacing='0' cellpadding='0'>
 	        		<thead>
 	        			<tr>
-	        				<th>上传日期</th>
+	        				<th>创建日期</th>
 	        				<th>存储类型</th>
 	        				<th>更新日期</th>
 	        				<th>档案状态</th>
