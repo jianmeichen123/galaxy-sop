@@ -2546,6 +2546,11 @@ function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是�
 					if(divId=='1524' || divId=='1512'){
 						$('dd[data-title-id="'+divId+'"]').closest('.mb_24').hide();
 					}*/
+					if(id_code=='NO5_4'){
+						$('.h_title_conpetition').text('查看显在竞争对手')
+					}else{
+						$('.h_title_conpetition').text('查看潜在竞争对手')
+					}
 					if(flag==true){  //编辑状态
 						$(ele).closest('form').hide();
 					}else{   //显示状态

@@ -907,6 +907,11 @@ function showRowCompete(ele,id_code,id_code_new,row,code,flag){  //ele指代this
 					if(divId=='1524' || divId=='1512'){
 						$('dd[data-title-id="'+divId+'"]').closest('.mb_24').hide();
 					}*/
+					if(id_code_new=='NO5_4'){
+						$('.h_title_conpetition').text('查看显在竞争对手')
+					}else{
+						$('.h_title_conpetition').text('查看潜在竞争对手')
+					}
 					if(flag==true){  //编辑状态
 						$(ele).closest('form').hide();
 					}else{   //显示状态
