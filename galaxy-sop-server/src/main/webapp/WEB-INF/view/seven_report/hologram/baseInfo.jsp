@@ -44,7 +44,8 @@ var path = '<%=path%>';
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
-		
+		<!-- 隐藏域，用于草稿箱20类型的全部清空操作 -->
+		<span class="none" data-title-id="1108" data-type="14"></span>
 			<div class="h radius" id="NO1_1" data-section-id="1116"> </div>
 			
 			<div class="h radius base_con2" id="NO1_2" data-section-id="1117"> </div>
@@ -172,6 +173,9 @@ $(function() {
 				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
+				//获取20类型的select下拉的值，便于草稿箱操作
+				var span1108=$(".h#"+id_code).find('select[data-title-id="1108"]').val();
+				$('span[data-title-id="1108"][data-type="14"]').text(span1108);
 				draftbox(sec);    //草稿箱保存，回显公共方法
 				var sTop=$(window).scrollTop();
 				$(window).scrollTop(sTop);

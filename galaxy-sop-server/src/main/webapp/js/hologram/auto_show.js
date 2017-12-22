@@ -59,7 +59,12 @@ $.fn.showResultsDrafts = function(readonly,flag){
         							sum++;
         						}
         						if(title.type==20){
-        							if(!title.resultMGList[0].contentDescribe1){
+        							if(!title.resultMGList[0].contentDescribe1 ){
+        								n++;
+        							}
+        						}else if(title.type==14 && title.id=='1108'){    //项目阶段特殊处理
+        							var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
+        							if(title.resultMGList[0].contentChoose==spanVal){
         								n++;
         							}
         						}
