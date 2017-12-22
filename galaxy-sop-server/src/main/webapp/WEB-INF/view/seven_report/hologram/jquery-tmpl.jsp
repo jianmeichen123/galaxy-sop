@@ -395,7 +395,7 @@
 				
 					{{else type=="14"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-						<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
+						<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}" name="\${id}">
 				       <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="" data-code="">请选择</option>
 						{{each(i,valueList) valueList}}
 						<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
