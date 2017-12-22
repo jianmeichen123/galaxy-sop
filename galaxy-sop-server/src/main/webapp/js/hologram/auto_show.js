@@ -60,7 +60,10 @@ $.fn.showResultsDrafts = function(readonly,flag){
         						}
         						if(title.resultMGList){
         							if(title.type==20){
-            							if(!title.resultMGList[0].contentDescribe1 ){
+        								var titleId=title.resultMGList[0].titleId;
+        								var spanText=$('span[data-title-id="'+titleId+'"][data-type="20"]').text();
+        								var selectVal=title.resultMGList[0].contentDescribe1;
+            							if(!title.resultMGList[0].contentDescribe1 && title.resultMGList[0].contentDescribe2.indexOf(spanText)>-1){
             								n++;
             							}
             						}else if(title.type==14 && title.id=='1108'){    //项目阶段特殊处理

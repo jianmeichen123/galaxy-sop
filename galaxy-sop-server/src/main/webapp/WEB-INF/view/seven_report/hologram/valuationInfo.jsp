@@ -44,6 +44,11 @@
   <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
+		<!-- 隐藏域，用于草稿箱20类型的全部清空操作 -->
+		<span class="block" data-title-id="1929" data-type="20"></span>
+		<span class="none" data-title-id="1939" data-type="20"></span>
+		<span class="none" data-title-id="1910" data-type="20"></span>
+		<span class="none" data-title-id="1911" data-type="20"></span>
 		<!--tab-->
 
 			
@@ -150,6 +155,15 @@ var deleteJSON={};
 					btn_disable(1);
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
+					//获取20类型的select下拉的值，便于草稿箱操作
+					var span1910=$(".h#a_"+id_code).find('select[id="1910_select"]').val();
+					var span1911=$(".h#a_"+id_code).find('select[id="1911_select"]').val();
+					var span1929=$(".h#a_"+id_code).find('select[id="1929_select"]').val();
+					var span1939=$(".h#a_"+id_code).find('select[id="1939_select"]').val();
+					$('span[data-title-id="1910"][data-type="20"]').text(span1910);
+					$('span[data-title-id="1911"][data-type="20"]').text(span1911);
+					$('span[data-title-id="1929"][data-type="20"]').text(span1929);
+					$('span[data-title-id="1939"][data-type="20"]').text(span1939);
 					draftbox(sec);    //草稿箱保存，回显公共方法
 					section.find(".h_title span").remove();
 					section.find(".h_title").append(str);
