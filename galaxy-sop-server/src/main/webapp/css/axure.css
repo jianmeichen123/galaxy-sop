@@ -4190,8 +4190,9 @@ li .projectSource11 span.m_r30{
 }
 .pop .closePopNew{background:url(../img/base_info/close.png) no-repeat;top:10px;right:10px;width:16px;height:16px;}
 #file_history_grid{border:1px solid #d8d8d8;width:650px;margin:30px auto 0;}
-#file_history_grid th,#file_history_grid td{height:40px;font-family:Microsoft YaHei;border-bottom:1px solid #e4e4e4}
+#file_history_grid th,#file_history_grid td{height:40px;font-family:Microsoft YaHei;border-bottom:1px solid #e4e4e4;text-align:center;}
 #file_history_grid th{font-weight:bold;}
+#file_history_grid td:nth-child(1){text-align:left;padding-left:30px !important;}
 #file_history_grid td a{font-family:Microsoft YaHei;}
 /* 新版分页样式，调用类名pagination_common  */
 .pagination_common .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
@@ -4212,8 +4213,27 @@ li .projectSource11 span.m_r30{
 	padding:0;
 	margin-top:-4px;
 }
-
-
+.pagination_common .dropdown-menu1{
+	min-width:40px;
+	background:#fff;
+	padding:0 2px;
+	border-radius:0px 0px 3px #f0f0f0;
+}
+.pagination_common .dropdown-menu1 li{
+	height:30px;
+	border-bottom:1px solid #f0f0f0;
+}
+.pagination_common .dropdown-menu1 li a{
+	line-height:30px;
+	font-family:Microsoft YaHei;
+}
+.pagination_common .dropdown-menu1 li.active a{
+	background:none;
+	color:#45aaff;
+}
+.pagination_common .dropdown-menu1 li a:focus,.pagination_common .dropdown-menu1 li a:hover{
+	background:none;
+}
 
 /* 为了兼容IE 最好放下边 */
 input::-webkit-input-placeholder{
