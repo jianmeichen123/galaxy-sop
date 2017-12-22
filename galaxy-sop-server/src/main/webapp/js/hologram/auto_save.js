@@ -138,10 +138,19 @@ setInterval(function(){    //定时保存
 				{
 					infoMode.value = field.val()
 				}else if(type==4 || type==14){
-					if(field.val()==1){
-						infoMode.value = '';
+					if(infoMode.titleId=='1108'){   //项目阶段特殊处理
+						var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
+						if(spanVal==field.val() || field.val()==1){
+							infoMode.value = '';
+						}else{
+							infoMode.value = field.val();
+						}
 					}else{
-						infoMode.value = field.val();
+						if(field.val()==1){
+							infoMode.value = '';
+						}else{
+							infoMode.value = field.val();
+						}
 					}
 				}
 				else if(type==5){  
@@ -283,7 +292,11 @@ setInterval(function(){    //定时保存
 				var valu = null;
 				var _tochange =field.closest(".resource_branch_01").find("dt").attr("tochange");
 		                var infoMode = null;
-						valu=field.find('span').attr('data-value');
+		                if(field.closest(".resource_branch_01").is(':hidden')){
+		                	valu='';
+		                }else{
+		                	valu=field.find('span').attr('data-value');
+		                }
 						var inpu=field.closest('.resource_branch_01').find('input');
 						var rvalue = inpu.val();
 						var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');

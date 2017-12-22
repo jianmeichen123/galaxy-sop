@@ -44,7 +44,7 @@
 
 		<div class="tabtxt valuation" id="page_all">
 		<!-- 隐藏域，用于草稿箱20类型的全部清空操作 -->
-		<span class="block" data-title-id="1929" data-type="20"></span>
+		<span class="none" data-title-id="1929" data-type="20"></span>
 		<span class="none" data-title-id="1939" data-type="20"></span>
 		<span class="none" data-title-id="1910" data-type="20"></span>
 		<span class="none" data-title-id="1911" data-type="20"></span>
