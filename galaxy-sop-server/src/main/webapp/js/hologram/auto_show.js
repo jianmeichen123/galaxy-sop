@@ -102,9 +102,9 @@ function buildResultsDraft(sec,title,readonly)
 				$(".field[data-title-id='"+title.id+"']").text(title.resultMGList[0].valueName);
 			}
 			else
-			{	
+			{
 				var result_id = title.resultMGList[0].id;
-				$("input[data-title-id='"+title.id+"'][value='"+title.resultMGList[0].contentChoose+"']").attr('checked','true');
+				$("input[data-title-id='"+title.id+"'][value='"+title.resultMGList[0].contentChoose+"']").prop('checked','true');
 				$("input[data-title-id='"+title.id+"']").attr("resultId",result_id);
 				$("input[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 			}
@@ -181,7 +181,7 @@ function buildResultsDraft(sec,title,readonly)
 							
 						if(n.contentChoose!=null){
 							//单选按钮回显
-							$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
+							$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").prop('checked','true').siblings().removeAttr("checked");
 							$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
 							$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 						}else{
@@ -189,6 +189,12 @@ function buildResultsDraft(sec,title,readonly)
 							$("textarea[data-title-id='"+n.titleId+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 						}
 					}else{
+						if(n.contentChoose!=null){
+							//单选按钮回显
+							$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").prop('checked','true').siblings().removeAttr("checked");
+							$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
+							$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
+						}
 						$("textarea[data-title-id='"+n.titleId+"']").val('').attr("resultId",result_id);
 						$("textarea[data-title-id='"+n.titleId+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 					}
@@ -223,7 +229,7 @@ function buildResultsDraft(sec,title,readonly)
 				else
 				{
 					var result_id = n.id;
-					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true').attr("resultId",result_id);
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").prop('checked','true').attr("resultId",result_id);
 					$("input[type='radio'][data-id='"+ n.contentChoose +"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 				}
 			}
@@ -571,10 +577,12 @@ function buildResultsDraft(sec,title,readonly)
 			$("textarea[data-title-id='"+title.id+"']").val('');
 			$("textarea[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 14){
-			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('');
+			$('select[data-title-id="' + title.id + '"]').val('1');
+			$('select[name="' + title.id + '"]').val('');   //基础信息单独处理
 			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 4){
-			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('');
+			$('select[data-title-id="' + title.id + '"]').val('1');
+			$('select[name="' + title.id + '"]').val('');   //基础信息单独处理
 			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 15){
 			var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
@@ -891,7 +899,7 @@ function buildfinxedTableDraft(sec,title,readonly){
 		}else
 		{
 			$.each(title.fixedTableMGList,function(i,n){
-				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").attr('checked','true');
+				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").prop('checked','true');
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"']").attr('data-value-id',n.id);
 				
 			});

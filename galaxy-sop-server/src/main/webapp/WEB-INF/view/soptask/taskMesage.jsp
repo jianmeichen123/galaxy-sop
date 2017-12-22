@@ -40,7 +40,7 @@
 	        	<table width='100%' class='task-detail-table table_new_style' border='0' cellspacing='0' cellpadding='0'>
 	        		<thead>
 	        			<tr>
-	        				<th>上传日期</th>
+	        				<th>创建日期</th>
 	        				<th>存储类型</th>
 	        				<th>更新日期</th>
 	        				<th>档案状态</th>
@@ -164,10 +164,11 @@
 	}
 	/**********************显示文件 END ************************/
 	/**********************文件上传 START ************************/
+	var uploader;
 	initUpload();
 	function initUpload()
 	{
-		var uploader = new plupload.Uploader({
+		uploader = new plupload.Uploader({
 			runtimes : 'html5,html4,flash,silverlight',
 			browse_button : $("#file-upload-btn")[0], 
 			url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
@@ -244,8 +245,19 @@
 			layer.closeAll('loading');
 			if(data.result.status=="OK"){
 				layer.msg("提交成功",{time:1000},function(){
-					var url = $("#menus .on a").attr('href');
-					window.location=url;
+					var menu = $("#menus .on a");
+					if(menu.length == 0)
+					{
+						$.each($("#menus li a"),function(){
+							var href = $(this).attr('href');
+							if(href.indexOf('galaxy/soptask')>-1)
+							{
+								menu = $(this);
+								return false;
+							}
+						});
+					}
+					window.location=menu.attr('href');
 				});
 			}
 			else
@@ -322,13 +334,19 @@
 		var _this = $(this);
 		if(_this.hasClass('label-checked'))
 		{
+			//不勾选
 			_this.removeClass('label-checked').next().attr('checked',false);
 			$("#complete-task-btn").addClass('disabled').prop("disabled","disabled");
+			$("#file-upload-btn").removeClass('disabled').prop("disabled","false");
+			uploader.disableBrowse(false);
 		}
 		else
 		{
+			//勾选
 			_this.addClass('label-checked').next().attr('checked',true);
 			$("#complete-task-btn").removeClass('disabled').prop("disabled","false");
+			$("#file-upload-btn").addClass('disabled').prop("disabled","disabled");
+			uploader.disableBrowse(true);
 		}
 	})
 </script>

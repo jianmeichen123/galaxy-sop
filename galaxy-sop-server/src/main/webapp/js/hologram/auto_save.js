@@ -134,9 +134,15 @@ setInterval(function(){    //定时保存
 						rowNo:"",
 						colNo:""
 					};
-				if(type==2 || type==3 || type==4 || type==14)
+				if(type==2 || type==3)
 				{
 					infoMode.value = field.val()
+				}else if(type==4 || type==14){
+					if(field.val()==1){
+						infoMode.value = '';
+					}else{
+						infoMode.value = field.val();
+					}
 				}
 				else if(type==5){  
 					if(field.attr("type")=="radio"){
@@ -186,7 +192,11 @@ setInterval(function(){    //定时保存
 	                	var field=dds.eq(i).children("input").val();
 	                	inputsValueList.push(field);
 	                }
-	                var content='该项目是一个通过或基于<sitg>'+inputsValueList[0]+'</sitg>的<sitg>'+inputsValueList[1]+'</sitg>的<sitg>'+inputsValueList[2]+'</sitg>，连接<sitg>'+inputsValueList[3]+'</sitg>和<sitg>'+inputsValueList[4]+'</sitg>，为<sitg>'+inputsValueList[5]+'</sitg>提供<sitg>'+inputsValueList[6]+'</sitg>的产品或服务，满足了<sitg>'+inputsValueList[7]+'</sitg>的刚需或解决了<sitg>'+inputsValueList[8]+'</sitg>。'
+	                if(inputsValueList[0]=='' && inputsValueList[1]==''&& inputsValueList[2]==''&& inputsValueList[3]==''&& inputsValueList[4]==''&& inputsValueList[5]==''&& inputsValueList[6]==''&& inputsValueList[7]==''&& inputsValueList[8]==''){
+	                	var content=''
+	                }else{
+	                	var content='该项目是一个通过或基于<sitg>'+inputsValueList[0]+'</sitg>的<sitg>'+inputsValueList[1]+'</sitg>的<sitg>'+inputsValueList[2]+'</sitg>，连接<sitg>'+inputsValueList[3]+'</sitg>和<sitg>'+inputsValueList[4]+'</sitg>，为<sitg>'+inputsValueList[5]+'</sitg>提供<sitg>'+inputsValueList[6]+'</sitg>的产品或服务，满足了<sitg>'+inputsValueList[7]+'</sitg>的刚需或解决了<sitg>'+inputsValueList[8]+'</sitg>。'
+	                }
 	                infoMode.remark1 = content;
 	                infoModeInputs.push(infoMode);
 	            }

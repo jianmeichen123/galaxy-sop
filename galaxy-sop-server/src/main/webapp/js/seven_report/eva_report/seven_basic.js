@@ -655,7 +655,7 @@ function right(obj,type){
 			$.each(val_checkbox,function(){
 				var res =resString.clone();
 				res.find(".title-value").text($(this).parent().next("label").text()).attr("contentc",this.value).show().addClass("black");				
-				res.find(".score-div input").attr("name","scor_"+iNum).val($(this).parent().attr("inpscore"));
+				res.find(".score-div input").attr("name","scor_"+iNum).removeAttr("aria-describedby").val($(this).parent().attr("inpscore"));
 				var selscore=$(this).parent().attr("selscore");
 				if(selscore==""||!selscore){
 					selscore="请选择"
@@ -675,6 +675,7 @@ function right(obj,type){
 				$("#save-rpt-btn").removeAttr("disabled"); 
 				$("#save-rpt-btn em").removeClass("disabled")
 			})
+			saveGrade()
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
@@ -1229,7 +1230,7 @@ function iCheck(){
 		 $(this).parents('.radioShow').find('.others_text').attr("required",false);
 	})
 }
-function countGrade(data,msg){
+function countGrade(data){
 	var _this = $(data);
 	var tables = _this.closest(".table_inner");
 	var inputs = tables.find(".score-div input[type='text']");
@@ -1278,4 +1279,20 @@ function countGrade(data,msg){
 	}else{
 		tables.find("span.oError").hide();
 	}
+}
+function saveGrade(){
+	var tables = $("table[data-type=22]");
+	$.each(tables,function(){
+		$.each($(this).find("input.result-weight"),function(){  
+//			if($(this).next(".error")||$(this).hasClass("error")){
+//				$(this).next(".error").remove();
+//				$(this).removeClass("error")
+//			}
+			$(this).focus();
+			$(this).blur();  
+			if($(this).next(".error")||$(this).hasClass("error")){
+				return false;
+			}
+		})
+	})
 }

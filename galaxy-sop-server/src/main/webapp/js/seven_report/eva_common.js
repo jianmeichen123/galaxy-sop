@@ -180,7 +180,10 @@ function showResultAndScoreList(relateId)
                             var _input =$(this).find("input").val();
                             var _select =$(this).find("select").val();  
                             if(_input==undefined&&_select==undefined){return;}
-                            if($(this).hasClass("heightL")){                                 
+                            if($(this).hasClass("heightL")){ 
+                            	if($(this).find(".score-div").is(":hidden")){
+                            		_input=100;
+                            	}
                             	var _i=_input==""?"-":_input;
                             	var _s=_select=="请选择"?"未打分":_select; 
                             	var res=_s +"/"+ _i+"%";

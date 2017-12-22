@@ -77,9 +77,10 @@
     (
     SELECT 
 		(CASE r.content_choose 
-		WHEN 2252 THEN r1.content_describe1
+		WHEN 2256 THEN r1.content_describe1
 		WHEN 2257 THEN r2.content_describe1	
 		WHEN 2258 THEN r3.content_describe1
+		WHEN 2259 THEN r4.content_describe1
 		WHEN 2260 THEN r5.content_describe1	
 		WHEN 2261 THEN r6.content_describe1	
 		ELSE NULL
@@ -88,6 +89,7 @@
 	LEFT JOIN information_result r1 ON r1.project_id = r.project_id AND r1.title_id = 1121
 	LEFT JOIN information_result r2 ON r2.project_id = r.project_id AND r2.title_id = 1122
 	LEFT JOIN information_result r3 ON r3.project_id = r.project_id AND r3.title_id = 1123
+	LEFT JOIN information_result r4 ON r4.project_id = r.project_id AND r4.title_id = 1124
 	LEFT JOIN information_result r5 ON r5.project_id = r.project_id AND r5.title_id = 1125
 	LEFT JOIN information_result r6 ON r6.project_id = r.project_id AND r6.title_id = 1126
 	WHERE r.project_id = sop_project.id AND r.title_id = 1120

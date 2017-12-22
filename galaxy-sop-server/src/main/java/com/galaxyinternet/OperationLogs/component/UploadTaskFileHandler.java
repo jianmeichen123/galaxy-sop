@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
+import com.galaxyinternet.model.operationLog.SopStage;
 import com.galaxyinternet.model.operationLog.Target;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
@@ -43,6 +44,7 @@ public class UploadTaskFileHandler implements OperationLogHandler
 	private String MESSAGE_TYPE_ZJBF = "_5.11";
 	
 	private Map<String, String> contentMap = new HashMap<>();
+	private Map<String, String> stageMap = new HashMap<>();
 	
 	public UploadTaskFileHandler()
 	{
@@ -51,6 +53,12 @@ public class UploadTaskFileHandler implements OperationLogHandler
 		contentMap.put(MESSAGE_TYPE_FWJD, Target.DUE_DILIGENCE_FW_JD.getTargetName());
 		contentMap.put(MESSAGE_TYPE_GSZR, Target.DUE_DILIGENCE_FW_GSBG.getTargetName());
 		contentMap.put(MESSAGE_TYPE_ZJBF, Target.DUE_DILIGENCE_CW_FKPZ.getTargetName());
+		
+		stageMap.put(MESSAGE_TYPE_RSJD, SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
+		stageMap.put(MESSAGE_TYPE_CWJD, SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
+		stageMap.put(MESSAGE_TYPE_FWJD, SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
+		stageMap.put(MESSAGE_TYPE_GSZR, SopStage.EQUITY_DELIVERY_STAGE.getStageName());
+		stageMap.put(MESSAGE_TYPE_ZJBF, SopStage.EQUITY_DELIVERY_STAGE.getStageName());
 	}
 
 	@Override
@@ -92,7 +100,7 @@ public class UploadTaskFileHandler implements OperationLogHandler
 		entity.setDepartName(user.getDepartmentName());
 		entity.setUserDepartid(user.getDepartmentId());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
-		entity.setSopstage(type.getSopstage());
+		entity.setSopstage(stageMap.get(messageType));
 		entity.setReason(reason);
 		entity.setRecordType(RecordType.TASK.getType());
 		entity.setRecordId(recordId);
