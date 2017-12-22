@@ -133,7 +133,7 @@
                         	<div class="projectSource projectSource11">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目承揽人 ：</span></span>
                         		 <span class="m_r30 selectcheck" >
-									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="13" data-title-id="1118">
+									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="23" data-title-id="1118">
 									    
 									  </select>
 									  <input type="text" class="addpro-input" name="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
@@ -540,8 +540,40 @@ function CallBackE(data){
 				resultId:_resultId,
 				type : type
 			};
-			if(field.data('titleId')=="1118"&&type=="13"){
-				//获取多选带备注数据 
+			if(field.data('titleId')=="1118"&&type=="23"){
+				//获取多选带备注数据 proSource
+				var judgment = $("select[name=proSource]").val();
+				if(judgment!='2257'&&judgment!='2262'){
+					var judgName = $(".man_info .name").text();
+					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
+					 if(val!=undefined){
+						 var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:true,
+							resultId:"",
+							type : type,
+							value:val
+						};	
+					 }else{
+						 val = $("select[data-title-id=1118]").find("option").last().attr("value"); 
+						 var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:true,
+							resultId:resultId13,
+							type : type,
+							value:val,
+							remark1:judgName
+							
+						};
+					 }
+					 infoModeList.push(infoMode); 
+					 data.infoModeList = infoModeList;
+					 return; 
+				}else if(judgment=='2257'){
+					data.deletedResultTids=['1118'];
+					return;
+				
+				}else{
 				var values =[] ; 
 				var doms = $(".selectcheck li.selected span");
 				$.each(doms,function(){ 
@@ -564,6 +596,7 @@ function CallBackE(data){
 					infoModeList.push(infoMode); 
 				}  
 
+			}
 			}else if(type==14 )
 			{
 				infoMode.value = field.val();
