@@ -181,8 +181,13 @@ function showResultAndScoreList(relateId)
                             var _select =$(this).find("select").val();  
                             if(_input==undefined&&_select==undefined){return;}
                             if($(this).hasClass("heightL")){ 
-                            	if($(this).find(".score-div").is(":hidden")){
-                            		_input=100;
+                            	if($(this).find(".score-div").is(":hidden")){ 
+                            		var _s=_select=="请选择"?"未打分":_select; 
+                            		$(this).html(_s);  
+                            		if(_s!="未打分"){
+	                            		$(this).css("color","#333");
+	                            	}
+                            		return;
                             	}
                             	var _i=_input==""?"-":_input;
                             	var _s=_select=="请选择"?"未打分":_select; 
