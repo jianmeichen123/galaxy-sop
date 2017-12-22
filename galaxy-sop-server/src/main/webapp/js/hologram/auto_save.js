@@ -138,19 +138,10 @@ setInterval(function(){    //定时保存
 				{
 					infoMode.value = field.val()
 				}else if(type==4 || type==14){
-					if(infoMode.titleId=='1108'){   //项目阶段特殊处理
-						var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
-						if(spanVal==field.val() || field.val()==1){
-							infoMode.value = '';
-						}else{
-							infoMode.value = field.val();
-						}
+					if(field.val()==1){
+						infoMode.value = '';
 					}else{
-						if(field.val()==1){
-							infoMode.value = '';
-						}else{
-							infoMode.value = field.val();
-						}
+						infoMode.value = field.val();
 					}
 				}
 				else if(type==5){  
