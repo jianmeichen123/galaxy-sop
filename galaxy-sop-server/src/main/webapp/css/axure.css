@@ -4177,11 +4177,6 @@ li .projectSource11 span.m_r30{
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 #file-history-dialog{height:465px;width:600px;overflow-y:auto;}
 /* 分页样式20171219 */
-.task-ritmin .pagination-info,.task-ritmin .page-list,.taskDetail-mesage .pagination-info,.taskDetail-mesage .page-list{color:#5a626d;font-family:Microsoft YaHei;}
-.task-ritmin .fixed-table-pagination .pagination li a,.taskDetail-mesage .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
-.task-ritmin .fixed-table-pagination .pagination > .active > a, .task-ritmin .fixed-table-pagination .pagination > .active > span, .task-ritmin .fixed-table-pagination .pagination > .active > a:hover, .task-ritmin .fixed-table-pagination .pagination > .active > span:hover, .task-ritmin .fixed-table-pagination .pagination > .active > a:focus,.task-ritmin  .fixed-table-pagination .pagination > .active > span:focus{
-	background:#45aaff;color:#fff;
-}
 .taskDetail-mesage .fixed-table-pagination .pagination > li.active > a, .taskDetail-mesage .fixed-table-pagination .pagination > .active > span, .taskDetail-mesage .fixed-table-pagination .pagination > .active > a:hover, .taskDetail-mesage .fixed-table-pagination .pagination > .active > span:hover, .taskDetail-mesage .fixed-table-pagination .pagination > .active > a:focus,.taskDetail-mesage  .fixed-table-pagination .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
@@ -4198,6 +4193,7 @@ li .projectSource11 span.m_r30{
 #file_history_grid th,#file_history_grid td{height:40px;font-family:Microsoft YaHei;border-bottom:1px solid #e4e4e4}
 #file_history_grid th{font-weight:bold;}
 #file_history_grid td a{font-family:Microsoft YaHei;}
+/* 新版分页样式，调用类名pagination_common  */
 .pagination_common .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
 .pagination_common .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
 .pagination_common .fixed-table-pagination .pagination > .active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common .fixed-table-pagination .pagination > .active > span:focus{
