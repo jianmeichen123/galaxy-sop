@@ -150,23 +150,29 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			boolean isToEval = false;
 			if(code.equals("NO")){
 				isToNo = true;
+
+				Set<Long> result_ids_no = new TreeSet<>();
+
 				// 简单处理， 仅在 result表中移除
+				result_ids_no.addAll(result_ids);
 				for(Long temp : CacheOperationServiceImpl.NO_always){
 					if(result_ids.contains(temp)){
-						result_ids.remove(temp);
+						result_ids_no.remove(temp);
 					}
 				}
+				result_ids = result_ids_no;
 
 				Project pro = projectDao.selectById(proId);
 				if(com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode().equals(pro.getFinanceStatus())){
 					isToEval = true;
 
 					//Set<Long> project_ids_no = new TreeSet<>();
-					Set<Long> result_ids_no = new TreeSet<>();
+					result_ids_no = new TreeSet<>();
 					Set<Long> listdata_ids_no = new TreeSet<>();
 					Set<Long> fixedtable_ids_no = new TreeSet<>();
 					Set<Long> file_ids_no = new TreeSet<>();
 					//Set<Long> resultGrage_ids_no = new TreeSet<>();
+
 					result_ids_no.addAll(result_ids);
 					listdata_ids_no.addAll(listdata_ids);
 					fixedtable_ids_no.addAll(fixedtable_ids);

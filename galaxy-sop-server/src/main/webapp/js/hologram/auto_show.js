@@ -52,10 +52,26 @@ $.fn.showResultsDrafts = function(readonly,flag){
         				if(entityList && entityList.length >0)
         				{
         					var sum=0;
+        					var n=0;
         					$.each(entityList,function(){
         						var title = this;
         						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
         							sum++;
+        						}
+        						if(title.resultMGList){
+        							if(title.type==20){
+        								var titleId=title.resultMGList[0].titleId;
+        								var spanText=$('span[data-title-id="'+titleId+'"][data-type="20"]').text();
+        								var selectVal=title.resultMGList[0].contentDescribe1;
+            							if(!title.resultMGList[0].contentDescribe1 && title.resultMGList[0].contentDescribe2.indexOf(spanText)>-1){
+            								n++;
+            							}
+            						}else if(title.type==14 && title.id=='1108'){    //项目阶段特殊处理
+            							var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
+            							if(title.resultMGList[0].contentChoose==spanVal){
+            								n++;
+            							}
+            						}
         						}
         						if(flag=='result'){
         							buildResultsDraft(sec,title,readonly);
@@ -64,7 +80,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
-        					if(sum>0){
+        					if(sum-n>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
         					}else{
@@ -198,8 +214,6 @@ function buildResultsDraft(sec,title,readonly)
 						$("textarea[data-title-id='"+n.titleId+"']").val('').attr("resultId",result_id);
 						$("textarea[data-title-id='"+n.titleId+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 					}
-					
-					
 				}
 			});
 		}
@@ -591,6 +605,8 @@ function buildResultsDraft(sec,title,readonly)
 		}else if(title.type == 1 || title.type == 19){
 			$("input[data-title-id='"+title.id+"']").val('');	
 			$("input[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
+		}else if(title.type==20){
+			$("input[data-title-id='"+title.id+"']").val('');
 		}
 	}
 }
@@ -912,18 +928,18 @@ function buildfinxedTableDraft(sec,title,readonly){
 /*sec：模块code;*/
 function draftbox(sec){
 	sec.showResultsDrafts();   //提示历史数据信息
-	$('.h_title').click(function(){
+	/*$('.h_title').click(function(){
 		var _tochange=sec.find('form').attr('tochange');
 		if(_tochange=='true'){
 			auto_save(sec);
 		}
-	})
-	/* setInterval(function(){    //定时保存
+	})*/
+	setInterval(function(){    //定时保存
 		var _tochange=sec.find('form').attr('tochange');
 		if(_tochange=='true'){
 			auto_save(sec);
 		}
-	},60000) */
+	},60000) 
 	if($('.history_block .btn').is(':visible')){   //点击恢复
 		$('.history_block .btn').click(function(){
 			sec.showResultsDrafts(null,'result');

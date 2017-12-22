@@ -1261,7 +1261,7 @@ function countGrade(data){
 //		手动加红字
 		tables.find("span.oError").hide();
 		if(_this.closest("table").closest("td").prev("td").text()=="主要的潜在竞争对手"){
-			var errorSpan = "<span class='error oError'>主要的潜竞争对手的权重之和不能大于100</span>";
+			var errorSpan = "<span class='error oError'>主要的潜在竞争对手的权重之和不能大于100</span>";
 		} else{			
 			var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
 		}
@@ -1284,13 +1284,19 @@ function saveGrade(){
 	var tables = $("table[data-type=22]");
 	$.each(tables,function(){
 		$.each($(this).find("input.result-weight"),function(){  
-//			if($(this).next(".error")||$(this).hasClass("error")){
-//				$(this).next(".error").remove();
-//				$(this).removeClass("error")
-//			}
-			$(this).focus();
-			$(this).blur();  
-			if($(this).next(".error")||$(this).hasClass("error")){
+			var that=$(this);
+			that.focus();
+			that.blur();  
+			var reg=/(^[1-9][0-9]$|^[0-9]$|^100$)/; 
+			if(that.val()!=""&&!reg.test(that.val())){   
+				var name=that.attr("name")+"-error";
+				that.addClass("error").attr({
+					"aria-invalid":true,
+					"aria-describedby":name
+				}) 
+				that.next(".error").show().text("只允许输入数字0~100整数")
+			} 
+			if($(this).next(".error").length||$(this).hasClass("error")){ 
 				return false;
 			}
 		})

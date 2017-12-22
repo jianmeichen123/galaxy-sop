@@ -331,16 +331,18 @@ public class ReportExportServiceImpl implements ReportExportService {
             value = null;
 
             List<InformationResult> resultList = tempTitle.getResultList();
+
+            //项目来源 title NO1_1_17—1120 CLR承揽人关系 写死
+            //定义是否显示承揽人  information_dictionary id_2257:FA推荐 -> 不显示承揽人
+            if(tempTitle.getCode().equals("NO1_1_17"))
+            {
+                if(!("2257".equals(resultList.get(0).getContentChoose()))){
+                    map.put("CLR_tos", "y");
+                }
+            }
+
             if(resultList!=null && !resultList.isEmpty())
             {
-                //项目来源 title NO1_1_10—1120 CLR承揽人关系 写死
-                //定义是否显示承揽人  information_dictionary id_2257:FA推荐 -> 不显示承揽人
-                if(tempTitle.getCode().equals("NO1_1_10")){
-                    if(!("2257".equals(resultList.get(0).getContentChoose()))){
-                        map.put("CLR_tos", "y");
-                    }
-                }
-
                 value = resultTypeConver(tempTitle,valueIdNameMap);
                 if(value != null){
                     map.put(tempTitle.getCode(), value);

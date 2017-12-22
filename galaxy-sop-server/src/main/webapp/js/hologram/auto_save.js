@@ -252,7 +252,12 @@ setInterval(function(){    //定时保存
 					var options=$("#"+id+"_select option:selected")
 					var name = options.text();
 					var value =options.val();
-					infoMode.remark2 = name+"p"+value;
+					var spanText=$('span[data-title-id="'+id+'"][data-type="20"]').text();
+					if(field.val()=='' && spanText==value){
+						infoMode.remark2=''
+					}else{
+						infoMode.remark2 = name+"p"+value;
+					}
 				}
 				else if( type==21 )
 				{	
@@ -278,7 +283,11 @@ setInterval(function(){    //定时保存
 				var valu = null;
 				var _tochange =field.closest(".resource_branch_01").find("dt").attr("tochange");
 		                var infoMode = null;
-						valu=field.find('span').attr('data-value');
+		                if(field.closest(".resource_branch_01").is(':hidden')){
+		                	valu='';
+		                }else{
+		                	valu=field.find('span').attr('data-value');
+		                }
 						var inpu=field.closest('.resource_branch_01').find('input');
 						var rvalue = inpu.val();
 						var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');
