@@ -252,7 +252,12 @@ setInterval(function(){    //定时保存
 					var options=$("#"+id+"_select option:selected")
 					var name = options.text();
 					var value =options.val();
-					infoMode.remark2 = name+"p"+value;
+					var spanText=$('span[data-title-id="'+id+'"][data-type="20"]').text();
+					if(field.val()=='' && spanText==value){
+						infoMode.remark2=''
+					}else{
+						infoMode.remark2 = name+"p"+value;
+					}
 				}
 				else if( type==21 )
 				{	
