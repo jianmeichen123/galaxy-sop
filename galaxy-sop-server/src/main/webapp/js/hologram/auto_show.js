@@ -58,15 +58,17 @@ $.fn.showResultsDrafts = function(readonly,flag){
         						if((title.resultMGList && title.resultMGList.length>0) || (title.fixedTableMGList && title.fixedTableMGList.length>0) || (title.dataMGList && title.dataMGList.length>0)){
         							sum++;
         						}
-        						if(title.type==20){
-        							if(!title.resultMGList[0].contentDescribe1 ){
-        								n++;
-        							}
-        						}else if(title.type==14 && title.id=='1108'){    //项目阶段特殊处理
-        							var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
-        							if(title.resultMGList[0].contentChoose==spanVal){
-        								n++;
-        							}
+        						if(title.resultMGList){
+        							if(title.type==20){
+            							if(!title.resultMGList[0].contentDescribe1 ){
+            								n++;
+            							}
+            						}else if(title.type==14 && title.id=='1108'){    //项目阶段特殊处理
+            							var spanVal=$('span[data-title-id="1108"][data-type="14"]').text();
+            							if(title.resultMGList[0].contentChoose==spanVal){
+            								n++;
+            							}
+            						}
         						}
         						if(flag=='result'){
         							buildResultsDraft(sec,title,readonly);
