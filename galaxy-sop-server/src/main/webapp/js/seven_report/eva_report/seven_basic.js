@@ -1261,7 +1261,7 @@ function countGrade(data){
 //		手动加红字
 		tables.find("span.oError").hide();
 		if(_this.closest("table").closest("td").prev("td").text()=="主要的潜在竞争对手"){
-			var errorSpan = "<span class='error oError'>主要的潜竞争对手的权重之和不能大于100</span>";
+			var errorSpan = "<span class='error oError'>主要的潜在竞争对手的权重之和不能大于100</span>";
 		} else{			
 			var errorSpan = "<span class='error oError'>主要竞争对手的权重之和不能大于100</span>";
 		}
