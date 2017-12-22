@@ -605,6 +605,8 @@ function buildResultsDraft(sec,title,readonly)
 		}else if(title.type == 1 || title.type == 19){
 			$("input[data-title-id='"+title.id+"']").val('');	
 			$("input[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
+		}else if(title.type==20){
+			$("input[data-title-id='"+title.id+"']").val('');
 		}
 	}
 }
