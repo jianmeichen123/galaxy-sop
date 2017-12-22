@@ -1113,7 +1113,7 @@ function addRowCompete(ele,id_code,id_code_new){
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					$("#page_list_compete_edit").tmpl(entity).appendTo("#a_"+id_code);
 					if(id_code_new=='NO5_4'){
 						$('.h_title_conpetition').text('添加显在竞争对手')
 					}else{
