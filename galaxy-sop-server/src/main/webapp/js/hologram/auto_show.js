@@ -577,10 +577,10 @@ function buildResultsDraft(sec,title,readonly)
 			$("textarea[data-title-id='"+title.id+"']").val('');
 			$("textarea[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 14){
-			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('');
+			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('1');
 			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 4){
-			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('');
+			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').val('1');
 			$('select[data-id="' + title.id + '"],select[data-title-id="' + title.id + '"]').closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 		}else if(title.type == 15){
 			var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
