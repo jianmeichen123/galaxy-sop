@@ -1284,13 +1284,19 @@ function saveGrade(){
 	var tables = $("table[data-type=22]");
 	$.each(tables,function(){
 		$.each($(this).find("input.result-weight"),function(){  
-//			if($(this).next(".error")||$(this).hasClass("error")){
-//				$(this).next(".error").remove();
-//				$(this).removeClass("error")
-//			}
-			$(this).focus();
-			$(this).blur();  
-			if($(this).next(".error")||$(this).hasClass("error")){
+			var that=$(this);
+			that.focus();
+			that.blur();  
+			var reg=/(^[1-9][0-9]$|^[0-9]$|^100$)/; 
+			if(that.val()!=""&&!reg.test(that.val())){   
+				var name=that.attr("name")+"-error";
+				that.addClass("error").attr({
+					"aria-invalid":true,
+					"aria-describedby":name
+				}) 
+				that.next(".error").show().text("只允许输入数字0~100整数")
+			} 
+			if($(this).next(".error").length||$(this).hasClass("error")){ 
 				return false;
 			}
 		})
