@@ -1269,11 +1269,7 @@ function type_23_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"' data-valRuleFormula='"+title.valRuleFormula+"' data-valRuleMark='"+title.valRuleMark+"'>"+title.name+"</dt>";
 	var has_beizhu = false;
 	if(mark == 's'){
-		if(title.type=='23'){
-			var hresult=$('.man_info span').text();
-		}else{
-			var hresult = "<dd>未选择</dd>";
-		}
+		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
 		if(results){
 			var valueList=[];
