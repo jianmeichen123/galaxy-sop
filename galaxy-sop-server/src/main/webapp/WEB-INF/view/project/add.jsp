@@ -559,7 +559,7 @@ function CallBackE(data){
 						 var infoMode = {
 							titleId	: field.data('titleId'),
 							tochange:true,
-							resultId:resultId13,
+							resultId:_resultId,
 							type : type,
 							value:val,
 							remark1:judgName
