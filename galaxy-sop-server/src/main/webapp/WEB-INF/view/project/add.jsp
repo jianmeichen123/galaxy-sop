@@ -585,7 +585,7 @@ function CallBackE(data){
 					var infoMode = {
 							titleId	: field.data('titleId'),
 							tochange:'true',
-							resultId:_resultId,
+							resultId:"",
 							type : type
 						};
 					var that = values[i]; 
@@ -603,7 +603,7 @@ function CallBackE(data){
 			}else if(type==19 || type==1){
 				infoMode.remark1 = field.val();
 			}
-			if (infoMode != null&&type!="13") {
+			if (infoMode != null&&type!="23") {
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
