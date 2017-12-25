@@ -2574,9 +2574,10 @@ function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是�
 							var map=dictCache(titleId,subCode,filed);
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
 						}else if(type==8){
-							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							console.log(row.data(name));
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || row.data(name).replace(/&nbsp;/g,'').length==0)?"未填写":val_text);
 						}else if(type==1){
-							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || row.data(name).replace(/&nbsp;/g,'').length==0)?"未填写":val_text);
 						}
 					});
 					/*var name=$('dd[name="field1"]').text();  //竞争对手名称
