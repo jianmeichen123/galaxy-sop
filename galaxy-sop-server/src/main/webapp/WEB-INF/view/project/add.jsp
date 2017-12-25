@@ -595,6 +595,8 @@ function CallBackE(data){
 					}
 					infoModeList.push(infoMode); 
 				}  
+				data.infoModeList = infoModeList;
+				return;
 
 			}
 			}else if(type==14 )
@@ -603,7 +605,7 @@ function CallBackE(data){
 			}else if(type==19 || type==1){
 				infoMode.remark1 = field.val();
 			}
-			if (infoMode != null&&type!="23") {
+			if (infoMode != null&&type!="13") {
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
