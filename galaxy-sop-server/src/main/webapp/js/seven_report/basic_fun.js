@@ -1192,7 +1192,7 @@ function saveRow(data)
 		for(var key in data)
 		{
 			if(titleId=="1582" || titleId=="1583"){   //竞争对手特殊处理
-				if(key.indexOf('field')>-1 ){     
+				if(key.indexOf('field')>-1 && key!="field1"){     
 					data[key]=data[key].replace(/\n|\r\n/g,"<br>");
 					data[key]=data[key].replace(/\s/g,"&nbsp;");
 				}

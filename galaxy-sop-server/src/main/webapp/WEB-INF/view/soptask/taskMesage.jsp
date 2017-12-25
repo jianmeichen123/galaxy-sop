@@ -277,6 +277,7 @@
 			url:platformUrl.toFileHistory,
 			data:{},
 			okback:function(){
+				$(".close").addClass('closePopNew');
 				var title = '${task.taskName}'.replace('上传','')+'-历史列表'
 				$("#file-history-dialog .title_bj").text(title);
 				var url = '<%=path%>/galaxy/sopFile/'+fileId+'/history';

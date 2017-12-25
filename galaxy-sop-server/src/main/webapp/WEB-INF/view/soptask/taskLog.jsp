@@ -7,7 +7,7 @@
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
  	<div class="taskDetail-ritmin">
- 		 <div class='taskDetail-mesage'>
+ 		 <div class='taskDetail-mesage pagination_common'>
  		 
 	        	<!--操作日志table  -->
 	        	<table class='opretion-log no-radius table_new_style' width='100%' cellspacing='0' cellpadding='0' border='0' data-url="<%=request.getContextPath() %>/galaxy/soptask/${taskId}/logs">

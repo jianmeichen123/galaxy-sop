@@ -989,7 +989,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg01{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:1000; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
-.pop{  position:absolute; left:0; top:0; z-index:1000; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
+.pop{  position:absolute; left:0; top:0; z-index:1000; /* border:2px solid #e9ebf2; border-radius:6px; */ background:#FFF}
 .popzx{ z-index:9999}
 .pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px;}
@@ -4177,17 +4177,63 @@ li .projectSource11 span.m_r30{
 .tooltip-inner{max-width: 400px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 #file-history-dialog{height:465px;width:600px;overflow-y:auto;}
 /* 分页样式20171219 */
-.task-ritmin .pagination-info,.task-ritmin .page-list,.taskDetail-mesage .pagination-info,.taskDetail-mesage .page-list{color:#5a626d;letter-spacing:2px;}
-.task-ritmin .fixed-table-pagination .pagination li a,.taskDetail-mesage .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
-.task-ritmin .fixed-table-pagination .pagination > .active > a, .task-ritmin .fixed-table-pagination .pagination > .active > span, .task-ritmin .fixed-table-pagination .pagination > .active > a:hover, .task-ritmin .fixed-table-pagination .pagination > .active > span:hover, .task-ritmin .fixed-table-pagination .pagination > .active > a:focus,.task-ritmin  .fixed-table-pagination .pagination > .active > span:focus{
-	background:#45aaff;color:#fff;
-}
 .taskDetail-mesage .fixed-table-pagination .pagination > li.active > a, .taskDetail-mesage .fixed-table-pagination .pagination > .active > span, .taskDetail-mesage .fixed-table-pagination .pagination > .active > a:hover, .taskDetail-mesage .fixed-table-pagination .pagination > .active > span:hover, .taskDetail-mesage .fixed-table-pagination .pagination > .active > a:focus,.taskDetail-mesage  .fixed-table-pagination .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
-
-
-
+.blue-bg-pop .title_bj{
+	height:56px;
+	background:url(../img/base_info/top_bg_big.png);
+	font-family:MicrosoftYaHei-Bold;
+	font-size:14px;
+	color:#ffffff;
+	line-height:56px;
+}
+.pop .closePopNew{background:url(../img/base_info/close.png) no-repeat;top:10px;right:10px;width:16px;height:16px;}
+#file_history_grid{border:1px solid #d8d8d8;width:650px;margin:30px auto 0;}
+#file_history_grid th,#file_history_grid td{height:40px;font-family:Microsoft YaHei;border-bottom:1px solid #e4e4e4;text-align:center;}
+#file_history_grid th{font-weight:bold;}
+#file_history_grid td:nth-child(1){text-align:left;padding-left:30px !important;}
+#file_history_grid td a{font-family:Microsoft YaHei;}
+/* 新版分页样式，调用类名pagination_common  */
+.pagination_common .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
+.pagination_common .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
+.pagination_common .fixed-table-pagination .pagination > .active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common .fixed-table-pagination .pagination > .active > span:focus{
+	background:#45aaff;color:#fff;
+}
+.pagination_common .fixed-table-pagination .pagination > li.active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common  .fixed-table-pagination .pagination > .active > span:focus{
+	background:#45aaff;color:#fff;
+}
+.pagination_common .btn-default{
+	background:#ffffff;
+	border:1px solid #d8d8d8;
+	border-radius:2px;
+	width:44px;
+	height:18px;
+	line-height:18px;
+	padding:0;
+	margin-top:-4px;
+}
+.pagination_common .dropdown-menu1{
+	min-width:40px;
+	background:#fff;
+	padding:0 2px;
+	border-radius:0px 0px 3px #f0f0f0;
+}
+.pagination_common .dropdown-menu1 li{
+	height:30px;
+	border-bottom:1px solid #f0f0f0;
+}
+.pagination_common .dropdown-menu1 li a{
+	line-height:30px;
+	font-family:Microsoft YaHei;
+}
+.pagination_common .dropdown-menu1 li.active a{
+	background:none;
+	color:#45aaff;
+}
+.pagination_common .dropdown-menu1 li a:focus,.pagination_common .dropdown-menu1 li a:hover{
+	background:none;
+}
 
 /* 为了兼容IE 最好放下边 */
 input::-webkit-input-placeholder{

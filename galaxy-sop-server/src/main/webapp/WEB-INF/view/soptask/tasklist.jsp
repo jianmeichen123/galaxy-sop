@@ -63,7 +63,7 @@
           
         </div>
     <!--右中部内容-->
- 	<div class="ritmin task-ritmin">
+ 	<div class="ritmin task-ritmin pagination_common">
  	<div>
         <!--表格内容-->
 			<table class='no-radius table_new_style' width="100%"  cellspacing="0" cellpadding="0" 
