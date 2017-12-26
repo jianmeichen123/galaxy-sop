@@ -445,7 +445,7 @@ function one_select_edit(title,inputtype,type){
     			}else{
     				eresult = 
                 		"<dd>" +
-            		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>必填\">" +
+            		    	"<select data-must='"+title.isMust+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' required data-msg-required=\"<font color=red>*</font>项目来源不能为空\">" +
             					li +
             				"</select>" +
             	    	"</dd>";
