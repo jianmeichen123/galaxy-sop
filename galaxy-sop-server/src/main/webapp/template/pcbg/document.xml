@@ -13976,7 +13976,7 @@
                                         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                         <w:szCs w:val="21"/>
                                     </w:rPr>
-                                    <w:t>${e443.grade!"未打分"}/${e443.weight!"-"}%</w:t>
+                                    <w:t>${e443.grade!"未打分"}<#if e443_has_next >/${e443.weight!"-"}%</#if></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -14278,7 +14278,7 @@
                                         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                                         <w:szCs w:val="21"/>
                                     </w:rPr>
-                                    <w:t>${e443.grade!"未打分"}/${e443.weight!"-"}%</w:t>
+                                    <w:t>${e443.grade!"未打分"}<#if e443_has_next >/${e443.weight!"-"}%</#if></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
