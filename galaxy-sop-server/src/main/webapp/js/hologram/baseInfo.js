@@ -35,6 +35,10 @@ function resouceShow(mark){
 				$('.resource_branch_01').hide();
 				resourceBranchShow(_id,val,'e');
 				$('div').delegate('select[data-title-id="'+_id+'"]', "change", function(event){
+					//获取值
+					if($(this).val()){   //change提示消失
+						$(this).closest('.mb_24').find('span.error').addClass('select_input');
+					}
 					$('.resource_branch_01').find('.error_span').addClass('select_input');
 					$('.resource_branch_01').find('input').val('');
 					$(this).closest('.resource_branch').find('dt').attr('tochange',true);
@@ -91,9 +95,9 @@ function resouceShow(mark){
 				//项目来源历史数据处理
 				var valSelect=$('dt[data-tid="1120"]').closest('div').find('select').val();
 				if(!valSelect){
-					$('dt[data-tid="1120"]').closest('div').find('span.select_input').show();
+					$('dt[data-tid="1120"]').closest('div').find('span.error').removeClass('select_input');
 				}else{
-					$('dt[data-tid="1120"]').closest('div').find('span.select_input').hide();
+					$('dt[data-tid="1120"]').closest('div').find('span.error').addClass('select_input');
 				}
 			}
 			
