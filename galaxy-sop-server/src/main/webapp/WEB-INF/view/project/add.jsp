@@ -585,7 +585,7 @@ function CallBackE(data){
 					var infoMode = {
 							titleId	: field.data('titleId'),
 							tochange:'true',
-							resultId:_resultId,
+							resultId:"",
 							type : type
 						};
 					var that = values[i]; 
@@ -595,6 +595,8 @@ function CallBackE(data){
 					}
 					infoModeList.push(infoMode); 
 				}  
+				data.infoModeList = infoModeList;
+				return;
 
 			}
 			}else if(type==14 )
@@ -630,7 +632,7 @@ function CallBackE(data){
 		var createDate=$("#createDate").val().trim();
 		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
 		var formatData={
-					   "projectType":projectType,
+	  				   "projectType":projectType,
 				       "projectName":projectName,
 				       "createDate":createDate,
 				       "industryOwn":industryOwn

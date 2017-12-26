@@ -38,6 +38,7 @@ import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
+import com.galaxyinternet.common.enums.DictEnum.taskStatus;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -58,12 +59,14 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 
@@ -98,6 +101,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	@Autowired
 	private ProjectService projectService;
+	
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 	
@@ -111,9 +115,11 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
-	
 	@Autowired
 	private InformationResultService informationResultService;
+	@Autowired
+	private SopTaskService taskService;
+	
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
@@ -719,7 +725,14 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
 			
-			next1Valid = count == 6L;
+			Integer[] taskFlagS = {SopConstant.TASK_FLAG_CWJD, SopConstant.TASK_FLAG_FWJD, SopConstant.TASK_FLAG_RSJD};
+			SopTask taskQuery = new SopTask();
+			taskQuery.setProjectId(project.getId());
+			taskQuery.setTaskStatus(taskStatus.已完成.getCode());
+			taskQuery.setTaskFlagS(Arrays.asList(taskFlagS));
+			Long taskCount = taskService.queryCount(taskQuery);
+			
+			next1Valid = count == 6L && taskCount == 3L;
 			rejectValid = true;
 		}
 		else if(projectProgress.投资决策会.getCode().equals(currProgress))
@@ -778,7 +791,15 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			query.setFileworktypeList(Arrays.asList(fileTypeList));
 			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
-			next1Valid = count == 2L;
+			
+			Integer[] taskFlagS = {SopConstant.TASK_FLAG_ZJBF, SopConstant.TASK_FLAG_GSBG};
+			SopTask taskQuery = new SopTask();
+			taskQuery.setProjectId(project.getId());
+			taskQuery.setTaskStatus(taskStatus.已完成.getCode());
+			taskQuery.setTaskFlagS(Arrays.asList(taskFlagS));
+			Long taskCount = taskService.queryCount(taskQuery);
+			
+			next1Valid = count == 2L && taskCount == 2L;
 			
 		}
 		data.getUserData().put("next1Valid", next1Valid);

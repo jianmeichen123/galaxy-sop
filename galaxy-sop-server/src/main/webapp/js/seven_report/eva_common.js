@@ -186,6 +186,8 @@ function showResultAndScoreList(relateId)
                             		$(this).html(_s);  
                             		if(_s!="未打分"){
 	                            		$(this).css("color","#333");
+	                            	}else{	                            		
+                            			$(this).css("color","#b2b2b2");
 	                            	}
                             		return;
                             	}
@@ -616,7 +618,7 @@ function buildResult(title)
 				"resultId":_this.id,
 				"data-result-id":_this.id
 			});
-			res.find(".score-div input").val(_this.weight?_this.weight:""); 
+			res.find(".score-div input").val(_this.hasOwnProperty('weight')?_this.weight : ""); 
 			res.find(".heightL select").val(_this.score||_this.score==0?_this.score:"请选择");
 			_tableInner.append(res);
 		})
