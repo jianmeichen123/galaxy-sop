@@ -186,6 +186,8 @@ function showResultAndScoreList(relateId)
                             		$(this).html(_s);  
                             		if(_s!="未打分"){
 	                            		$(this).css("color","#333");
+	                            	}else{	                            		
+                            			$(this).css("color","#b2b2b2");
 	                            	}
                             		return;
                             	}
