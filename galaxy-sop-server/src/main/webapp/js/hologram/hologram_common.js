@@ -2468,6 +2468,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 						var idVal=ele.attr('id');
 						var dataType=ele.attr('data-type');
 						var val_text =row.data(name);
+						var len='';
 						if(type=="radio"){
 							if(ele.val()==row.data(name)){
 								ele.attr("checked","chedcked");
@@ -2488,6 +2489,19 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 								val_text = _parsefloat(val_text);
 							}
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+							if(code=="competitor_obvious" || code=="competitor_potential"){
+								if(name=="field1"){
+									if(val_text){
+										len=val_text.replace(/ /g,'').length;
+									}
+									if(len==0){
+										ele.val("");
+									}else{
+										ele.html((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+									}
+									
+								}
+							}
 						}else{
 							if(dataType=="8"){
 								if(val_text){
@@ -2495,8 +2509,11 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 									val_text=val_text.replace(/<br>/g,'\n');
 									val_text=val_text.replace(/&nbsp;/g," ");
 								}
+								if(row.data(name)){
+									len=textarea_show(row.data(name));
+								}
 							}
-							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined" || len==0)?"":val_text);
 						}
 					});
 					//文本域剩余字符数
@@ -2574,9 +2591,9 @@ function showRowCompete(ele,id_code,row,code,flag){  //ele指代this,id_code是�
 							var map=dictCache(titleId,subCode,filed);
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
 						}else if(type==8){
-							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || textarea_show(row.data(name))==0)?"未填写":val_text);
 						}else if(type==1){
-							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || textarea_show(row.data(name))==0)?"未填写":val_text);
 						}
 					});
 					/*var name=$('dd[name="field1"]').text();  //竞争对手名称

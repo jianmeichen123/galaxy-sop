@@ -50,8 +50,8 @@ function reason(value,row,index){
     var id=row.id;
 	var str=row.reason;
 	if(str){
-		if(str.length>20){
-			subStr = str.substring(0,20);
+		if(str.length>12){
+			subStr = str.substring(0,12);
 			var options = '<span title="'+str+'">'+subStr+'</span>';
 			return options;
 		}

@@ -198,6 +198,9 @@ $(function(){
 		   			 dropupAuto:false
 	               });
 		    })
+		    $(".selectcheck ul.selectpicker li").click(function(){
+		    	$("#selectRadio-error").remove();
+		    })
 			$("#dropdown ul li").click(function(){
 				var target = $(this).closest('#dropdown').find('input');
 				target.removeClass('up')

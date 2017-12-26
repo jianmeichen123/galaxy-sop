@@ -382,18 +382,14 @@
 	<select id="selectResultsAndGradeForType22" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
 		grade.grade1, grade.grade_percentage,listdata.*
-		FROM
-		information_result result, information_result_grade grade, information_listdata listdata
+		FROM information_result result
+		LEFT JOIN information_listdata listdata  ON result.content_choose = listdata.id
+		LEFT JOIN information_result_grade grade ON result.id = grade.result_id
 		WHERE
-		result.id = grade.result_id
-		AND result.content_choose = listdata.id
-
-		<if test="resultIds != null">
-			and result.id IN
+			result.id IN
 			<foreach collection="resultIds" item="item" open="(" separator="," close=")">
 				#{item}
 			</foreach>
-		</if>
 	</select>
 
 

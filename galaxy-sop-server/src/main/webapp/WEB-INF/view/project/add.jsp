@@ -632,7 +632,7 @@ function CallBackE(data){
 		var createDate=$("#createDate").val().trim();
 		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
 		var formatData={
-					   "projectType":projectType,
+	  				   "projectType":projectType,
 				       "projectName":projectName,
 				       "createDate":createDate,
 				       "industryOwn":industryOwn
