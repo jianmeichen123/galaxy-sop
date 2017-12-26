@@ -13827,7 +13827,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>—</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -14129,7 +14129,7 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>-</w:t>
+                            <w:t>—</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
