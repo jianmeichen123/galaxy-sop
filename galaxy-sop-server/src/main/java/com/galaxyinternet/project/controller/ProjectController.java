@@ -2153,26 +2153,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			} else if (type.intValue() == 2) {
 				query.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 			}
-			byte isEdit = 0;
 			User user = (User) getUserFromSession(request);
+			List<Long> roleIdList = user.getRoleIds();
 
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
-
-			if (roleIdList.contains(UserConstant.DMS)) {
-
-				if (type.intValue() == 0 || type.intValue() == 1) {
-					isEdit = 1;
-				} else {
-					isEdit = 2;
-				}
-			} else if (roleIdList.contains(UserConstant.CEOMS)) {
-				if (type.intValue() == 2) {
-					isEdit = 1;
-				} else {
-					isEdit = 2;
-				}
-			} else {
+			if (!roleIdList.contains(UserConstant.DMS) && !roleIdList.contains(UserConstant.CEOMS))
+			{
 				responseBody.setResult(new Result(Status.ERROR, null, "不可见!"));
 				return responseBody;
 			}
@@ -2205,7 +2190,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			/**
 			 * 查询出相关的所有项目
 			 */
-			List<Project> projectCommonList = new ArrayList<Project>();
 			List<MeetingScheduling> schedulingList = new ArrayList<MeetingScheduling>();
 			Page<MeetingScheduling> pageList = null;
 			ProjectBo mpb = new ProjectBo();
@@ -2213,15 +2197,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				mpb.setKeyword(query.getKeyword());
 			}
 			mpb.setDeptIdList(depids);
-			projectCommonList = projectService.queryList(mpb);
 			/**
 			 * 根据相关项目查找排期池数据
 			 */
-			List<Long> pids = new ArrayList<Long>();
-			if (projectCommonList != null && projectCommonList.size() > 0) {
-				for (Project pr : projectCommonList) {
-					pids.add(pr.getId());
-				}
+			List<Long> pids = projectService.selectIds(mpb);
+			if (pids != null && pids.size() > 0) {
 				query.setProjectIdList(pids);
 				pageList = meetingSchedulingService
 						.getMeetingList(
@@ -3577,7 +3557,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/deptProjectList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> deptProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
 	
 		/*if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
 			//project.getProjectDepartid()=null;
