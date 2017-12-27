@@ -11147,39 +11147,34 @@
 
                     </w:p>
         </#if>
-                    <w:p w14:paraId="7BE0A3E6" w14:textId="067AB0ED" w:rsidR="00A30856" w:rsidRPr="00110408" w:rsidRDefault="00A30856" w:rsidP="007C1EAC">
-                        <w:pPr>
-                            <w:widowControl/>
-                            <w:autoSpaceDE w:val="0"/>
-                            <w:autoSpaceDN w:val="0"/>
-                            <w:adjustRightInd w:val="0"/>
-                            <w:ind w:leftChars="100" w:left="210"/>
-                            <w:jc w:val="left"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="微软雅黑"/>
-                                <w:color w:val="878787"/>
-                                <w:kern w:val="0"/>
-                                <w:szCs w:val="21"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="008A7ADE">
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:kern w:val="0"/>
-                                <w:sz w:val="18"/>
-                                <w:szCs w:val="18"/>
-                            </w:rPr>
-                            <w:t>通过收入数据的重要发现：</w:t>
-                        </w:r>
-                        <w:r w:rsidR="00ED24C1">
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-                                <w:szCs w:val="21"/>
-                            </w:rPr>
-                            <w:t>${ENO3_4_1_3!"—"}</w:t>
-                        </w:r>
-                    </w:p>
+
+<w:p w14:paraId="3F03C268" w14:textId="1670A63D" w:rsidR="00A30856" w:rsidRDefault="00A30856" w:rsidP="00A30856">
+<w:pPr>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+        <w:szCs w:val="21"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="008A7ADE">
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑" w:hint="eastAsia"/>
+        <w:color w:val="000000" w:themeColor="text1"/>
+        <w:kern w:val="0"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>通过收入数据的重要发现：</w:t>
+</w:r>
+<w:r w:rsidR="00ED24C1">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:szCs w:val="21"/>
+    </w:rPr>
+    <w:t>${ENO3_4_1_3!"—"}</w:t>
+</w:r>
+</w:p>
+
                     <w:p w14:paraId="3F03C268" w14:textId="1670A63D" w:rsidR="00A30856" w:rsidRDefault="00A30856" w:rsidP="00A30856">
                         <w:pPr>
                             <w:jc w:val="left"/>

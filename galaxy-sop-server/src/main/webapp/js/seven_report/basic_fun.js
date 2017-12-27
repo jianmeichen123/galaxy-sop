@@ -848,20 +848,17 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 								if(name=="field3"||name=="field4"||name=="field5")
 								val_text = _parsefloat(val_text);
 							}
-							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 							if(code=="competitor_obvious" || code=="competitor_potential"){
 								if(name=="field1"){
 									if(val_text){
-										len=val_text.replace(/ /g,'').length;
+										val_text=val_text.replace(/<br\/>/g,' ');
+										val_text=val_text.replace(/<br>/g,' ');
+										val_text=val_text.replace(/&nbsp;/g," ");
 									}
-									if(len==0){
-										ele.val("");
-									}else{
-										ele.html((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
-									}
-									
 								}
 							}
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+							
 						}else{
 							if(dataType=="8"){
 								if(val_text){
