@@ -33,6 +33,18 @@ public class TestController{
 		return "seven_report/hologram/test/laoban_test";
 	}
 
+	
+	 // /galaxy/test/jtym1
+	@RequestMapping(value = "/jtym1")
+	public String platformTest(HttpServletRequest request) {
+		return "project/infoenter/infoList";
+	}
+	@RequestMapping(value = "/jtym2")
+	public String platformTest2(HttpServletRequest request) {
+		return "project/infoenter/info";
+	}
+	
+	
 /*
 
 	@Value("${sop.oss.tempfile.path}")
