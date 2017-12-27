@@ -1,0 +1,143 @@
+.infoTop{
+	position: relative;
+	margin: 0 16px;
+
+}
+.infoTop .rightLink{
+    float: right;
+    top: -42px;
+    position: relative;
+	font-family: Microsoft YaHei;
+	font-size: 12px;
+	color: #3CA6FF;
+}
+.infoTop h5{
+font-size: 18px;
+color: #000;
+font-weight: normal;
+text-align: center;
+margin: 30px auto 20px;
+line-height: 1px;
+}
+.infoTop p{
+font-size: 14px;
+color: #666666;
+text-align: center;
+margin-bottom: 10px;
+}
+.infoTop i{ 
+color: #FF5124;
+font-style: normal;
+}
+.scheduleIcon{
+	margin:30px auto 60px;
+	width: 330px;
+}
+.scheduleIcon li{
+	float: left;
+	width: 110px;
+	height: 1px;
+	background:#999 ;
+	margin: 0;
+	padding: 0;
+}
+.scheduleIcon li:before{
+	content: attr(data-content);
+	display: block;
+	width: 17px;
+	line-height: 17px;
+	border-radius: 50%;
+	background:#999 ;
+	text-align: center;
+	color: #fff;
+	position: relative;
+	left: 47px;
+	top: -8px; 
+}
+.scheduleIcon li.active,.scheduleIcon li.active:before{
+background: #3CA6FF;
+} 
+.scheduleIcon li p{
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	color: #666;
+	margin: 0;
+}
+
+.scheduleIcon li.active p{
+color: #3CA6FF;
+} 
+.infoList{
+	background: #fff;
+	margin: 0 16px;
+}
+.width{
+	width: 100%;
+	border-bottom: 1px solid #E4E4E4;
+}
+.listThree .threeLi{
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left; 
+	padding-bottom: 20px;
+}   
+.listThree .threeLi:nth-child(1){
+	width: 45%;
+}
+.listThree .threeLi:nth-child(2){
+	width: 45%;
+}
+.listThree .threeLi:nth-child(3){
+	width: 9%;
+}
+.listTitle{
+	padding: 0 15px;
+}
+.listTitle li{
+	font-size: 14px;
+	color: #33363E;
+	box-sizing: border-box;
+	padding: 30px 0px 20px;
+}
+.listCon li{ 	
+	padding: 20px 15px;
+	border-bottom: 1px solid #E4E4E4;
+}
+.listCon .threeLi{
+	padding-bottom: 0;
+}
+.conInfo{    
+	display: inline-block;
+    vertical-align: middle;
+	color: #000;
+	font-size: 16px;
+}
+.textBotm{
+	color: #999;
+	font-size: 12px;
+	padding-top: 10px;
+}
+.textBotm span{
+	display: inline-block;
+}
+.blueBtn{
+	width: 72px;
+	text-align: center;
+	line-height: 32px;
+	background: #3CA6FF;
+	border-radius: 2px;
+	color: #fff;
+	font-size: 14px;
+	border: 0;
+	outline: none;
+cursor: pointer;
+}
+.listCon .comImg{
+	width: 60px;
+	height:60px ;    
+	display: inline-block;
+    vertical-align: middle;
+	margin-right: 16px;
+}
