@@ -3954,6 +3954,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-item{height:auto;}
 .task-item li{margin-top:20px;color:#5a626d;font-size:14px;font-family:Microsoft YaHei;} 
 .task-detail-table,.opretion-log{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task-detail-table td,.opretion-log td{white-space:nowrap;overflow:hidden;text-overflow:clip;}
 .task-detail-table .on td{background:none !important;}
 .task-item-left{margin-left:20px;}
 .task-item-right{margin-right:20px;}
