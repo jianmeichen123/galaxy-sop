@@ -140,15 +140,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 		request.getSession().removeAttribute("businessPlan");
 		return "project/add";
 	}
-	/**
-	 * 跳转到数据接入页面
-	 * @return
-	 */
-	@RequestMapping(value = "/infoEnter", method = RequestMethod.GET)
-	public String addProject(HttpServletRequest request) {
-		request.getSession().removeAttribute("businessPlan");
-		return "project/infoenter/info";
-	}
+	
 	/**
 	 * 跳转到修改项目页面
 	 * @return
