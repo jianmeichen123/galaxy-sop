@@ -613,7 +613,7 @@ function buildResult(title)
 		$.each(results,function(){
 			var _this =this;
 			var res = resString.clone(true);
-			res.find(".title-value").text(_this.valueName).attr({
+			res.find(".title-value").html(_this.valueName).attr({
 				"contentc":_this.contentChoose,
 				"resultId":_this.id,
 				"data-result-id":_this.id
