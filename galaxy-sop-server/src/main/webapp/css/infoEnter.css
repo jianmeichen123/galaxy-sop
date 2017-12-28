@@ -191,3 +191,18 @@ font-weight: bold;
 .tabrow{
 	width: 80%;
 } 
+.emptyInfo{
+	height: 260px;
+	position: relative;
+}
+.empty{
+	display: none;
+	width: 150px;
+    height: 25px;
+    background: url(../img/base_info/base_icon.png) -180px -70px no-repeat;
+    color: #b2b2b2;
+    margin: 0 auto;    
+    text-align: center;
+    padding-top: 95px;
+    top: 72px; 
+}

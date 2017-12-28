@@ -174,6 +174,12 @@
 				 		</table>
 				 	</li>
 				 </ul>
+				 <a href="javascript:;" class="add_pro" >保存</a>
+			</div>
+			<div class="tableBox emptyInfo">
+				<div class="empty">
+					 暂无推荐信息
+				</div>
 			</div>
 		</div> 
 	</div>
