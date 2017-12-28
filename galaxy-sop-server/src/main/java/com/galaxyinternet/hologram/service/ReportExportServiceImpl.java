@@ -933,6 +933,8 @@ public class ReportExportServiceImpl implements ReportExportService {
                         am.setWide(src.getWidth()*9525>width?width:src.getWidth()*9525);
 
                         fis.close();
+
+                        resultTemp.add(am);
                     } catch (Exception e) {
                         logger.error("file error ",e);
                         //throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
@@ -952,8 +954,6 @@ public class ReportExportServiceImpl implements ReportExportService {
                             e.printStackTrace();
                         }
                     }
-
-                    resultTemp.add(am);
                 }
                 map.put(temp.getCode(),resultTemp);
             }
