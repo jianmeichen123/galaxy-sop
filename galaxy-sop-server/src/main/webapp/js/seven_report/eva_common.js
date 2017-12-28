@@ -60,7 +60,7 @@ function tabShow(code,relateId){
 					$(".content_16 p").html(content_16); 
 				}
 				//显示结果和分数向
-				showResultAndScoreList(relateId);
+				//showResultAndScoreList(relateId);
 				 //修改分数时自动计算
 				$(".score-column select,input").click(function(){
 					$(".pagebox").attr("data-result",true);
@@ -227,6 +227,9 @@ function showResultAndScoreList(relateId)
 function popScore(titles,relateId)
 {
 	$.each(titles,function(rid,score){
+		if(score==NaN){
+			return;
+		}
 		if(rid == 0)
 		{
 			score=score.toFixed(2)*100/100;
