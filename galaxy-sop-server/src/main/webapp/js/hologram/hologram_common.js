@@ -2175,7 +2175,7 @@ function saveRow(data)
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
-			if(key.indexOf('field')>-1 && key!="field1"){
+			if(key.indexOf('field')>-1 ){
 				data[key]=data[key].replace(/\n|\r\n/g,"<br/>");
 				data[key]=data[key].replace(/\s/g,"&nbsp;");
 			}
@@ -2195,7 +2195,7 @@ function saveRow(data)
 		for(var key in data)
 		{
 			if(titleId=="1582" || titleId=="1583"){   //竞争对手特殊处理
-				if(key.indexOf('field')>-1 && key!="field1"){     
+				if(key.indexOf('field')>-1 ){     
 					data[key]=data[key].replace(/\n|\r\n/g,"<br/>");
 					data[key]=data[key].replace(/\s/g,"&nbsp;");
 				}
@@ -2219,7 +2219,6 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-
 				tr.find('td[data-field-name="'+key+'"]').text(val_text);
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
@@ -2509,7 +2508,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 									len=textarea_show(row.data(name));
 								}
 							}
-							ele.val((row.data(name)==undefined || row.data(name)=="undefined" || len==0)?"":val_text);
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 						}
 					});
 					//文本域剩余字符数
