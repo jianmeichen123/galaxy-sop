@@ -870,7 +870,7 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 									len=textarea_show(row.data(name));
 								}
 							}
-							ele.val((row.data(name)==undefined || row.data(name)=="undefined" || len==0)?"":val_text);
+							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 						}
 					});
 					//文本域剩余字符数
