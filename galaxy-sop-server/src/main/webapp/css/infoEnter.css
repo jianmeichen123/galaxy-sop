@@ -71,8 +71,7 @@ color: #3CA6FF;
 } 
 .tableBox{
 	background: #fff;
-	margin: 0 16px;
-
+	margin: 0 16px; 
 }
 .infoList{
 	width: 100%;
@@ -116,7 +115,7 @@ color: #3CA6FF;
 	line-height: 1;
 	border-bottom: none;
 } 
-.listCon .on td{
+.listCon .on td,.infoItem .on td{
 	background: none!important;
 }
 .listCon .threeLi{
@@ -159,3 +158,36 @@ color: #3CA6FF;
 .tabdiv{
 	margin-left: 16px;
 }
+.infoBox{
+	padding:20px 16px ;
+}
+.infoItem{
+	margin-bottom:30px;
+
+}
+.infoItem .titles{
+font-size: 12px;
+color: #333333;
+font-weight: bold;
+}
+.infoItem table{
+	border: 1px solid #D8D8D8; 
+	border-collapse:collapse;
+	margin-top:10px;
+}
+.infoItem table thead td{
+color: #5A626D;
+font-weight: bold;
+}
+.infoItem table td{	
+	font-family: Microsoft YaHei;
+	text-align: center;
+	line-height: 32px;
+	border-left: 1px solid #d8d8d8;	
+    border-bottom: 1px solid #d8d8d8;
+}
+.infoItem table td:nth-child(1){border-left:0; width:32px;}
+.infoItem table td:nth-child(2){ width:20%;}
+.tabrow{
+	width: 80%;
+} 
