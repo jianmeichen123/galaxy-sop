@@ -2193,7 +2193,7 @@ function saveRow(data)
 	{
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
 		for(var key in data)
-		{
+		{ 
 			if(titleId=="1582" || titleId=="1583"){   //竞争对手特殊处理
 				if(key.indexOf('field')>-1 ){     
 					data[key]=data[key].replace(/\n|\r\n/g,"<br/>");
@@ -2219,7 +2219,7 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-
+				
 				tr.find('td[data-field-name="'+key+'"]').text(val_text);
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况

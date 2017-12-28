@@ -43,6 +43,11 @@ public class TestController{
 	public String platformTest2(HttpServletRequest request) {
 		return "project/infoenter/info";
 	}
+
+	@RequestMapping(value = "/jtym3")
+	public String platformTest3(HttpServletRequest request) {
+		return "project/assign";
+	}
 	
 	
 /*
