@@ -173,7 +173,7 @@
 					<td>\${scoreExplain}</td>
 					{{if isScore==0}}
 					<!-- 系统打分 -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">01</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
 						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
