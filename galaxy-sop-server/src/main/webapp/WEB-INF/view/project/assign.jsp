@@ -86,6 +86,30 @@
 		      </span>
 		    </div>
 		</div> 
+		<div class="tab-pane active ctlist" id="view">	
+			<table id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
+				<thead>
+				    <tr>
+				    	<th data-field="projectName"  class="data-input" data-width="16%">
+				    	<input type="checkbox" name="">
+				    	</th>
+			        	<th data-field="projectName"  class="data-input" data-width="16%">项目名称</th>
+			        	<th data-field="project_type" class="data-input sort" data-width="8%">项目类型<span></span></th>
+			        	<th data-field="finance_status" class="data-input sort"  data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" class="data-input sort"  data-width="8%">项目进度<span></span></th>
+			        	<th data-field="project_status" class="data-input sort"  data-width="8%">项目状态<span></span></th>
+			        	<th data-field="faFlag"   data-width="8%">项目来源<span></span></th>
+			        	<th data-field="projectCareerline"  class="data-input" data-width="12%">事业部</th>
+			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="created_time"  class="data-input sort"  data-width="8%">创建日期<span></span></th>
+			        	<th data-field="updated_time" class="data-input sort"  data-width="5%">最后编辑时间<span></span></th>
+         				<c:if test="${fx:hasRole(4)}">
+			        	<th  class="col-md-2" data-class="noborder" data-width="6%">操作</th>
+ 						</c:if>
+ 					</tr>	
+ 				</thead>
+			</table>
+       </div>
 	</div>
 </div>
 </body> 
