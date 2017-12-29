@@ -34,7 +34,8 @@
 	                 <dt>会议纪要 ：</dt>
 	                 <dd class="meet_left">
 	                 	<div id="div_meetingNotes">
-	                 		<textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5" valType="required" msg="<font color=red>*</font>会议纪要不能为空"></textarea>
+	                 		<textarea id="meetingNotes" name="meetingNotes"></textarea> 
+	                 		<%-- <textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5" valType="required" msg="<font color=red>*</font>会议纪要不能为空"></textarea> --%>
 	                 	</div>
 	                 </dd>
 	            </dl>  
@@ -81,6 +82,10 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/config.js"></script>
+<script type="text/javascript" src="<%=path %>/ckeditor/lang/zh-cn.js"></script>
 <%-- <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script> --%>
 <!-- 校验 -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
@@ -93,6 +98,8 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <script type="text/javascript">
+//ckeditor实例化
+var meetingNotes=CKEDITOR.replace('meetingNotes',{height:'100px',width:'538px'});
 	//初始化时间
 	$('.datetimepickerHour').datetimepicker({
 	       inline: true,

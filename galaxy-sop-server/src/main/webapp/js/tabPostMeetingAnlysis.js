@@ -493,6 +493,8 @@ function paramsContion(){
 //			    'addClass': 'loading-indicator'						
 //			 });
 	var condition = JSON.parse($("#win_post_meeting_form").serializeObject());
+	
+	condition.meetingNotes=$.trim(CKEDITOR.instances.meetingNotes.getData());    //获取富文本的值
 	condition.fileReidsKey = Date.parse(new Date());
 	condition.projectId = pInfo.id;
 	condition.fileNum = $("#show_up_file").find("tr").length - 1;
