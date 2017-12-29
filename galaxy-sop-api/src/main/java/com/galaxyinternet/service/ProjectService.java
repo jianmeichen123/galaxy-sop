@@ -77,4 +77,5 @@ public interface ProjectService extends BaseService<Project> {
 	void reject(Long id);
 	void updateProgress(Long id, String next);
 	public int updateBaseById(Project query);
+	public List<Long> selectIds(Project project);
 }

@@ -661,6 +661,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		InformationResult resultQuery = new InformationResult();
 		resultQuery.setProjectId(projectId);
 		resultQuery.setTitleIds(titleIds);
+		resultQuery.setIsValid("0");
 		resultQuery.setProperty("title_id");
 		resultQuery.setDirection(Direction.ASC.toString());
 		Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
@@ -1253,6 +1254,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		InformationResult resultQuery = new InformationResult();
 		resultQuery.setTitleIds(titleInfo.getIds());
 		resultQuery.setProjectId(projectId+"");
+		resultQuery.setIsValid("0");
 		List<InformationResult> resultList = resultDao.selectList(resultQuery);
 		Map<Long,InformationListdata> listData = getListMap(projectId);
 		

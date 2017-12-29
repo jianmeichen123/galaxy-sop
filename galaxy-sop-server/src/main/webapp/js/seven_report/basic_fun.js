@@ -848,13 +848,26 @@ function editRowCompete(ele,id_code,id_code_new,row,code){   //ele指代this,id_
 								if(name=="field3"||name=="field4"||name=="field5")
 								val_text = _parsefloat(val_text);
 							}
+							if(code=="competitor_obvious" || code=="competitor_potential"){
+								if(name=="field1"){
+									if(val_text){
+										val_text=val_text.replace(/<br\/>/g,' ');
+										val_text=val_text.replace(/<br>/g,' ');
+										val_text=val_text.replace(/&nbsp;/g," ");
+									}
+								}
+							}
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+							
 						}else{
 							if(dataType=="8"){
 								if(val_text){
 									val_text=val_text.replace(/<br\/>/g,'\n');
 									val_text=val_text.replace(/<br>/g,'\n');
 									val_text=val_text.replace(/&nbsp;/g," ");
+								}
+								if(row.data(name)){
+									len=textarea_show(row.data(name));
 								}
 							}
 							ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
@@ -935,9 +948,9 @@ function showRowCompete(ele,id_code,id_code_new,row,code,flag){  //ele指代this
 							var map=dictCache(titleId,subCode,filed);
 							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="")?"未选择":map[val_text]);
 						}else if(type==8){
-							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || textarea_show(row.data(name))==0)?"未填写":val_text);
 						}else if(type==1){
-							obj.text((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0)?"未填写":val_text);
+							obj.html((row.data(name)==undefined || row.data(name)=="undefined" || row.data(name)=="" || row.data(name).replace(/ /g,'').length==0 || textarea_show(row.data(name))==0)?"未填写":val_text);
 						}
 					});
 					/*var name=$('dd[name="field1"]').text();  //竞争对手名称
@@ -1192,7 +1205,7 @@ function saveRow(data)
 		for(var key in data)
 		{
 			if(titleId=="1582" || titleId=="1583"){   //竞争对手特殊处理
-				if(key.indexOf('field')>-1 ){     
+				if(key.indexOf('field')>-1 && key!="field1"){     
 					data[key]=data[key].replace(/\n|\r\n/g,"<br>");
 					data[key]=data[key].replace(/\s/g,"&nbsp;");
 				}

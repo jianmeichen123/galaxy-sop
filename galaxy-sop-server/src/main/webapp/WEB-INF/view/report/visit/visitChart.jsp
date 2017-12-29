@@ -97,7 +97,7 @@
                         <input type="text" class=" change_month_visit txt time" id="month_start_data" name="" readonly style="height:23px;">                    </dd>
                     <dd class="visitdata_week">
                         <input type="text" class="visitweekStartDatepicker txt time" name="" readonly style="height:23px;">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;至&nbsp;
                         <input type="text" class="visitweekEndDatepicker txt time" name="" readonly style="height:23px;">
                     </dd>
                 </dl>

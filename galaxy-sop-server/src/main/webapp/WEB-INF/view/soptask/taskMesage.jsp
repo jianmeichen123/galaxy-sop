@@ -230,11 +230,8 @@
 	/**********************提交完成 START ************************/
 	$("#complete-task-btn").click(function(){
 		//判断是否放弃该任务的提交
-		var btn=$(".task-no-need input");
-		var giveUp=false;
-		if(btn.prop( "checked" )==true){
-			giveUp=true;
-		}
+		var label=$(".task-no-need label");
+		var giveUp=label.hasClass('label-checked');
 		var url = platformUrl.submitTask;
 		var data = {
 				id:"${taskId}",
@@ -277,6 +274,7 @@
 			url:platformUrl.toFileHistory,
 			data:{},
 			okback:function(){
+				$(".close").addClass('closePopNew');
 				var title = '${task.taskName}'.replace('上传','')+'-历史列表'
 				$("#file-history-dialog .title_bj").text(title);
 				var url = '<%=path%>/galaxy/sopFile/'+fileId+'/history';

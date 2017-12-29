@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -128,7 +129,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 					if(project != null && project.getCreateUid() != null)
 					{
 						UrlNumber number = UrlNumber.one;
-						if(po.getFileKey() != null)
+						if(!StringUtils.isEmpty(po.getFileKey()))
 						{
 							number = UrlNumber.two;
 						}

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.utils.WebUtils;
-import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.JointDeliveryDao;
@@ -40,7 +37,6 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.JointDelivery;
@@ -782,6 +778,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		}
 		int result = projectDao.updateById(project);
 	  return result;
+	}
+
+	@Override
+	public List<Long> selectIds(Project project)
+	{
+		return projectDao.selectIds(project);
 	}
 	
 

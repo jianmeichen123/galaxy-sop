@@ -7,7 +7,7 @@
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
  	<div class="taskDetail-ritmin">
- 		 <div class='taskDetail-mesage'>
+ 		 <div class='taskDetail-mesage pagination_common'>
  		 
 	        	<!--操作日志table  -->
 	        	<table class='opretion-log no-radius table_new_style' width='100%' cellspacing='0' cellpadding='0' border='0' data-url="<%=request.getContextPath() %>/galaxy/soptask/${taskId}/logs">
@@ -17,7 +17,7 @@
 	        				<th data-field="uname">操作者</th>
 	        				<th data-field="operationType">动作</th>
 	        				<th data-field="operationContent">对象</th>
-	        				<th data-field="projectName">项目</th>
+	        				<th data-field="projectName" data-formatter="projectName">项目</th>
 	        				<th data-field="reason" data-formatter='reason'>原因</th>
 	        				<th data-field="sopstage">业务</th>
 	        			</tr>
@@ -50,8 +50,8 @@ function reason(value,row,index){
     var id=row.id;
 	var str=row.reason;
 	if(str){
-		if(str.length>20){
-			subStr = str.substring(0,20);
+		if(str.length>12){
+			subStr = str.substring(0,12);
 			var options = '<span title="'+str+'">'+subStr+'</span>';
 			return options;
 		}
@@ -59,6 +59,17 @@ function reason(value,row,index){
 			var options = '<span title="'+str+'">'+str+'</span>';
 			return options;
 		}
+	}else{
+		return '-';
+	}
+	
+}
+function projectName(value,row,index){
+    var id=row.id;
+	var str=row.projectName;
+	if(str){
+		var options = '<span title="'+str+'">'+str+'</span>';
+		return options;
 	}else{
 		return '-';
 	}

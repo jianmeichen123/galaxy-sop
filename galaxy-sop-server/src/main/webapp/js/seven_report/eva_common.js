@@ -181,8 +181,15 @@ function showResultAndScoreList(relateId)
                             var _select =$(this).find("select").val();  
                             if(_input==undefined&&_select==undefined){return;}
                             if($(this).hasClass("heightL")){ 
-                            	if($(this).find(".score-div").is(":hidden")){
-                            		_input=100;
+                            	if($(this).find(".score-div").is(":hidden")){ 
+                            		var _s=_select=="请选择"?"未打分":_select; 
+                            		$(this).html(_s);  
+                            		if(_s!="未打分"){
+	                            		$(this).css("color","#333");
+	                            	}else{	                            		
+                            			$(this).css("color","#b2b2b2");
+	                            	}
+                            		return;
                             	}
                             	var _i=_input==""?"-":_input;
                             	var _s=_select=="请选择"?"未打分":_select; 
@@ -220,6 +227,9 @@ function showResultAndScoreList(relateId)
 function popScore(titles,relateId)
 {
 	$.each(titles,function(rid,score){
+		if(score==NaN){
+			return;
+		}
 		if(rid == 0)
 		{
 			score=score.toFixed(2)*100/100;
@@ -611,7 +621,7 @@ function buildResult(title)
 				"resultId":_this.id,
 				"data-result-id":_this.id
 			});
-			res.find(".score-div input").val(_this.weight?_this.weight:""); 
+			res.find(".score-div input").val(_this.hasOwnProperty('weight')?_this.weight : ""); 
 			res.find(".heightL select").val(_this.score||_this.score==0?_this.score:"请选择");
 			_tableInner.append(res);
 		})
