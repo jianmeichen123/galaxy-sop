@@ -99,7 +99,7 @@
 
 <script type="text/javascript">
 //ckeditor实例化
-var meetingNotes=CKEDITOR.replace('meetingNotes',{height:'100px',width:'538px'});
+var meetingNotes=CKEDITOR.replace('meetingNotes',{height:'100px',width:'438px'});
 	//初始化时间
 	$('.datetimepickerHour').datetimepicker({
 	       inline: true,
