@@ -139,6 +139,12 @@ public class Project extends PagableEntity {
    private Long updateUid;
    
    private String resultId;
+   /**
+    * 该字段为项目删除标识
+    */
+   private int isdelete;
+   
+   private String deleteReason;
 	
     public Long getId() {
         return id;
@@ -826,6 +832,22 @@ public class Project extends PagableEntity {
 
 	public void setResultId(String resultId) {
 		this.resultId = resultId;
+	}
+
+	public int getIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(int isdelete) {
+		this.isdelete = isdelete;
+	}
+
+	public String getDeleteReason() {
+		return deleteReason;
+	}
+
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
 	}
 
      

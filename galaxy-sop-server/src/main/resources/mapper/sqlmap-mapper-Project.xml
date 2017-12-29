@@ -49,18 +49,21 @@
     <result column="remark" property="remark" jdbcType="LONGVARCHAR"/>
     <result column="health_state" property="healthState" jdbcType="VARCHAR"/>
     <result column="ctime" property="ctime" jdbcType="VARCHAR"/>
-     <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
-     <result column="project_time" property="projectTime" jdbcType="BIGINT"/>
+    <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
+    <result column="project_time" property="projectTime" jdbcType="BIGINT"/>
     <result column="progress_history" property="progressHistory" jdbcType="VARCHAR"/>
     <result column="business_type_code" property="businessTypeCode" jdbcType="VARCHAR"/>
-     <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
+    <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
+    <result column="is_delete" property="isdelete" jdbcType="BIGINT"/>
+    <result column="delete_reason" property="deleteReason" jdbcType="VARCHAR"/>
+     
     </resultMap>
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations,industry_own, final_valuations, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,
+    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason
     (SELECT r.content_describe1
 	FROM information_result r 
 	WHERE r.project_id = sop_project.id AND r.title_id = 1814 AND r.is_valid = 0) AS  project_company,
@@ -433,8 +436,10 @@
 		      <if test="remark != null" >  remark = #{remark,jdbcType=VARCHAR}, </if>
 		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
 		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
-		       <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT} </if>
-		        <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>
+		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT} ,</if>
+		      <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR}, </if>
+		      <if test="isdelete != null" > is_delete = #{isdelete,jdbcType=BIGINT}, </if>
+		      <if test="deleteReason != null" > delete_reason = #{deleteReason,jdbcType=VARCHAR} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -476,6 +481,8 @@
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
 		      <if test="remark != null" > and remark = #{remark,jdbcType=LONGVARCHAR} </if>	
 		      <if test="financeMode != null" > and finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
+		      <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=LONGVARCHAR} </if>	
+		      <if test="deleteReason != null" > and delete_reason = #{deleteReason,jdbcType=VARCHAR} </if>	
 		
 			</trim>
 		</where>
@@ -529,7 +536,10 @@
 		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
 		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT}, </if>
-		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
+		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR}, </if>	
+		      <if test="isdelete != null" > is_delete = #{isdelete,jdbcType=BIGINT}, </if>
+		      <if test="deleteReason != null" > delete_reason = #{deleteReason,jdbcType=VARCHAR} </if>
+		
 		</set>
 		where id = #{id}
 	</update>
@@ -1252,7 +1262,7 @@
       c.`project_id` FROM  sop_grant_actual a LEFT JOIN sop_grant_part b 
       ON a.`part_grant_id` = b.`id`  LEFT JOIN `sop_grant_total` c 
      ON b.`total_grant_id` = c.`id` GROUP BY c.`project_id` 
-      ORDER BY a.created_time ASC) p ON s.id = p.project_id
+      ORDER BY a.created_time ASC) p ON s.id = p.project_id 
  
     </select>
 </mapper>
