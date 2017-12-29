@@ -194,9 +194,9 @@ font-weight: bold;
 .emptyInfo{
 	height: 260px;
 	position: relative;
+	display: none;
 }
 .empty{
-	display: none;
 	width: 150px;
     height: 25px;
     background: url(../img/base_info/base_icon.png) -180px -70px no-repeat;
@@ -205,4 +205,27 @@ font-weight: bold;
     text-align: center;
     padding-top: 95px;
     top: 72px; 
+}
+.pageTop{
+	position: relative;
+	background: #fff;
+	padding: 30px;
+}
+.pageTop .form-group{
+	float: left;
+	width:auto;
+}
+.bootstrap-select > .btn,.open>.dropdown-toggle.btn-info:hover {
+	width: 100px;
+	max-width: 120px;
+	background: none;
+	border: none;	
+    color: #333;
+}
+.bootstrap-select.btn-group .btn .filter-option{
+	position: relative;
+}
+.bootstrap-select.btn-group .btn .caret{
+	border-top: 0px;	
+    border-top: 5px dashed !important;
 }

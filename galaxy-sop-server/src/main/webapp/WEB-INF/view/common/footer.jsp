@@ -83,12 +83,17 @@ function createMenus(current){
 	   	 });
 	   	 //星眸链接
 	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
-	   	 $("#menus").html(html);
+	   	//意见反馈
+	   	html += '<li class="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>'
+	  $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
 	           $(this).children('ul').stop().slideToggle();
 	         });
 	});
+}
+function feedback(){   //跳转吐个槽
+	window.open("http://support.qq.com/products/21398");
 }
 </script>
 

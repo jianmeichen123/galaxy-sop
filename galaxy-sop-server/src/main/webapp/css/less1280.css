@@ -81,3 +81,19 @@
 .lft .toggle_li ul{position: absolute;left:60px;width:118px;top:0;}
 .pagebox .lft li.on{background-color: #353946;}
 .lft .toggle_li ul li{padding-top:0;min-height:40px;}
+/* 意见反馈 */
+.pagebox .lft li.feedback{width:60px;height:20px;cursor:pointer;}
+.pagebox .lft li.feedback img{margin:12px auto 0;position:absolute;bottom:100px;left:50%;margin-left:-10px;}
+.feedback span{display:none;position:absolute;bottom:132px;left:50%;margin-left:-30px;color:#fff;background:#93969c;width:60px;text-align:center;border-radius: 2px;font-size: 12px;height:24px;line-height:24px;}
+.feedback span .sj{
+	position:absolute;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+ border-top: 4px dashed #93969c;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  top:24px;
+  left:25px;
+  }
+.pagebox .lft li.feedback:hover span{display:block}
