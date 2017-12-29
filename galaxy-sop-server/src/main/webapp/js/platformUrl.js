@@ -1321,6 +1321,13 @@ var platformUrl = {
 	 * 文件历史
 	 */	
     toFileHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toFileHistory",
+    
+    /**移交任务**/
+    transferTask : Constants.sopEndpointURL + "/galaxy/soptask/transfer",
+    /**放弃任务**/
+    giveupTask: Constants.sopEndpointURL + "/galaxy/soptask/giveup",
+    /**移交任务**/
+    assignTask : Constants.sopEndpointURL + "/galaxy/soptask/assign"
 }
 
 /**

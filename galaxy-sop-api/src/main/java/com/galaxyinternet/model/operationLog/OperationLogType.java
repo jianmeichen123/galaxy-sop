@@ -248,7 +248,18 @@ public enum OperationLogType {
     * 人，法，财操作项目日志添加结束
     * 
     */
-	
+	/**
+	 * 移交任务
+	 */
+	TRANSFER_TASK("/galaxy/soptask/transfer", OperType.APPLY.getOperationType(), Target.DUE_TBD.getTargetName(),SopStage.TBD.getStageName()),
+	/**
+	 * 放弃任务
+	 */
+	GIVE_UP_TASK("/galaxy/soptask/giveup", OperType.GIVEUP.getOperationType(), Target.DUE_TBD.getTargetName(),SopStage.TBD.getStageName()),
+	/**
+	 * 指派任务
+	 */
+	ASSIGN_TASK("/galaxy/soptask/assign", OperType.ASSIGN.getOperationType(), Target.DUE_TBD.getTargetName(),SopStage.TBD.getStageName()),
 	
 	//更新投资意向书 1
 	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),

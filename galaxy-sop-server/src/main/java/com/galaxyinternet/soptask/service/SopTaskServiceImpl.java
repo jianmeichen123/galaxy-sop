@@ -578,4 +578,29 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return result;
 	}
+
+	@Override
+	public void giveup(Long[] ids, Long userId)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void assign(Long[] ids, Long targetUserId, Long userId)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
 }

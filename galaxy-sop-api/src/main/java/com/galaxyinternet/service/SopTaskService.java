@@ -84,5 +84,27 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 */
 	public List<SopTask> getSopTaskByProjectId(SopTaskBo query);
 	
+	/**
+	 * 放弃任务
+	 * @param ids
+	 * @param userId
+	 */
+	void giveup(Long[] ids, Long userId);
+	/**
+	 * 移交任务
+	 * @param ids
+	 * @param srcUserId
+	 * @param targetUserId
+	 * @param userId
+	 */
+	void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId);
+	/**
+	 * 指派任务
+	 * @param ids
+	 * @param targetUserId
+	 * @param userId
+	 */
+	void assign(Long[] ids, Long targetUserId, Long userId);
+	
 }
 

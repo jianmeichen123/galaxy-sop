@@ -8,7 +8,8 @@ public enum Target {
 	DUE_DILIGENCE_CW_FKPZ("打款凭证"),
 	DUE_DILIGENCE_FW_JD("法务尽调"),
 	DUE_DILIGENCE_YW("业务尽调"),
-	DUE_DILIGENCE_FW_GSBG("工商变更");
+	DUE_DILIGENCE_FW_GSBG("工商变更"),
+	DUE_TBD("待定");
 	
 	private Target(String targetName) {
 		this.targetName = targetName;

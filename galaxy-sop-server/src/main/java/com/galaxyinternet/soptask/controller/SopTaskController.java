@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -714,6 +715,87 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		Page<OperationLogs> page = logService.queryPageList(query, pageable);
 		data.setPageList(page);
 		return data;
+	}
+	@RequestMapping(value="/transfer", method = RequestMethod.GET)
+	public ModelAndView transfer()
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/transfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	public ResponseData<SopTaskBo> transfer(HttpServletRequest request, @RequestParam("ids[]") Long[] ids, @RequestParam Long targetUserId)
+	{
+		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try
+		{
+			sopTaskService.transfer(ids, user.getId(), targetUserId, user.getId());
+		} catch (Exception e)
+		{
+			date.getResult().setMessage("移交失败");
+			if(logger.isErrorEnabled())
+			{
+				logger.error("移交任务失败, ids:"+ids+", User:"+user.getId()+", TargerUserId:"+targetUserId, e);
+			}
+		}
+		return date;
+	}
+	@RequestMapping(value="/giveup", method = RequestMethod.GET)
+	public ModelAndView giveup()
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/giveup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	public ResponseData<SopTaskBo> giveup(HttpServletRequest request, @RequestParam("ids[]") Long[] ids)
+	{
+		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try
+		{
+			sopTaskService.giveup(ids, user.getId());
+		} catch (Exception e)
+		{
+			date.getResult().setMessage("放弃失败");
+			if(logger.isErrorEnabled())
+			{
+				logger.error(String.format("放弃任务失败, ids:%s, User:%s", ids, user.getId()), e);
+			}
+		}
+		return date;
+	}
+	@RequestMapping(value="/assign", method = RequestMethod.GET)
+	public ModelAndView assign()
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/assign", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	public ResponseData<SopTaskBo> assign(HttpServletRequest request, @RequestParam("ids[]") Long[] ids, @RequestParam Long targetUserId)
+	{
+		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try
+		{
+			sopTaskService.assign(ids, targetUserId, user.getId());
+		} catch (Exception e)
+		{
+			date.getResult().setMessage("指派失败");
+			if(logger.isErrorEnabled())
+			{
+				logger.error(String.format("指派任务失败, ids:%s, User:%s,TargetUserId", ids, user.getId(),targetUserId), e);
+			}
+		}
+		return date;
 	}
 	
 	

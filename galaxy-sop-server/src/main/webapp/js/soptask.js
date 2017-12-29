@@ -56,34 +56,33 @@ $(function(){
 	
 	/*指派任务弹窗点击事件*/
 	$('.task-toggle li').click(function(){
+		var rows = $("#task-table").bootstrapTable('getSelections');
+		console.log(rows);
+		if(rows.length==0)
+		{
+			layer.msg('请至少选择一条待办任务');
+			return;
+		}
 		var index = $(this).index();
 		var code = $(this).attr("data-code");
-		console.log(code)
-		if(index == 0){
-			$.getHtml({
-				url:getDetailUrl(code)
-			});
-			$('.close').addClass('tast-close')//添加关闭按钮
-		}else if(index == 1){
-			$.getHtml({
-				url:getDetailUrl(code)
-			});
-			$('.close').addClass('tast-close')
-		}
+		$.getHtml({
+			url:getDetailUrl(code)
+		});
+		$('.close').addClass('tast-close')//添加关闭按钮
 		$('.pop').addClass('task-pop');//去掉圆角
 	});
 	
 	//页面请求地址
-function getDetailUrl(code)
-{
-	if(code =='transfer-task')
-	{	
-		return '../html/task_todeal.html';
-	}else if(code === 'abandon-task'){
-		return '../html/task_toabandon.html';
+	function getDetailUrl(code)
+	{
+		if(code =='transfer-task')
+		{	
+			return '../html/task_todeal.html';
+		}else if(code === 'abandon-task'){
+			return '../html/task_toabandon.html';
+		}
+		return "";
 	}
-	return "";
-}
 	//根据cookie信息回显tab
 	var originAcitveTab = getCookieValue('task-active-tab');
 	if(originAcitveTab.length > 0)
@@ -115,6 +114,15 @@ var tableDefaultOpts = {
 	pagination: true,
     search: false,
     onLoadSuccess: function (data) {
+    	var activeTab = $('.tipslink li.on a').attr('id');
+    	if(activeTab == 'all' || activeTab == 'todeal')
+		{
+    		$('.more-task').show();
+		}
+    	else
+		{
+    		$('.more-task').hide();
+		}
     }
 };
 function searchTask()
@@ -125,13 +133,19 @@ function searchTask()
 	var id = a.attr('id');
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
+	//设置checkbox
+	if(id == 'claim' || id == 'finish')
+	{
+		opts.checkboxHeader = false;
+	}
+	else
+	{
+		opts.checkboxHeader = true;
+	}
 	if(id == 'dep-unfinished')
 	{
-		opts.checkbox = true;
-		
 		var originalCols = options.columns[0];
 		var columns = new Array();
-		columns.push({checkbox:true});
 		columns = columns.concat(originalCols.slice(0,5));
 		columns.push({field:'assignUidName',title:'认领人'});
 		columns = columns.concat(originalCols.slice(5));

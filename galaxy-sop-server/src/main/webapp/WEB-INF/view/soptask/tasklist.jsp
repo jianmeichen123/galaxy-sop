@@ -53,7 +53,8 @@
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
-             <span class='more-task fr'>指派任务</span>
+             <span class='more-task fr'>更多操作</span>
+             <span class='assign-task fr'>指派任务</span>
             <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
 	          <ul class='task-toggle'>
 	          	<li data-code='transfer-task'>移交任务</li>
@@ -71,13 +72,14 @@
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
+			    	<th data-checkbox="true" data-formatter="taskCheckboxFormatter"></th>
 			        <th data-field="taskName"  data-width="172px" data-align='left' >任务名称</th>
 			        <th data-field="taskType"  data-align='center'>任务类型</th>
 			        <th data-field="projectName"  data-formatter="projectNameFormatter"  data-align='center'>所属项目</th>
 			        <th data-field="taskDeadlineformat"  class=" status " data-align='center'>发起时间</th>
 			        <th data-field="createUname"   data-align='center'>发起人</th>
 			        <th data-field="taskStatusDesc"   data-align='center'>任务状态</th>
-					<th  data-field="caozuohtml" data-align='center'>操作</th>
+					<th data-field="caozuohtml" data-align='center'>操作</th>
 			 	</tr>	
 			 	</thead>
 		</table>
@@ -118,6 +120,14 @@ function projectNameFormatter(value,row,index){
 			return options;
 		}
 	}
+function taskCheckboxFormatter(value, row, index)
+{
+	if(row.taskStatus=='taskStatus:2')
+	{
+		return value;
+	}
+	return {disabled:true};
+}
     var flag="${flagUrl}";
     var num=0;
     if(flag=="jl"){
