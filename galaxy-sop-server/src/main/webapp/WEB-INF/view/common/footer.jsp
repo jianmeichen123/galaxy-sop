@@ -84,7 +84,7 @@ function createMenus(current){
 	   	 //星眸链接
 	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	//意见反馈
-	   	html += '<li class="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>'
+	   	html += '<li data-type="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>'
 	  $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
@@ -92,9 +92,22 @@ function createMenus(current){
 	         });
 	});
 }
+
+//吐槽
+var _nickname=$('.man_info .name').text();
+var _src='https://thirdqq.qlogo.cn/g?b=oidb&k=lWPNZOQIu2v4EYq2cZ0Hgw&s=100';
+//var _src='http://fx.qa.galaxyinternet.com/sop/img/defalut_avator.png';
+//window.location.host+'/sop/img/defalut_avator.png'
+var data = {
+	      "nickname": _nickname,    //发帖人名称
+	      "avatar": _src,
+	      "openid": "121368588",    //用户ID
+	  },
+	  productId = 21398;
 function feedback(){   //跳转吐个槽
-	window.open("http://support.qq.com/products/21398");
+	Tucao.request(productId, data);
 }
 </script>
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/tucao/tucao.js"></script>
