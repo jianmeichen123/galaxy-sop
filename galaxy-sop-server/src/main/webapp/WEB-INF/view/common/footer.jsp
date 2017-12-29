@@ -93,7 +93,7 @@ function createMenus(current){
 	});
 }
 function feedback(){   //跳转吐个槽
-	window.location="http://support.qq.com/products/21398";
+	window.open("http://support.qq.com/products/21398");
 }
 </script>
 
