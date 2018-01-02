@@ -49,6 +49,11 @@ public class TestController{
 		return "project/assign";
 	}
 	
+	@RequestMapping(value = "/searchResult")
+	public String platformTest4(HttpServletRequest request) {
+		return "project/search";
+	}
+	
 	
 /*
 

@@ -40,7 +40,10 @@
 <div class="header clearfix">
 
   <a href="javascript:;" class="logo null">星河投</a>
-    
+    <div class='fl input-search'>
+    	<input type="text" placeholder="请输入项目名称"/>
+    	<span><a href="<%=path %>/galaxy/test/searchResult">全局搜索</a></span>
+    </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
     	<div class="erwm fl">
