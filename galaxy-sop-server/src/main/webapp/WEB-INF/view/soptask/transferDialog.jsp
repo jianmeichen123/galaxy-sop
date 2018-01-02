@@ -1,22 +1,21 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="title_bj abandon-title" >移交任务</div>
 	<form action="" id="detail-form">
     <div class="qualifications_all task-todeal">
         <ul>
         	<li>
-        		<em>接收部门：</em><span class='task-department'>人力资源部</span>
+        		<em>接收部门：</em><span class='task-department'>${depName }</span>
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
         		<input type='text' placeholder='请选择'>
         		<ul class='toggle-ul'>
         			<li>请选择</li>
-        			<li>投资经理</li>
-        			<li>张三</li>
-        			<li>李四</li>
-        			<!-- <li>王五</li>
-        			<li>王五</li> -->
+        			<c:forEach var="item" items="${users }">
+        			<li value="${item.id }">${item.realName }</li>
+        			</c:forEach>
         		</ul>
         	</li>
         	<li class='task-todeal-textarea'>

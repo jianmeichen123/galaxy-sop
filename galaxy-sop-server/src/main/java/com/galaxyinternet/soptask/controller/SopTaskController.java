@@ -717,10 +717,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		return data;
 	}
 	@RequestMapping(value="/transfer", method = RequestMethod.GET)
-	public ModelAndView transfer()
+	public ModelAndView transfer(HttpServletRequest request)
 	{
-		ModelAndView mv = new ModelAndView();
-		
+		ModelAndView mv = new ModelAndView("soptask/transferDialog");
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Long depId = user.getDepartmentId();
+		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
+		List<User> users = getDepUserFromCache(depId);
+		mv.addObject("depName", depName);
+		mv.addObject("users", users);
 		return mv;
 	}
 	@ResponseBody
@@ -796,6 +801,27 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			}
 		}
 		return date;
+	}
+	
+	private List<User> getDepUserFromCache(Long depId)
+	{
+		List<User> users = new ArrayList<>();
+		Long size = cache.llen(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
+		if(size.intValue() == 0)
+		{
+			return users;
+		}
+		List<Object> idObjects = cache.lrange(PlatformConst.CACHE_PREFIX_DEP_USERS+depId, 0L, -1L);
+		User user = null;
+		for(Object idObj : idObjects)
+		{
+			Long id = Long.parseLong(idObj+"");
+			user = new User();
+			user.setId(id);
+			user.setRealName(cache.hget(PlatformConst.CACHE_PREFIX_USER+id, "realName")+"");
+			users.add(user);
+		}
+		return users;
 	}
 	
 	

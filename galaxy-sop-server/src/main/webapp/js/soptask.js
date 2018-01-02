@@ -77,9 +77,9 @@ $(function(){
 	{
 		if(code =='transfer-task')
 		{	
-			return '../html/task_todeal.html';
+			return platformUrl.transferTask;
 		}else if(code === 'abandon-task'){
-			return '../html/task_toabandon.html';
+			return platformUrl.giveupTask;
 		}
 		return "";
 	}

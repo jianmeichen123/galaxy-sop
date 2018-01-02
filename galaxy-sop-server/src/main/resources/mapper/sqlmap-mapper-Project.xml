@@ -63,7 +63,7 @@
     project_valuations,industry_own, final_valuations, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason
+    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason,
     (SELECT r.content_describe1
 	FROM information_result r 
 	WHERE r.project_id = sop_project.id AND r.title_id = 1814 AND r.is_valid = 0) AS  project_company,
