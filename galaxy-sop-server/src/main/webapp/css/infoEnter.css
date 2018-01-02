@@ -206,10 +206,11 @@ font-weight: bold;
     padding-top: 95px;
     top: 72px; 
 }
+
 .pageTop{
 	position: relative;
 	background: #fff;
-	padding: 30px;
+	padding: 20px 30px;
 }
 .pageTop .form-group{
 	float: left;
