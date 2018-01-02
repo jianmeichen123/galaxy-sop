@@ -10,7 +10,8 @@
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        		<input type='text' placeholder='请选择'>
+        		<input class="choice" type='text' placeholder='请选择'>
+        		<input type='hidden' class="hiddenVal">
         		<ul class='toggle-ul'>
         			<li>请选择</li>
         			<c:forEach var="item" items="${users }">
@@ -48,8 +49,11 @@ $('.select-simulate input').click(function(){
 $('.select-simulate ul li').click(function(){
 	var _this = $(this);
 	var liText = _this.text()
+	var liVal = _this.val();
+	$('.hiddenVal').val(liVal);
 	var target = _this.closest('.select-simulate').find('input').removeClass('up')
-	$('.select-simulate input').val(liText);
+	$('.select-simulate input.choice').val(liText);
 	_this.parent().hide();
+	
 })
 </script>
