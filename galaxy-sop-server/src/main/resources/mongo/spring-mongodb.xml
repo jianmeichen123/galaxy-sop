@@ -11,7 +11,7 @@
           http://www.springframework.org/schema/data/mongo   
           http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-	<context:property-placeholder location="classpath*:mongo/mongodb.properties" />
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:mongo/mongodb.properties" />
 	<mongo:mongo-client 
 		id="mongo"
 		host="${mongo.host}" 

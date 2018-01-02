@@ -20,6 +20,7 @@
 				<!-- <value>classpath:redis/redis.properties</value> -->
 			</list>
 		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
 	<!-- Configures the @Controller programming model -->

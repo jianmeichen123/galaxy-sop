@@ -146,6 +146,16 @@
 				<mongo.password>sop</mongo.password>
 				<mongo.dbname>sop</mongo.dbname>
 				 <!-- mongodb 结束-->
+
+				<!-- 创投大脑 域名
+				1.dev域名:ctdndev.gi.com
+				2.qa域名ctdnqa.gi.com
+				3.rc域名 ctdnrc.galaxyinternet.com
+				4.线上 ctdn.galaxyinternet.com
+				-->
+				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/project/</danao.static.domain>
+
 			</properties>
 		</profile>
 		<profile>
@@ -196,6 +206,14 @@
 				<mongo.password>sop</mongo.password>
 				<mongo.dbname>sop</mongo.dbname>
 				 <!-- mongodb 结束-->
+
+				<!-- 创投大脑 域名
+				1.dev域名:ctdndev.gi.com
+				2.qa域名ctdnqa.gi.com
+				3.rc域名 ctdnrc.galaxyinternet.com
+				4.线上 ctdn.galaxyinternet.com
+				-->
+				<danao.domain>http://ctdndev.gi.com/</danao.domain>
 			</properties>
 		</profile>
 		<profile>
@@ -237,6 +255,14 @@
 				<mongo.password>sop</mongo.password>
 				<mongo.dbname>sop</mongo.dbname>
 				 <!-- mongodb 结束-->
+
+				<!-- 创投大脑 域名
+				1.dev域名:ctdndev.gi.com
+				2.qa域名ctdnqa.gi.com
+				3.rc域名 ctdnrc.galaxyinternet.com
+				4.线上 ctdn.galaxyinternet.com
+				-->
+				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
 			</properties>
 		</profile>
 		<profile>
