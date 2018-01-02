@@ -88,7 +88,7 @@
 		      </span>
 		    </div>
 		</div> 
-		<div class="tab-pane active ctlist" id="view">	
+		<div class="">	
 			<table id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -105,9 +105,6 @@
 			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
 			        	<th data-field="created_time"  class="data-input sort"  data-width="8%">创建日期<span></span></th>
 			        	<th data-field="updated_time" class="data-input sort"  data-width="5%">最后编辑时间<span></span></th>
-         				<c:if test="${fx:hasRole(4)}">
-			        	<th  class="col-md-2" data-class="noborder" data-width="6%">操作</th>
- 						</c:if>
  					</tr>	
  				</thead>
 			</table>
