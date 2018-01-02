@@ -17,7 +17,7 @@ import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.soptask.SopTask;
 
 @Repository("sopTaskDao")
-public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTaskDao {
+public class SopTaskDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTaskDao {
 	@Override
 	public Page<SopTask> selectTaskInPids(SopTaskBo query,Pageable pageable) {
 		Assert.notNull(query);

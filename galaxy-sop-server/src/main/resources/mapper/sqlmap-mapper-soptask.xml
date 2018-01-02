@@ -279,6 +279,13 @@
 				<if test="projectId != null"> and project_id =#{projectId}</if>
 				<if test="taskType != null"> and task_type =#{taskType}</if>
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
+				<if test="taskIds != null">
+					AND id IN
+					<foreach collection="taskIds" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 			</trim>
 		</where>
 	</update>

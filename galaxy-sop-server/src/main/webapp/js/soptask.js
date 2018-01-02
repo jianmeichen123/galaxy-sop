@@ -50,8 +50,8 @@ $(function(){
 	});
 	//指派任务点击跳转
 	$(".more-task").on("click",function() {
-		var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
-	    forwardWithHeader(url);
+		//var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
+	    //forwardWithHeader(url);
 	});
 	
 	/*指派任务弹窗点击事件*/

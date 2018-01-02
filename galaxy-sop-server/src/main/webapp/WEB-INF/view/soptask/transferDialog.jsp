@@ -1,5 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% 
+	String path = request.getContextPath(); 
+%>
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="title_bj abandon-title" >移交任务</div>
 	<form action="" id="detail-form">
@@ -10,8 +17,8 @@
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        		<input class="choice" type='text' placeholder='请选择'>
-        		<input type='hidden' class="hiddenVal">
+        		<input class="choice" type='text' placeholder='请选择' required>
+        		<input type='hidden' class="hiddenVal" name="targetUserId" >
         		<ul class='toggle-ul'>
         			<li>请选择</li>
         			<c:forEach var="item" items="${users }">
@@ -21,7 +28,7 @@
         	</li>
         	<li class='task-todeal-textarea'>
         		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因'></textarea>
+        		<textarea placeholder='请输入移交原因' name="reason" required maxLength="50"></textarea>
         	</li>
         </ul>
       	
@@ -56,4 +63,45 @@ $('.select-simulate ul li').click(function(){
 	_this.parent().hide();
 	
 })
+/******************Validate Start***********************/
+var validator = $("#detail-form").validate({
+	focusCleanup:true,
+	onfocusout:false,
+	onclick:false,
+	focusCleanup:true
+});
+/******************Validate End***********************/
+
+/******************Save Start***********************/
+$("#save-detail-btn").click(function(){
+	if(!validator.form()){
+		return;
+	}
+	var rows = $("#task-table").bootstrapTable('getSelections');
+	var ids = new Array();
+	$.each(rows,function(){
+		ids.push(this.id);
+	});
+	var targetUserId = $("#detail-form input[name='targetUserId']").val();
+	var reason  = $("#detail-form textarea[name='reason']").val();
+	var data = {
+		'targetUserId'	:	targetUserId,
+		'reason'		:	reason,
+		'ids'			:	ids
+	};
+	var callback = function(data){
+		if(data.result.status == 'OK')
+		{
+			layer.msg('移交成功');
+			$("#task-table").bootstrapTable("refresh");
+			$("#powindow [data-close='close']").click();
+		}
+		else
+		{
+			layer.msg('移交失败');
+		}
+	};
+	sendPostRequestByJsonObj(platformUrl.transferTask, data, callback);
+});
+/******************Save End***********************/
 </script>

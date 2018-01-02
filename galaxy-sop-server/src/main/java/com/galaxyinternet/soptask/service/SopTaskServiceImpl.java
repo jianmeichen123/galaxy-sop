@@ -589,8 +589,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	@Override
 	public void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId)
 	{
-		// TODO Auto-generated method stub
-		
+		SopTask entity = new SopTask();
+		entity.setAssignUid(targetUserId);
+		entity.setTaskIds(Arrays.asList(ids));
+		sopTaskDao.updateTask(entity);
 	}
 
 	@Override

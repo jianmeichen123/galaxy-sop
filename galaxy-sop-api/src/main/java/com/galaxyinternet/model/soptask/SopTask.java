@@ -28,6 +28,7 @@ public class SopTask extends PagableEntity{
  	private List<Integer> taskFlagS;
  	private List<Long> projectIdList;
  	private boolean giveUp;
+ 	private List<Long> taskIds;
      
 	public Long getProjectId() {
 		return projectId;
@@ -139,6 +140,14 @@ public class SopTask extends PagableEntity{
 	}
 	public void setGiveUp(boolean giveUp) {
 		this.giveUp = giveUp;
+	}
+	public List<Long> getTaskIds()
+	{
+		return taskIds;
+	}
+	public void setTaskIds(List<Long> taskIds)
+	{
+		this.taskIds = taskIds;
 	}
 	
 	

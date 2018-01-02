@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,6 +48,7 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.soptask.TaskParams;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
@@ -731,22 +731,26 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@ResponseBody
 	@RequestMapping(value = "/transfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
-	public ResponseData<SopTaskBo> transfer(HttpServletRequest request, @RequestParam("ids[]") Long[] ids, @RequestParam Long targetUserId)
+	public ResponseData<SopTaskBo> transfer(HttpServletRequest request, @RequestBody TaskParams params)
 	{
-		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.transfer(ids, user.getId(), targetUserId, user.getId());
+			sopTaskService.transfer(params.getIds(), user.getId(), params.getTargetUserId(), user.getId());
+			Map<String, Object> logParams = new HashMap<>();
+			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{
-			date.getResult().setMessage("移交失败");
+			data.getResult().setMessage("移交失败");
 			if(logger.isErrorEnabled())
 			{
-				logger.error("移交任务失败, ids:"+ids+", User:"+user.getId()+", TargerUserId:"+targetUserId, e);
+				logger.error("移交任务失败, ids:"+params.getIds()+", User:"+user.getId()+", TargerUserId:"+params.getIds(), e);
 			}
 		}
-		return date;
+		return data;
 	}
 	@RequestMapping(value="/giveup", method = RequestMethod.GET)
 	public ModelAndView giveup()
@@ -758,22 +762,22 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@ResponseBody
 	@RequestMapping(value = "/giveup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
-	public ResponseData<SopTaskBo> giveup(HttpServletRequest request, @RequestParam("ids[]") Long[] ids)
+	public ResponseData<SopTaskBo> giveup(HttpServletRequest request, @RequestBody TaskParams params)
 	{
-		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.giveup(ids, user.getId());
+			sopTaskService.giveup(params.getIds(), user.getId());
 		} catch (Exception e)
 		{
-			date.getResult().setMessage("放弃失败");
+			data.getResult().setMessage("放弃失败");
 			if(logger.isErrorEnabled())
 			{
-				logger.error(String.format("放弃任务失败, ids:%s, User:%s", ids, user.getId()), e);
+				logger.error(String.format("放弃任务失败, ids:%s, User:%s", params.getIds(), user.getId()), e);
 			}
 		}
-		return date;
+		return data;
 	}
 	@RequestMapping(value="/assign", method = RequestMethod.GET)
 	public ModelAndView assign()
@@ -785,22 +789,22 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@ResponseBody
 	@RequestMapping(value = "/assign", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
-	public ResponseData<SopTaskBo> assign(HttpServletRequest request, @RequestParam("ids[]") Long[] ids, @RequestParam Long targetUserId)
+	public ResponseData<SopTaskBo> assign(HttpServletRequest request, @RequestBody TaskParams params)
 	{
-		ResponseData<SopTaskBo> date = new ResponseData<SopTaskBo>();
+		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.assign(ids, targetUserId, user.getId());
+			sopTaskService.assign(params.getIds(), params.getTargetUserId(), user.getId());
 		} catch (Exception e)
 		{
-			date.getResult().setMessage("指派失败");
+			data.getResult().setMessage("指派失败");
 			if(logger.isErrorEnabled())
 			{
-				logger.error(String.format("指派任务失败, ids:%s, User:%s,TargetUserId", ids, user.getId(),targetUserId), e);
+				logger.error(String.format("指派任务失败, ids:%s, User:%s,TargetUserId", params.getIds(), user.getId(), params.getTargetUserId()), e);
 			}
 		}
-		return date;
+		return data;
 	}
 	
 	private List<User> getDepUserFromCache(Long depId)
