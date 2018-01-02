@@ -20,6 +20,13 @@
 	     })
 	     resizetable(table);
 	}
+
+//1.11
+
+function pagePop(even){
+	var urlCode = $(even).attr("urlCode");
+	alert(urlCode)
+}
 //1.8新加数据结束
 function buildTable(title)
 {
