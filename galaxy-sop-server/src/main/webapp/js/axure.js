@@ -702,7 +702,7 @@
 							xhr.setRequestHeader("guserId", userId);
 						}
 					},
-					success:function(html){
+					success:function(html){ 
 						$(_this.id).find(".poptxt").html(html);
 						opts.okback(_this);
 						//重新定位

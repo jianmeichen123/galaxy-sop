@@ -25,7 +25,14 @@
 
 function pagePop(even){
 	var urlCode = $(even).attr("urlCode");
-	alert(urlCode)
+	alert(Constants.sopEndpointURL + "/galaxy/test/jtym1")
+	$.getHtml({ 
+		url:Constants.sopEndpointURL + "/galaxy/test/jtym1",//模版请求地址 
+		data:"",//传递参数
+		okback:function(){ 
+			 
+		}
+		}) 
 }
 //1.8新加数据结束
 function buildTable(title)
