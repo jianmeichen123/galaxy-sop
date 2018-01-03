@@ -61,5 +61,5 @@
 		}
 	}
 	_val = _parsefloat(_val);
-	$('span.value3012').text(_val);
+	$('span.value3012').text(_val+'万元');
 	</script>
