@@ -484,9 +484,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*用户信息*/
 .header .usermsg{ color:#FFF;float: left;font-family:"宋体";font-size:12px;}
 .header .usermsg a{ color:#FFF; float:left}
-.input-search{margin: 7px 0 0 431px;}
-.input-search input{width:320px;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
-.input-search span{display:inline-block;margin-left:10px;width:88px;height:32px;background: #2B82D7;border-radius: 2px;text-align:center;line-height:32px;}
+.input-search{margin: 7px 0 0 19.7%;width:32%;}
+.input-search input{width:70%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
+.input-search span{display:inline-block;margin-left:10px;width:17%;height:32px;background: #2B82D7;border-radius: 2px;text-align:center;line-height:32px;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .header .usermsg span,
 .header .usermsg b{ float:left}
