@@ -484,8 +484,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*用户信息*/
 .header .usermsg{ color:#FFF;float: left;font-family:"宋体";font-size:12px;}
 .header .usermsg a{ color:#FFF; float:left}
-.input-search{margin: 7px 0 0 19.7%;width:32%;}
-.input-search input{width:70%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
+.input-search{margin: 7px 0 0 20.7%;width:32%;}
+.input-search input{width:61%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
 .input-search span{display:inline-block;margin-left:10px;width:17%;height:32px;background: #2B82D7;border-radius: 2px;text-align:center;line-height:32px;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .header .usermsg span,
@@ -4287,16 +4287,33 @@ input:-ms-input-placeholder {
 .bottomColor{border-bottom:4px solid #45AAFF;}
 .searchNumber{margin-top:10px;padding-bottom:10px;font-size:12px;color:#333;}
 .searchNumber span{color: #FF0000;}
-
-
-
-
-
-
-
-
-
-
+.createProject thead tr th{text-align:center;border:none;font-size:14px;color:#5A626D;font-family: Microsoft YaHei-Bold;border-bottom:1px solid #e4e4e4;font-weight:bold;}
+.createProject tbody tr{border-bottom:1px solid #e4e4e4;}
+.createProject{border-collapse:collapse;border-radius:0px;}
+.createProject thead tr th:nth-child(1){padding-left:20px;text-align:left;}
+.createProject tbody tr td{height:40px;text-align:center;font-family: Microsoft YaHei;font-size: 14px;color: #5A626D;}
+.createProject tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
+.one{display:none;}
+.two{background:#fff;}
+.tdContent{height:119px;width:100%;}
+.outerProject{width:100%;}
+.outerProject .leftPic{width:80px;height:80px;border:1px solid;margin:20px 0 20px 20px;}
+.outerProject .rightContent{margin:20px 0 20px 20px;width:90%;}
+.outerProject .rightContent h3{font-size: 16px;color: #000000;}
+.outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
+.outerProject .picEm em{display:inline-block;border:1px solid;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
+.outerProject .picEmTwo{margin-left:40px;}
+.outerProject .picEm{font-size: 12px;color: #999999;}
+.outerProjectTitle{font-size: 14px;color: #666666;}
+.outerProject tbody tr{border-bottom:1px solid #e4e4e4;}
+p.outerProjectTitle {
+  	 overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	padding-bottom: 10px;
+}
 
 
 

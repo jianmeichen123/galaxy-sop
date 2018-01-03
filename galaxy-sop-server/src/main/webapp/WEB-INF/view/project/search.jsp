@@ -26,6 +26,7 @@
 	
 		<div class="ritmin"> 
 			<p class='searchNumber'>共搜索到<span>24</span>条结果</p>
+			
 			<div class='search-top'>
 				<ul class="clearfix">
 					<li class="bottomColor">创投项目<span>（12）</span></li>
@@ -34,9 +35,151 @@
 				</ul>
 				
 			</div>
+			<div class='one'>
+			<table id='searchTable'  class='createProject' style="width:100%;">
+				<thead>
+					<th>项目</th>
+					<th>融资状态</th>
+					<th>项目进度</th>
+					<th>投资经理</th>
+					<th>项目状态</th>
+					<th>最后编辑时间</th>
+				</thead> 
+				 <tbody>
+					<tr>
+						<td>蚂蚁优厂</td>
+						<td>天使</td>
+						<td>内部评审</td>
+						<td>陆亲<span>|</span>互联网旅游</td>
+						<td>跟进中</td>
+						<td>2017-08-21</td>
+						
+					</tr>
+					<tr>
+						<td>蚂蚁优厂</td>
+						<td>天使</td>
+						<td>内部评审</td>
+						<td>陆亲<span>|</span>互联网旅游</td>
+						<td>跟进中</td>
+						<td>2017-08-21</td>
+						
+					</tr>
+					<tr>
+						<td>蚂蚁优厂</td>
+						<td>天使</td>
+						<td>内部评审</td>
+						<td>陆亲<span>|</span>互联网旅游</td>
+						<td>跟进中</td>
+						<td>2017-08-21</td>
+						
+					</tr>
+					<tr>
+						<td>蚂蚁优厂</td>
+						<td>天使</td>
+						<td>内部评审</td>
+						<td>陆亲<span>|</span>互联网旅游</td>
+						<td>跟进中</td>
+						<td>2017-08-21</td>
+						
+					</tr>
+					
+				
+				</tbody>
+			</table> 
+			</div>
+			<div class='two'>
+				<table class='outerProject'>
+					<tr>
+						<td>
+							<div class='tdContent'>
+								<div class='fl leftPic'>
+									<img/>
+								</div>
+								<div class='fl rightContent'>
+									<h3>花心区块链研究院<span>A轮</span></h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm'><em></em>江苏</span>
+										<span class='picEm picEmTwo'><em></em>企业服务</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class='tdContent'>
+								<div class='fl leftPic'>
+									<img/>
+								</div>
+								<div class='fl rightContent'>
+									<h3>花心区块链研究院<span>A轮</span></h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm'><em></em>江苏</span>
+										<span class='picEm picEmTwo'><em></em>企业服务</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class='tdContent'>
+								<div class='fl leftPic'>
+									<img/>
+								</div>
+								<div class='fl rightContent'>
+									<h3>花心区块链研究院<span>A轮</span></h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm'><em></em>江苏</span>
+										<span class='picEm picEmTwo'><em></em>企业服务</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class='tdContent'>
+								<div class='fl leftPic'>
+									<img/>
+								</div>
+								<div class='fl rightContent'>
+									<h3>花心区块链研究院<span>A轮</span></h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm'><em></em>江苏</span>
+										<span class='picEm picEmTwo'><em></em>企业服务</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class='tdContent'>
+								<div class='fl leftPic'>
+									<img/>
+								</div>
+								<div class='fl rightContent'>
+									<h3>花心区块链研究院<span>A轮</span></h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm'><em></em>江苏</span>
+										<span class='picEm picEmTwo'><em></em>企业服务</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+				
+				</table>
 			
 			
 			
+			</div>
 		
 		</div> 
 		
@@ -60,14 +203,10 @@ $(function(){
  $('.search-top ul li').click(function(){
 	var _this = $(this);
 	_this.addClass('bottomColor').siblings().removeClass('bottomColor');
- })
- 
- 
- 
-	
-	
-	
-})
+ });
+
+});
+
 
 
 </script>
