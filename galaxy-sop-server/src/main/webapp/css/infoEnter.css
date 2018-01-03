@@ -20,8 +20,9 @@ font-size: 18px;
 color: #000;
 font-weight: normal;
 text-align: center;
-margin: 30px auto 20px;
-line-height: 1px;
+margin: 30px auto 20px; 
+width:240px;
+background:url("../img/process/infoCreat.png") no-repeat left center; 
 }
 .infoTop p{
 font-size: 14px;
@@ -73,9 +74,14 @@ background: #3CA6FF;
 .scheduleIcon li.active p{
 color: #3CA6FF;
 } 
-.tableBox{
-	background: #fff;
+.tableBox{ 
 	margin: 0 16px; 
+}
+.tableBox .fixed-table-pagination{
+	margin-top:15px;
+}
+.tableBox  .pagination li{
+	background-color:#fff!important;
 }
 .infoList{
 	width: 100%;

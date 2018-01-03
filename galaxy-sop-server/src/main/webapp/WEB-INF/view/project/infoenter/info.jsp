@@ -195,8 +195,14 @@
 $(function(){
 	//导航
 	createMenus(5);
-	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"
-	
+	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+	var jsonObj={
+			
+	}
+	//sendPostRequestByJsonObj
+	sendGetRequest(_url, jsonObj, function(data){
+		debugger;
+	})
 	
 	
 	
