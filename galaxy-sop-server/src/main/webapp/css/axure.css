@@ -4293,19 +4293,20 @@ input:-ms-input-placeholder {
 .createProject thead tr th:nth-child(1){padding-left:20px;text-align:left;}
 .createProject tbody tr td{height:40px;text-align:center;font-family: Microsoft YaHei;font-size: 14px;color: #5A626D;}
 .createProject tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
-.one{display:none;}
+.one{}
 .two{background:#fff;}
-.tdContent{height:119px;width:100%;}
+.tdContent{height:119px;width:100%;margin-bottom: 20px;}
 .outerProject{width:100%;}
-.outerProject .leftPic{width:80px;height:80px;border:1px solid;margin:20px 0 20px 20px;}
-.outerProject .rightContent{margin:20px 0 20px 20px;width:90%;}
+.outerProject .leftPic{width:80px;height:80px;border:1px solid;margin:10px 0 20px 20px;}
+.outerProject .rightContent{margin:20px 0 10px 120px;width:90%;}
+.newsProject .rightContent{margin:20px 0 10px 161px;width:90%;}
 .outerProject .rightContent h3{font-size: 16px;color: #000000;}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
-.outerProject .picEm em{display:inline-block;border:1px solid;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
+.outerProject .picEm em{display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
 .outerProject .picEmTwo{margin-left:40px;}
 .outerProject .picEm{font-size: 12px;color: #999999;}
 .outerProjectTitle{font-size: 14px;color: #666666;}
-.outerProject tbody tr{border-bottom:1px solid #e4e4e4;}
+.outerProject tbody tr td{border-bottom:1px solid #e4e4e4;width:90%;}
 p.outerProjectTitle {
   	 overflow : hidden;
 	text-overflow: ellipsis;
@@ -4314,7 +4315,9 @@ p.outerProjectTitle {
 	-webkit-box-orient: vertical;
 	padding-bottom: 10px;
 }
-.picEmOne em{background:url()}
+.picEm em{background:url(../img/process/local.png) no-repeat;}
+.picEmTwo em{background:url(../img/process/tag.png) no-repeat;}
 .more-operateOne{top:34px;}
-
-
+.newsProject .leftPic{width:121px;height:75px;}
+.newsProject .rightContent{width:84%;}
+.newsProject .rightContent h3{font-size: 16px;color: #282536;}
