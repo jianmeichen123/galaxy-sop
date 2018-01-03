@@ -170,7 +170,13 @@ color: #3CA6FF;
 }
 .textBotm .industryName,.textBotm .districtSubName{
 	display:inline-block;
-	padding-left:25px;
+	padding-left:25px;	
+	line-height:20px;
+	background:url("../img/process/tag.png") no-repeat left center; 
+	margin-right:10px;
+}
+.textBotm .districtSubName{
+	background:url("../img/process/local.png") no-repeat left center; 
 }
 .textBotm span{
 	display: inline-block;
