@@ -755,7 +755,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value="/giveup", method = RequestMethod.GET)
 	public ModelAndView giveup()
 	{
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("soptask/giveupDialog");
 		
 		return mv;
 	}

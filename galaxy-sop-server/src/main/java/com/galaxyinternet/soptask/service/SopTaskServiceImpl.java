@@ -7,7 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -578,12 +580,27 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return result;
 	}
-
+	private static final Map<Integer,String> taskFileMap = new HashMap<>();
+	static{
+		taskFileMap.put(SopConstant.TASK_FLAG_RSJD, DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
+		taskFileMap.put(SopConstant.TASK_FLAG_CWJD, DictEnum.fileWorktype.财务尽职调查报告.getCode());
+		taskFileMap.put(SopConstant.TASK_FLAG_FWJD, DictEnum.fileWorktype.法务尽职调查报告.getCode());
+		taskFileMap.put(SopConstant.TASK_FLAG_GSBG, DictEnum.fileWorktype.工商转让凭证.getCode());
+		taskFileMap.put(SopConstant.TASK_FLAG_ZJBF, DictEnum.fileWorktype.资金拨付凭证.getCode());
+	}
 	@Override
 	public void giveup(Long[] ids, Long userId)
 	{
-		// TODO Auto-generated method stub
-		
+		SopTask task = null;
+		SopFile fileQuery = new SopFile();
+		for(Long id : ids)
+		{
+			task = sopTaskDao.selectById(id);
+			fileQuery.setProjectId(task.getProjectId());
+			fileQuery.setFileWorktype(taskFileMap.get(task.getTaskFlag()));
+			sopFileDao.restore(fileQuery);
+			sopTaskDao.giveupTask(task);
+		}
 	}
 
 	@Override
@@ -602,10 +619,5 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		entity.setAssignUid(targetUserId);
 		entity.setTaskIds(Arrays.asList(ids));
 		sopTaskDao.updateTask(entity);
-		
 	}
-	
-	
-	
-	
 }

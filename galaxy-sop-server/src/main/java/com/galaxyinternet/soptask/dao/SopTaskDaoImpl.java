@@ -96,4 +96,10 @@ public class SopTaskDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectXXXXXX")), e);
 		}
 	}
+	
+	@Override
+	public int giveupTask(SopTask task) 
+	{
+		return this.sqlSessionTemplate.update(getSqlName("giveupTask"), task);
+	}
 }

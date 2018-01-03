@@ -54,5 +54,11 @@ public interface SopFileDao extends BaseDao<SopFile, Long> {
 	public Long insertHistory(SopFile entity);
 	
 	public SopFile selectHistoryById(Long id);
+	/**
+	 * 还原文件信息，放弃任务时调用
+	 * @param file
+	 * @return
+	 */
+	public int restore(SopFile file);
 	
 }

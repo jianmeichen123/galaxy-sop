@@ -13,6 +13,9 @@
     <div class="qualifications_all task-todeal">
         <ul>
         	<li>
+        		<em>已选择<span id="numOfTask"></span>个任务</em>
+        	</li>
+        	<li>
         		<em>接收部门：</em><span class='task-department'>${depName }</span>
         	</li>
         	<li class='select-simulate'>
@@ -63,6 +66,8 @@ $('.select-simulate ul li').click(function(){
 	_this.parent().hide();
 	
 })
+var rows = $("#task-table").bootstrapTable('getSelections');
+$("#numOfTask").text(rows.length);
 /******************Validate Start***********************/
 var validator = $("#detail-form").validate({
 	focusCleanup:true,

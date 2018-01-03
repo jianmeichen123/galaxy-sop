@@ -8,30 +8,16 @@
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
-	<div class="title_bj abandon-title" >移交任务</div>
+	<div class="title_bj abandon-title" >放弃任务</div>
 	<form action="" id="detail-form">
     <div class="qualifications_all task-todeal">
         <ul>
         	<li>
         		<em>已选择<span id="numOfTask"></span>个任务</em>
         	</li>
-        	<li>
-        		<em>接收部门：</em><span class='task-department'>${depName }</span>
-        	</li>
-        	<li class='select-simulate'>
-        		<em class='task-recive-person'>接收人：</em>
-        		<input class="choice" type='text' placeholder='请选择' required>
-        		<input type='hidden' class="hiddenVal" name="targetUserId" >
-        		<ul class='toggle-ul'>
-        			<li>请选择</li>
-        			<c:forEach var="item" items="${users }">
-        			<li value="${item.id }">${item.realName }</li>
-        			</c:forEach>
-        		</ul>
-        	</li>
         	<li class='task-todeal-textarea'>
-        		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因' name="reason" required maxLength="50"></textarea>
+        		<em class='task-reason'>放弃原因：</em>
+        		<textarea placeholder='请输入放弃原因' name="reason" required maxLength="50"></textarea>
         	</li>
         </ul>
       	
@@ -97,16 +83,16 @@ $("#save-detail-btn").click(function(){
 	var callback = function(data){
 		if(data.result.status == 'OK')
 		{
-			layer.msg('移交成功');
+			layer.msg('放弃成功');
 			$("#task-table").bootstrapTable("refresh");
 			$("#powindow [data-close='close']").click();
 		}
 		else
 		{
-			layer.msg('移交失败');
+			layer.msg('放弃失败');
 		}
 	};
-	sendPostRequestByJsonObj(platformUrl.transferTask, data, callback);
+	sendPostRequestByJsonObj(platformUrl.giveupTask, data, callback);
 });
 /******************Save End***********************/
 </script>

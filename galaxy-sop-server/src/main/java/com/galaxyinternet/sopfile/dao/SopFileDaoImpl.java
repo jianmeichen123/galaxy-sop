@@ -129,6 +129,10 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 			throw new DaoException(String.format("根据ID查询对象出错！语句：%s", getSqlName("selectHistoryById")), e);
 		}
 	}
-	
+	@Override
+	public int restore(SopFile file) 
+	{
+		return sqlSessionTemplate.update(getSqlName("restore"), file);
+	}
 	
 }

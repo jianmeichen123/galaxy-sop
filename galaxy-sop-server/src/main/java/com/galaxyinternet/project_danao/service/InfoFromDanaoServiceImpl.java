@@ -54,7 +54,6 @@ import com.galaxyinternet.service.InterviewRecordService;
 import org.springframework.web.client.RestTemplate;
 
 
-@Service("com.galaxyinternet.service.InfoFromDanaoService")
 public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 	final Logger logger = LoggerFactory.getLogger(InfoFromDanaoServiceImpl.class);

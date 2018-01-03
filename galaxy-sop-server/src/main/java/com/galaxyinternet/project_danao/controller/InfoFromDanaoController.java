@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
-@Controller
-@RequestMapping("/galaxy/infoDanao")
 public class InfoFromDanaoController{
 	
 	final Logger logger = LoggerFactory.getLogger(InfoFromDanaoController.class);

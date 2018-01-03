@@ -41,4 +41,10 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 
 
 	public List<SopTask> selectXXXXXX(SopTask taQ);
+	/**
+	 * 放弃任务
+	 * @param task
+	 * @return
+	 */
+	public int giveupTask(SopTask task);
 }
