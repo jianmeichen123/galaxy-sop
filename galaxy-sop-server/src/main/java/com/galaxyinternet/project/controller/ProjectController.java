@@ -3051,7 +3051,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		List<InformationResult> list = informationResultService.queryList(informationResult);
 		if(list != null && list.size() > 0){
 			for(InformationResult ir : list){
-				if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+				if(!StringUtils.isEmpty(ir.getContentDescribe1())||!StringUtils.isEmpty(ir.getContentChoose())){
 					isExistFlag = false;
 					break;
 				}

@@ -320,7 +320,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		//获取总注资计划的金额
 		if(list != null && list.size() > 0){
 			for(InformationResult ir : list){
-				if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+				if(!StringUtils.isEmpty(ir.getContentDescribe1())||!StringUtils.isEmpty(ir.getContentChoose())){
 					flag = true;
 					userData.put("flag", flag);
 					if("3004".equals(ir.getTitleId())){
@@ -540,7 +540,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			map.put("sumPlanMoney", sumPlanMoney);
 			map.put("sumActualMoney", sumProjectToActualMoney);
 			responseBody.setUserData(map);
-			responseBody.setResult(new Result(Status.OK, "ok", "查询注资进度失败!"));
+			responseBody.setResult(new Result(Status.OK, "ok", "查询注资进度成功!"));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "查询注资进度失败!"));
 			_common_logger_.error("查询注资进度失败！", e);
