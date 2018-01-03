@@ -111,7 +111,7 @@ var isDSZ = "<%=isDSZ%>";
         </ul>
       </div>
       <div class="xingmou fr">
-        <a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a>
+        <a href="http://ctdn.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou ctdn"></span>创投大脑</a>
       </div>
     </div>
 </div>
