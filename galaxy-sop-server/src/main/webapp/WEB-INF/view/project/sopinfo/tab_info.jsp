@@ -446,7 +446,7 @@
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix borderRadius">
 						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员">添加</a>	
-						<a id="" href="javascript:;" onclick="pagePop(this)" urlCode="/galaxy/project/infoenter/infoList" data-href='' class="add_pro lightbg" >参考信息</a>
+						<a id="" href="javascript:;" onclick="pagePop(this)" urlCode="/galaxy/test/infoJsp" data-href='' class="add_pro lightbg" >参考信息</a>
 					</div>
 				</div>
 			</c:if>
@@ -535,6 +535,15 @@
 		</div>
 	</div>	
 </div>
+
+
+
+
+
+
+ 
+
+
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">	
