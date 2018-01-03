@@ -79,7 +79,11 @@
         	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
         	<div class='taskDetail-mesage-update'>
         		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
-        		
+        		<span class='more-task fr'>更多操作</span>
+		         <ul class='task-toggle more-operateOne'>
+		         	<li data-code='transfer-task'>移交任务</li>
+	          		<li data-code='abandon-task'>放弃任务</li>
+	          	</ul>
         	</div>
         	</c:if>
         </div>
