@@ -14,6 +14,7 @@ public class InformationDictionary extends PagableEntity {
 	private String code;
 
 	private String name;
+	private String nameLike;
 
 	private String value;
 
@@ -135,5 +136,13 @@ public class InformationDictionary extends PagableEntity {
 
 	public void setContent2(String content2) {
 		this.content2 = content2;
+	}
+
+	public String getNameLike() {
+		return nameLike;
+	}
+
+	public void setNameLike(String nameLike) {
+		this.nameLike = nameLike;
 	}
 }

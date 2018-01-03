@@ -19,12 +19,11 @@ public interface InfoFromDanaoService {
 	/**
 	 * @author zf
 	 * @param query
-	 * @param pageable
 	 * @return
 	 */
 	public Page<DnProject> queryDnaoProjectPage(Map<String,Object> map) throws Exception;
-	
 
+	public Map<String,Object> queryDnaoBusinessInfo(String projCode,String checkToChooseCode) throws Exception;
 
 
 }

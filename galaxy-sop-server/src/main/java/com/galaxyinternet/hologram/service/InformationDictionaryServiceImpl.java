@@ -142,53 +142,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	}
 	
 	
-	/**
-	 * 运用cache ,根据title的 id或 code ，查询 该title下一级的 title-value
 
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey) {
-		
-		boolean useC = false;
-		InformationTitle ptitles = new InformationTitle();
-		List<InformationTitle> titles = new ArrayList<InformationTitle>();
-		Object getR = null;
-		List<String> cacheKey = new ArrayList<String>();
-				
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
-		if(getK != null){
-			cacheKey = (List<String>) getK;
-			if(cacheKey.contains(pinfoKey)){
-				useC = true;
-				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +pinfoKey.toString());
-				if(getR!=null){
-					ptitles = (InformationTitle) getR;
-					titles = ptitles.getChildList();
-				}
-			}
-		}
-		
-		if(!useC){
-			ptitles = selectTitleAndTsTvalues(pinfoKey);
-			titles = ptitles.getChildList();
-			final String k1 = pinfoKey.toString();
-			final InformationTitle ts = ptitles;
-			
-			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
-				@Override
-				public void run() {
-					cacheOperationService.saveAreaInfoByRedies(k1, ts);
-				}
-			});
-		}
-		
-		
-		return titles;
-	}
-	 */
-	
-	
 	
 	
 	/**
@@ -210,66 +164,10 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		ptitle.setChildList(ts);
 		return ptitle;
 	}
-	/**
-	 * 运用cache , 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public InformationTitle selectTitleAndTsTvaluesByCache(Object pinfoKey) {
-
-		boolean useC = false;
-		InformationTitle ptitles = new InformationTitle();
-		Object getR = null;
-		List<String> cacheKey = new ArrayList<String>();
-				
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
-		if(getK != null){
-			cacheKey = (List<String>) getK;
-			if(cacheKey.contains(pinfoKey)){
-				useC = true;
-				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +pinfoKey.toString());
-				if(getR!=null){
-					ptitles = (InformationTitle) getR;
-				}
-			}
-		}
-		
-		if(!useC){
-			ptitles = selectTitleAndTsTvalues(pinfoKey);
-			
-			final String k1 = pinfoKey.toString();
-			final InformationTitle ts = ptitles;
-			
-			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
-				@Override
-				public void run() {
-					cacheOperationService.saveAreaInfoByRedies(k1, ts);
-				}
-			});
-		}
-		
-		return ptitles;
-	}
-	 */
-	
-	
-	
-	
-	/**
-	 * 根据  title的id  递归查询 该 title下的各级的 title - value
-	 */
-	/*@Override
-	@Transactional
-	public List<InformationTitle> selectTitlesValues(Long titleId) {
-		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
-		return childList;
-	}*/
-
 
 
 	/**
-	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
+	 * 根据title code ，  递归查询  title 及其下的所有 title - value
 	 */
 	@Override
 	public InformationTitle selectTitlesValuesForAll(String pinfoKey, String reportType) {

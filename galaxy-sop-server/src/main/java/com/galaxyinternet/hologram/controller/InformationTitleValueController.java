@@ -301,7 +301,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
+	 * 传入题  code， 返回该题信息及其下的所有级的 题和value信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryAllTitleValues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)

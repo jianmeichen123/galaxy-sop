@@ -26,14 +26,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+@Controller
+@RequestMapping("/galaxy/infoDanao")
 public class InfoFromDanaoController{
-	
+
 	final Logger logger = LoggerFactory.getLogger(InfoFromDanaoController.class);
-	
+
 	@Autowired
 	private com.galaxyinternet.service.InfoFromDanaoService infoFromDanaoService;
 
@@ -43,14 +46,14 @@ public class InfoFromDanaoController{
 		return "interview/view";
 	}
 
-	
-	
+
+
 	/**
 	 * 查询大脑项目列表
 	 */
-	@RequestMapping(value = "/searchProject", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/searchProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> addFileInterview(@RequestBody DnProject dnProject,
-			HttpServletRequest request,HttpServletResponse response )
+																  HttpServletRequest request,HttpServletResponse response )
 	{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
@@ -77,7 +80,57 @@ public class InfoFromDanaoController{
 
 
 
+	/**
+	 * 查询大脑项目 推荐信息
+	 * 项目id，题code，大脑 code
+	 */
+	@RequestMapping(value = "/searchProjectInfo/{projId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnProject> searchProjectInfo(HttpServletRequest request,HttpServletResponse response,
+																   @PathVariable("projId") String projId,
+																   @RequestParam(value ="projCode", required =false) String projCode,
+																   @RequestParam(value ="titleCode", required =false) String titleCode )
+	{
+		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
+		Map<String,Object>  result = null;
+		try {
+
+			if(projCode != null && titleCode == null)
+			{
+				//仅有大脑项目code，
+				//创建项目时，待引用所有的大脑信息，
+				//保存星河投项目 和 大脑项目code的关联关系
+
+
+				//法人信息、股权结构
+				result = infoFromDanaoService.queryDnaoBusinessInfo(projCode,null);
+
+
+
+			} else if(projCode != null && titleCode != null)
+			{
+				//有大脑项目code，标题code
+				//在报告中，待引用特定的大脑信息，
+
+
+			}else if(projCode == null && titleCode != null)
+			{
+				//无大脑项目code，有标题code
+				//在报告中，待引用特定的大脑信息，但是创建项目时未引用大脑数据
+				//此时调用项目查询接口，查找类似项目
+
+			}
+
+
+			responseBody.setUserData(result);
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
 
 
 }
