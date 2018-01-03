@@ -195,7 +195,8 @@
 $(function(){
 	//导航
 	createMenus(5);
- 
+	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"
+	
 	
 	
 	
