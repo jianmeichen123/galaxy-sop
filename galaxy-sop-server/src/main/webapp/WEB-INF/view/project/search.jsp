@@ -28,14 +28,21 @@
 			<p class='searchNumber'>共搜索到<span>24</span>条结果</p>
 			
 			<div class='search-top'>
-				<ul class="clearfix">
+				<ul class="clearfix to-task-tips">
 					<li class="bottomColor">创投项目<span>（12）</span></li>
 					<li>外部项目<span>（6）</span></li>
 					<li>咨询<span>（6）</span></li>
 				</ul>
 				
 			</div>
-			<div class='one'>
+			<div data-id="tab-block">
+	    		<div id='tab-content' data-id="tab-content">
+			    	<div class='tabtxt'>
+			    	
+			    	</div>
+		    	</div>
+	    	</div>
+			<!-- <div class='one'>
 			<table id='searchTable'  class='createProject' style="width:100%;">
 				<thead>
 					<th>项目</th>
@@ -180,7 +187,7 @@
 			
 			
 			</div>
-			<!-- 咨询 -->
+			咨询
 			<div class='three'>
 				<table class='outerProject newsProject'>
 					<tr>
@@ -223,7 +230,7 @@
 			
 			
 			
-			</div>
+			</div> -->
 		
 		</div> 
 		
@@ -250,6 +257,35 @@ $(function(){
  });
 
 });
+$('.to-task-tips').tabLazyChange({
+	defaultnum:0,
+	onchangeSuccess : function(index){
+		switch(index){
+			case 0 : initTabventrueProject();break;
+			case 1 :initTabOuterProject();break;
+			case 2 :initTabConsultProject();break;
+		}
+	}
+})	
+	//页面请求地址
+	function initTabventrueProject(){
+		$.getTabHtml({
+			url : platformUrl.toVentrueProject;
+		});
+	}
+	function initTabOuterProject(){
+		console.log(platformUrl.toTaskLog)
+		$.getTabHtml({
+			url : platformUrl.toOuterProject;
+		});
+	}
+	function initTabConsultProject(){
+		console.log(platformUrl.toConsultProject)
+		$.getTabHtml({
+			url : platformUrl.toConsultProject;
+		});
+	}
+
 
 
 
