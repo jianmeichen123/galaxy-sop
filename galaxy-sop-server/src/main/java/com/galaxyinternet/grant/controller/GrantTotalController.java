@@ -1,27 +1,15 @@
 package com.galaxyinternet.grant.controller;
 
-import com.galaxyinternet.bo.GrantTotalBo;
-import com.galaxyinternet.common.annotation.LogType;
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.hologram.util.ListSortUtil;
-import com.galaxyinternet.model.GrantPart;
-import com.galaxyinternet.model.GrantTotal;
-import com.galaxyinternet.model.hologram.InformationListdata;
-import com.galaxyinternet.model.hologram.InformationResult;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.GrantPartService;
-import com.galaxyinternet.service.GrantTotalService;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationResultService;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -35,16 +23,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.galaxyinternet.bo.GrantTotalBo;
+import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.util.ListSortUtil;
+import com.galaxyinternet.model.GrantPart;
+import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.GrantPartService;
+import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 
 
 
@@ -66,6 +68,8 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	private InformationResultService informationResultService;
 	@Autowired
 	private InformationListdataService informationListdataService;
+	@Autowired
+	private InformationDictionaryDao infoDictDao;
 	
 	@Override
 	protected BaseService<GrantTotal> getBaseService() {
@@ -106,9 +110,22 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			if(list != null && list.size() > 0){
 				for(InformationResult ir : list){
 					  request.setAttribute("result"+ir.getTitleId(), ir.getId());
-					  request.setAttribute("value"+ir.getTitleId(), ir.getContentDescribe1());
+					  if(ir.getTitleId().equals("3020"))
+					  {
+						  request.setAttribute("value"+ir.getTitleId(), ir.getContentChoose());
+					  }
+					  else
+					  {
+						  request.setAttribute("value"+ir.getTitleId(), ir.getContentDescribe1());
+					  }
 				}
 			}
+			InformationDictionary dictQuery = new InformationDictionary();
+			dictQuery.setTitleId(3020L);
+			dictQuery.setIsValid(0);
+			dictQuery.setProperty("sort");
+			List<InformationDictionary> investorList = infoDictDao.selectList(dictQuery);
+			request.setAttribute("investorList", investorList);
 			
 		}
 		request.setAttribute("projectId", pid);
@@ -139,7 +156,13 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			List<InformationResult> list = informationResultService.queryList(informationResult);
 			if(list != null && list.size() > 0){
 				for(InformationResult ir : list){
-					if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+					if(ir.getTitleId().equals("3020") && !StringUtils.isEmpty(ir.getContentChoose()))
+					{
+						InformationDictionary dict = infoDictDao.selectById(Long.parseLong(ir.getContentChoose()));
+						request.setAttribute("value"+ir.getTitleId(), dict.getName());
+					}
+					else if(!StringUtils.isEmpty(ir.getContentDescribe1()))
+					{
 					    request.setAttribute("value"+ir.getTitleId(), ir.getContentDescribe1());
 					}
 				}

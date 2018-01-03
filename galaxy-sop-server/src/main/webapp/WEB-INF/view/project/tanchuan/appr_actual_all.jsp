@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% 
 	String path = request.getContextPath(); 
@@ -13,8 +14,12 @@
 	                <dt>星河投资方主体 ：</dt>
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" data-title-id="3020" data-result-id="${result3020}" value="${value3020}" data-type="8" id="investors" name="3020" value="" maxLength="50"  
-	                    		valType="OTHER" regString="^.{1,50}$" data-rule-verify_3020="true"  data-msg-verify_3020="<font color=red>*</font>只能输入50个字符 "/>
+	                		<select data-title-id="3020" data-result-id="${result3020}" value="${value3020}" data-type="14" id="investors" name="3020">
+	                			<option value="">请选择</option>
+	                			<c:forEach var="item" items="${investorList }">
+	                			<option value="${item.id }">${item.name }</option>
+	                			</c:forEach>
+	                		</select>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -79,7 +84,7 @@
 	
 	<script>
 	 
-	
+	$("#investors").val('${value3020}');
 	
 	
 	$(function(){
@@ -149,7 +154,7 @@
 				return false;
 				
 			}  
-		var fields = $('#b_apprGrantTotal').find("input[type='text'][data-title-id]");
+		var fields = $('#b_apprGrantTotal').find("input[type='text'][data-title-id],select[data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -163,9 +168,16 @@
 				resultId:result,
 				type : type
 			};
-			if(type==19 || type==8)
+			if(type==19 || type==8 || type == 14)
 			{	
-				infoMode.remark1 = field.val();
+				if(type == 14)
+				{
+					infoMode.value = field.val();
+				}
+				else
+				{
+					infoMode.remark1 = field.val();
+				}
 				if(field.data('titleId') == "3004"){   //特殊处理决策里面的投资金额
 					infoMode.reportType=3;
 				    if(field.hasClass('disabled')){
