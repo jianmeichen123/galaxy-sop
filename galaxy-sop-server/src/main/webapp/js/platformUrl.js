@@ -1278,6 +1278,20 @@ var platformUrl = {
 	 *查询成员列表
 	 */
 	 queryMemberList: Constants.sopEndpointURL + "/galaxy/team/queryRowsList/",
+	 
+	 /**
+		 *全局搜索
+		 */
+	 toConsultProject: Constants.sopEndpointURL + "/galaxy/project/toConsultProject/", 
+	 /**
+		 *全局搜索
+		 */
+	 toOuterProject: Constants.sopEndpointURL + "/galaxy/project/toOuterProject/", 
+	 
+	 /**
+		 *全局搜索
+		 */
+	 toVentrueProject: Constants.sopEndpointURL + "/galaxy/project/toVentrueProject/",  
 
 
 	/**

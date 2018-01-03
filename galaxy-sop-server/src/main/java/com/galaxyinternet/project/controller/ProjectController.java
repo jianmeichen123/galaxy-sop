@@ -3789,5 +3789,31 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 	  }
-	  
+	  /**
+		 * 全局搜索页面跳转
+		 * @version v
+		 * @return
+		 */
+		@RequestMapping(value = "/toConsultProject", method = RequestMethod.GET)
+		public String toConsultProject(HttpServletRequest request) {
+			return "project/searchGlobal/consultProject";
+		}
+		  /**
+				 * 全局搜索页面跳转
+				 * @version v
+				 * @return
+				 */
+				@RequestMapping(value = "/toOuterProject", method = RequestMethod.GET)
+				public String toOuterProject(HttpServletRequest request) {
+					return "project/searchGlobal/outerProject";
+				}
+				  /**
+				 * 全局搜索页面跳转
+				 * @version v
+				 * @return
+				 */
+				@RequestMapping(value = "/toVentrueProject", method = RequestMethod.GET)
+				public String toVentrueProject(HttpServletRequest request) {
+					return "project/searchGlobal/ventrueProject";
+				}
 }
