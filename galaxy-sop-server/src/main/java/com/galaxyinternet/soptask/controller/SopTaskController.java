@@ -780,10 +780,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		return data;
 	}
 	@RequestMapping(value="/assign", method = RequestMethod.GET)
-	public ModelAndView assign()
+	public ModelAndView assign(HttpServletRequest request)
 	{
-		ModelAndView mv = new ModelAndView();
-		
+		ModelAndView mv = new ModelAndView("soptask/assignDialog");
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Long depId = user.getDepartmentId();
+		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
+		List<User> users = getDepUserFromCache(depId);
+		mv.addObject("depName", depName);
+		mv.addObject("users", users);
 		return mv;
 	}
 	@ResponseBody
@@ -796,6 +801,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try
 		{
 			sopTaskService.assign(params.getIds(), params.getTargetUserId(), user.getId());
+			Map<String, Object> logParams = new HashMap<>();
+			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{
 			data.getResult().setMessage("指派失败");

@@ -49,15 +49,23 @@ $(function(){
 	//	this.href=endUrl;
 	});
 	//指派任务点击跳转
-	$(".more-task").on("click",function() {
-		//var url=Constants.sopEndpointURL+"/galaxy/soptask/detail";
-	    //forwardWithHeader(url);
+	$(".assign-task").on("click",function() {
+		var rows = $("#task-table").bootstrapTable('getSelections');
+		if(rows.length==0)
+		{
+			layer.msg('请至少选择一条待办任务');
+			return;
+		}
+		$.getHtml({
+			url:platformUrl.assignTask
+		});
+		$('.close').addClass('tast-close')//添加关闭按钮
+		$('.pop').addClass('task-pop');//去掉圆角
 	});
 	
 	/*指派任务弹窗点击事件*/
 	$('.task-toggle li').click(function(){
 		var rows = $("#task-table").bootstrapTable('getSelections');
-		console.log(rows);
 		if(rows.length==0)
 		{
 			layer.msg('请至少选择一条待办任务');
@@ -122,6 +130,14 @@ var tableDefaultOpts = {
     	else
 		{
     		$('.more-task').hide();
+		}
+    	if(activeTab == 'dep-unfinished')
+		{
+    		$('.assign-task').show();
+		}
+    	else
+		{
+    		$('.assign-task').hide();
 		}
     }
 };
