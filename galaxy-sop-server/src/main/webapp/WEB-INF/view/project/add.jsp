@@ -618,9 +618,22 @@ function CallBackE(data){
 				true,
 				function(data) {
 					var result = data.result.status;
-					if (result == 'OK') {
-						forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
-					} else {
+					if (result == 'OK') { 
+						//判断大脑数据
+						var projectName = $("#projectName").val();
+						var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+						var jsonObj={
+								keyword:projectName
+						} 
+						sendPostRequestByJsonObj(_url, jsonObj, function(data){
+							var num =data.pageList.total;
+							if(num==0||!num){
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+							}else{
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym1/?projectName="+projectName);
+							} 
+						})
+						 } else {
 						
 					}
 			});

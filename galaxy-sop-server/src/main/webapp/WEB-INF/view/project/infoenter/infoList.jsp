@@ -59,16 +59,12 @@
 <script>
 $(function(){
 	//导航
+	function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
 	createMenus(5); 
 	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"
-	
-	var jsonObj={
-			"keyword":"项目",
-				"pageNo":0,                 
-				"pageSize":10,
-				"order":"asc",
-				"orderBy":"projTitle",
-				}; 
+	var projectName=getURLParameter("projectName"); 
 
 	//分页
     initTable(); 
@@ -89,7 +85,7 @@ $(function(){
             // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber 
             queryParams: function (params) {
             	var params={
-           			"keyword":"项目",
+           			"keyword":projectName,
        				"pageNo":params.pageNumber,                 
        				"pageSize":params.pageSize,
        				"order":params.sortOrder,
