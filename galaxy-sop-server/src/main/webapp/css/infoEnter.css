@@ -80,8 +80,33 @@ color: #3CA6FF;
 .tableBox .fixed-table-pagination{
 	margin-top:15px;
 }
-.tableBox  .pagination li{
+.tableBox  .pagination li{ 
+}
+.tableBox  .pagination > li > a, .tableBox .pagination > li > span,.tableBox  .pagination > li > a:hover, .tableBox .pagination > li > span:hover,.tableBox .pagination > li > a:focus,.tableBox  .pagination > li > span:focus{
 	background-color:#fff!important;
+	color: #45AAFF;
+	border-width:0;	
+    margin-left: 8px;
+}
+.tableBox .btn-default{
+	background-color:#fff;
+}
+.tableBox  .pagination > li.active > a{
+	background: #45AAFF!important;
+	color: #fff;
+} 
+.tableBox .dropdown-menu1{
+	max-width: 46px;
+	min-width: 46px;
+    padding: 0!important;
+    text-align: center;
+	background: #fff!important;
+}
+.tableBox .dropdown-menu1 > li > a{
+	padding:3px 0;
+}
+.tableBox .pagination > .disabled > span, .tableBox .pagination > .disabled > span:hover, .tableBox .pagination > .disabled > span:focus, .tableBox .pagination > .disabled > a, .tableBox .pagination > .disabled > a:hover, .tableBox .pagination > .disabled > a:focus{
+
 }
 .infoList{
 	width: 100%;
