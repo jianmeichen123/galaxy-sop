@@ -4273,7 +4273,12 @@ input:-ms-input-placeholder {
 
 
 /*1.11指派任务*/
-
+.buttonGroup {float:left;margin-top: 6px;}
+.input-group{float:left;}
+.pageTop {border:1px solid;}
+.content_task{margin-top:50px;margin-left: 9.375%;}
+.input-content{position:relative;}
+.input-content span{display:inline-block;width:32px;height:32px;border:1px solid;position:absolute;right:5px;}
 
 /*1.11全局搜索  */
 .search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}

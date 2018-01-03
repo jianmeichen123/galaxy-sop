@@ -210,7 +210,7 @@ font-weight: bold;
 .pageTop{
 	position: relative;
 	background: #fff;
-	padding: 20px 30px;
+	padding: 10px 30px;
 }
 .pageTop .form-group{
 	float: left;
@@ -218,7 +218,7 @@ font-weight: bold;
 }
 .bootstrap-select > .btn,.open>.dropdown-toggle.btn-info:hover,.dropdown-toggle.btn-info:active,.dropdown-toggle.btn-info:focus {
 	max-width: 130px;
-    padding-right: 25px;
+    padding-right: 30px;
 	background: none;
 	border: none;	
     color: #33363E;
@@ -269,4 +269,37 @@ background: #E5F3FF;
     position: absolute;
     right: 2px;
     top: 0px;
+}
+.input-group input{
+	width:240px;
+	height:32px;
+	margin-left: 32px;
+	padding-left:10px;
+}
+.title_top{
+	width:100%;
+	height:64px;
+	background:#fff;
+}
+.title_top h3{
+	float:left;
+	margin-top:20px;
+	margin-left:20px;	
+	font-size: 24px;
+	color: #202533;
+}
+.title_top span:nth-child(2){
+	float:right;
+	display:inline-block;
+	width:88px;
+	height:32px;
+	text-align:center;
+	line-height:32px;
+	color:#fff;
+	background: #3CA6FF;
+	border-radius: 2px;
+	margin-top:20px;
+	margin-bottom:12px;
+	margin-right:19px;
+	
 }

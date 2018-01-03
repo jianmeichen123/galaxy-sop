@@ -23,12 +23,16 @@
 <body >
 <div class="pagebox">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
-	<div class="ritmin"> 
+	<div class='content_task'>
+		<div class='title_top'>
+			<h3>指派项目</h3>
+			<span>指派项目</span>
+		</div>
 		<div class="pageTop clearfix">
-			<div class="buttonGroup">				
+			<div class="buttonGroup clearfix">				
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>Mustard</option>
+					  <option>全部事业部</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
@@ -36,7 +40,7 @@
 
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>MustardMustardMustardMustard</option>
+					  <option>投资经理</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
@@ -44,7 +48,7 @@
 
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>Mustard</option>
+					  <option>项目进度</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
@@ -52,7 +56,7 @@
 
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>Mustard</option>
+					  <option>项目状态</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
@@ -60,7 +64,7 @@
 
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>Mustard</option>
+					  <option>融资状态</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
@@ -68,26 +72,34 @@
 
 				<div class="form-group">
 			      <select class="selectpicker">
-					  <option>Mustard</option>
+					  <option>项目来源</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
 			  	</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 			      <select class="selectpicker">
 					  <option>Mustard</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
 					</select>
-			  	</div> 
+			  	</div> --> 
 		  	</div>
 		  	<div class="input-group">
-		      <input type="text" class="form-control" placeholder="Search for...">
+		  	<di class='input-content'>
+		  		<input type="text" class="form-control" placeholder="请输入项目名称">
+		  		<span>ss</span>
+		  	</di>
+		      
 		      <span class="input-group-btn">
-		        <button class="btn btn-default" type="button">Go!</button>
+		        <button class="btn btn-default" type="button"></button>
 		      </span>
+		      <span>重置</span>
 		    </div>
 		</div> 
+	</div>
+	<div class="ritmin"> 
+		
 		<div class="">	
 			<table id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
 				<thead>
@@ -119,6 +131,7 @@
 </html>
 <script>
 $(function(){
+	
 	//导航
 	createMenus(5);
  $('.selectpicker').selectpicker({
@@ -126,7 +139,15 @@ $(function(){
   size: 4
 });
 
-	
+ detailHeaderWidth();
+ function detailHeaderWidth(){
+ 	  var  w_lft=$(".lft").width();
+ 	  	$('.content_task').css({'margin-left':w_lft});
+ }
+ $(window).resize(function(){
+ 	detailHeaderWidth();
+ })	
+
 	
 	
 })
