@@ -195,9 +195,9 @@
 $(function(){
 	//导航
 	createMenus(5);
-	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/1";
 	var jsonObj={
-			
+			compCode:"3beba70fb7b0e326c69dd94d33a65c5c"
 	}
 	//sendPostRequestByJsonObj
 	sendGetRequest(_url, jsonObj, function(data){
