@@ -64,28 +64,22 @@
 	        	</table>
         	</div>
         	<!-- 处理任务 -->
-        	<c:if test="${'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
         	<div class='taskDetail-mesage-update'>
+	        	<c:if test="${'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
         		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
         		<a href='javascript:;'  class='upate-task submit-success disabled' id="complete-task-btn" disabled="disabled">提交完成</a>
+	        	</c:if>
+	        	
+	        	<!-- 已完成任务再处理 -->
+	        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
+				<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
+	        	</c:if>
         		 <span class='more-task fr'>更多操作</span>
 		         <ul class='task-toggle more-operateOne'>
 		         	<li data-code='transfer-task'>移交任务</li>
 	          		<li data-code='abandon-task'>放弃任务</li>
 	          	</ul>
         	</div>
-        	</c:if>
-        	<!-- 已完成任务再处理 -->
-        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
-        	<div class='taskDetail-mesage-update'>
-        		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
-        		<span class='more-task fr'>更多操作</span>
-		         <ul class='task-toggle more-operateOne'>
-		         	<li data-code='transfer-task'>移交任务</li>
-	          		<li data-code='abandon-task'>放弃任务</li>
-	          	</ul>
-        	</div>
-        	</c:if>
         </div>
 	</div>
 </div>
