@@ -3,6 +3,7 @@ package com.galaxyinternet.service;
 import java.util.List;
 import java.util.Map;
 
+import com.galaxyinternet.model.DongNao.DnProject;
 import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -21,7 +22,7 @@ public interface InfoFromDanaoService {
 	 * @param pageable
 	 * @return
 	 */
-	public void queryDnaoProjectPage(Map<String,Object> map) throws Exception;
+	public Page<DnProject> queryDnaoProjectPage(Map<String,Object> map) throws Exception;
 	
 
 
