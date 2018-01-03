@@ -1,4 +1,4 @@
-package com.galaxyinternet.project.service;
+package com.galaxyinternet.project_danao.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,6 +120,20 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		dnProjectPage = new Page<DnProject>(dnProjectList, total);
 
         return dnProjectPage;
+	}
+
+
+	public Map<String,Object> queryDnaoBusinessInfo(String projCode) throws Exception
+	{
+		String uri = danaoDomain + businessInfo + projCode;
+
+		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
+
+		Integer status = (Integer) object.get("status"); //成功:10000 失败:10001 缺少参数:10002
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+
+		return object;
 	}
 
 
