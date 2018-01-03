@@ -769,6 +769,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try
 		{
 			sopTaskService.giveup(params.getIds(), user.getId());
+			Map<String, Object> logParams = new HashMap<>();
+			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{
 			data.getResult().setMessage("放弃失败");

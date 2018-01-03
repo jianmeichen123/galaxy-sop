@@ -505,6 +505,7 @@
 		file_length = 0,
 		file_key = NULL,
 		bucket_name = NULL,
+		file_name = NULL,
 		file_suffix = NULL
 		<include refid="Base_Where_Clause" />
 	</update>
