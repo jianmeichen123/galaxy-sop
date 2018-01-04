@@ -3816,4 +3816,107 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				public String toVentrueProject(HttpServletRequest request) {
 					return "project/searchGlobal/ventrueProject";
 				}
+				
+				/**
+				 * 删除项目弹框
+				 * @return
+				 */
+				@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+				public String toDeleteProject(){
+					return "project/dialog/deleteProjectDialog";
+				}
+				
+				/**
+				 * 删除项目
+				 * 
+				 * @param pid
+				 *            项目id
+				 * @return
+				 */
+				@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+				@ResponseBody
+				@RequestMapping(value = "/deletePro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+				public ResponseData<Project> deletePro(@RequestBody OperationLogs param,
+						HttpServletRequest request) {
+					ResponseData<Project> responseBody = new ResponseData<Project>();
+
+					User user = (User) request.getSession().getAttribute(
+							Constants.SESSION_USER_KEY);
+					try {
+						// project id 验证
+						Project project = new Project();
+						project = projectService.queryById(param.getProjectId());
+						// 项目删除将会议记录修改为否决项目
+						MeetingScheduling me = new MeetingScheduling();
+						me.setProjectId(param.getProjectId());
+						List<MeetingScheduling> meetingList = meetingSchedulingService
+								.queryList(me);
+						if (!meetingList.isEmpty()) {
+							for (MeetingScheduling meet : meetingList) {
+								
+								/**当否决项目时,将(当前)排期未排期的会议删掉 .注:已经通过排期的会议状态不进行更改**/
+								//1.否决CEO评审
+								if(DictEnum.projectProgress.CEO评审.getCode().equals(project.getProjectProgress())
+										&& DictEnum.meetingType.CEO评审.getCode().equals(meet.getMeetingType())){
+									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
+										meetingSchedulingService.deleteById(meet.getId());
+									}
+								}
+								//2.否决内部评审
+								if(DictEnum.projectProgress.内部评审.getCode().equals(project.getProjectProgress())
+										&& DictEnum.meetingType.内评会.getCode().equals(meet.getMeetingType())){
+									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
+										meetingSchedulingService.deleteById(meet.getId());
+									}
+								}
+								//3.否决立项会
+								if(DictEnum.projectProgress.立项会.getCode().equals(project.getProjectProgress())
+										&& DictEnum.meetingType.立项会.getCode().equals(meet.getMeetingType())){
+									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
+										meetingSchedulingService.deleteById(meet.getId());
+									}
+								}
+								//4.否决投决会
+								if(DictEnum.projectProgress.投资决策会.getCode().equals(project.getProjectProgress())
+										&& DictEnum.meetingType.投决会.getCode().equals(meet.getMeetingType())){
+									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
+										meetingSchedulingService.deleteById(meet.getId());
+									}
+								}
+								
+							}
+						}
+						meetingSchedulingService.updateBatch(meetingList);
+						if (project == null || project.getCreateUid() == null) {
+							responseBody
+									.setResult(new Result(Status.ERROR, null, "项目检索不到"));
+							return responseBody;
+						} else {
+							if (!project.getCreateUid().equals(user.getId())) {
+								responseBody.setResult(new Result(Status.ERROR, null,
+										"无操作权限"));
+								return responseBody;
+							}
+						}
+
+						project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
+						int id = projectService.closeProject(project);
+						if (id != 1) {
+							responseBody.setResult(new Result(Status.ERROR, null, "更新失败"));
+							return responseBody;
+						}
+						responseBody.setResult(new Result(Status.OK, ""));
+						ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
+					} catch (Exception e) {
+						responseBody.setResult(new Result(Status.ERROR, null,
+								"add meetingRecord faild"));
+
+						if (_common_logger_.isErrorEnabled()) {
+							_common_logger_.error("add meetingRecord faild ", e);
+						}
+					}
+
+					return responseBody;
+				}
+				
 }
