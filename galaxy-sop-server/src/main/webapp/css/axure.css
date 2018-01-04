@@ -3422,6 +3422,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;}
+#powindow{	
+    transform: translate(-50%,-50%);
+}
 #powindow .close{z-index:40;}    
 .intw_summary dd{word-break:break-all;}  
 .intw_summary ol,.intw_summary ol li{list-style-type: decimal;list-style-position: inside; } 

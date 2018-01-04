@@ -11,10 +11,10 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
+<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include> 
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include> 
+
 </head>
 
 <body >
@@ -195,14 +195,14 @@
 $(function(){
 	//导航
 	createMenus(5);
-	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/1";
+	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 	var jsonObj={
-			compCode:"3beba70fb7b0e326c69dd94d33a65c5c"
+			projId:"1",
+			titleCode:"3beba70fb7b0e326c69dd94d33a65c5c"
 	}
-	//sendPostRequestByJsonObj
-	sendGetRequest(_url, jsonObj, function(data){
+	sendPostRequestByJsonObj(_url, jsonObj, function(data){
 		debugger;
-	})
+	}) 
 	
 	
 	

@@ -3,7 +3,8 @@
 	String path = request.getContextPath(); 
 %>
 
-<div class="ritmin">
+<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
+<div class="ritmin bigPop">
 	<div class="infoTop clearfix">
 		<h5>项目“<span id="projectName"></span>”创建成功</h5>
 		<p>下一步，请完善项目信息</p>
