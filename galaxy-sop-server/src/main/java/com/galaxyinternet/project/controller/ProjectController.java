@@ -3821,7 +3821,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				 * 删除项目弹框
 				 * @return
 				 */
-				@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+				@RequestMapping(value = "/toDeleteProject", method = RequestMethod.GET)
 				public String toDeleteProject(){
 					return "project/dialog/deleteProjectDialog";
 				}
