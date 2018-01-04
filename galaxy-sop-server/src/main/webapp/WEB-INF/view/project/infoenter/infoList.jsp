@@ -36,7 +36,25 @@ $(function(){
 
 	createMenus(5); 
 	//导航
-	
+	function getURLParameter(name) {
+	    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+	}
+	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+	var projectName=getURLParameter("projectName"); 
+	var projectId=getURLParameter("projectId");
+	$("#projectName").text(projectName);
+	var data={
+   			"keyword":projectName,
+			"orderBy":"projTitle",
+    		}
+	//分页
+	initTable(_url,data,0); 
+
+	function infoDetail(event){
+		var compCode=$(event).attr("compCode");
+		var projCode=$(event).attr("projCode");
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
+		}  
 	
 })	
 	
