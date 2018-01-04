@@ -302,7 +302,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			List<InformationResult> list = informationResultService.queryList(informationResult);
 			if(list != null && list.size() == titleIds.length){
 				for(InformationResult ir : list){
-					if(validate && StringUtils.isEmpty(ir.getContentDescribe1())){
+					if(validate && StringUtils.isEmpty(ir.getContentDescribe1()) && StringUtils.isEmpty(ir.getContentChoose())){
 						map.clear();
 						break;
 					}
