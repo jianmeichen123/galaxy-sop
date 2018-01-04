@@ -11,6 +11,7 @@ import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.JointDelivery;
 
 import java.io.Serializable;
+import java.security.PrivateKey;
 import java.util.List;
 
 public class DnProject extends BaseEntity {
@@ -45,6 +46,8 @@ public class DnProject extends BaseEntity {
 	private String projCode;
 	private String projImage;
 
+	private String compCode; //==sourceCode
+
 	//项目名称 ：  项目标题 ,
 	private String projTitle;
 
@@ -62,7 +65,12 @@ public class DnProject extends BaseEntity {
 	private String setupDT;
 
 
-
+	/*
+	 * 星河投项目id ：  projId
+     * 报告题code ：   titleCode
+	*/
+	private Long projId;
+	private String titleCode;
 
 
 	public String getOrder() {
@@ -191,5 +199,29 @@ public class DnProject extends BaseEntity {
 
 	public void setSetupDT(String setupDT) {
 		this.setupDT = setupDT;
+	}
+
+	public String getCompCode() {
+		return compCode;
+	}
+
+	public void setCompCode(String compCode) {
+		this.compCode = compCode;
+	}
+
+	public Long getProjId() {
+		return projId;
+	}
+
+	public void setProjId(Long projId) {
+		this.projId = projId;
+	}
+
+	public String getTitleCode() {
+		return titleCode;
+	}
+
+	public void setTitleCode(String titleCode) {
+		this.titleCode = titleCode;
 	}
 }

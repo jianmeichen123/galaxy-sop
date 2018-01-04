@@ -82,38 +82,49 @@ public class InfoFromDanaoController{
 
 	/**
 	 * 查询大脑项目 推荐信息
-	 * 项目id，题code，大脑 code
+	 * 项目id，题code，大脑sourceCode = compCode
+     * compCode == sourceCode
+     *
+     * 项目id ：       projId
+     * 报告题code ：   titleCode
+     * 大脑项目code ： projCode
+     * 大脑项目公司code ： compCode
+     *
 	 */
-	@RequestMapping(value = "/searchProjectInfo/{projId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseData<DnProject> searchProjectInfo(HttpServletRequest request,HttpServletResponse response,
-																   @PathVariable("projId") String projId,
-																   @RequestParam(value ="projCode", required =false) String projCode,
-																   @RequestParam(value ="titleCode", required =false) String titleCode )
+	@RequestMapping(value = "/searchProjectInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnProject> searchProjectInfo(@RequestBody DnProject dnProject,
+                                                                   HttpServletRequest request,HttpServletResponse response)
 	{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
 		Map<String,Object>  result = null;
 		try {
 
-			if(projCode != null && titleCode == null)
+			if(dnProject.getCompCode() != null && dnProject.getTitleCode() == null)
 			{
 				//仅有大脑项目code，
 				//创建项目时，待引用所有的大脑信息，
-				//保存星河投项目 和 大脑项目code的关联关系
+				//保存星河投项目 和 大脑项目code\sourceCode的关联关系
 
 
 				//法人信息、股权结构
-				result = infoFromDanaoService.queryDnaoBusinessInfo(projCode,null);
+                Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
+
+                //项目团队
+                Map<String,Object> result2 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
+
+                //项目团队
+                Map<String,Object> result3 = infoFromDanaoService.queryDnaoProjFinance(dnProject.getProjCode());
 
 
 
-			} else if(projCode != null && titleCode != null)
+			} else if(dnProject.getCompCode() != null && dnProject.getTitleCode() != null)
 			{
 				//有大脑项目code，标题code
 				//在报告中，待引用特定的大脑信息，
 
 
-			}else if(projCode == null && titleCode != null)
+			}else if(dnProject.getCompCode() == null && dnProject.getTitleCode() != null)
 			{
 				//无大脑项目code，有标题code
 				//在报告中，待引用特定的大脑信息，但是创建项目时未引用大脑数据

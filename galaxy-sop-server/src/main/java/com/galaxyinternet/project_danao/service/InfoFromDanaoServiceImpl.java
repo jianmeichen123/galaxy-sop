@@ -145,13 +145,13 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	 *   法人信息 legalInfo
 	 *   股权结构 equityInfo
 	 */
-	public Map<String,Object> queryDnaoBusinessInfo(String projCode,String checkToChooseCode) throws Exception
+	public Map<String,Object> queryDnaoBusinessInfo(String compCode,String checkToChooseCode) throws Exception
 	{
 		Map<String,Object> result = new HashMap<>();
 		Map<String,Object> legalInfo = new HashMap<>();
 		List<Map<String,Object>> equityInfo = new ArrayList<>();
 
-		String uri = danaoDomain + businessInfo + projCode;
+		String uri = danaoDomain + businessInfo + compCode;
 		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
 
 		Integer status = (Integer) object.get("status");
@@ -217,6 +217,66 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		return result;
 	}
+
+
+
+
+
+    //团队成员 state :0 在职 1离职
+    public Map<String,Object> queryDnaoProjTeam(String projCode) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> teamInfo = new ArrayList<>();
+
+        Map<String, Object> query = new HashMap<>();
+        query.put("projectCode ", projCode);
+        query.put("state", "0");
+
+        String uri = danaoDomain + projectTeam;
+        Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
+
+        Integer status = (Integer) object.get("status");
+        if(status.intValue() != 10000)
+            throw new Exception(status.toString());
+
+        if(object.get("data") !=null)
+        {
+
+        }
+
+
+
+
+        return result;
+    }
+
+
+
+    //融资历史
+    public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> teamInfo = new ArrayList<>();
+
+        Map<String, Object> query = new HashMap<>();
+        query.put("projectCode ", projCode);
+
+        String uri = danaoDomain + projectEven;
+        Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
+
+        Integer status = (Integer) object.get("status");
+        if(status.intValue() != 10000)
+            throw new Exception(status.toString());
+
+        if(object.get("data") !=null)
+        {
+
+        }
+
+
+
+
+        return result;
+    }
+
 
 
 	/*

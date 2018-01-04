@@ -23,7 +23,9 @@ public interface InfoFromDanaoService {
 	 */
 	public Page<DnProject> queryDnaoProjectPage(Map<String,Object> map) throws Exception;
 
-	public Map<String,Object> queryDnaoBusinessInfo(String projCode,String checkToChooseCode) throws Exception;
+	public Map<String,Object> queryDnaoBusinessInfo(String compCode,String checkToChooseCode) throws Exception;
 
+	public Map<String,Object> queryDnaoProjTeam(String projCode) throws Exception;
 
+	public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception;
 }
