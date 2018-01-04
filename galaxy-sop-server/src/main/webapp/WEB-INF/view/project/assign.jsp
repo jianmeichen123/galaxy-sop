@@ -86,15 +86,14 @@
 			  	</div> --> 
 		  	</div>
 		  	<div class="input-group">
-		  	<di class='input-content'>
-		  		<input type="text" class="form-control" placeholder="请输入项目名称">
-		  		<span>ss</span>
-		  	</di>
-		      
-		      <span class="input-group-btn">
+			  	<di class='input-content'>
+			  		<input type="text" class="form-control" placeholder="请输入项目名称">
+			  		<span></span>
+			  	</di>
+		      <!-- <span class="input-group-btn">
 		        <button class="btn btn-default" type="button"></button>
-		      </span>
-		      <span>重置</span>
+		      </span> -->
+		      <span class='reset_search'>重置</span>
 		    </div>
 		</div> 
 	</div>
