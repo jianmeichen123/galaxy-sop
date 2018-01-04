@@ -21,10 +21,10 @@
 </head>
 
 <body >
-<div class="pagebox">
+<div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	
-		<div class="ritmin"> 
+		<div class="ritmin searchPage"> 
 			<p class='searchNumber'>共搜索到<span>24</span>条结果</p>
 			
 			<div class='search-top'>
@@ -37,7 +37,7 @@
 			</div>
 			<div data-id="tab-block">
 	    		<div id='tab-content' data-id="tab-content">
-			    	<div class='tabtxt'>
+			    	<div class='tabtxt searchContainer'>
 			    	
 			    	</div>
 		    	</div>
