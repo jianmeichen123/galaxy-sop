@@ -16,6 +16,9 @@ UPDATE `fx_db`.`information_title` SET `type`='14' WHERE `id`='3020';
 
 
 
+
+
+
 update fx_db.information_result set content_choose = 2271 where title_id = 3020 and content_describe1 like '%杭州天马%' ;
 update fx_db.information_result set content_choose = 2272 where title_id = 3020 and content_describe1 like '%北京星河之光%' ;
 update fx_db.information_result set content_choose = 2273 where title_id = 3020 and content_describe1 like '%喀什星河%' ;
