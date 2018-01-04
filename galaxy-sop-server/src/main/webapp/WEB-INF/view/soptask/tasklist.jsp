@@ -53,12 +53,20 @@
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
+            <c:if test="${fx:hasPremission('task_transfer') or fx:hasPremission('task_abandon')}">	
             <span class='more-task fr'>更多操作</span>
+            </c:if>
+            <c:if test="${fx:hasPremission('task_assign')}">	
             <span class='assign-task fr'>指派任务</span>
+            </c:if>
             <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
 	          <ul class='task-toggle'>
+	          	<c:if test="${fx:hasPremission('task_transfer')}">	
 	          	<li data-code='transfer-task'>移交任务</li>
+	          	</c:if>
+	          	<c:if test="${fx:hasPremission('task_abandon')}">	
 	          	<li data-code='abandon-task'>放弃任务</li>
+	          	</c:if>
 	          </ul>
       	  </div>
           

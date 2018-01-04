@@ -74,11 +74,17 @@
 	        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
 				<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
 	        	</c:if>
+	        	<c:if test="${sessionScope.galax_session_user.id == task.assignUid and (fx:hasPremission('task_transfer') or fx:hasPremission('task_abandon'))}">
         		 <span class='more-task fr'>更多操作</span>
 		         <ul class='task-toggle more-operateOne'>
+		         	<c:if test="${fx:hasPremission('task_transfer')}">	
 		         	<li data-code='transfer-task'>移交任务</li>
+		         	</c:if>
+		         	<c:if test="${fx:hasPremission('task_abandon')}">	
 	          		<li data-code='abandon-task'>放弃任务</li>
+	          		</c:if>
 	          	</ul>
+	          	</c:if>
         	</div>
         </div>
 	</div>
