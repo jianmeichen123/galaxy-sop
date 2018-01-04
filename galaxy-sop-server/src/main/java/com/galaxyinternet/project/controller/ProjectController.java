@@ -3836,7 +3836,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 				@ResponseBody
 				@RequestMapping(value = "/deletePro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-				public ResponseData<Project> deletePro(@RequestBody OperationLogs param,
+				public ResponseData<Project> deletePro(@RequestBody Project param,
 						HttpServletRequest request) {
 					ResponseData<Project> responseBody = new ResponseData<Project>();
 
@@ -3845,74 +3845,29 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					try {
 						// project id 验证
 						Project project = new Project();
-						project = projectService.queryById(param.getProjectId());
-						// 项目删除将会议记录修改为否决项目
-						MeetingScheduling me = new MeetingScheduling();
-						me.setProjectId(param.getProjectId());
-						List<MeetingScheduling> meetingList = meetingSchedulingService
-								.queryList(me);
-						if (!meetingList.isEmpty()) {
-							for (MeetingScheduling meet : meetingList) {
-								
-								/**当否决项目时,将(当前)排期未排期的会议删掉 .注:已经通过排期的会议状态不进行更改**/
-								//1.否决CEO评审
-								if(DictEnum.projectProgress.CEO评审.getCode().equals(project.getProjectProgress())
-										&& DictEnum.meetingType.CEO评审.getCode().equals(meet.getMeetingType())){
-									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
-										meetingSchedulingService.deleteById(meet.getId());
-									}
-								}
-								//2.否决内部评审
-								if(DictEnum.projectProgress.内部评审.getCode().equals(project.getProjectProgress())
-										&& DictEnum.meetingType.内评会.getCode().equals(meet.getMeetingType())){
-									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
-										meetingSchedulingService.deleteById(meet.getId());
-									}
-								}
-								//3.否决立项会
-								if(DictEnum.projectProgress.立项会.getCode().equals(project.getProjectProgress())
-										&& DictEnum.meetingType.立项会.getCode().equals(meet.getMeetingType())){
-									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
-										meetingSchedulingService.deleteById(meet.getId());
-									}
-								}
-								//4.否决投决会
-								if(DictEnum.projectProgress.投资决策会.getCode().equals(project.getProjectProgress())
-										&& DictEnum.meetingType.投决会.getCode().equals(meet.getMeetingType())){
-									if(DictEnum.meetingSheduleResult.待排期.getCode() == meet.getScheduleStatus()){
-										meetingSchedulingService.deleteById(meet.getId());
-									}
-								}
-								
-							}
-						}
-						meetingSchedulingService.updateBatch(meetingList);
+						project = projectService.queryById(param.getId());
 						if (project == null || project.getCreateUid() == null) {
 							responseBody
-									.setResult(new Result(Status.ERROR, null, "项目检索不到"));
+									.setResult(new Result(Status.ERROR, null, "删除的项目不存在"));
 							return responseBody;
-						} else {
-							if (!project.getCreateUid().equals(user.getId())) {
-								responseBody.setResult(new Result(Status.ERROR, null,
-										"无操作权限"));
-								return responseBody;
-							}
 						}
-
-						project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
-						int id = projectService.closeProject(project);
+						project.setIsdelete(0);
+						if(null!=project.getDeleteReason()&&!"".equals(project)){
+							project.setDeleteReason(project.getDeleteReason());
+						}
+						int id = projectService.deleteProject(project);
 						if (id != 1) {
-							responseBody.setResult(new Result(Status.ERROR, null, "更新失败"));
+							responseBody.setResult(new Result(Status.ERROR, null, "删除项目失败"));
 							return responseBody;
 						}
 						responseBody.setResult(new Result(Status.OK, ""));
-						ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
+						ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getDeleteReason(), null);
 					} catch (Exception e) {
 						responseBody.setResult(new Result(Status.ERROR, null,
-								"add meetingRecord faild"));
+								"delete project faild"));
 
 						if (_common_logger_.isErrorEnabled()) {
-							_common_logger_.error("add meetingRecord faild ", e);
+							_common_logger_.error("delete project faild ", e);
 						}
 					}
 

@@ -418,7 +418,18 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		}
 		return updateById;
 	}
-	
+	@Transactional
+	@Override
+	public int deleteProject(Project project) {
+		int updateById = projectDao.updateById(project);
+		if(updateById > 0){
+			SopTask sopTask=new SopTask();
+			sopTask.setProjectId(project.getId());
+			sopTask.setIsDelete(0);
+			sopTaskService.updateByIdSelective(sopTask);
+		}
+		return updateById;
+	}
 	/**
 	 * id必须存在
 	 * project_departId项目所属部门必须存在
