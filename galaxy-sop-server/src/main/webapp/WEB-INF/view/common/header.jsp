@@ -43,6 +43,13 @@
     <div class='fl input-search'>
     	<input type="text" placeholder="请输入项目名称"/>
     	<span><a href="<%=path %>/galaxy/test/searchResult">全局搜索</a></span>
+    	<ul class='globalSearhc-ul'>
+    		<li>搜索历史</li>
+    		<li>滴滴打车</li>
+    		<li>数字娱乐</li>
+    		<li>蚂蚁森林</li>
+    		<li>互联网医疗</li>
+    	</ul>
     </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
