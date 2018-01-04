@@ -4279,19 +4279,22 @@ input:-ms-input-placeholder {
 /*1.11指派任务*/
 .buttonGroup {float:left;margin-top: 6px;}
 .input-group{float:left;}
-.pageTop {border:1px solid;}
+.pageTop {border:1px solid #d8d8d8;}
 .content_task{margin-top:50px;margin-left: 9.375%;}
 .input-content{position:relative;}
 .input-content span{display:inline-block;width:32px;height:35px;cursor:pointer;position:absolute;right:3px;border-radius: 0 2px 2px 0;background:url(../img/search_new.png) no-repeat 6px 8px;background-color: #3CA6FF;}
 .input-content input{}
 .reset_search{font-size: 12px;color: #3CA6FF;margin-left:20px;cursor:pointer;}
-
-
-
-
-
-
-
+.assign_project .ritmin{margin:10px 20px 0px 20px;}
+.assingTable{width:100%;border-collapse:collapse;}
+.assingTable thead tr th{text-align:center;height:40px;border-bottom:1px solid #d8d8d8;font-weight:bold;font-size: 14px;color: #33363E;font-family: Microsoft YaHei;}
+.assingTable thead tr th:nth-child(1){padding-left:20px;}
+.assingTable tbody tr td:nth-child(1){padding-left:20px;}
+.assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:40px;text-align:center;}
+.highlighCheckbox input{display:none;}
+.highlighCheckbox{width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
+.highlighCheckbox_th{width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
+.a{background-position: -86px -5px !important;}
 
 
 /*1.11全局搜索  */
@@ -4307,7 +4310,7 @@ input:-ms-input-placeholder {
 .createProject thead tr th:nth-child(1){padding-left:20px;text-align:left;}
 .createProject tbody tr td{height:40px;text-align:center;font-family: Microsoft YaHei;font-size: 14px;color: #5A626D;}
 .createProject tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
-.one{}
+
 .two{background:#fff;}
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
@@ -4340,3 +4343,7 @@ p.outerProjectTitle {
 .globalSearhc-ul{width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;display:none;}
 .globalSearhc-ul li:hover{background:#E5F3FF;}
+
+
+
+
