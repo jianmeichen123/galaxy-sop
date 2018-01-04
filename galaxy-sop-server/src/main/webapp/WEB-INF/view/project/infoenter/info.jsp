@@ -174,7 +174,7 @@
 				 		</table>
 				 	</li>
 				 </ul>
-				 <a href="javascript:;" class="add_pro" >保存</a>
+				 
 			</div>
 			<div class="tableBox emptyInfo">
 				<div class="empty">
@@ -182,6 +182,7 @@
 				</div>
 			</div>
 		</div> 
+		<div class="fixedbottom"><a href="javascript:;" class="add_pro" >保存</a></div>
 	</div>
 	
 

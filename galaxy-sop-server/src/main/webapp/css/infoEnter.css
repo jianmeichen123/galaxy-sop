@@ -206,6 +206,7 @@ color: #3CA6FF;
 }
 .infoBox{
 	padding:20px 16px ;
+	background:#fff;
 }
 .infoItem{
 	margin-bottom:30px;
@@ -354,4 +355,10 @@ background: #E5F3FF;
     margin: 0 auto;
     max-height: 500px;
     overflow-y: auto;
+}
+.fixedbottom{
+	position: fixed;
+	padding: 30px;
+	left: 0;
+	right: 0;
 }
