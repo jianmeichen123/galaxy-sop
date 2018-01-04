@@ -60,6 +60,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
@@ -1577,10 +1578,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		data.setPageList(page);
 		return data;
 	}
-	@RequestMapping(value="/test", method = RequestMethod.GET)
-	public String test()
+	@RequestMapping(value="/test/{mode}", method = RequestMethod.GET)
+	public String test(@PathVariable String mode)
 	{
-		return "sopFile/test";
+		return "sopFile/"+mode;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/getOSSSignature", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -1610,6 +1611,23 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}  catch (Exception e)
 		{
 			data.getResult().setMessage("签名失败");
+		}
+		return data;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/indirectUpload",method=RequestMethod.POST)
+	public ResponseData<SopFile> indirectUpload(HttpServletRequest request)
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			UploadFileResult ur = uploadFileToOSS(request, IdGenerator.generateId(OSSHelper.class)+"", tempfilePath);
+			data.getUserData().putAll(BeanUtils.toMap(ur));
+		} catch (Exception e)
+		{
+			data.getResult().setMessage(e.getMessage());
+			e.printStackTrace();
 		}
 		return data;
 	}
