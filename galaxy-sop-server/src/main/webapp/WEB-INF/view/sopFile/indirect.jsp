@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>星河投</title>
+<title>星河投-间接上传到</title>
 </head>
 <body>
 <input type="text" id="fileName">
@@ -16,7 +16,7 @@
 var fileUploader = new plupload.Uploader({
 	runtimes : 'html5,flash,silverlight,html4',
 	browse_button : "selectFile", 
-	url : 'http://oss.aliyun.com',
+	url : '../indirectUpload',
 	multipart:true,
 	multi_selection:false,
 	filters : {
@@ -30,19 +30,6 @@ var fileUploader = new plupload.Uploader({
 	},
 	init: {
 		PostInit: function(up){
-			$.getJSON('getOSSSignature',function(data){
-				var params = data.userData;
-				up.setOption({
-					url : params.host,
-					multipart_params : {
-						'key' : new Date().getTime(),
-						'policy': params.policy,
-						'OSSAccessKeyId': params.accessid,
-						'signature': params.signature,
-						'success_action_status' : '200'
-					}
-				});
-			})
 		},
 		FilesAdded: function(up, files) {
 			var file = files[0];
