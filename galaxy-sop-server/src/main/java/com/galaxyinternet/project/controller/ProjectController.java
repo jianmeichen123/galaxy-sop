@@ -3816,4 +3816,62 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				public String toVentrueProject(HttpServletRequest request) {
 					return "project/searchGlobal/ventrueProject";
 				}
+				
+				/**
+				 * 删除项目弹框
+				 * @return
+				 */
+				@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+				public String toDeleteProject(){
+					return "project/dialog/deleteProjectDialog";
+				}
+				
+				/**
+				 * 删除项目
+				 * 
+				 * @param pid
+				 *            项目id
+				 * @return
+				 */
+				@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+				@ResponseBody
+				@RequestMapping(value = "/deletePro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+				public ResponseData<Project> deletePro(@RequestBody Project param,
+						HttpServletRequest request) {
+					ResponseData<Project> responseBody = new ResponseData<Project>();
+
+					User user = (User) request.getSession().getAttribute(
+							Constants.SESSION_USER_KEY);
+					try {
+						// project id 验证
+						Project project = new Project();
+						project = projectService.queryById(param.getId());
+						if (project == null || project.getCreateUid() == null) {
+							responseBody
+									.setResult(new Result(Status.ERROR, null, "删除的项目不存在"));
+							return responseBody;
+						}
+						project.setIsdelete(0);
+						if(null!=project.getDeleteReason()&&!"".equals(project)){
+							project.setDeleteReason(project.getDeleteReason());
+						}
+						int id = projectService.deleteProject(project);
+						if (id != 1) {
+							responseBody.setResult(new Result(Status.ERROR, null, "删除项目失败"));
+							return responseBody;
+						}
+						responseBody.setResult(new Result(Status.OK, ""));
+						ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getDeleteReason(), null);
+					} catch (Exception e) {
+						responseBody.setResult(new Result(Status.ERROR, null,
+								"delete project faild"));
+
+						if (_common_logger_.isErrorEnabled()) {
+							_common_logger_.error("delete project faild ", e);
+						}
+					}
+
+					return responseBody;
+				}
+				
 }

@@ -4292,9 +4292,10 @@ input:-ms-input-placeholder {
 .assingTable tbody tr td:nth-child(1){padding-left:20px;}
 .assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:40px;text-align:center;}
 .highlighCheckbox input{display:none;}
-.highlighCheckbox{width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
-.highlighCheckbox_th{width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
-.a{background-position: -86px -5px !important;}
+.highlighCheckbox_th input{display:none;}
+.highlighCheckbox{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
+.highlighCheckbox_th{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
+.highlighCheckbox_checked{background-position: -86px -5px !important;}
 
 
 /*1.11全局搜索  */

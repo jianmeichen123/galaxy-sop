@@ -29,6 +29,8 @@ public class SopTask extends PagableEntity{
  	private List<Long> projectIdList;
  	private boolean giveUp;
  	private List<Long> taskIds;
+ 	
+ 	private int isDelete;
      
 	public Long getProjectId() {
 		return projectId;
@@ -148,6 +150,12 @@ public class SopTask extends PagableEntity{
 	public void setTaskIds(List<Long> taskIds)
 	{
 		this.taskIds = taskIds;
+	}
+	public int getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	

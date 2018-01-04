@@ -255,6 +255,10 @@
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	                <c:if test="${fx:hasPremission('project_delete')}">	
+                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()"  id="delete_btn" style="display:none">删除项目</span>
+                    </c:if>
+	               
 	            </div>
             </div>
             
@@ -329,7 +333,6 @@ if(!prograss){
 }
 
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
-console.log(index)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 function seven_link(data){
@@ -360,7 +363,6 @@ function seven_link(data){
 	
 }
 $(function(){
-	
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
@@ -381,6 +383,11 @@ $(function(){
 	else
 	{
 		$(".tq_div").show();
+	}
+	
+	//删除项目按钮是否显示
+	if($(".delete_btn").attr("id")=="delete_btn"&&index<=3){
+		$("#delete_btn").attr("style","display:black");
 	}
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
@@ -870,8 +877,31 @@ setProcess(pn);
 setProcess(cn);
 setProcess(gn);
 setProcess(on); 
-  
-
+ //删除项目请求
+function deletePro(){
+	if(pRigthInfo.createUid==userId){
+		var _url = "<%=path %>/galaxy/meeting/del?_="+new Date().getTime()+"&id="+id;
+		layer.confirm("确定删除？",function(i){
+			layer.close(i);
+			sendPostRequestByJsonObj(
+				_url,
+				{},
+				function(data){
+					if(data.result.status=='OK')
+					{
+						layer.msg("删除成功");
+					}
+					else
+					{
+						layer.msg("删除失败。");
+					}
+				}
+			);
+		});
+	}else{
+		
+	}
+}
 	
 
 </script>
