@@ -26,21 +26,21 @@
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>公司名称</td>
-		 					<td>data</td>
+		 					<td id="DN_projectCompany">data</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>成立日期</td>
-		 					<td>data</td>
+		 					<td id="DN_formationDate">data</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>法人</td>
-		 					<td>data</td>
+		 					<td id="DN_companyLegal">data</td>
 		 				</tr>
 		 			</tbody>
 		 		</table>
@@ -114,7 +114,7 @@
 		 			</tbody>
 		 		</table>
 		 	</li>
-		 	<li class="infoItem" id="fina_historyInfo ">
+		 	<li class="infoItem" id="fina_historyInfo">
 		 		<p class="titles">历史融资</p>
 		 		<table class="tabrow"> 
 		 			<thead>

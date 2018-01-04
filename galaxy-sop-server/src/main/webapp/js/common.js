@@ -1875,7 +1875,7 @@ function filter(str){
 	return str==undefined?"--":str
 }
 ///status  判断是弹窗还是页面
-function initTable(url,data,status) {
+function initTable(url,data,status,code) {
     $('#dataTable').bootstrapTable({
         method: 'post',
         toolbar: '#toolbar',    //工具按钮用哪个容器
@@ -1959,8 +1959,8 @@ function initTable(url,data,status) {
             		//页面
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
                     
-            	}else{
-            		var a ='<button type="button" onclick="infoDPop(this)" urlcode="/galaxy/test/infoDJsp" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            	}else{ 
+            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/test/infoDJsp" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -1973,7 +1973,7 @@ function initTable(url,data,status) {
 }
 //1.11
 
-function pagePop(even){
+function pagePop(even,code){
 	var urlCode = $(even).attr("urlCode"); 
 	$.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
@@ -1987,21 +1987,22 @@ function pagePop(even){
 						"orderBy":"projTitle",
 			    		}
 				//分页
-				initTable(_url,data,1); 
+				initTable(_url,data,1,code); 
 				
 		}
 	})  
 }
-function infoDPop(even){
+function infoDPop(even){ 
 	var urlCode = $(even).attr("urlCode"); 
+	var code=$(even).attr("code")
 	$.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
-			 //infoDetail  
+			 //infoDetail   
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 				var projectName=$("#project_name_t").text(); 
-				var projectId=$(even).attr("pid"); 
+				var projectId=$("#project_name_t").attr("pid"); 
 				var compCode=$(even).attr("compCode"); 
 				var projCode=$(even).attr("projCode");
 				var data={
@@ -2013,16 +2014,51 @@ function infoDPop(even){
 						projId:projectId,
 						projCode:projCode,
 						compCode:compCode,
-						titleCode:"1303",
-				}
-				buildInfoD(_url,jsonObj)
+//						titleCode:"1303",
+				}  
+				buildInfoD(_url,jsonObj,code)
 				//分数据 
 				
 		}
 	}) 
 }
-function buildInfoD(url ,data){
+function buildInfoD(url,data,code){
 	sendPostRequestByJsonObj(url, data, function(data){
-	 
+	 if(data.result.status=="OK"){
+		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
+		 if(code=="legal"){ 
+			 var legal=data.userData.legalInfo
+			 $("#equityInfo").hide();
+			 $("#teamInfo").hide();
+			 $("#fina_historyInfo").hide(); 
+			 $("#DN_projectCompany").text(legal.company)
+			 $("#DN_formationDate").text(legal.foundDate)
+			 $("#DN_companyLegal").text(legal.legalPerson)
+		 }else if(code=="history"){
+			 $("#equityInfo").hide();
+			 $("#teamInfo").hide(); 
+			 $("#companyInfo").hide(); 			 
+		 }else if(code=="equity"){  
+			 $("#teamInfo").hide();
+			 $("#fina_historyInfo").hide(); 
+			 $("#companyInfo").hide(); 		
+			 var equityInfo=data.userData.equityInfo;
+			 var str="";
+			 for(i=0;i<equityInfo.length;i++){
+				 var that = equityInfo[i]
+				 str+='<tr id='+that.shareholderTypeId+'>'
+	 					+'<td>'
+						+'<input type="checkbox" />'
+					+'</td>'
+					+'<td name="field1">'+filter(that.shareholder)+'</td>'
+					+'<td name="field3">'+filter(that.shareholder11)+'</td>'
+					+'<td name="field4">'+filter(that.shareholderType)+'</td>'
+					+'<td name="field2">'+filter(that.shareholder11)+'</td>'
+					+'<td name="field5">'+filter(that.shareholder11)+'</td> '
+				'</tr>'
+			 }
+			 $("#equityInfo tbody").html(str);
+		 }
+	 }
 	}) 
 }
