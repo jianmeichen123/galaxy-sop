@@ -108,7 +108,7 @@ public class InfoFromDanaoController{
 
 
 				//法人信息、股权结构
-                Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
+                result = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
 
                 //项目团队
                 Map<String,Object> result2 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
