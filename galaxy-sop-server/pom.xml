@@ -213,7 +213,8 @@
 				3.rc域名 ctdnrc.galaxyinternet.com
 				4.线上 ctdn.galaxyinternet.com
 				-->
-				<danao.domain>http://ctdndev.gi.com/</danao.domain>
+				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/project/</danao.static.domain>
 			</properties>
 		</profile>
 		<profile>
