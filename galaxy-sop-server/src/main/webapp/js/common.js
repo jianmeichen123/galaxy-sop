@@ -1,3 +1,7 @@
+//获取参数
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
 //去除小数点末尾无用0  
 function _parsefloat(date){
 	if(date!=undefined){
@@ -1864,4 +1868,161 @@ function cut(cutelement, cutlength) {
 
     })
 
+}
+//创投大脑弹窗页面统一方法
+
+function filter(str){
+	return str==undefined?"--":str
+}
+///status  判断是弹窗还是页面
+function initTable(url,data,status) {
+    $('#dataTable').bootstrapTable({
+        method: 'post',
+        toolbar: '#toolbar',    //工具按钮用哪个容器
+        striped: false,      //是否显示行间隔色
+        cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,     //是否显示分页（*）
+        sortable: true,      //是否启用排序
+        sortOrder: "asc",     //排序方式
+        pageNumber: 1,      //初始化加载第一页，默认第一页
+        pageSize: 10,      //每页的记录行数（*）
+        pageList: [10, 50, 100, 150],  //可供选择的每页的行数（*）
+        url: url,//这个接口需要处理bootstrap table传递的固定参数
+        queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+        // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber 
+        queryParams: function (params) {
+        	var params=data;
+        	params.pageNo=params.pageNumber;              
+			params.pageSize=params.pageSize;
+			params.order=params.sortOrder;
+			return params;
+		} ,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+        sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
+        //search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,
+        //showColumns: true, //是否显示所有的列
+        //showRefresh: true, //是否显示刷新按钮
+        minimumCountColumns: 2,    //最少允许的列数
+        clickToSelect:false,  //是否启用点击选中行
+        searchOnEnterKey: true,
+        search:false,
+        columns: [
+         {
+            title: "项目信息",
+            field: "Name",
+            align: "left",
+            valign: "middle",
+            formatter: function (value, row, index) {
+                //通过formatter可以自定义列显示的内容
+                //value：当前field的值，即id
+                //row：当前行的数据
+                var a = '<img class="comImg" src='+filter(row.projImage)+' alt="">'
+						+'<div class="conInfo">'
+						+'<p>'+row.projTitle+'</p>'
+						+'<p class="textBotm">'
+						+'<span class="industryName">'+filter(row.industryName)+'</span>'
+						+'<span class="districtSubName">'+filter(row.districtSubName)+'</span>'
+						+'</p>'
+						+'</div>';
+                return a;
+            }
+        },
+        {
+            title: "工商信息",
+            field: "busInfor",
+            align: "left",
+            valign: "middle",
+            formatter: function (value, row, index) {
+                //通过formatter可以自定义列显示的内容
+                //value：当前field的值，即id
+                //row：当前行的数据
+                var a ='<div class="conInfo">'
+						+'<p>'+filter(row.projCompanyName)+'</p>'
+						+'<p class="textBotm">'
+							+'<span>成立时间：'+filter(row.setupDT)+'</span>' 
+						+'</p>'
+					+'</div>'
+                return a;
+            }
+
+        },
+        {
+            title: "操作",
+            field: "ProductName",
+            align: "left",
+            valign: "middle",
+            formatter: function (value, row, index) {
+                //通过formatter可以自定义列显示的内容
+                //value：当前field的值，即id
+                //row：当前行的数据
+            	if(status==0){
+            		//页面
+            		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
+                    
+            	}else{
+            		var a ='<button type="button" onclick="infoDPop(this)" urlcode="/galaxy/test/infoDJsp" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+                    
+            	}
+                return a;
+            }
+        }, 
+
+        ],
+        pagination: true
+    });
+}
+//1.11
+
+function pagePop(even){
+	var urlCode = $(even).attr("urlCode"); 
+	$.getHtml({ 
+		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
+		data:"",//传递参数
+		okback:function(){  
+			 //infoDetail  
+				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
+				$("#projectName").text($("#project_name_t").text());
+				var data={
+			   			"keyword":$("#project_name_t").text(),
+						"orderBy":"projTitle",
+			    		}
+				//分页
+				initTable(_url,data,1); 
+				
+		}
+	})  
+}
+function infoDPop(even){
+	var urlCode = $(even).attr("urlCode"); 
+	$.getHtml({ 
+		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
+		data:"",//传递参数
+		okback:function(){  
+			 //infoDetail  
+				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
+				var projectName=$("#project_name_t").text(); 
+				var projectId=$(even).attr("pid"); 
+				var compCode=$(even).attr("compCode"); 
+				var projCode=$(even).attr("projCode");
+				var data={
+			   			"keyword":projectName,
+						"orderBy":"projTitle",
+			    		}
+				$("#projectName").text(projectName);
+				var jsonObj={
+						projId:projectId,
+						projCode:projCode,
+						compCode:compCode,
+						titleCode:"1303",
+				}
+				buildInfoD(_url,jsonObj)
+				//分数据 
+				
+		}
+	}) 
+}
+function buildInfoD(url ,data){
+	sendPostRequestByJsonObj(url, data, function(data){
+	 
+	}) 
 }

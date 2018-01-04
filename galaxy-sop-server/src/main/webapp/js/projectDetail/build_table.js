@@ -21,18 +21,7 @@
 	     resizetable(table);
 	}
 
-//1.11
 
-function pagePop(even){
-	var urlCode = $(even).attr("urlCode"); 
-	$.getHtml({ 
-		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
-		data:"",//传递参数
-		okback:function(){ 
-			 
-		}
-		}) 
-}
 //1.8新加数据结束
 function buildTable(title)
 {

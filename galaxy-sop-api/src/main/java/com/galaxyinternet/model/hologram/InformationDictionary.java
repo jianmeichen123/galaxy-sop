@@ -114,7 +114,7 @@ public class InformationDictionary extends PagableEntity {
 		this.valueList = valueList;
 	}
 
-	public boolean isChecked() {
+	public Boolean isChecked() {
 		return checked;
 	}
 

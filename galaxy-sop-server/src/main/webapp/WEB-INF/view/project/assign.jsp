@@ -21,7 +21,7 @@
 </head>
 
 <body >
-<div class="pagebox">
+<div class="pagebox assign_project" >
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<div class='content_task'>
 		<div class='title_top'>
@@ -86,26 +86,27 @@
 			  	</div> --> 
 		  	</div>
 		  	<div class="input-group">
-		  	<di class='input-content'>
-		  		<input type="text" class="form-control" placeholder="请输入项目名称">
-		  		<span>ss</span>
-		  	</di>
-		      
-		      <span class="input-group-btn">
+			  	<di class='input-content'>
+			  		<input type="text" class="form-control" placeholder="请输入项目名称">
+			  		<span></span>
+			  	</di>
+		      <!-- <span class="input-group-btn">
 		        <button class="btn btn-default" type="button"></button>
-		      </span>
-		      <span>重置</span>
+		      </span> -->
+		      <span class='reset_search'>重置</span>
 		    </div>
 		</div> 
 	</div>
 	<div class="ritmin"> 
 		
 		<div class="">	
-			<table id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
+			<table class='assingTable' id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="projectName"  class="data-input" data-width="16%">
-				    	<input type="checkbox" name="">
+				    		<label class='highlighCheckbox_th'>
+				    			<input type="checkbox" name="">
+				    		</label>
 				    	</th>
 			        	<th data-field="projectName"  class="data-input" data-width="16%">项目名称</th>
 			        	<th data-field="project_type" class="data-input sort" data-width="8%">项目类型<span></span></th>
@@ -119,6 +120,59 @@
 			        	<th data-field="updated_time" class="data-input sort"  data-width="5%">最后编辑时间<span></span></th>
  					</tr>	
  				</thead>
+ 				<tbody>
+ 					<tr>
+ 						<td>
+ 							<label class='highlighCheckbox'>
+				    			<input type="checkbox" name="">
+				    		</label>
+				    	</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 					</tr>
+ 					<tr>
+ 						<td>
+ 							<label class='highlighCheckbox'>
+				    			<input type="checkbox" name="">
+				    		</label>
+				    	</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 					</tr>
+ 					<tr>
+ 						<td>
+ 							<label class='highlighCheckbox'>
+				    			<input type="checkbox" name="">
+				    		</label>
+				    	</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 					</tr>
+ 				</tbody>
 			</table>
        </div>
 	</div>

@@ -609,9 +609,7 @@ function CallBackE(data){
 		        infoModeList.push(infoMode);
 		    }
 			data.infoModeList = infoModeList;
-		});
-		
-		
+		});  
 		sendPostRequestByJsonObjNoCache(
 				platformUrl.saveOrUpdateInfo , 
 				data,
@@ -630,7 +628,8 @@ function CallBackE(data){
 							if(num==0||!num){
 								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 							}else{
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym1/?projectName="+projectName);
+								var projectId=
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym1/?projectName="+projectName+"&projectId="+Id);
 							} 
 						})
 						 } else {

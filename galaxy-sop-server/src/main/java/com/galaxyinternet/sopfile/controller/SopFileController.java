@@ -1577,4 +1577,40 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		data.setPageList(page);
 		return data;
 	}
+	@RequestMapping(value="/test", method = RequestMethod.GET)
+	public String test()
+	{
+		return "sopFile/test";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getOSSSignature", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> getOSSSignature()
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			OSSClient client = OSSFactory.getClientInstance();
+			long expireTime = 1800;
+			long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
+			Date expiration = new Date(expireEndTime);
+			PolicyConditions policyConds = new PolicyConditions();
+			policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
+
+			String postPolicy = client.generatePostPolicy(expiration, policyConds);
+			byte[] binaryData = postPolicy.getBytes("utf-8");
+			String encodedPolicy = BinaryUtil.toBase64String(binaryData);
+			String postSignature = client.calculatePostSignature(postPolicy);
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("accessid", OSSFactory.ACCESS_KEY_ID);
+			map.put("policy", encodedPolicy);
+			map.put("signature", postSignature);
+			map.put("host", "http://"+OSSFactory.getDefaultBucketName()+"."+OSSFactory.ENDPOINT);
+			data.getUserData().putAll(map);
+		}  catch (Exception e)
+		{
+			data.getResult().setMessage("签名失败");
+		}
+		return data;
+	}
 }

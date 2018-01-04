@@ -205,7 +205,7 @@ color: #3CA6FF;
 	margin-left: 16px;
 }
 .infoBox{
-	padding:20px 16px ;
+	padding:20px 16px 70px 16px ;
 	background:#fff;
 }
 .infoItem{
@@ -258,6 +258,7 @@ font-weight: bold;
 	position: relative;
 	background: #fff;
 	padding: 10px 30px;
+	box-shadow: 0 1px 2px 0 rgba(153,153,153,0.50);
 }
 .pageTop .form-group{
 	float: left;
@@ -319,9 +320,11 @@ background: #E5F3FF;
 }
 .input-group input{
 	width:240px;
-	height:32px;
+	height:33px;
 	margin-left: 32px;
 	padding-left:10px;
+	border: 1px solid #D8D8D8;
+	border-radius: 2px;
 }
 .title_top{
 	width:100%;
@@ -350,7 +353,7 @@ background: #E5F3FF;
 	margin-right:19px;
 	
 }
-.ritmin.bigPop{
+#powindow .bigPop{
 	width: 900px;
     margin: 0 auto;
     max-height: 500px;
@@ -358,7 +361,20 @@ background: #E5F3FF;
 }
 .fixedbottom{
 	position: fixed;
-	padding: 30px;
+	padding: 20px 0 20px 16px;
 	left: 0;
 	right: 0;
+	bottom: 0;
+	background: #e9ebf2; 
+}
+.add_pro{
+	background: #3CA6FF;
+	border-radius: 2px;
+	line-height: 1.5;
+	padding: 5px 22px;
+	display: inline-block;
+	color:#fff;
+}
+#dataHidden{
+	display:none;
 }
