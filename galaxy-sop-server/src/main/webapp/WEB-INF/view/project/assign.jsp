@@ -202,7 +202,22 @@ $(function(){
  	detailHeaderWidth();
  })	
 
-	
+ /* checkbox 点击 */
+ $('.highlighCheckbox').click(function(event){
+	 $(this).toggleClass('highlighCheckbox_checked');
+	 event.preventDefault(); 
+	 
+ });
+ 
+ $('.highlighCheckbox_th').click(function(event){
+	 $(this).toggleClass('highlighCheckbox_checked');
+	 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
+	 if(!$(this).hasClass('highlighCheckbox_checked')){
+		 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
+	 }
+	 event.preventDefault(); 
+ })
+ 
 	
 })
 
