@@ -358,8 +358,37 @@
 	   $('.task-toggle').mouseleave(function(){
 		    $('.task-toggle').slideUp();
 	   });
+	   /*指派任务弹窗点击事件*/
+		$('.task-toggle li').click(function(){
+			var index = $(this).index();
+			var code = $(this).attr("data-code");
+			$.getHtml({
+				url:getDetailUrl(code),
+				okback:function(){
+					$("#numOfTask").parent().hide();
+				}
+			});
+			$('.close').addClass('tast-close')//添加关闭按钮
+			$('.pop').addClass('task-pop');//去掉圆角
+		});
+		
+		//页面请求地址
+		function getDetailUrl(code)
+		{
+			if(code =='transfer-task')
+			{	
+				return platformUrl.transferTask;
+			}else if(code === 'abandon-task'){
+				return platformUrl.giveupTask;
+			}
+			return "";
+		}
 	
-	
-	
+		function getSelectedIds()
+		{
+			var ids = new Array();
+			ids.push("${taskId}");
+			return ids;
+		}	
 </script>
 

@@ -82,11 +82,7 @@ $("#save-detail-btn").click(function(){
 	if(!validator.form()){
 		return;
 	}
-	var rows = $("#task-table").bootstrapTable('getSelections');
-	var ids = new Array();
-	$.each(rows,function(){
-		ids.push(this.id);
-	});
+	var ids = getSelectedIds();
 	var targetUserId = $("#detail-form input[name='targetUserId']").val();
 	var reason  = $("#detail-form textarea[name='reason']").val();
 	var data = {
@@ -98,8 +94,15 @@ $("#save-detail-btn").click(function(){
 		if(data.result.status == 'OK')
 		{
 			layer.msg('移交成功');
-			$("#task-table").bootstrapTable("refresh");
 			$("#powindow [data-close='close']").click();
+			if($("#task-table").length>0)
+			{
+				$("#task-table").bootstrapTable("refresh");
+			}
+			else
+			{
+				backToTaskList();
+			}
 		}
 		else
 		{

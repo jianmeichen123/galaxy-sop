@@ -120,6 +120,18 @@ function projectNameFormatter(value,row,index){
 			return options;
 		}
 	}
+/*
+ * 获取选中记录的id
+ */
+function getSelectedIds()
+{
+	var rows = $("#task-table").bootstrapTable('getSelections');
+	var ids = new Array();
+	$.each(rows,function(){
+		ids.push(this.id);
+	});
+	return ids;
+}
 function taskCheckboxFormatter(value, row, index)
 {
 	if(row.taskStatus=='taskStatus:2')
