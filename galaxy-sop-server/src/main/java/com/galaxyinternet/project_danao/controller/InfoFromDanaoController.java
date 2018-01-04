@@ -97,7 +97,7 @@ public class InfoFromDanaoController{
 	{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
-		Map<String,Object>  result = null;
+		Map<String,Object>  result = new HashMap<>();
 		try {
 
 			if(dnProject.getCompCode() != null && dnProject.getTitleCode() == null)
@@ -106,17 +106,18 @@ public class InfoFromDanaoController{
 				//创建项目时，待引用所有的大脑信息，
 				//保存星河投项目 和 大脑项目code\sourceCode的关联关系
 
+				//法人信息 legalInfo、 股权结构 equityInfo
+				Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
 
-				//法人信息、股权结构
-                result = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
-
-                //项目团队
+                //项目团队成员 teamInfo
                 Map<String,Object> result2 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
 
-                //项目团队
+                //融资历史 financeInfo
                 Map<String,Object> result3 = infoFromDanaoService.queryDnaoProjFinance(dnProject.getProjCode());
 
-
+				result.putAll(result1);
+				result.putAll(result2);
+				result.putAll(result3);
 
 			} else if(dnProject.getCompCode() != null && dnProject.getTitleCode() != null)
 			{
@@ -131,7 +132,6 @@ public class InfoFromDanaoController{
 				//此时调用项目查询接口，查找类似项目
 
 			}
-
 
 			responseBody.setUserData(result);
 			responseBody.setResult(new Result(Result.Status.OK, ""));

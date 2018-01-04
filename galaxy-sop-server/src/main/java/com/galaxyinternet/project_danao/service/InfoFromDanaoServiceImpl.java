@@ -1,5 +1,6 @@
 package com.galaxyinternet.project_danao.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,11 +8,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.aliyun.oss.ServiceException;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DongNao.DnProject;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.service.InfoFromDanaoService;
@@ -222,14 +226,14 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 
-    //团队成员 state :0 在职 1离职
+    //团队成员 teamInfo
     public Map<String,Object> queryDnaoProjTeam(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> teamInfo = new ArrayList<>();
 
         Map<String, Object> query = new HashMap<>();
-        query.put("projectCode ", projCode);
-        query.put("state", "0");
+        query.put("projectCode", projCode);
+        query.put("state", "0"); //0 在职 1离职
 
         String uri = danaoDomain + projectTeam;
         Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
@@ -240,24 +244,46 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
         if(object.get("data") !=null)
         {
+			List<LinkedHashMap<String,Object>> dataL = (List<LinkedHashMap<String,Object>>) object.get("data");
 
+			for(Map<String,Object> tempMap : dataL) {
+				Map<String, Object> addMap = new HashMap<>();
+
+				addMap.put("name", dataCheck(tempMap.get("name"))); //姓名
+
+				//职位
+				// 字典id 1351 ;  下拉选： pid 1351， other其他：1363
+				String job = dataCheck(tempMap.get("job"));
+				if(StringUtils.isNotBlank(job)){
+					InformationDictionary temp = selectDictionaryRecord(1351l,job);
+					if(temp!=null){
+						addMap.put("job", temp.getName());
+						addMap.put("jobId", temp.getId());
+					}else{
+						addMap.put("job", "other其他");
+						addMap.put("jobId", 1363l);
+						addMap.put("jobContentDescribe1", job);
+					}
+				}
+
+				teamInfo.add(addMap);
+			}
         }
 
+        if(!teamInfo.isEmpty()) result.put("teamInfo", teamInfo);
 
-
-
-        return result;
+		return result;
     }
 
 
 
-    //融资历史
+    //融资历史 financeInfo
     public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
-        List<Map<String, Object>> teamInfo = new ArrayList<>();
+        List<Map<String, Object>> info = new ArrayList<>();
 
         Map<String, Object> query = new HashMap<>();
-        query.put("projectCode ", projCode);
+        query.put("sourceCode", projCode);
 
         String uri = danaoDomain + projectEven;
         Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
@@ -268,13 +294,55 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
         if(object.get("data") !=null)
         {
+			List<LinkedHashMap<String,Object>> dataL = (List<LinkedHashMap<String,Object>>) object.get("data");
 
+			for(Map<String,Object> tempMap : dataL) {
+				Map<String, Object> addMap = new HashMap<>();
+
+				addMap.put("investDate", dataCheck(tempMap.get("investDate"))); //融资时间
+				addMap.put("stock", dataCheck(tempMap.get("stock"))); //股权占比
+
+				//融资轮次
+				// 字典id 2183 ;  下拉选： pid 2183，
+				String round = dataCheck(tempMap.get("round"));
+				if(StringUtils.isNotBlank(round)){
+					InformationDictionary temp = selectDictionaryRecord(2183l,round);
+					if(temp!=null){
+						addMap.put("round", temp.getName());
+						addMap.put("roundId", temp.getId());
+					}
+				}
+
+				Map<String,String> m_unit =  moneyCheck(tempMap.get("amountStr"));
+				if(m_unit!=null){
+					addMap.put("money", m_unit.get("num"));
+
+					//融资历史币种 2180
+					// 字典id 2180 ;  下拉选： pid 2180，
+					String unit = m_unit.get("unit");
+					if(StringUtils.isNotBlank(unit)){
+						InformationDictionary temp = selectDictionaryRecord(2180l,unit);
+						if(temp!=null){
+							addMap.put("unit", temp.getName());
+							addMap.put("unitId", temp.getId());
+						}
+					}
+				}
+
+
+				//投资方
+				String investSideJson = dataCheck(tempMap.get("investSideJson"));
+				if(StringUtils.isNotBlank(investSideJson)){
+					//Map<String,Object> map = GSONUtil.fromJson(investSideJson, Map.class);
+				}
+
+				info.add(addMap);
+			}
         }
 
+		if(!info.isEmpty()) result.put("financeInfo", info);
 
-
-
-        return result;
+		return result;
     }
 
 
@@ -284,8 +352,15 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	public InformationDictionary selectDictionaryRecord(Long pid,String nameLike){
 		InformationDictionary query = new InformationDictionary();
 		query.setParentId(pid);
-		query.setNameLike(nameLike);
+		query.setName(nameLike);
 		InformationDictionary result = informationDictionaryDao.selectOne(query);
+
+		if(result == null){
+			query = new InformationDictionary();
+			query.setParentId(pid);
+			query.setNameLike(nameLike);
+			result = informationDictionaryDao.selectOne(query);
+		}
 		return result;
 	}
 
@@ -306,6 +381,49 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		return str.trim();
 	}
+	public Map<String,String> moneyCheck(Object temp){
+		if(temp == null){
+			return null;
+		}
 
+		String str = temp.toString().trim();
+
+		//1.判断是否数字开头
+		//2.数字 汉子 分离
+		String num = "";
+		String unit = "";
+		Pattern pattern = Pattern.compile("^(\\d+\\.?\\d+)(.*)");
+		Matcher matcher = pattern.matcher(str);
+		if (matcher.matches()) {//数字开头
+			num = matcher.group(1);
+			unit = matcher.group(2);
+		}else{
+			return null;
+		}
+
+		BigDecimal bnum = new BigDecimal(num);
+
+		Map<Character, String> mark = new HashMap<>();
+		mark.put('十',"10");
+		mark.put('百',"100");
+		mark.put('千',"1000");
+		mark.put('万',"10000");
+		mark.put('亿',"100000000");
+
+		for (int i = 0; i < unit.length();) {
+			if(mark.containsKey(unit.charAt(0))){
+				bnum = bnum.multiply(new BigDecimal(mark.get(unit.charAt(0))));
+				unit = unit.substring(1);
+			}else{
+				break;
+			}
+		}
+
+		Map<String, String> result = new HashMap<>();
+		result.put("num", bnum.toString());
+		result.put("unit",unit);
+
+		return result;
+	}
 
 }
