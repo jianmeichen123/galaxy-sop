@@ -66,16 +66,16 @@
     industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason,
     (SELECT r.content_describe1
 	FROM information_result r 
-	WHERE r.project_id = sop_project.id AND r.title_id = 1814 AND r.is_valid = 0) AS  project_company,
+	WHERE r.project_id = sop_project.id AND r.title_id = 1814 AND r.is_valid = 0 LIMIT 1) AS  project_company,
 	(SELECT r.content_choose
 	FROM information_title t
 	INNER JOIN information_result r ON t.id = r.title_id 
-	WHERE r.project_id = sop_project.id AND t.code = 'NO1_1_7' AND r.is_valid = 0) AS finance_status,
+	WHERE r.project_id = sop_project.id AND t.code = 'NO1_1_7' AND r.is_valid = 0 LIMIT 1) AS finance_status,
 	(
 	SELECT 
 		r.content_choose 
 	FROM information_result r 
-	WHERE r.project_id = sop_project.id AND r.title_id = 1120 AND r.is_valid = 0
+	WHERE r.project_id = sop_project.id AND r.title_id = 1120 AND r.is_valid = 0 LIMIT 1
 	) AS fa_flag,
     (
     SELECT 
@@ -95,7 +95,7 @@
 	LEFT JOIN information_result r4 ON r4.project_id = r.project_id AND r4.title_id = 1124 AND r4.is_valid = 0
 	LEFT JOIN information_result r5 ON r5.project_id = r.project_id AND r5.title_id = 1125 AND r5.is_valid = 0
 	LEFT JOIN information_result r6 ON r6.project_id = r.project_id AND r6.title_id = 1126 AND r6.is_valid = 0
-	WHERE r.project_id = sop_project.id AND r.title_id = 1120 AND r.is_valid = 0
+	WHERE r.project_id = sop_project.id AND r.title_id = 1120 AND r.is_valid = 0 LIMIT 1
 	) AS fa_name
   </sql>
     <sql id="Base_Where_Clause">

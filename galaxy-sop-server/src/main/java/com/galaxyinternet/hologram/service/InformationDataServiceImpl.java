@@ -190,7 +190,33 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		saveOtherResult(modelList, projectId, user);
 		InformationResult resultUpdate = new InformationResult();
 		// 决策报告编辑估值安排时候计算项目投资额
-		if ((null != investment && !"".equals(investment))||(!"".equals(resulId)&&"".equals(investment))) {
+		InformationResult resultQuery = new InformationResult();
+		Set<String> ids = new HashSet<String>(2);
+		ids.add("3004");
+		ids.add("3010");
+		resultQuery.setTitleIds(ids);
+		resultQuery.setIsValid("0");
+		resultQuery.setProjectId(projectId);
+		List<InformationResult> resultList = resultDao.selectList(resultQuery);
+		//是否计算估值-注资金额和占比信息不完整时不进行计算
+		boolean calc = true;
+		if(resultList != null && resultList.size() == 2 )
+		{
+			for(InformationResult item : resultList)
+			{
+				if(StringUtils.isEmpty(item.getContentChoose()) && StringUtils.isEmpty(item.getContentDescribe1()))
+				{
+					calc = false;
+					break;
+				}
+			}
+		}
+		else
+		{
+			calc = false;
+		}
+		
+		if (calc && ((null != investment && !"".equals(investment))||(!"".equals(resulId)&&"".equals(investment)))) {
 			InformationResult result = new InformationResult();
 			result.setProjectId(projectId);
 			Set<String> titleids = new HashSet<String>();
