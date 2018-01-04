@@ -1979,10 +1979,9 @@ function pagePop(even){
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
-			 //infoDetail 
-				debugger;	
+			 //infoDetail  
 				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text(projectName);
+				$("#projectName").text($("#project_name_t").text());
 				var data={
 			   			"keyword":$("#project_name_t").text(),
 						"orderBy":"projTitle",
@@ -1999,17 +1998,31 @@ function infoDPop(even){
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
-			 //infoDetail 
-				debugger;	
-				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text(projectName);
+			 //infoDetail  
+				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
+				var projectName=$("#project_name_t").text(); 
+				var projectId=$(even).attr("pid"); 
+				var compCode=$(even).attr("compCode"); 
+				var projCode=$(even).attr("projCode");
 				var data={
-			   			"keyword":$("#project_name_t").text(),
+			   			"keyword":projectName,
 						"orderBy":"projTitle",
 			    		}
-				//分页
-				initTable(_url,data,1); 
+				$("#projectName").text(projectName);
+				var jsonObj={
+						projId:projectId,
+						projCode:projCode,
+						compCode:compCode,
+						titleCode:"1303",
+				}
+				buildInfoD(_url,jsonObj)
+				//分数据 
 				
 		}
+	}) 
+}
+function buildInfoD(url ,data){
+	sendPostRequestByJsonObj(url, data, function(data){
+	 
 	}) 
 }

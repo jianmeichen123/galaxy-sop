@@ -57,7 +57,7 @@ $(function(){
 *
 **/
 function getProjectInfo(dtd)
-{
+{ 
 	var hasDtd = typeof(dtd) != 'undefined';
 	var url = platformUrl.detailProject+"${projectId}";
 	sendGetRequest(

@@ -49,7 +49,7 @@ $(function(){
 	var jsonObj={
 			projId:projectId,
 			projCode:projCode,
-			compCode:projCode,
+			compCode:compCode,
 			titleCode:"1303",
 	}
 	sendPostRequestByJsonObj(_url, jsonObj, function(data){

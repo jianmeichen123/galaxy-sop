@@ -4,7 +4,7 @@
 %>
 
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
-<div class="ritmin">
+<div class="ritmin bigPop">
 	<div class="infoTop clearfix">
 		<h5>已选择项目“<span id="projectName"></span>”进行引用</h5>
 		<p><i>选择有效的信息，快速添加到项目内</i></p>
