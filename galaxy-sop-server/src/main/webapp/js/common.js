@@ -2062,3 +2062,30 @@ function buildInfoD(url,data,code){
 	 }
 	}) 
 }
+//保存
+function saveDN(){
+	var infoTableModelList={
+			field1 : "阿萨",
+			field2 : "12",
+			field3 : "2093" ,
+			field4 : "2171",
+			field5 : "QQ的",
+	}
+	var post_data.infoTableModelList = infoTableModelList;
+	post_data.projectId="13185"
+	sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo , 
+			post_data,
+			function(data){		
+				if(data.result.status=="OK"){
+					//$("tr.no-records-found").remove();
+					layer.msg("保存成功");
+					var code = _this.data("urlCode");
+					var name = _this.data("name")					
+					info_table(code,name,_this);
+				}else{
+					layer.msg(data.result.status);
+					_this.find("tbody tr:last-child").remove();
+				}
+	})
+}
