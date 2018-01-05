@@ -76,6 +76,38 @@ public class InfoFromDanaoController{
 
 
 
+	
+	/**
+	 * 保存项目和大脑的关联关系
+	 * 项目id ：       projId
+     * 大脑项目code ： projCode
+     * 大脑项目公司code ： compCode
+	 */
+	@RequestMapping(value = "/saveConstat", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnProject> saveConstat(@RequestBody DnProject dnProject,
+																  HttpServletRequest request,HttpServletResponse response )
+	{
+		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
+
+		try {
+			//1.保存星河投项目 和 大脑项目code\sourceCode的关联关系
+			Project upd = new Project();
+			upd.setId(dnProject.getProjId());
+			upd.setDanaoProjCode(dnProject.getProjCode());
+			upd.setDanaoCompCode(dnProject.getCompCode());
+			int i = projectService.updateById(upd);
+			if(i!=1){
+				throw new Exception("项目更新失败");
+			}
+
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
 
 
 	/**
@@ -143,7 +175,7 @@ public class InfoFromDanaoController{
 
 			if(dnProject.getCompCode() != null && dnProject.getTitleCode() == null)
 			{
-				//仅有大脑项目code，
+				/*//仅有大脑项目code，
 				//创建项目时，待引用所有的大脑信息，
 
 				//1.保存星河投项目 和 大脑项目code\sourceCode的关联关系
@@ -154,7 +186,7 @@ public class InfoFromDanaoController{
 				int i = projectService.updateById(upd);
 				if(i!=1){
 					throw new Exception("项目更新失败");
-				}
+				}*/
 
 				//2.法人信息 legalInfo、 股权结构 equityInfo
 				Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
