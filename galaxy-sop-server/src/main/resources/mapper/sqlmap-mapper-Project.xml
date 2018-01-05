@@ -508,7 +508,7 @@
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
 		      <if test="remark != null" > and remark = #{remark,jdbcType=LONGVARCHAR} </if>	
 		      <if test="financeMode != null" > and finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
-		      <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=LONGVARCHAR} </if>	
+		      <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=BIGINT} </if>	
 		      <if test="deleteReason != null" > and delete_reason = #{deleteReason,jdbcType=VARCHAR} </if>	
 		
 			</trim>

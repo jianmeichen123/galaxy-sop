@@ -884,7 +884,7 @@ function deletePro(){
 			'id'	:	proid,
 			'deleteReason':null
 		};
-	if(pRigthInfo.createUid==userId){
+	if(pRigthInfo.createUid==userId||admin){
 		layer.confirm("确定删除？",function(i){
 			layer.close(i);
 			sendPostRequestByJsonObj(
