@@ -1959,8 +1959,8 @@ function initTable(url,data,status,code) {
             		//页面
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
                     
-            	}else{ 
-            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/project/detail/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            	}else{  
+            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -1973,21 +1973,21 @@ function initTable(url,data,status,code) {
 }
 //1.11
 //status  是否引用 0 未引用
-function pagePop(even,code,status){
-	debugger;
+function pagePop(even){  
 	var urlCode = $(even).attr("urlCode"); 
+	var code = $(even).attr("dncode");
 	$.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
 			 //infoDetail  
 				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text($("#project_name_t").text());
+				$("#projectName").text($("#project_name_t").text()); 
 				var data={
 			   			"keyword":$("#project_name_t").text(),
-						"orderBy":"projTitle",
+						"orderBy":"projTitle", 
 			    		}
-				//分页
+				//分页 
 				initTable(_url,data,1,code); 
 				
 		}
@@ -2000,6 +2000,11 @@ function infoDPop(even){
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
+
+			$(".rightLink").attr("href","javascript:;");
+			$(".rightLink").click(function(){
+				
+			})
 			 //infoDetail   
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 				var projectName=$("#project_name_t").text(); 
@@ -2015,7 +2020,7 @@ function infoDPop(even){
 						projId:projectId,
 						projCode:projCode,
 						compCode:compCode,
-//						titleCode:"1303",
+						danaoInfo:code,
 				}  
 				buildInfoD(_url,jsonObj,code)
 				//分数据 
@@ -2024,6 +2029,7 @@ function infoDPop(even){
 	}) 
 }
 function buildInfoD(url,data,code){
+	debugger;
 	sendPostRequestByJsonObj(url, data, function(data){
 	 if(data.result.status=="OK"){
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
