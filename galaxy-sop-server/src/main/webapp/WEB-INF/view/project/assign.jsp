@@ -94,8 +94,30 @@
 	</div>
 	<div class="ritmin"> 
 		
-		<div class="">	
-			<table class='assingTable' id="assign-table" data-url="project/search" data-page-list="[10, 20, 30]"  data-show-refresh="true">
+		<div class="tab-pane active ctlist" id="view">
+			<table  class='assingTable table-hover' id="assign-table" data-url="project/search" 
+				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
+				<thead>
+				    <tr>
+				   		<th data-field="projectChectbox"  class="data-input" data-width="6%">
+				    		<label class='highlighCheckbox_th'>
+				    			<input type="checkbox" name="">
+				    		</label>
+				    	</th>
+			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%">项目名称</th>
+			        	<th data-field="project_type" data-formatter="typeFormat"   data-sortable="true" data-width="8%">项目类型</th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-sortable="true" data-width="8%">融资状态</th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  data-sortable="true" data-width="8%">项目进度</th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"   data-sortable="true" data-width="8%">项目状态</th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
+			        	<th data-field="projectCareerline"   data-width="12%">事业部</th>
+			        	<th data-field="createUname"   data-width="14%">投资经理</th>
+			        	<th data-field="created_time" data-formatter="createdFormat"   data-sortable="true" data-width="8%">创建日期</th>
+			        	<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true" data-width="8%">最后编辑时间</th>
+ 					</tr>	
+ 				</thead>
+			</table>
+	<!-- 	<table class='assingTable table-hover' id="assign-table" data-url="project/search" >
 				<thead>
 				    <tr>
 				    	<th data-field="projectName"  class="data-input" data-width="16%">
@@ -116,59 +138,30 @@
  					</tr>	
  				</thead>
  				<tbody>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 					</tr>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 					</tr>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 					</tr>
+ 					
  				</tbody>
-			</table>
+ 				</table> -->
+ 			<!-- 	<tbody>
+ 					<tr>
+ 						<td>
+ 							<label class='highlighCheckbox'>
+				    			<input type="checkbox" name="">
+				    		</label>
+				    	</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>
+ 					</tr>
+ 		
+ 				</tbody> -->
+			
        </div>
 	</div>
 </div>
@@ -244,22 +237,126 @@ $(function(){
 		}	
 		return "";
 	}
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+	var initPageSize = 10;
+	$('#assign-table').bootstrapTable({
+		queryParamsType: 'size|page',
+		pageSize:initPageSize,
+		showRefresh : false,
+		url : $('#project-table').attr("data-url"),
+		sidePagination: 'server',
+		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'updated_time',
+		pagination: true,
+        search: false,
+        //返回附带参数功能代码
+        queryParams : function(param){
+        	if(getCookieValue("backProjectList")!=''){
+        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+        		deleteCookie("backProjectList","/");
+        	}else{
+        		initParams=undefined;
+        	}
+        	if(typeof(initParams) !== 'undefined'){
+    			param.pageNum = initParams.pageNum - 1;
+        		param.pageSize = initParams.pageSize;
+        		if(initParams.projectType != ''){
+        			param.projectType = initParams.projectType;
+        			$("select[name='projectType']").val(initParams.projectType);
+        		}
+        		if(initParams.financeStatus != ''){
+        			param.financeStatus = initParams.financeStatus;
+        			$("select[name='financeStatus']").val(initParams.financeStatus);
+        		}
+        		if(initParams.projectProgress != ''){
+        			param.projectProgress = initParams.projectProgress;
+        			$("select[name='projectProgress']").val(initParams.projectProgress);
+        		}
+        		if(initParams.faFlag != ''){
+        			param.faFlag = initParams.faFlag;
+        			$("select[name='faFlag']").val(initParams.faFlag);
+        		}
+        		if(initParams.financeStatus != ''){
+        			param.financeStatus = initParams.financeStatus;
+        			$("select[name='financeStatus']").val(initParams.financeStatus);
+        		}
+        		param.projectDepartid = initParams.projectDepartid;
+        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
+        		param.createUid = initParams.createUid;
+        		$("select[name='createUid']").val(initParams.createUid);
+        		if(initParams.nameCodeLike !=''){
+        			 param.nameCodeLike = initParams.nameCodeLike;
+ 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
+        		}
+        		if(initParams.projectPerson !=''){
+        			param.projectPerson = initParams.projectPerson;
+        			$("input[name='projectPerson']").val(initParams.projectPerson); 
+        		}
+        		var options = $("#data-table").bootstrapTable('getOptions');
+ 	        	options.pageNumber = initParams.pageNum - 1; 
+    		}
+        	return param;
+        },
+        onLoadSuccess: function (data) {
+        	if($("#showResetBtn").val() == '1'){
+    			$("#resetBtn").removeClass("none");
+    		}
+        	if($("select[name='faFlag']").val()=="projectSource:1"){
+        		$("input[name='faName']").show();
+        	}
+        	
+        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+    			if(initParams.pageNum==1){
+    				return;
+    			}else{
+    				$('.pagination li').removeClass('active');
+    				if($('.pagination .page-number').length< initParams.pageNum)
+    				{
+    					var len = $('.pagination .page-number').length;
+    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+    					var end = initParams.pageNum + Math.floor(len/2);
+    					if(end>totalPages)
+						{
+    						end = totalPages;
+						}
+    					
+    					for(var i=len-1; i>=0; i--)
+    					{
+    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
+    					}
+    				}
+
+    				$('.pagination li').each(function(){
+    	    			if($(this).text()==initParams.pageNum){
+    	    				$(this).click();
+    	    				 return false;
+    	    				//$(this).addClass('active')
+    	    			}
+    				});
+    			}
+    		}
+        	initPageSize=10;
+        }
+	});
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 
 })
 
 
