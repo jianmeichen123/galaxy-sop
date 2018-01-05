@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DongNao.DnProject;
 
 import com.galaxyinternet.model.project.Project;
@@ -45,10 +46,36 @@ public class InfoFromDanaoController{
 	@Autowired
 	private ProjectService projectService;
 
-	@RequestMapping(value = "/interView", method = RequestMethod.GET)
-	public String interView() {
-		return "interview/view";
+
+
+
+	@RequestMapping(value = "/list/{projectId}", method = RequestMethod.GET)
+	public String toRight(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.selectColumnById(projectId);
+		request.setAttribute("projectInfo", GSONUtil.toJson(project));
+		return "project/infoenter/infoList";
 	}
+
+	@RequestMapping(value = "/info/{projectId}")
+	public String platformTest2(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.selectColumnById(projectId);
+		request.setAttribute("projectInfo", GSONUtil.toJson(project));
+		return "project/infoenter/info";
+	}
+	@RequestMapping(value = "/infoJsp")
+	public String platformTest5(HttpServletRequest request) {
+		return "project/infoenter/infoJsp";
+	}
+
+	@RequestMapping(value = "/infoDJsp")
+	public String platformTestD(HttpServletRequest request) {
+		return "project/infoenter/infoDJsp";
+	}
+
+
+
 
 
 	/**
