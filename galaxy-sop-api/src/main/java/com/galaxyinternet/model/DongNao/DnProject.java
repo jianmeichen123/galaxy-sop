@@ -37,8 +37,8 @@ public class DnProject extends BaseEntity {
 	private String latestFinanceRound;
 
 
-    //大脑项目id
-	//private Long id;
+	//===大脑 引用标识
+	private String danaoInfo;;
 
 	//项目logo    如无logo，显示项目通用的无图效果
 	//项目图片地址:http://static.galaxyinternet.com/img/project/+projCode+.png ,
@@ -223,5 +223,13 @@ public class DnProject extends BaseEntity {
 
 	public void setTitleCode(String titleCode) {
 		this.titleCode = titleCode;
+	}
+
+	public String getDanaoInfo() {
+		return danaoInfo;
+	}
+
+	public void setDanaoInfo(String danaoInfo) {
+		this.danaoInfo = danaoInfo;
 	}
 }

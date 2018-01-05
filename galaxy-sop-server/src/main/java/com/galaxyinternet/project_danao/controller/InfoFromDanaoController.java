@@ -2,6 +2,7 @@ package com.galaxyinternet.project_danao.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class InfoFromDanaoController{
 	 */
 	@RequestMapping(value = "/saveConstat", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> saveConstat(@RequestBody DnProject dnProject,
-																  HttpServletRequest request,HttpServletResponse response )
+															 HttpServletRequest request,HttpServletResponse response )
 	{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
@@ -149,7 +150,7 @@ public class InfoFromDanaoController{
      * compCode == sourceCode
      *
      * 项目id ：       projId
-     * 报告题code ：   titleCode
+     * <xxx报告题code ：   titleCode> 引用标识：danaoInfo
      * 大脑项目code ： projCode
      * 大脑项目公司code ： compCode
      *return
@@ -173,20 +174,33 @@ public class InfoFromDanaoController{
 				}
 			}*/
 
-			if(dnProject.getCompCode() != null && dnProject.getTitleCode() == null)
-			{
-				/*//仅有大脑项目code，
-				//创建项目时，待引用所有的大脑信息，
+			if(dnProject.getDanaoInfo() != null){
+				String[] marks = dnProject.getDanaoInfo().split(",");
+				List<String> markList = Arrays.asList(marks);
 
-				//1.保存星河投项目 和 大脑项目code\sourceCode的关联关系
-				Project upd = new Project();
-				upd.setId(dnProject.getProjId());
-				upd.setDanaoProjCode(dnProject.getProjCode());
-				upd.setDanaoCompCode(dnProject.getCompCode());
-				int i = projectService.updateById(upd);
-				if(i!=1){
-					throw new Exception("项目更新失败");
-				}*/
+				if(markList.contains("legalInfo")){
+					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"legalInfo");
+					result.putAll(result1);
+				}
+
+				if(markList.contains("equityInfo")){
+					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"equityInfo");
+					result.putAll(result1);
+				}
+
+				if(markList.contains("teamInfo")){
+					Map<String,Object> result1 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
+					result.putAll(result1);
+				}
+
+				if(markList.contains("financeInfo")){
+					Map<String,Object> result1 = infoFromDanaoService.queryDnaoProjFinance(dnProject.getProjCode());
+					result.putAll(result1);
+				}
+
+			}else{
+				/*//仅有大脑项目code，
+				//创建项目时，待引用所有的大脑信息，*/
 
 				//2.法人信息 legalInfo、 股权结构 equityInfo
 				Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
@@ -200,21 +214,6 @@ public class InfoFromDanaoController{
 				result.putAll(result1);
 				result.putAll(result2);
 				result.putAll(result3);
-
-			} else if(dnProject.getCompCode() != null && dnProject.getTitleCode() != null)
-			{
-				//有大脑项目code，标题code
-				//在报告中，待引用特定的大脑信息，
-
-				//1.更具 TitleCode， 判断需要 引用的数据
-
-
-
-			}else if(dnProject.getCompCode() == null && dnProject.getTitleCode() != null)
-			{
-				//无大脑项目code，有标题code
-				//在报告中，待引用特定的大脑信息，但是创建项目时未引用大脑数据
-				//此时调用项目查询接口，查找类似项目
 
 			}
 

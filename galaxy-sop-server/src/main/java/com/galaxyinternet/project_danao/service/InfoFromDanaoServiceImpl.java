@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_danao.service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -420,7 +421,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		}
 
 		Map<String, String> result = new HashMap<>();
-		result.put("num", bnum.toString());
+		result.put("num", bnum.divide(new BigDecimal("10000"),new MathContext(2)).toString());
 		result.put("unit",unit);
 
 		return result;
