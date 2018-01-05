@@ -16,7 +16,7 @@
 			<li data-content="2"> <p>选择有效推荐信息</p></li>
 			<li data-content="3"> <p>完善项目剩余信息</p></li>
 		</ul>
-		<a href="" class="rightLink">暂不引用推荐，开始完善项目></a>
+		<a href="javascript:;" onclick="jumpPage()" class="rightLink">暂不引用推荐，开始完善项目></a>
 	</div> 
 	<div class="tableBox">
 		<table class="infoList" id="dataTable" > 
@@ -33,5 +33,11 @@
  	</div>
 </div> 
 <script>
-
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
+var projectId=getURLParameter("projectId");
+function jumpPage(){
+	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+}
 </script>

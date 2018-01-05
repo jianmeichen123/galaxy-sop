@@ -55,7 +55,7 @@ $(function(){
 		var projCode=$(event).attr("projCode");
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
 		}  
-	
+
 })	
 	
 	
