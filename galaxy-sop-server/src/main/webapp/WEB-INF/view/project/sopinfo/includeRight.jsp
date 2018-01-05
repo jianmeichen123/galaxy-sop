@@ -385,10 +385,10 @@ $(function(){
 		$(".tq_div").show();
 	}
 	
-	//删除项目按钮是否显示
+	/* //删除项目按钮是否显示
 	if($(".delete_btn").attr("id")=="delete_btn"&&index<=3){
 		$("#delete_btn").attr("style","display:black");
-	}
+	} */
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
@@ -877,7 +877,7 @@ setProcess(pn);
 setProcess(cn);
 setProcess(gn);
 setProcess(on); 
- //删除项目请求
+<%--  //删除项目请求
 function deletePro(){
 	var _url = "<%=path %>/galaxy/project/deletePro?_="+new Date().getTime();
 	var data = {
@@ -916,7 +916,7 @@ function deletePro(){
 		});
 	}
 }
-	
+	 --%>
 
 </script>
 
