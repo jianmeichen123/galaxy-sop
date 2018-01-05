@@ -238,9 +238,9 @@ $(function(){
 	{
 		if(code =='transfer-task')
 		{	
-			return platformUrl.transferTask;
+			return '<%=path%>/html/assign_project.html';
 		}else if(code === 'abandon-task'){
-			return platformUrl.giveupTask;
+			return '<%=path%>/html/handover_project.html';
 		}	
 		return "";
 	}
