@@ -446,7 +446,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			interviewRecordService.updateByIdProjectId(rc);
 			//删除任务
 			SopTask soptask=new SopTask();
-			soptask.setIsDelete(0);
+			soptask.setIsDelete(1);
 			soptask.setProjectId(project.getId());
 			sopTaskService.updateTask(soptask);
 			//删除相关文件
