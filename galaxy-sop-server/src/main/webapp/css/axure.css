@@ -4362,17 +4362,17 @@ p.outerProjectTitle {
 }
 
 .assign_project ul li textarea::-webkit-input-placeholder { 
-    color:#b3b3b3;
+    color:#d8d8d8;
     font-size:12px!important;
     line-height:22px;
 }
 .assign_project ul li textarea:-moz-placeholder { 
-    color:#666;
+    color:#d8d8d8;
      font-size:12px;
     line-height:22px;
 }
 .assign_project ul li textarea:-ms-input-placeholder { 
-    color:#b3b3b3;
+    color:#d8d8d8;
      font-size:12px;
       line-height:22px;
 }
