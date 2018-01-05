@@ -4,8 +4,13 @@
     <div class="qualifications_all task-todeal">
         <ul>
        		<li>已选择6个项目</li>
-        	<li>
-        		<em>接收部门：</em><span class='task-department'>人力资源部</span>
+        	<li class='select-simulate'>
+        		<em>接收部门 ：</em>
+        		<input type='text' placeholder='请选择'>
+        		<ul class='toggle-ul'>
+        			<li>请选择</li>
+        			<li>人力资源部</li>
+        		</ul>
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
@@ -15,14 +20,9 @@
         			<li>投资经理</li>
         			<li>张三</li>
         			<li>李四</li>
-        			<!-- <li>王五</li>
-        			<li>王五</li> -->
+        		
         		</ul>
         	</li>
-        	<!-- <li class='task-todeal-textarea'>
-        		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因'></textarea>
-        	</li> -->
         </ul>
       	
     
@@ -36,7 +36,7 @@
 <script>
 
 $('.select-simulate input').click(function(){
-	var ul = $('.toggle-ul');
+	var ul =  $(this).parent().find('ul.toggle-ul');
 	var _this = $(this);
 	if(ul.css('display')=='none'){
 		_this.addClass('up');
@@ -50,7 +50,7 @@ $('.select-simulate ul li').click(function(){
 	var _this = $(this);
 	var liText = _this.text()
 	var target = _this.closest('.select-simulate').find('input').removeClass('up')
-	$('.select-simulate input').val(liText);
+	$(this).parents('.select-simulate').find('input').val(liText);
 	_this.parent().hide();
 })
 </script>
