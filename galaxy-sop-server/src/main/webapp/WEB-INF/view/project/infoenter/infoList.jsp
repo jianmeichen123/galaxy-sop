@@ -33,16 +33,13 @@
 </html>
 <script> 
 
-	var projectInfo = ${projectInfo};
-
+	var projectInfo = ${projectInfo}; 
 	createMenus(5); 
-	//导航
-	function getURLParameter(name) {
-	    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-	}
-	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
-	var projectName=getURLParameter("projectName"); 
-	var projectId=getURLParameter("projectId");
+	//导航 
+	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
+	var projectName= projectInfo.projectName; 
+	var projectId=projectInfo.id;
+	
 	$("#projectName").text(projectName);
 	var data={
    			"keyword":projectName,
@@ -52,7 +49,7 @@
 	function infoDetail(event){ 
 		var compCode=$(event).attr("compCode");
 		var projCode=$(event).attr("projCode");
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+projectId);
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId);
 	} 
 	//分页
 	initTable(_url,data,0);  

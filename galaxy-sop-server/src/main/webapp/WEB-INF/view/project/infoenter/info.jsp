@@ -33,17 +33,17 @@
 	  
 </html>
 <script> 
-
+	var projectInfo = ${projectInfo};
+	debugger;
 	//导航
-	createMenus(5);
-	function getURLParameter(name) {
-	    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-	}
+	createMenus(5); 
 	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
-	var projectName=getURLParameter("projectName"); 
-	var projectId=getURLParameter("projectId"); 
+	
+	var projectName=projectInfo.projectName; 
+	var projectId=projectInfo.id; 
 	var compCode=getURLParameter("compCode"); 
 	var projCode=getURLParameter("projCode"); 
+	
 	$("#projectName").text(projectName);
 	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 	var jsonObj={
