@@ -52,7 +52,7 @@
 	function infoDetail(event){ 
 		var compCode=$(event).attr("compCode");
 		var projCode=$(event).attr("projCode");
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+projectId);
 	} 
 	//分页
 	initTable(_url,data,0);  

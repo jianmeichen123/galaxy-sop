@@ -2066,7 +2066,7 @@ function buildInfoD(url,data,code){
 function infoDetail(event,projectId,projectName){
 	var compCode=$(event).attr("compCode");
 	var projCode=$(event).attr("projCode");
-	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
+	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId);
 } 
 //保存
 function saveDN(){ 
