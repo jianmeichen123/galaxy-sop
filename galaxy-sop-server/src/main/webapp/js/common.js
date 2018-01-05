@@ -1977,7 +1977,7 @@ function pagePop(even,code,status){
 	debugger;
 	var urlCode = $(even).attr("urlCode"); 
 	$.getHtml({ 
-		url:Constants.sopEndpointURL + urlCode+,//模版请求地址 
+		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
 			 //infoDetail  
