@@ -143,9 +143,16 @@ public class Project extends PagableEntity {
     * 该字段为项目删除标识
     */
    private int isdelete;
-   
+
    private String deleteReason;
-	
+
+
+// 大脑数据
+	private String danaoProjCode;
+	private String danaoCompCode;
+
+
+
     public Long getId() {
         return id;
     }
@@ -817,7 +824,6 @@ public class Project extends PagableEntity {
 	}
 
 
-
 	public InformationTitle getListInfoTitle() {
 		return listInfoTitle;
 	}
@@ -850,8 +856,20 @@ public class Project extends PagableEntity {
 		this.deleteReason = deleteReason;
 	}
 
-     
 
+	public String getDanaoProjCode() {
+		return danaoProjCode;
+	}
 
-	
+	public void setDanaoProjCode(String danaoProjCode) {
+		this.danaoProjCode = danaoProjCode;
+	}
+
+	public String getDanaoCompCode() {
+		return danaoCompCode;
+	}
+
+	public void setDanaoCompCode(String danaoCompCode) {
+		this.danaoCompCode = danaoCompCode;
+	}
 }

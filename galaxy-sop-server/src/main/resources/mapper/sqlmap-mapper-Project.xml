@@ -56,14 +56,15 @@
     <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
     <result column="is_delete" property="isdelete" jdbcType="BIGINT"/>
     <result column="delete_reason" property="deleteReason" jdbcType="VARCHAR"/>
-     
+	  <result column="danao_proj_code" property="danaoProjCode" jdbcType="VARCHAR"/>
+	  <result column="danao_comp_code" property="danaoCompCode" jdbcType="VARCHAR"/>
     </resultMap>
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations,industry_own, final_valuations, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason,
+    industry_analysis,operational_data, idea_id,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code,is_delete,delete_reason,danao_proj_code,danao_comp_code,
     (SELECT r.content_describe1
 	FROM information_result r 
 	WHERE r.project_id = sop_project.id AND r.title_id = 1814 AND r.is_valid = 0 LIMIT 1) AS  project_company,
@@ -170,6 +171,10 @@
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
+
+				<if test="danaoProjCode != null" > and danao_proj_code = #{danaoProjCode,jdbcType=VARCHAR} </if>
+				<if test="danaoCompCode != null" > and danao_comp_code = #{danaoCompCode,jdbcType=VARCHAR} </if>
+
 			  <if test="nameCodeLike != null">
 			  	and (upper(project_name) like CONCAT("%",upper(#{nameCodeLike}),"%")
 				<if test="escapeChar ">
@@ -323,7 +328,9 @@
 		    project_progress, 
 		    project_status, 
 		    updated_time, 
-		    created_time
+		    created_time,
+			danao_proj_code,
+			danao_comp_code
 		from sop_project
 		<include refid="Base_Where_Clause" />
 	</select>
@@ -492,7 +499,7 @@
 		update sop_project
 		<set>
 			  <if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
-			  <!-- 
+			  <!--
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
 		       -->
@@ -536,10 +543,12 @@
 		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
 		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT}, </if>
-		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR}, </if>	
+		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR}, </if>
 		      <if test="isdelete != null" > is_delete = #{isdelete,jdbcType=BIGINT}, </if>
-		      <if test="deleteReason != null" > delete_reason = #{deleteReason,jdbcType=VARCHAR} </if>
-		
+		      <if test="deleteReason != null" > delete_reason = #{deleteReason,jdbcType=VARCHAR}, </if>
+			  <if test="danaoProjCode != null" > danao_proj_code = #{danaoProjCode,jdbcType=VARCHAR}, </if>
+			  <if test="danaoCompCode != null" > danao_comp_code = #{danaoCompCode,jdbcType=VARCHAR}, </if>
+
 		</set>
 		where id = #{id}
 	</update>
