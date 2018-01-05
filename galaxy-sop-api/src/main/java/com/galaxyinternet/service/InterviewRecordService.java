@@ -11,6 +11,7 @@ import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -32,5 +33,6 @@ public interface InterviewRecordService extends BaseService<InterviewRecord> {
 	Long selectCount(InterviewRecordBo query);
 	
 	public SopResult operateInterview(Project project,ProjectQuery p,UploadFileResult result,HttpServletRequest request);
-
+	
+	public int updateByIdProjectId(InterviewRecord entity);
 }

@@ -1,10 +1,13 @@
 package com.galaxyinternet.project.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
@@ -101,5 +104,21 @@ public class MeetingRecordDaoImpl extends BaseDaoImpl<MeetingRecord, Long> imple
 	public List<MeetingRecord> selectMeetFirstTimeAndPassTime(MeetingRecordBo query) {
 		Map<String, Object> params = BeanUtils.toMap(query);
 		return sqlSessionTemplate.selectList(getSqlName("selectMeetFirstTimeAndPassTime"),params);
+	}
+	
+	@Override
+	@Transactional
+	public int updateByIdProjectId(MeetingRecord entity) {
+		Assert.notNull(entity);
+		appendUpdatedTime(entity);
+		try {
+			return sqlSessionTemplate.update(getSqlName("updateByIdProjectId"), entity);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据项目ID更新对象某些属性出错！语句：%s", getSqlName("updateByIdProjectId")),
+					e);
+		}
+	}
+	private final void appendUpdatedTime(MeetingRecord entity) {
+		entity.setUpdatedTime(new Date().getTime());
 	}
 }

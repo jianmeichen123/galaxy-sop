@@ -43,7 +43,7 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	
 	public void operateFlowMeeting(SopFile file,MeetingRecord meet);
 	
-	
+	public int updateByIdProjectId(MeetingRecord entity);
 
 
 }

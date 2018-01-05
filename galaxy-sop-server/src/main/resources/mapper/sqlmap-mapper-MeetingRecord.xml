@@ -153,6 +153,15 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<!-- 更新 -->
+	<update id="updateByProjectId" parameterType="com.galaxyinternet.model.project.MeetingRecord">
+		update sop_meeting_record
+		<set>
+		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}</if>
+		</set>
+		where project_id = #{projectId}
+	</update>
     <!-- 通过ID更新 -->
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.MeetingRecord">
 		update sop_meeting_record

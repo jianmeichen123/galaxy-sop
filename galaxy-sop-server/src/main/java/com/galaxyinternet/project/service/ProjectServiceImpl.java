@@ -39,7 +39,9 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.JointDelivery;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -53,6 +55,8 @@ import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.InterviewRecordService;
+import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
@@ -89,7 +93,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Autowired
 	private JointDeliveryDao jointDeliveryDao;
 	
-	
+	@Autowired
+	private MeetingRecordService meetingRecordService;
+	@Autowired
+	private InterviewRecordService interviewRecordService;
 
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -423,10 +430,31 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public int deleteProject(Project project) {
 		int updateById = projectDao.updateById(project);
 		if(updateById > 0){
+		   //待办任务处理
 			SopTask sopTask=new SopTask();
 			sopTask.setProjectId(project.getId());
 			sopTask.setIsDelete(0);
 			sopTaskService.updateByIdSelective(sopTask);
+		   //项目删除，删除会议记录
+			MeetingRecord meetingRecord=new MeetingRecord();
+			meetingRecord.setProjectId(project.getId());
+			meetingRecord.setMeetValid((byte)1);
+			meetingRecordService.updateByIdProjectId(meetingRecord);
+			//删除访谈
+			InterviewRecord rc=new InterviewRecord();
+			rc.setInterviewvalid(1L);
+			rc.setProjectId(project.getId());
+			interviewRecordService.updateByIdProjectId(rc);
+			//删除任务
+			SopTask soptask=new SopTask();
+			soptask.setIsDelete(0);
+			soptask.setProjectId(project.getId());
+			sopTaskService.updateTask(soptask);
+			//删除相关文件
+			SopFile sopfile=new SopFile();
+			sopfile.setFileValid(3);	
+			sopfile.setProjectId(project.getId());
+			sopFileDao.updateByIdSelective(sopfile);
 		}
 		return updateById;
 	}

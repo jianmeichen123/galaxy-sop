@@ -710,5 +710,16 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
            }
 		return map;
 	}
+
+
+	@Override
+	public int updateByIdProjectId(MeetingRecord entity) {
+		// TODO Auto-generated method stub
+		int updateByIdProjectId =
+				meetingRecordDao.updateByIdProjectId(entity);
+		return updateByIdProjectId;
+	}
+	
+	
 	
 }

@@ -318,5 +318,13 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		SopResult r = new SopResult(Status.OK,null,null,number,MessageHandlerInterceptor.add_interview_type);
 		return r;
 	}
+
+
+	@Override
+	public int updateByIdProjectId(InterviewRecord entity) {
+		// TODO Auto-generated method stub
+		int updateByIdProjectId = interviewRecordDao.updateByIdProjectId(entity);
+		return updateByIdProjectId;
+	}
 	
 }

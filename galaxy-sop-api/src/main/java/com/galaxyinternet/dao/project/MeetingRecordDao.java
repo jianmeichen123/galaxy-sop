@@ -32,5 +32,5 @@ public interface MeetingRecordDao extends BaseDao<MeetingRecord, Long> {
 	List<MeetingRecord> selectTzjlHasMeetProNumByParams(MeetingRecordBo query);
 
 	List<MeetingRecord> selectMeetFirstTimeAndPassTime(MeetingRecordBo query);
-	
+	public int updateByIdProjectId(MeetingRecord entity);
 }

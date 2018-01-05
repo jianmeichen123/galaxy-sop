@@ -1,10 +1,12 @@
 package com.galaxyinternet.project.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
@@ -16,6 +18,7 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.project.MeetingRecord;
 
 
 @Repository("interviewRecordDao")
@@ -57,5 +60,21 @@ public class InterviewRecordDaoImpl extends BaseDaoImpl<InterviewRecord, Long> i
 			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName(SqlId.SQL_UPDATE_BY_ID)), e);
 		}
 	}
+	@Override
+	@Transactional
+	public int updateByIdProjectId(InterviewRecord entity) {
+		Assert.notNull(entity);
+		appendUpdatedTime(entity);
+		try {
+			return sqlSessionTemplate.update(getSqlName("updateByIdProjectId"), entity);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据项目ID更新对象某些属性出错！语句：%s", getSqlName("updateByIdProjectId")),
+					e);
+		}
+	}
+	private final void appendUpdatedTime(InterviewRecord entity) {
+		entity.setUpdatedTime(new Date().getTime());
+	}	
+		
 	
 }

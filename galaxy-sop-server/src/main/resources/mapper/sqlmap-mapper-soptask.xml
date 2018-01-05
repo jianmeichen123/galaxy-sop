@@ -15,6 +15,7 @@
 		<result property="remark" column="remark" />
 		<result property="createdTime" column="created_time" />
 		<result property="updatedTime" column="updated_time" />
+		<result property="isDelete" column="is_delete" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -85,6 +86,7 @@
 			     <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
 			  
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+				<if test="isDelete != null"> and is_delete =#{isDelete}</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 				<if test="ids != null">
@@ -160,7 +162,8 @@
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
 				 <if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
 			     <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
-			  
+			     <if test="isDelete != null"> and is_delete =#{isDelete}</if>
+				
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
 				<!-- 模糊查询 -->
 			</trim>
@@ -226,7 +229,9 @@
 			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
 			<if test="remark != null">  remark =#{remark},</if>
 			<if test="createdTime != null">  created_time =#{createdTime},</if>
-			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime},</if>
+			<if test="isDelete != null"> is_delete =#{isDelete}</if>
+				
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -239,6 +244,8 @@
 				<if test="departmentId != null"> and department_id =#{departmentId}</if>
 				<if test="assignUid != null"> and assign_uid =#{assignUid}</if>
 				<if test="queryTaskStatus != null"> and task_status =#{queryTaskStatus}</if>
+				<if test="isDelete != null"> and is_delete =#{isDelete}</if>
+				
 			</trim>
 		</where>
 	</update>
@@ -258,7 +265,8 @@
 			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
 			<if test="remark != null">  remark =#{remark},</if>
 			<if test="createdTime != null">  created_time =#{createdTime},</if>
-			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime},</if>
+			<if test="isDelete != null">  is_delete =#{isDelete}</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -271,9 +279,11 @@
 		<set>
 			<if test="assignUid != null">  assign_uid =#{assignUid},</if>
 			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
-			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime},</if>
+			<if test="isDelete != null">  is_delete =#{isDelete}</if>
 		</set>
 		<where>
+		         is_delete=1
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null"> and project_id =#{projectId}</if>
@@ -328,6 +338,7 @@
 			            #{taskStatusList}
 			        </foreach>
 				</if>
+				<if test="isDelete != null"> and is_delete =#{isDelete}</if>
 			</trim>
 		</where>
 	</select>
@@ -352,6 +363,7 @@
 			            #{taskFlag}
 			        </foreach>
 				</if>
+				<if test="isDelete != null"> and is_delete =#{isDelete}</if>
 			</trim>
 		</where>
 	</select>
@@ -361,14 +373,14 @@
 		select count(id) from sop_task
 		    where 
 		           assign_uid = #{assignUid} and 
-		           task_status ='taskStatus:2'
+		           task_status ='taskStatus:2' and is_delete=1
 	</select>
 	
 	<!-- 查询紧急总数 -->
 	<select id="selectTotalUrgent" resultType="java.lang.Long" parameterType="SopTaskPO">
 		select count(id) from sop_task
 		    where 
-		           assign_uid = #{assignUid} and 
+		           assign_uid = #{assignUid} and is_delete=1 and 
 		           task_order > 0
 	</select>
 	
@@ -386,6 +398,7 @@
 						#{item}
 					</foreach>
 				</if>
+				<if test="isDelete != null"> and is_delete =#{isDelete}</if>
 			</trim>
 		</where>
 	</select>
