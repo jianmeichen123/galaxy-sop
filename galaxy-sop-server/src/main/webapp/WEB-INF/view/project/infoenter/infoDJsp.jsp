@@ -2,7 +2,35 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<style>
 
+table input {
+opacity: 0;
+position:relative;
+z-index:100;
+}
+input+ label {
+width:12px;
+height:12px;
+background: #FFFFFF;
+border: 1px solid #B2B2B2;
+display: block;
+position:absolute;
+z-index:101;
+   
+}
+input:checked + label {
+width:12px;
+height:12px;
+background:#55A7FF ;
+  text-align:center;
+}
+input:checked + label::before {
+   content:"√";
+   color:#fff;
+   linheight:12px;
+}
+</style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop">
 	<div class="infoTop clearfix">
@@ -23,7 +51,8 @@
 		 			<tbody>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" onclick="checkAll(this)"/>
+		 						<label></label>
 		 					</td>
 		 					<td>公司名称</td>
 		 					<td id="DN_projectCompany">--</td>
@@ -51,7 +80,7 @@
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" onclick="checkAll(this)"/>
 		 					</td> 
 		 					<td>股东名称</td>
 		 					<td>股东类型</td>
@@ -70,7 +99,8 @@
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" onclick="checkAll(this)"/>		 						
+		 						<label></label>
 		 					</td> 
 		 					<td>姓名</td>
 		 					<td>职位</td> 	
@@ -86,7 +116,8 @@
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" onclick="checkAll(this)" />
+		 						<label></label>
 		 					</td> 
 		 					<td>融资轮次</td>
 		 					<td>融资时间</td>
@@ -103,7 +134,7 @@
 		 </ul>
 		 
 	</div>
-	<div class="tableBox emptyInfo">
+	<div class="tableBox emptyInfo" style="display:none;">
 		<div class="empty">
 			 暂无推荐信息
 		</div>
@@ -112,4 +143,9 @@
 <div class="fixedbottom">
 	<a href="javascript:;" class="add_pro" onclick="saveDN()" >保存</a>
 	<a href="javascript:;" class="over_pro"  onclick="jumpPage()">跳过</a>
-</div>
+</div> 
+<script>
+function checkAll(event){   
+    $(event).closest("table").find('input').prop('checked', $(event).prop('checked')); 
+}
+</script>

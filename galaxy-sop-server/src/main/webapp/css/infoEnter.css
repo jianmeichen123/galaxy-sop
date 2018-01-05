@@ -233,15 +233,14 @@ font-weight: bold;
 	border-left: 1px solid #d8d8d8;	
     border-bottom: 1px solid #d8d8d8;
 }
-.infoItem table td:nth-child(1){border-left:0; width:32px;}
+.infoItem table td:nth-child(1){border-left:0; width:32px;position:relative;}
 .infoItem table td:nth-child(2){ width:20%;}
 .tabrow{
 	width: 80%;
 } 
 .emptyInfo{
 	height: 260px;
-	position: relative;
-	display: none;
+	position: relative; 
 	background: #fff;
 }
 .empty{
