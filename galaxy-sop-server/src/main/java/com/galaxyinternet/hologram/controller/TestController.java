@@ -52,11 +52,7 @@ public class TestController{
 	public String platformTestD(HttpServletRequest request) {
 		return "project/infoenter/infoDJsp";
 	}
-	@RequestMapping(value = "/jtym3")
-	public String platformTest3(HttpServletRequest request) {
-		return "project/assign";
-	}
-	
+		
 	@RequestMapping(value = "/searchResult")
 	public String platformTest4(HttpServletRequest request) {
 		return "project/search";

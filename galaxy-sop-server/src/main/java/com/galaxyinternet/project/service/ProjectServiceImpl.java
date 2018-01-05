@@ -434,11 +434,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public int deleteProject(Project project) {
 		int updateById = projectDao.updateById(project);
 		if(updateById > 0){
-		   //待办任务处理
-			SopTask sopTask=new SopTask();
-			sopTask.setProjectId(project.getId());
-			sopTask.setIsDelete(0);
-			sopTaskService.updateByIdSelective(sopTask);
 		   //项目删除，删除会议记录
 			MeetingRecord meetingRecord=new MeetingRecord();
 			meetingRecord.setProjectId(project.getId());

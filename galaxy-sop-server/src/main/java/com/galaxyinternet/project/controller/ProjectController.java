@@ -228,6 +228,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//搜索全部时,传过来参数值为0,此时要转换为查询全部
 		project.setCreateUid((project.getCreateUid() != null && project.getCreateUid().longValue() == 0L) ? null : project.getCreateUid());
 		project.setProjectDepartid((project.getProjectDepartid() != null && project.getProjectDepartid().longValue() == 0L) ? null : project.getProjectDepartid());
+		project.setIsdelete(1);
 		if(null!=project.getProperty()&&project.getProperty().equals("project_progress")){
 			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
 			

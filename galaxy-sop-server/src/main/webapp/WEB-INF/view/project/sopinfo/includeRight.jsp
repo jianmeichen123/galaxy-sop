@@ -879,17 +879,23 @@ setProcess(gn);
 setProcess(on); 
  //删除项目请求
 function deletePro(){
+	var _url = "<%=path %>/galaxy/project/deletePro?_="+new Date().getTime();
+	var data = {
+			'id'	:	proid,
+			'deleteReason':null
+		};
 	if(pRigthInfo.createUid==userId){
-		var _url = "<%=path %>/galaxy/meeting/del?_="+new Date().getTime()+"&id="+id;
 		layer.confirm("确定删除？",function(i){
 			layer.close(i);
 			sendPostRequestByJsonObj(
 				_url,
-				{},
+				data,
 				function(data){
 					if(data.result.status=='OK')
 					{
 						layer.msg("删除成功");
+						var url = $("#menus .on a").attr('href');
+						window.location = url;
 					}
 					else
 					{
@@ -899,7 +905,15 @@ function deletePro(){
 			);
 		});
 	}else{
-		
+		var _url = "<%=path %>/galaxy/project/toDeleteProject";	
+		$.getHtml({
+			url:_url,
+			data:"",//传递参数
+			okback:function(){
+				$('input[name="projectId"]').val(proid);
+			}//模版反回成功执行	
+			
+		});
 	}
 }
 	

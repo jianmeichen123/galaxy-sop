@@ -118,7 +118,8 @@
 			  </if>
 			    <if test="projectProgress != null" > and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
 			   <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
-			  
+			   <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=BIGINT} </if>
+			 
 		      
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 			  <if test="deptIdList != null">

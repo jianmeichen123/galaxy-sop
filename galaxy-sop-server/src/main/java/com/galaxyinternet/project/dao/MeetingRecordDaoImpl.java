@@ -112,7 +112,7 @@ public class MeetingRecordDaoImpl extends BaseDaoImpl<MeetingRecord, Long> imple
 		Assert.notNull(entity);
 		appendUpdatedTime(entity);
 		try {
-			return sqlSessionTemplate.update(getSqlName("updateByIdProjectId"), entity);
+			return sqlSessionTemplate.update(getSqlName("updateByProjectId"), entity);
 		} catch (Exception e) {
 			throw new DaoException(String.format("根据项目ID更新对象某些属性出错！语句：%s", getSqlName("updateByIdProjectId")),
 					e);

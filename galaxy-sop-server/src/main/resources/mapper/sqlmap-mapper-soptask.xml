@@ -283,7 +283,6 @@
 			<if test="isDelete != null">  is_delete =#{isDelete}</if>
 		</set>
 		<where>
-		         is_delete=1
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null"> and project_id =#{projectId}</if>
