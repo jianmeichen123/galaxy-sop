@@ -76,6 +76,11 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 	private List<ScoreAutoInfo> autoList;
 
 
+	//===大脑数据关联
+	private String danaoInfo;
+
+
+
 	public Set<String> getTitleIds() {
 		return titleIds;
 	}
@@ -422,6 +427,15 @@ public class InformationTitle extends PagableEntity implements Cloneable  {
 
 	public void setInformationCreateTimeMG(InformationCreateTimeMG informationCreateTimeMG) {
 		this.informationCreateTimeMG = informationCreateTimeMG;
+	}
+
+
+	public String getDanaoInfo() {
+		return danaoInfo;
+	}
+
+	public void setDanaoInfo(String danaoInfo) {
+		this.danaoInfo = danaoInfo;
 	}
 
 	@Override

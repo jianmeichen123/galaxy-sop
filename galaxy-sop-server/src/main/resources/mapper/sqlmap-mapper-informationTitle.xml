@@ -25,13 +25,15 @@
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
 		<result column="relate_id"  jdbcType="BIGINT" 		property="relateId" />
 		<result column="val_rule_formula" 	jdbcType="VARCHAR" 		property="valRuleFormula" />
+
+		<result column="danao_info" 	jdbcType="VARCHAR" 		property="danaoInfo" />
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
 		id, parent_id, code, name, index_no, type, sign, content, is_show, is_valid, placeholder, created_time, create_id, updated_time, update_id,
-		is_must,val_rule,val_rule_mark,val_rule_formula
+		is_must,val_rule,val_rule_mark,val_rule_formula,danao_info
 	</sql>
 
 
@@ -62,7 +64,9 @@
 				<if test="createId != null"> and  create_id = #{createId,jdbcType=BIGINT} </if>
 				<if test="updatedTime != null"> and  updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="updateId != null"> and  update_id = #{updateId,jdbcType=BIGINT} </if>
-				
+
+				<if test="danaoInfo != null"> and  danao_info = #{danaoInfo,jdbcType=BIGINT} </if>
+
 			</trim>
 			
 			<if test="idcodekey != null">
@@ -114,7 +118,8 @@
 			created_time, 
 			create_id, 
 			updated_time, 
-			update_id
+			update_id,
+			danao_info
 		)
 		values (
 			#{id,jdbcType=BIGINT}, 
@@ -131,11 +136,12 @@
 			#{createdTime,jdbcType=BIGINT}, 
 			#{createId,jdbcType=BIGINT}, 
 			#{updatedTime,jdbcType=BIGINT}, 
-			#{updateId,jdbcType=BIGINT}
+			#{updateId,jdbcType=BIGINT},
+			#{danaoInfo,jdbcType=VARCHAR}
 		)
 	    ]]>
 	</insert>
-	
+
 				
 				
 	<!-- 查询总数 -->
@@ -182,6 +188,9 @@
 			<if test="createId != null"> create_id = #{createId,jdbcType=BIGINT}, </if>
 			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="updateId != null"> update_id = #{updateId,jdbcType=BIGINT}, </if>
+
+			<if test="danaoInfo != null"> danao_info = #{danaoInfo,jdbcType=VARCHAR}, </if>
+
 		</set>
 		where id = #{id}
 	</update>
@@ -227,12 +236,11 @@
 		where id = #{id}
 	</delete>
 
-	
-	
+
 	<!-- id, parent_id, code, name, index_no, type, sign, content,is_show, is_valid, placeholder -->
 	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark,val_rule_formula
+		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark,val_rule_formula,danao_info
 		from information_title 
 		<where>
 			<trim prefixOverrides="and">
@@ -265,6 +273,9 @@
 		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
+
+		<result column="danao_info" 		jdbcType="VARCHAR" 		property="danaoInfo" />
+
 		<result column="relate_id"  	jdbcType="BIGINT" 		property="relateId" />
 		<result column="sub_id" 		jdbcType="VARCHAR" 		property="subId" />
 	</resultMap>
@@ -273,7 +284,8 @@
 		t.id, r.parent_id, r.code, CASE WHEN r.name IS NOT NULL THEN r.name ELSE t.name END AS name,  
 		t.type, t.sign, t.content,
 		t.is_show, t.placeholder,t.is_must,
-		t.val_rule,t.val_rule_mark,r.id AS relate_id,
+		t.val_rule,t.val_rule_mark,t.danao_info,
+		r.id AS relate_id,
 		g.sub_id 
 		FROM information_title t
 		INNER JOIN information_title_relate r ON r.title_id = t.id
@@ -302,6 +314,7 @@
 			and type is NULL
 		<!-- order by index_no -->
 	</select>
+
 
 
 	<resultMap id="Title_ResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
