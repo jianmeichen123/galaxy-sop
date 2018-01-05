@@ -447,7 +447,7 @@
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix borderRadius">
 						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员">添加</a>	
-						<a id="" href="javascript:;" onclick="pagePop(this,'team')" urlCode="/galaxy/test/infoJsp" data-href='' class="add_pro lightbg" >参考信息</a>
+						<a id="" href="javascript:;" onclick="pagePop(this,'team',0)" urlCode="/galaxy/test/infoJsp" data-href='' class="add_pro lightbg" >参考信息</a>
 					</div>
 				</div>
 			</c:if>
@@ -464,7 +464,7 @@
 	        <c:if test="${isEditable}">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="edit" data-cont="legal" data-name="basic" data-on="data-open">编辑</a>
-	            	<a href="javascript:;" onclick="pagePop(this,'legal')" urlCode="/galaxy/test/infoJsp" data-name="basic">参考信息</a>
+	            	<a href="javascript:;" onclick="pagePop(this,'legal',0)" urlCode="/galaxy/test/infoJsp" data-name="basic">参考信息</a>
 	         	</span>
 	        </c:if>
 	    </div>
@@ -505,7 +505,7 @@
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
 	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)">添加</a>
-	              <a id="" href="javascript:;"  onclick="pagePop(this,'equity')" urlCode="/galaxy/test/infoJsp" class="add_pro lightbg" >参考信息</a>
+	              <a id="" href="javascript:;"  onclick="pagePop(this,'equity',0)" urlCode="/galaxy/test/infoJsp" class="add_pro lightbg" >参考信息</a>
 	          </div>
 	        </c:if>
 	    </div>
@@ -529,7 +529,7 @@
 			       <c:if test="${isEditable}">
 			          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
 			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this,3)">添加</a>
-			              <a id="" href="javascript:;" onclick="pagePop(this,'history')" urlCode="/galaxy/test/infoJsp" class="add_pro lightbg" >参考信息</a>
+			              <a id="" href="javascript:;" onclick="pagePop(this,'history',0)" urlCode="/galaxy/test/infoJsp" class="add_pro lightbg" >参考信息</a>
 			          </div>
 			        </c:if>
 		    </div>
@@ -552,6 +552,8 @@
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
+	debugger;
+	
 	$("[data-toggle='tooltip']").tooltip();//提示
 	//运营数据分析返回
 /* 	if(getCookieValue('backListOperation')=='7'){

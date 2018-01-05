@@ -1341,7 +1341,11 @@ var platformUrl = {
     /**放弃任务**/
     giveupTask: Constants.sopEndpointURL + "/galaxy/soptask/giveup",
     /**移交任务**/
-    assignTask : Constants.sopEndpointURL + "/galaxy/soptask/assign"
+    assignTask : Constants.sopEndpointURL + "/galaxy/soptask/assign",
+    
+    /**保存大脑关联关系**/
+    saveDanaoProInfo : Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat"
+    
 }
 
 /**

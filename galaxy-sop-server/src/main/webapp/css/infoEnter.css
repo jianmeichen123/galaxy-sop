@@ -21,7 +21,7 @@ color: #000;
 font-weight: normal;
 text-align: center;
 margin: 30px auto 20px; 
-width:240px;
+width:500px;
 background:url("../img/process/infoCreat.png") no-repeat left center; 
 }
 .infoTop p{
@@ -242,16 +242,19 @@ font-weight: bold;
 	height: 260px;
 	position: relative;
 	display: none;
+	background: #fff;
 }
 .empty{
 	width: 150px;
     height: 25px;
     background: url(../img/base_info/base_icon.png) -180px -70px no-repeat;
     color: #b2b2b2;
-    margin: 0 auto;    
     text-align: center;
     padding-top: 95px;
-    top: 72px; 
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
 }
 
 .pageTop{

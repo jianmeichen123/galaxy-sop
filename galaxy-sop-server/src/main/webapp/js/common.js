@@ -1918,7 +1918,7 @@ function initTable(url,data,status,code) {
                 //row：当前行的数据
                 var a = '<img class="comImg" src='+filter(row.projImage)+' alt="">'
 						+'<div class="conInfo">'
-						+'<p>'+row.projTitle+'</p>'
+						+'<p class="DN_name">'+row.projTitle+'</p>'
 						+'<p class="textBotm">'
 						+'<span class="industryName">'+filter(row.industryName)+'</span>'
 						+'<span class="districtSubName">'+filter(row.districtSubName)+'</span>'
@@ -1960,7 +1960,7 @@ function initTable(url,data,status,code) {
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
                     
             	}else{ 
-            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/test/infoDJsp" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/project/detail/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -1972,8 +1972,9 @@ function initTable(url,data,status,code) {
     });
 }
 //1.11
-
-function pagePop(even,code){
+//status  是否引用 0 未引用
+function pagePop(even,code,status){
+	debugger;
 	var urlCode = $(even).attr("urlCode"); 
 	$.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
@@ -2061,13 +2062,97 @@ function buildInfoD(url,data,code){
 		 }
 	 }
 	}) 
-}
-//引用
-function infoDetail(event,projectId,projectName){
-	var compCode=$(event).attr("compCode");
-	var projCode=$(event).attr("projCode");
-	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId);
 } 
+
+/*
+ * 检测对象是否是空对象(不包含任何可读属性)。
+ * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
+ */
+function isEmpty(obj)
+{
+    for (var name in obj) 
+    {
+        return false;
+    }
+    return true;
+};
+//显示数据
+function buildDNinfo(_url,jsonObj){
+
+	sendPostRequestByJsonObj(_url, jsonObj, function(data){   
+		if(isEmpty(data.userData)){
+			$(".tableBox.infoBox ").hide();
+			$(".fixedbottom").hide();
+			$(".emptyInfo").show();
+			return false;
+		}
+		 var legal=data.userData.legalInfo;
+		 var equityInfo=data.userData.equityInfo;
+		 var team=data.userData.teamInfo; 
+		 var financeInfo=data.userData.financeInfo; 		 
+		 buildDNtable($("#companyInfo"),legal,"");
+		 buildDNtable($("#teamInfo"),team,"team-members");
+		 buildDNtable($("#fina_historyInfo"),financeInfo,"finance-history");
+		 buildDNtable($("#equityInfo"),equityInfo,"equity-structure");
+	 
+	}) 
+}
+function buildDNtable(dom ,data,code){   
+	if(!data){
+		dom.hide();
+		return false;
+	};
+	var str="";
+	if(code=="equity-structure"){
+		for(i=0;i<data.length;i++){
+			 var that = data[i]
+			 str+='<tr id='+that.shareholderTypeId+'>'
+					+'<td>'
+					+'<input type="checkbox" />'
+				+'</td>'
+				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
+				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
+				+'<td name="field4" dnVal='+that.shareholderType+'>'+filter(that.shareholderType)+'</td>'
+				+'<td name="field2" dnVal='+that.equityRate+'>'+filter(that.equityRate)+'</td>'
+				+'<td name="field5" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td> '
+				+'</tr>'
+		 }
+		dom.find("tbody").html(str);
+	}else if(code=="team-members"){
+		for(i=0;i<data.length;i++){
+			 var that = data[i]
+			 str+='<tr id='+that.shareholderTypeId+'>'
+					+'<td>'
+					+'<input type="checkbox" />'
+				+'</td>'
+				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
+				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
+				+'</tr>'
+		 }
+		dom.find("tbody").html(str);
+		
+	}else if(code=="finance-history"){	 
+		for(i=0;i<data.length;i++){
+			 var that = data[i]
+			 str+='<tr id='+that.shareholderTypeId+'>'
+				+'<td>'
+				+'<input type="checkbox" />'
+			+'</td>'
+			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
+			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
+			+'<td name="field3" dnVal='+that.num+'>'+filter(that.num)+'</td>'
+			+'<td name="field6" dnVal = '+that.unitId+'>'+filter(that.unit)+'</td>'
+			+'<td name="field4" dnVal='+that.stock+'>'+filter(that.stock)+'</td> '
+			+'<td name="field2" dnVal='+that.empty+'>'+filter(that.empty)+'</td> '
+			+'</tr>'
+		 }
+		dom.find("tbody").html(str);
+	}else{
+		 $("#DN_projectCompany").text(data.company);
+		 $("#DN_formationDate").text(data.foundDate);
+		 $("#DN_companyLegal").text(data.legalPerson); 
+	}
+}
 //保存
 function saveDN(){ 
  

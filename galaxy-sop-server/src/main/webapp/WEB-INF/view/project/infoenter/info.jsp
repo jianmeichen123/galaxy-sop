@@ -33,28 +33,28 @@
 	  
 </html>
 <script> 
-	var projectInfo = ${projectInfo};
-	debugger;
+	var projectInfo = ${projectInfo}; 
 	//导航
 	createMenus(5); 
+	function getURLParameter(name) {
+	    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+	}
 	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
 	
 	var projectName=projectInfo.projectName; 
 	var projectId=projectInfo.id; 
-	var compCode=getURLParameter("compCode"); 
-	var projCode=getURLParameter("projCode"); 
-	
-	$("#projectName").text(projectName);
+	var compCode=projectInfo.danaoCompCode; 
+	var projCode=projectInfo.danaoProjCode; 
+	var DN_name=getURLParameter("DN_projectName")
+	$("#projectName").html(DN_name);
 	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 	var jsonObj={
 			projId:projectId,
 			projCode:projCode,
-			compCode:compCode,
-			titleCode:"1303",
-	}
-	sendPostRequestByJsonObj(_url, jsonObj, function(data){
+			compCode:compCode, 
+	}; 
+	 buildDNinfo(_url,jsonObj);
 	 
-	}) 
 	function jumpPage(){
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
 	} 
