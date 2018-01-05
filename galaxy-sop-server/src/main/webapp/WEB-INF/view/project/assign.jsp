@@ -242,7 +242,7 @@ $(function(){
 		queryParamsType: 'size|page',
 		pageSize:initPageSize,
 		showRefresh : false,
-		url : $('#project-table').attr("data-url"),
+		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
 		method : 'post',
 		sortOrder : 'desc',
