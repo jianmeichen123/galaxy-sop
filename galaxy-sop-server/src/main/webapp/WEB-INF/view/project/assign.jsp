@@ -77,13 +77,7 @@
 					  <option>Relish</option>
 					</select>
 			  	</div>
-				<!-- <div class="form-group">
-			      <select class="selectpicker">
-					  <option>Mustard</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
-					</select>
-			  	</div> --> 
+				
 		  	</div>
 		  	<div class="input-group">
 			  	<di class='input-content'>
@@ -208,7 +202,7 @@ $(function(){
 	 event.preventDefault(); 
 	 
  });
- 
+ //全选
  $('.highlighCheckbox_th').click(function(event){
 	 $(this).toggleClass('highlighCheckbox_checked');
 	 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
@@ -217,6 +211,24 @@ $(function(){
 	 }
 	 event.preventDefault(); 
  })
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 	
 })
