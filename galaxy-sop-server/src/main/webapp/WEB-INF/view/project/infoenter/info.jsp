@@ -32,8 +32,10 @@
 <jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
 	  
 </html>
-<script>
-$(function(){
+<script> 
+
+	//导航
+	createMenus(5);
 	function getURLParameter(name) {
 	    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	}
@@ -43,8 +45,6 @@ $(function(){
 	var compCode=getURLParameter("compCode"); 
 	var projCode=getURLParameter("projCode"); 
 	$("#projectName").text(projectName);
-	//导航
-	createMenus(5);
 	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 	var jsonObj={
 			projId:projectId,
@@ -55,6 +55,11 @@ $(function(){
 	sendPostRequestByJsonObj(_url, jsonObj, function(data){
 	 
 	}) 
+	function jumpPage(){
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+	} 
+	
+	
 	function position(){
 		var right=$(".infoBox").offset().right;
 		var left=$(".infoBox").offset().left;
@@ -65,12 +70,8 @@ $(function(){
 	}
 	position();
 	$(window).resize(function(){
-
 		position();
-	})
-	
-	
-})
+	}) 
 
 
 </script>

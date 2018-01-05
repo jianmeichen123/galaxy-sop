@@ -315,24 +315,43 @@
 	<!-- 查询 -->
 	<select id="selectColumnList" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-			id, 
-			project_name, 
-			project_code, 
-			project_type, 
-			project_careerline, 
-			project_departId,
-			industry_own, 
-		    create_uid, 
-		    create_uname, 
-		    create_uposition, 
-		    project_progress, 
-		    project_status, 
-		    updated_time, 
-		    created_time,
-			danao_proj_code,
-			danao_comp_code
+		id,
+		project_name,
+		project_code,
+		project_type,
+		project_careerline,
+		project_departId,
+		industry_own,
+		create_uid,
+		create_uname,
+		create_uposition,
+		project_progress,
+		project_status,
+		updated_time,
+		created_time,
+		danao_proj_code,
+		danao_comp_code
 		from sop_project
 		<include refid="Base_Where_Clause" />
+	</select>
+	<!-- 查询 -->
+	<select id="selectColumnById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		id,
+		project_name,
+		project_code,
+		project_type,
+		project_careerline,
+		project_departId,
+		industry_own,
+		create_uid,
+		create_uname,
+		updated_time,
+		created_time,
+		danao_proj_code,
+		danao_comp_code
+		from sop_project
+		where id = #{id}
 	</select>
 	
 	<!-- 根据ID查询 -->

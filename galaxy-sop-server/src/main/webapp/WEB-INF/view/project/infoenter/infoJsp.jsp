@@ -2,7 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
+ 
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop">
 	<div class="infoTop clearfix">
@@ -31,13 +31,7 @@
 		</table>
 		
  	</div>
-</div> 
-<script>
-function getURLParameter(name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-}
-var projectId=getURLParameter("projectId");
-function jumpPage(){
-	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-}
+</div>  
+
+<script>  
 </script>

@@ -103,6 +103,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return this.projectDao;
 	}
 
+	public Project selectColumnById(Long id){
+		return projectDao.selectColumnById(id);
+	}
+
 	@Override
 	@Transactional
 	public long newProject(Project project, SopFile file) throws Exception {

@@ -14,7 +14,8 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
 public interface ProjectService extends BaseService<Project> {
-	
+
+	public Project selectColumnById(Long id);
 	/**
 	 * 添加项目
 	 * 对于每个新添加的项目来讲，整个生命周期中所关联的文档已确定，这里需要一并添加

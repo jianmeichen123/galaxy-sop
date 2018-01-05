@@ -628,8 +628,7 @@ function CallBackE(data){
 							if(num==0||!num){
 								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 							}else{
-								var projectId=
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym1/?projectName="+projectName+"&projectId="+Id);
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
 							} 
 						})
 						 } else {
