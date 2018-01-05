@@ -4296,6 +4296,8 @@ input:-ms-input-placeholder {
 .highlighCheckbox{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_th{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
+.assingTable thead{height:40px;}
+
 
 
 /*1.11全局搜索  */
