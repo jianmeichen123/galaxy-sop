@@ -353,6 +353,20 @@ background: #E5F3FF;
 	margin-right:19px;
 	
 }
+.operate_project{
+	float:right;
+	display:inline-block;
+	width:88px;
+	height:32px;
+	text-align:center;
+	line-height:32px;
+	color:#fff;
+	background: #3CA6FF;
+	border-radius: 2px;
+	margin-top:20px;
+	margin-bottom:12px;
+	margin-right:19px;
+}
 #powindow .bigPop{
 	width: 900px;
     margin: 0 auto;

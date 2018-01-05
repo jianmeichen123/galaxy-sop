@@ -26,7 +26,8 @@
 	<div class='content_task'>
 		<div class='title_top'>
 			<h3>指派项目</h3>
-			<span>指派项目</span>
+			<span class='operate_project' data-code='transfer-task'>指派项目</span>
+			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 		</div>
 		<div class="pageTop clearfix">
 			<div class="buttonGroup clearfix">				
@@ -214,7 +215,35 @@ $(function(){
  
  
  
- 
+ 	/*指派项目弹窗点击事件*/
+	$('.title_top span').click(function(){
+		/* var rows = $("#task-table").bootstrapTable('getSelections');
+		if(rows.length==0)
+		{
+			layer.msg('请至少选择一条待办任务');
+			return;
+		} */
+		//var index = $(this).index();
+		
+		var code = $(this).attr("data-code");
+		$.getHtml({
+			url:getDetailUrl(code)
+		});
+		$('.close').addClass('tast-close')//添加关闭按钮
+		$('.pop').addClass('task-pop');//去掉圆角
+	});
+	
+	//页面请求地址
+	function getDetailUrl(code)
+	{
+		if(code =='transfer-task')
+		{	
+			return platformUrl.transferTask;
+		}else if(code === 'abandon-task'){
+			return platformUrl.giveupTask;
+		}	
+		return "";
+	}
  
  
  
