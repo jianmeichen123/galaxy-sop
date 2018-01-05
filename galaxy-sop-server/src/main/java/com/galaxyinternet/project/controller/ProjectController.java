@@ -1703,10 +1703,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		    	  resp.setResult(new Result(Status.ERROR, "param-lost", "参数丢失!"));
 		      }
 		      Project p = projectService.queryById(project.getId());
-			  if (null != p && "".equals("")) {
-					resp.setResult(new Result(Status.ERROR, "project-delete", "项目已被删除!"));
-			   }else{
-				   resp.setResult(new Result(Status.OK, "NO-repeat", "项目存在!"));
+			  if (null != p && !"".equals(p)) {
+				  resp.setResult(new Result(Status.OK, "NO-repeat", "项目存在!"));
+			    }else{
+				resp.setResult(new Result(Status.ERROR, "project-delete", "项目已被删除!"));
+							
 			   }
 				return resp;
 				
