@@ -381,13 +381,18 @@ background: #E5F3FF;
 	bottom: 0;
 	background: #e9ebf2; 
 }
-.add_pro{
+.add_pro,.over_pro{
 	background: #3CA6FF;
 	border-radius: 2px;
 	line-height: 1.5;
 	padding: 5px 22px;
 	display: inline-block;
 	color:#fff;
+}
+.over_pro{
+	background: #EEF6FC;
+	color: #3CA6FF;
+	margin-left:20px;
 }
 #dataHidden{
 	display:none;

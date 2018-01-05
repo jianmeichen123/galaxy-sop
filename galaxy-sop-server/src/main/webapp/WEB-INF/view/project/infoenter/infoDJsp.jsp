@@ -167,5 +167,5 @@
 </div> 
 <div class="fixedbottom">
 	<a href="javascript:;" class="add_pro" onclick="saveDN()" >保存</a>
-	<a href="javascript:;" class="over_pro" >跳过</a>
+	<a href="javascript:;" class="over_pro"  onclick="jumpPage()">跳过</a>
 </div>

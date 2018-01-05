@@ -31,8 +31,9 @@
 <jsp:include page="../../common/uploadwin.jsp" ></jsp:include>
 	  
 </html>
-<script>
-$(function(){
+<script> 
+
+	var projectInfo = ${projectInfo};
 
 	createMenus(5); 
 	//导航
@@ -47,25 +48,15 @@ $(function(){
    			"keyword":projectName,
 			"orderBy":"projTitle",
     		}
-	//分页
-	initTable(_url,data,0); 
 
-	function infoDetail(event){
+	function infoDetail(event){ 
 		var compCode=$(event).attr("compCode");
 		var projCode=$(event).attr("projCode");
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
-		}  
-
-})	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	} 
+	//分页
+	initTable(_url,data,0);  
+	function jumpPage(){
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+	} 
 </script>

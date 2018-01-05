@@ -2062,6 +2062,12 @@ function buildInfoD(url,data,code){
 	 }
 	}) 
 }
+//引用
+function infoDetail(event,projectId,projectName){
+	var compCode=$(event).attr("compCode");
+	var projCode=$(event).attr("projCode");
+	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/test/jtym2/?&compCode="+compCode+"&projCode="+projCode+"&projectId="+projectId+"&projectName="+projectName);
+} 
 //保存
 function saveDN(){ 
  
