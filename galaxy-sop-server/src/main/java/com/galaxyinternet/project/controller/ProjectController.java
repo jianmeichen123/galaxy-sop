@@ -1690,7 +1690,27 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return resp;
 				
 	}
-
+	/**
+	 * Ajax判断项目名称，组织机构代码是否重复
+	 */
+	@RequestMapping(value = "checkProjectExit",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<Project> checkProjectExit(@RequestBody Project project) {
+	    	ResponseData<Project> resp = new ResponseData<Project>();
+		    //验证项目名是否重复
+	    	 Project obj = new Project();
+		      if(null==project.getId()||"".equals(project.getId())){
+		    	  resp.setResult(new Result(Status.ERROR, "param-lost", "参数丢失!"));
+		      }
+		      Project p = projectService.queryById(project.getId());
+			  if (null != p && "".equals("")) {
+					resp.setResult(new Result(Status.ERROR, "project-delete", "项目已被删除!"));
+			   }else{
+				   resp.setResult(new Result(Status.OK, "NO-repeat", "项目存在!"));
+			   }
+				return resp;
+				
+	}
 	/**
 	 * 验证sop流程中按钮是否可用
 	 */

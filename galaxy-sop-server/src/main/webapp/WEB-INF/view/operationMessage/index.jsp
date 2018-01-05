@@ -148,6 +148,9 @@
 		return content;
 	}
 	function viewDetail(mark,id){
+		if(exit(id)==false){
+			return true ;
+		}
 		var url = '';
 		if(mark == 'pro'){
 			url = Constants.sopEndpointURL + "/galaxy/project/detail/" +id;
@@ -177,6 +180,24 @@
 	function backIndex(){
 		 var url=Constants.sopEndpointURL+"/galaxy/redirect";
 		 forwardWithHeader(url);
+	}
+	function exit(id){
+		var data2 = {
+				'id' : id
+		}
+		var  flag=false;
+	  var url="<%=path %>/galaxy/project/checkProjectExit";
+		sendPostRequestByJsonObj(url,data2,function(data){
+				if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "project-delete"){
+						layer.msg("项目已经被删除。");
+						flag= false;
+					}
+				}else{
+					flag= true;
+				}
+		})
+		return flag
 	}
 </script>
 </html>
