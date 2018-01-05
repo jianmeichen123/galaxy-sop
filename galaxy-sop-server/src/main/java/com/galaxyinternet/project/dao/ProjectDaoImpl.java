@@ -155,7 +155,7 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	}
 
 	public Project selectColumnById(Long id) {
-		return sqlSessionTemplate.selectOne(getSqlName("selectColumnList"),id);
+		return sqlSessionTemplate.selectOne(getSqlName("selectColumnById"),id);
 	}
 	
 	@Override
