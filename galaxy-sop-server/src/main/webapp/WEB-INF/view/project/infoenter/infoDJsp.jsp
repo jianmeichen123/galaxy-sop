@@ -6,7 +6,7 @@
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop">
 	<div class="infoTop clearfix">
-		<h5>已选择项目“<span id="projectName"></span>”进行引用</h5>
+		<h5 style="background:none;">已选择项目“<span id="projectName"></span>”进行引用</h5>
 		<p><i>选择有效的信息，快速添加到项目内</i></p>
 		<ul class="scheduleIcon clearfix">
 			<li data-content ="1" class="active"><p>引用推荐项目</p></li>
@@ -26,21 +26,21 @@
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>公司名称</td>
-		 					<td id="DN_projectCompany">data</td>
+		 					<td id="DN_projectCompany">--</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>成立日期</td>
-		 					<td id="DN_formationDate">data</td>
+		 					<td id="DN_formationDate">--</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" />
 		 					</td>
 		 					<td>法人</td>
-		 					<td id="DN_companyLegal">data</td>
+		 					<td id="DN_companyLegal">--</td>
 		 				</tr>
 		 			</tbody>
 		 		</table>
@@ -60,27 +60,7 @@
 		 					<td>备注</td>	
 		 				</tr>
 		 			</thead>
-		 			<tbody>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td> 
-		 				</tr>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td> 
-		 				</tr>
+		 			<tbody> 
 		 			</tbody>
 		 		</table>
 		 	</li>
@@ -96,21 +76,7 @@
 		 					<td>职位</td> 	
 		 				</tr>
 		 			</thead>
-		 			<tbody>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td> 
-		 				</tr>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td> 
-		 				</tr>
+		 			<tbody> 
 		 			</tbody>
 		 		</table>
 		 	</li>
@@ -130,29 +96,7 @@
 		 					<td>投资方</td>	 
 		 				</tr>
 		 			</thead>
-		 			<tbody>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>	
-		 					<td>data</td>
-		 				</tr>
-		 				<tr>
-		 					<td>
-		 						<input type="checkbox" />
-		 					</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>
-		 					<td>data</td>	
-		 					<td>data</td>
-		 				</tr>
+		 			<tbody> 
 		 			</tbody>
 		 		</table>
 		 	</li>

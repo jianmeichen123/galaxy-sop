@@ -45,11 +45,25 @@
    			"keyword":projectName,
 			"orderBy":"projTitle",
     		}
-
 	function infoDetail(event){ 
 		var compCode=$(event).attr("compCode");
-		var projCode=$(event).attr("projCode");
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId);
+		var projCode=$(event).attr("projCode"); 
+		var dataJson={
+				projId:projectId,
+				projCode:projCode,
+				compCode:compCode
+		} 
+		sendPostRequestByJsonObj(
+				 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
+				dataJson,
+				function(data){
+					 if(data.result.status=="OK"){
+						 var DN_projectName=$(event).closest("tr").find(".DN_name").html()
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId+"?DN_projectName="+DN_projectName);
+					 } 
+					
+				})
+		
 	} 
 	//分页
 	initTable(_url,data,0);  
