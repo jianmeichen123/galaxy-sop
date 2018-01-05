@@ -4009,7 +4009,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .toggle-ul{width:452px;border:1px solid #d8d8d8;display:none;}
 .toggle-ul li{margin-top:auto !important;border-bottom:1px solid #d8d8d8;padding:5px 0 5px 8px;cursor:pointer;color:#666666;}
 .select-simulate{position:relative;}
-.toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;height:223px;overflow-y:auto;}
+.toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;max-height:223px;overflow-y:auto;}
 .task-department{margin-left:10px;}
 input::input-placeholder{color:red !important;}
  .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
