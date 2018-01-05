@@ -3,32 +3,37 @@
 	String path = request.getContextPath(); 
 %>
 <style>
-
-table input {
-opacity: 0;
-position:relative;
-z-index:100;
-}
-input+ label {
+input+ label,table input  {
 width:12px;
 height:12px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
 display: block;
 position:absolute;
-z-index:101;
-   
+z-index:10;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+
+table input {
+opacity: 0; 
+z-index:11;
 }
 input:checked + label {
 width:12px;
 height:12px;
 background:#55A7FF ;
   text-align:center;
+  border-color:#55A7FF ;    
+  overflow: hidden;
+    line-height: 12px;
 }
 input:checked + label::before {
-   content:"√";
-   color:#fff;
-   linheight:12px;
+   content:"✔";
+   width:12px;
+   color:#fff; 
 }
 </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
@@ -59,14 +64,14 @@ input:checked + label::before {
 		 				</tr>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" /><label></label>
 		 					</td>
 		 					<td>成立日期</td>
 		 					<td id="DN_formationDate">--</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" />
+		 						<input type="checkbox" /><label></label>
 		 					</td>
 		 					<td>法人</td>
 		 					<td id="DN_companyLegal">--</td>
@@ -81,6 +86,7 @@ input:checked + label::before {
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" onclick="checkAll(this)"/>
+		 						<label></label>
 		 					</td> 
 		 					<td>股东名称</td>
 		 					<td>股东类型</td>

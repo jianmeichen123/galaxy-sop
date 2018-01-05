@@ -2129,7 +2129,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" />'
+					+'<input type="checkbox" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
 				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
@@ -2144,7 +2144,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" />'
+					+'<input type="checkbox" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
 				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
@@ -2157,7 +2157,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 				+'<td>'
-				+'<input type="checkbox" />'
+				+'<input type="checkbox" /><label></label>'
 			+'</td>'
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
