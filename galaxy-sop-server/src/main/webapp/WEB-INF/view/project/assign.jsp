@@ -223,6 +223,10 @@ $(function(){
 		}	
 		return "";
 	}
+	
+
+	
+	
 	function fun(value,row,index){
 		return  options = "<a href='javascript:;' onclick='editRow(event)'>编辑</a>&nbsp;&nbsp;<a href='javascript:;' onclick='deleteRow(event)'>删除</a>";
 		
