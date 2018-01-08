@@ -1,67 +1,28 @@
 package com.galaxyinternet.project_danao.service;
 
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.service.InfoFromDanaoService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.aliyun.oss.ServiceException;
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.model.DongNao.DnProject;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.service.InfoFromDanaoService;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.common.SopResult;
-import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
-import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.query.ProjectQuery;
-import com.galaxyinternet.dao.project.InterviewRecordDao;
-import com.galaxyinternet.dao.project.ProjectDao;
-import com.galaxyinternet.dao.sopfile.SopFileDao;
-import com.galaxyinternet.export_schedule.dao.ScheduleContactsDao;
-import com.galaxyinternet.export_schedule.model.ScheduleContacts;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.service.DictService;
-import com.galaxyinternet.service.InterviewRecordService;
-import org.springframework.web.client.RestTemplate;
 
 
 @Service("com.galaxyinternet.service.InfoFromDanaoService")
@@ -86,6 +47,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	//post 查询项目接口
 	private String searchProject = "search/project";
 
+	//get  根据code查询项目详情 /{code}， 获取公司code
+	private String projectInfo = "api/projectList/queryProjectByCode/";
+
 	//get 查询项目的工商信息 /{code}  法人信息， 股权结构
 	private String businessInfo = "api/businessInfo/getListBySourceCode/";
 
@@ -96,9 +60,38 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	private String projectTeam = "api/projectList/queryProjectTeamByCode";
 
 
+	/**
+	 * 查询项目详情 -> 项目compCode
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String queryDanaoProjCompCode(String projCode) throws Exception
+	{
+
+		String uri = danaoDomain + projectInfo + projCode;
+		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
+
+		Integer status = (Integer) object.get("status");
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+
+		String compCode = null;
+		if(object.get("data") != null){
+			if(((Map<String, Object>)object.get("data")).containsKey("compCode")){
+				compCode = ((String)((Map<String, Object>)object.get("data")).get("compCode"));
+			}
+		}
+
+		return compCode;
+	}
+
+
+
+
 
 	/**
-	 * 查询大脑项目列表
+	 * 查询大脑项目列表,封装项目公司信息
 	 * 分条查询项目公司名称
 	 */
 	public Page<DnProject> queryDnaoProjectPage(Map<String, Object> map) throws Exception
@@ -128,7 +121,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 			target.setProjImage(danaoStaticDomain + target.getProjCode() + ".png" );
 
-			uri = danaoDomain + businessInfo + target.getProjCode(); //+ "?uid="+map.get("uid");
+			uri = danaoDomain + businessInfo + target.getCompCode(); //+ "?uid="+map.get("uid");
 			Map<String,Object> gsxx = restTemplate.getForObject(uri, Map.class);
 			status = (Integer) gsxx.get("status");
 			if(status.intValue() == 10000 && gsxx.get("data") !=null )
@@ -145,7 +138,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	}
 
 	/**
-	 * 由大脑项目code
+	 * 由大脑项目compCode
 	 * 查询大脑项目工商信息
 	 *   法人信息 legalInfo
 	 *   股权结构 equityInfo
@@ -225,9 +218,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 
-
-
-    //团队成员 teamInfo
+	/**
+	 * 查询项目团队成员 teamInfo
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
     public Map<String,Object> queryDnaoProjTeam(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> teamInfo = new ArrayList<>();
@@ -277,8 +273,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
     }
 
 
-
-    //融资历史 financeInfo
+	/**
+	 * 查询项目融资历史 financeInfo
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
     public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> info = new ArrayList<>();

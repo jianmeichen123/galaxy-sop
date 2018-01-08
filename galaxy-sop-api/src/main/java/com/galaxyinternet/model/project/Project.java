@@ -149,8 +149,6 @@ public class Project extends PagableEntity {
 
 // 大脑数据
 	private String danaoProjCode;
-	private String danaoCompCode;
-
 
 
     public Long getId() {
@@ -865,11 +863,4 @@ public class Project extends PagableEntity {
 		this.danaoProjCode = danaoProjCode;
 	}
 
-	public String getDanaoCompCode() {
-		return danaoCompCode;
-	}
-
-	public void setDanaoCompCode(String danaoCompCode) {
-		this.danaoCompCode = danaoCompCode;
-	}
 }

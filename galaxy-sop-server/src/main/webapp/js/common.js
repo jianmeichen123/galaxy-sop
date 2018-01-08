@@ -1984,10 +1984,11 @@ function pagePop(even){
 				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
 				$("#projectName").text($("#project_name_t").text()); 
 				var data={
-			   			"keyword":$("#project_name_t").text(),
+			   			//"keyword":$("#project_name_t").text(),
+			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
-				//分页 
+				//大脑tableList分页  
 				initTable(_url,data,1,code); 
 				
 		}
@@ -2001,9 +2002,10 @@ function infoDPop(even){
 
 		var code=$(even).attr("dncode");  
 		var compCode=$(even).attr("compcode");
-		var projCode=$(even).attr("projcode");  
+		var projCode=$(even).attr("projcode"); 
+		debugger;
 		var dataJson={
-				"projId":projectId,
+				"projId":projectInfo.id,
 				"projCode":projCode,
 				"compCode":compCode
 		}  
@@ -2053,8 +2055,7 @@ function getpopHTML(code){
 							compCode:compCode,
 							danaoInfo:code,
 					}    
-					buildInfoD(_url,jsonObj,code); 
-					debugger;
+					buildInfoD(_url,jsonObj,code);  
 					if($(".infoBox li:visible").length<=0){  
 						 $(".infoBox").hide();
 						 $(".fixedbottom").hide(); 

@@ -1,18 +1,7 @@
-package com.galaxyinternet.model.DongNao;
+package com.galaxyinternet.model.DaNao;
 
 
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
-import com.galaxyinternet.framework.core.model.PagableEntity;
-import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.framework.core.utils.NumberUtils;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.project.FinanceHistory;
-import com.galaxyinternet.model.project.JointDelivery;
-
-import java.io.Serializable;
-import java.security.PrivateKey;
-import java.util.List;
 
 public class DnProject extends BaseEntity {
 	private static final long serialVersionUID = 1L;

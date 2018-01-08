@@ -1,37 +1,30 @@
 package com.galaxyinternet.project_danao.controller;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.model.DongNao.DnProject;
-
+import com.galaxyinternet.model.DaNao.DnProject;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.service.ProjectService;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -82,7 +75,7 @@ public class InfoFromDanaoController{
 	 * 保存项目和大脑的关联关系
 	 * 项目id ：       projId
      * 大脑项目code ： projCode
-     * 大脑项目公司code ： compCode
+     * xxx大脑项目公司code ： compCode
 	 */
 	@RequestMapping(value = "/saveConstat", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> saveConstat(@RequestBody DnProject dnProject,
@@ -95,7 +88,7 @@ public class InfoFromDanaoController{
 			Project upd = new Project();
 			upd.setId(dnProject.getProjId());
 			upd.setDanaoProjCode(dnProject.getProjCode());
-			upd.setDanaoCompCode(dnProject.getCompCode());
+			//upd.setDanaoCompCode(dnProject.getCompCode());
 			int i = projectService.updateById(upd);
 			if(i!=1){
 				throw new Exception("项目更新失败");
@@ -150,9 +143,9 @@ public class InfoFromDanaoController{
      * compCode == sourceCode
      *
      * 项目id ：       projId
-     * <xxx报告题code ：   titleCode> 引用标识：danaoInfo
      * 大脑项目code ： projCode
-     * 大脑项目公司code ： compCode
+     * xxxxx大脑项目公司code ： compCode
+	 * 引用标识：danaoInfo
      *return
 	 *  法人信息   	legalInfo
 	 *  股权结构	    equityInfo
@@ -174,47 +167,54 @@ public class InfoFromDanaoController{
 				}
 			}*/
 
-			if(dnProject.getDanaoInfo() != null){
+			String compCode = null;
+			if(dnProject.getDanaoInfo() == null || dnProject.getDanaoInfo().contains("legalInfo")|| dnProject.getDanaoInfo().contains("equityInfo")){
+				compCode = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
+			}
+			dnProject.setCompCode(compCode);
+
+
+			if(dnProject.getDanaoInfo() != null ){
 				String[] marks = dnProject.getDanaoInfo().split(",");
 				List<String> markList = Arrays.asList(marks);
 
-				if(markList.contains("legalInfo")){
+				if(markList.contains("legalInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"legalInfo");
 					result.putAll(result1);
 				}
 
-				if(markList.contains("equityInfo")){
+				if(markList.contains("equityInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"equityInfo");
 					result.putAll(result1);
 				}
 
-				if(markList.contains("teamInfo")){
+				if(markList.contains("teamInfo") && dnProject.getProjCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
 					result.putAll(result1);
 				}
 
-				if(markList.contains("financeInfo")){
+				if(markList.contains("financeInfo") && dnProject.getProjCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoProjFinance(dnProject.getProjCode());
 					result.putAll(result1);
 				}
 
-			}else{
+			}else if(dnProject.getProjCode() != null ){
 				/*//仅有大脑项目code，
 				//创建项目时，待引用所有的大脑信息，*/
 
 				//2.法人信息 legalInfo、 股权结构 equityInfo
-				Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
+				if( dnProject.getCompCode() != null){
+					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),null);
+					result.putAll(result1);
+				}
 
                 //2.项目团队成员 teamInfo
                 Map<String,Object> result2 = infoFromDanaoService.queryDnaoProjTeam(dnProject.getProjCode());
+				result.putAll(result2);
 
                 //2.融资历史 financeInfo
                 Map<String,Object> result3 = infoFromDanaoService.queryDnaoProjFinance(dnProject.getProjCode());
-
-				result.putAll(result1);
-				result.putAll(result2);
 				result.putAll(result3);
-
 			}
 
 			responseBody.setUserData(result);
