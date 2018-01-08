@@ -149,7 +149,7 @@
 	}
 	function viewDetail(mark,id){
 		if(exit(id)==false){
-			return true ;
+			return  ;
 		}
 		var url = '';
 		if(mark == 'pro'){

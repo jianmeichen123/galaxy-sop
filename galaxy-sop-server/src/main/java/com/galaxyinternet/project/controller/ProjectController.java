@@ -1698,12 +1698,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> checkProjectExit(@RequestBody Project project) {
 	    	ResponseData<Project> resp = new ResponseData<Project>();
 		    //验证项目名是否重复
-	    	 Project obj = new Project();
 		      if(null==project.getId()||"".equals(project.getId())){
 		    	  resp.setResult(new Result(Status.ERROR, "param-lost", "参数丢失!"));
 		      }
-		      Project p = projectService.queryById(project.getId());
-			  if (null != p && !"".equals(p)) {
+		      List<Project> queryList = projectService.queryList(project);
+			  if (null != queryList &&queryList.size()>0 ) {
 				  resp.setResult(new Result(Status.OK, "NO-repeat", "项目存在!"));
 			    }else{
 				resp.setResult(new Result(Status.ERROR, "project-delete", "项目已被删除!"));
