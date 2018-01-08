@@ -50,8 +50,13 @@
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
                 <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
-                  <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">指派任务</a>
-                
+               
+               	 <c:if test="${fx:hasPremission('project_batch_transfer')}">	
+                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
+                </c:if>
+                 <c:if test="${fx:hasPremission('project_batch_assign')}">	
+                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
+                </c:if>
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>
