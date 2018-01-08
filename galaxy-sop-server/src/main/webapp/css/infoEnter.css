@@ -279,7 +279,7 @@ font-weight: bold;
 	font-family: Microsoft YaHei; 
 	overflow: hidden;
 	display: inline-block; 
-    max-width: 77px;
+    min-width: 50px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }

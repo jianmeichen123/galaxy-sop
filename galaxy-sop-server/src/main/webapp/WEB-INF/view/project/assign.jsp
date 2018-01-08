@@ -38,38 +38,35 @@
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker">
 					  <option>投资经理</option>
+					  <option>全部</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
+					 <option value="0">全部</option>
 					</select>
 			 	</div>
 
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
 					  <option>项目状态</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
+					 <option value="0">全部</option>
 					</select>
 			    </div>
 
 				<div class="form-group">
 			      <select name="financeStatus" class="selectpicker">
 					  <option>融资状态</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
+					 <option value="0">全部</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="faFlag" class="selectpicker">
 					  <option>项目来源</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
+					 <option value="0">全部</option>
 					</select>
 			  	</div>
 				
@@ -93,10 +90,11 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				   		<th data-formatter="fun122" class="data-input" data-width="1%">
+				   		<th data-field="projectNameOne"  data-formatter="projectCheckbox" class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
 				    				<input type="checkbox" name="">
 				    		</label> 
+				    		
 				    	</th>
 			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"    data-width="8%">项目类型</th>
@@ -110,6 +108,9 @@
 			        	<th data-field="updated_time" data-formatter="updateFormat"   data-width="8%">最后编辑时间</th>
  					</tr>	
  				</thead>
+ 				<tbody>
+ 				
+ 				</tbody>
 			</table> 
 		
  			<!-- <tbody>
@@ -161,11 +162,41 @@ $(function(){
  
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
- createCareelineOptions(platformUrl.getCareerlineList,"createUid")
- createCareelineOptions(platformUrl.getCareerlineList,"projectProgress")
- createCareelineOptions(platformUrl.getCareerlineList,"projectStatus")
- createCareelineOptions(platformUrl.getCareerlineList,"financeStatus")
- createCareelineOptions(platformUrl.getCareerlineList,"faFlag")
+ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
+ createCareelineOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
+	/**
+	 * 获取融资状态下拉项
+	 * @version 2016-06-21
+	 */
+	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
+	function CallBackB(data){
+	    var _dom=$("select[name='financeStatus']");
+	    var childNum = _dom.find("option").length;
+	    var entity=data.entity.childList[0];
+	    if(!childNum || childNum !=0 ){
+	    	$.each(entity.valueList,function(){
+	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+			});
+	    }
+	}
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
+/**
+ * 根据事业线查询相应的投资经理
+ * @version 2016-06-21
+ */
+ console.log($('select[name="projectDepartid"]').val())
+createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
+
+	/**
+	 * 改变事业线时获取该事业线下的投资经理
+	 * @version 2016-06-21
+	 */
+	$('select[name="projectDepartid"]').change(function(){
+		var did = $('select[name="projectDepartid"]').val();
+		console.log(did)
+	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+	});
+ 
  $('.selectpicker').selectpicker('refresh');
 ///////////////////////初始化筛选条件finish
  
@@ -179,22 +210,7 @@ $(function(){
  	detailHeaderWidth();
  })	
 
- /* checkbox 点击 */
- $('.highlighCheckbox').click(function(event){
-	 $(this).toggleClass('highlighCheckbox_checked');
-	 event.preventDefault(); 
-	 
- });
- //全选
- $('.highlighCheckbox_th').click(function(event){
-	 $(this).toggleClass('highlighCheckbox_checked');
-	 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
-	 if(!$(this).hasClass('highlighCheckbox_checked')){
-		 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
-	 }
-	 event.preventDefault(); 
- })
- 
+
  
  
  	/*指派项目弹窗点击事件*/
@@ -229,11 +245,7 @@ $(function(){
 	
 
 	
-	
-	function fun(value,row,index){
-		return  options = "<a href='javascript:;' onclick='editRow(event)'>编辑</a>&nbsp;&nbsp;<a href='javascript:;' onclick='deleteRow(event)'>删除</a>";
-		
-	}
+	//
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
 		queryParamsType: 'size|page',
@@ -389,7 +401,7 @@ $(function(){
  
 })
 
-	 function projectInfo(value,row,index){
+ 	 function projectInfo(value,row,index){//项目名称
 		    var id=row.id;
 			var str=row.projectName;
 			if(str.length>10){
@@ -401,7 +413,48 @@ $(function(){
 				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
 				return options;
 			}
-		}
+		} 
+		
+//点击跳转详情页面方法
+function proInfo(id){
+	//项目详情页返回地址
+	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
+	//返回附带参数功能代码
+	var options = $("#project-table").bootstrapTable('getOptions');
+	var tempPageSize = options.pageSize ? options.pageSize : 10;
+	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+	var projectType = $("select[name='projectType']").val();
+	var financeStatus = $("select[name='financeStatus']").val();
+	var projectProgress = $("select[name='projectProgress']").val();
+	var projectStatus = $("select[name='projectStatus']").val();
+	var projectDepartid = $("select[name='projectDepartid']").val();
+	var createUid = $("select[name='createUid']").val();
+	var nameCodeLike = $("input[name='nameCodeLike']").val();
+	var projectPerson = $("input[name='projectPerson']").val();
+	var faFlag = $("select[name='faFlag']").val();
+	
+	var formdata = {
+			_paramKey : 'projectList',
+			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+			_path : "/",
+			_param : {
+				pageNum : tempPageNum,
+        		pageSize : tempPageSize,
+        		projectType : projectType,
+        		financeStatus : financeStatus,
+        		projectProgress : projectProgress,
+        		projectStatus : projectStatus,
+        		projectDepartid : projectDepartid,
+        		createUid : createUid,
+        		nameCodeLike : nameCodeLike,
+        		projectPerson:projectPerson,
+        		faFlag:faFlag
+			}
+	}
+	var href_url=window.location;
+	setCookie("href_url", href_url,24,'/');
+	cookieOperator.forwardPushCookie(formdata);
+}
 /**
  * 项目类型格式化
  * @version 2016-06-21
@@ -476,4 +529,32 @@ function financeStatusFormat(value,row,index){
 	function projectStatusFormat(value,row,index){
 		return row.projectStatusDs;
 	}
+	
+	
+
+	 function projectCheckbox(value,row,index){//项目名称
+				var options = "<label class='highlighCheckbox_th'><input type='checkbox' name=''/></label> ";
+				return options;
+		}
+	 
+	 /* checkbox 点击 */
+	 $('.highlighCheckbox').click(function(event){
+		 $(this).toggleClass('highlighCheckbox_checked');
+		 event.preventDefault(); 
+		 
+	 });
+	 $('#assign-table tbody tr').click(function(){
+		 alert('dd')
+	 })
+	 //全选
+	 $('.highlighCheckbox_th').click(function(event){
+		 alert('ddd')
+		 $(this).toggleClass('highlighCheckbox_checked');
+		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
+		 if(!$(this).hasClass('highlighCheckbox_checked')){
+			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
+		 }
+		 event.preventDefault(); 
+	 })
+	 
 </script>
