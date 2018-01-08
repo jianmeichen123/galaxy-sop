@@ -74,7 +74,7 @@
 		  	<div class="input-group">
 			  	<di class='input-content'>
 			  		<input type="text" class="form-control" placeholder="请输入项目名称">
-			  		<span></span>
+			  		<span class="querySearch"></span>
 			  	</di>
 		      <!-- <span class="input-group-btn">
 		        <button class="btn btn-default" type="button"></button>
@@ -243,9 +243,20 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		return "";
 	}
 	
+	var initParams,
+	pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
+	initPageSize = 10;
 
+	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+		initPageSize = pageParams.pageSize;
+	}
 	
-	//
+	$("span[class='querySearch']").click(function(){
+		alert('dd')
+		buryPoint("98");
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
 		queryParamsType: 'size|page',
