@@ -36,15 +36,13 @@
 			  	</div>
 
 				<div class="form-group">
-			      <select class="selectpicker">
+			      <select name="createUid" class="selectpicker">
 					  <option>投资经理</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
-			      <select class="selectpicker">
+			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
@@ -52,7 +50,7 @@
 			 	</div>
 
 				<div class="form-group">
-			      <select class="selectpicker">
+			      <select name="projectStatus" class="selectpicker">
 					  <option>项目状态</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
@@ -60,7 +58,7 @@
 			    </div>
 
 				<div class="form-group">
-			      <select class="selectpicker">
+			      <select name="financeStatus" class="selectpicker">
 					  <option>融资状态</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
@@ -68,7 +66,7 @@
 			  	</div>
 
 				<div class="form-group">
-			      <select class="selectpicker">
+			      <select name="faFlag" class="selectpicker">
 					  <option>项目来源</option>
 					  <option>Ketchup</option>
 					  <option>Relish</option>
@@ -162,7 +160,12 @@ $(function(){
 });
  
  ///////////////////////初始化筛选条件
- createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");
+ createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
+ createCareelineOptions(platformUrl.getCareerlineList,"createUid")
+ createCareelineOptions(platformUrl.getCareerlineList,"projectProgress")
+ createCareelineOptions(platformUrl.getCareerlineList,"projectStatus")
+ createCareelineOptions(platformUrl.getCareerlineList,"financeStatus")
+ createCareelineOptions(platformUrl.getCareerlineList,"faFlag")
  $('.selectpicker').selectpicker('refresh');
 ///////////////////////初始化筛选条件finish
  
@@ -220,7 +223,7 @@ $(function(){
 			return '<%=path%>/html/assign_project.html';
 		}else if(code === 'abandon-task'){
 			return '<%=path%>/html/handover_project.html';
-		}	
+		}		
 		return "";
 	}
 	
