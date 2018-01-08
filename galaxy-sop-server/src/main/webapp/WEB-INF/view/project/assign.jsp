@@ -223,25 +223,6 @@ $(function(){
 		}	
 		return "";
 	}
-	
-	/**
-	 * 获取项目类型下拉项
-	 * @version 2016-06-21
-	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectType","projectType");
-	var slectOption = [];
-	$('select[name="projectType"] option').each(function(){
-		var text = $(this).text();
-		slectOption.push(text)
-	})
-	function addPush(){
-		for(var i = 0;i<selectOption.length;i++){
-			
-		}
-	}
-	console.log(slectOption)
-	
-	
 	function fun(value,row,index){
 		return  options = "<a href='javascript:;' onclick='editRow(event)'>编辑</a>&nbsp;&nbsp;<a href='javascript:;' onclick='deleteRow(event)'>删除</a>";
 		
