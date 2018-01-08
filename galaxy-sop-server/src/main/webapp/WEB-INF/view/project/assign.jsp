@@ -25,12 +25,15 @@
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 		</div>
 		<div class="pageTop clearfix">
+					<!-- <select name='projectType'>
+					 <option index="-1" value="">全部事业部</option>
+					</select> -->
 			<div class="buttonGroup clearfix">				
 				<div class="form-group">
-			      <select class="selectpicker">
-					  <option>全部事业部</option>
-					  <option>Ketchup</option>
-					  <option>Relish</option>
+			      <select name='projectType' class="selectpicker">
+					  <option index="-1" value="">全部事业部</option>
+					<!-- <option>Ketchup</option>
+					  <option>Relish</option> -->
 					</select>
 			  	</div>
 
@@ -89,15 +92,15 @@
 	</div>
 	<div class="ritmin"> 
 		
-		<div class="tab-pane active ctlist" id="view">
-			<table  class='assingTable table-hover' id="assign-table" data-url="project/search" 
+		<div class="tab-pane active ctlist pagination_common" id="view">
+			<table   class='assingTable table-hover' id="assign-table"  
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				   		<th data-checkbox="true"    class="data-input" data-width="1%">
+				   		<th data-formatter="fun122" class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
 				    				<input type="checkbox" name="">
-				    		</label>
+				    		</label> 
 				    	</th>
 			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"    data-width="8%">项目类型</th>
@@ -128,7 +131,7 @@
  						<td>人事尽职调查报告</td>
  						<td>人事尽职调查报告</td>
  						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
+ 						<td>人事尽职调查报告</td>s
  						<td>人事尽职调查报告</td>
  					</tr>
  		
@@ -214,6 +217,29 @@ $(function(){
 			return '<%=path%>/html/handover_project.html';
 		}	
 		return "";
+	}
+	
+	/**
+	 * 获取项目类型下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectType","projectType");
+	var slectOption = [];
+	$('select[name="projectType"] option').each(function(){
+		var text = $(this).text();
+		slectOption.push(text)
+	})
+	function addPush(){
+		for(var i = 0;i<selectOption.length;i++){
+			
+		}
+	}
+	console.log(slectOption)
+	
+	
+	function fun(value,row,index){
+		return  options = "<a href='javascript:;' onclick='editRow(event)'>编辑</a>&nbsp;&nbsp;<a href='javascript:;' onclick='deleteRow(event)'>删除</a>";
+		
 	}
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
@@ -324,8 +350,38 @@ $(function(){
 	function typeFormat(value,row,index){
 		return row.type;
 	}
-	
-	
+	/**
+	 * 项目FA格式化
+	 * @version 2016-06-21
+	 */
+	function projectFaFormat(value,row,index){
+		var retStr = '-';
+		if(!row.faFlag)
+		{
+			return '-';
+		}
+		if(row.faName)
+		{
+			if(row.faName.length>4){
+				var faName=row.faName.substring(0,4);
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
+			}else{
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
+			}
+			
+		}else{
+			retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
+		}
+		return retStr;
+		
+	}
+	/**
+	 * 项目状态格式化
+	 * @version 2016-06-21
+	 */
+	function projectStatusFormat(value,row,index){
+		return row.projectStatusDs;
+	}
 	
 	
 	
