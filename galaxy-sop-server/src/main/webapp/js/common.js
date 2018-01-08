@@ -2003,8 +2003,7 @@ function infoDPop(even){
 
 		var code=$(even).attr("dncode");  
 		var compCode=$(even).attr("compcode");
-		var projCode=$(even).attr("projcode"); 
-		debugger;
+		var projCode=$(even).attr("projcode");  
 		var dataJson={
 				"projId":projectInfo.id,
 				"projCode":projCode,
@@ -2220,7 +2219,7 @@ function saveDN(even){
 		 }else if(code=="company-info"){
 			 //法人信息的保存
 			 var infoListDN=[];
-			 var checkTr=tables.find("tbody tr");
+			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 			 $.each(checkTr,function(){ 
 				 var that =$(this).find("td").last(),
 				 info={};
@@ -2239,6 +2238,33 @@ function saveDN(even){
 					    dataDN,
 			    function(data) { 
 
+			}) 
+		 }else if(code=="team-members"){
+			 //团队的保存
+			 var infoListDN=[];
+			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
+			 dataDN.titleId=thatTable.attr("titleid");	 
+			 $.each(checkTr,function(){ 
+				 var info={}; 
+				 info.code=tables.attr("code");
+				 info.projectId=projectInfo.id;
+				 info.subCode=thatTable.attr("code");
+				 info.titleId=thatTable.attr("titleid");	 
+				 var fileds=$(this).find("td[dnval]");
+				 $.each(fileds,function(){ 
+					 var key =$(this).attr("name");
+					 var val = $(this).attr("dnval"); 
+					 info[key] = val;
+				 }) 
+				 infoListDN.push(info);
+				 
+			 }) 
+			 //团队的接口要变
+			 dataDN.dataList=infoListDN;  
+			  sendPostRequestByJsonObj(
+					    platformUrl.saveTeamMember,
+					    dataDN,
+			    function(data) { 
 			}) 
 		 }
 	 })
