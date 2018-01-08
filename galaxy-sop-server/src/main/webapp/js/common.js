@@ -2217,21 +2217,31 @@ function saveDN(even){
 					    alert("success")	 
 			})
 		 }else if(code=="company-info"){
+			 var resultIdList;
 			 //法人信息的保存
+			 sendGetRequest(platformUrl.getRelateTitleResults +"2/5813/"+projectInfo.id, null,
+						function(data) {
+							 resultIdList =data.entityList; 
+					 }) 
 			 var infoListDN=[];
 			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 			 $.each(checkTr,function(){ 
 				 var that =$(this).find("td").last(),
+				 resultIdData=resultIdList.filter(function(val){ return val.id==that.attr("titleId")})[0].resultList,
+				  resultIdres=null;
+				 if(resultIdData){
+					 resultIdres=resultIdData[0].id
+				 }  
 				 info={};
 				 info.remark1=that.text();
 				 info.tochange=true;
 				 info.titleId=that.attr("titleId");
 				 //需要带进来resultId
-				 info.resultId=null;
-//				 info.resultId=that.attr("resultId");
+				 info.resultId=resultIdres; 
 				 info.type=1;
 				 infoListDN.push(info);
 			 })  
+			 
 			 dataDN.infoModeList=infoListDN;  
 			  sendPostRequestByJsonObj(
 					    platformUrl.saveOrUpdateInfo,

@@ -583,7 +583,7 @@ function jointDeliveryEdit(list){
 	});
 }
 buildShareResult("4","5812");
-function buildShareResult(reportType,relateId){
+function buildShareResult(reportType,relateId){ 
 	sendGetRequest(platformUrl.getRelateTitleResults +reportType+"/"+relateId+"/"+projectInfo.id, null,
 			function(data) {
 				var result = data.result.status;
@@ -642,7 +642,7 @@ function buildShareResult(reportType,relateId){
 			})
 }
 //保存后刷新
-function updataReport(projectInfoList){
+function updataReport(projectInfoList){ 
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){

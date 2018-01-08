@@ -188,6 +188,7 @@ function updateReportMoneyBasic(){
 	})
 }
 function updataReport(projectInfoList){
+	debugger;
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
