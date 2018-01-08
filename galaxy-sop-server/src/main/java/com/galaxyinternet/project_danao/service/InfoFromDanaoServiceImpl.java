@@ -86,6 +86,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	//post 查询项目接口
 	private String searchProject = "search/project";
 
+	//get  根据code查询项目详情 /{code}， 获取公司code
+	private String projectInfo = "api/projectList/queryProjectByCode/";
+
 	//get 查询项目的工商信息 /{code}  法人信息， 股权结构
 	private String businessInfo = "api/businessInfo/getListBySourceCode/";
 
@@ -96,9 +99,38 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	private String projectTeam = "api/projectList/queryProjectTeamByCode";
 
 
+	/**
+	 * 查询项目详情 -> 项目compCode
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String queryDanaoProjCompCode(String projCode) throws Exception
+	{
+
+		String uri = danaoDomain + projectInfo + projCode;
+		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
+
+		Integer status = (Integer) object.get("status");
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+
+		String compCode = null;
+		if(object.get("data") != null){
+			if(((Map<String, Object>)object.get("data")).containsKey("compCode")){
+				compCode = ((String)((Map<String, Object>)object.get("data")).get("compCode"));
+			}
+		}
+
+		return compCode;
+	}
+
+
+
+
 
 	/**
-	 * 查询大脑项目列表
+	 * 查询大脑项目列表,封装项目公司信息
 	 * 分条查询项目公司名称
 	 */
 	public Page<DnProject> queryDnaoProjectPage(Map<String, Object> map) throws Exception
@@ -128,7 +160,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 			target.setProjImage(danaoStaticDomain + target.getProjCode() + ".png" );
 
-			uri = danaoDomain + businessInfo + target.getProjCode(); //+ "?uid="+map.get("uid");
+			uri = danaoDomain + businessInfo + target.getCompCode(); //+ "?uid="+map.get("uid");
 			Map<String,Object> gsxx = restTemplate.getForObject(uri, Map.class);
 			status = (Integer) gsxx.get("status");
 			if(status.intValue() == 10000 && gsxx.get("data") !=null )
@@ -145,7 +177,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	}
 
 	/**
-	 * 由大脑项目code
+	 * 由大脑项目compCode
 	 * 查询大脑项目工商信息
 	 *   法人信息 legalInfo
 	 *   股权结构 equityInfo
@@ -225,9 +257,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 
-
-
-    //团队成员 teamInfo
+	/**
+	 * 查询项目团队成员 teamInfo
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
     public Map<String,Object> queryDnaoProjTeam(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> teamInfo = new ArrayList<>();
@@ -277,8 +312,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
     }
 
 
-
-    //融资历史 financeInfo
+	/**
+	 * 查询项目融资历史 financeInfo
+	 * @param projCode
+	 * @return
+	 * @throws Exception
+	 */
     public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> info = new ArrayList<>();

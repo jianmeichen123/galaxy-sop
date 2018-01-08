@@ -123,6 +123,7 @@
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
 		<result column="val_rule_formula" 	jdbcType="VARCHAR" 		property="valRuleFormula" />
+		<result column="danao_info" 	jdbcType="VARCHAR" 		property="danaoInfo" />
 		
 		<result column="relate_id"  property="relateId"   jdbcType="BIGINT" />
 		<result column="relate_code"  property="relateCode"   jdbcType="VARCHAR" />
@@ -143,7 +144,7 @@
 	
 	<select id="selectTitlesByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select
-			relate.id, relate.code relate_code,relate.report_type,
+			relate.id, relate.code relate_code,relate.report_type,relate.danao_info,
 			title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name, 
 			title.type, (CASE WHEN relate.sign IS NULL THEN title.sign ELSE  relate.sign  END) sign, title.content,title.is_show, 
 			title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula
@@ -179,7 +180,7 @@
 		from
 			(
 			select
-				relate.id, relate.code relate_code,relate.report_type,
+				relate.id, relate.code relate_code,relate.report_type,relate.danao_info,
 				title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
 				title.type, (CASE WHEN relate.sign IS NULL THEN title.sign ELSE  relate.sign  END) sign, title.content,title.is_show,
 				title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula
