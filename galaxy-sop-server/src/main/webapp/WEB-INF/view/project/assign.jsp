@@ -30,10 +30,8 @@
 					</select> -->
 			<div class="buttonGroup clearfix">				
 				<div class="form-group">
-			      <select name='projectType' class="selectpicker">
-					  <option index="-1" value="">全部事业部</option>
-					<!-- <option>Ketchup</option>
-					  <option>Relish</option> -->
+			      <select name='projectDepartid' class="selectpicker" id="projectDepartid">
+					  <option index="-1" value="0">全部事业部</option>
 					</select>
 			  	</div>
 
@@ -159,9 +157,16 @@ $(function(){
 	createMenus(5);
  $('.selectpicker').selectpicker({
   style: 'btn-info',
-  size: 4
+  size: 4,
+  val:['Mustard','Relish']
 });
-
+ 
+ ///////////////////////初始化筛选条件
+ createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");
+ $('.selectpicker').selectpicker('refresh');
+///////////////////////初始化筛选条件finish
+ 
+ 
  detailHeaderWidth();
  function detailHeaderWidth(){
  	  var  w_lft=$(".lft").width();
