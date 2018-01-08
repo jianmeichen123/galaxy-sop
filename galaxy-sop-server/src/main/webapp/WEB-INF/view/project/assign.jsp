@@ -12,12 +12,7 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
-<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
-<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
+
 </head>
 
 <body >
@@ -146,7 +141,13 @@
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-	  
+	  <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
+	<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
+<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script src="<%=path %>/js/init.js"></script>  
 </html>
 <script>
 $(function(){
@@ -339,5 +340,91 @@ $(function(){
  
 })
 
+	 function projectInfo(value,row,index){
+		    var id=row.id;
+			var str=row.projectName;
+			if(str.length>10){
+				subStr = str.substring(0,10);
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+				return options;
+			}
+			else{
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+				return options;
+			}
+		}
+/**
+ * 项目类型格式化
+ * @version 2016-06-21
+ */
+function typeFormat(value,row,index){
+	return row.type;
+}
+/**
+ * 融资状态格式化
+ * @version 2016-06-21
+ */
+function financeStatusFormat(value,row,index){
+	return row.financeStatusDs;
+}
 
+/**
+ * 项目FA格式化
+ * @version 2016-06-21
+ */
+	function projectFaFormat(value,row,index){
+		var retStr = '-';
+		if(!row.faFlag)
+		{
+			return '-';
+		}
+		if(row.faName)
+		{
+			if(row.faName.length>4){
+				var faName=row.faName.substring(0,4);
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
+			}else{
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
+			}
+			
+		}else{
+			retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
+		}
+		return retStr;
+		
+	}
+/**
+ * 项目进度格式化
+ * @version 2016-06-21
+ */
+ function projectProgress(value,row,index){
+	var projectPro = row.projectProgress;
+	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+	var proStatus = row.projectStatus;
+	var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+
+	return row.progress;
+}
+
+	/**
+	 * 创建时间格式化
+	 * @version 2016-06-21
+	 */
+	function createdFormat(value,row,index){
+		return row.createDate;
+	}
+	/**
+	 * 更新时间格式化
+	 * @version 2016-06-21
+	 */
+	function updateFormat(value,row,index){
+		return row.updateDate;
+	}
+	/**
+	 * 项目状态格式化
+	 * @version 2016-06-21
+	 */
+	function projectStatusFormat(value,row,index){
+		return row.projectStatusDs;
+	}
 </script>

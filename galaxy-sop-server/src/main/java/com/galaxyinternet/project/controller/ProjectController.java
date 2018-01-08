@@ -73,6 +73,7 @@ import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationProgress;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
@@ -115,6 +116,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
@@ -175,6 +177,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private JointDeliveryService jointDeliveryService;
+	
+	@Autowired
+	private InformationDictionaryService infoDictService;
 	
 	 
 	@Resource(name ="utilsService")
@@ -3853,7 +3858,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				 * @return
 				 */
 				@RequestMapping(value = "/toAssignProject", method = RequestMethod.GET)
-				public String toAssignProject(){
+				public String toAssignProject(HttpServletRequest request){
+					String id = request.getParameter("projectId");
+					//退回标记
+					String backSign = request.getParameter("backSign");
+					if(StringUtils.isNotBlank(id)){
+						Project project = projectService.queryById(Long.parseLong(id));
+						request.setAttribute("pid", id);
+						request.setAttribute("pname", project.getProjectName());
+					}
+					if(StringUtils.isNotBlank(backSign)){
+						request.setAttribute("backSign", backSign);
+					}else{
+						request.setAttribute("backSign", "false");
+					}
+					InformationDictionary query = new InformationDictionary();
+					query.setTitleId(1120L);
+					List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
+					request.setAttribute("projectSourceList", projectSourceList);
 					return "project/assign";
 				}
 				
