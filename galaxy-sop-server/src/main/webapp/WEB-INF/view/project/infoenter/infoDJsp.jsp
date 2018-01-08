@@ -52,7 +52,7 @@ input:checked + label::before {
 		 <ul class="infoConList">
 		 	<li class="infoItem" id="companyInfo">
 		 		<p class="titles">法人信息</p>
-		 		<table class="tabrow"> 
+		 		<table class="tabrow" code="company-info"> 
 		 			<tbody>
 		 				<tr>
 		 					<td>
@@ -60,28 +60,28 @@ input:checked + label::before {
 		 						<label></label>
 		 					</td>
 		 					<td>公司名称</td>
-		 					<td id="DN_projectCompany">--</td>
+		 					<td id="DN_projectCompany" titleId="1814">--</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" /><label></label>
 		 					</td>
 		 					<td>成立日期</td>
-		 					<td id="DN_formationDate">--</td>
+		 					<td id="DN_formationDate" titleId="1816">--</td>
 		 				</tr>
 		 				<tr>
 		 					<td>
 		 						<input type="checkbox" /><label></label>
 		 					</td>
 		 					<td>法人</td>
-		 					<td id="DN_companyLegal">--</td>
+		 					<td id="DN_companyLegal" titleId="1815" >--</td>
 		 				</tr>
 		 			</tbody>
 		 		</table>
 		 	</li>
 	 	 	<li class="infoItem" id="equityInfo">
 		 		<p class="titles">股权结构</p>
-		 		<table class="tabrow"> 
+		 		<table class="tabrow"  titleId="1906"> 
 		 			<thead>
 		 				<tr>
 		 					<td>
@@ -101,7 +101,7 @@ input:checked + label::before {
 		 	</li>
 		 	<li class="infoItem" id="teamInfo">
 		 		<p class="titles">团队成员</p>
- 				<table class="tabrow"> 
+ 				<table class="tabrow" titleId="1303" code="team-members" > 
 		 			<thead>
 		 				<tr>
 		 					<td>
@@ -118,7 +118,7 @@ input:checked + label::before {
 		 	</li>
 		 	<li class="infoItem" id="fina_historyInfo">
 		 		<p class="titles">历史融资</p>
-		 		<table class="tabrow"> 
+		 		<table class="tabrow" code="finance-history" titleId="1903"> 
 		 			<thead>
 		 				<tr>
 		 					<td>
@@ -147,7 +147,7 @@ input:checked + label::before {
 	</div>
 </div> 
 <div class="fixedbottom">
-	<a href="javascript:;" class="add_pro" onclick="saveDN()" >保存</a>
+	<a href="javascript:;" class="add_pro" onclick="saveDN(this)" >保存</a>
 	<a href="javascript:;" class="over_pro"  onclick="jumpPage()">跳过</a>
 </div> 
 <script>

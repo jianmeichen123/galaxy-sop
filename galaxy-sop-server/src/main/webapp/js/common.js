@@ -1351,8 +1351,6 @@ function createDictionaryOptions(url, name, selectIndex){
 				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 			}
 		});
-		//debugger
-		console.log($('select[name="'+name+'"]'))
 		$('select[name="'+name+'"]').append(options.join(''));
 		
 	});
@@ -1894,11 +1892,11 @@ function initTable(url,data,status,code) {
         queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
         // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber 
         queryParams: function (params) {
-        	var params=data;
-        	params.pageNo=params.pageNumber;              
-			params.pageSize=params.pageSize;
-			params.order=params.sortOrder;
-			return params;
+        	var paramData=data;
+        	paramData.pageNo=params.pageNumber;              
+        	paramData.pageSize=params.pageSize;
+        	paramData.order=params.sortOrder;
+			return paramData;
 		} ,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
         sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
         //search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
@@ -1976,7 +1974,8 @@ function initTable(url,data,status,code) {
 }
 //1.11
 //status  是否引用 0 未引用
-function pagePop(even){  
+function pagePop(even){ 
+	
 	var urlCode = $(even).attr("urlCode"); 
 	var code = $(even).attr("dncode");
 	$.getHtml({ 
@@ -1990,7 +1989,7 @@ function pagePop(even){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
-				//大脑tableList分页  
+				//大脑tableList分页   
 				initTable(_url,data,1,code); 
 				
 		}
@@ -2179,15 +2178,142 @@ function buildDNtable(dom ,data,code){
 	if(dom.find("tbody tr").length<=0){
 		dom.hide();
 	} 
-}
-
-
+} 
 //保存
-function saveDN(){ 
-	 debugger; 
+function saveDN(even){  
+	
+	//判断列表超过10条数与否之后  才进行保存
 	 var dataDN={};
 	 dataDN.projectId=projectInfo.id;
-	 infoDN = [];
+	 var tables = $(even).closest(".fixedbottom").prev().find(".infoConList table:visible");
+	 //团队
+	 $.each(tables,function(){
+		 var thatTable = $(this); 
+		 var code =thatTable.attr("code");
+		 var titleid = thatTable.attr("titleid");
+		 if(code=="finance-history"){
+			 //融资历史的保存
+			 var infoListDN=[];
+			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");  
+			 $.each(checkTr,function(){ 
+				 var that =$(this),
+				 info={};
+				 info.subCode= tables.attr("code"); 
+				 info.titleId=tables.attr("titleId");
+//				 info.nameCounts=13;
+			 	var fileds=that.find("td[dnval]")
+				 $.each(fileds,function(){ 
+					 var key =$(this).attr("name");
+					 var val = $(this).attr("dnval");  
+					 if(val==undefined||val=="undefined"){val=""}
+					 info[key] = val;
+				 })		
+				 infoListDN.push(info);
+			 })   
+			 dataDN.infoTableModelList=infoListDN;
+			 sendPostRequestByJsonObj(
+					 platformUrl.saveOrUpdateInfo,
+					    dataDN,
+			    function(data) { 
+					    alert("success")	 
+			})
+		 }else if(code=="company-info"){
+			 //法人信息的保存
+			 var infoListDN=[];
+			 var checkTr=tables.find("tbody tr");
+			 $.each(checkTr,function(){ 
+				 var that =$(this).find("td").last(),
+				 info={};
+				 info.remark1=that.text();
+				 info.tochange=true;
+				 info.titleId=that.attr("titleId");
+				 //需要带进来resultId
+				 info.resultId=null;
+//				 info.resultId=that.attr("resultId");
+				 info.type=1;
+				 infoListDN.push(info);
+			 })  
+			 dataDN.infoModeList=infoListDN;  
+			  sendPostRequestByJsonObj(
+					    platformUrl.saveOrUpdateInfo,
+					    dataDN,
+			    function(data) { 
+
+			}) 
+		 }
+	 })
 	 
-	 dataDN.infoTableModelList=infoDN; 
+	 //注释开始
+//	 dataDN.titleId=tables.attr("titleid");	 
+//	 var info={},
+//	 infoListDN = [];	 
+//	 info.code=tables.attr("code");
+//	 info.projectId=projectInfo.id;
+//	 info.subCode=tables.attr("code");
+//	 info.titleId=tables.attr("titleid");	 
+//	 var fileds=tables.find("td[dnval]");
+//	 $.each(fileds,function(){ 
+//		 var key =$(this).attr("name");
+//		 var val = $(this).attr("dnval"); 
+//		 info[key] = val;
+//	 }) 
+//	 infoListDN.push(info);
+//	 dataDN.dataList=infoListDN;  
+//	  sendPostRequestByJsonObj(
+//			    platformUrl.saveTeamMember,
+//			    dataDN,
+//	    function(data) { 
+//	}) 
+	
+	//注释结束
+	
+	
+	//法人信息	 
+	/* var infoListDN=[];
+	 var checkTr=tables.find("tbody tr");
+	 $.each(checkTr,function(){ 
+		 var that =$(this).find("td").last(),
+		 info={};
+		 info.remark1=that.text();
+		 info.tochange=true;
+		 info.titleId=that.attr("titleId");
+		 info.resultId=null;
+		 //info.resultId=that.attr("resultId");
+		 info.type=1;
+		 infoListDN.push(info);
+	 })  
+	 dataDN.infoModeList=infoListDN;  
+	  sendPostRequestByJsonObj(
+			    platformUrl.saveOrUpdateInfo,
+			    dataDN,
+	    function(data) { 
+
+	}) */
+	//融资历史
+//	 var infoListDN=[];
+//	 var checkTr=tables.find("tbody tr");
+//	 $.each(checkTr,function(){ 
+//		 var that =$(this),
+//		 info={};
+//		 info.subCode= tables.attr("code"); 
+//		 info.titleId=tables.attr("titleId");
+//		 info.nameCounts=13;
+//	 	var fileds=that.find("td[dnval]")
+//		 $.each(fileds,function(){ 
+//			 var key =$(this).attr("name");
+//			 var val = $(this).attr("dnval");  
+//			 if(val==undefined||val=="undefined"){val=""}
+//			 info[key] = val;
+//		 })		
+//		 infoListDN.push(info);
+//	 })  
+//	 debugger;
+//	 dataDN.infoTableModelList=infoListDN;  
+//	  sendPostRequestByJsonObj(
+//			    platformUrl.saveOrUpdateInfo,
+//			    dataDN,
+//	    function(data) { 
+//			    	debugger
+//	}) 
+	 
 }

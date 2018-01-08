@@ -346,8 +346,7 @@ function getDetailUrl(code)
 }
 //编辑保存  _this  当前 table
 function saveForm(form,_this)
-{
-	debugger;
+{ 
 	if(form !=undefined&&form !=""&&form !="delete"){
 		if($(form).validate().form())
 		{
