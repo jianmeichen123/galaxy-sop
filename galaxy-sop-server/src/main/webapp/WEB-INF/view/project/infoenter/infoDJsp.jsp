@@ -154,7 +154,6 @@ input:checked + label::before {
 function checkAll(event){   
     $(event).closest("table").find('input').prop('checked', $(event).prop('checked')); 
 }
-
 function checkSelf(event){
 	var table = $(event).closest("table");
 	var Tbody = table.find("tbody");
