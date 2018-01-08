@@ -398,7 +398,7 @@
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
 	        		if(initParams.projectType != ''){
-	        			param.projectType = initParams.projectType;
+	        			param. = initParams.projectType;
 	        			$("select[name='projectType']").val(initParams.projectType);
 	        		}
 	        		if(initParams.financeStatus != ''){

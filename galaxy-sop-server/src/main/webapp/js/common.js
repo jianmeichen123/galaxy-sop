@@ -1351,7 +1351,10 @@ function createDictionaryOptions(url, name, selectIndex){
 				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 			}
 		});
+		//debugger
+		console.log($('select[name="'+name+'"]'))
 		$('select[name="'+name+'"]').append(options.join(''));
+		
 	});
 }
 
