@@ -428,7 +428,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		}
 
 		Map<String, String> result = new HashMap<>();
-		result.put("num", bnum.divide(new BigDecimal("10000"),new MathContext(2)).toString());
+		result.put("num", bnum.divide(new BigDecimal("10000"),new MathContext(2)).toPlainString());
 		result.put("unit",unit);
 
 		return result;
