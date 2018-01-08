@@ -4299,7 +4299,7 @@ input:-ms-input-placeholder {
 .assingTable thead{height:40px;}
 .bs-checkbox{width:1% !important;}
 .assingTable tbody tr td:nth-child(1) input{} 
-
+.pagination_common .fixed-table-pagination{margin-top:13px;}
 /*1.11全局搜索  */
 .search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
 .search-top ul li{float:left;margin-left:40px;cursor:pointer;}
