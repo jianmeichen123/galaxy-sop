@@ -3846,6 +3846,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					return "project/dialog/deleteProjectDialog";
 				}
 				
+				
+				
+				/**
+				 * 删除项目弹框
+				 * @return
+				 */
+				@RequestMapping(value = "/toAssignProject", method = RequestMethod.GET)
+				public String toAssignProject(){
+					return "project/assign";
+				}
+				
+				
+				
 				/**
 				 * 删除项目
 				 * 
