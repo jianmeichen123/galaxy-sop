@@ -4,6 +4,9 @@
 
 
 <!--点击编辑例子 -->
+
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script id="ifelse" type="text/x-jquery-tmpl">
 	<form id="b_\${code}" onsubmit="return false;">
 {{if code!='NO5_4_1' && code!='NO5_5_1'}}
@@ -715,7 +718,16 @@
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<c:if test="${isEditable}">
-		<div class="h_btnbox put_box"><span class="blue_btn put_away">收起</span><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+		<div class="h_btnbox put_box"><span class="blue_btn put_away">收起</span>
+			{{if danaoInfo}}
+				{{if projectInfo.danaoProjCode }}   
+					<span onclick="infoDPop(this)" urlcode="/galaxy/infoDanao/infoDJsp/" dncode="\${danaoInfo}">参考信息</span>
+					{{else}}
+						<span onclick="pagePop(this)" urlcode="/galaxy/infoDanao/infoJsp/" dncode="\${danaoInfo}">参考信息</span>
+				{{/if}}	
+			{{/if}}
+			<span class="h_edit_btn" attr-id="\${code}">编辑</span>
+		</div>
 		<div class="h_btnbox out_box"><span class="spread_out">展开</span></div>
 	</c:if>
 	<div class="h_title">\${name}<span>（如果该项目涉及此项内容，请进行填写，反之可略过）</span></div>

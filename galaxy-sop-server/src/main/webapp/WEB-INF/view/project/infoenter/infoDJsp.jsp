@@ -56,7 +56,7 @@ input:checked + label::before {
 		 			<tbody>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" onclick="checkAll(this)"/>
+		 						<input type="checkbox" class="checkAll" onclick="checkAll(this)"/>
 		 						<label></label>
 		 					</td>
 		 					<td>公司名称</td>
@@ -85,7 +85,7 @@ input:checked + label::before {
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" onclick="checkAll(this)"/>
+		 						<input type="checkbox" class="checkAll" onclick="checkAll(this)"/>
 		 						<label></label>
 		 					</td> 
 		 					<td>股东名称</td>
@@ -105,7 +105,7 @@ input:checked + label::before {
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" onclick="checkAll(this)"/>		 						
+		 						<input type="checkbox" class="checkAll" onclick="checkAll(this)"/>		 						
 		 						<label></label>
 		 					</td> 
 		 					<td>姓名</td>
@@ -122,7 +122,7 @@ input:checked + label::before {
 		 			<thead>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" onclick="checkAll(this)" />
+		 						<input type="checkbox" class="checkAll" onclick="checkAll(this)" />
 		 						<label></label>
 		 					</td> 
 		 					<td>融资轮次</td>
@@ -153,5 +153,16 @@ input:checked + label::before {
 <script>
 function checkAll(event){   
     $(event).closest("table").find('input').prop('checked', $(event).prop('checked')); 
+}
+function checkSelf(event){
+	var table = $(event).closest("table");
+	var Tbody = table.find("tbody");
+	var length=Tbody.find("input[type=checkbox]").length;
+	var checkLength =Tbody.find("input[type=checkbox]:checked").length;
+	if(length==checkLength){ 
+		table.find(".checkAll").prop('checked',true);
+	} else{ 
+		table.find(".checkAll").prop('checked',false);
+	}
 }
 </script>

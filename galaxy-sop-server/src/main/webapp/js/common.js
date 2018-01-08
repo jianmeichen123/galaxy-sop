@@ -1983,11 +1983,11 @@ function pagePop(even){
 			 //infoDetail  
 				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
 				$("#projectName").text($("#project_name_t").text()); 
-				var data={
-			   			"keyword":$("#project_name_t").text(),
+				var data={ 
+			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
-				//分页 
+				//大脑tableList分页  
 				initTable(_url,data,1,code); 
 				
 		}
@@ -2001,9 +2001,10 @@ function infoDPop(even){
 
 		var code=$(even).attr("dncode");  
 		var compCode=$(even).attr("compcode");
-		var projCode=$(even).attr("projcode");  
+		var projCode=$(even).attr("projcode"); 
+		debugger;
 		var dataJson={
-				"projId":projectId,
+				"projId":projectInfo.id,
 				"projCode":projCode,
 				"compCode":compCode
 		}  
@@ -2038,7 +2039,7 @@ function getpopHTML(code){
 			})
 			 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
-				var projectName=$("#project_name_t").text(); 
+				var projectName=projectInfo.projectName; 
 				var projectId=projectInfo.id; 
 				var compCode=projectInfo.danaoCompCode; 
 				var projCode=projectInfo.danaoProjCode;
@@ -2053,8 +2054,7 @@ function getpopHTML(code){
 							compCode:compCode,
 							danaoInfo:code,
 					}    
-					buildInfoD(_url,jsonObj,code); 
-					debugger;
+					buildInfoD(_url,jsonObj,code);  
 					if($(".infoBox li:visible").length<=0){  
 						 $(".infoBox").hide();
 						 $(".fixedbottom").hide(); 
@@ -2097,7 +2097,7 @@ function isEmpty(obj)
     }
     return true;
 };
-//显示数据
+//显示数据 
 function buildDNinfo(_url,jsonObj){
 
 	sendPostRequestByJsonObj(_url, jsonObj, function(data){   
@@ -2129,7 +2129,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" /><label></label>'
+					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
 				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
@@ -2144,7 +2144,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" /><label></label>'
+					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
 				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
@@ -2157,7 +2157,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 				+'<td>'
-				+'<input type="checkbox" /><label></label>'
+				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
@@ -2177,6 +2177,8 @@ function buildDNtable(dom ,data,code){
 		dom.hide();
 	} 
 }
+
+
 //保存
 function saveDN(){ 
 	 debugger; 
