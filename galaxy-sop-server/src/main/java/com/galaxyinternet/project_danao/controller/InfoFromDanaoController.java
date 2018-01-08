@@ -181,12 +181,12 @@ public class InfoFromDanaoController{
 
 				if(markList.contains("legalInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"legalInfo");
-					result.putAll((Map<String,Object>) result1.get("legalInfo"));
+					result.put("legalInfo",result1.get("legalInfo"));
 				}
 
 				if(markList.contains("equityInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"equityInfo");
-					result.putAll((Map<String,Object>) result1.get("equityInfo"));
+					result.put("equityInfo",result1.get("equityInfo"));
 				}
 
 				if(markList.contains("teamInfo") && dnProject.getProjCode() != null){
