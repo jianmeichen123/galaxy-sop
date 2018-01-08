@@ -1961,7 +1961,7 @@ function initTable(url,data,status,code) {
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
                     
             	}else{  
-            		var a ='<button type="button" onclick="infoDPop(this)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            		var a ='<button type="button" onclick="infoDPop(this,1)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -1975,7 +1975,7 @@ function initTable(url,data,status,code) {
 //1.11
 //status  是否引用 0 未引用
 function pagePop(even){ 
-	
+	debugger;
 	var urlCode = $(even).attr("urlCode"); 
 	var code = $(even).attr("dncode");
 	$.getHtml({ 
@@ -1995,9 +1995,9 @@ function pagePop(even){
 		}
 	})  
 }
-function infoDPop(even){ 
-	
-	var urlCode = $(even).attr("urlCode");  
+function infoDPop(even,status){  
+	var urlCode = $(even).attr("urlCode"); 
+	debugger;
 	if(!projectInfo.danaoProjCode){
 		//从列表进入 
 
@@ -2013,30 +2013,55 @@ function infoDPop(even){
 		 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
 		dataJson,
 		function(data){
-			 if(data.result.status=="OK"){
+			 if(data.result.status=="OK"){ 
 				 projectInfo.danaoCompCode=compCode;
 				 projectInfo.danaoProjCode=projCode;
-				getpopHTML(code);
+				 $("a[dncode]").attr("onclick","infoDPop(this)");
+				 debugger;
+				getpopHTML(code,event,status);
 			 }
 		 })
 		
 		
 		 
 	}else{ 
-		//从按钮进入 
+		//从按钮进入
+		 debugger;
 		var code=$(even).attr("dncode");   
-		getpopHTML(code)
+		getpopHTML(code,even,status)
 		 
 	} 
-function getpopHTML(code){
+function getpopHTML(code,even,status){
 	 $.getHtml({ 
 			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
-		okback:function(){  
-
+		okback:function(){   
 			$(".rightLink").attr("href","javascript:;");
-			$(".rightLink").click(function(){
-				
+			$(".rightLink").click(function(){ 
+				 var dataJson={
+							projId:projectId ,
+							projCode:"",
+							compCode:""
+					} 
+					sendPostRequestByJsonObj(
+						 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
+					dataJson,
+					function(data){
+						 if(data.result.status=="OK"){ 
+							 delete projectInfo.danaoCompCode;
+							 delete projectInfo.danaoProjCode;
+							 
+							 } 
+					})
+					debugger;
+				$(even).attr("urlcode","/galaxy/infoDanao/infoJsp/");
+				if(status==1){
+					//从列表进入  怎样再次进入列表   真不行就再写一个单独的转到列表的方法
+					debugger; 
+				}else{
+					pagePop(even);
+				} 
+				return false;
 			})
 			 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
@@ -2279,77 +2304,9 @@ function saveDN(even){
 		 }
 	 })
 	 
-	 //注释开始
-//	 dataDN.titleId=tables.attr("titleid");	 
-//	 var info={},
-//	 infoListDN = [];	 
-//	 info.code=tables.attr("code");
-//	 info.projectId=projectInfo.id;
-//	 info.subCode=tables.attr("code");
-//	 info.titleId=tables.attr("titleid");	 
-//	 var fileds=tables.find("td[dnval]");
-//	 $.each(fileds,function(){ 
-//		 var key =$(this).attr("name");
-//		 var val = $(this).attr("dnval"); 
-//		 info[key] = val;
-//	 }) 
-//	 infoListDN.push(info);
-//	 dataDN.dataList=infoListDN;  
-//	  sendPostRequestByJsonObj(
-//			    platformUrl.saveTeamMember,
-//			    dataDN,
-//	    function(data) { 
-//	}) 
-	
-	//注释结束
-	
-	
-	//法人信息	 
-	/* var infoListDN=[];
-	 var checkTr=tables.find("tbody tr");
-	 $.each(checkTr,function(){ 
-		 var that =$(this).find("td").last(),
-		 info={};
-		 info.remark1=that.text();
-		 info.tochange=true;
-		 info.titleId=that.attr("titleId");
-		 info.resultId=null;
-		 //info.resultId=that.attr("resultId");
-		 info.type=1;
-		 infoListDN.push(info);
-	 })  
-	 dataDN.infoModeList=infoListDN;  
-	  sendPostRequestByJsonObj(
-			    platformUrl.saveOrUpdateInfo,
-			    dataDN,
-	    function(data) { 
-
-	}) */
-	//融资历史
-//	 var infoListDN=[];
-//	 var checkTr=tables.find("tbody tr");
-//	 $.each(checkTr,function(){ 
-//		 var that =$(this),
-//		 info={};
-//		 info.subCode= tables.attr("code"); 
-//		 info.titleId=tables.attr("titleId");
-//		 info.nameCounts=13;
-//	 	var fileds=that.find("td[dnval]")
-//		 $.each(fileds,function(){ 
-//			 var key =$(this).attr("name");
-//			 var val = $(this).attr("dnval");  
-//			 if(val==undefined||val=="undefined"){val=""}
-//			 info[key] = val;
-//		 })		
-//		 infoListDN.push(info);
-//	 })  
-//	 debugger;
-//	 dataDN.infoTableModelList=infoListDN;  
-//	  sendPostRequestByJsonObj(
-//			    platformUrl.saveOrUpdateInfo,
-//			    dataDN,
-//	    function(data) { 
-//			    	debugger
-//	}) 
+ //清除 大脑code
+ 
+	 
+ 
 	 
 }
