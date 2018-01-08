@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +35,7 @@ import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.CacheHelper;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -58,6 +60,11 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserService;
+
+import redis.clients.jedis.Response;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPipeline;
+import redis.clients.util.SafeEncoder;
 
 @Controller
 @RequestMapping("/galaxy/soptask")
@@ -823,20 +830,43 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	private List<User> getDepUserFromCache(Long depId)
 	{
 		List<User> users = new ArrayList<>();
-		Long size = cache.llen(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
-		if(size.intValue() == 0)
+		ShardedJedis jedis = null;
+		try
 		{
-			return users;
-		}
-		List<Object> idObjects = cache.lrange(PlatformConst.CACHE_PREFIX_DEP_USERS+depId, 0L, -1L);
-		User user = null;
-		for(Object idObj : idObjects)
+			jedis = cache.getJedis();
+			Long size = jedis.scard(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
+			if(size.intValue() == 0)
+			{
+				return users;
+			}
+			Set<String> userIds = jedis.smembers(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
+			ShardedJedisPipeline pip = jedis.pipelined();
+			Map<Long,Response<byte[]>> idNameMap = new HashMap<>();
+			for(String userId : userIds)
+			{
+				Long id = Long.parseLong(userId);
+				idNameMap.put(id, pip.hget(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_USER+id), SafeEncoder.encode("realName")));
+			}
+			pip.sync();
+			User user = null;
+			CacheHelper helper = new CacheHelper();
+			for(String userId : userIds)
+			{
+				Long id = Long.parseLong(userId);
+				Response<byte[]> resp = idNameMap.get(id);
+				String name = helper.bytesToObject(resp.get())+"";
+				user = new User();
+				user.setId(id);
+				user.setRealName(name);
+				users.add(user);
+			}
+		} 
+		finally
 		{
-			Long id = Long.parseLong(idObj+"");
-			user = new User();
-			user.setId(id);
-			user.setRealName(cache.hget(PlatformConst.CACHE_PREFIX_USER+id, "realName")+"");
-			users.add(user);
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
 		}
 		return users;
 	}
