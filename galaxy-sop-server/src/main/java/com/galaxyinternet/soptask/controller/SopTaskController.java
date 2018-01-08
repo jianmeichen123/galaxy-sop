@@ -148,7 +148,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		}
 		else if("pz".equals(flag))
 		{
-			title = "付款凭证";
+			title = "拨付凭证";
 		}
 		mv.addObject("title", title);
 		mv.addObject("flagUrl", flag);
@@ -865,6 +865,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		{
 			if(jedis != null)
 			{
+				jedis.close();
 				cache.returnJedis(jedis);
 			}
 		}
