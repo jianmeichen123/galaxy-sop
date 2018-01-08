@@ -5,6 +5,7 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.DaNao.DnProject;
 import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.service.InfoFromDanaoService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -47,6 +48,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	//post 查询项目接口
 	private String searchProject = "search/project";
 
+	//post 获取资讯列表
+	private String searchNews = "search/news";
+
 	//get  根据code查询项目详情 /{code}， 获取公司code
 	private String projectInfo = "api/projectList/queryProjectByCode/";
 
@@ -58,6 +62,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 	//post 查询项目成员
 	private String projectTeam = "api/projectList/queryProjectTeamByCode";
+
+
+
 
 
 	/**
@@ -110,7 +117,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
-		total =  new Long(pageMap.get("total").toString());
+		if(pageMap!=null && pageMap.get("total")!= null) total = new Long(pageMap.get("total").toString());
 		if(total.intValue() == 0)
 			return new Page<DnProject>(dnProjectList, total);
 
@@ -209,8 +216,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 				}
 			}
 
-			if(!legalInfo.isEmpty()) result.put("legalInfo",legalInfo);
-			if(!legalInfo.isEmpty()) result.put("equityInfo",equityInfo);
+			result.put("legalInfo",legalInfo);
+			result.put("equityInfo",equityInfo);
 		}
 
 		return result;
@@ -423,6 +430,53 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		Map<String, String> result = new HashMap<>();
 		result.put("num", bnum.divide(new BigDecimal("10000"),new MathContext(2)).toString());
 		result.put("unit",unit);
+
+		return result;
+	}
+
+
+
+
+
+
+	//todo 全局搜索
+
+	/**
+	 * 全局搜索的各类别total数目
+	 * return Map
+	 *   xhtProject        创投项目
+	 *   dnProject         创投大脑的项目
+	 *   dnZixun           创投大脑投融快讯
+	 *   xhtAppZixunZixun  星河资讯-app资讯
+	 */
+	public Map<String,Long> globalSearchTypesTotal(String keyWord) throws Exception{
+		Map<String, Long> result = new HashMap<>();
+		Long xhtProjectTotal = 0l;
+		Long dnProjectTotal =  0l;
+
+		//xhtProject        星河投创投项目
+		Project project = new Project();
+		project.setKeyword(keyWord);
+		xhtProjectTotal = projectDao.selectCount(project);
+
+
+		Map<String, Object> query = new HashMap<>();
+		query.put("keyword",keyWord);
+
+
+		//dnProject         创投大脑的项目
+		String uri = danaoDomain + searchProject;
+
+		Map<String,Object> object = restTemplate.postForObject(uri,query, Map.class);
+		Integer status = (Integer) object.get("status");
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
+		if(pageMap!=null && pageMap.get("total")!= null) dnProjectTotal = new Long(pageMap.get("total").toString());
+
+
+		//dnZixun           创投大脑投融快讯
+
 
 		return result;
 	}

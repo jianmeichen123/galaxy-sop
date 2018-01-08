@@ -178,14 +178,15 @@ public class InfoFromDanaoController{
 				String[] marks = dnProject.getDanaoInfo().split(",");
 				List<String> markList = Arrays.asList(marks);
 
+
 				if(markList.contains("legalInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"legalInfo");
-					result.putAll(result1);
+					result.putAll((Map<String,Object>) result1.get("legalInfo"));
 				}
 
 				if(markList.contains("equityInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"equityInfo");
-					result.putAll(result1);
+					result.putAll((Map<String,Object>) result1.get("equityInfo"));
 				}
 
 				if(markList.contains("teamInfo") && dnProject.getProjCode() != null){
@@ -226,6 +227,15 @@ public class InfoFromDanaoController{
 
 		return responseBody;
 	}
+
+
+
+
+
+
+
+
+
 
 
 }
