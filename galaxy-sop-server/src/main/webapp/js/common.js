@@ -1983,8 +1983,7 @@ function pagePop(even){
 			 //infoDetail  
 				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
 				$("#projectName").text($("#project_name_t").text()); 
-				var data={
-			   			//"keyword":$("#project_name_t").text(),
+				var data={ 
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
@@ -2040,7 +2039,7 @@ function getpopHTML(code){
 			})
 			 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
-				var projectName=$("#project_name_t").text(); 
+				var projectName=projectInfo.projectName; 
 				var projectId=projectInfo.id; 
 				var compCode=projectInfo.danaoCompCode; 
 				var projCode=projectInfo.danaoProjCode;
@@ -2098,7 +2097,7 @@ function isEmpty(obj)
     }
     return true;
 };
-//显示数据
+//显示数据 
 function buildDNinfo(_url,jsonObj){
 
 	sendPostRequestByJsonObj(_url, jsonObj, function(data){   
@@ -2130,7 +2129,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" /><label></label>'
+					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
 				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
@@ -2145,7 +2144,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" /><label></label>'
+					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
 				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
@@ -2158,7 +2157,7 @@ function buildDNtable(dom ,data,code){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 				+'<td>'
-				+'<input type="checkbox" /><label></label>'
+				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
@@ -2178,6 +2177,8 @@ function buildDNtable(dom ,data,code){
 		dom.hide();
 	} 
 }
+
+
 //保存
 function saveDN(){ 
 	 debugger; 
