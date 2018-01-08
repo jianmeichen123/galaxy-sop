@@ -4297,8 +4297,8 @@ input:-ms-input-placeholder {
 .highlighCheckbox_th{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
 .assingTable thead{height:40px;}
-
-
+.bs-checkbox{width:1% !important;}
+.assingTable tbody tr td:nth-child(1) input{} 
 
 /*1.11全局搜索  */
 .search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}

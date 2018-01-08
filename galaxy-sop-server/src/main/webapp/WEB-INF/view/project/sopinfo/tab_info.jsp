@@ -552,12 +552,13 @@
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
-	if(!projectInfo.danaoCompCode){
+	if(!projectInfo.danaoProjCode){
 		//没有选择项目
 		 $(".DN_btn").attr("urlCode","/galaxy/infoDanao/infoJsp/")
 	}else{
-		//xuznexiangmu
+		//xuznexiangmuinfoDPop
 		 $(".DN_btn").attr("urlCode","/galaxy/infoDanao/infoDJsp/"); 
+		 $(".DN_btn").attr("onclick","infoDPop(this)"); 
 	} 
 	
 	$("[data-toggle='tooltip']").tooltip();//提示

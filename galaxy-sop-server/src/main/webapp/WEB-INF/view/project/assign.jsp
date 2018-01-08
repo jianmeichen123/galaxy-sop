@@ -99,49 +99,26 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				   		<th data-field="projectChectbox"  class="data-input" data-width="6%">
+				   		<th data-checkbox="true"    class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
-				    			<input type="checkbox" name="">
+				    				<input type="checkbox" name="">
 				    		</label>
 				    	</th>
 			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%">项目名称</th>
-			        	<th data-field="project_type" data-formatter="typeFormat"   data-sortable="true" data-width="8%">项目类型</th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-sortable="true" data-width="8%">融资状态</th>
-			        	<th data-field="project_progress" data-formatter="projectProgress"  data-sortable="true" data-width="8%">项目进度</th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat"   data-sortable="true" data-width="8%">项目状态</th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
+			        	<th data-field="project_type" data-formatter="typeFormat"    data-width="8%">项目类型</th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-width="8%">融资状态</th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"   data-width="8%">项目进度</th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"   data-width="8%">项目状态</th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源</th>
 			        	<th data-field="projectCareerline"   data-width="12%">事业部</th>
 			        	<th data-field="createUname"   data-width="14%">投资经理</th>
-			        	<th data-field="created_time" data-formatter="createdFormat"   data-sortable="true" data-width="8%">创建日期</th>
-			        	<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true" data-width="8%">最后编辑时间</th>
+			        	<th data-field="created_time" data-formatter="createdFormat"    data-width="8%">创建日期</th>
+			        	<th data-field="updated_time" data-formatter="updateFormat"   data-width="8%">最后编辑时间</th>
  					</tr>	
  				</thead>
-			</table>
-	<!-- 	<table class='assingTable table-hover' id="assign-table" data-url="project/search" >
-				<thead>
-				    <tr>
-				    	<th data-field="projectName"  class="data-input" data-width="16%">
-				    		<label class='highlighCheckbox_th'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</th>
-			        	<th data-field="projectName"  class="data-input" data-width="16%">项目名称</th>
-			        	<th data-field="project_type" class="data-input sort" data-width="8%">项目类型<span></span></th>
-			        	<th data-field="finance_status" class="data-input sort"  data-width="8%">融资状态<span></span></th>
-			        	<th data-field="project_progress" class="data-input sort"  data-width="8%">项目进度<span></span></th>
-			        	<th data-field="project_status" class="data-input sort"  data-width="8%">项目状态<span></span></th>
-			        	<th data-field="faFlag"   data-width="8%">项目来源<span></span></th>
-			        	<th data-field="projectCareerline"  class="data-input" data-width="12%">事业部</th>
-			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
-			        	<th data-field="created_time"  class="data-input sort"  data-width="8%">创建日期<span></span></th>
-			        	<th data-field="updated_time" class="data-input sort"  data-width="5%">最后编辑时间<span></span></th>
- 					</tr>	
- 				</thead>
- 				<tbody>
- 					
- 				</tbody>
- 				</table> -->
- 			<!-- 	<tbody>
+			</table> 
+		
+ 			<!-- <tbody>
  					<tr>
  						<td>
  							<label class='highlighCheckbox'>
@@ -242,13 +219,14 @@ $(function(){
 		queryParamsType: 'size|page',
 		pageSize:initPageSize,
 		showRefresh : false,
-		url : $('#project-table').attr("data-url"),
+		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
+        singleSelect:true,
         //返回附带参数功能代码
         queryParams : function(param){
         	if(getCookieValue("backProjectList")!=''){
@@ -342,7 +320,9 @@ $(function(){
 	
 	
 	
-	
+	function typeFormat(value,row,index){
+		return row.type;
+	}
 	
 	
 	

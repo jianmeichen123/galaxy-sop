@@ -1960,7 +1960,7 @@ function initTable(url,data,status,code) {
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
                     
             	}else{  
-            		var a ='<button type="button" onclick="infoDPop(this)" code='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            		var a ='<button type="button" onclick="infoDPop(this)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -1994,10 +1994,41 @@ function pagePop(even){
 	})  
 }
 function infoDPop(even){ 
-	var urlCode = $(even).attr("urlCode"); 
-	var code=$(even).attr("code")
-	$.getHtml({ 
-		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
+	
+	var urlCode = $(even).attr("urlCode");  
+	if(!projectInfo.danaoProjCode){
+		//从列表进入 
+
+		var code=$(even).attr("dncode");  
+		var compCode=$(even).attr("compcode");
+		var projCode=$(even).attr("projcode");  
+		var dataJson={
+				"projId":projectId,
+				"projCode":projCode,
+				"compCode":compCode
+		}  
+		sendPostRequestByJsonObj(
+		 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
+		dataJson,
+		function(data){
+			 if(data.result.status=="OK"){
+				 projectInfo.danaoCompCode=compCode;
+				 projectInfo.danaoProjCode=projCode;
+				getpopHTML(code);
+			 }
+		 })
+		
+		
+		 
+	}else{ 
+		//从按钮进入 
+		var code=$(even).attr("dncode");   
+		getpopHTML(code)
+		 
+	} 
+function getpopHTML(code){
+	 $.getHtml({ 
+			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
 
@@ -2005,67 +2036,51 @@ function infoDPop(even){
 			$(".rightLink").click(function(){
 				
 			})
-			 //infoDetail   
+			 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 				var projectName=$("#project_name_t").text(); 
-				var projectId=$("#project_name_t").attr("pid"); 
-				var compCode=$(even).attr("compCode"); 
-				var projCode=$(even).attr("projCode");
+				var projectId=projectInfo.id; 
+				var compCode=projectInfo.danaoCompCode; 
+				var projCode=projectInfo.danaoProjCode;
 				var data={
 			   			"keyword":projectName,
 						"orderBy":"projTitle",
 			    		}
-				$("#projectName").text(projectName);
-				var jsonObj={
-						projId:projectId,
-						projCode:projCode,
-						compCode:compCode,
-						danaoInfo:code,
-				}  
-				buildInfoD(_url,jsonObj,code)
-				//分数据 
-				
-		}
-	}) 
+				$("#projectName").text(projectName); 
+					var jsonObj={
+							projId:projectId,
+							projCode:projCode,
+							compCode:compCode,
+							danaoInfo:code,
+					}    
+					buildInfoD(_url,jsonObj,code); 
+					debugger;
+					if($(".infoBox li:visible").length<=0){  
+						 $(".infoBox").hide();
+						 $(".fixedbottom").hide(); 
+						 $(".tableBox.emptyInfo").show(); 
+					 } 
+			}
+		}) 
+}	 
+			 
+			 
+			
+	
 }
-function buildInfoD(url,data,code){
-	debugger;
+function buildInfoD(url,data,code){ 
 	sendPostRequestByJsonObj(url, data, function(data){
 	 if(data.result.status=="OK"){
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
-		 if(code=="legal"){ 
-			 var legal=data.userData.legalInfo
-			 $("#equityInfo").hide();
-			 $("#teamInfo").hide();
-			 $("#fina_historyInfo").hide(); 
-			 $("#DN_projectCompany").text(legal.company)
-			 $("#DN_formationDate").text(legal.foundDate)
-			 $("#DN_companyLegal").text(legal.legalPerson)
-		 }else if(code=="history"){
-			 $("#equityInfo").hide();
-			 $("#teamInfo").hide(); 
-			 $("#companyInfo").hide(); 			 
-		 }else if(code=="equity"){  
-			 $("#teamInfo").hide();
-			 $("#fina_historyInfo").hide(); 
-			 $("#companyInfo").hide(); 		
-			 var equityInfo=data.userData.equityInfo;
-			 var str="";
-			 for(i=0;i<equityInfo.length;i++){
-				 var that = equityInfo[i]
-				 str+='<tr id='+that.shareholderTypeId+'>'
-	 					+'<td>'
-						+'<input type="checkbox" />'
-					+'</td>'
-					+'<td name="field1">'+filter(that.shareholder)+'</td>'
-					+'<td name="field3">'+filter(that.shareholder11)+'</td>'
-					+'<td name="field4">'+filter(that.shareholderType)+'</td>'
-					+'<td name="field2">'+filter(that.shareholder11)+'</td>'
-					+'<td name="field5">'+filter(that.shareholder11)+'</td> '
-				'</tr>'
-			 }
-			 $("#equityInfo tbody").html(str);
-		 }
+		 var legal=data.userData.legalInfo;
+		 var equityInfo=data.userData.equityInfo;
+		 var team=data.userData.teamInfo; 
+		 var financeInfo=data.userData.financeInfo; 	
+		 buildDNtable($("#companyInfo"),legal,"");
+		 buildDNtable($("#teamInfo"),team,"teamInfo");
+		 buildDNtable($("#fina_historyInfo"),financeInfo,"financeInfo");
+		 buildDNtable($("#equityInfo"),equityInfo,"equityInfo"); 
+		 
 	 }
 	}) 
 } 
@@ -2097,9 +2112,9 @@ function buildDNinfo(_url,jsonObj){
 		 var team=data.userData.teamInfo; 
 		 var financeInfo=data.userData.financeInfo; 		 
 		 buildDNtable($("#companyInfo"),legal,"");
-		 buildDNtable($("#teamInfo"),team,"team-members");
-		 buildDNtable($("#fina_historyInfo"),financeInfo,"finance-history");
-		 buildDNtable($("#equityInfo"),equityInfo,"equity-structure");
+		 buildDNtable($("#teamInfo"),team,"teamInfo");
+		 buildDNtable($("#fina_historyInfo"),financeInfo,"financeInfo");
+		 buildDNtable($("#equityInfo"),equityInfo,"equityInfo");
 	 
 	}) 
 }
@@ -2109,12 +2124,12 @@ function buildDNtable(dom ,data,code){
 		return false;
 	};
 	var str="";
-	if(code=="equity-structure"){
+	if(code=="equityInfo"){
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" />'
+					+'<input type="checkbox" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
 				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
@@ -2124,12 +2139,12 @@ function buildDNtable(dom ,data,code){
 				+'</tr>'
 		 }
 		dom.find("tbody").html(str);
-	}else if(code=="team-members"){
+	}else if(code=="teamInfo"){
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 					+'<td>'
-					+'<input type="checkbox" />'
+					+'<input type="checkbox" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
 				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
@@ -2137,12 +2152,12 @@ function buildDNtable(dom ,data,code){
 		 }
 		dom.find("tbody").html(str);
 		
-	}else if(code=="finance-history"){	 
+	}else if(code=="financeInfo"){	 
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
 			 str+='<tr id='+that.shareholderTypeId+'>'
 				+'<td>'
-				+'<input type="checkbox" />'
+				+'<input type="checkbox" /><label></label>'
 			+'</td>'
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
@@ -2158,8 +2173,16 @@ function buildDNtable(dom ,data,code){
 		 $("#DN_formationDate").text(data.foundDate);
 		 $("#DN_companyLegal").text(data.legalPerson); 
 	}
+	if(dom.find("tbody tr").length<=0){
+		dom.hide();
+	} 
 }
 //保存
 function saveDN(){ 
- 
+	 debugger; 
+	 var dataDN={};
+	 dataDN.projectId=projectInfo.id;
+	 infoDN = [];
+	 
+	 dataDN.infoTableModelList=infoDN; 
 }
