@@ -1,67 +1,28 @@
 package com.galaxyinternet.project_danao.service;
 
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.service.InfoFromDanaoService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.aliyun.oss.ServiceException;
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.model.DongNao.DnProject;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.service.InfoFromDanaoService;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.common.SopResult;
-import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
-import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.query.ProjectQuery;
-import com.galaxyinternet.dao.project.InterviewRecordDao;
-import com.galaxyinternet.dao.project.ProjectDao;
-import com.galaxyinternet.dao.sopfile.SopFileDao;
-import com.galaxyinternet.export_schedule.dao.ScheduleContactsDao;
-import com.galaxyinternet.export_schedule.model.ScheduleContacts;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.service.DictService;
-import com.galaxyinternet.service.InterviewRecordService;
-import org.springframework.web.client.RestTemplate;
 
 
 @Service("com.galaxyinternet.service.InfoFromDanaoService")
