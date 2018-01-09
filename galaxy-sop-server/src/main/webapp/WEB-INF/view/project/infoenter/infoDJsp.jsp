@@ -81,7 +81,7 @@ input:checked + label::before {
 		 	</li>
 	 	 	<li class="infoItem" id="equityInfo">
 		 		<p class="titles">股权结构</p>
-		 		<table class="tabrow"  titleId="1906"> 
+		 		<table class="tabrow"  titleId="1906" code="equity-structure"> 
 		 			<thead>
 		 				<tr>
 		 					<td>

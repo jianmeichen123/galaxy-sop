@@ -1974,7 +1974,7 @@ function initTable(url,data,status,code) {
 }
 //1.11
 //status  是否引用 0 未引用
-function pagePop(even){  
+function pagePop(even,btnstatus){  
 	var urlCode = $(even).attr("urlCode"); 
 	var code = $(even).attr("dncode");
 	$.getHtml({ 
@@ -1988,14 +1988,17 @@ function pagePop(even){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
-				$(".rightLink").hide()
-				//大脑tableList分页   
+				$(".rightLink").hide();
+				$(".over_pro").hide();
+				$("li[data-content=3]").hide();
+				$(".scheduleIcon").css("width","220px");
+				//大脑tableList分页    
 				initTable(_url,data,1,code); 
 				
 		}
 	})  
 }
-//pagePop2 多次返回  even已经变化 重写
+//pagePop2 多次返回  even已经变化  重写
 function pagePop2(codes){
 	var urlCode ="/galaxy/infoDanao/infoJsp/"; 
 	var code = codes;
@@ -2010,20 +2013,24 @@ function pagePop2(codes){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		} 
-				$(".rightLink").hide()
+				$(".rightLink").hide();
+				$(".over_pro").hide();
+				$("li[data-content=3]").hide();
+				$(".scheduleIcon").css("width","220px");
 				//大脑tableList分页   
+				$(".over_pro").hide();
+				$("li[data-content=3]").hide();
 				initTable(_url,data,1,code); 
 		}
 	}) 
 }
-function infoDPop(even,status){  
+function infoDPop(even,status){   
 	var urlCode = $(even).attr("urlCode");  
 	if(!projectInfo.danaoProjCode){
-		//从列表进入 
-
+		//从列表进入  
 		var code=$(even).attr("dncode");  
 		var compCode=$(even).attr("compcode");
-		var projCode=$(even).attr("projcode");  
+		var projCode=$(even).attr("projcode");   
 		var dataJson={
 				"projId":projectInfo.id,
 				"projCode":projCode,
@@ -2040,13 +2047,15 @@ function infoDPop(even,status){
 				 projectInfo.danaoCompCode=compCode;
 				 projectInfo.danaoProjCode=projCode;
 				 $("a[dncode]").attr("onclick","infoDPop(this)"); 
+				 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoDJsp/"); 
+				
 				getpopHTML(code,event,status);
 			 }
 		 }) 
-	}else{ 
-		//从按钮进入 
+	}else{ 	
+		//从按钮进入    
 		var code=$(even).attr("dncode");   
-		getpopHTML(code,even,status)
+		getpopHTML(code,even,0);
 		 
 	} 
 function getpopHTML(code,even,status){
@@ -2054,6 +2063,9 @@ function getpopHTML(code,even,status){
 			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){   
+			$(".over_pro").hide();
+			$("li[data-content=3]").hide();
+			$(".scheduleIcon").css("width","220px");
 			$(".backLink").attr("href","javascript:;");
 			$(".backLink").click(function(){ 
 				 var dataJson={
@@ -2067,8 +2079,9 @@ function getpopHTML(code,even,status){
 					function(data){
 						 if(data.result.status=="OK"){ 
 							 delete projectInfo.danaoCompCode;
-							 delete projectInfo.danaoProjCode;
-							 
+							 delete projectInfo.danaoProjCode; 
+							 $("a[dncode]").attr("onclick","pagePop(this)"); 
+							 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoJsp/");
 							 } 
 					})					
 				 $("#popbg").remove();
@@ -2078,6 +2091,7 @@ function getpopHTML(code,even,status){
 					//从列表按钮进入   
 					pagePop2(code) 
 				}else{
+					//从详情列表
 					pagePop(even);
 				} 
 				return false;
@@ -2172,13 +2186,13 @@ function buildDNtable(dom ,data,code){
 	if(code=="equityInfo"){
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
-			 str+='<tr id='+that.shareholderTypeId+'>'
+			 str+='<tr >'
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.shareholder+'>'+filter(that.shareholder)+'</td>'
 				+'<td name="field3" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td>'
-				+'<td name="field4" dnVal='+that.shareholderType+'>'+filter(that.shareholderType)+'</td>'
+				+'<td name="field4" dnVal='+that.shareholderTypeId+'>'+filter(that.shareholderType)+'</td>'
 				+'<td name="field2" dnVal='+that.equityRate+'>'+filter(that.equityRate)+'</td>'
 				+'<td name="field5" dnVal='+that.name+'>'+filter(that.shareholder11)+'</td> '
 				+'</tr>'
@@ -2187,7 +2201,7 @@ function buildDNtable(dom ,data,code){
 	}else if(code=="teamInfo"){
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
-			 str+='<tr id='+that.shareholderTypeId+'>'
+			 str+='<tr >'
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
@@ -2200,7 +2214,7 @@ function buildDNtable(dom ,data,code){
 	}else if(code=="financeInfo"){	 
 		for(i=0;i<data.length;i++){
 			 var that = data[i]
-			 str+='<tr id='+that.shareholderTypeId+'>'
+			 str+='<tr >'
 				+'<td>'
 				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
@@ -2228,45 +2242,29 @@ function saveDN(even){
 	//判断列表超过10条数与否之后  才进行保存
 	 var dataDN={};
 	 dataDN.projectId=projectInfo.id;
-	 var tables = $(even).closest(".fixedbottom").prev().find(".infoConList table:visible");
-	 //团队
+	 var tables = $(even).closest(".fixedbottom").prev().find(".infoConList table:visible"); 
 	 $.each(tables,function(){
 		 var thatTable = $(this); 
 		 var code =thatTable.attr("code");
 		 var titleid = thatTable.attr("titleid");
-		 if(code=="finance-history"){
+		 if(code=="finance-history"){ 
+			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
+				function(data) {
+					  
+			 }) 
 			 //融资历史的保存
-			 var infoListDN=[];
-			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");  
-			 $.each(checkTr,function(){ 
-				 var that =$(this),
-				 info={};
-				 info.subCode= tables.attr("code"); 
-				 info.titleId=tables.attr("titleId");
-//				 info.nameCounts=13;
-			 	var fileds=that.find("td[dnval]")
-				 $.each(fileds,function(){ 
-					 var key =$(this).attr("name");
-					 var val = $(this).attr("dnval");  
-					 if(val==undefined||val=="undefined"){val=""}
-					 info[key] = val;
-				 })		
-				 infoListDN.push(info);
-			 })   
-			 dataDN.infoTableModelList=infoListDN;
-			 sendPostRequestByJsonObj(
-					 platformUrl.saveOrUpdateInfo,
-					    dataDN,
-			    function(data) { 
-					    alert("success")	 
-			})
-		 }else if(code=="company-info"){
+			saveDNsame(thatTable,dataDN)
+		 } else if(code="equity-structure"){
+			 //股权的保存
+			 saveDNsame(thatTable,dataDN)
+			 
+		 } else if(code=="company-info"){
 			 var resultIdList;
 			 //法人信息的保存
 			 sendGetRequest(platformUrl.getRelateTitleResults +"2/5813/"+projectInfo.id, null,
-						function(data) {
-							 resultIdList =data.entityList; 
-					 }) 
+				function(data) {
+					 resultIdList =data.entityList; 
+			 }) 
 			 var infoListDN=[];
 			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 			 $.each(checkTr,function(){ 
@@ -2297,7 +2295,18 @@ function saveDN(even){
 			 //团队的保存
 			 var infoListDN=[];
 			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
-			 dataDN.titleId=thatTable.attr("titleid");	 
+			 dataDN.titleId=thatTable.attr("titleid");	
+			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
+				function(data) { 
+				 var dttaLength = data.entityList[0].dataList.length;
+				 var lengthTr = checkTr.length; 
+				 var lastL=10-dttaLength;
+				 if(lastL<0){lastL=0}
+				 if(dttaLength+lengthTr >10){
+					 layer.msg("已超过列表上线，剩余"+lastL+"条可选择" )
+					 return false;
+				 }
+			 })  
 			 $.each(checkTr,function(){ 
 				 var info={}; 
 				 info.code=tables.attr("code");
@@ -2321,11 +2330,33 @@ function saveDN(even){
 			    function(data) { 
 			}) 
 		 }
-	 })
-	 
- //清除 大脑code
- 
-	 
- 
-	 
+ })
 }
+function saveDNsame(thatTable,dataDN) {
+		 var infoListDN=[];
+		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");  
+		 $.each(checkTr,function(){ 
+			 var that =$(this),
+			 info={};
+			 info.subCode= thatTable.attr("code"); 
+			 info.titleId=thatTable.attr("titleId");
+		 	var fileds=that.find("td[dnval]")
+			 $.each(fileds,function(){ 
+				 var key =$(this).attr("name");
+				 var val = $(this).attr("dnval");  
+				 if(val==undefined||val=="undefined"){val=""}
+				 info[key] = val;
+			 })		
+			 infoListDN.push(info);
+		 })   
+		 dataDN.infoTableModelList=infoListDN;
+		 sendPostRequestByJsonObj(
+				 platformUrl.saveOrUpdateInfo,
+				    dataDN,
+		    function(data) { 
+				 alert("success")	 
+		})
+ } 
+ 
+	 
+  
