@@ -414,54 +414,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         
 	});
 	
-	
-	
-	function typeFormat(value,row,index){
-		return row.type;
-	}
-	/**
-	 * 项目FA格式化
-	 * @version 2016-06-21
-	 */
-	function projectFaFormat(value,row,index){
-		var retStr = '-';
-		if(!row.faFlag)
-		{
-			return '-';
-		}
-		if(row.faName)
-		{
-			if(row.faName.length>4){
-				var faName=row.faName.substring(0,4);
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
-			}else{
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
-			}
-			
-		}else{
-			retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
-		}
-		return retStr;
 		
-	}
-	/**
-	 * 项目状态格式化
-	 * @version 2016-06-21
-	 */
-	function projectStatusFormat(value,row,index){
-		return row.projectStatusDs;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
  
 })
 
@@ -519,6 +472,7 @@ function proInfo(id){
 	setCookie("href_url", href_url,24,'/');
 	cookieOperator.forwardPushCookie(formdata);
 }
+
 /**
  * 项目类型格式化
  * @version 2016-06-21
@@ -595,7 +549,7 @@ function financeStatusFormat(value,row,index){
 	}
 	
 	
-
+/*checkbox  */
 	 function projectCheckbox(value,row,index){//项目名称
 				var options = "<label class='highlighCheckbox'><input type='checkbox' name=''/></label> ";
 				return options;
