@@ -12,7 +12,7 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-
+<script src="<%=path %>/js/projectTransfer.js"></script>
 </head>
 
 <body >
@@ -21,9 +21,9 @@
 	<div class='content_task'>
 		<div class='title_top'>
 			<h3>指派项目</h3>
-			 <c:if test="${from eq 'assign' }">
+			 <%-- <c:if test="${from eq 'assign' }"> --%>
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
-			</c:if>
+			<%-- </c:if> --%>
 			 <c:if test="${from eq 'transfer'}">
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 			</c:if>
@@ -93,7 +93,7 @@
 				    <tr>
 				   		<th data-field="projectNameOne"  data-formatter="projectCheckbox" class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
-				    				<input type="checkbox" name="isCheck">
+				    				<input type="checkbox">
 				    		</label> 
 				    		
 				    	</th>
@@ -223,10 +223,15 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			return;
 		} */
 		//var index = $(this).index();
-		
+		var param=countNum();
 		var code = $(this).attr("data-code");
 		$.getHtml({
-			url:getDetailUrl(code)
+			url:getDetailUrl(code),
+			okback:function(){
+				$("#projectNum").html(param.num);
+				doSumbit(param.projectIds);
+			}
+			
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 		$('.pop').addClass('task-pop');//去掉圆角
@@ -314,9 +319,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	}else{
         		initParams=undefined;
         	}  */
-        	alert('dd')
+        	//alert('dd')
         	if(typeof(initParams) !== 'undefined'){
-        		alert('cc')
+        	//	alert('cc')
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
         		if(initParams.financeStatus != ''){
@@ -558,13 +563,24 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	 /*checkbox column format */
 	function projectCheckbox(value, row, index) {
-		var options = "<label class='highlighCheckbox'><input type='checkbox' name=''/></label> ";
+		var options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value="+row.id+"/></label> ";
 		return options;
 	}
 	
 	//column name format @@@@@@@@@@@@@@@@      end        @@@@@@@@@@@@@@@@
 
 	function countNum() {
-		alert($(".highlighCheckbox_checked").length);
+		
+		var projectIds=[];
+		var num=$(".highlighCheckbox_checked [name='isCheck']").length;
+		$(".highlighCheckbox_checked [name='isCheck']").each(function (n) {
+			projectIds.push(this.value);
+		});
+		var param={
+				"num":num,
+		 "projectIds":projectIds
+			};
+		return param;
+		
 	}
 </script>

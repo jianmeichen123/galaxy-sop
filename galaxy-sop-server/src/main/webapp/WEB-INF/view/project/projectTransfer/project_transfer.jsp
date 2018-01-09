@@ -11,7 +11,7 @@
         	<ul>
         	<form action="" id="transfer_form" method="post">
             	<li>
-            		<input type="hidden" name="projectId" value="">
+            		<input type="hidden" name="projectIds" value="">
                     <div class="fl width_150 align_r">接收部门：</div>
                     <div class="fl">
                         <select name='afterDepartmentId' style="width:150px;">
