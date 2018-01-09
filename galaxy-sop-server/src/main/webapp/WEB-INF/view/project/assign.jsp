@@ -25,9 +25,6 @@
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 		</div>
 		<div class="pageTop clearfix">
-					<!-- <select name='projectType'>
-					 <option index="-1" value="">全部事业部</option>
-					</select> -->
 			<div class="buttonGroup clearfix">				
 				<div class="form-group">
 			      <select name='projectDepartid' class="selectpicker" id="projectDepartid">
@@ -242,11 +239,11 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}		
 		return "";
 	}
-	
+	//搜索
 	var initParams,
 	pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 	initPageSize = 10;
-
+	console.log(pageParams)
 	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
 	}
@@ -281,10 +278,10 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	if(typeof(initParams) !== 'undefined'){
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
-        		if(initParams.projectType != ''){
+        		/* if(initParams.projectType != ''){
         			param.projectType = initParams.projectType;
         			$("select[name='projectType']").val(initParams.projectType);
-        		}
+        		} */
         		if(initParams.financeStatus != ''){
         			param.financeStatus = initParams.financeStatus;
         			$("select[name='financeStatus']").val(initParams.financeStatus);
@@ -310,10 +307,10 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         			 param.nameCodeLike = initParams.nameCodeLike;
  	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
         		}
-        		if(initParams.projectPerson !=''){
+        		/* if(initParams.projectPerson !=''){
         			param.projectPerson = initParams.projectPerson;
         			$("input[name='projectPerson']").val(initParams.projectPerson); 
-        		}
+        		} */
         		var options = $("#data-table").bootstrapTable('getOptions');
  	        	options.pageNumber = initParams.pageNum - 1; 
     		}
@@ -434,7 +431,7 @@ function proInfo(id){
 	var options = $("#project-table").bootstrapTable('getOptions');
 	var tempPageSize = options.pageSize ? options.pageSize : 10;
 	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-	var projectType = $("select[name='projectType']").val();
+	//var projectType = $("select[name='projectType']").val();
 	var financeStatus = $("select[name='financeStatus']").val();
 	var projectProgress = $("select[name='projectProgress']").val();
 	var projectStatus = $("select[name='projectStatus']").val();
@@ -451,7 +448,7 @@ function proInfo(id){
 			_param : {
 				pageNum : tempPageNum,
         		pageSize : tempPageSize,
-        		projectType : projectType,
+        		//projectType : projectType,
         		financeStatus : financeStatus,
         		projectProgress : projectProgress,
         		projectStatus : projectStatus,
