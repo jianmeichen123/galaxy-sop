@@ -46,7 +46,7 @@
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
-					  <option>全部</option>
+					  <option value="0">全部</option>
 					</select>
 			  	</div>
 				<!-- <div class="form-group">
@@ -141,11 +141,6 @@ $(function(){
 	
 	//导航
 	createMenus(5);
- $('.selectpicker').selectpicker({
-  style: 'btn-info',
-  size: 4,
-  
-});
 
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
@@ -183,8 +178,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		console.log(did)
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	});
- 
+	 $('.selectpicker').selectpicker({
+		  style: 'btn-info',
+		  size: 4,
+		  
+		});
 	 $('.selectpicker').selectpicker('refresh');
+	
+
 ///////////////////////初始化筛选条件finish
  
  
@@ -281,14 +282,15 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	var param = {}
 	function queryParams(param){
-		param.pageNum = 2;
+		param.pageNum = 1;
 		param.pageSize = 10;
-		param.projectDepartid = 0;//事业线
+		param.projectDepartid = 8;//事业线
 		param.createUid = 0;//投资经理
-		param.projectProgress =0//项目进度
-		param.projectStatus =0;//项目状态
-		param.financeStatus = 0;//项目状态
-		param.faFlag =0;//项目来源
+		param.projectProgress ='projectProgress:1'//项目进度
+		param.projectStatus = 'projectStatus:2';//项目状态
+		param.financeStatus = '1122';//融资状态
+		//param.faFlag = 2261  ;//项目来源
+		
 		
 		return param;
 	}
@@ -308,7 +310,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         singleSelect:true,
         //返回附带参数功能代码
         queryParams : queryParams,
-        
         onLoadSuccess: function (data) {
         	if($("#showResetBtn").val() == '1'){
     			$("#resetBtn").removeClass("none");
