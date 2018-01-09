@@ -115,27 +115,7 @@
  				
  				</tbody>
 			</table> 
-		
- 			<!-- <tbody>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>s
- 						<td>人事尽职调查报告</td>
- 					</tr>
- 		
- 				</tbody> -->
+	
 			
        </div>
 	</div>
@@ -160,9 +140,9 @@ $(function(){
  $('.selectpicker').selectpicker({
   style: 'btn-info',
   size: 4,
-  val:['Mustard','Relish']
+  
 });
- 
+
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
@@ -200,7 +180,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	});
  
- $('.selectpicker').selectpicker('refresh');
+	 $('.selectpicker').selectpicker('refresh');
 ///////////////////////初始化筛选条件finish
  
  
