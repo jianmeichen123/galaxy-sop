@@ -425,7 +425,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value="/upgrade", method = RequestMethod.GET)
 	public String upgrade(){
-		return "/error/upgrade";
+		return "/errors/upgrade";
 	}
 
 	
