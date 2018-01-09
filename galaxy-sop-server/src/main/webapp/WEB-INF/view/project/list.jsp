@@ -59,7 +59,7 @@
                 </c:if>
 
 
-                 <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
+                 <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>

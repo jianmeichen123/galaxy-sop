@@ -6,66 +6,45 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>星河投</title>  
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<jsp:include page="../../common/taglib.jsp"></jsp:include> 
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
+<title>星河投</title>    
+<style>
+.upgrade{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+.center{position: absolute;top:50%;left:50%; transform: translate(-50%, -50%);width:500px;height:auto;}
+.p1{
+font-family:Microsoft YaHei;
+font-size:20px;
+color:#333333;
+text-align:left;
+margin-bottom: 20px;
+text-align:center;
+}
+.p2{
+font-family:Microsoft YaHei;
+font-size:14px;
+color:#666666;
+text-align:center;
+line-height: 25px;
+}
+</style>
 </head>
 
 <body >
 
-	<div class="pagebox">
-		 
+	<div class="upgrade">
+		  <div class="center Img">
+		  	<img src="<%=path%>/img/upgrade.png" alt="">
+		  	<p class="p1">系统升级中...</p>
+		  	<p class="p2">为了让您更好的使用星河投，我们正在对系统进行升级，升级期间暂时无法访问，
+给您带来的不便，敬请谅解。</p>
+		  </div>
 	</div>
 	
 
-</body> 
-<jsp:include page="../../common/header.jsp" ></jsp:include>
-<jsp:include page="../../common/footer.jsp" ></jsp:include></body>
-<jsp:include page="../../common/uploadwin.jsp" ></jsp:include>
-	  
-</html>
-<script> 
-
-	var projectInfo = ${projectInfo}; 
-	createMenus(5); 
-	//导航 
-	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-	var projectName= projectInfo.projectName; 
-	var projectId=projectInfo.id;
-	
-	$("#projectName").text(projectName);
-	var data={
-   			"keyword":projectName,
-			"orderBy":"projTitle",
-    		}
-	function infoDetail(event){ 
-		var compCode=$(event).attr("compCode");
-		var projCode=$(event).attr("projCode"); 
-		var dataJson={
-				projId:projectId,
-				projCode:projCode,
-				compCode:compCode
-		} 
-		sendPostRequestByJsonObj(
-				 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
-				dataJson,
-				function(data){
-					 if(data.result.status=="OK"){
-						 var DN_projectName=$(event).closest("tr").find(".DN_name").html()
-							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId+"?DN_projectName="+DN_projectName);
-					 } 
-					
-				})
-		
-	} 
-	//分页
-	initTable(_url,data,0);  
-	function jumpPage(){
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-	} 
-</script>
+</body>   
+</html> 
