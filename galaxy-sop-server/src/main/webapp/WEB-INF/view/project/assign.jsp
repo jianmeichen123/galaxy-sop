@@ -138,9 +138,9 @@
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-	  <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
-	<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
@@ -241,12 +241,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}
 	//搜索
 	var initParams,
-	pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
+	//pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 	initPageSize = 10;
-	console.log(pageParams)
-	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+	
+	
+	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
-	}
+		console.log(initPageSize+"222")
+	} */
 	
 	$("span[class='querySearch']").click(function(){
 		buryPoint("98");
@@ -293,27 +295,24 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
 		method : 'post',
-		sortOrder : 'desc',
+		//sortOrder : 'desc',
 		sortName : 'updated_time',
 		pagination: true,
-        search: false,
+        //search: false,
         singleSelect:true,
         //返回附带参数功能代码
         queryParams : function(param){
-        	if(getCookieValue("backProjectList")!=''){
+        	console.log(param)
+        	/* if(getCookieValue("backProjectList")!=''){
         		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
         		deleteCookie("backProjectList","/");
         	}else{
         		initParams=undefined;
-        	}
-        	
+        	} */
+        	/* debugger */
         	if(typeof(initParams) !== 'undefined'){
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
-        		/* if(initParams.projectType != ''){
-        			param.projectType = initParams.projectType;
-        			$("select[name='projectType']").val(initParams.projectType);
-        		} */
         		if(initParams.financeStatus != ''){
         			param.financeStatus = initParams.financeStatus;
         			$("select[name='financeStatus']").val(initParams.financeStatus);
@@ -339,15 +338,13 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         			 param.nameCodeLike = initParams.nameCodeLike;
  	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
         		}
-        		/* if(initParams.projectPerson !=''){
-        			param.projectPerson = initParams.projectPerson;
-        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-        		} */
         		var options = $("#data-table").bootstrapTable('getOptions');
  	        	options.pageNumber = initParams.pageNum - 1; 
     		}
         	return param;
+        	
         },
+        
         onLoadSuccess: function (data) {
         	if($("#showResetBtn").val() == '1'){
     			$("#resetBtn").removeClass("none");
@@ -409,14 +406,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	
         }
         
-        
+       
         
         
 	});
 	
-		
  
 })
+ 
 
  	 function projectInfo(value,row,index){//项目名称
 		    var id=row.id;
@@ -432,7 +429,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			}
 		} 
 		
-//点击跳转详情页面方法
+//点击跳转详情页面方法,附带参数过去
 function proInfo(id){
 	//项目详情页返回地址
 	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
