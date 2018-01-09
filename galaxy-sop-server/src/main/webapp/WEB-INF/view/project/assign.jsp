@@ -154,14 +154,14 @@
 $(function(){
 	
 	//导航
-	createMenus(5);
+createMenus(5);
  $('.selectpicker').selectpicker({
   style: 'btn-info',
   size: 4,
   val:['Mustard','Relish']
 });
  
- ///////////////////////初始化筛选条件
+ ///////////////////////初始化筛选条件   start
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
  createCareelineOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
@@ -199,7 +199,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	});
  
  $('.selectpicker').selectpicker('refresh');
-///////////////////////初始化筛选条件finish
+/////////////////////// ///////////////////////初始化筛选条件finish
  
  
  detailHeaderWidth();
@@ -392,8 +392,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
     		}
         	initPageSize=10;
         	
-        	
-       	 /* checkbox 点击 */
+ /* checkbox 处理**************************************************** start/	
+        /* checkbox 点击 */
        	 $('.highlighCheckbox').click(function(event){
        		 $(this).toggleClass('highlighCheckbox_checked');
        		 event.preventDefault(); 
@@ -408,20 +408,20 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
        		 }
        		 event.preventDefault(); 
        	 })
-        	
-        	
-        	
         }
-        
-       
-        
-        
 	});
 	
  
 })
- 
-	//column name format @@@@@@@@@@@@@@@@      start     @@@@@@@@@@@@@@@@
+
+
+   
+	
+	
+/* checkbox 处理**************************************************** end*/	
+    
+    
+//column name format @@@@@@@@@@@@@@@@      start     @@@@@@@@@@@@@@@@
 	function projectInfo(value, row, index) {//项目名称
 		var id = row.id;
 		var str = row.projectName;
@@ -555,12 +555,13 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	function projectStatusFormat(value, row, index) {
 		return row.projectStatusDs;
 	}
-
-	/*checkbox  */
-	function projectCheckbox(value, row, index) {//项目名称
+	
+	 /*checkbox column format */
+	function projectCheckbox(value, row, index) {
 		var options = "<label class='highlighCheckbox'><input type='checkbox' name=''/></label> ";
 		return options;
 	}
+	
 	//column name format @@@@@@@@@@@@@@@@      end        @@@@@@@@@@@@@@@@
 
 	function countNum() {
