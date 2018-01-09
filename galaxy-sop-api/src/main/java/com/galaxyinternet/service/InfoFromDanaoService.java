@@ -2,6 +2,8 @@ package com.galaxyinternet.service;
 
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.DaNao.DnZixun;
+import com.galaxyinternet.model.project.Project;
 
 import java.util.Map;
 
@@ -40,4 +42,27 @@ public interface InfoFromDanaoService {
 	 * @throws Exception
 	 */
 	public Map<String,Object> queryDnaoProjFinance(String projCode) throws Exception;
+
+
+	/**
+	 * 全局搜索的各类别total数目
+	 * return Map
+	 *   xhtProject        创投项目
+	 *   dnProject         创投大脑的项目
+	 *   dnZixun           创投大脑投融快讯
+	 *   xhtAppZixun       星河资讯-app资讯
+	 */
+	public Map<String,Long> globalSearchTypesTotal(Project project) throws Exception;
+
+	/**
+	 * 查询创投大脑 投融快讯列表,
+	 *
+	 */
+	public Page<DnZixun> queryDnaoZixunPage(Map<String, Object> map) throws Exception;
+	/**
+	 * 查询 星河资讯- app资讯 列表,
+	 *
+	 */
+	public Page<DnZixun> queryXhtAppZixunPage(Map<String, Object> map) throws Exception;
+
 }

@@ -154,7 +154,8 @@
 				4.线上 ctdn.galaxyinternet.com
 				-->
 				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/project/</danao.static.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>  <!--project/ news/-->
+				<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
 
 			</properties>
 		</profile>
@@ -214,7 +215,8 @@
 				4.线上 ctdn.galaxyinternet.com
 				-->
 				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/project/</danao.static.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>  <!--project/ news/-->
+				<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
 			</properties>
 		</profile>
 		<profile>
@@ -264,6 +266,8 @@
 				4.线上 ctdn.galaxyinternet.com
 				-->
 				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain> <!--project/ news/-->
+				<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
 			</properties>
 		</profile>
 		<profile>

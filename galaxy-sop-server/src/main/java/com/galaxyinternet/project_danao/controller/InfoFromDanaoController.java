@@ -2,15 +2,21 @@ package com.galaxyinternet.project_danao.controller;
 
 
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +47,10 @@ public class InfoFromDanaoController{
 	@Autowired
 	private ProjectService projectService;
 
-
+	@Autowired
+	private UserRoleService userRoleService;
+	@Autowired
+	com.galaxyinternet.framework.cache.Cache cache;
 
 
 	@RequestMapping(value = "/list/{projectId}", method = RequestMethod.GET)
@@ -154,7 +164,7 @@ public class InfoFromDanaoController{
 	 */
 	@RequestMapping(value = "/searchProjectInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> searchProjectInfo(@RequestBody DnProject dnProject,
-                                                                   HttpServletRequest request,HttpServletResponse response)
+																	HttpServletRequest request, HttpServletResponse response)
 	{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
@@ -173,11 +183,9 @@ public class InfoFromDanaoController{
 			}
 			dnProject.setCompCode(compCode);
 
-
 			if(dnProject.getDanaoInfo() != null ){
 				String[] marks = dnProject.getDanaoInfo().split(",");
 				List<String> markList = Arrays.asList(marks);
-
 
 				if(markList.contains("legalInfo") && dnProject.getCompCode() != null){
 					Map<String,Object> result1 = infoFromDanaoService.queryDnaoBusinessInfo(dnProject.getCompCode(),"legalInfo");
@@ -229,12 +237,112 @@ public class InfoFromDanaoController{
 	}
 
 
+// todo global
+
+	/**
+	 * 查询
+	 */
+	@RequestMapping(value = "/searchGlobalInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData searchGlobalInfo(@RequestBody DnProject dnProject,
+														HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData responseBody = new ResponseData();
+
+		Map<String,Long> tReslut = new HashMap<>();
+		try {
+
+			String pageSearchInfo = dnProject.getPageSearchInfo()==null?"xhtProject":dnProject.getPageSearchInfo();
+
+			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
+			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
+			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
+			String keyword = dnProject.getKeyword() != null ? dnProject.getKeyword() : null;
+
+			dnProject.setOrder(direction);
+			dnProject.setPageNo(pageNum);
+			dnProject.setPageSize(pageSize);
+
+			// 封装查询信息
+			Project project = new Project();
+			//默认筛选
+			/*User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.TZJL)){
+				project.setCreateUid(user.getId());
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}*/
+			project.setKeyword(keyword);
+
+			/**
+			 * 全局搜索 参数
+			 *  pageSearchInfo     total             说明
+			 *   xhtProject      xhtProjectTotal    创投项目
+			 *   dnProject       dnProjectTotal     创投大脑的项目
+			 *   dnZixun         dnZixunTotal       创投大脑投融快讯
+			 *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+			 */
+			tReslut =  infoFromDanaoService.globalSearchTypesTotal(project);
 
 
+			//创投项目 pageList xhtProject
+			switch (pageSearchInfo)
+			{
+				case "xhtProject":
+					if(tReslut.get("xhtProjectTotal").intValue() != 0)
+					{
+						Page<Project> pageProject = projectService.queryPageList(
+								project,
+								new PageRequest(
+										pageNum+1,
+										pageSize,
+										Sort.Direction.fromString(direction),
+										dnProject.getOrderBy()==null?"updated_time":dnProject.getOrderBy())
+						);
 
+						//封装数据
+						for(Project p : pageProject.getContent()){
+							p.setProjectCareerline((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+p.getProjectDepartid(), "name"));
+							//p.setCreateUname((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+p.getCreateUid(), "realName"));
+						}
 
+						responseBody.setPageList(pageProject);
+					}
+				case "dnProject":
+					if(tReslut.get("dnProjectTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy());
+						Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageList(projectPage);
+					}
+				case "dnZixun":
+					if(tReslut.get("dnZixunTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy());
+						Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageList(projectPage);
+					}
+				case "xhtAppZixun":
+					if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"create_time":dnProject.getOrderBy());
+						Page<DnZixun> projectPage = infoFromDanaoService.queryXhtAppZixunPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageList(projectPage);
 
+					}
+				default:
+					break;
+			}
 
+			if(responseBody.getPageList()==null){
+				responseBody.setPageList(new Page<DnZixun>(new ArrayList<DnZixun>() , 0l));
+			}
+			responseBody.setUserData(tReslut);
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
 
 
 
