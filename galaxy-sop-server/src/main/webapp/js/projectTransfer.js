@@ -1,5 +1,5 @@
 function doSumbit(projectId){
-	$('input[name="projectId"]').val(projectId);
+	$('input[name="projectIds"]').val(projectId);
 	/**
 	 * 查询事业线
 	 * @version 2016-08-03

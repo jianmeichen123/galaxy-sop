@@ -3,14 +3,17 @@
 	<form action="" id="detail-form">
     <div class="qualifications_all task-todeal assign_project">
         <ul>
-       		<li>已选择6个项目</li>
+       		<li>已选择<span id="projectNum">6</span>个项目</li>
         	<li class='select-simulate'>
         		<em>接收部门 ：</em>
         		<input type='text' placeholder='请选择'>
-        		<ul class='toggle-ul'>
+        	<!-- 	<ul class='toggle-ul'>
         			<li>请选择</li>
         			<li>人力资源部</li>
-        		</ul>
+        		</ul> -->
+        		<select name='afterDepartmentId' style="width:150px;">
+                           <option value="">请选择</option>
+                        </select>
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
