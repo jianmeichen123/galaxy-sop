@@ -39,14 +39,14 @@
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker">
 					  <option>投资经理</option>
-					  <option>全部</option>
+					 	<option>全部</option>
 					</select>
 			  	</div>
 				
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
-					  <option>全部</option>
+					  <option value="0">全部</option>
 					</select>
 			  	</div>
 				<!-- <div class="form-group">
@@ -141,11 +141,6 @@ $(function(){
 	
 	//导航
 	createMenus(5);
- $('.selectpicker').selectpicker({
-  style: 'btn-info',
-  size: 4,
-  
-});
 
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
@@ -180,11 +175,16 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	 */
 	$('select[name="projectDepartid"]').change(function(){
 		var did = $('select[name="projectDepartid"]').val();
-		console.log(did)
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	});
- 
+	 $('.selectpicker').selectpicker({
+		  style: 'btn-info',
+		  size: 4,
+		  
+		});
 	 $('.selectpicker').selectpicker('refresh');
+	
+
 ///////////////////////初始化筛选条件finish
  
  
@@ -252,37 +252,80 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		console.log(initParams)
 	});
 	
+	
+	$('select[name="projectDepartid"]').find('option:selected').val();
+	console.log($('select[name="projectDepartid"]').find('option:selected').val())
+	
+	
+/* 	var param = {}
+	function queryParams(param){
+		param.pageNum = 1;
+		param.pageSize = 10;
+		param.projectDepartid = 8;//事业线
+		param.createUid = 0;//投资经理
+		param.projectProgress ='projectProgress:1'//项目进度
+		param.projectStatus = 'projectStatus:2';//项目状态
+		param.financeStatus = '1122';//融资状态
+		//param.faFlag = 2261  ;//项目来源
+		return param;
+	}   */
+  	var param = {}
+	function queryParams(param){
+		var valueNum = $('select[name="projectDepartid"]').val();//事业线
+		var valueManager = $('select[name="createUid"]').val();//投资经理
+		var valueProjectValue = $('select[name="projectProgress"]').val();//项目进度
+		var valueProjectStatus= $('select[name="projectStatus"]').val();//项目状态
+		var valuefinanceStatus= $('select[name="financeStatus"]').val();//融资状态
+		var valueFlag= $('select[name="faFlag"]').val();//项目来源
+		
+		param.pageNum = 1;
+		param.pageSize = 10;
+		param.projectDepartid = valueNum;//事业线
+		param.createUid = valueManager;//投资经理
+		param.projectProgress =valueProjectValue//项目进度
+		param.projectStatus = valuefinanceStatus;//项目状态
+		param.financeStatus = valuefinanceStatus;//融资状态
+		return param;
+		
+	} 	
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
+		var valueNum = $('select[name="projectDepartid"]').val();
+		console.log(valueNum)
+		queryParams(param)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
+		var valueManager = $('select[name="createUid"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
+		var valueProjectValue = $('select[name="projectProgress"]').val();
+		console.log(valueProjectValue)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
+		var valueProjectStatus= $('select[name="projectStatus"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
+		var valuefinanceStatus= $('select[name="financeStatus"]').val();
+		console.log(valuefinanceStatus)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
 		$('#assign-table').bootstrapTable('refresh')
+		var valueFlag= $('select[name="faFlag"]').val();
 		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 	});
 	
-	
-	
-	
-	
+
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
@@ -298,49 +341,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         search: false,
         singleSelect:true,
         //返回附带参数功能代码
-        queryParams : function(param){
-        	/* if(getCookieValue("backProjectList")!=''){
-        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-        		deleteCookie("backProjectList","/");
-        	}else{
-        		initParams=undefined;
-        	}  */
-        	if(typeof(initParams) !== 'undefined'){
-    			param.pageNum = initParams.pageNum - 1;
-        		param.pageSize = initParams.pageSize;
-        		if(initParams.financeStatus != ''){
-        			param.financeStatus = initParams.financeStatus;
-        			$("select[name='financeStatus']").val(initParams.financeStatus);
-        		}
-        		if(initParams.projectProgress != ''){
-        			param.projectProgress = initParams.projectProgress;
-        			$("select[name='projectProgress']").val(initParams.projectProgress);
-        		}
-        		if(initParams.faFlag != ''){
-        			param.faFlag = initParams.faFlag;
-        			$("select[name='faFlag']").val(initParams.faFlag);
-        		}
-        		if(initParams.financeStatus != ''){
-        			param.financeStatus = initParams.financeStatus;
-        			$("select[name='financeStatus']").val(initParams.financeStatus);
-        		}
-        		param.projectDepartid = initParams.projectDepartid;
-        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
-        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
-        		param.createUid = initParams.createUid;
-        		$("select[name='createUid']").val(initParams.createUid);
-        		if(initParams.nameCodeLike !=''){
-        			 param.nameCodeLike = initParams.nameCodeLike;
- 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
-        		}
-        		var options = $("#data-table").bootstrapTable('getOptions');
- 	        	options.pageNumber = initParams.pageNum - 1; 
-    		}
-        	console.log(param)
-        	return param;
-        	
-        },
-        
+        queryParams : queryParams,
         onLoadSuccess: function (data) {
         	if($("#showResetBtn").val() == '1'){
     			$("#resetBtn").removeClass("none");

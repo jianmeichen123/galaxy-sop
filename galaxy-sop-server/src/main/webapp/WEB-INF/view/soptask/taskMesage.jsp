@@ -74,17 +74,6 @@
 	        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
 				<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
 	        	</c:if>
-	        	<c:if test="${sessionScope.galax_session_user.id == task.assignUid and (fx:hasPremission('task_transfer') or fx:hasPremission('task_abandon'))}">
-        		 <span class='more-task fr'>更多操作</span>
-		         <ul class='task-toggle more-operateOne'>
-		         	<c:if test="${fx:hasPremission('task_transfer')}">	
-		         	<li data-code='transfer-task'>移交任务</li>
-		         	</c:if>
-		         	<c:if test="${fx:hasPremission('task_abandon')}">	
-	          		<li data-code='abandon-task'>放弃任务</li>
-	          		</c:if>
-	          	</ul>
-	          	</c:if>
         	</div>
         </div>
 	</div>
@@ -277,7 +266,7 @@
 		sendPostRequestByJsonObj(url, data, callback);
 	});
 	/**********************提交完成 END ************************/
-	
+	/**********************文件历史 Start ************************/
 	function viewHistory(fileId)
 	{
 		$.getHtml({
@@ -338,6 +327,8 @@
 	{
 		forwardWithHeader(platformUrl.downLoadFile+"/"+id+'?type=history');
 	}
+	/**********************提交完成 END ************************/
+	/**********************不需要提供 Start ************************/
 	$('.task-no-label').click(function(){
 		var _this = $(this);
 		if(_this.hasClass('label-checked'))
@@ -357,44 +348,77 @@
 			uploader.disableBrowse(true);
 		}
 	})
-	/* 事件 */
- 		$('.more-task').mouseenter(function(){
-		   $('.task-toggle').slideDown();
-	   });
-	   $('.task-toggle').mouseleave(function(){
-		    $('.task-toggle').slideUp();
-	   });
-	   /*指派任务弹窗点击事件*/
-		$('.task-toggle li').click(function(){
-			var index = $(this).index();
-			var code = $(this).attr("data-code");
-			$.getHtml({
-				url:getDetailUrl(code),
-				okback:function(){
-					$("#numOfTask").parent().hide();
-				}
-			});
-			$('.close').addClass('tast-close')//添加关闭按钮
-			$('.pop').addClass('task-pop');//去掉圆角
+	/**********************不需要提供 END ************************/
+	/**********************操作 Start ************************/
+	var opts = new Array();
+	<c:if test="${'taskStatus:3' != task.taskStatus and fx:hasPremission('task_assign')}">
+	opts.push({code:'assign-task',name:'指派任务'});
+	</c:if>
+	<c:if test="${'taskStatus:2' == task.taskStatus and sessionScope.galax_session_user.id == task.assignUid and fx:hasPremission('task_transfer')}">
+	opts.push({code:'transfer-task',name:'移交任务'});
+	</c:if>
+	<c:if test="${'taskStatus:2' == task.taskStatus and sessionScope.galax_session_user.id == task.assignUid and fx:hasPremission('task_abandon')}">
+	opts.push({code:'abandon-task',name:'放弃任务'});
+	</c:if>
+	var content = '';
+	if(opts.length>1)
+	{
+		content += '<span class="more-task fr">更多操作</span>';
+		content += '<ul class="task-toggle  more-operateOne">';
+		$.each(opts,function(){
+			content += '<li data-code="'+this.code+'">'+this.name+'</li>';
 		});
-		
-		//页面请求地址
-		function getDetailUrl(code)
-		{
-			if(code =='transfer-task')
-			{	
-				return platformUrl.transferTask;
-			}else if(code === 'abandon-task'){
-				return platformUrl.giveupTask;
+		content += '</ul>';
+	}
+	else if(opts.length == 1)
+	{
+		content = '<span class="one-task fr" data-code="'+opts[0].code+'">'+opts[0].name+'</span>';
+	}
+	$(".taskDetail-mesage-update").append(content);
+	/* 事件 */
+	$('.more-task').mouseenter(function(){
+	   $('.task-toggle').slideDown();
+   });
+   $('.task-toggle').mouseleave(function(){
+	    $('.task-toggle').slideUp();
+   });
+   /*指派任务弹窗点击事件*/
+	$('.taskDetail-mesage-update').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
+		var code = $(this).attr("data-code");
+		$.getHtml({
+			url:getDetailUrl(code),
+			okback:function(){
+				$("#numOfTask").parent().hide();
 			}
-			return "";
-		}
+		});
+		$('.close').addClass('tast-close')//添加关闭按钮
+		$('.pop').addClass('task-pop');//去掉圆角
+	});
 	
-		function getSelectedIds()
+	//页面请求地址
+	function getDetailUrl(code)
+	{
+		if(code =='transfer-task')
+		{	
+			return platformUrl.transferTask;
+		}
+		else if(code === 'abandon-task')
 		{
-			var ids = new Array();
-			ids.push("${taskId}");
-			return ids;
-		}	
+			return platformUrl.giveupTask;
+		}
+		else if(code === 'assign-task')
+		{
+			return platformUrl.assignTask;
+		}
+		return "";
+	}
+
+	function getSelectedIds()
+	{
+		var ids = new Array();
+		ids.push("${taskId}");
+		return ids;
+	}
+		/**********************提交完成 END ************************/
 </script>
 

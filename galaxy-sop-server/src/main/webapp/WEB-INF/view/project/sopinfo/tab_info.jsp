@@ -555,8 +555,7 @@
 	if(!projectInfo.danaoProjCode){
 		//没有选择项目
 		 $(".DN_btn").attr("urlCode","/galaxy/infoDanao/infoJsp/")
-	}else{
-		//xuznexiangmuinfoDPop
+	}else{ 
 		 $(".DN_btn").attr("urlCode","/galaxy/infoDanao/infoDJsp/"); 
 		 $(".DN_btn").attr("onclick","infoDPop(this)"); 
 	} 
