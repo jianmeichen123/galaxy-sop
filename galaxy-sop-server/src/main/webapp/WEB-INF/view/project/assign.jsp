@@ -387,7 +387,31 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
     			}
     		}
         	initPageSize=10;
+        	
+        	
+       	 /* checkbox 点击 */
+       	 $('.highlighCheckbox').click(function(event){
+       		 $(this).toggleClass('highlighCheckbox_checked');
+       		 event.preventDefault(); 
+       		 
+       	 });
+       	 //全选
+       	 $('.highlighCheckbox_th').click(function(event){
+       		 $(this).toggleClass('highlighCheckbox_checked');
+       		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
+       		 if(!$(this).hasClass('highlighCheckbox_checked')){
+       			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
+       		 }
+       		 event.preventDefault(); 
+       	 })
+        	
+        	
+        	
         }
+        
+        
+        
+        
 	});
 	
 	
@@ -573,28 +597,10 @@ function financeStatusFormat(value,row,index){
 	
 
 	 function projectCheckbox(value,row,index){//项目名称
-				var options = "<label class='highlighCheckbox_th'><input type='checkbox' name=''/></label> ";
+				var options = "<label class='highlighCheckbox'><input type='checkbox' name=''/></label> ";
 				return options;
 		}
 	 
-	 /* checkbox 点击 */
-	 $('.highlighCheckbox').click(function(event){
-		 $(this).toggleClass('highlighCheckbox_checked');
-		 event.preventDefault(); 
-		 
-	 });
-	 $('#assign-table tbody tr').click(function(){
-		 alert('dd')
-	 })
-	 //全选
-	 $('.highlighCheckbox_th').click(function(event){
-		 alert('ddd')
-		 $(this).toggleClass('highlighCheckbox_checked');
-		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
-		 if(!$(this).hasClass('highlighCheckbox_checked')){
-			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
-		 }
-		 event.preventDefault(); 
-	 })
+
 	 
 </script>
