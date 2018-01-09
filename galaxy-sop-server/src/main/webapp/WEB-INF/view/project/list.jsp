@@ -378,6 +378,7 @@
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
 			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+			console.log(initParams)
 		});
 		/**
 		 * 初始化项目列表

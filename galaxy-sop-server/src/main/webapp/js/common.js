@@ -1876,7 +1876,7 @@ function filter(str){
 	return str==undefined?"--":str
 }
 ///status  判断是弹窗还是页面
-function initTable(url,data,status,code) { 
+function initTable(url,data,status,code) {
     $('#dataTable').bootstrapTable({
         method: 'post',
         toolbar: '#toolbar',    //工具按钮用哪个容器
@@ -1893,9 +1893,9 @@ function initTable(url,data,status,code) {
         // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber 
         queryParams: function (params) {
         	var paramData=data;
-        	paramData.pageNo=params.pageNumber-1;              
+        	paramData.pageNo=params.pageNumber;              
         	paramData.pageSize=params.pageSize;
-        	paramData.order=params.sortOrder; 
+        	paramData.order=params.sortOrder;
 			return paramData;
 		} ,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
         sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
@@ -1913,7 +1913,7 @@ function initTable(url,data,status,code) {
             field: "Name",
             align: "left",
             valign: "middle",
-            formatter: function (value, row, index) {  
+            formatter: function (value, row, index) {
                 //通过formatter可以自定义列显示的内容
                 //value：当前field的值，即id
                 //row：当前行的数据
@@ -1974,7 +1974,8 @@ function initTable(url,data,status,code) {
 }
 //1.11
 //status  是否引用 0 未引用
-function pagePop(even){  
+function pagePop(even){ 
+	debugger;
 	var urlCode = $(even).attr("urlCode"); 
 	var code = $(even).attr("dncode");
 	$.getHtml({ 
@@ -1988,36 +1989,15 @@ function pagePop(even){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
-				$(".rightLink").hide()
 				//大脑tableList分页   
 				initTable(_url,data,1,code); 
 				
 		}
 	})  
 }
-//pagePop2 多次返回  even已经变化 重写
-function pagePop2(codes){
-	var urlCode ="/galaxy/infoDanao/infoJsp/"; 
-	var code = codes;
-	$.getHtml({ 
-		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
-		data:"",//传递参数
-		okback:function(){  
-			 //infoDetail  
-				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text($("#project_name_t").text()); 
-				var data={ 
-			   			"keyword":projectInfo.projectName,
-						"orderBy":"projTitle", 
-			    		} 
-				$(".rightLink").hide()
-				//大脑tableList分页   
-				initTable(_url,data,1,code); 
-		}
-	}) 
-}
 function infoDPop(even,status){  
-	var urlCode = $(even).attr("urlCode");  
+	var urlCode = $(even).attr("urlCode"); 
+	debugger;
 	if(!projectInfo.danaoProjCode){
 		//从列表进入 
 
@@ -2034,17 +2014,19 @@ function infoDPop(even,status){
 		dataJson,
 		function(data){
 			 if(data.result.status=="OK"){ 
-				 //移除其他
-				 $("#popbg").remove();
-				 $("#powindow").remove();
 				 projectInfo.danaoCompCode=compCode;
 				 projectInfo.danaoProjCode=projCode;
-				 $("a[dncode]").attr("onclick","infoDPop(this)"); 
+				 $("a[dncode]").attr("onclick","infoDPop(this)");
+				 debugger;
 				getpopHTML(code,event,status);
 			 }
-		 }) 
+		 })
+		
+		
+		 
 	}else{ 
-		//从按钮进入 
+		//从按钮进入
+		 debugger;
 		var code=$(even).attr("dncode");   
 		getpopHTML(code,even,status)
 		 
@@ -2054,8 +2036,8 @@ function getpopHTML(code,even,status){
 			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){   
-			$(".backLink").attr("href","javascript:;");
-			$(".backLink").click(function(){ 
+			$(".rightLink").attr("href","javascript:;");
+			$(".rightLink").click(function(){ 
 				 var dataJson={
 							projId:projectId ,
 							projCode:"",
@@ -2070,13 +2052,12 @@ function getpopHTML(code,even,status){
 							 delete projectInfo.danaoProjCode;
 							 
 							 } 
-					})					
-				 $("#popbg").remove();
-				 $("#powindow").remove();
+					})
+					debugger;
 				$(even).attr("urlcode","/galaxy/infoDanao/infoJsp/");
 				if(status==1){
-					//从列表按钮进入   
-					pagePop2(code) 
+					//从列表进入  怎样再次进入列表   真不行就再写一个单独的转到列表的方法
+					debugger; 
 				}else{
 					pagePop(even);
 				} 
