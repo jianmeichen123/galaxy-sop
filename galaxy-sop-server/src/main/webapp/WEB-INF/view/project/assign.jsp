@@ -249,10 +249,41 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}
 	
 	$("span[class='querySearch']").click(function(){
-		alert('dd')
 		buryPoint("98");
 		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		console.log(initParams)
 	});
+	
+	/* change事件*/
+	
+	$('select[name="projectDepartid"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//投资经理
+	$('select[name="createUid"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目进度
+	$('select[name="projectProgress"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目状态
+	$('select[name="projectStatus"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//融资状态
+	$('select[name="financeStatus"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目来源
+	$('select[name="faFlag"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	
+	
+	
+	
+	
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
@@ -275,6 +306,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	}else{
         		initParams=undefined;
         	}
+        	
         	if(typeof(initParams) !== 'undefined'){
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
