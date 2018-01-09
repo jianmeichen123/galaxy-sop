@@ -21,17 +21,12 @@
 	<div class='content_task'>
 		<div class='title_top'>
 			<h3>指派项目</h3>
-<<<<<<< HEAD
 			 <%-- <c:if test="${from eq 'assign' }"> --%>
-=======
->>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
-<<<<<<< HEAD
 			<%-- </c:if> --%>
 			 <c:if test="${from eq 'transfer'}">
-=======
->>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
+			</c:if>
 		</div>
 		<div class="pageTop clearfix">
 			<div class="buttonGroup clearfix">				
@@ -104,11 +99,7 @@
 				    <tr>
 				   		<th data-field="projectNameOne"  data-formatter="projectCheckbox" class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
-<<<<<<< HEAD
 				    				<input type="checkbox">
-=======
-				    				<input type="checkbox" name="">
->>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 				    		</label> 
 				    		
 				    	</th>
