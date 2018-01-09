@@ -52,10 +52,10 @@
                 <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
                
                	 <c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
                 </c:if>
 
 
@@ -371,13 +371,14 @@
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 			initPageSize = 10;
-		
+			console.log(pageParams)
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
 		}
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
 			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+			console.log(initParams)
 		});
 		/**
 		 * 初始化项目列表

@@ -1,16 +1,12 @@
 package com.galaxyinternet.project.service;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -46,12 +42,9 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
-import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
@@ -82,8 +75,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private MeetingSchedulingDao meetingSchedulingDao;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private SopTaskService sopTaskService;
 	@Autowired
@@ -279,139 +270,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		meetingSchedulingDao.updateBySelective(m);
 	}
 
-	public Map<String, Object> getSummary(Long userId)
-	{
-		Map<String, Object> summary = new HashMap<String, Object>();
-		User currUser = userService.queryById(userId);
-		Role role = userService.getRoleByUserId(userId);
-		/**项目总数**/
-		Long count = 0L;
-		/**项目总估值**/
-		Double projectValuations = null;
-		/**尽调阶段项目**/
-		Long countOfJd = 0L;
-		/**投后运营阶段项目**/
-		Long countOfYy = 0L;
-		/**立项会过会数量**/
-		Long ghsl = 0L;
-		/**立项会过会率**/
-		Double ghl = 0.00;
-		/**本年度实看项目**/
-		Long countOfndskxm = 0L;
-		/**本年度应看项目**/
-		Long countOfndykxm = 0L;
-		/**投资经理数量**/
-		Integer countOftzjl = 0;
-		
-		UserRole ur = new UserRole();
-		ur.setRoleId(UserConstant.TZJL);
-		List<UserRole> tzjlList = userRoleService.queryList(ur);
-		
-		
-		if(role != null )
-		{
-			ProjectBo query = null;
-			if(role.getId().longValue() == UserConstant.DSZ 
-					|| role.getId().longValue() == UserConstant.CEO
-					|| role.getId().longValue() == UserConstant.YYFZR
-					)
-			{
-				query = new ProjectBo();
-				countOftzjl = tzjlList.size();
-				
-			}
-			else if(role.getId().longValue() == UserConstant.HHR)
-			{
-				query = new ProjectBo();
-				query.setProjectDepartid(currUser.getDepartmentId());
-				
-				if(tzjlList != null && tzjlList.size() >0)
-				{
-					for(UserRole userRole : tzjlList)
-					{
-						User u = userService.queryById(userRole.getUserId());
-						if(u != null && u.getDepartmentId() != null && u.getDepartmentId().longValue() == currUser.getDepartmentId().longValue())
-						{
-							countOftzjl = countOftzjl + 1;
-						}
-					}
-				}
-				
-			}
-			else if(role.getId().longValue() == UserConstant.TZJL)
-			{
-				query = new ProjectBo();
-				query.setCreateUid(userId);
-				
-				countOftzjl = 1;
-			}
-			if(query != null)
-			{
-				Project po = projectDao.selectTotalSummary(query);
-				count = po.getCount();
-				projectValuations = po.getProjectValuations();
-				
-				List<Project> pjList = projectDao.selectStageSummary(query);
-				if(pjList != null && pjList.size()>0)
-				{
-					for(Project pj : pjList)
-					{
-						//尽职调查
-						if("projectProgress:6".equals(pj.getProjectProgress()))
-						{
-							countOfJd = pj.getCount();
-						}
-						//投后运营
-						else if("projectProgress:10".equals(pj.getProjectProgress()))
-						{
-							countOfYy = pj.getCount();
-						}
-						
-						//过会数量
-						if(pj.getProjectProgress() != null)
-						{
-							String[] arr = pj.getProjectProgress().split(":");
-							if(arr.length == 2 && NumberUtils.isDigits(arr[1]))
-							{
-								int progressIndex = Integer.valueOf(arr[1]);
-								if(progressIndex>4)
-								{
-									ghsl = ghsl + pj.getCount();
-								}
-							}
-						}
-					}
-				}
-				Calendar cal = Calendar.getInstance();
-				Date createDateFrom = DateUtil.getSearchYearFromDate(cal.get(Calendar.YEAR));
-				query.setCreateDateFrom(createDateFrom.getTime());
-				po = projectDao.selectTotalSummary(query);
-				countOfndskxm = po.getCount();
-				
-				countOfndykxm = countOftzjl*500L;
-				
-				if(count>0 && ghsl>0)
-				{
-					ghl = BigDecimal.valueOf(ghsl).divide(BigDecimal.valueOf(count), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
-				}
-			}
-			BigDecimal val = BigDecimal.ZERO;
-			if(projectValuations != null)
-			{
-				val = new BigDecimal(projectValuations,MathContext.UNLIMITED);
-			}
-			val = val.setScale(4, BigDecimal.ROUND_HALF_UP);
-			summary.put("count", count);
-			summary.put("projectValuations", val.toString());
-			summary.put("countOfJd", countOfJd);
-			summary.put("countOfYy", countOfYy);
-			summary.put("ghl", ghl);
-			summary.put("countOfndskxm", countOfndskxm);
-			summary.put("countOfndykxm", countOfndykxm);
-		}
-		
-		return summary;
-	}
 
 	@Override
 	public List<Project> queryListById(List<Long> idList) {

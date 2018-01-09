@@ -4,7 +4,6 @@ package com.galaxyinternet.touhou.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.touhou.DeliveryBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -36,7 +35,6 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationListdata;
@@ -44,7 +42,6 @@ import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.hologram.InformationFileService;
@@ -75,7 +72,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	@Autowired
 	Cache cache;
 	@Autowired
-	private AuthRequestUtil authReq;
+	private BaseInfoCache baseInfoCache;
 
 	private String tempfilePath;
 
@@ -289,10 +286,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 							Direction.fromString("desc"), 
 							"created_time"));
 			List<InformationListdata> content = actualPage.getContent();
-			Map<String,String> userMap=initCache();
 			if(content != null && content.size() > 0){
+				Map<Long,String> userMap = baseInfoCache.getUserFromCache();
 				for(InformationListdata c : content){
-					c.setUpdateUserName(userMap.get(c.getUpdateId().toString()));
+					c.setUpdateUserName(userMap.get(c.getUpdateId()));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
 				actualPage.setContent(content);
@@ -338,22 +335,5 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 				logger.error("下载失败.",e);
 			}
 		}
-	}
-	
-	public Map<String ,String > initCache( )
-	{
-		Map<String ,String > map=new HashMap<String ,String>();
-		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
-			if(userList != null && userList.size() >0)
-			{
-				
-				for(int i=0;i<userList.size();i++)
-				{
-					Map<String,Object> mapNew=userList.get(i);
-				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
-				}
-			}
-		return map;
-		
 	}
 }

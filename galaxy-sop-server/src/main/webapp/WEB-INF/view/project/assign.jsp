@@ -27,7 +27,7 @@
 		<div class="pageTop clearfix">
 			<div class="buttonGroup clearfix">				
 				<div class="form-group">
-			      <select name='projectDepartid' class="selectpicker" id="projectDepartid">
+			      <select name='projectDepartid' class="selectpicker">
 					  <option index="-1" value="0">全部事业部</option>
 					</select>
 			  	</div>
@@ -38,13 +38,19 @@
 					  <option>全部</option>
 					</select>
 			  	</div>
-
+				
 				<div class="form-group">
+			      <select name="projectProgress" class="selectpicker">
+					  <option>项目进度</option>
+					  <option>全部</option>
+					</select>
+			  	</div>
+				<!-- <div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
 					 <option value="0">全部</option>
 					</select>
-			 	</div>
+			 	</div> -->
 
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
@@ -109,27 +115,7 @@
  				
  				</tbody>
 			</table> 
-		
- 			<!-- <tbody>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>s
- 						<td>人事尽职调查报告</td>
- 					</tr>
- 		
- 				</tbody> -->
+	
 			
        </div>
 	</div>
@@ -138,9 +124,9 @@
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-	  <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
-	<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
@@ -154,9 +140,9 @@ $(function(){
  $('.selectpicker').selectpicker({
   style: 'btn-info',
   size: 4,
-  val:['Mustard','Relish']
+  
 });
- 
+
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
@@ -194,7 +180,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	});
  
- $('.selectpicker').selectpicker('refresh');
+	 $('.selectpicker').selectpicker('refresh');
 ///////////////////////初始化筛选条件finish
  
  
@@ -240,44 +226,48 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		return "";
 	}
 	//搜索
-	var initParams,
-	pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
-	initPageSize = 10;
-	console.log(pageParams)
-	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+	var initParams;
+	//var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
+	var initPageSize = 10;
+	
+	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
-	}
+		console.log(initPageSize+"222")
+	} */
 	
 	$("span[class='querySearch']").click(function(){
-		buryPoint("98");
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		//buryPoint("98");
+		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		initParams;
+		 $('#assign-table').bootstrapTable('refresh')
 		console.log(initParams)
 	});
 	
 	/* change事件*/
-	
+	//事业线
 	$('select[name="projectDepartid"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
+		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 	});
 	
 	
@@ -293,27 +283,22 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
 		method : 'post',
-		sortOrder : 'desc',
+		//sortOrder : 'desc',
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
         singleSelect:true,
         //返回附带参数功能代码
         queryParams : function(param){
-        	if(getCookieValue("backProjectList")!=''){
+        	/* if(getCookieValue("backProjectList")!=''){
         		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
         		deleteCookie("backProjectList","/");
         	}else{
         		initParams=undefined;
-        	}
-        	
+        	}  */
         	if(typeof(initParams) !== 'undefined'){
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
-        		/* if(initParams.projectType != ''){
-        			param.projectType = initParams.projectType;
-        			$("select[name='projectType']").val(initParams.projectType);
-        		} */
         		if(initParams.financeStatus != ''){
         			param.financeStatus = initParams.financeStatus;
         			$("select[name='financeStatus']").val(initParams.financeStatus);
@@ -339,15 +324,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         			 param.nameCodeLike = initParams.nameCodeLike;
  	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
         		}
-        		/* if(initParams.projectPerson !=''){
-        			param.projectPerson = initParams.projectPerson;
-        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-        		} */
         		var options = $("#data-table").bootstrapTable('getOptions');
  	        	options.pageNumber = initParams.pageNum - 1; 
     		}
+        	console.log(param)
         	return param;
+        	
         },
+        
         onLoadSuccess: function (data) {
         	if($("#showResetBtn").val() == '1'){
     			$("#resetBtn").removeClass("none");
@@ -409,14 +393,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	
         }
         
-        
+       
         
         
 	});
 	
-		
  
 })
+ 
 
  	 function projectInfo(value,row,index){//项目名称
 		    var id=row.id;
@@ -432,7 +416,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			}
 		} 
 		
-//点击跳转详情页面方法
+//点击跳转详情页面方法,附带参数过去
 function proInfo(id){
 	//项目详情页返回地址
 	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');

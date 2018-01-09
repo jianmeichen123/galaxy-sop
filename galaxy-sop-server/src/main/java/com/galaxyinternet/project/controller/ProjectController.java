@@ -1584,26 +1584,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ResponseBody
-	@RequestMapping(value = "/getSummary", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData getSummary(HttpServletRequest request) {
-		ResponseData resp = new ResponseData();
-		try {
-			String userId = getUserId(request);
-			Map<String, Object> summary = null;
-			if (StringUtils.isNotEmpty(userId)) {
-				summary = projectService.getSummary(Long.valueOf(userId));
-			}
-			resp.setUserData(summary);
-		} catch (Exception e) {
-			_common_logger_.error("获取数据快览失败", e);
-			resp.getResult().addError("获取数据快览失败");
-		}
-
-		return resp;
-	}
-
 	public String getHHRNname(Project p) {
 		String hhrname = "";
 		UserRole userrole = new UserRole();
@@ -3859,23 +3839,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				 */
 				@RequestMapping(value = "/toAssignProject", method = RequestMethod.GET)
 				public String toAssignProject(HttpServletRequest request){
-					String id = request.getParameter("projectId");
-					//退回标记
-					String backSign = request.getParameter("backSign");
-					if(StringUtils.isNotBlank(id)){
-						Project project = projectService.queryById(Long.parseLong(id));
-						request.setAttribute("pid", id);
-						request.setAttribute("pname", project.getProjectName());
-					}
-					if(StringUtils.isNotBlank(backSign)){
-						request.setAttribute("backSign", backSign);
-					}else{
-						request.setAttribute("backSign", "false");
-					}
-					InformationDictionary query = new InformationDictionary();
-					query.setTitleId(1120L);
-					List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
-					request.setAttribute("projectSourceList", projectSourceList);
+					//判断是指派还是移交
+					String from = request.getParameter("from");
+					request.setAttribute("from", from);
 					return "project/assign";
 				}
 				
@@ -3895,8 +3861,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						HttpServletRequest request) {
 					ResponseData<Project> responseBody = new ResponseData<Project>();
 
-					User user = (User) request.getSession().getAttribute(
-							Constants.SESSION_USER_KEY);
 					try {
 						// project id 验证
 						Project project = new Project();

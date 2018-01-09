@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.galaxyinternet.bo.GrantActualBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -37,7 +38,6 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.GrantActual;
@@ -50,7 +50,6 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
@@ -86,7 +85,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	@Autowired
 	InformationFileService informationFileService;
 	@Autowired
-	private AuthRequestUtil authReq;
+	private BaseInfoCache baseInfoCache;
 	@Autowired
 	Cache cache;
 	@Override
@@ -175,13 +174,14 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
 			if(content != null && content.size() > 0){
 				
+				Map<Long,String> userMap = baseInfoCache.getUserFromCache();
 				for(InformationListdata c : content){
 				    Long uid = null;
-					if(c.getUpdateId() != null || c.getCreateId() != null){
+					if(c.getUpdateId() != null || c.getCreateId() != null)
+					{
 						uid = c.getUpdateId()==null?c.getCreateId():c.getUpdateId();
 					}
-					Map<String,String> userMap=initCache();
-					c.setUpdateUserName(userMap.get(uid.toString()));
+					c.setUpdateUserName(userMap.get(uid));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
 				sortList.sort(content,"time","asc");
@@ -454,20 +454,5 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				_common_logger_.error("下载失败.",e);
 			}
 		}
-	}
-	public Map<String ,String > initCache( )
-	{
-		Map<String ,String > map=new HashMap<String ,String>();
-		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
-			if(userList != null && userList.size() >0)
-			{
-				for(int i=0;i<userList.size();i++)
-				{
-					Map<String,Object> mapNew=userList.get(i);
-				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
-				}
-			}
-		return map;
-		
 	}
 }

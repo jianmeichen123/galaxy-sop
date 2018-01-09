@@ -31,8 +31,6 @@ public interface ProjectService extends BaseService<Project> {
 	 */
 	public void toSureMeetingStage(Project project) throws Exception;
 	
-	public Map<String, Object> getSummary(Long userId) throws Exception;
-	
 	public List<Project> queryListById(List<Long> idList);
 	
 	public int closeProject(Project project);
