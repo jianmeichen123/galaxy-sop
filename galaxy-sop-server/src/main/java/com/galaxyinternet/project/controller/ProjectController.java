@@ -3839,23 +3839,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				 */
 				@RequestMapping(value = "/toAssignProject", method = RequestMethod.GET)
 				public String toAssignProject(HttpServletRequest request){
-					String id = request.getParameter("projectId");
-					//退回标记
-					String backSign = request.getParameter("backSign");
-					if(StringUtils.isNotBlank(id)){
-						Project project = projectService.queryById(Long.parseLong(id));
-						request.setAttribute("pid", id);
-						request.setAttribute("pname", project.getProjectName());
-					}
-					if(StringUtils.isNotBlank(backSign)){
-						request.setAttribute("backSign", backSign);
-					}else{
-						request.setAttribute("backSign", "false");
-					}
-					InformationDictionary query = new InformationDictionary();
-					query.setTitleId(1120L);
-					List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
-					request.setAttribute("projectSourceList", projectSourceList);
+					//判断是指派还是移交
+					String from = request.getParameter("from");
+					request.setAttribute("from", from);
 					return "project/assign";
 				}
 				

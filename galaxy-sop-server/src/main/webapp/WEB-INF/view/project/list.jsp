@@ -52,10 +52,10 @@
                 <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
                
                	 <c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
                 </c:if>
 
 
