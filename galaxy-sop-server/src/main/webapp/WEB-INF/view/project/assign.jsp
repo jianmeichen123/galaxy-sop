@@ -542,14 +542,14 @@ function financeStatusFormat(value,row,index){
 	}
 	 /*checkbox column format */
 	function projectCheckbox(value, row, index) {
-		var options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value="+row.id+"/></label> ";
+		var options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value='"+row.id+"'/></label> ";
 		return options;
 	}
 	function countNum() {
 		var projectIds=[];
 		var num=$(".highlighCheckbox_checked [name='isCheck']").length;
 		$(".highlighCheckbox_checked [name='isCheck']").each(function (n) {
-			projectIds.push(this.value);
+			projectIds[n]=this.value;
 		});
 		var param={
 				"num":num,

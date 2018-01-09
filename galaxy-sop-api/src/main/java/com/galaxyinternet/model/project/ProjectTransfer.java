@@ -1,6 +1,8 @@
 package com.galaxyinternet.model.project;
 
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -19,6 +21,7 @@ public class ProjectTransfer extends PagableEntity {
     private String refuseReason;//决绝原因
    	private String createDate;//创建时间
    	private String updateDate;//修改时间
+   	private String projectIds;
    	
    	
    	
@@ -125,6 +128,17 @@ public class ProjectTransfer extends PagableEntity {
     		this.updateDate = DateUtil.longToString(updatedTime);
     	}
     }
+	
+	
+
+
+	public String getProjectIds() {
+		return projectIds;
+	}
+
+	public void setProjectIds(String projectIds) {
+		this.projectIds = projectIds;
+	}
 
 	@Override
 	public String toString() {

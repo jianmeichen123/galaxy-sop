@@ -63,7 +63,10 @@ function doSumbit(projectId){
 			return;
 		}
 		var reqUrl=platformUrl.applyTransfer;
-		sendPostRequestByJsonStr(reqUrl, $("#transfer_form").serializeObject(), callbackFun);
+		//alert($('input[name="projectIds"]').val());
+		sendPostRequestByJsonStr(reqUrl, $("#detail-form").serializeObject(), callbackFun);
+		//sendPostRequestByJsonStr(reqUrl, $("#transfer_form").serializeObject(), callbackFun);
+
 	});
 }
 function callbackFun(data){
@@ -72,7 +75,7 @@ function callbackFun(data){
 	} else {
 		layer.msg("移交成功",{time:1000},function(){
 			var url = $("#menus .on a").attr('href');
-			window.location=url;
+			window.location=platformUrl.toAssignProject+'?from=transfe';
 		});
 	}
 
