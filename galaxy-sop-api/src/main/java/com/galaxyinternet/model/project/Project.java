@@ -76,6 +76,8 @@ public class Project extends PagableEntity {
 
     //in查询
     private List<Long> deptIdList;
+    
+    private List<String> proejctIdList;
 	private Long startTime; 
 	private Long endTime;
 	
@@ -862,5 +864,17 @@ public class Project extends PagableEntity {
 	public void setDanaoProjCode(String danaoProjCode) {
 		this.danaoProjCode = danaoProjCode;
 	}
+
+	public List<String> getProejctIdList() {
+		return proejctIdList;
+	}
+
+	public void setProejctIdList(List<String> proejctIdList) {
+		this.proejctIdList = proejctIdList;
+	}
+
+	
+	
+	
 
 }

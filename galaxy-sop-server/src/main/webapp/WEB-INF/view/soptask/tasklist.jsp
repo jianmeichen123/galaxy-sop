@@ -53,22 +53,8 @@
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
-            <c:if test="${fx:hasPremission('task_transfer') or fx:hasPremission('task_abandon')}">	
-            <span class='more-task fr'>更多操作</span>
-            </c:if>
-            <c:if test="${fx:hasPremission('task_assign')}">	
-            <span class='assign-task fr'>指派任务</span>
-            </c:if>
             <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
-	          <ul class='task-toggle'>
-	          	<c:if test="${fx:hasPremission('task_transfer')}">	
-	          	<li data-code='transfer-task'>移交任务</li>
-	          	</c:if>
-	          	<c:if test="${fx:hasPremission('task_abandon')}">	
-	          	<li data-code='abandon-task'>放弃任务</li>
-	          	</c:if>
-	          </ul>
-      	  </div>
+          </div> 
           
         </div>
     <!--右中部内容-->
@@ -142,12 +128,71 @@ function getSelectedIds()
 }
 function taskCheckboxFormatter(value, row, index)
 {
+	var activeTab = $('.tipslink li.on a').attr('id');
+	if(activeTab == 'claim')
+	{
+		return value;
+	}
 	if(row.taskStatus=='taskStatus:2')
 	{
 		return value;
 	}
 	return {disabled:true};
 }
+/***
+ * 
+ *	        |  全部	     |  待认领    |  待完工	    |  已完成  |	部门待完工
+ *	人事经理	|  移交、放弃   |         |  移交、放弃	|        |
+ *	人事总监	|  指派、放弃   |  指派        |  指派、放弃	|        |  指派
+ */
+function toggleOperatBtns()
+{
+	$("#custom-toolbar .dynamic").remove();
+	
+	var activeTab = $('.tipslink li.on a').attr('id');
+	var opts = new Array()
+	if(activeTab == 'all' || activeTab == 'todeal')
+	{
+		<c:if test="${fx:hasPremission('task_assign')}">
+		opts.push({code:'assign-task',name:'指派任务'});
+		</c:if>
+		<c:if test="${fx:hasPremission('task_transfer')}">
+		opts.push({code:'transfer-task',name:'移交任务'});
+		</c:if>
+		<c:if test="${fx:hasPremission('task_abandon')}">
+		opts.push({code:'abandon-task',name:'放弃任务'});
+		</c:if>
+		
+	}
+	else if(activeTab == 'claim' || activeTab == 'dep-unfinished')
+	{
+		<c:if test="${fx:hasPremission('task_assign')}">
+		opts.push({code:'assign-task',name:'指派任务'});
+		</c:if>
+	}
+	else if(activeTab == 'finish')
+	{
+		
+	}
+	var content = '';
+	if(opts.length>1)
+	{
+		content += '<span class="more-task fr dynamic">更多操作</span>';
+		content += '<ul class="task-toggle dynamic">';
+		$.each(opts,function(){
+			content += '<li data-code="'+this.code+'">'+this.name+'</li>';
+		});
+		content += '</ul>';
+	}
+	else if(opts.length == 1)
+	{
+		content = '<span class="one-task fr dynamic" data-code="'+opts[0].code+'">'+opts[0].name+'</span>';
+	}
+	$(content).insertBefore($("#search-task-btn"));
+}
+
+
+
     var flag="${flagUrl}";
     var num=0;
     if(flag=="jl"){

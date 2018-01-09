@@ -1344,8 +1344,8 @@ var platformUrl = {
     assignTask : Constants.sopEndpointURL + "/galaxy/soptask/assign",
     
     /**保存大脑关联关系**/
-    saveDanaoProInfo : Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat"
-    
+    saveDanaoProInfo : Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat",
+    toAssignProject:   Constants.sopEndpointURL + "galaxy/project/toAssignProject"
 }
 
 /**

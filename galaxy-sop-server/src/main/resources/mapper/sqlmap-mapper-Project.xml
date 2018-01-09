@@ -128,6 +128,13 @@
 						#{item}
 					</foreach>
 			  </if>
+			  <if test="proejctIdList != null">
+					AND id IN
+					<foreach collection="proejctIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
 		      <if test="industryOwn != null" > and industry_own = #{industryOwn,jdbcType=BIGINT} </if>
 		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
 		      

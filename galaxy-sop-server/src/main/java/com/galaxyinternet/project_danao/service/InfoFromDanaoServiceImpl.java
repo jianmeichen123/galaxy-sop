@@ -4,6 +4,7 @@ import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.service.InfoFromDanaoService;
@@ -42,6 +43,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 	private  @Value("${danao.domain}") String  danaoDomain;
 	private  @Value("${danao.static.domain}") String  danaoStaticDomain;
+	private  @Value("${xht.app.domain}") String  xhtAppDomain;
 
 
 
@@ -50,6 +52,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 	//post 获取资讯列表
 	private String searchNews = "search/news";
+
+	//跳转到 大脑项目详情页
+	private String toDanaoDetailInfo = "project_qy.html?projCode=";
 
 	//get  根据code查询项目详情 /{code}， 获取公司code
 	private String projectInfo = "api/projectList/queryProjectByCode/";
@@ -95,8 +100,6 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 
-
-
 	/**
 	 * 查询大脑项目列表,封装项目公司信息
 	 * 分条查询项目公司名称
@@ -109,7 +112,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		String uri = danaoDomain + searchProject; //+ "?uid="+map.get("uid");
 
-		Map<String,Object> object = restTemplate.postForObject(uri,(Map<String,Object>)map.get("query"), Map.class);
+		Map<String,Object> object = restTemplate.postForObject(uri,map.containsKey("query")?(Map<String,Object>)map.get("query"):map, Map.class);
 
 		Integer status = (Integer) object.get("status"); //成功:10000 失败:10001 缺少参数:10002
 		if(status.intValue() != 10000)
@@ -126,7 +129,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			DnProject target = new DnProject();
 			org.apache.commons.beanutils.BeanUtils.populate(target, tempMap);
 
-			target.setProjImage(danaoStaticDomain + target.getProjCode() + ".png" );
+			target.setProjImage(danaoStaticDomain + "project/" + target.getProjCode() + ".png" );
+			target.setHref(danaoDomain + toDanaoDetailInfo + target.getProjCode() );
 
 			uri = danaoDomain + businessInfo + target.getCompCode(); //+ "?uid="+map.get("uid");
 			Map<String,Object> gsxx = restTemplate.getForObject(uri, Map.class);
@@ -447,26 +451,34 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	 *   xhtProject        创投项目
 	 *   dnProject         创投大脑的项目
 	 *   dnZixun           创投大脑投融快讯
-	 *   xhtAppZixunZixun  星河资讯-app资讯
+	 *   xhtAppZixun       星河资讯-app资讯
+	 *
+	 //升序:asc 降序:desc ,  private String order;
+	 //排序字段              private String orderBy;
+	 //当前页码              private Integer pageNo;
+	 //每页记录数            private Integer pageSize;
+	 //搜索关键字            private String keyword;
 	 */
-	public Map<String,Long> globalSearchTypesTotal(String keyWord) throws Exception{
+	public Map<String,Long> globalSearchTypesTotal(Project project) throws Exception{
 		Map<String, Long> result = new HashMap<>();
 		Long xhtProjectTotal = 0l;
 		Long dnProjectTotal =  0l;
+		Long dnZixunTotal =  0l;
+		Long xhtAppZixunTotal =  0l;
 
 		//xhtProject        星河投创投项目
-		Project project = new Project();
-		project.setKeyword(keyWord);
 		xhtProjectTotal = projectDao.selectCount(project);
 
-
 		Map<String, Object> query = new HashMap<>();
-		query.put("keyword",keyWord);
-
+		query.put("pageNo",0);
+		query.put("pageSize",10);
+		query.put("newCaption",project.getKeyword());
+		query.put("keyword",project.getKeyword());
+		//query.put("order","desc");
+		//query.put("orderBy","setupDT");
 
 		//dnProject         创投大脑的项目
 		String uri = danaoDomain + searchProject;
-
 		Map<String,Object> object = restTemplate.postForObject(uri,query, Map.class);
 		Integer status = (Integer) object.get("status");
 		if(status.intValue() != 10000)
@@ -476,9 +488,120 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 		//dnZixun           创投大脑投融快讯
+		uri = danaoDomain + searchNews;
+		object = restTemplate.postForObject(uri,query, Map.class);
+		status = (Integer) object.get("status");
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+		pageMap = (Map<String, Object>) object.get("page");
+		if(pageMap!=null && pageMap.get("total")!= null) dnZixunTotal = new Long(pageMap.get("total").toString());
 
 
+		//xhtAppZixunZixun  星河资讯-app资讯
+		uri = xhtAppDomain;
+		object = restTemplate.postForObject(uri,query, Map.class);
+		if(object!=null && object.get("listCount")!=null){
+			xhtAppZixunTotal = new Long(object.get("listCount").toString());
+		}
+
+		result.put("xhtProjectTotal", xhtProjectTotal);
+		result.put("dnProjectTotal", dnProjectTotal);
+		result.put("dnZixunTotal", dnZixunTotal);
+		result.put("xhtAppZixunTotal", xhtAppZixunTotal);
 		return result;
 	}
+
+
+	/**
+	 * 查询创投大脑 投融快讯列表,
+	 *
+	 */
+	public Page<DnZixun> queryDnaoZixunPage(Map<String, Object> map) throws Exception
+	{
+		Page<DnZixun> page = null;
+		List<DnZixun> list = new ArrayList<DnZixun>();
+		Long total = 0l;
+
+		String uri = danaoDomain + searchNews;
+
+		Map<String,Object> object = restTemplate.postForObject(uri,map, Map.class);
+
+		Integer status = (Integer) object.get("status"); //成功:10000 失败:10001 缺少参数:10002
+		if(status.intValue() != 10000)
+			throw new Exception(status.toString());
+
+		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
+
+		if(pageMap!=null && pageMap.get("total")!= null) total = new Long(pageMap.get("total").toString());
+		if(total.intValue() == 0)
+			return new Page<DnZixun>(list, total);
+
+		List<Map<String,Object>> objectList = (List<Map<String, Object>>) pageMap.get("records");
+		for(Map<String,Object> tempMap : objectList){
+			DnZixun target = new DnZixun();
+			org.apache.commons.beanutils.BeanUtils.populate(target, tempMap);
+
+			if(target.getImgmd5() != null){
+				target.setZixunImage(danaoStaticDomain  + "news/" + target.getImgmd5() + ".png" );
+			}
+
+			if(target.getCtime() != null){
+
+			}
+
+			list.add(target);
+		}
+
+		page = new Page<DnZixun>(list, total);
+
+		return page;
+	}
+
+
+
+
+	/**
+	 * 查询 星河资讯- app资讯 列表,
+	 *
+	 */
+	public Page<DnZixun> queryXhtAppZixunPage(Map<String, Object> map) throws Exception
+	{
+		Page<DnZixun> page = null;
+		List<DnZixun> list = new ArrayList<DnZixun>();
+		Long total = 0l;
+
+		String uri = xhtAppDomain;
+		map.put("newCaption",map.get("keyword"));
+		Map<String,Object> object = restTemplate.postForObject(uri,map, Map.class);
+		if(object!=null && object.get("listCount")!=null){
+			total = new Long(object.get("listCount").toString());
+		}
+
+		List<Map<String,Object>> objectList = (List<Map<String, Object>>) object.get("newsList");
+		for(Map<String,Object> tempMap : objectList){
+			DnZixun target = new DnZixun();
+
+			target.setHref((String) tempMap.get("newsUrl"));
+			target.setTitle((String) tempMap.get("newsCaption"));
+			target.setAuther((String) tempMap.get("newsSource"));
+			if(tempMap.get("listImgArray") != null){
+				List<?> listImgArray = (List<?>) tempMap.get("listImgArray");
+				//target.setZixunImage(listImgArray.get(0));
+			}
+
+			String ctime = (String) tempMap.get("createTime");
+
+
+			list.add(target);
+		}
+
+		page = new Page<DnZixun>(list, total);
+
+		return page;
+	}
+
+
+
+
 
 }

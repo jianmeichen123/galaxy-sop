@@ -6,6 +6,13 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class DnProject extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
+
+	//===大脑 引用标识
+	private String danaoInfo;
+	private String pageSearchInfo;
+
+	private String href;
+
 	//升序:asc 降序:desc ,
 	private String order;
 	//排序字段
@@ -26,9 +33,6 @@ public class DnProject extends BaseEntity {
 	private String latestFinanceRound;
 
 
-	//===大脑 引用标识
-	private String danaoInfo;;
-
 	//项目logo    如无logo，显示项目通用的无图效果
 	//项目图片地址:http://static.galaxyinternet.com/img/project/+projCode+.png ,
 	//项目code
@@ -40,8 +44,9 @@ public class DnProject extends BaseEntity {
 	//项目名称 ：  项目标题 ,
 	private String projTitle;
 
-	//所在行业    没有则不显示
+	//所在行业 一级二级   没有则不显示
 	private String industryName;
+	private String industrySubName;
 
 	//所在地区    没有则不显示
 	private String districtSubName;
@@ -53,7 +58,8 @@ public class DnProject extends BaseEntity {
 	//成立时间
 	private String setupDT;
 
-
+	//项目slogan 简介
+	private String introduce;
 	/*
 	 * 星河投项目id ：  projId
      * 报告题code ：   titleCode
@@ -220,5 +226,37 @@ public class DnProject extends BaseEntity {
 
 	public void setDanaoInfo(String danaoInfo) {
 		this.danaoInfo = danaoInfo;
+	}
+
+	public String getPageSearchInfo() {
+		return pageSearchInfo;
+	}
+
+	public void setPageSearchInfo(String pageSearchInfo) {
+		this.pageSearchInfo = pageSearchInfo;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public String getIndustrySubName() {
+		return industrySubName;
+	}
+
+	public void setIndustrySubName(String industrySubName) {
+		this.industrySubName = industrySubName;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 }
