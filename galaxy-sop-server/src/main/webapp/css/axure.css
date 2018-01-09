@@ -3974,6 +3974,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table tr td{text-align:center;color:#5a626d;}
 .task-detail-table tr td:nth-child(1){text-align:left;}
 .table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
+.pagebox .table_new_checkbox thead tr th:nth-child(1){padding-left:8px !important; width:20px !important;}
+.pagebox .table_new_checkbox tbody tr td:nth-child(1){padding:9px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
 .taskDetail-mesage-update{margin-top:40px;}
 .upate-task{font-family:Microsoft YaHei;display:inline-block;padding:0 20px;height:32px;background:#3ca6ff;line-height:32px;text-align:center;font-size:14px;border-radius:2px;color:#fff;cursor:pointer;}

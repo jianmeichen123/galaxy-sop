@@ -21,17 +21,22 @@
 	<div class='content_task'>
 		<div class='title_top'>
 			<h3>指派项目</h3>
+<<<<<<< HEAD
 			 <%-- <c:if test="${from eq 'assign' }"> --%>
+=======
+>>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
+<<<<<<< HEAD
 			<%-- </c:if> --%>
 			 <c:if test="${from eq 'transfer'}">
+=======
+>>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
-			</c:if>
 		</div>
 		<div class="pageTop clearfix">
 			<div class="buttonGroup clearfix">				
 				<div class="form-group">
-			      <select name='projectDepartid' class="selectpicker" id="projectDepartid">
+			      <select name='projectDepartid' class="selectpicker">
 					  <option index="-1" value="0">全部事业部</option>
 					</select>
 			  	</div>
@@ -42,13 +47,19 @@
 					  <option>全部</option>
 					</select>
 			  	</div>
-
+				
 				<div class="form-group">
+			      <select name="projectProgress" class="selectpicker">
+					  <option>项目进度</option>
+					  <option>全部</option>
+					</select>
+			  	</div>
+				<!-- <div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
 					 <option value="0">全部</option>
 					</select>
-			 	</div>
+			 	</div> -->
 
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
@@ -93,7 +104,11 @@
 				    <tr>
 				   		<th data-field="projectNameOne"  data-formatter="projectCheckbox" class="data-input" data-width="1%">
 				    		<label class='highlighCheckbox_th'>
+<<<<<<< HEAD
 				    				<input type="checkbox">
+=======
+				    				<input type="checkbox" name="">
+>>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 				    		</label> 
 				    		
 				    	</th>
@@ -113,27 +128,7 @@
  				
  				</tbody>
 			</table> 
-		
- 			<!-- <tbody>
- 					<tr>
- 						<td>
- 							<label class='highlighCheckbox'>
-				    			<input type="checkbox" name="">
-				    		</label>
-				    	</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>
- 						<td>人事尽职调查报告</td>s
- 						<td>人事尽职调查报告</td>
- 					</tr>
- 		
- 				</tbody> -->
+	
 			
        </div>
 	</div>
@@ -154,14 +149,14 @@
 $(function(){
 	
 	//导航
-createMenus(5);
+	createMenus(5);
  $('.selectpicker').selectpicker({
   style: 'btn-info',
   size: 4,
-  val:['Mustard','Relish']
+  
 });
- 
- ///////////////////////初始化筛选条件   start
+
+ ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
  createCareelineOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
@@ -198,8 +193,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	});
  
- $('.selectpicker').selectpicker('refresh');
-/////////////////////// ///////////////////////初始化筛选条件finish
+	 $('.selectpicker').selectpicker('refresh');
+///////////////////////初始化筛选条件finish
  
  
  detailHeaderWidth();
@@ -319,9 +314,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	}else{
         		initParams=undefined;
         	}  */
-        	//alert('dd')
         	if(typeof(initParams) !== 'undefined'){
-        	//	alert('cc')
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
         		if(initParams.financeStatus != ''){
@@ -397,8 +390,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
     		}
         	initPageSize=10;
         	
- /* checkbox 处理**************************************************** start/	
-        /* checkbox 点击 */
+        	
+       	 /* checkbox 点击 */
        	 $('.highlighCheckbox').click(function(event){
        		 $(this).toggleClass('highlighCheckbox_checked');
        		 event.preventDefault(); 
@@ -413,162 +406,154 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
        		 }
        		 event.preventDefault(); 
        	 })
+        	
+        	
+        	
         }
+        
+       
+        
+        
 	});
 	
  
 })
+ 
 
-
-   
+ 	 function projectInfo(value,row,index){//项目名称
+		    var id=row.id;
+			var str=row.projectName;
+			if(str.length>10){
+				subStr = str.substring(0,10);
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+				return options;
+			}
+			else{
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+				return options;
+			}
+		} 
+		
+//点击跳转详情页面方法,附带参数过去
+function proInfo(id){
+	//项目详情页返回地址
+	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
+	//返回附带参数功能代码
+	var options = $("#project-table").bootstrapTable('getOptions');
+	var tempPageSize = options.pageSize ? options.pageSize : 10;
+	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+	//var projectType = $("select[name='projectType']").val();
+	var financeStatus = $("select[name='financeStatus']").val();
+	var projectProgress = $("select[name='projectProgress']").val();
+	var projectStatus = $("select[name='projectStatus']").val();
+	var projectDepartid = $("select[name='projectDepartid']").val();
+	var createUid = $("select[name='createUid']").val();
+	var nameCodeLike = $("input[name='nameCodeLike']").val();
+	var projectPerson = $("input[name='projectPerson']").val();
+	var faFlag = $("select[name='faFlag']").val();
 	
-	
-/* checkbox 处理**************************************************** end*/	
-    
-    
-//column name format @@@@@@@@@@@@@@@@      start     @@@@@@@@@@@@@@@@
-	function projectInfo(value, row, index) {//项目名称
-		var id = row.id;
-		var str = row.projectName;
-		if (str.length > 10) {
-			subStr = str.substring(0, 10);
-			var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo('
-					+ id + ')" title="' + str + '">' + subStr + '</a>';
-			return options;
-		} else {
-			var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo('
-					+ id + ')" title="' + str + '">' + str + '</a>';
-			return options;
-		}
+	var formdata = {
+			_paramKey : 'projectList',
+			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+			_path : "/",
+			_param : {
+				pageNum : tempPageNum,
+        		pageSize : tempPageSize,
+        		//projectType : projectType,
+        		financeStatus : financeStatus,
+        		projectProgress : projectProgress,
+        		projectStatus : projectStatus,
+        		projectDepartid : projectDepartid,
+        		createUid : createUid,
+        		nameCodeLike : nameCodeLike,
+        		projectPerson:projectPerson,
+        		faFlag:faFlag
+			}
 	}
+	var href_url=window.location;
+	setCookie("href_url", href_url,24,'/');
+	cookieOperator.forwardPushCookie(formdata);
+}
 
-	/* //点击跳转详情页面方法,附带参数过去
-	 function proInfo(id){
-	 //项目详情页返回地址
-	 setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
-	 //返回附带参数功能代码
-	 var options = $("#project-table").bootstrapTable('getOptions');
-	 var tempPageSize = options.pageSize ? options.pageSize : 10;
-	 var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-	 //var projectType = $("select[name='projectType']").val();
-	 var financeStatus = $("select[name='financeStatus']").val();
-	 var projectProgress = $("select[name='projectProgress']").val();
-	 var projectStatus = $("select[name='projectStatus']").val();
-	 var projectDepartid = $("select[name='projectDepartid']").val();
-	 var createUid = $("select[name='createUid']").val();
-	 var nameCodeLike = $("input[name='nameCodeLike']").val();
-	 var projectPerson = $("input[name='projectPerson']").val();
-	 var faFlag = $("select[name='faFlag']").val();
-	
-	 var formdata = {
-	 _paramKey : 'projectList',
-	 _url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-	 _path : "/",
-	 _param : {
-	 pageNum : tempPageNum,
-	 pageSize : tempPageSize,
-	 //projectType : projectType,
-	 financeStatus : financeStatus,
-	 projectProgress : projectProgress,
-	 projectStatus : projectStatus,
-	 projectDepartid : projectDepartid,
-	 createUid : createUid,
-	 nameCodeLike : nameCodeLike,
-	 projectPerson:projectPerson,
-	 faFlag:faFlag
-	 }
-	 }
-	 var href_url=window.location;
-	 setCookie("href_url", href_url,24,'/');
-	 cookieOperator.forwardPushCookie(formdata);
-	 } */
+/**
+ * 项目类型格式化
+ * @version 2016-06-21
+ */
+function typeFormat(value,row,index){
+	return row.type;
+}
+/**
+ * 融资状态格式化
+ * @version 2016-06-21
+ */
+function financeStatusFormat(value,row,index){
+	return row.financeStatusDs;
+}
 
-	/**
-	 * 项目类型格式化
-	 * @version 2016-06-21
-	 */
-	function typeFormat(value, row, index) {
-		return row.type;
-	}
-	/**
-	 * 融资状态格式化
-	 * @version 2016-06-21
-	 */
-	function financeStatusFormat(value, row, index) {
-		return row.financeStatusDs;
-	}
-
-	/**
-	 * 项目FA格式化
-	 * @version 2016-06-21
-	 */
-	function projectFaFormat(value, row, index) {
+/**
+ * 项目FA格式化
+ * @version 2016-06-21
+ */
+	function projectFaFormat(value,row,index){
 		var retStr = '-';
-		if (!row.faFlag) {
+		if(!row.faFlag)
+		{
 			return '-';
 		}
-		if (row.faName) {
-			if (row.faName.length > 4) {
-				var faName = row.faName.substring(0, 4);
-				retStr = "<div title='"+row.faFlagStr+'-'+row.faName+"'>"
-						+ row.faFlagStr + '-' + faName + "</div>";
-			} else {
-				retStr = "<div title='"+row.faFlagStr+'-'+row.faName+"'>"
-						+ row.faFlagStr + '-' + row.faName + "</div>";
+		if(row.faName)
+		{
+			if(row.faName.length>4){
+				var faName=row.faName.substring(0,4);
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
+			}else{
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
 			}
-
-		} else {
-			retStr = "<div title='"+row.faFlagStr+"'>" + row.faFlagStr
-					+ "</div>";
+			
+		}else{
+			retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
 		}
 		return retStr;
-
+		
 	}
-	/**
-	 * 项目进度格式化
-	 * @version 2016-06-21
-	 */
-	function projectProgress(value, row, index) {
-		var projectPro = row.projectProgress;
-		var num = projectPro.substring(projectPro.lastIndexOf(":") + 1,
-				projectPro.length);
-		var proStatus = row.projectStatus;
-		var pronum = proStatus.substring(proStatus.lastIndexOf(":") + 1,
-				proStatus.length);
+/**
+ * 项目进度格式化
+ * @version 2016-06-21
+ */
+ function projectProgress(value,row,index){
+	var projectPro = row.projectProgress;
+	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+	var proStatus = row.projectStatus;
+	var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
 
-		return row.progress;
-	}
+	return row.progress;
+}
 
 	/**
 	 * 创建时间格式化
 	 * @version 2016-06-21
 	 */
-	function createdFormat(value, row, index) {
+	function createdFormat(value,row,index){
 		return row.createDate;
 	}
 	/**
 	 * 更新时间格式化
 	 * @version 2016-06-21
 	 */
-	function updateFormat(value, row, index) {
+	function updateFormat(value,row,index){
 		return row.updateDate;
 	}
 	/**
 	 * 项目状态格式化
 	 * @version 2016-06-21
 	 */
-	function projectStatusFormat(value, row, index) {
+	function projectStatusFormat(value,row,index){
 		return row.projectStatusDs;
 	}
-	
 	 /*checkbox column format */
 	function projectCheckbox(value, row, index) {
 		var options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value="+row.id+"/></label> ";
 		return options;
 	}
-	
-	//column name format @@@@@@@@@@@@@@@@      end        @@@@@@@@@@@@@@@@
-
 	function countNum() {
 		
 		var projectIds=[];
@@ -583,4 +568,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		return param;
 		
 	}
+=======
+	 
+>>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 </script>
