@@ -555,7 +555,6 @@ function financeStatusFormat(value,row,index){
 		return options;
 	}
 	function countNum() {
-		
 		var projectIds=[];
 		var num=$(".highlighCheckbox_checked [name='isCheck']").length;
 		$(".highlighCheckbox_checked [name='isCheck']").each(function (n) {
@@ -568,7 +567,4 @@ function financeStatusFormat(value,row,index){
 		return param;
 		
 	}
-=======
-	 
->>>>>>> branch 'dev_1.11' of http://git.gi.com/galaxy-star/galaxy-sop.git
 </script>
