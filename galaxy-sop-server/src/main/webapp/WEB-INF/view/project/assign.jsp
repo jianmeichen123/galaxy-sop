@@ -245,10 +245,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}
 	//搜索
 	var initParams;
-	var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
+	//var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
 	var initPageSize = 10;
-	console.log(pageParams)
-	
 	
 	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
@@ -256,35 +254,38 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	} */
 	
 	$("span[class='querySearch']").click(function(){
-		buryPoint("98");
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		//buryPoint("98");
+		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		initParams;
+		 $('#assign-table').bootstrapTable('refresh')
 		console.log(initParams)
 	});
 	
 	/* change事件*/
-	
+	//事业线
 	$('select[name="projectDepartid"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		$('#assign-table').bootstrapTable('refresh')
+		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 	});
 	
 	
@@ -307,15 +308,15 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         singleSelect:true,
         //返回附带参数功能代码
         queryParams : function(param){
-        	console.log(param)
         	/* if(getCookieValue("backProjectList")!=''){
         		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
         		deleteCookie("backProjectList","/");
         	}else{
         		initParams=undefined;
-        	} */
-        	/* debugger */
+        	}  */
+        	alert('dd')
         	if(typeof(initParams) !== 'undefined'){
+        		alert('cc')
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
         		if(initParams.financeStatus != ''){
@@ -346,6 +347,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         		var options = $("#data-table").bootstrapTable('getOptions');
  	        	options.pageNumber = initParams.pageNum - 1; 
     		}
+        	console.log(param)
         	return param;
         	
         },
