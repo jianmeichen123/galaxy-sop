@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationFileDao;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
@@ -37,7 +38,6 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -82,7 +82,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Autowired
 	private InformationFileDao infoFileDao;
 	@Autowired
-	private AuthRequestUtil authReq;
+	private BaseInfoCache baseInfoCache;
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
 		return this.informationTitleDao;
@@ -755,10 +755,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		listdataQuery.setTitleIds(titleIds);
 		listdataQuery.setProperty("created_time");
 		listdataQuery.setDirection(Direction.ASC.toString());
-		Map<String,String> userMap=initCache();
 		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
 		if(listdataList != null && listdataList.size() > 0)
 		{
+			Map<Long,String> userMap = baseInfoCache.getUserFromCache();
 			InformationTitle title = null;
 			List<InformationListdata> tempList = null;
 			for(InformationListdata item : listdataList)
@@ -777,12 +777,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					}
 					if(item.getCreateId() != null)
 					{
-						String createUserName =userMap.get(item.getCreateId().toString());
+						String createUserName =userMap.get(item.getCreateId());
 						item.setCreateUserName(createUserName);
 					}
 					if(item.getUpdateId() != null)
 					{
-						String updateUserName = userMap.get(item.getUpdateId().toString());
+						String updateUserName = userMap.get(item.getUpdateId());
 						item.setUpdateUserName(updateUserName);
 					}
 					if(item.getCreatedTime() != null)
@@ -1190,7 +1190,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(listdataList != null && listdataList.size()>0)
 		{
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
-			Map<String,String> userMap=initCache();
+			Map<Long,String> userMap = baseInfoCache.getUserFromCache();
 			for(InformationListdata item : listdataList)
 			{
 				
@@ -1208,12 +1208,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						}
 						if(item.getCreateId() != null)
 						{
-							String createUserName = userMap.get(item.getCreateId().toString());
+							String createUserName = userMap.get(item.getCreateId());
 							item.setCreateUserName(createUserName);
 						}
 						if(item.getUpdateId() != null)
 						{
-							String updateUserName = userMap.get(item.getUpdateId().toString());
+							String updateUserName = userMap.get(item.getUpdateId());
 							item.setUpdateUserName(updateUserName);
 						}
 						if(item.getCreatedTime() != null)
@@ -1428,21 +1428,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		 return true;
 		}
 	
-	public Map<String ,String > initCache( )
-	{
-		Map<String ,String > map=new HashMap<String ,String>();
-		List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
-			if(userList != null && userList.size() >0)
-			{
-				for(int i=0;i<userList.size();i++)
-				{
-					Map<String,Object> mapNew=userList.get(i);
-				map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
-				}
-			}
-		return map;
-		
-	}
 	/**
 	 * type = 22,标题和对应选项（list_data）映射
 	 */

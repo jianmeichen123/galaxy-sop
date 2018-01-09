@@ -1584,26 +1584,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ResponseBody
-	@RequestMapping(value = "/getSummary", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData getSummary(HttpServletRequest request) {
-		ResponseData resp = new ResponseData();
-		try {
-			String userId = getUserId(request);
-			Map<String, Object> summary = null;
-			if (StringUtils.isNotEmpty(userId)) {
-				summary = projectService.getSummary(Long.valueOf(userId));
-			}
-			resp.setUserData(summary);
-		} catch (Exception e) {
-			_common_logger_.error("获取数据快览失败", e);
-			resp.getResult().addError("获取数据快览失败");
-		}
-
-		return resp;
-	}
-
 	public String getHHRNname(Project p) {
 		String hhrname = "";
 		UserRole userrole = new UserRole();
@@ -3895,8 +3875,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						HttpServletRequest request) {
 					ResponseData<Project> responseBody = new ResponseData<Project>();
 
-					User user = (User) request.getSession().getAttribute(
-							Constants.SESSION_USER_KEY);
 					try {
 						// project id 验证
 						Project project = new Project();

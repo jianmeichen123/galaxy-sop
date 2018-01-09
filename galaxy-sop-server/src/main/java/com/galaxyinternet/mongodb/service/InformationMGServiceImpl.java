@@ -25,7 +25,6 @@ import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.utils.AuthRequestUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.hologram.util.RegexUtil;
@@ -60,12 +59,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 	private InformationTitleDao informationTitleDao;
 	@Autowired
 	private InformationCreateTimeMGService informationCreateTimeMGService;
-	
 	@Autowired
 	private Cache cache;
-	
-	@Autowired
-	private AuthRequestUtil authReq;
 	@Override
 	public void save(InformationDataMG data) throws CloneNotSupportedException {
 		// TODO Auto-generated method stubime
@@ -453,7 +448,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 		InformationListdataMG listdataQuery = new InformationListdataMG();
 		listdataQuery.setProjectId(projectId);
 		listdataQuery.setTitleIds(valueList);
-		Map<String,String> userMap=initCache();
 		List<InformationListdataMG> listdataList = null;
 		try {
 			listdataList = informationListdataMGService.find(listdataQuery);
@@ -479,24 +473,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					{
 						tempList = title.getDataMGList();
 					}
-				/*	if(item.getCreateId() != null)
-					{
-						String createUserName =userMap.get(item.getCreateId().toString());
-						item.setCreateUserName(createUserName);
-					}
-					if(item.getUpdateId() != null)
-					{
-						String updateUserName = userMap.get(item.getUpdateId().toString());
-						item.setUpdateUserName(updateUserName);
-					}
-					if(item.getCreateTime() != null)
-					{
-						item.setCreateTimeStr(item.getCreateTime());
-					}
-					if(item.getUpdateTime() != null)
-					{
-						item.setUpdateTimeStr(item.getUpdateTime());
-					}*/
 					tempList.add(item);
 				}
 			}
@@ -544,21 +520,6 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 					}
 				}
 			}
-		}
-		public Map<String ,String > initCache( )
-		{
-			Map<String ,String > map=new HashMap<String ,String>();
-			List<Map<String,Object>> userList =(List<Map<String, Object>>) authReq.getUserList();
-				if(userList != null && userList.size() >0)
-				{
-					for(int i=0;i<userList.size();i++)
-					{
-						Map<String,Object> mapNew=userList.get(i);
-					map.put(mapNew.get("userId").toString(), String.valueOf(mapNew.get("userName")));
-					}
-				}
-			return map;
-			
 		}
 		/**
 		 * 根据父id 查询其子集

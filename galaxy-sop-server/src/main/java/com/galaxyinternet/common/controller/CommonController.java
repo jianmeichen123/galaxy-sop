@@ -3,11 +3,8 @@ package com.galaxyinternet.common.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -40,13 +37,10 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.BuryRequest;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.platform.constant.PlatformConst;
-import com.galaxyinternet.service.BuryPointService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
@@ -78,9 +72,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private UserService userService;
 	@Autowired
 	private ResourceService resourceService;
-	@Autowired
-	private BuryPointService  buryPointService;
-	
 	@Autowired
 	private BuryRequest buryRequest;
 	

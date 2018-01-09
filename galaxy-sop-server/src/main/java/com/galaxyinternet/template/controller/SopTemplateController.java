@@ -30,6 +30,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -45,7 +46,6 @@ import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.template.TemplateMailInfo;
@@ -53,15 +53,12 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTemplateService;
-import com.galaxyinternet.service.UserService;
 @Controller
 @RequestMapping("/galaxy/template")
 public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTemplateBo> {
 	final Logger logger = LoggerFactory.getLogger(SopTemplateController.class);
 	@Autowired
 	private SopTemplateService templateService;
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -95,12 +92,11 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			User user = (User) getUserFromSession(request);
 			if(user != null && user.getId() != null)
 			{
-				Role role = userService.getRoleByUserId(user.getId());
 				List<String>  types = null;
 				String typesStr = "";
 				String editableTypes = "";
 				SopTemplateBo query = new SopTemplateBo();
-				if(UserConstant.TZJL == role.getId())
+				if(WebUtils.hasRole(UserConstant.TZJL))
 				{
 					List<Long> departmentIdList = new ArrayList<Long>();
 					typesStr = "templateType:1,templateType:2,templateType:3,templateType:4,templateType:5,templateType:6,templateType:7";
@@ -111,17 +107,17 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 					departmentIdList.add(SopConstant.DEPARTMENT_CW_ID);
 					query.setDepartmentIds(departmentIdList.toArray(new Long[departmentIdList.size()]));
 				}
-				else if(UserConstant.HRJL == role.getId() || UserConstant.HRZJ == role.getId() )
+				else if(WebUtils.hasRole(UserConstant.HRJL) || WebUtils.hasRole(UserConstant.HRZJ))
 				{
 					typesStr = DictEnum.TemplateType.RSJD.getCode();
 					editableTypes = typesStr;
 				}
-				else if(UserConstant.CWJL == role.getId() || UserConstant.CWZJ == role.getId() )
+				else if(WebUtils.hasRole(UserConstant.CWJL) || WebUtils.hasRole(UserConstant.CWZJ) )
 				{
 					typesStr = DictEnum.TemplateType.CWJD.getCode();
 					editableTypes = typesStr;
 				}
-				else if(UserConstant.FWJL == role.getId() || UserConstant.FWZJ == role.getId() )
+				else if(WebUtils.hasRole(UserConstant.FWJL) || WebUtils.hasRole(UserConstant.FWZJ) )
 				{
 					typesStr = DictEnum.TemplateType.FWJD.getCode()+","+DictEnum.TemplateType.TZXY.getCode()+","+DictEnum.TemplateType.TZYXS.getCode()+","+DictEnum.TemplateType.GQZR.getCode();
 					editableTypes = typesStr;
