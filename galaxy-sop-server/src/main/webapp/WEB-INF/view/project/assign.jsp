@@ -240,9 +240,10 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		return "";
 	}
 	//搜索
-	var initParams,
-	//pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
-	initPageSize = 10;
+	var initParams;
+	var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
+	var initPageSize = 10;
+	console.log(pageParams)
 	
 	
 	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
@@ -298,7 +299,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		//sortOrder : 'desc',
 		sortName : 'updated_time',
 		pagination: true,
-        //search: false,
+        search: false,
         singleSelect:true,
         //返回附带参数功能代码
         queryParams : function(param){

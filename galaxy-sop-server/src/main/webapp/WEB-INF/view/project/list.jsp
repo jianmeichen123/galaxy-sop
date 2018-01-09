@@ -371,7 +371,7 @@
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 			initPageSize = 10;
-		
+			console.log(pageParams)
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
 		}
