@@ -69,5 +69,5 @@
 	initTable(_url,data,0);  
 	function jumpPage(){
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-	} 
+	}  
 </script>

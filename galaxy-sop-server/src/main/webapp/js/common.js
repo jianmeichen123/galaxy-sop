@@ -1988,6 +1988,7 @@ function pagePop(even){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		}
+				$(".rightLink").hide()
 				//大脑tableList分页   
 				initTable(_url,data,1,code); 
 				
@@ -2009,9 +2010,9 @@ function pagePop2(codes){
 			   			"keyword":projectInfo.projectName,
 						"orderBy":"projTitle", 
 			    		} 
+				$(".rightLink").hide()
 				//大脑tableList分页   
 				initTable(_url,data,1,code); 
-				
 		}
 	}) 
 }
@@ -2053,8 +2054,8 @@ function getpopHTML(code,even,status){
 			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){   
-			$(".rightLink").attr("href","javascript:;");
-			$(".rightLink").click(function(){ 
+			$(".backLink").attr("href","javascript:;");
+			$(".backLink").click(function(){ 
 				 var dataJson={
 							projId:projectId ,
 							projCode:"",

@@ -7,7 +7,7 @@
 	margin: 0 16px;
 
 }
-.infoTop .rightLink{
+.infoTop .rightLink,.infoTop .backLink{
     float: right;
     top: -42px;
     position: relative;

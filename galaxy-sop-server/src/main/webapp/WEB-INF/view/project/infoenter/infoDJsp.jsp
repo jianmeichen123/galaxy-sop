@@ -46,7 +46,7 @@ input:checked + label::before {
 			<li data-content="2" class="active"> <p>选择有效推荐信息</p></li>
 			<li data-content="3"> <p>完善项目剩余信息</p></li>
 		</ul>
-		<a href="javascript:history.go(-1)" class="rightLink">重新选择项目引用></a>
+		<a href="javascript:history.go(-1)" class="backLink">重新选择项目引用></a>
 	</div> 
 	<div class="tableBox infoBox ">
 		 <ul class="infoConList">
