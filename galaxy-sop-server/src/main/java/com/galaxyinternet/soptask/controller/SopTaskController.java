@@ -865,7 +865,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		{
 			if(jedis != null)
 			{
-				jedis.close();
 				cache.returnJedis(jedis);
 			}
 		}

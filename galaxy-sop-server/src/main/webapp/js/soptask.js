@@ -3,13 +3,12 @@
  */
 $(function(){
 	   //更多操作点击显示
-	   $('.more-task').mouseenter(function(){
-		   $('.task-toggle').slideDown();
-	   });
-	   $('.task-toggle').mouseleave(function(){
-		    $('.task-toggle').slideUp();
-	   });
-	   
+	$('#custom-toolbar').on('mouseenter','.more-task',function(){
+		$('.task-toggle').slideDown();
+	});
+	$('#custom-toolbar').on('mouseleave','.task-toggle',function(){
+		$('.task-toggle').slideUp();
+	});
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		addTaskCookie();
@@ -49,30 +48,14 @@ $(function(){
 	//	this.href=endUrl;
 	});
 	//指派任务点击跳转
-	$(".assign-task").on("click",function() {
+	$('#custom-toolbar').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
 		var rows = $("#task-table").bootstrapTable('getSelections');
 		if(rows.length==0)
 		{
 			layer.msg('请至少选择一条待办任务');
 			return;
 		}
-		$.getHtml({
-			url:platformUrl.assignTask
-		});
-		$('.close').addClass('tast-close')//添加关闭按钮
-		$('.pop').addClass('task-pop');//去掉圆角
-	});
-	
-	/*指派任务弹窗点击事件*/
-	$('.task-toggle li').click(function(){
-		var rows = $("#task-table").bootstrapTable('getSelections');
-		if(rows.length==0)
-		{
-			layer.msg('请至少选择一条待办任务');
-			return;
-		}
-		var index = $(this).index();
-		var code = $(this).attr("data-code");
+		var code = $(this).attr('data-code');
 		$.getHtml({
 			url:getDetailUrl(code)
 		});
@@ -86,8 +69,14 @@ $(function(){
 		if(code =='transfer-task')
 		{	
 			return platformUrl.transferTask;
-		}else if(code === 'abandon-task'){
+		}
+		else if(code === 'abandon-task')
+		{
 			return platformUrl.giveupTask;
+		}
+		else if(code === 'assign-task')
+		{
+			return platformUrl.assignTask;
 		}
 		return "";
 	}
@@ -122,23 +111,7 @@ var tableDefaultOpts = {
 	pagination: true,
     search: false,
     onLoadSuccess: function (data) {
-    	var activeTab = $('.tipslink li.on a').attr('id');
-    	if(activeTab == 'all' || activeTab == 'todeal')
-		{
-    		$('.more-task').show();
-		}
-    	else
-		{
-    		$('.more-task').hide();
-		}
-    	if(activeTab == 'dep-unfinished')
-		{
-    		$('.assign-task').show();
-		}
-    	else
-		{
-    		$('.assign-task').hide();
-		}
+    	toggleOperatBtns();
     }
 };
 function searchTask()

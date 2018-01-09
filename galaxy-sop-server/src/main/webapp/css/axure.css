@@ -3949,7 +3949,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-cx{height:29px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
-.assign-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
+.one-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
 .more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
 .task-toggle{display:none;position:absolute;right:11px;top:-10px;z-index:10;width:88px;height:65px;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
 .task-toggle li{cursor:pointer;height:32px;line-height:32px;}
