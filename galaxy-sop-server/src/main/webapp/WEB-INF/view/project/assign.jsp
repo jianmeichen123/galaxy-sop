@@ -249,10 +249,41 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}
 	
 	$("span[class='querySearch']").click(function(){
-		alert('dd')
 		buryPoint("98");
 		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		console.log(initParams)
 	});
+	
+	/* change事件*/
+	
+	$('select[name="projectDepartid"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//投资经理
+	$('select[name="createUid"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目进度
+	$('select[name="projectProgress"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目状态
+	$('select[name="projectStatus"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//融资状态
+	$('select[name="financeStatus"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	//项目来源
+	$('select[name="faFlag"]').change(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	});
+	
+	
+	
+	
+	
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
@@ -275,6 +306,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         	}else{
         		initParams=undefined;
         	}
+        	
         	if(typeof(initParams) !== 'undefined'){
     			param.pageNum = initParams.pageNum - 1;
         		param.pageSize = initParams.pageSize;
@@ -355,57 +387,34 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
     			}
     		}
         	initPageSize=10;
+        	
+        	
+       	 /* checkbox 点击 */
+       	 $('.highlighCheckbox').click(function(event){
+       		 $(this).toggleClass('highlighCheckbox_checked');
+       		 event.preventDefault(); 
+       		 
+       	 });
+       	 //全选
+       	 $('.highlighCheckbox_th').click(function(event){
+       		 $(this).toggleClass('highlighCheckbox_checked');
+       		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
+       		 if(!$(this).hasClass('highlighCheckbox_checked')){
+       			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
+       		 }
+       		 event.preventDefault(); 
+       	 })
+        	
+        	
+        	
         }
+        
+        
+        
+        
 	});
 	
-	
-	
-	function typeFormat(value,row,index){
-		return row.type;
-	}
-	/**
-	 * 项目FA格式化
-	 * @version 2016-06-21
-	 */
-	function projectFaFormat(value,row,index){
-		var retStr = '-';
-		if(!row.faFlag)
-		{
-			return '-';
-		}
-		if(row.faName)
-		{
-			if(row.faName.length>4){
-				var faName=row.faName.substring(0,4);
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
-			}else{
-				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
-			}
-			
-		}else{
-			retStr="<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
-		}
-		return retStr;
 		
-	}
-	/**
-	 * 项目状态格式化
-	 * @version 2016-06-21
-	 */
-	function projectStatusFormat(value,row,index){
-		return row.projectStatusDs;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
  
 })
 
@@ -463,6 +472,7 @@ function proInfo(id){
 	setCookie("href_url", href_url,24,'/');
 	cookieOperator.forwardPushCookie(formdata);
 }
+
 /**
  * 项目类型格式化
  * @version 2016-06-21
@@ -539,30 +549,12 @@ function financeStatusFormat(value,row,index){
 	}
 	
 	
-
+/*checkbox  */
 	 function projectCheckbox(value,row,index){//项目名称
-				var options = "<label class='highlighCheckbox_th'><input type='checkbox' name=''/></label> ";
+				var options = "<label class='highlighCheckbox'><input type='checkbox' name=''/></label> ";
 				return options;
 		}
 	 
-	 /* checkbox 点击 */
-	 $('.highlighCheckbox').click(function(event){
-		 $(this).toggleClass('highlighCheckbox_checked');
-		 event.preventDefault(); 
-		 
-	 });
-	 $('#assign-table tbody tr').click(function(){
-		 alert('dd')
-	 })
-	 //全选
-	 $('.highlighCheckbox_th').click(function(event){
-		 alert('ddd')
-		 $(this).toggleClass('highlighCheckbox_checked');
-		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
-		 if(!$(this).hasClass('highlighCheckbox_checked')){
-			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
-		 }
-		 event.preventDefault(); 
-	 })
+
 	 
 </script>
