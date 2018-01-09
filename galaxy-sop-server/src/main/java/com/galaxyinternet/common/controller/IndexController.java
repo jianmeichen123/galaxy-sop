@@ -419,6 +419,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	{
 		return "desktop/"+moudle;
 	}
+	
+	/**
+	 * 完善简历的弹出层
+	 */
+	@RequestMapping(value="/upgrade", method = RequestMethod.GET)
+	public String upgrade(){
+		return "/error/upgrade";
+	}
 
 	
 }
