@@ -41,8 +41,8 @@
 
   <a href="javascript:;" class="logo null">星河投</a>
     <div class='fl input-search'>
-    	<input type="text" placeholder="请输入项目名称"/>
-    	<span><a href="<%=path %>/galaxy/test/searchResult">全局搜索</a></span>
+    	<input type="text" placeholder="请输入关键字进行搜索"/>
+    	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul'>
     		<li>搜索历史</li>
     		<li>滴滴打车</li>
@@ -50,6 +50,10 @@
     		<li>蚂蚁森林</li>
     		<li>互联网医疗</li>
     	</ul>
+    </div>
+    <div class='fl input-search input-show'>
+    	<input type="text" placeholder="请输入项目名称"/>
+    	<span><a href="javascript:;">全局搜索</a></span>
     </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
@@ -295,6 +299,23 @@ $(window).resize(function(){
  $(".erwm").hover(function(){
 	 $(".erwm_show").toggle();
  })
-  })			
+ 
+ 
+  })		
+  
+  /*100个汉字限制  */
+  $('.input-search').bind('input propertychange',function(){
+	 	var inputValue = $('.input-search input').val();
+	 	if(inputValue.length>100){
+	 		var inputValue = inputValue.substring(0,200);
+	 		$('.input-search input').val(inputValue)
+	 	}
+  })
+  
+   /* 隐藏input */	
+	 $('.hideThis').click(function(){
+		<%-- window.location.href="<%=path %>/galaxy/test/searchResult" --%>
+		//$(this).hide();
+	 })
  
 </script>
