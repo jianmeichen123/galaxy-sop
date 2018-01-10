@@ -29,7 +29,15 @@ public class SopMessageServiceImpl extends BaseServiceImpl<SopMessage> implement
 	@Override
 	public void add(OperationMessageType type, Long userId, Map<String,Object> params)
 	{
-		if(type == null)
+		if(type == null || params == null)
+		{
+			return;
+		}
+		if(!params.containsKey(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE))
+		{
+			return;
+		}
+		if(!params.containsKey(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS))
 		{
 			return;
 		}

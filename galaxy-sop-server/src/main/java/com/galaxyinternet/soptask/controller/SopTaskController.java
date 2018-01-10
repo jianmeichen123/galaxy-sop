@@ -33,7 +33,6 @@ import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
-import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.CacheHelper;
@@ -372,7 +371,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		}
 		String fileWorktype = "";
 		UrlNumber urlNum = null;
-		String messageType = null;
 		switch (soptask.getTaskFlag())
 		{
 		case 0: // 完善简历
@@ -383,22 +381,18 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			break;
 		case 2: // 人事尽职调查报告
 			urlNum = UrlNumber.two;
-			messageType = "9.1";
 			fileWorktype = "fileWorktype:2";
 			break;
 		case 3: // 法务尽职调查报告
 			urlNum = UrlNumber.five;
-			messageType = "9.3";
 			fileWorktype = "fileWorktype:3";
 			break;
 		case 4: // 财务尽调报告
 			urlNum = UrlNumber.three;
-			messageType = "9.2";
 			fileWorktype = "fileWorktype:4";
 			break;
 		case 5: // 业务尽调报告
 			urlNum = UrlNumber.seven;
-			messageType = "9.6";
 			fileWorktype = "fileWorktype:1";
 			break;
 		case 6: // 投资协议
@@ -409,11 +403,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			break;
 		case 8: // 资金拨付凭证
 			urlNum = UrlNumber.four;
-			messageType = "9.5";
 			fileWorktype = "fileWorktype:9";
 			break;
 		case 9: // 工商变更登记凭证
-			messageType = "9.4";
 			urlNum = UrlNumber.six;
 			fileWorktype = "fileWorktype:8";
 			break;
