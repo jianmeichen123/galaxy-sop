@@ -46,7 +46,7 @@
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
-					  <option value="0">全部</option>
+					  <option>全部</option>
 					</select>
 			  	</div>
 				<!-- <div class="form-group">
@@ -59,21 +59,21 @@
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
 					  <option>项目状态</option>
-					 <option value="0">全部</option>
+					 <option>全部</option>
 					</select>
 			    </div>
 
 				<div class="form-group">
 			      <select name="financeStatus" class="selectpicker">
 					  <option>融资状态</option>
-					 <option value="0">全部</option>
+					 <option>全部</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="faFlag" class="selectpicker">
 					  <option>项目来源</option>
-					 <option value="0">全部</option>
+					 <option>全部</option>
 					</select>
 			  	</div>
 				
@@ -166,7 +166,6 @@ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource
  * 根据事业线查询相应的投资经理
  * @version 2016-06-21
  */
- console.log($('select[name="projectDepartid"]').val())
 createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
 
 	/**
@@ -255,7 +254,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	
 	$('select[name="projectDepartid"]').find('option:selected').val();
-	console.log($('select[name="projectDepartid"]').find('option:selected').val())
 	
 	
 /* 	var param = {}
@@ -278,25 +276,28 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		var valueProjectStatus= $('select[name="projectStatus"]').val();//项目状态
 		var valuefinanceStatus= $('select[name="financeStatus"]').val();//融资状态
 		var valueFlag= $('select[name="faFlag"]').val();//项目来源
+		if(valueProjectProgress=="全部"||valueProjectProgress=="项目进度"){
+			console.log('dd')
+		}else{
+			param.projectProgress =valueProjectProgress//项目进度
+		}
+		
 		
 		param.pageNum = 1;
 		param.pageSize = 10;
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		param.projectProgress =valueProjectProgress//项目进度
+		
 		param.projectStatus = valueProjectStatus;//项目状态
 		param.financeStatus = valuefinanceStatus;//融资状态
 		return param;
 		
 	} 	
-	console.log(param.projectStatus)
-	console.log(param.projectProgress)
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
 		var valueNum = $('select[name="projectDepartid"]').val();
-		console.log(valueNum)
-		queryParams(param)
+		//queryParams(param)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
@@ -307,7 +308,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
 		var valueProjectValue = $('select[name="projectProgress"]').val();
-		console.log(valueProjectValue)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
@@ -318,7 +318,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
 		var valuefinanceStatus= $('select[name="financeStatus"]').val();
-		console.log(valuefinanceStatus)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
