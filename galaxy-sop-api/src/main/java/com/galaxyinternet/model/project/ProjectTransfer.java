@@ -1,8 +1,6 @@
 package com.galaxyinternet.model.project;
 
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;

@@ -73,7 +73,6 @@ import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationProgress;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
@@ -94,8 +93,6 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
-import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
-import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
@@ -116,11 +113,9 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
-import com.galaxyinternet.utils.SopConstatnts;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -178,10 +173,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private JointDeliveryService jointDeliveryService;
 	
-	@Autowired
-	private InformationDictionaryService infoDictService;
-	
-	 
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
 	
@@ -283,7 +274,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 */
 	@Token
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project,
@@ -362,7 +352,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						file.setMultipartFile(null);
 					}
 					_common_logger_.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
-					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 
 					final Long uid = user.getId();
 					GalaxyThreadPool.getExecutorService().execute(new Runnable(){
@@ -1045,127 +1034,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(new Result(Status.OK, null, ""));
 		return responseBody;
 	}
-	
-	
-	private boolean validatePersonMessage(Project p){
-		if(p != null){
-			List<PersonPool> personList = personPoolService.selectPersonPoolByPID(p.getId());
-			if(personList != null && personList.size() > 0){
-				for(PersonPool pool : personList){
-					if(pool.getPersonName() != null && !"".equals(pool.getPersonName().trim())
-							&& pool.getPersonSex() != null
-							&& pool.getPersonDuties() != null && !"".equals(pool.getPersonDuties().trim())
-							&& pool.getPersonBirthday() != null
-							&& (pool.getIsContacts()==1 || (pool.getIsContacts()==0 &&
-							null!=pool.getPersonTelephone()&&!"".equals(pool.getPersonTelephone())))
-							){
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	private boolean validateBusinessBook(Project p){
-		if(p != null){
-			SopFile query = new SopFile();
-			query.setProjectId(p.getId());
-			query.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
-			List<SopFile> fList = sopFileService.queryList(query);
-			if(fList != null && fList.size() > 0){
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean validateInterviewRecord(Project p){
-		if(p != null){
-			InterviewRecord query = new InterviewRecord();
-			query.setProjectId(p.getId());
-			List<InterviewRecord> irList = interviewRecordService.queryList(query);
-			if(irList != null && irList.size() > 0){
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean validateBasicData(Project p){
-		if(p != null 
-				//项目的几个大文本内容必填验证
-				&& p.getProjectDescribe() != null && !"".equals(p.getProjectDescribe().trim())
-				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
-				&& p.getCompanyLocation() != null && !"".equals(p.getCompanyLocation().trim())
-				&& p.getUserPortrait() != null && !"".equals(p.getUserPortrait().trim())
-				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
-			    && p.getProjectDescribeFinancing() != null && !"".equals(p.getProjectDescribeFinancing().trim())
-				&& p.getIndustryAnalysis() != null && !"".equals(p.getIndustryAnalysis().trim())
-				&& p.getProspectAnalysis() != null && !"".equals(p.getProspectAnalysis())
-				//融资计划不能为空
-				&& p.getProjectContribution() != null && p.getProjectContribution().doubleValue() > 0
-				&& p.getProjectShareRatio() != null && p.getProjectShareRatio().doubleValue() > 0
-				&& p.getProjectValuations() != null && p.getProjectValuations().doubleValue() > 0
-				){
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * 接触访谈阶段: 启动内部评审
- 	 * @deprecated Use {@link com.galaxyinternet.project_process.controller.ProjectFlowController#stageChange}instead.
-	 */
-	@Deprecated 
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
-	@ResponseBody
-	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> startReview(HttpServletRequest request,
-			@PathVariable("pid") Long pid) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
-		Project project = projectService.queryById(pid);
-		String message="无法启动内部评审，需要补全以下信息：商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息。";
-		if(!validateBasicData(project) 
-				|| !validateInterviewRecord(project)
-				|| !validateBusinessBook(project)
-				|| !validatePersonMessage(project)){
-			responseBody.setResult(new Result(Status.ERROR, "401", message));
-			return responseBody;
-		}
-		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(),
-				project, user);
-		if (!result.getStatus().equals(Status.OK)) {
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		InterviewRecord ir = new InterviewRecord();
-		ir.setProjectId(pid);
-		Long count = interviewRecordService.queryCount(ir);
-		if (count != null && count.doubleValue() > 0) {
-			try {
-				project.setProjectProgress(DictEnum.projectProgress.内部评审
-						.getCode()); // 字典 项目进度 内部评审
-				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); // 字典
-																				// 项目状态
-																				// =
-																				// 会议结论
-																				// 待定
-				projectService.updateById(project);
-				responseBody.setResult(new Result(Status.OK, ""));
-				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),StageChangeHandler._6_2_);
-			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"异常，启动内部评审失败!"));
-				if (_common_logger_.isErrorEnabled()) {
-					_common_logger_.error("update project faild ", e);
-				}
-			}
-		} else {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"不存在访谈记录，不允许启动内部评审!"));
-		}
-		return responseBody;
-	}
 
 	/**
 	 * CEO评审阶段申请CEO评审排期
@@ -1220,51 +1088,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
-	/**
-	 * CEO评审阶段申请立项会排期
-	 * 
-	 * @author yangshuhua
-	 *  @deprecated Use {@link com.galaxyinternet.project_process.controller.ProjectFlowController#stageChange}instead.
-	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
-	@ResponseBody
-	@RequestMapping(value = "/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> ges(HttpServletRequest request,
-			@PathVariable("pid") Long pid) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
-		Project project = projectService.queryById(pid);
-		Result result = validate(DictEnum.projectProgress.CEO评审.getCode(),
-				project, user);
-		if (!result.getStatus().equals(Status.OK)) {
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		// 必须又一次会议记录为通过
-		MeetingRecord mr = new MeetingRecord();
-		mr.setProjectId(pid);
-		mr.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
-		mr.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long count = meetingRecordService.queryCount(mr);
-		if (count != null && count.doubleValue() > 0) {
-			try {
-				projectService.toEstablishStage(project);
-				responseBody.setResult(new Result(Status.OK, ""));
-				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_4_);
-			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"异常，申请立项会失败!"));
-				if (_common_logger_.isErrorEnabled()) {
-					_common_logger_.error("update project faild ", e);
-				}
-			}
-		} else {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"不存在通过的会议记录，不能申请立项会!"));
-		}
-		return responseBody;
-	}
+	
 
 	/**
 	 * 立项会阶段申请立项会排期
@@ -1310,155 +1134,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请立项会失败!"));
-			if (_common_logger_.isErrorEnabled()) {
-				_common_logger_.error("update project faild ", e);
-			}
-		}
-		return responseBody;
-	}
-
-	/**
-	 * 尽职调查阶段--申请投决会排期
-	 * 
-	 * @author yangshuhua
-	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
-	@ResponseBody
-	@RequestMapping(value = "/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,
-			@PathVariable("pid") Long pid) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
-		Project project = projectService.queryById(pid);
-		Result result = validate(DictEnum.projectProgress.尽职调查.getCode(),
-				project, user);
-		if (!result.getStatus().equals(Status.OK)) {
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		/*// 验证文档是否齐全//尽职调查去掉文件验证
-		SopFile file = new SopFile();
-		file.setProjectId(pid);
-		file.setFileValid(1);
-		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
-		List<SopFile> files = sopFileService.queryList(file);
-		if (files == null
-				|| (project.getProjectType().equals(
-						DictEnum.projectType.投资.getCode()) && files.size() < 4)
-				|| (project.getProjectType().equals(
-						DictEnum.projectType.创建.getCode()) && files.size() < 2)) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"文档不齐全，不能申请投决会!"));
-			return responseBody;
-		}
-		for (SopFile f : files) {
-			if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"文档不齐全，不能申请投决会!"));
-				return responseBody;
-			}
-		}*/
-		try {
-			//绿色通道标识 入库
-			boolean toGreen = false;
-			SopFile file = new SopFile();
-			file.setProjectId(pid);
-			file.setFileValid(1);
-			file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
-			List<SopFile> files = sopFileService.queryList(file);
-			if (files == null
-					|| (project.getProjectType().equals(DictEnum.projectType.投资.getCode()) && files.size() < 4)
-					|| (project.getProjectType().equals(DictEnum.projectType.创建.getCode()) && files.size() < 2)) {
-				toGreen = true;
-			}
-			//校验，文件记录存在，并且 aliyun中对应的key也存在
-			if(!toGreen){
-				for (SopFile f : files) {
-					if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
-						toGreen = true;
-					}
-				}
-			}
-			if(toGreen){
-				if(project.getGreanChannel() == null || StringUtils.isBlank(project.getGreanChannel())){
-					project.setGreanChannel(SopConstatnts.GreanMark.JZDC);
-				}else if(project.getGreanChannel().indexOf(SopConstatnts.GreanMark.JZDC) == -1){
-					project.setGreanChannel(project.getGreanChannel() + "," +SopConstatnts.GreanMark.JZDC);
-				}
-				
-			//如果不是绿色通道,则处理任务	
-			}else{
-				SopTask task = new SopTask();
-				//条件
-				task.setProjectId(pid);
-				task.setTaskType(DictEnum.taskType.协同办公.getCode());
-				task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
-				//修改
-				Date time = new Date();
-				task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-				task.setUpdatedTime(time.getTime());
-				task.setTaskDeadline(time);
-				sopTaskService.updateTask(task);
-			}
-			
-			projectService.toSureMeetingStage(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
-			
-		} catch (Exception e) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
-			if (_common_logger_.isErrorEnabled()) {
-				_common_logger_.error("update project faild ", e);
-			}
-		}
-		return responseBody;
-	}
-
-	/**
-	 * 投决会阶段--申请投决会排期
-	 * 
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/intj/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> inSureMeetingPool(HttpServletRequest request,
-			@PathVariable("pid") Long pid) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
-		Project project = projectService.queryById(pid);
-		Result result = validate(DictEnum.projectProgress.投资决策会.getCode(),
-				project, user);
-		if (!result.getStatus().equals(Status.OK)) {
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		try {
-			MeetingScheduling m = new MeetingScheduling();
-			m.setProjectId(project.getId());
-			m.setMeetingType(DictEnum.meetingType.投决会.getCode());
-			MeetingScheduling tm = meetingSchedulingService.queryOne(m);
-			if (!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())) {
-				tm.setStatus(DictEnum.meetingResult.待定.getCode());
-				tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-				tm.setReserveTimeStartStr(null);
-				tm.setReserveTimeEndStr(null);
-				tm.setReserveTimeEnd(null);
-				tm.setReserveTimeStart(null);
-				tm.setUpdatedTime((new Date()).getTime());
-				tm.setApplyTime(new Timestamp(new Date().getTime()));
-				meetingSchedulingService.updateById(tm);
-				responseBody.setResult(new Result(Status.OK, ""));
-				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.3", UrlNumber.one);
-			} else {
-				responseBody.setResult(new Result(Status.ERROR, null,
-						"项目不能重复申请立项会排期!"));
-			}
-		} catch (Exception e) {
-			responseBody
-					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
 			if (_common_logger_.isErrorEnabled()) {
 				_common_logger_.error("update project faild ", e);
 			}
@@ -1970,7 +1645,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/updateCommonFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> updateCommonFile(ProjectQuery p,
@@ -2022,20 +1696,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			sopFileService.updateById(sopFile);
 //			if(DictsopFile.getFileWorktype())
 			responseBody.setResult(new Result(Status.OK, null, "更新文件成功!"));
-			Project project = projectService.queryById(sopFile.getProjectId());
-			String messageType = null;
-			if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())){
-				messageType = SopFileMessageHandler._5_2_;
-			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
-				messageType = SopFileMessageHandler._5_4_;
-			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
-				messageType = SopFileMessageHandler._5_8_;
-			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-				messageType = SopFileMessageHandler._5_12_;
-			}
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(),project.getId(),
-					messageType,null,sopFile);
 		} catch (Exception e) {
 			responseBody.getResult().addError("更新失败");
 			_common_logger_.error("更新失败", e);

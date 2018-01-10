@@ -17,6 +17,7 @@ import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -25,7 +26,6 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.operationMessage.handler.ProjectTransferMessageHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
@@ -120,7 +120,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 				Long userid = projectTransfer.getAfterUid();
 				User u = userService.queryById(userid);
-				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId(), ProjectTransferMessageHandler.MESSAGE_TYPE_APPLY, true, u,
+				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId(), MessageType.TRANSFER_PROJECT.getCode(), true, u,
 						projectTransfer.getTransferReason(), DictEnum.projectProgress.getNameByCode(p.getProjectProgress()));
 		
 			     }

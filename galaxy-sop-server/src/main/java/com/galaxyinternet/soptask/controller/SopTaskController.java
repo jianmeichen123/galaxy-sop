@@ -30,6 +30,7 @@ import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
@@ -52,7 +53,6 @@ import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.soptask.TaskParams;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.PersonPoolService;
@@ -444,7 +444,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			int r = sopTaskService.submitTask(entity);
 			if (r == 1)
 			{
-				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, StageChangeHandler._6_10_);
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, MessageType.COMPLETE_TASK.getCode());
 				params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, messageType);
 			} else
 			{

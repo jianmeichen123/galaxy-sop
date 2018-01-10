@@ -14,9 +14,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.galaxyinternet.OperationLogs.component.OperationLogGenerator;
-import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.iosMessage.IosMessageGenerator;
@@ -24,14 +21,8 @@ import com.galaxyinternet.iosMessage.operType.IosMeaageOperation;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.iosMessage.IosMessage;
 import com.galaxyinternet.model.operationLog.OperationLogType;
-import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
-import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.operationMessage.MessageGenerator;
-import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
-import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
-import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
@@ -88,8 +79,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	OperationLogGenerator logGenerator;
 	@Autowired
-	MessageGenerator messageGenerator;
-	@Autowired
 	IosMessageGenerator iosMessageGenerator;
 
 	@Autowired
@@ -119,16 +108,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 							public void run() {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
-										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
-											
-											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE).equals("18")){
-												insertMessageTip(populateOperationMessage(type, user, map));
-											}else{
-												insertMessageTip(populateOperationMessage(type, user, map));
-											}
-											
-											    
-									     }
+										
 									} else if (ltype == LogType.LOG) 
 									{
 										logGenerator.generate(operLogType, user, map, recordType);
@@ -148,15 +128,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 										}else
 											toPushIosMessage(iosMessageOper,user,map);
 										
-									}else if(ltype == LogType.BATCHMESSAGE){
-										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
-											List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
-											if(mapList != null && mapList.size() > 0){
-												for(Map<String,Object> map:mapList){
-													insertMessageTip(populateOperationMessage(type, user, map));
-												}
-											}
-										}
 									}else if (ltype == LogType.PROJECTNEWS) {
 										// 这里用于扩展
 									}
@@ -170,166 +141,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		super.afterCompletion(request, response, handler, ex);
 	}
 	
-	/**
-	 * 
-	 * @Description:产生消息提醒的方法
-	 */
-	
-	private void insertMessageTip(OperationMessage message) {
-		try {
-			if(message == null){
-				return;
-			}
-			operationMessageService.insert(message);
-			StringBuffer content = new StringBuffer();
-			
-			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
-				message.setMessageType(add_project_type);
-				content.append(message.getOperator()).append("添加了项目");
-				content.append(ControllerUtils.getProjectNameLink(message));
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-				
-				List<String> messageList = message.getMessageList();
-				if(messageList != null){
-					for(String temp : messageList){
-						message.setContent(temp);
-						if(temp.indexOf("商业计划书")!=-1){
-							message.setMessageType("5.1");
-						}
-						operationMessageService.insert(message);
-					}
-				}
-				
-				
-				
-			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){
-				message.setMessageType(MeetMessageHandler.lph_message_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("添加了内评会会议纪要");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-				content.setLength(0);
-				message.setMessageType(ceo_apply_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("申请CEO评审会会议排期");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_4_)){
-				message.setMessageType(lxh_apply_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("申请立项会会议排期");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_5_)){
-				message.setMessageType(MeetMessageHandler.lxh_message_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("添加了立项会会议纪要");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_6_)){
-				message.setMessageType(SopFileMessageHandler._5_3_);
-				SopParentFile sopFile = (SopParentFile) message.getUserData();
-				content.append(message.getOperator());
-				content.append("为项目");
-				content.append(ControllerUtils.getProjectNameLink(message));
-				content.append("上传了投资意向书签署凭证");
-				content.append("《");
-				content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
-				content.append("》");	
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_7_)){
-				message.setMessageType(tjh_apply_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("申请投决会会议排期");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			}else if(message.getMessageType().equals(StageChangeHandler._6_8_)){
-				message.setMessageType(MeetMessageHandler.tjh_message_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("添加了投决会会议纪要");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){
-				SopParentFile sopFile = (SopParentFile) message.getUserData();
-				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
-					message.setMessageType(SopFileMessageHandler._5_9_);
-					content.append(message.getOperator());
-					content.append("为项目");
-					content.append(ControllerUtils.getProjectNameLink(message));
-					content.append("上传了投资协议签署凭证");
-					content.append("《");
-					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
-					content.append("》");	
-					message.setContent(content.toString());
-					operationMessageService.insert(message);
-				}else{
-					message.setMessageType(SopFileMessageHandler._5_13_);
-					content.append(message.getOperator());
-					content.append("为项目");
-					content.append(ControllerUtils.getProjectNameLink(message));
-					content.append("上传了股权转让签署凭证");
-					content.append("《");
-					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
-					content.append("》");	
-					message.setContent(content.toString());
-					operationMessageService.insert(message);
-				}
-				content.setLength(0);
-				message.setMessageType(tjh_apply_type);
-				content.append(message.getOperator())
-				.append("为项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("申请投决会会议排期");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			} else if(message.getMessageType().equals(StageChangeHandler._6_10_)){
-				String messageType = (String) message.getUserData();
-				message.setMessageType(messageType);
-				content.append(message.getOperator())
-				.append("完成了项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("的");
-				if(messageType.equals("9.5")){
-					content.append(SopConstant.TASK_NAME_ZJBF);
-				}else{
-					content.append(SopConstant.TASK_NAME_GSBG);
-				}
-				content.append("任务");
-				message.setContent(content.toString());
-				operationMessageService.insert(message);
-			}else if(message.getFlag()==true)
-			{
-                User user = (User) message.getUserData();
-				message.setBelongUid(user.getId());
-				message.setBelongDepartmentId(user.getDepartmentId());
-				message.setSingleMark((byte) 1);
-			    operationMessageService.insert(message);
-			}else if("1".equals(message.getAssistColumn())){
-				content.append("项目")
-				.append(ControllerUtils.getProjectNameLink(message))
-				.append("需要于每月1日开始填写上月的运营数据。");
-				message.setContent(content.toString());
-				message.setMessageType("16.2");
-				operationMessageService.insert(message);
-			}
-		} catch (Exception e1) {
-			loger.error("产生提醒消息异常，请求数据：" + message, e1);
-		}
-	}
 	
 
 	// 添加创意动态
@@ -369,11 +180,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setRelatedId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_IDEA_ID))));
 		entity.setRecordType(recordType.getType());
 		return entity;
-	}
-
-	
-	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
-		return messageGenerator.generate(type, user, map);
 	}
 	// ios message push
 	private void toPushIosMessage(IosMeaageOperation type, User user, Map<String, Object> map) {
