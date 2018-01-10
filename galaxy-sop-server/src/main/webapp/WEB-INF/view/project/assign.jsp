@@ -145,7 +145,7 @@ $(function(){
  ///////////////////////初始化筛选条件
  createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
- createCareelineOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
+ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
 	/**
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
@@ -274,7 +274,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	function queryParams(param){
 		var valueNum = $('select[name="projectDepartid"]').val();//事业线
 		var valueManager = $('select[name="createUid"]').val();//投资经理
-		var valueProjectValue = $('select[name="projectProgress"]').val();//项目进度
+		var valueProjectProgress = $('select[name="projectProgress"]').val();//项目进度
 		var valueProjectStatus= $('select[name="projectStatus"]').val();//项目状态
 		var valuefinanceStatus= $('select[name="financeStatus"]').val();//融资状态
 		var valueFlag= $('select[name="faFlag"]').val();//项目来源
@@ -283,12 +283,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		param.pageSize = 10;
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		param.projectProgress =valueProjectValue//项目进度
-		param.projectStatus = valuefinanceStatus;//项目状态
+		param.projectProgress =valueProjectProgress//项目进度
+		param.projectStatus = valueProjectStatus;//项目状态
 		param.financeStatus = valuefinanceStatus;//融资状态
 		return param;
 		
 	} 	
+	console.log(param.projectStatus)
+	console.log(param.projectProgress)
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
