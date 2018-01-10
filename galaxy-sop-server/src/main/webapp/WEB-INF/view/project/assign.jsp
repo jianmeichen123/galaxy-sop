@@ -284,9 +284,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		param.pageSize = 10;
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		//param.projectProgress =valueProjectProgress//项目进度
-		//param.projectStatus = valueProjectStatus;//项目状态
-		//param.financeStatus = valuefinanceStatus;//融资状态
+		param.projectProgress =valueProjectProgress//项目进度
+		param.projectStatus = valueProjectStatus;//项目状态
+		param.financeStatus = valuefinanceStatus;//融资状态
 		return param;
 		
 	} 	
