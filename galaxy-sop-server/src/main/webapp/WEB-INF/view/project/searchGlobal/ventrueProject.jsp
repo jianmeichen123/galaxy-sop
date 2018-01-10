@@ -12,48 +12,13 @@
 				<thead>
 					<th data-field="projectName">项目</th>
 					<th data-field="FinaceStatus" >融资状态</th>
-					<th data-field="projectName">项目进度</th>
-					<th data-field="projectName">投资经理</th>
-					<th data-field="projectName">项目状态</th>
-					<th data-field="projectName">最后编辑时间</th>
+					<th data-field="projecProgress">项目进度</th>
+					<th data-field="manager">投资经理</th>
+					<th data-field="projectStatus">项目状态</th>
+					<th data-field="lastEidtTime">最后编辑时间</th>
 				</thead> 
 				 <tbody>
-					<!-- <tr>
-						<td>蚂蚁优厂</td>
-						<td>天使</td>
-						<td>内部评审</td>
-						<td>陆亲<span>|</span>互联网旅游</td>
-						<td>跟进中</td>
-						<td>2017-08-21</td>
-						
-					</tr>
-					<tr>
-						<td>蚂蚁优厂</td>
-						<td>天使</td>
-						<td>内部评审</td>
-						<td>陆亲<span>|</span>互联网旅游</td>
-						<td>跟进中</td>
-						<td>2017-08-21</td>
-						
-					</tr>
-					<tr>
-						<td>蚂蚁优厂</td>
-						<td>天使</td>
-						<td>内部评审</td>
-						<td>陆亲<span>|</span>互联网旅游</td>
-						<td>跟进中</td>
-						<td>2017-08-21</td>
-						
-					</tr>
-					<tr>
-						<td>蚂蚁优厂</td>
-						<td>天使</td>
-						<td>内部评审</td>
-						<td>陆亲<span>|</span>互联网旅游</td>
-						<td>跟进中</td>
-						<td>2017-08-21</td>
-						
-					</tr> -->
+			
 					
 				
 					</tbody>
@@ -69,7 +34,7 @@
 
 $(function(){
 	function queryParams(param){
-		param.keyword = "星";
+		param.keyword = "";
 		param.pageNo = 0;
 		param.pageSize =10;
 		param.pageSearchInfo = 'xhtProject'

@@ -314,7 +314,7 @@ $(window).resize(function(){
   
    /* 隐藏input */	
 	 $('.hideThis').click(function(){
-		<%-- window.location.href="<%=path %>/galaxy/test/searchResult" --%>
+		window.location.href="<%=path %>/galaxy/test/searchResult" 
 		//$(this).hide();
 	 })
  
