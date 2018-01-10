@@ -215,6 +215,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			url:getDetailUrl(code),
 			okback:function(){
 				$("#projectNum").html(param.num);
+				$("#actionStyle").val(param.actionStyle);
 				doSumbit(param.projectIds);
 			}
 			
@@ -556,7 +557,8 @@ function financeStatusFormat(value,row,index){
 		});
 		var param={
 				"num":num,
-		 "projectIds":projectIds
+		 "projectIds":projectIds,
+		 "actionStyle":'${from}'
 			};
 		return param;
 		

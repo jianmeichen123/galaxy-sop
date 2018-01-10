@@ -53,6 +53,7 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     private List<Long> fileIds;
     
+    private List<Long> ids;
     
     /**
      * 非映射字段
@@ -461,6 +462,15 @@ public class MeetingRecord  extends PagableRecordEntity{
 	public void setProjectCreateUid(Long projectCreateUid)
 	{
 		this.projectCreateUid = projectCreateUid;
+	}
+
+	
+	public List<Long> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
 	}
 
 	@Override

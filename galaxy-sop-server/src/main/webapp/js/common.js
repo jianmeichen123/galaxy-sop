@@ -2333,6 +2333,10 @@ function saveDN(even){
 		 }
 	 })
 //	 全部成功之后进入倒计时页面且只针对页面方式的保存
+	 
+	 $("#popbg").remove();
+	 $("#powindow").remove();
+	 $("body").css("overflow-y","auto");
 	 $(".jumpBox").show()
 	 timeOut(3,$("#time"));
 }
@@ -2363,7 +2367,10 @@ function saveDNsame(thatTable,dataDN) {
  } 
  
 //倒计时
-function timeOut(num,dom) {
+function timeOut(num,dom) { 
+	if(dom.length<=0){
+		return;
+	}
     var i = num; 
     setInterval(function(){ 
     	debugger;
