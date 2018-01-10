@@ -239,24 +239,16 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	var initParams;
 	//var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
 	var initPageSize = 10;
-	
 	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
 		console.log(initPageSize+"222")
 	} */
-	
 	$("span[class='querySearch']").click(function(){
 		//buryPoint("98");
 		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 		initParams;
 		 $('#assign-table').bootstrapTable('refresh')
-		console.log(initParams)
 	});
-	
-	
-	$('select[name="projectDepartid"]').find('option:selected').val();
-	
-	
 /* 	var param = {}
 	function queryParams(param){
 		param.pageNum = 1;
@@ -299,9 +291,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		param.pageSize = 10; */
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		
 		return param;
-		
 	} 	
 	/* change事件*/
 	//事业线
@@ -348,7 +338,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
 		method : 'post',
-		//sortOrder : 'desc',
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
@@ -363,7 +352,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         		$("input[name='faName']").show();
         	}
         	
-        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+       /*  	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
     			if(initParams.pageNum==1){
     				return;
     			}else{
@@ -393,7 +382,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
     				});
     			}
     		}
-        	initPageSize=10;
+        	initPageSize=10; */
         	
         	
        	 /* checkbox 点击 */
