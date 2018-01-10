@@ -31,12 +31,12 @@
 				</ul>
 				
 			</div>
-			<div data-id="tab-block">
-	    		<div id='tab-content' data-id="tab-content">
+			<div data-id="tab-block" class="searchContainer">
+	    		<!-- <div id='tab-content' data-id="tab-content">
 			    	<div class='tabtxt searchContainer'>
 			    	
 			    	</div>
-		    	</div>
+		    	</div> -->
 	    	</div>
 		
 		

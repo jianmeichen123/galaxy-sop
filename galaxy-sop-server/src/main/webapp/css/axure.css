@@ -4309,7 +4309,7 @@ input:-ms-input-placeholder {
 .search-top ul li{float:left;margin-left:40px;cursor:pointer;}
 .search-top ul li:nth-child(1){margin-left:20px;}
 .bottomColor{border-bottom:4px solid #45AAFF;}
-.searchNumber{margin-top:10px;padding-bottom:10px;font-size:12px;color:#333;}
+.searchNumber{margin-top:10px;padding-bottom:10px;font-size:12px;color:#333;positon:absolute;    position: absolute;top: 61px;}
 .searchNumber span{color: #FF0000;}
 .createProject thead tr th{text-align:center;border:none;font-size:14px;color:#5A626D;font-family: Microsoft YaHei-Bold;border-bottom:1px solid #e4e4e4;font-weight:bold;}
 .createProject tbody tr{border-bottom:1px solid #e4e4e4;}
@@ -4386,3 +4386,14 @@ p.outerProjectTitle {
 	color:#0886ff;
 }
 .input-show{display:none;}
+.pagebox .searchPage{margin-top:99px;}
+.three .consut_span{margin-top: 20px;margin-left: 20px;font-size:0;}
+.three .consut_span span{display:inline-block;width:96px;height:32px;line-height:32px;text-align:center;border-radius:1px;color:#45aaff;font-size:14px;border:1px solid #45aaff;cursor:pointer;}
+.consut_span span.hasBackround{background:#45aaff;color:#fff;}
+
+
+
+
+
+
+

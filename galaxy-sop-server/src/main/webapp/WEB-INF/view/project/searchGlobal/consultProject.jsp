@@ -7,6 +7,10 @@
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
  		<div class='three'>
+ 			<div class='consut_span'>
+ 				<span class='hasBackround'>星河咨询</span>
+ 				<span>创投咨询</span>
+ 			</div>
 				<table class='outerProject newsProject'>
 					<tr>
 						<td>
@@ -48,7 +52,11 @@
 </div>
 <script type="text/javascript">
 
-	
+	$('.consut_span span').click(function(){
+		$('.consut_span span').removeClass('hasBackround');
+		$(this).addClass('hasBackround');
+		
+	})
 	
 	
 </script>
