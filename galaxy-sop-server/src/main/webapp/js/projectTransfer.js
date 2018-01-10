@@ -75,7 +75,7 @@ function callbackFun(data){
 	} else {
 		layer.msg("移交成功",{time:1000},function(){
 			var url = $("#menus .on a").attr('href');
-			window.location=platformUrl.toAssignProject+'?from=transfe';
+			window.location=platformUrl.toAssignProject+'?from='+$("#actionStyle").val();
 		});
 	}
 

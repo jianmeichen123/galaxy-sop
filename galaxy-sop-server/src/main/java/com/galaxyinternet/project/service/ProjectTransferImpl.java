@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,13 +71,8 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		
 		MeetingRecord mr = new MeetingRecord();
 		mr.setProjectId(projectId);
-		List<MeetingRecord> ms = meetingRecordDao.selectList(mr);
-		if(ms != null){
-			for(MeetingRecord m : ms){
-				m.setCreateUid(createId);
-				meetingRecordDao.updateById(m);
-			}
-		}
+		mr.setCreateUid(createId);
+ 		meetingRecordDao.updateByIdSelective(mr);
 		
 		SopFile file = new SopFile();
 		file.setProjectId(projectId);

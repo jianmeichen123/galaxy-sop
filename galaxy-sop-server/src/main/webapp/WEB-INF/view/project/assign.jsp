@@ -215,6 +215,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			url:getDetailUrl(code),
 			okback:function(){
 				$("#projectNum").html(param.num);
+				$("#actionStyle").val(param.actionStyle);
 				doSumbit(param.projectIds);
 			}
 			
@@ -282,9 +283,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		param.pageSize = 10;
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		param.projectProgress =valueProjectValue//项目进度
-		param.projectStatus = valuefinanceStatus;//项目状态
-		param.financeStatus = valuefinanceStatus;//融资状态
+		//param.projectProgress =valueProjectValue//项目进度
+		//param.projectStatus = valuefinanceStatus;//项目状态
+		//param.financeStatus = valuefinanceStatus;//融资状态
 		return param;
 		
 	} 	
@@ -554,7 +555,8 @@ function financeStatusFormat(value,row,index){
 		});
 		var param={
 				"num":num,
-		 "projectIds":projectIds
+		 "projectIds":projectIds,
+		 "actionStyle":'${from}'
 			};
 		return param;
 		

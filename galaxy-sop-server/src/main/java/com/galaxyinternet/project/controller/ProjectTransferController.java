@@ -115,7 +115,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				projectTransferNew.setAfterDepartmentId(projectTransfer.getAfterDepartmentId());
 				projectTransferNew.setProjectId(p.getId());
 				projectTransferService.insert(projectTransferNew);
-				projectTransferService.receiveProjectTransfer(projectTransfer, projectTransfer.getAfterUid(), realName, projectTransfer.getAfterDepartmentId());
+				projectTransferService.receiveProjectTransfer(projectTransferNew, projectTransfer.getAfterUid(), realName, projectTransfer.getAfterDepartmentId());
 				
 				_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 				Long userid = projectTransfer.getAfterUid();
