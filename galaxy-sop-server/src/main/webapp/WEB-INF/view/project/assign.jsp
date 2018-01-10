@@ -176,6 +176,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	$('select[name="projectDepartid"]').change(function(){
 		var did = $('select[name="projectDepartid"]').val();
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+	    $('.selectpicker').selectpicker('refresh');
 	});
 	 $('.selectpicker').selectpicker({
 		  style: 'btn-info',
