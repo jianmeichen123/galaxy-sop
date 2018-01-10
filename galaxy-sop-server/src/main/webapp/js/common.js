@@ -2331,7 +2331,10 @@ function saveDN(even){
 			    function(data) { 
 			}) 
 		 }
- })
+	 })
+//	 全部成功之后进入倒计时页面且只针对页面方式的保存
+	 $(".jumpBox").show()
+	 timeOut(3,$("#time"));
 }
 function saveDNsame(thatTable,dataDN) {
 		 var infoListDN=[];
@@ -2359,5 +2362,15 @@ function saveDNsame(thatTable,dataDN) {
 		})
  } 
  
-	 
+//倒计时
+function timeOut(num,dom) {
+    var i = num; 
+    setInterval(function(){ 
+    	debugger;
+    		if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+			}
+    		dom.text(i--);
+ 
+    },1000); 
+};
   
