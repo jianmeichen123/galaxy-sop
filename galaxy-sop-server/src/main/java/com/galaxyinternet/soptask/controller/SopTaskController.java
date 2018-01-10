@@ -443,15 +443,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			if(urlNum != null){
 				params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNum.name());
 			}
-			int r = sopTaskService.submitTask(entity);
-			if (r == 1)
-			{
-				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, MessageType.COMPLETE_TASK.getCode());
-				params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, messageType);
-			} else
-			{
-				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
-			}
+			sopTaskService.submitTask(entity);
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.TASK.getType());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(entity.getId()));
 			ControllerUtils.setRequestParamsForMessageTip(request, params);
 		} catch (Exception e)
 		{
@@ -750,6 +744,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.TASK.getType());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(params.getIds()));
 			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{
@@ -770,7 +766,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/giveup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope={LogType.LOG, LogType.MESSAGE})
 	public ResponseData<SopTaskBo> giveup(HttpServletRequest request, @RequestBody TaskParams params)
 	{
 		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();
@@ -781,6 +777,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.TASK.getType());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(params.getIds()));
 			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{
@@ -806,7 +804,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/assign", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope={LogType.LOG, LogType.MESSAGE})
 	public ResponseData<SopTaskBo> assign(HttpServletRequest request, @RequestBody TaskParams params)
 	{
 		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();
@@ -817,6 +815,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.TASK.getType());
+			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(params.getIds()));
 			ControllerUtils.setRequestParamsForMessageTip(request, logParams);
 		} catch (Exception e)
 		{

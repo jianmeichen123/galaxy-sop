@@ -15,7 +15,12 @@ public enum OperationMessageType
 	INVESTIGATION2("/galaxy/progress/stageChange/"+UrlNumber.eight,	MessageType.INVESTIGATION.getCode()),
 	DELIVERY1("/galaxy/progress/stageChange/"+UrlNumber.eleven,		MessageType.DELIVERY.getCode()),
 	DELIVERY2("/galaxy/progress/stageChange/"+UrlNumber.twelve,		MessageType.DELIVERY.getCode()),
-	COMPLETE_TASK("/galaxy/soptask/submitTask",						MessageType.COMPLETE_TASK.getCode());
+	COMPLETE_TASK1("/galaxy/soptask/submitTask/"+UrlNumber.two,		MessageType.COMPLETE_TASK.getCode()),
+	COMPLETE_TASK2("/galaxy/soptask/submitTask/"+UrlNumber.three,	MessageType.COMPLETE_TASK.getCode()),
+	COMPLETE_TASK3("/galaxy/soptask/submitTask/"+UrlNumber.four,	MessageType.COMPLETE_TASK.getCode()),
+	COMPLETE_TASK4("/galaxy/soptask/submitTask/"+UrlNumber.five,	MessageType.COMPLETE_TASK.getCode()),
+	COMPLETE_TASK5("/galaxy/soptask/submitTask/"+UrlNumber.six,		MessageType.COMPLETE_TASK.getCode())
+	;
 	
 	private String uniqueKey;
 	private String messageType;
