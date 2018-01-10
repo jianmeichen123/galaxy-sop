@@ -721,9 +721,9 @@
 		<div class="h_btnbox put_box"><span class="blue_btn put_away">收起</span>
 			{{if danaoInfo}}
 				{{if projectInfo.danaoProjCode }}   
-					<span onclick="infoDPop(this)" urlcode="/galaxy/infoDanao/infoDJsp/" dncode="\${danaoInfo}">参考信息</span>
+					<span onclick="infoDPop(this)" class="infoReport" urlcode="/galaxy/infoDanao/infoDJsp/" dncode="\${danaoInfo}">参考信息</span>
 					{{else}}
-						<span onclick="pagePop(this)" urlcode="/galaxy/infoDanao/infoJsp/" dncode="\${danaoInfo}">参考信息</span>
+						<span onclick="pagePop(this)" class="infoReport" urlcode="/galaxy/infoDanao/infoJsp/" dncode="\${danaoInfo}">参考信息</span>
 				{{/if}}	
 			{{/if}}
 			<span class="h_edit_btn" attr-id="\${code}">编辑</span>

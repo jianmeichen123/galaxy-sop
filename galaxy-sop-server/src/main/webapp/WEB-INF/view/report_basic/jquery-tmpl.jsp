@@ -2,6 +2,8 @@
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
@@ -471,8 +473,17 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${relateCode}" data-section-id="\${titleId}" data-relate-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${relateCode}">
-	<c:if test="${isEditable}">
-		<div class="h_btnbox put_box"><span class="blue_btn put_away">收起</span><span class="h_edit_btn" attr-id="\${relateCode}">编辑</span></div>
+	<c:if test="${isEditable}">		
+		<div class="h_btnbox put_box">
+			<span class="blue_btn put_away">收起</span>
+			{{if danaoInfo}}
+				{{if projectInfo.danaoProjCode }}   
+					<span onclick="infoDPop(this)" class="infoReport" urlcode="/galaxy/infoDanao/infoDJsp/" dncode="\${danaoInfo}">参考信息</span>
+					{{else}}
+					<span onclick="pagePop(this)" class="infoReport" urlcode="/galaxy/infoDanao/infoJsp/" dncode="\${danaoInfo}">参考信息</span>
+				{{/if}}	
+			{{/if}}
+			<span class="h_edit_btn" attr-id="\${relateCode}">编辑</span></div>
 		<div class="h_btnbox out_box"><span class="spread_out">展开</span></div>
 	</c:if>
 	<div class="h_title">\${name}<span>（如果该项目涉及此项内容，请进行填写，反之可略过）</span></div>
