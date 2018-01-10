@@ -1,11 +1,26 @@
 package com.galaxyinternet.hologram.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Service;
+
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.CacheHelper;
 import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationGrade;
@@ -14,26 +29,15 @@ import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.utils.SopConstatnts;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPipeline;
+import redis.clients.util.SafeEncoder;
 
 
 @Service("com.galaxyinternet.service.hologram.CacheOperationService")
 @Order
-public class CacheOperationServiceImpl implements CacheOperationService,ApplicationListener<ContextRefreshedEvent>{
+public class CacheOperationServiceImpl implements CacheOperationService,InitializingBean{
 	
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
@@ -71,7 +75,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	 * 2、写入缓存
 	*/
 	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event)
+	public void afterPropertiesSet()
 	{
 	  //数据字典清空缓存
 		removeInfoDicList();
@@ -638,34 +642,68 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	}
 	
 	public void setInfoDicList(){
-		List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
-		for(InformationDictionary infom:queryAll){
-			if(null!=infom.getTitleId()){
-				@SuppressWarnings("unchecked")
-				List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
-				if(null==object){
-					object= new ArrayList<InformationDictionary>();
+		ShardedJedis jedis = null;
+		try
+		{
+			jedis = cache.getJedis();
+			CacheHelper helper = new CacheHelper();
+			ShardedJedisPipeline pip = jedis.pipelined();
+			List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
+			for(InformationDictionary infom:queryAll){
+				if(null!=infom.getTitleId()){
+					@SuppressWarnings("unchecked")
+					List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
+					if(null==object){
+						object= new ArrayList<InformationDictionary>();
+					}
+					object.add(infom);
+					pip.set(SafeEncoder.encode(infom.getTitleId()+"_info"), helper.objectToBytes(object));
 				}
-				object.add(infom);
-				cache.set(infom.getTitleId()+"_info", object);
+				pip.hset(SafeEncoder.encode(SopConstant.TITLE_DICT_KEY_PREFIX+infom.getId()), SafeEncoder.encode("name"), helper.objectToBytes(infom.getName()));
 			}
-			cache.hset(SopConstant.TITLE_DICT_KEY_PREFIX+infom.getId(), "name", infom.getName());
+			pip.sync();
+		} catch (Exception e)
+		{
+			throw e;
 		}
+		finally
+		{
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
+		}
+		
 	}
 	
 	public void removeInfoDicList(){
-		List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
-		for(InformationDictionary infom:queryAll){
-			if(null!=infom.getTitleId()){
-				@SuppressWarnings("unchecked")
-				List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
-				if(null!=object){
-					cache.removeRedisKeyOBJ(infom.getTitleId()+"_info");
+		ShardedJedis jedis = null;
+		try
+		{
+			jedis = cache.getJedis();
+			ShardedJedisPipeline pip = jedis.pipelined();
+			List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
+			for(InformationDictionary infom:queryAll){
+				if(null!=infom.getTitleId()){
+					@SuppressWarnings("unchecked")
+					List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
+					if(null!=object){
+						pip.del((infom.getTitleId()+"_info").getBytes());
+					}
 				}
 			}
+			pip.sync();
+		} catch (Exception e)
+		{
+			throw e;
 		}
+		finally
+		{
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
+		}
+		
 	}
-
-
-
 }
