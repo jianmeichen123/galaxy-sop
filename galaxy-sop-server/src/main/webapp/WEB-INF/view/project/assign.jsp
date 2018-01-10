@@ -259,17 +259,17 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	//重置方法
 	$(".reset_search").click(function(){
-		console.log($('select[name="projectDepartid"]').val())
-			$("select[name='projectDepartid']").find("option[index='-1']").attr("selected",true);
-			$("select[name='createUid']").find("option[index='-1']").attr("selected",true);			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
-			$("select[name='projectProgress']").find('option[index="-1"]').attr("selected",true);
-			$("select[name='projectStatus']").find('option[index="-1"]').attr("selected",true);
-			$("select[name='financeStatus']").find('option[index="-1"]').attr("selected",true);
-		$("select[name='financeStatus']").val("");
+		console.log($("select[name='createUid']").val())
+			$("select[name='projectDepartid']").val("全部");
+			$("select[name='createUid']").val("全部");			
+			$("select[name='projectProgress']").val("全部");
+			$("select[name='projectStatus']").val("全部");
+			$("select[name='financeStatus']").val("全部");
+		/* $("select[name='financeStatus']").val("");
 		$("select[name='projectProgress']").val("");
 		$("select[name='projectStatus']").val("");
 		$("select[name='projectDepartid']").val("");
-		$("select[name='faFlag']").val("");
+		$("select[name='faFlag']").val(""); */
 		
 	});
 	
