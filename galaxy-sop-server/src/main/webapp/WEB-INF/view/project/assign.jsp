@@ -295,8 +295,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
 		
-		param.pageNum = 1;
-		param.pageSize = 10;
+		/* param.pageNum = 1;
+		param.pageSize = 10; */
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
 		
@@ -343,6 +343,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	$('#assign-table').bootstrapTable({
 		queryParamsType: 'size|page',
 		pageSize:initPageSize,
+		pageNum:1,
 		showRefresh : false,
 		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
 		sidePagination: 'server',
