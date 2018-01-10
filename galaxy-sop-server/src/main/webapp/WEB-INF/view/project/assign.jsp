@@ -216,6 +216,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			url:getDetailUrl(code),
 			okback:function(){
 				$("#projectNum").html(param.num);
+				alert(param.actionStyle);
 				$("#actionStyle").val(param.actionStyle);
 				doSumbit(param.projectIds);
 			}
