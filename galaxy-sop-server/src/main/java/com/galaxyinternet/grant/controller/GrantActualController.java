@@ -288,7 +288,6 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value="/saveApprActual" , method=RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> saveApprActual(HttpServletRequest request, @RequestBody GrantActual form){
@@ -351,9 +350,9 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			responseBody.setResult(new Result(Status.OK, ""));
 			//根据项目id查询本次添加实际金额是否为该项目的第一条实际注资信息
 			if(flag==true){
-				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", "1",uNum);
+				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "1",uNum);
 			}else{
-				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
+				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, null, uNum);
 			}
 			
 		} catch (DaoException e) {
@@ -367,7 +366,6 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	/**
 	 *删除
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/deleteApprActual/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationListdata> deleteApprActual(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {

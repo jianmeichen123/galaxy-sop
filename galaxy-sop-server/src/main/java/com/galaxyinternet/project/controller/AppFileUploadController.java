@@ -56,7 +56,7 @@ public class AppFileUploadController extends BaseControllerImpl<SopFile, AppSopF
 		return this.sopFileService;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/uploadBizplan", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> fileUploadHandle(@RequestBody AppSopFile appSopFile , HttpServletRequest request) {

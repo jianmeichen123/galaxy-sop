@@ -30,10 +30,10 @@ import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectType;
 import com.galaxyinternet.common.dictEnum.DictEnum.taskStatus;
+import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.CacheHelper;
@@ -219,6 +219,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNum.name());
 			params.put(PlatformConst.REQUEST_SCOPE_RECORD_ID, id);
 			params.put(PlatformConst.REQUEST_SCOPE_USER, manager);
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.TASK.getType());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(Long.valueOf(id)));
 			ControllerUtils.setRequestParamsForMessageTip(request, params);
 		} catch (PlatformException e)
 		{
@@ -288,7 +290,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @return
 	 * @PathVariable("taskId") String taskId
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE})
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
@@ -737,7 +739,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/transfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope={LogType.LOG, LogType.MESSAGE})
 	public ResponseData<SopTaskBo> transfer(HttpServletRequest request, @RequestBody TaskParams params)
 	{
 		ResponseData<SopTaskBo> data = new ResponseData<SopTaskBo>();

@@ -259,7 +259,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 				
 				// 记录操作日志
 				if(result.getNumber() != null){
-					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, result.getNumber());
+					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), result.getNumber());
 				}
 			}
 		} catch (Exception e) {

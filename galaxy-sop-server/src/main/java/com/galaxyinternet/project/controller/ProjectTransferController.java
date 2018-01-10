@@ -17,7 +17,7 @@ import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
+import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;

@@ -112,7 +112,7 @@ public class CEOPSHandler implements ProgressChangeHandler
 		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		HttpServletRequest request = WebUtils.getRequest();
-		ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.1", UrlNumber.two);
+		ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.two);
 
 	}
 

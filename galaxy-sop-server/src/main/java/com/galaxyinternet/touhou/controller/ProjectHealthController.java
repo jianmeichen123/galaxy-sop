@@ -2,7 +2,6 @@ package com.galaxyinternet.touhou.controller;
 
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -121,20 +119,7 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 			Long id = projectHealthService.insert(projectHealth);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
-			
-			String messageType = "";
-			if(projectHealth.getHealthState() == 1){
-				messageType = "13.1";
-			}else if(projectHealth.getHealthState() == 2){
-				messageType = "13.2";
-			}else if(projectHealth.getHealthState() == 3){
-				messageType = "13.3";
-			}else if(projectHealth.getHealthState() == 0){
-				messageType = "13.4";
-			}else if(projectHealth.getHealthState() == 4){
-				messageType = "13.5";
-			}
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "添加失败"));
 			logger.error("addHealth 添加失败",e);

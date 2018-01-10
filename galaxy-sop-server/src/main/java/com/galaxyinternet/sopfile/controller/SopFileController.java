@@ -547,7 +547,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	 * @param response
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value="/commonUploadFile",method=RequestMethod.POST)
 	public ResponseData<SopFile> commonUploadFile(HttpServletRequest request){

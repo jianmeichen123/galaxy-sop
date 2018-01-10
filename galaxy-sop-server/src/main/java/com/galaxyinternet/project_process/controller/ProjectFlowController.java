@@ -285,7 +285,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try {
 			SopResult r = interviewRecordService.operateInterview(project, p, result, request);
 			// 记录操作日志
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, r.getNumber());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
 			
 		} catch (Exception e) {
 			logger.error("操作失败", e);
@@ -438,7 +438,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			if(!"".equals(synchroReport)){
 				informationResultService.upResultByMeeting(meetingRecord);
 			}
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, uNum);
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), uNum);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
@@ -555,7 +555,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE  })
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> stageChange(@RequestBody ProjectQuery p,HttpServletRequest request) 

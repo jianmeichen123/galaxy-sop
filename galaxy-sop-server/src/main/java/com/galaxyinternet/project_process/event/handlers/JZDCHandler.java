@@ -10,6 +10,7 @@ import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
@@ -117,7 +118,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		HttpServletRequest request = WebUtils.getRequest();
-		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), num);
+		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), MessageType.INVESTIGATION.getCode(), num);
 
 	}
 

@@ -2,13 +2,18 @@ package com.galaxyinternet.project_process.event.handlers;
 
 import java.util.Arrays;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
@@ -72,5 +77,7 @@ public class TJHHandler implements ProgressChangeHandler
 		{
 			throw new BusinessException(e.getMessage(),e);
 		}
+		HttpServletRequest request = WebUtils.getRequest();
+		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.nine);
 	}
 }

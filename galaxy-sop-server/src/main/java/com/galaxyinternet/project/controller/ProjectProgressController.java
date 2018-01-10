@@ -189,7 +189,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(InterviewRecordBo interviewRecord,HttpServletRequest request,HttpServletResponse response ) {
@@ -291,7 +291,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
 			//ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "3", UrlNumber.one);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
@@ -384,7 +384,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			interviewRecord = interviewRecordService.queryById(interviewRecord.getId());
 			Project project = projectService.queryById(interviewRecord.getProjectId());
 			
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "3", UrlNumber.one);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "修改访谈记录失败"));
 			
@@ -495,7 +495,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -524,51 +524,22 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		MeetingRecord mrQuery = new MeetingRecord();
 		
-		//时间判断：在  待定会议日期   之前的时间段   不能添加 通过/否决的 会议记录
-		/*if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())|| meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
-			mrQuery.setProjectId(meetingRecord.getProjectId());
-			mrQuery.setMeetingResult(DictEnum.meetingResult.待定.getCode());
-			List<MeetingRecord> checMeetList = meetingRecordService.queryList(mrQuery);//sqlMapper默认按时间倒叙
-			if(checMeetList != null && !checMeetList.isEmpty()){
-				if(meetingRecord.getMeetingDate().compareTo(checMeetList.get(0).getMeetingDate())<0){
-					responseBody.setResult(new Result(Status.ERROR,null, ""+meetingRecord.getMeetingDateStr()+" 之后存在会议记录"));
-					return responseBody;
-				}
-			}
-		}*/
 		
 		try {
 			String prograss = "";
 			UrlNumber uNum = null;
-			String messageType = null;
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
 				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
 				uNum = UrlNumber.one;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.3";
-				}else{
-					messageType = "4.1";
-				}
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
 				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
 				uNum = UrlNumber.two;
-				messageType = "4.2";
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
 				prograss = DictEnum.projectProgress.立项会.getCode(); 										
 				uNum = UrlNumber.three;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.5";
-				}else{
-					messageType = "4.3";
-				}
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
 				uNum = UrlNumber.four;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.8";
-				}else{
-					messageType = "4.4";
-				}
 			}
 			
 			//project id 验证
@@ -705,7 +676,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, uNum);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), uNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			if(logger.isErrorEnabled()){
@@ -733,17 +704,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			meetingRecord = meetingRecordService.queryById(meetingRecord.getId());
 			Project project = projectService.queryById(meetingRecord.getProjectId());
-			String messageType = null;
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
-				messageType = "4.1";
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
-				messageType = "4.2";
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
-				messageType = "4.3";
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
-				messageType = "4.4";
-			}
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "修改会议纪要失败"));
 			logger.error("updatemeet 修改会议纪要失败",e);
@@ -1029,7 +990,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
@@ -1107,7 +1068,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecordBo meetingRecord ) {

@@ -21,11 +21,11 @@ import com.galaxyinternet.iosMessage.operType.IosMeaageOperation;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.iosMessage.IosMessage;
 import com.galaxyinternet.model.operationLog.OperationLogType;
-import com.galaxyinternet.model.operationMessage.OperationType;
+import com.galaxyinternet.model.operationLog.OperationMessageType;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
-import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
+import com.galaxyinternet.service.SopMessageService;
 import com.tencent.xinge.XGPush;
 
 /**
@@ -74,7 +74,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	
 	@Autowired
-	OperationMessageService operationMessageService;
+	SopMessageService sopMessageService;
 	
 	@Autowired
 	OperationLogGenerator logGenerator;
@@ -95,11 +95,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
 					String uniqueKey = getUniqueKey(request, map, logger);
-					final OperationType type = OperationType.getObject(uniqueKey);   //message
+					final OperationMessageType messageType = OperationMessageType.getObject(uniqueKey);   //message
 					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey); //log
 					final IosMeaageOperation iosMessageOper = IosMeaageOperation.getObject(uniqueKey); //ios
 					
-					if (null != type || null != operLogType || null != iosMessageOper) {
+					if (null != messageType || null != operLogType || null != iosMessageOper) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
 						final LogType[] logTypes = logger.operationScope();  //log message 
@@ -108,7 +108,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 							public void run() {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
-										
+										sopMessageService.add(messageType, user.getId(), map);
 									} else if (ltype == LogType.LOG) 
 									{
 										logGenerator.generate(operLogType, user, map, recordType);
