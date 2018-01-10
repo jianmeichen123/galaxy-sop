@@ -1,8 +1,8 @@
 CREATE TABLE `fx_db`.`sop_message`(  
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '消息ID',
   `message_type` VARCHAR(10) COMMENT '消息类型',
-  `related_type` INT(10) COMMENT '业务类型：1-项目；2-任务',
-  `related_id` BIGINT(20) COMMENT '对应业务ID：项目ID；任务ID',
+  `record_type` TINYINT(4) COMMENT '业务类型：0-项目;1-创意;2-运营会议;3-创意资讯;4-待办任务',
+  `record_id` BIGINT(20) COMMENT '对应业务ID：项目ID；任务ID',
   `is_published` INT(1) DEFAULT 0 COMMENT '默认值为0；1：已发送；0：为发送；',
   `published_time` BIGINT(20) COMMENT '发送时间',
   `retry_times` INT(10) DEFAULT 0 COMMENT '重试次数',
