@@ -13,7 +13,11 @@
     <result column="undo_reason" property="undoReason" jdbcType="VARCHAR" />    
     <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />    
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
-    <result column="created_time" property="createdTime" jdbcType="BIGINT" />   
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+     <result column="operate_id" property="operateId" jdbcType="BIGINT" />
+    <result column="operate_type" property="operateType" jdbcType="VARCHAR" />
+    
+       
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -28,7 +32,9 @@
        undo_reason,
        refuse_reason,
        updated_time,
-       created_time
+       created_time,
+       operate_id,
+       operate_type
   </sql>
   
   
@@ -42,7 +48,9 @@
 			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
 			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
 			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>   
+		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if> 
+		        <if test="operateId != null" > and operate_id = #{operateId,jdbcType=BIGINT} </if>
+		       <if test="operateType != null" > and operate_type = #{operateType,jdbcType=VARCHAR} </if> 
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -80,7 +88,9 @@
            undo_reason,
            refuse_reason,
            updated_time,
-           created_time
+           created_time,
+           operate_id,
+           operate_type
 		from sop_transfer_record
 		<include refid="Base_Where_Clause" />
 	</select>
@@ -112,7 +122,9 @@
 	      undo_reason,
 	      refuse_reason,
 	      updated_time,
-	      created_time)
+	      created_time,
+	      operate_id,
+          operate_type)
 	    values
 	     (#{id,jdbcType=BIGINT},
 	      #{projectId,jdbcType=BIGINT},
@@ -125,7 +137,10 @@
           #{undoReason,jdbcType=VARCHAR}, 
 	      #{refuseReason,jdbcType=VARCHAR}, 
 	      #{updatedTime,jdbcType=BIGINT},
-	      #{createdTime,jdbcType=BIGINT})
+	      #{createdTime,jdbcType=BIGINT},
+	      #{operateId,jdbcType=BIGINT},
+	      #{operateType,jdbcType=VARCHAR}
+	      )
 	    ]]>
     </insert>
     
@@ -144,7 +159,9 @@
 		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
 		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
 		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
-		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>		
+		       <if test="operateId != null" > operate_id = #{operateId,jdbcType=BIGINT}, </if>
+		       <if test="operateType != null" > operate_type = #{operateType,jdbcType=BIGINT} </if>		
 	</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -156,6 +173,9 @@
 			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
 		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>		
 		       <if test="attachment != null" > and record_status is null </if>	
+		       <if test="operateId != null" > and operate_id = #{operateId,jdbcType=BIGINT} </if>
+		       <if test="operateType != null" > and operate_type = #{operateType,jdbcType=VARCHAR} </if> 
+			
             </trim>
 		</where>
 	</update>
@@ -174,7 +194,10 @@
 		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
 		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
 		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
-		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>	
+		        <if test="operateId != null" > operate_id = #{operateId,jdbcType=BIGINT}, </if>
+		       <if test="operateType != null" > operate_type = #{operateType,jdbcType=BIGINT} </if>		
+		       			
 	   </set>
 		where id = #{id}
 	</update>

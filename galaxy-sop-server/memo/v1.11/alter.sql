@@ -21,3 +21,9 @@ ALTER TABLE `fx_db`.`information_title_relate`
 ALTER TABLE `fx_db`.`sop_project`   
   ADD COLUMN `danao_proj_code` VARCHAR(50) NULL  COMMENT '大脑项目code' AFTER `delete_reason`,
   ADD COLUMN `danao_comp_code` VARCHAR(50) NULL  COMMENT '大脑项目公司code' AFTER `danao_proj_code`;
+  
+  
+ALTER TABLE `fx_db`.`sop_transfer_record` 
+ADD COLUMN `operate_id` BIGINT(20) NULL COMMENT '操作人id（也是该条记录的创建人）  移交为投资经理本人；指派为：当前操作人 注意：历史数据处理该字段为 before_uid的值）' AFTER `updated_time`,
+ADD COLUMN `operate_type` VARCHAR(11) NULL DEFAULT NULL COMMENT '操作类型：0:移交，1：指派 ' AFTER `operate_id`;
+  

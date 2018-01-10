@@ -23,6 +23,9 @@ public class ProjectTransfer extends PagableEntity {
    	private String updateDate;//修改时间
    	private String projectIds;
    	
+   	private Long  operateId;
+	private String  operateType;
+   	
    	
    	
     public Long getProjectId() {
@@ -131,6 +134,22 @@ public class ProjectTransfer extends PagableEntity {
 	
 	
 
+
+	public Long getOperateId() {
+		return operateId;
+	}
+
+	public void setOperateId(Long operateId) {
+		this.operateId = operateId;
+	}
+
+	public String getOperateType() {
+		return operateType;
+	}
+
+	public void setOperateType(String operateType) {
+		this.operateType = operateType;
+	}
 
 	public String getProjectIds() {
 		return projectIds;

@@ -92,7 +92,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			data.setResult(new Result(Status.ERROR, "err", "不能将项目移交给本人！"));
 			return data;
 		}
-		
+		User u = (User) getUserFromSession(request);
 		try
 		{
 			Project project =new Project();
@@ -114,12 +114,15 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				projectTransferNew.setRefuseReason(null!=projectTransfer.getRefuseReason()?projectTransfer.getRefuseReason():"");
 				projectTransferNew.setAfterDepartmentId(projectTransfer.getAfterDepartmentId());
 				projectTransferNew.setProjectId(p.getId());
+				projectTransferNew.setOperateId(u.getId());
+				if(projectTransfer.getOperateType().equals("transfer")){
+					projectTransferNew.setOperateType("0");
+				}else if(projectTransfer.getOperateType().equals("assign")){
+					projectTransferNew.setOperateType("1");
+				}
 				projectTransferService.insert(projectTransferNew);
 				projectTransferService.receiveProjectTransfer(projectTransferNew, projectTransfer.getAfterUid(), realName, projectTransfer.getAfterDepartmentId());
-				
 				_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
-				Long userid = projectTransfer.getAfterUid();
-				User u = userService.queryById(userid);
 				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId(), ProjectTransferMessageHandler.MESSAGE_TYPE_APPLY, true, u,
 						projectTransfer.getTransferReason(), DictEnum.projectProgress.getNameByCode(p.getProjectProgress()));
 		
