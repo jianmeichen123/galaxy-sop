@@ -150,6 +150,22 @@ input:checked + label::before {
 	<a href="javascript:;" class="add_pro" onclick="saveDN(this)" >保存</a>
 	<a href="javascript:;" class="over_pro"  onclick="jumpPage()">跳过</a>
 </div> 
+<div class="jumpBox">
+	<div class="center jumpCon">
+		<p class="p1">完善项目剩余信息，即将跳转至项目详情页面</p> 
+
+		<ul class="scheduleIcon clearfix">
+			<li data-content="1" class="active"><p>引用推荐项目</p></li>
+			<li data-content="2" class="active"> <p>选择有效推荐信息</p></li>
+			<li data-content="3" class="active"> <p>完善项目剩余信息</p></li>
+		</ul>
+	  	<img src="<%=path %>/img/junpPage.png" alt=""> 
+		<p class="p2">
+			<span id="time">3</span>秒后自动跳转
+		</p>
+		<div  class="over_pro jumpBtn"  onclick="jumpPage()">立即前往</div>
+    </div>
+</div>
 <script>
 function checkAll(event){   
     $(event).closest("table").find('input').prop('checked', $(event).prop('checked')); 
@@ -165,4 +181,5 @@ function checkSelf(event){
 		table.find(".checkAll").prop('checked',false);
 	}
 }
+
 </script>

@@ -24,6 +24,7 @@ margin: 30px auto 20px;
 width:500px;
 background:url("../img/process/infoCreat.png") no-repeat left center; 
 }
+.center{position: absolute;top:50%;left:50%; transform: translate(-50%, -50%);width:500px;height:auto;}
 .infoTop p{
 font-size: 14px;
 color: #666666;
@@ -375,13 +376,21 @@ background: #E5F3FF;
     max-height: 500px;
     overflow-y: auto;
 }
-.fixedbottom{
+.fixedbottom,.jumpBox{
 	position: fixed;
 	padding: 20px 0 20px 16px;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	background: #e9ebf2; 
+}
+.jumpBox{
+	display:none;
+	z-index: 101;
+	background: #e9ebf2;
+    width: 100%;
+    height: 100%;
+    padding:0;
 }
 .add_pro,.over_pro{
 	background: #3CA6FF;
@@ -398,4 +407,20 @@ background: #E5F3FF;
 }
 #dataHidden{
 	display:none;
+}
+.jumpCon{text-align:center; }
+.jumpCon img{margin:30px auto; }
+.jumpCon .p1{
+	font-family: Microsoft YaHei;
+	font-size: 18px;
+	color: #000000;
+}
+.jumpCon .p2 span{
+	color:#FF0000;
+	padding-right: 5px;
+}
+.jumpBtn{
+	background-color: #fff;
+	margin:30px auto;
+	cursor: pointer;
 }
