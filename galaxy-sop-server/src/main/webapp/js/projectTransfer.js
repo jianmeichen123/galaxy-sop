@@ -73,7 +73,13 @@ function callbackFun(data){
 	if (data.result.status != "OK") {
 			layer.msg(data.result.message);
 	} else {
-		layer.msg("移交成功",{time:1000},function(){
+		   var message="";
+		   if($("#actionStyle").val()=="transfer"){
+			   message="移交成功";
+		   }else{
+			   message="指派成功";
+		   }
+		    layer.msg(message,{time:1000},function(){
 			var url = $("#menus .on a").attr('href');
 			window.location=platformUrl.toAssignProject+'?from='+$("#actionStyle").val();
 		});
