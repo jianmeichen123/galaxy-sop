@@ -314,6 +314,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
+		if($('select[name="createUid"]').find('.ilter-option').text()=="全部"){
+			$('select[name="createUid"]').find('.ilter-option').text('aaa')
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
