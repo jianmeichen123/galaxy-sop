@@ -39,7 +39,7 @@
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker">
 					  <option>投资经理</option>
-					 	<option>全部</option>
+					 <option>全部</option>
 					</select>
 			  	</div>
 				
@@ -243,12 +243,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		initPageSize = pageParams.pageSize;
 		console.log(initPageSize+"222")
 	} */
-	$("span[class='querySearch']").click(function(){
-		//buryPoint("98");
-		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-		initParams;
-		 $('#assign-table').bootstrapTable('refresh')
-	});
+
 /* 	var param = {}
 	function queryParams(param){
 		param.pageNum = 1;
@@ -261,6 +256,22 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		//param.faFlag = 2261  ;//项目来源
 		return param;
 	}   */
+	
+
+	//重置方法
+	$('.reset_search').click(function(){
+		//$('select[name="projectDepartid"]').val('0');//事业线
+		var param = {}
+		function queryParams(param){
+			param.pageNum = 1;
+			param.pageSize = 10;
+			return param;
+		}  
+		
+		$('#assign-table').bootstrapTable('refresh')
+		
+	});
+	
   	var param = {}
 	function queryParams(param){
 		var valueNum = $('select[name="projectDepartid"]').val();//事业线
@@ -286,48 +297,48 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}else{
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
-		
-		/* param.pageNum = 1;
-		param.pageSize = 10; */
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
 		return param;
 	} 	
+  	
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
-		var valueNum = $('select[name="projectDepartid"]').val();
 		//queryParams(param)
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		var valueManager = $('select[name="createUid"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
-		var valueProjectValue = $('select[name="projectProgress"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
-		var valueProjectStatus= $('select[name="projectStatus"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
-		var valuefinanceStatus= $('select[name="financeStatus"]').val();
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
 		$('#assign-table').bootstrapTable('refresh')
-		var valueFlag= $('select[name="faFlag"]').val();
-		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 	});
-	
+	//搜索方法
+	$("span[class='querySearch']").click(function(){
+		//buryPoint("98");
+		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+			
+		 $('#assign-table').bootstrapTable('refresh')
+	});
 
+	
+	
+	
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
