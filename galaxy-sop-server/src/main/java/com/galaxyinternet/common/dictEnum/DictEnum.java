@@ -926,5 +926,47 @@ public enum DictEnum {
 	        return null;
 	    }
 	}
+	
+	public enum MessageType
+	{
+		DEL_PROJECT("1.1.1","删除项目"),
+		TRANSFER_PROJECT("1.1.2","移交项目"),
+		ASSIGN_PROJECT("1.1.3","指派项目"),
+		CLAIM_TASK("1.2.1","认领任务"),
+		TRANSFER_TASK("1.2.2","移交任务"),
+		GIVEUP_TASK("1.2.3","放弃任务"),
+		ASSIGN_TASK("1.2.4","指派任务"),
+		INVESTIGATION("1.2.5","进入尽调阶段"),
+		DELIVERY("1.2.6","进入股权交割阶段"),
+		COMPLETE_TASK("1.2.7","完成任务");
+		private String code;
+		private String name;
+		
+		private MessageType(String code, String name)
+		{
+			this.code = code;
+			this.name = name;
+		}
+
+		public String getCode()
+		{
+			return code;
+		}
+
+		public void setCode(String code)
+		{
+			this.code = code;
+		}
+
+		public String getName()
+		{
+			return name;
+		}
+
+		public void setName(String name)
+		{
+			this.name = name;
+		}
+	}
 }
 

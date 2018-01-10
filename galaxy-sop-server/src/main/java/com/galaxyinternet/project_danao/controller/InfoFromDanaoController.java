@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_danao.controller;
 
 
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -9,10 +10,14 @@ import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DaNao.DnProject;
 import com.galaxyinternet.model.DaNao.DnZixun;
+import com.galaxyinternet.model.SopSearchHistory;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopSearchHistoryService;
 import com.galaxyinternet.service.UserRoleService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,9 @@ public class InfoFromDanaoController{
 
 	@Autowired
 	private com.galaxyinternet.service.InfoFromDanaoService infoFromDanaoService;
+
+	@Autowired
+	private SopSearchHistoryService sopSearchHistoryService;
 
 	@Autowired
 	private ProjectService projectService;
@@ -237,10 +245,36 @@ public class InfoFromDanaoController{
 	}
 
 
-// todo global
+
+	// todo search global
 
 	/**
-	 * 查询
+	 *获取搜索的历史记录
+	 */
+	@RequestMapping(value = "/searchHistory", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<SopSearchHistory> searchHistory(HttpServletRequest request, HttpServletResponse response )
+	{
+		ResponseData<SopSearchHistory> responseBody = new ResponseData<SopSearchHistory>();
+
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			SopSearchHistory query = new SopSearchHistory();
+			query.setUid(user.getId());
+			SopSearchHistory result = sopSearchHistoryService.queryOne(query);
+
+			responseBody.setEntity(result);
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+
+
+	/**
+	 * 查询， 并保存记录
 	 */
 	@RequestMapping(value = "/searchGlobalInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData searchGlobalInfo(@RequestBody DnProject dnProject,
@@ -250,13 +284,14 @@ public class InfoFromDanaoController{
 
 		Map<String,Long> tReslut = new HashMap<>();
 		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 			String pageSearchInfo = dnProject.getPageSearchInfo()==null?"xhtProject":dnProject.getPageSearchInfo();
 
 			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
 			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
 			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
-			String keyword = dnProject.getKeyword() != null ? dnProject.getKeyword() : null;
+			String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
 
 			dnProject.setOrder(direction);
 			dnProject.setPageNo(pageNum);
@@ -265,7 +300,7 @@ public class InfoFromDanaoController{
 			// 封装查询信息
 			Project project = new Project();
 			//默认筛选
-			/*User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			/*
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(roleIdList.contains(UserConstant.TZJL)){
 				project.setCreateUid(user.getId());
@@ -308,18 +343,21 @@ public class InfoFromDanaoController{
 
 						responseBody.setPageList(pageProject);
 					}
+					break;
 				case "dnProject":
 					if(tReslut.get("dnProjectTotal").intValue() != 0){
 						dnProject.setOrderBy(dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy());
 						Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
 						responseBody.setPageList(projectPage);
 					}
+					break;
 				case "dnZixun":
 					if(tReslut.get("dnZixunTotal").intValue() != 0){
 						dnProject.setOrderBy(dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy());
 						Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
 						responseBody.setPageList(projectPage);
 					}
+					break;
 				case "xhtAppZixun":
 					if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
 						dnProject.setOrderBy(dnProject.getOrderBy()==null?"create_time":dnProject.getOrderBy());
@@ -327,8 +365,15 @@ public class InfoFromDanaoController{
 						responseBody.setPageList(projectPage);
 
 					}
-				default:
 					break;
+				default:
+					throw new Exception("参数错误");
+			}
+
+			//保存查询记录
+			if(keyword!=null && !"y".equals(dnProject.getIsOld())){
+				SopSearchHistory searchHistory = sopSearchHistoryService.saveSearchHistory(user.getId(), keyword);
+				responseBody.setEntity(searchHistory);
 			}
 
 			if(responseBody.getPageList()==null){
@@ -343,6 +388,8 @@ public class InfoFromDanaoController{
 
 		return responseBody;
 	}
+
+
 
 
 

@@ -6,6 +6,7 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class DnProject extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
+	private String isOld; // "y":历史数据，不保存
 
 	//===大脑 引用标识
 	private String danaoInfo;
@@ -258,5 +259,13 @@ public class DnProject extends BaseEntity {
 
 	public void setHref(String href) {
 		this.href = href;
+	}
+
+	public String getIsOld() {
+		return isOld;
+	}
+
+	public void setIsOld(String isOld) {
+		this.isOld = isOld;
 	}
 }

@@ -14,7 +14,6 @@ CHANGE COLUMN `delete_reason` `delete_reason` VARCHAR(225) CHARACTER SET 'utf8' 
 ALTER TABLE `fx_db`.`sop_task` 
 ADD COLUMN `is_delete` INT(11) NULL DEFAULT 0 COMMENT '默认值为0；1：已删除；0：正常数据；' AFTER `created_time`;
 
-
 ALTER TABLE `fx_db`.`information_title_relate`   
   ADD COLUMN `danao_info` VARCHAR(50) NULL  COMMENT '标识是否从大脑同步数据，为null表示不需要' AFTER `val_rule_formula`;
 
@@ -26,4 +25,3 @@ ALTER TABLE `fx_db`.`sop_project`
 ALTER TABLE `fx_db`.`sop_transfer_record` 
 ADD COLUMN `operate_id` BIGINT(20) NULL COMMENT '操作人id（也是该条记录的创建人）  移交为投资经理本人；指派为：当前操作人 注意：历史数据处理该字段为 before_uid的值）' AFTER `updated_time`,
 ADD COLUMN `operate_type` VARCHAR(11) NULL DEFAULT NULL COMMENT '操作类型：0:移交，1：指派 ' AFTER `operate_id`;
-  
