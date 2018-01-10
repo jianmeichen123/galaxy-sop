@@ -39,14 +39,14 @@
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker">
 					  <option>投资经理</option>
-					 <option>全部</option>
+					 <option index="-1">全部</option>
 					</select>
 			  	</div>
 				
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
 					  <option>项目进度</option>
-					  <option>全部</option>
+					  <option index="-1">全部</option>
 					</select>
 			  	</div>
 				<!-- <div class="form-group">
@@ -59,21 +59,21 @@
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
 					  <option>项目状态</option>
-					 <option>全部</option>
+					 <option index="-1">全部</option>
 					</select>
 			    </div>
 
 				<div class="form-group">
 			      <select name="financeStatus" class="selectpicker">
 					  <option>融资状态</option>
-					 <option>全部</option>
+					 <option index="-1">全部</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="faFlag" class="selectpicker">
 					  <option>项目来源</option>
-					 <option>全部</option>
+					 <option index="-1">全部</option>
 					</select>
 			  	</div>
 				
@@ -257,22 +257,23 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		return param;
 	}   */
 	
-
 	//重置方法
-	$('.reset_search').click(function(){
-		//$('select[name="projectDepartid"]').val('0');//事业线
-		var param = {}
-		function queryParams(param){
-			param.pageNum = 1;
-			param.pageSize = 10;
-			return param;
-		}  
-		
-		$('#assign-table').bootstrapTable('refresh')
+	$(".reset_search").click(function(){
+		console.log($("select[name='createUid']").val())
+			$("select[name='projectDepartid']").val("全部");
+			$("select[name='createUid']").val("全部");			
+			$("select[name='projectProgress']").val("全部");
+			$("select[name='projectStatus']").val("全部");
+			$("select[name='financeStatus']").val("全部");
+		/* $("select[name='financeStatus']").val("");
+		$("select[name='projectProgress']").val("");
+		$("select[name='projectStatus']").val("");
+		$("select[name='projectDepartid']").val("");
+		$("select[name='faFlag']").val(""); */
 		
 	});
 	
-  	var param = {}
+  	
 	function queryParams(param){
 		var valueNum = $('select[name="projectDepartid"]').val();//事业线
 		var valueManager = $('select[name="createUid"]').val();//投资经理
@@ -281,26 +282,29 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		var valuefinanceStatus= $('select[name="financeStatus"]').val();//融资状态
 		var valueFlag= $('select[name="faFlag"]').val();//项目来源
 		if(valueProjectProgress=="全部"||valueProjectProgress=="项目进度"){
-			console.log('dd')
 		}else{
 			param.projectProgress =valueProjectProgress//项目进度
 		}
 		
 		if(valueProjectStatus=="全部"||valueProjectStatus=="项目状态"){
-			console.log('aa')
 		}else{
 			param.projectStatus = valueProjectStatus;//项目状态
 		}
 		
 		if(valuefinanceStatus=="全部"||valuefinanceStatus=="融资状态"){
-			console.log('aa')
 		}else{
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
+		console.log(param)
 		return param;
+		
 	} 	
+  	
+
+
+
   	
 	/* change事件*/
 	//事业线
