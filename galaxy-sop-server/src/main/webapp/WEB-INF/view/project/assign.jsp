@@ -283,14 +283,23 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			param.projectProgress =valueProjectProgress//项目进度
 		}
 		
+		if(valueProjectStatus=="全部"||valueProjectStatus=="项目状态"){
+			console.log('aa')
+		}else{
+			param.projectStatus = valueProjectStatus;//项目状态
+		}
+		
+		if(valuefinanceStatus=="全部"||valuefinanceStatus=="融资状态"){
+			console.log('aa')
+		}else{
+			param.financeStatus = valuefinanceStatus;//融资状态
+		}
 		
 		param.pageNum = 1;
 		param.pageSize = 10;
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
 		
-		param.projectStatus = valueProjectStatus;//项目状态
-		param.financeStatus = valuefinanceStatus;//融资状态
 		return param;
 		
 	} 	
