@@ -6,10 +6,8 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DaNao.DnProject;
-import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.SopSearchHistory;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -93,7 +91,6 @@ public class InfoFromDanaoController{
 	 * 保存项目和大脑的关联关系
 	 * 项目id ：       projId
      * 大脑项目code ： projCode
-     * xxx大脑项目公司code ： compCode
 	 */
 	@RequestMapping(value = "/saveConstat", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> saveConstat(@RequestBody DnProject dnProject,
@@ -106,7 +103,6 @@ public class InfoFromDanaoController{
 			Project upd = new Project();
 			upd.setId(dnProject.getProjId());
 			upd.setDanaoProjCode(dnProject.getProjCode());
-			//upd.setDanaoCompCode(dnProject.getCompCode());
 			int i = projectService.updateById(upd);
 			if(i!=1){
 				throw new Exception("项目更新失败");
@@ -123,7 +119,7 @@ public class InfoFromDanaoController{
 
 
 	/**
-	 * 查询大脑项目列表
+	 * 按 项目名称 模糊查询 大脑项目数据，分页展示
 	 * { "keyword":"项目名称", "pageNo":0, "pageSize":10 }
 	 */
 	@RequestMapping(value = "/searchProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -162,7 +158,6 @@ public class InfoFromDanaoController{
      *
      * 项目id ：       projId
      * 大脑项目code ： projCode
-     * xxxxx大脑项目公司code ： compCode
 	 * 引用标识：danaoInfo
      *return
 	 *  法人信息   	legalInfo
@@ -277,10 +272,10 @@ public class InfoFromDanaoController{
 	 * 查询， 并保存记录
 	 */
 	@RequestMapping(value = "/searchGlobalInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseData searchGlobalInfo(@RequestBody DnProject dnProject,
+	public @ResponseBody ResponseData<Project> searchGlobalInfo(@RequestBody DnProject dnProject,
 														HttpServletRequest request, HttpServletResponse response)
 	{
-		ResponseData responseBody = new ResponseData();
+		ResponseData<Project> responseBody = new ResponseData<Project>();
 
 		Map<String,Long> tReslut = new HashMap<>();
 		try {
@@ -344,7 +339,33 @@ public class InfoFromDanaoController{
 						responseBody.setPageList(pageProject);
 					}
 					break;
-				case "dnProject":
+
+				default:
+					throw new Exception("参数错误");
+			}
+
+			//保存查询记录
+			if(keyword!=null && !"y".equals(dnProject.getIsOld())){
+				SopSearchHistory searchHistory = sopSearchHistoryService.saveSearchHistory(user.getId(), keyword);
+				//responseBody.setEntity(searchHistory);
+			}
+
+			if(responseBody.getPageList()==null){
+				responseBody.setPageList(new Page<Project>(new ArrayList<Project>() , 0l));
+			}
+			//responseBody.setUserData(tReslut);
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+
+
+/*
+* case "dnProject":
 					if(tReslut.get("dnProjectTotal").intValue() != 0){
 						dnProject.setOrderBy(dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy());
 						Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
@@ -366,31 +387,7 @@ public class InfoFromDanaoController{
 
 					}
 					break;
-				default:
-					throw new Exception("参数错误");
-			}
-
-			//保存查询记录
-			if(keyword!=null && !"y".equals(dnProject.getIsOld())){
-				SopSearchHistory searchHistory = sopSearchHistoryService.saveSearchHistory(user.getId(), keyword);
-				responseBody.setEntity(searchHistory);
-			}
-
-			if(responseBody.getPageList()==null){
-				responseBody.setPageList(new Page<DnZixun>(new ArrayList<DnZixun>() , 0l));
-			}
-			responseBody.setUserData(tReslut);
-			responseBody.setResult(new Result(Result.Status.OK, ""));
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
-			logger.error("失败",e);
-		}
-
-		return responseBody;
-	}
-
-
-
+					*/
 
 
 }
