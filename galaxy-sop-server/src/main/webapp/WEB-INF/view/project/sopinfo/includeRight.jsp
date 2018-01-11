@@ -250,9 +250,9 @@
 			</div>
 			<!-- 七大报告入口结束 -->
             <div class="tq_div">
-                <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&(fx:hasPremission('project_assign'))}">
+                <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&(fx:hasPremission('project_assign')||fx:hasPremission('project_delete'))}">
 	                <div class="correlation">相关操作</div>
-	        </c:if> 
+	            </c:if> 
 	             <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
