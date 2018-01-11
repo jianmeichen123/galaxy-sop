@@ -1959,10 +1959,10 @@ function initTable(url,data,status,code) {
                 //row：当前行的数据
             	if(status==0){
             		//页面
-            		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用</button>'
+            		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn"  projCode='+row.projCode+'>引用</button>'
                     
             	}else{  
-            		var a ='<button type="button" onclick="infoDPop(this,1)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn" compCode='+row.compCode+' projCode='+row.projCode+'>引用1</button>'
+            		var a ='<button type="button" onclick="infoDPop(this,1)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn"  projCode='+row.projCode+'>引用1</button>'
                     
             	}
                 return a;
@@ -2029,13 +2029,11 @@ function infoDPop(even,status){
 	var urlCode = $(even).attr("urlCode");  
 	if(!projectInfo.danaoProjCode){
 		//从列表进入  
-		var code=$(even).attr("dncode");  
-		var compCode=$(even).attr("compcode");
+		var code=$(even).attr("dncode");   
 		var projCode=$(even).attr("projcode");   
 		var dataJson={
 				"projId":projectInfo.id,
-				"projCode":projCode,
-				"compCode":compCode
+				"projCode":projCode, 
 		}  
 		sendPostRequestByJsonObj(
 		 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
@@ -2044,8 +2042,7 @@ function infoDPop(even,status){
 			 if(data.result.status=="OK"){ 
 				 //移除其他
 				 $("#popbg").remove();
-				 $("#powindow").remove();
-				 projectInfo.danaoCompCode=compCode;
+				 $("#powindow").remove(); 
 				 projectInfo.danaoProjCode=projCode;
 				 $("a[dncode]").attr("onclick","infoDPop(this)"); 
 				 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoDJsp/"); 
@@ -2071,15 +2068,13 @@ function getpopHTML(code,even,status){
 			$(".backLink").click(function(){ 
 				 var dataJson={
 							projId:projectId ,
-							projCode:"",
-							compCode:""
+							projCode:"", 
 					} 
 					sendPostRequestByJsonObj(
 						 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
 					dataJson,
 					function(data){
-						 if(data.result.status=="OK"){ 
-							 delete projectInfo.danaoCompCode;
+						 if(data.result.status=="OK"){  
 							 delete projectInfo.danaoProjCode; 
 							 $("a[dncode]").attr("onclick","pagePop(this)"); 
 							 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoJsp/");
@@ -2100,8 +2095,7 @@ function getpopHTML(code,even,status){
 			 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 				var projectName=projectInfo.projectName; 
-				var projectId=projectInfo.id; 
-				var compCode=projectInfo.danaoCompCode; 
+				var projectId=projectInfo.id;  
 				var projCode=projectInfo.danaoProjCode;
 				var data={
 			   			"keyword":projectName,
@@ -2111,14 +2105,13 @@ function getpopHTML(code,even,status){
 					var jsonObj={
 							projId:projectId,
 							projCode:projCode,
-							compCode:compCode,
 							danaoInfo:code,
 					}    
 					buildInfoD(_url,jsonObj,code);  
 					if($(".infoBox li:visible").length<=0){  
 						 $(".infoBox").hide();
 						 $(".fixedbottom").hide(); 
-						 $(".tableBox.emptyInfo").show(); 
+							$(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
 					 } 
 			}
 		}) 
@@ -2164,7 +2157,7 @@ function buildDNinfo(_url,jsonObj){
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
-			$(".emptyInfo").show();
+			$(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
 			return false;
 		}
 		 var legal=data.userData.legalInfo;
