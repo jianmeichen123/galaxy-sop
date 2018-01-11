@@ -81,7 +81,13 @@ function callbackFun(data){
 		   }
 		    layer.msg(message,{time:1000},function(){
 			var url = $("#menus .on a").attr('href');
-			window.location=platformUrl.toAssignProject+'?from='+$("#actionStyle").val();
+			if($("#numCheck").css("display")=="none"){
+				var url = $("#menus .on a").attr('href');
+				window.location=url;
+			 }else{
+				 window.location=platformUrl.toAssignProject+'?from='+$("#actionStyle").val();
+			 }
+			
 		});
 	}
 
