@@ -93,18 +93,24 @@ return 返回 entity；
 	private String spiltMark; //"<nbsp>"
 	private List<String> hisList;
 
+
+
 //==  全局搜索 table
 
 5、查询 星河投 列表
 post ：/galaxy/infoDanao/queryXhtProjectPage
 参数 ：
 {
+"keyword":"test",
+"pageNum":0,
+"pageSize":10
+}
 //升序:asc 降序:desc ,  private String direction;   desc
 //排序字段              private String property;  updated_time
-//当前页码              private Integer pageNum; 1
+//当前页码              private Integer pageNum; 0
 //每页记录数            private Integer pageSize;
 //搜索关键字            private String keyword;
-}
+
 return 返回 ： pageList
 返回：userData
  *   xhtProject      xhtProjectTotal    创投项目
@@ -113,16 +119,21 @@ return 返回 ： pageList
  *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
 
 
+
 6、查询 dnProject    创投大脑的项目
 post ：/galaxy/infoDanao/queryDnProjectPage
 参数 ：
 {
+"keyword":"星",
+"pageNo":0,
+"pageSize":10
+}
 //升序:asc 降序:desc ,  private String order;   desc
 //排序字段              private String orderBy;  setupDT
 //当前页码              private Integer pageNo; 0
 //每页记录数            private Integer pageSize;
 //搜索关键字            private String keyword;
-}
+
 return 返回 ： pageList
 	private String href;  //链接
 	private String latestFinanceAmountStr; //最新融资金额
@@ -142,6 +153,7 @@ return 返回 ： pageList
  *   dnProject       dnProjectTotal     创投大脑的项目
  *   dnZixun         dnZixunTotal       创投大脑投融快讯
  *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
 
 
 7、查询 dnZixun   创投大脑投融快讯
@@ -170,6 +182,7 @@ return 返回 ： pageList
  *   dnProject       dnProjectTotal     创投大脑的项目
  *   dnZixun         dnZixunTotal       创投大脑投融快讯
  *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
 
 
 8、查询 xhtAppZixun  星河资讯-app资讯
