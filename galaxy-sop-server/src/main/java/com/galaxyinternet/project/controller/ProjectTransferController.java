@@ -1,11 +1,14 @@
 package com.galaxyinternet.project.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,22 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
+import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.SopConstatnts;
 
@@ -46,6 +57,11 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	@Autowired
 	private ProjectService projectService;
 	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
 	private UserService userService;
@@ -138,5 +154,145 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			}
 		}
 		return data;
+	}
+	
+	/**
+	 * 项目列表查询
+	 * @version 2016-06-21
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchProjectTansfer", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProjectAssign(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		
+		//有搜索条件则不启动默认筛选
+		if(project.getCreateUid() == null && project.getProjectDepartid() == null){
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.TZJL)){
+				project.setCreateUid(user.getId());
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				
+			}
+		}
+		//搜索全部时,传过来参数值为0,此时要转换为查询全部
+		project.setCreateUid((project.getCreateUid() != null && project.getCreateUid().longValue() == 0L) ? null : project.getCreateUid());
+		project.setProjectDepartid((project.getProjectDepartid() != null && project.getProjectDepartid().longValue() == 0L) ? null : project.getProjectDepartid());
+		if(null!=project.getProperty()&&project.getProperty().equals("project_progress")){
+			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
+			
+		}
+		if(project.getProjectPerson()!=null) project.setProjectPerson(project.getProjectPerson().toUpperCase());
+		List<Department> departmentList = departmentService.queryAll();
+		Page<Project> pageProject = projectService.queryPageList(project,
+						new PageRequest(project.getPageNum(), 
+								project.getPageSize(), 
+								Direction.fromString(project.getDirection()), 
+								project.getProperty()));
+		//封装事业线数据
+		List<Project> projectList = new ArrayList<Project>();
+		for(Project p : pageProject.getContent()){
+			projectList.add(p);
+			for(Department d : departmentList){
+				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
+					p.setProjectCareerline(d.getName());
+					break;
+				}
+			}
+			//项目来源
+			if(p.getFaFlag() != null)
+			{
+				if(NumberUtils.isNumber(p.getFaFlag()))
+				{
+					Object dictVal = cache.hget(SopConstant.TITLE_DICT_KEY_PREFIX+p.getFaFlag(), "name");
+					if(dictVal != null)
+					{
+						p.setFaFlagStr((String)dictVal);
+					}
+				}
+				else
+				{
+					p.setFaFlagStr(p.getFaFlag());
+				}
+			}
+		}
+		pageProject.setContent(projectList);
+		responseBody.setPageList(pageProject);
+		responseBody.putAttachmentItem("user",user);
+		responseBody.setResult(new Result(Status.OK, ""));
+		return responseBody;
+	}
+	
+	/**
+	 * 项目列表查询
+	 * @version 2016-06-21
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchProjectAssigin", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProjectAssigin(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		
+		//有搜索条件则不启动默认筛选
+		if(project.getCreateUid() == null && project.getProjectDepartid() == null){
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.TZJL)){
+				project.setCreateUid(user.getId());
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				
+			}
+		}
+		//搜索全部时,传过来参数值为0,此时要转换为查询全部
+		project.setCreateUid((project.getCreateUid() != null && project.getCreateUid().longValue() == 0L) ? null : project.getCreateUid());
+		project.setProjectDepartid((project.getProjectDepartid() != null && project.getProjectDepartid().longValue() == 0L) ? null : project.getProjectDepartid());
+		if(null!=project.getProperty()&&project.getProperty().equals("project_progress")){
+			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
+			
+		}
+		if(project.getProjectPerson()!=null) project.setProjectPerson(project.getProjectPerson().toUpperCase());
+		List<Department> departmentList = departmentService.queryAll();
+		Page<Project> pageProject = projectService.queryPageList(project,
+						new PageRequest(project.getPageNum(), 
+								project.getPageSize(), 
+								Direction.fromString(project.getDirection()), 
+								project.getProperty()));
+		//封装事业线数据
+		List<Project> projectList = new ArrayList<Project>();
+		for(Project p : pageProject.getContent()){
+			projectList.add(p);
+			for(Department d : departmentList){
+				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
+					p.setProjectCareerline(d.getName());
+					break;
+				}
+			}
+			//项目来源
+			if(p.getFaFlag() != null)
+			{
+				if(NumberUtils.isNumber(p.getFaFlag()))
+				{
+					Object dictVal = cache.hget(SopConstant.TITLE_DICT_KEY_PREFIX+p.getFaFlag(), "name");
+					if(dictVal != null)
+					{
+						p.setFaFlagStr((String)dictVal);
+					}
+				}
+				else
+				{
+					p.setFaFlagStr(p.getFaFlag());
+				}
+			}
+		}
+		pageProject.setContent(projectList);
+		responseBody.setPageList(pageProject);
+		responseBody.putAttachmentItem("user",user);
+		responseBody.setResult(new Result(Status.OK, ""));
+		return responseBody;
 	}
 }
