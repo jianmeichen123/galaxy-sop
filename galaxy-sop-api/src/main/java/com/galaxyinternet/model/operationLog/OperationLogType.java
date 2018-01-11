@@ -323,10 +323,9 @@ public enum OperationLogType {
 	LX_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
 	LX_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
 	
-	APPLY_TRANSFER("/galaxy/projectTransfer/applyTransfer",OperType.APPLY.getOperationType(), "移交项目","移交项目"),
-	UNDO_TRANSFER("/galaxy/projectTransfer/undoTransfer",OperType.REVOKE.getOperationType(), "撤销项目","撤销移交"),
-	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.REFUSE.getOperationType(), "拒接项目","拒接项目"),
-	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目"),
+	TRANSFER_PROJECT("/galaxy/projectTransfer/applyTransfer/"+UrlNumber.one,OperType.APPLY.getOperationType(), "移交项目","移交项目"),
+	ASSIGN_PROJECT("/galaxy/projectTransfer/applyTransfer/"+UrlNumber.two,OperType.ASSIGN.getOperationType(), "指派项目","指派项目"),
+	
 	/**上传尽调启动报告**/
 	JDQD_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	/**更新尽调启动报告**/

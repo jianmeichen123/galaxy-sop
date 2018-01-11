@@ -1,5 +1,10 @@
 package com.galaxyinternet.project.controller;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,14 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
@@ -33,34 +38,34 @@ import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/projectTransfer")
-public class ProjectTransferController extends BaseControllerImpl<ProjectTransfer, ProjectTransferBo> {
+public class ProjectTransferController extends BaseControllerImpl<ProjectTransfer, ProjectTransferBo>
+{
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectTransferController.class);
-	
-    @Autowired
+
+	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 
 	@Autowired
 	private ProjectTransferService projectTransferService;
-	
+
 	@Autowired
 	private ProjectService projectService;
-	
-	
-	
+
 	@Override
-	protected BaseService<ProjectTransfer> getBaseService() {
+	protected BaseService<ProjectTransfer> getBaseService()
+	{
 		return this.projectTransferService;
 	}
-	
-	
+
 	/**
 	 * 页面跳转至移交项目
 	 */
 	@RequestMapping(value = "/toProjectTransfer", method = RequestMethod.GET)
-	public String toProjectTransfer() {
+	public String toProjectTransfer()
+	{
 		return "project/projectTransfer/project_transfer";
 	}
-	
+
 	/**
 	 * 项目移交
 	 */
@@ -70,19 +75,20 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	public ResponseData<ProjectTransfer> applyTransfer(@RequestBody ProjectTransfer projectTransfer, HttpServletRequest request)
 	{
 		ResponseData<ProjectTransfer> data = new ResponseData<ProjectTransfer>();
-	/*	if (projectTransfer.getProjectId() == null || projectTransfer.getAfterDepartmentId() == null || projectTransfer.getAfterUid() == null)
-		{
-			data.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
-			return data;
-		}*/
-		
-		if (projectTransfer.getProjectIds()== null || projectTransfer.getAfterDepartmentId() == null || projectTransfer.getAfterUid() == null)
+		/*
+		 * if (projectTransfer.getProjectId() == null ||
+		 * projectTransfer.getAfterDepartmentId() == null ||
+		 * projectTransfer.getAfterUid() == null) { data.setResult(new
+		 * Result(Status.ERROR, "csds", "必要的参数丢失!")); return data; }
+		 */
+
+		if (projectTransfer.getProjectIds() == null || projectTransfer.getAfterDepartmentId() == null || projectTransfer.getAfterUid() == null)
 		{
 			data.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
 			return data;
 		}
-		String[] arrprojectId=projectTransfer.getProjectIds().split(",");
-		
+		String[] arrprojectId = projectTransfer.getProjectIds().split(",");
+
 		User user = (User) getUserFromSession(request);
 		if (user.getId().longValue() == projectTransfer.getAfterUid().longValue())
 		{
@@ -92,41 +98,55 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		User u = (User) getUserFromSession(request);
 		try
 		{
-			Project project =new Project();
+			Project project = new Project();
 			List<String> projectList = java.util.Arrays.asList(arrprojectId);
 			project.setProejctIdList(projectList);
 			List<Project> queryList = projectService.queryList(project);
-			if(null==queryList||queryList.size()!=projectList.size())
+			if (null == queryList || queryList.size() != projectList.size())
 			{
 				data.setResult(new Result(Status.ERROR, "csds", "部分项目不存在!"));
 				return data;
 			}
-			for(Project p:queryList){
-				ProjectTransfer  projectTransferNew=new ProjectTransfer();
-				String realName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+projectTransfer.getAfterUid(), "realName");
+			UrlNumber urlNumber = null;
+			List<Long> projectIds = new ArrayList<>(queryList.size());
+			for (Project p : queryList)
+			{
+				projectIds.add(p.getId());
+				ProjectTransfer projectTransferNew = new ProjectTransfer();
+				String realName = (String) cache.hget(PlatformConst.CACHE_PREFIX_USER + projectTransfer.getAfterUid(), "realName");
 				projectTransferNew.setBeforeUid(p.getCreateUid());
 				projectTransferNew.setBeforeDepartmentId(p.getProjectDepartid());
 				projectTransferNew.setRecordStatus(SopConstatnts.TransferStatus._receive_status_);
 				projectTransferNew.setAfterUid(projectTransfer.getAfterUid());
-				projectTransferNew.setRefuseReason(null!=projectTransfer.getRefuseReason()?projectTransfer.getRefuseReason():"");
+				projectTransferNew.setRefuseReason(null != projectTransfer.getRefuseReason() ? projectTransfer.getRefuseReason() : "");
 				projectTransferNew.setAfterDepartmentId(projectTransfer.getAfterDepartmentId());
 				projectTransferNew.setProjectId(p.getId());
 				projectTransferNew.setOperateId(u.getId());
-				//0位移交，1位指派
-				if(projectTransfer.getOperateType().equals("transfer")){
+				// 0位移交，1位指派
+				if (projectTransfer.getOperateType().equals("transfer"))
+				{
 					projectTransferNew.setOperateType("0");
-				}else if(projectTransfer.getOperateType().equals("assign")){
+					urlNumber = UrlNumber.one;
+				} else if (projectTransfer.getOperateType().equals("assign"))
+				{
 					projectTransferNew.setOperateType("1");
+					urlNumber = UrlNumber.two;
 				}
 				projectTransferService.insert(projectTransferNew);
 				projectTransferService.receiveProjectTransfer(projectTransferNew, projectTransfer.getAfterUid(), realName, projectTransfer.getAfterDepartmentId());
+
 				_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
-				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId(), MessageType.TRANSFER_PROJECT.getCode(), true, u,
-						projectTransfer.getTransferReason(), DictEnum.projectProgress.getNameByCode(p.getProjectProgress()));
-		
-			     }
-			    data.setResult(new Result(Status.OK, "200", "项目移交成功!"));
-				} catch (Exception e)
+
+			}
+			Map<String, Object> params = new HashMap<>();
+			params.put(PlatformConst.REQUEST_SCOPE_RECORD_IDS, projectIds);
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, urlNumber.name());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON, projectTransfer.getTransferReason());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.PROJECT.getType());
+			params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, projectIds);
+			ControllerUtils.setRequestParamsForMessageTip(request, params);
+			data.setResult(new Result(Status.OK, "200", "项目移交成功!"));
+		} catch (Exception e)
 		{
 			data.setResult(new Result(Status.ERROR, "err", "项目移交失败!"));
 			if (_common_logger_.isErrorEnabled())
