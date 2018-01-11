@@ -93,8 +93,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("data") != null){
 			if(((Map<String, Object>)object.get("data")).containsKey("compCode")){
 				compCode = ((String)((Map<String, Object>)object.get("data")).get("compCode"));
-				pro.setProjCode(compCode);
-				pro.setProjCompanyName((String)((Map<String, Object>)object.get("data")).get("company"));
+				pro.setCompCode(compCode);
+				pro.setProjCompanyName((String)((Map<String, Object>)object.get("data")).get("regName"));
+				pro.setProjTitle((String)((Map<String, Object>)object.get("data")).get("projTitle"));
 			}
 		}
 
