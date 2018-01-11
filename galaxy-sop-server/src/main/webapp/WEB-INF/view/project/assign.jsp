@@ -82,7 +82,7 @@
 		  	</div>
 		  	<div class="input-group">
 			  	<di class='input-content'>
-			  		<input type="text" class="form-control" placeholder="请输入项目名称">
+			  		<input type="text" class="form-control" name="nameCodeLike" placeholder="请输入项目名称">
 			  		<span class="querySearch"></span>
 			  	</di>
 		      <!-- <span class="input-group-btn">
@@ -287,6 +287,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}else{
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
+		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		param.nameCodeLike = nameCodeLike!="undefined"?nameCodeLike:"";
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
 		return param;
@@ -428,12 +430,12 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			var str=row.projectName;
 			if(str.length>10){
 				subStr = str.substring(0,10);
-				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
-				return options;
+				//var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+				return subStr;
 			}
 			else{
-				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
-				return options;
+				//var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+				return str;
 			}
 		} 
 		
