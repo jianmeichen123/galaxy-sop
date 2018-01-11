@@ -12,7 +12,8 @@
  				<span>创投资讯</span>
  			</div>
  			<div class='projectContent'>
-	 			<!--星河资讯  -->
+ 			<!--星河资讯  -->
+ 				<div class='xhtContent'>
 					<table id="xhtConsult" class='outerProject newsProject' data-url="<%=path %>/galaxy/infoDanao/queryXhtAppZixunPage">
 						<thead>
 							<tr>
@@ -20,16 +21,17 @@
 							</tr>
 						</thead>
 					</table>
+				</div>
 				<!-- 创投咨询 -->
-				<table id="dnConsult" class='outerProject newsProject'  data-url="<%=path %>/galaxy/infoDanao/queryDnZixunPage">
-					<thead>
-							<tr>
-								<th data-field="ctime" data-formatter="ctProjectContent"></th>
-							</tr>
-					</thead>
-				
-				
-				</table>
+				<div class='dnContent'>
+					<table id="dnConsult" class='outerProject newsProject'  data-url="<%=path %>/galaxy/infoDanao/queryDnZixunPage">
+						<thead>
+								<tr>
+									<th data-field="ctime" data-formatter="ctProjectContent"></th>
+								</tr>
+						</thead>
+					</table>
+				</div>
 			</div>
 		</div>
 <script type="text/javascript">
@@ -39,16 +41,23 @@ $('.consut_span span').click(function(){
 	var index = $(this).index();
 	if(index == 0){
 		console.log('0000')
+		
+		$('.dnContent').hide()
+		$('.xhtContent').show()
 		xhtMessage()
+		
 	}else if(index == 1){
 		console.log('111')
+		
+		$('.dnContent').show()
+		$('.xhtContent').hide()
 		ctDnConsult()
 	}
 	
 });
 
 	/* 星河资讯========================================== */
-	xhtMessage()
+	 xhtMessage()
  	function  xhtMessage(){
 		function queryParams(params){
 			return {
