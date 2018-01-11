@@ -143,7 +143,8 @@ input:checked + label::before {
 	<div class="tableBox emptyInfo" style="display:none;">
 		<div class="empty">
 			 暂无推荐信息
-		</div>
+		</div>		
+		<a href="javascript:;" class="add_pro" style="position:relative; top:300px" onclick="jumpPage()">跳过</a>
 	</div>
 </div> 
 <div class="fixedbottom">

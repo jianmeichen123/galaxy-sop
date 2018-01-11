@@ -4,26 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.annotation.RecordType;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 /**
- * 项目指派，移交
+ * 项目指派，移交，删除
  * @author wangsong
  *
  */
 @Component
 public class ProjectOperatHandler implements OperationLogHandler
 {
+	@Autowired
+	private ProjectDao projectDao;
 
 	@Override
 	public int getOrder()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -35,7 +39,9 @@ public class ProjectOperatHandler implements OperationLogHandler
 		{
 			return false;
 		}
-		return OperationLogType.TRANSFER_PROJECT.equals(type) || OperationLogType.ASSIGN_PROJECT.equals(type);
+		return OperationLogType.TRANSFER_PROJECT.equals(type) 
+				|| OperationLogType.ASSIGN_PROJECT.equals(type)
+				|| OperationLogType.DELETE_PROJECT.equals(type);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,6 +70,7 @@ public class ProjectOperatHandler implements OperationLogHandler
 		OperationLogs entity = null;
 		for(Long projectId : projectIds)
 		{
+			Project project = projectDao.selectById(projectId);
 			entity = new OperationLogs();
 			entity.setOperationContent(type.getContent());
 			entity.setOperationType(type.getType());
@@ -71,7 +78,7 @@ public class ProjectOperatHandler implements OperationLogHandler
 			entity.setUname(user.getRealName());
 			entity.setDepartName(user.getDepartmentName());
 			entity.setUserDepartid(user.getDepartmentId());
-			entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
+			entity.setProjectName(project.getProjectName());
 			entity.setProjectId(projectId);
 			entity.setSopstage(type.getSopstage());
 			entity.setReason(reason);

@@ -65,13 +65,13 @@
         	</div>
         	<!-- 处理任务 -->
         	<div class='taskDetail-mesage-update'>
-	        	<c:if test="${'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
+	        	<c:if test="${sessionScope.galax_session_user.id == task.assignUid and 'taskStatus:2' == task.taskStatus and fx:hasPremission('task_dispose') }">
         		<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
         		<a href='javascript:;'  class='upate-task submit-success disabled' id="complete-task-btn" disabled="disabled">提交完成</a>
 	        	</c:if>
 	        	
 	        	<!-- 已完成任务再处理 -->
-	        	<c:if test="${'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
+	        	<c:if test="${sessionScope.galax_session_user.id == task.assignUid and 'taskStatus:3' == task.taskStatus and fx:hasPremission('task_redispose') }">
 				<a href='javascript:;' class="upate-task bluebtn_new" id="file-upload-btn">${btnTxt }</a>
 	        	</c:if>
         	</div>

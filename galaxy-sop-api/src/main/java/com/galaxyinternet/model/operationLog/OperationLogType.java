@@ -325,6 +325,7 @@ public enum OperationLogType {
 	
 	TRANSFER_PROJECT("/galaxy/projectTransfer/applyTransfer/"+UrlNumber.one,OperType.APPLY.getOperationType(), "移交项目","移交项目"),
 	ASSIGN_PROJECT("/galaxy/projectTransfer/applyTransfer/"+UrlNumber.two,OperType.ASSIGN.getOperationType(), "指派项目","指派项目"),
+	DELETE_PROJECT("/galaxy/project/deletePro",OperType.DELETE.getOperationType(), "删除项目","删除项目"),
 	
 	/**上传尽调启动报告**/
 	JDQD_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
