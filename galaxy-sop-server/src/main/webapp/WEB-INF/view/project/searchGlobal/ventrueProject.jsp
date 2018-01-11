@@ -10,7 +10,7 @@
  		<div class='one pagination_common'>
 			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" class='createProject table table-hover' style="width:100%;">
 				<thead>
-					<th data-field="projectName">项目</th>
+					<th data-field="projectName" data-formatter="projectInfo">项目</th>
 					<th data-field="finance_status" data-formatter="financeStatusFormat">融资状态</th>
 					<th data-field="project_progress" data-formatter="projectProgress">项目进度</th>
 					<th data-field="createUname">投资经理</th>
@@ -54,7 +54,7 @@ $(function(){
 		sidePagination:'server',
 		queryParams:queryParams,
 		onLoadSuccess:function(data){
-			
+			//console.log(data)
 		}
 	
 	
@@ -100,7 +100,65 @@ function financeStatusFormat(value,row,index){
 function projectStatusFormat(value,row,index){
 	return row.projectStatusDs;
 }
+/* 
+
+*项目名称格式化
+*
+*
+*/
+function projectInfo(value,row,index){
+    var id=row.id;
+	var str=row.projectName;
+	if(str.length>10){
+		subStr = str.substring(0,10);
+		var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+		return options;
+	}
+	else{
+		var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+		return options;
+	}
+}
+
+function proInfo(id){
+	//项目详情页返回地址
+	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
+	//返回附带参数功能代码
+	var options = $("#project-table").bootstrapTable('getOptions');
+	var tempPageSize = options.pageSize ? options.pageSize : 10;
+	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+	var projectType = $("select[name='projectType']").val();
+	var financeStatus = $("select[name='financeStatus']").val();
+	var projectProgress = $("select[name='projectProgress']").val();
+	var projectStatus = $("select[name='projectStatus']").val();
+	var projectDepartid = $("select[name='projectDepartid']").val();
+	var createUid = $("select[name='createUid']").val();
+	var nameCodeLike = $("input[name='nameCodeLike']").val();
+	var projectPerson = $("input[name='projectPerson']").val();
+	var faFlag = $("select[name='faFlag']").val();
 	
+	var formdata = {
+			_paramKey : 'projectList',
+			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+			_path : "/",
+			_param : {
+				pageNum : tempPageNum,
+        		pageSize : tempPageSize,
+        		projectType : projectType,
+        		financeStatus : financeStatus,
+        		projectProgress : projectProgress,
+        		projectStatus : projectStatus,
+        		projectDepartid : projectDepartid,
+        		createUid : createUid,
+        		nameCodeLike : nameCodeLike,
+        		projectPerson:projectPerson,
+        		faFlag:faFlag
+			}
+	}
+	var href_url=window.location;
+	setCookie("href_url", href_url,24,'/');
+	cookieOperator.forwardPushCookie(formdata);
+}
 	
 </script>
 

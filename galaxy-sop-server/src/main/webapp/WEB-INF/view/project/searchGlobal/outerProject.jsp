@@ -6,9 +6,14 @@
 %>
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
- 		<div class='two'>
-				<table class='outerProject'>
-					<tr>
+ 		<div class='two pagination_common'>
+				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
+					<thead>
+						<tr>
+							<th data-formatter='projectContent'></th>
+						</tr>
+					</thead>
+					<!-- <tr>
 						<td>
 							<div class='tdContent'>
 								<img class='fl leftPic'/>
@@ -22,22 +27,8 @@
 								</div>							
 							</div>
 						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class='tdContent'>
-								<img class='fl leftPic'/>
-								<div class='rightContent'>
-									<h3>花心区块链研究院<span>A轮</span></h3>
-									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮</p>
-									<p>
-										<span class='picEm'><em></em>江苏</span>
-										<span class='picEm picEmTwo'><em></em>企业服务</span>
-									</p>	
-								</div>							
-							</div>
-						</td>
-					</tr>
+					</tr> -->
+					
 				
 				
 				</table>
@@ -47,8 +38,60 @@
 			</div>
 			
 </div>
+<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
 <script type="text/javascript">
-
+$(function(){
+	
+	function queryParams(param){
+		param.keyword = "";
+		param.pageNo = 0;
+		param.pageSize =10;
+		param.pageSearchInfo = 'dnProject ';
+		param.orderBy='setupDT';
+		param.order ='desc'
+		return param;
+	}
+	
+	$('#outerProject').bootstrapTable({
+		pageSize:10,
+		pageNumber:0,
+		method:'post',
+		pagination:true,
+		//dataType: "json",
+		pageList:[10,20,30],
+		sortOrder : 'desc',
+		sortName : 'updated_time',
+		sidePagination:'server',
+		queryParams:queryParams,
+		onLoadSuccess:function(data){
+			console.log(data)
+		}
+	
+	
+	
+	
+})
+	 
+	
+	
+});
+	function projectContent(value,row,index){
+		var html = "<div class='tdContent'><img class='fl leftPic'/ src='"+row.projImage+"' >"+
+					"<div class='rightContent'>"+
+					"<h3>'"+row.projTitle+"'<span>'"+row.latestFinanceRound+"'</span></h3>"+
+					"<p class='outerProjectTitle'>'"+row.introduce+"'</p>"+
+					"<p>"+
+						"<span class='picEm picEmOne'><em></em>'"+row.districtSubName+"'</span>"+
+						"<span class='picEm picEmTwo'><em></em>'"+row.industryName+"'</span>"+
+					"</p>"+
+					"</div>"+
+					"</div>"
+		
+		return html;
+	}
 	
 	
 	

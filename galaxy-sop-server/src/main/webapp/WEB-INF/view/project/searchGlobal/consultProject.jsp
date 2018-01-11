@@ -8,11 +8,16 @@
     <!--右中部内容-->
  		<div class='three'>
  			<div class='consut_span'>
- 				<span class='hasBackround'>星河咨询</span>
- 				<span>创投咨询</span>
+ 				<span class='hasBackround'>星河资讯</span>
+ 				<span>创投资讯</span>
  			</div>
-				<table class='outerProject newsProject'>
-					<tr>
+				<table id="xhtConsult" class='outerProject newsProject' data-url="<%=path %>/galaxy/infoDanao/queryXhtAppZixunPage">
+					<thead>
+						<tr>
+							<th data-field="create_time" data-formatter="xhtProjectContent"></th>
+						</tr>
+					</thead>
+				<!-- 	<tr>
 						<td>
 							<div class='tdContent'>
 								<img class='fl leftPic'/>
@@ -41,11 +46,36 @@
 								</div>							
 							</div>
 						</td>
-					</tr>
+					</tr> -->
 					
 				
 				</table>
 			
+			<table id="ctConsult" class='outerProject newsProject'>
+				<thead>
+						<tr>
+							<th data-formatter="ctProjectContent"></th>
+						</tr>
+				</thead>
+				<!-- <tbody>
+				<tr>
+						<td>
+							<div class='tdContent'>
+								<img class='fl leftPic'/>
+								<div class='rightContent'>
+									<h3>花心区块链研究院</h3>
+									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮</p>
+									<p>
+										<span class='picEm picEmOne'>1小时前</span>
+										<span class='picEm picEmTwo'>来自投资中国</span>
+									</p>	
+								</div>							
+							</div>
+						</td>
+					</tr>
+					</tbody> -->
+			
+			</table>
 			
 			
 			</div>
@@ -56,7 +86,47 @@
 		$('.consut_span span').removeClass('hasBackround');
 		$(this).addClass('hasBackround');
 		
+	});
+	
+	$(function(){
+	
+		function queryParams(param){
+			param.keyword = "";
+			param.pageNo = 0;
+			param.pageSize =10;
+			param.pageSearchInfo = 'xhtAppZixun';
+			param.orderBy='create_time';
+			param.order ='desc'
+			return param;
+		}
+		
+		$('#xhtConsult').bootstrapTable({
+			pageSize:10,
+			pageNumber:0,
+			method:'post',
+			pagination:true,
+			pageList:[10,20,30],
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			sidePagination:'server',
+			queryParams:queryParams,
+			onLoadSuccess:function(data){
+				//console.log(data)
+			}
+		
+		
+		
+		
 	})
+		
+		
+		
+		
+		
+		
+	})
+	
+	
 	
 	
 </script>
