@@ -632,7 +632,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
         if(value.intValue() < 1*60*60*1000){
         	int ts = value.intValue()/(60*1000);
 			ctime = ts + "分钟前";
-        }else if(value.intValue() < 24*60*60*1000 ){
+        }else if(value.intValue() <= 24*60*60*1000 ){
 			int ts = value.intValue()/(60*60*1000);
 			ctime = ts + "小时前";
 		}else{

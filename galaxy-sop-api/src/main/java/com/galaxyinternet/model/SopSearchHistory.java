@@ -20,6 +20,11 @@ public class SopSearchHistory extends BaseEntity {
 
     private Integer isDelete; //0:正常数据；1:已删除数据；
 
+    public SopSearchHistory(){
+        super();
+        setIsDelete(null);
+        setType(null);
+    }
 
 
     public String getIsOld() {
@@ -44,12 +49,8 @@ public class SopSearchHistory extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
-
         if(this.content!=null ){
-            if(this.spiltMark==null){
-                this.spiltMark="<nbsp>";
-            }
-            String[] arr = this.content.split(spiltMark);
+            String[] arr = this.content.split(getSpiltMark());
             this.hisList = Arrays.asList(arr);
         }
     }
@@ -67,7 +68,7 @@ public class SopSearchHistory extends BaseEntity {
     }
 
     public void setType(Integer type) {
-        this.type = type;
+        this.type = type == null ? 0 : type;
     }
 
     public Integer getIsDelete() {
@@ -75,10 +76,7 @@ public class SopSearchHistory extends BaseEntity {
     }
 
     public void setIsDelete(Integer isDelete) {
-        if(isDelete == null){
-            isDelete = 0;
-        }
-        this.isDelete = isDelete;
+        this.isDelete = isDelete == null ? 0 : type;
     }
 
 
@@ -91,7 +89,7 @@ public class SopSearchHistory extends BaseEntity {
     }
 
     public String getSpiltMark() {
-        return spiltMark;
+        return spiltMark  == null ? "<nbsp>" : spiltMark ;
     }
 
     public void setSpiltMark(String spiltMark) {
