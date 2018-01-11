@@ -41,13 +41,10 @@ public class SopSearchHistoryServiceImpl extends BaseServiceImpl<SopSearchHistor
                 query.setContent(keyword);
                 sopSearchHistoryDao.insert(query);
             } else {
-                String content = "";
+                String content = result.getContent();
                 if (result.getHisList() != null && !result.getHisList().contains(keyword)) {
-                    if (result.getHisList().size() < saveItem) {
-                        content = result.getContent();
-                    } else {
-                        content = result.getContent().substring(result.getContent().indexOf(result.getSpiltMark())
-                                + result.getSpiltMark().length(), result.getContent().length());
+                    if (result.getHisList().size() >= saveItem) {
+                        content = content.substring(0,content.lastIndexOf(result.getSpiltMark()));
                     }
                     content = keyword + result.getSpiltMark() + content;
                 }else{
@@ -55,6 +52,7 @@ public class SopSearchHistoryServiceImpl extends BaseServiceImpl<SopSearchHistor
                 }
                 result.setContent(content);
                 sopSearchHistoryDao.updateById(result);
+                return result;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
