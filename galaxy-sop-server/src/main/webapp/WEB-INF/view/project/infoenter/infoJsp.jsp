@@ -2,7 +2,12 @@
 <% 
 	String path = request.getContextPath(); 
 %>
- 
+ <style> 
+ .infoList .threeLiFirst {
+    padding-left: 20px;
+    width: 45%;
+}
+ </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop DN_list">
 	<div class="infoTop clearfix">

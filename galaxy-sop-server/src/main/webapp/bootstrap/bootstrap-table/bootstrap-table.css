@@ -21,7 +21,12 @@
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
-
+.bootstrap-table .table > tbody > tr > td.threeLi{
+	padding: 20px 0!important; 	 
+}
+.bootstrap-table .table > tbody > tr > td.threeLiFirst{
+	padding-left:20px!important; 
+}
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
 .bootstrap-table .table.table-no-bordered > tbody > tr > td {
     border-right: 2px solid transparent;

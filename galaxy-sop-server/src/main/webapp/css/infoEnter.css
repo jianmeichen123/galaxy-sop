@@ -109,17 +109,25 @@ color: #3CA6FF;
 .tableBox .pagination > .disabled > span, .tableBox .pagination > .disabled > span:hover, .tableBox .pagination > .disabled > span:focus, .tableBox .pagination > .disabled > a, .tableBox .pagination > .disabled > a:hover, .tableBox .pagination > .disabled > a:focus{
 
 }
+.DN_info{
+	padding-bottom: 88px;
+}
 .infoList{
 	width: 100%;
 	border-collapse:collapse;
 	table-layout: fixed;
+	border-radius: 2px!important;
 }
 .width{
 	width: 100%; 
 }
+.threeLi p{ 
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
 .listTitle.listThree .threeLi{
 	border-bottom: 1px solid #d8d8d8;
-
 }
 .listThree .threeLi{
 	text-align: left;  
@@ -152,6 +160,12 @@ color: #3CA6FF;
 .infoList .threeLiFirst{
 	padding-left:20px;
 	width:45%;
+}
+.infoList .threeLiFirst {
+    padding-left: 20px!important; 
+}
+.fixed-table-container thead th .th-inner{
+	padding: 30px 0 20px 0;
 }
 .infoList .threeLiSecond{
 	width:45%;
@@ -206,13 +220,12 @@ color: #3CA6FF;
 	margin-left: 16px;
 }
 .infoBox{
-	padding:20px 16px 70px 16px ;
+	padding:20px 16px 20px 16px ;
 	background:#fff;
 }
-.infoItem{
-	margin-bottom:30px;
-
-}
+/* .infoItem{
+margin-bottom:30px; 
+} */
 .infoItem .titles{
 font-size: 12px;
 color: #333333;
@@ -384,6 +397,7 @@ background: #E5F3FF;
 	right: 0;
 	bottom: 0;
 	background: #e9ebf2; 
+    z-index: 102;
 }
 .jumpBox{
 	display:none;

@@ -1970,6 +1970,12 @@ function initTable(url,data,status,code) {
         }, 
 
         ],
+        onLoadSuccess: function (data) {
+        	$(".pagination-info").css({"color":"#5A626D","overflow":"hidden"});
+			$(".pagination-info").append("<span style=color:#999;padding-left:18px;>（数据来源：创投大脑）</span>");
+			$(".bootstrap-table").next().hide();
+			return false;
+        },
         pagination: true
     });
 }
@@ -1982,9 +1988,6 @@ function pagePop(codes){
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
-			$("#poptxt").css("padding","0");
-			$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");;
-			$("#powindow").css("background","#F4F4F4")
 			 //infoDetail  
 			var danaoProjCode= projectInfo.danaoProjCode; 
 			$(".DN_list h5").text("参考信息").css("background","none"); 
@@ -2005,7 +2008,9 @@ function pagePop(codes){
 			$(".scheduleIcon").css("width","220px");
 			//大脑tableList分页    
 			initTable(_url,data,1,codes); 
-				
+			$("#poptxt").css("padding","0");
+			$("#powindow").css("background","#F4F4F4")
+			
 		}
 	})  
 } 
@@ -2039,7 +2044,6 @@ function infoDPop(even,status){
 		$("#popbg").remove();
 		$("#powindow").remove(); 
 		$("#poptxt").css("padding","0");
-		$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");
 		$("#powindow").css("background","#F4F4F4");
 		var code=$(even).attr("dncode");   
 		getpopHTML(code,even);
@@ -2051,7 +2055,6 @@ function getpopHTML(code,even,danaoName){
 		data:"",//传递参数
 		okback:function(){  
 			$("#poptxt").css("padding","0");
-			$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");;
 			$("#powindow").css("background","#F4F4F4") 
 			$(".over_pro").hide();
 			$("li[data-content=3]").hide();

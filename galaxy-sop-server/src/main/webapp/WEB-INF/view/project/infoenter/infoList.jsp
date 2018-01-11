@@ -16,6 +16,7 @@
 <style>
 .pagination-info{
 color:#5A626D;
+
 }
 
 </style>
