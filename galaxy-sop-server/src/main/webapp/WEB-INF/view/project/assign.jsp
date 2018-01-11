@@ -287,10 +287,20 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}else{
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
+		if(valueManager=="全部"||valueManager=="投资经理"){
+			
+		}else{
+			param.createUid = valueManager;//投资经理
+		}
+		if(valueNum=="全部"||valueNum=="全部事业部"){
+			
+		}else{
+			param.projectDepartid = valueNum;//全部事业部
+		}
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		param.nameCodeLike = nameCodeLike!="undefined"?nameCodeLike:"";
-		param.projectDepartid = valueNum;//事业线
-		param.createUid = valueManager;//投资经理
+	/* 	param.projectDepartid = valueNum;//事业线
+		param.createUid = valueManager;//投资经理 */
 		return param;
 		
 	} 	
