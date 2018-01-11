@@ -250,15 +250,28 @@
 			</div>
 			<!-- 七大报告入口结束 -->
             <div class="tq_div">
-            <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&fx:hasPremission('project_assign')}">
-	            <div class="correlation">相关操作</div>
-	            </c:if> 
-	            
+                <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&(fx:hasPremission('project_assign'))}">
+	                <div class="correlation">相关操作</div>
+	        </c:if> 
+	             <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
+	            	        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('transfer')" >移交项目</span>
+	            	    </c:if>
+	            	 <c:if test="${fx:hasPremission('project_assign')}">	
+	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
+	                </c:if>
+<!-- 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span> -->
+	                <c:if test="${fx:hasPremission('project_delete')}">	
+                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()"  id="delete_btn" >删除项目</span>
+                    </c:if>
+	               
+	            </div>
             </div>
             
             
             <div class="tq_div" style="display:none;">
-            <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+          <%--   <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
            <!--  <div class="correlation">
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;">more</span>
@@ -278,7 +291,7 @@
             		暂无访谈记录
             	</div>
             </div> -->
-            </c:if>
+            </c:if> --%>
             
             
         </div>
@@ -297,7 +310,7 @@ var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
 var prostatus = pRigthInfo.projectStatusDs
 $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
- if('${fx:isTransfering(pid)}' == 'true')
+ /* if('${fx:isTransfering(pid)}' == 'true')
 {	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
 	  $(".tzlc_btn").addClass("disabled");
@@ -321,12 +334,12 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 	}
 	$("#cxxm_btn").attr("style","display:none;");
 } 
- 
+  */
 
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
-
+alert(${fx:hasPremission('project_assign')}+"555555555"+${fx:hasPremission('project_delete')});
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
@@ -800,10 +813,10 @@ function setJgqrProgress()
 
 
 $(function(){
-	 if($(".new_correlation_cen").find(".fjxm_but").length==0){
+	 /* if($(".new_correlation_cen").find(".fjxm_but").length==0){
 		$(".yjxm_btn").removeClass("new_btn_right").addClass("new_btn");
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
-	} 
+	}  */
 })
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
