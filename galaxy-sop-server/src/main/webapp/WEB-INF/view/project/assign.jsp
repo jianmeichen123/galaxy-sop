@@ -20,11 +20,13 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<div class='content_task'>
 		<div class='title_top'>
-			<h3>指派项目</h3>
-			 <%-- <c:if test="${from eq 'assign' }"> --%>
+			
+			 <c:if test="${from eq 'assign' }">
+			 <h3>指派项目</h3>
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
-			<%-- </c:if> --%>
+			 </c:if> 
 			 <c:if test="${from eq 'transfer'}">
+			 <h3>移交项目</h3>
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 			</c:if>
 		</div>
