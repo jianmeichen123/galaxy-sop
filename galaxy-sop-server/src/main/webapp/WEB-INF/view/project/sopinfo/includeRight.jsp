@@ -250,21 +250,10 @@
 			</div>
 			<!-- 七大报告入口结束 -->
             <div class="tq_div">
-	            <div class="correlation">相关操作</div> 
-	            <div class="new_correlation_cen">
-	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
-	            	        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('transfer')" >移交项目</span>
-	            	    </c:if>
-	            	 <c:if test="${fx:hasPremission('project_assign')}">	
-	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
-	                </c:if>
-	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
-	                <c:if test="${fx:hasPremission('project_delete')}">	
-                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()"  id="delete_btn" style="display:none">删除项目</span>
-                    </c:if>
-	               
-	            </div>
+            <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&fx:hasPremission('project_assign')}">
+	            <div class="correlation">相关操作</div>
+	            </c:if> 
+	            
             </div>
             
             
@@ -301,13 +290,14 @@
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <script>
+
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
 var prostatus = pRigthInfo.projectStatusDs
 $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
-/* if('${fx:isTransfering(pid)}' == 'true')
+ if('${fx:isTransfering(pid)}' == 'true')
 {	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
 	  $(".tzlc_btn").addClass("disabled");
@@ -330,7 +320,7 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 	  $(".tzlc_btn").remove();
 	}
 	$("#cxxm_btn").attr("style","display:none;");
-} */
+} 
  
 
 if(!prograss){
@@ -391,7 +381,7 @@ $(function(){
 	}
 	
 	 //删除项目按钮是否显示
-	if($(".delete_btn").attr("id")=="delete_btn"&&index<=3){
+	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<=3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
 		$("#delete_btn").attr("style","display:black");
 	} 
 	init_lct(); //流程图初始化
@@ -810,10 +800,10 @@ function setJgqrProgress()
 
 
 $(function(){
-	/* if($(".new_correlation_cen").find(".fjxm_but").length==0){
+	 if($(".new_correlation_cen").find(".fjxm_but").length==0){
 		$(".yjxm_btn").removeClass("new_btn_right").addClass("new_btn");
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
-	} */
+	} 
 })
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
