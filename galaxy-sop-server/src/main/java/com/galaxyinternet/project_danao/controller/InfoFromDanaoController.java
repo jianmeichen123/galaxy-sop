@@ -187,6 +187,7 @@ public class InfoFromDanaoController{
             DnProject proj = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
             dnProject.setCompCode(proj.getCompCode());
             dnProject.setProjCompanyName(proj.getProjCompanyName());
+            dnProject.setProjTitle(proj.getProjTitle());
 
 			if(dnProject.getDanaoInfo() != null ){
 				String[] marks = dnProject.getDanaoInfo().split(",");
@@ -231,7 +232,7 @@ public class InfoFromDanaoController{
 				result.putAll(result3);
 			}
 
-			result.put("projCompanyName",dnProject.getProjCompanyName());
+			result.put("projTitle",dnProject.getProjTitle());
 			responseBody.setUserData(result);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
