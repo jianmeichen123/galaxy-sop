@@ -1,0 +1,215 @@
+
+记录
+0、判断标识，是否引用大脑数据
+	判断是否出现 参考信息 的功能选项。
+	title.danao_info 题中信息表明题参考的是哪类信息
+
+
+
+1、按 项目名称 模糊查询 大脑项目数据，分页展示
+psot： /galaxy/infoDanao/searchProject
+请求参数：
+{
+"keyword":"项目名称"
+"pageNo":0,
+"pageSize":10
+}
+//升序:asc 降序:desc ,  private String order;
+//排序字段              private String orderBy;
+//当前页码              private Integer pageNo;
+//每页记录数            private Integer pageSize;
+//搜索关键字            private String keyword;
+
+返回： pageList
+ //项目code                private String projCode;
+//logo                     private String projImage;
+//项目名称 ：  项目标题 ,  private String projTitle;
+//所在行业    没有则不显示 private String industryName;
+//所在地区    没有则不显示 private String districtSubName;
+//公司全称                 private String projCompanyName;
+//成立时间                 private String setupDT;
+
+
+2.引用大脑信息
+post: /galaxy/infoDanao/searchProjectInfo
+请求：{
+"projId":"星河投项目id"
+"projCode":"大脑项目code",
+"danaoInfo":"legalInfo,equityInfo,teamInfo,financeInfo"
+	     [*有该标识，表示仅获取标识对应的区块信息，无表示获取所有引用]
+}
+danaoInfo 参数:
+	 *  法人信息   	legalInfo
+	 *  股权结构	   equityInfo
+	 *  团队成员    teamInfo
+	 *  融资历史	   financeInfo
+
+return 返回：userData
+法人信息：legalInfo
+	    公司名称      company
+        成立日期      foundDate
+        法人          legalPerson
+//----------------------
+股权结构: equityInfo
+	股东名称  shareholder
+	股东类型  null
+	股东性质  shareholderType 选择项 shareholderTypeId
+	占股比例  equityRate
+	备注 :
+		”认缴出资时间”、  prePayDate
+		”认缴出资金额”、  prePayAmountStr
+		”实缴出资时间”、  paidDate
+		”实缴出资金额”、  paidPayAmountStr
+		”出资方式”        payType
+//----------------------
+团队成员: teamInfo
+	姓名    name
+	职位    job  jobId “other其他”-> jobContentDescribe1
+//----------------------
+融资历史
+	融资轮次  round   roundId
+	融资时间  investDate
+	融资金额  num
+	币种      unit  unitId
+	股权占比  stock
+
+
+
+//搜索
+3、初始 ： 获取搜索的历史记录
+get: /galaxy/infoDanao/searchHistory
+无参数请求
+return 返回 entity；
+	private String content;
+	private String spiltMark;  //"<nbsp>"
+	private List<String> hisList;
+
+
+4、点击搜索按钮，保存搜索记录，返回更新后的信息
+get: /galaxy/infoDanao/saveSearchHistory
+参数 ： keyword
+return 返回 entity；
+	private String content;
+	private String spiltMark; //"<nbsp>"
+	private List<String> hisList;
+
+
+
+//==  全局搜索 table
+
+5、查询 星河投 列表
+post ：/galaxy/infoDanao/queryXhtProjectPage
+参数 ：
+{
+"keyword":"test",
+"pageNum":0,
+"pageSize":10
+}
+//升序:asc 降序:desc ,  private String direction;   desc
+//排序字段              private String property;  updated_time
+//当前页码              private Integer pageNum; 0
+//每页记录数            private Integer pageSize;
+//搜索关键字            private String keyword;
+
+return 返回 ： pageList
+返回：userData
+ *   xhtProject      xhtProjectTotal    创投项目
+ *   dnProject       dnProjectTotal     创投大脑的项目
+ *   dnZixun         dnZixunTotal       创投大脑投融快讯
+ *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
+
+
+6、查询 dnProject    创投大脑的项目
+post ：/galaxy/infoDanao/queryDnProjectPage
+参数 ：
+{
+"keyword":"星",
+"pageNo":0,
+"pageSize":10
+}
+//升序:asc 降序:desc ,  private String order;   desc
+//排序字段              private String orderBy;  setupDT
+//当前页码              private Integer pageNo; 0
+//每页记录数            private Integer pageSize;
+//搜索关键字            private String keyword;
+
+return 返回 ： pageList
+	private String href;  //链接
+	private String latestFinanceAmountStr; //最新融资金额
+	private String latestFinanceDT; //最新融资时间
+	private String latestFinanceRound; //最新融资轮次
+	private String projCode; //项目code
+	private String projImage; //图片地址
+	private String projTitle; //项目名称   项目标题 ,
+	private String industryName; //所在行业 一级二级
+	private String industrySubName;
+	private String districtSubName; //所在地区
+	private String projCompanyName; //公司全称
+	private String setupDT; //成立时间
+	private String introduce; //项目slogan 简介
+返回：userData
+ *   xhtProject      xhtProjectTotal    创投项目
+ *   dnProject       dnProjectTotal     创投大脑的项目
+ *   dnZixun         dnZixunTotal       创投大脑投融快讯
+ *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
+
+
+7、查询 dnZixun   创投大脑投融快讯
+post ：/galaxy/infoDanao/queryDnZixunPage
+参数 ：
+{
+//升序:asc 降序:desc ,  private String order;   desc
+//排序字段              private String orderBy;  ctime
+//当前页码              private Integer pageNo; 0
+//每页记录数            private Integer pageSize;
+//搜索关键字            private String keyword;
+}
+return 返回 ： pageList
+	private String code;
+	private String href;     //资讯链接
+	private String imgmd5;
+	private String zixunImage;
+
+	private String title;    //资讯标题
+	private String overview; //资讯概要
+	private String auther; //资讯来源
+	private String ctime;  //创建时间
+	private String ctimeStr;
+返回：userData
+ *   xhtProject      xhtProjectTotal    创投项目
+ *   dnProject       dnProjectTotal     创投大脑的项目
+ *   dnZixun         dnZixunTotal       创投大脑投融快讯
+ *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
+
+
+8、查询 xhtAppZixun  星河资讯-app资讯
+post ：/galaxy/infoDanao/queryXhtAppZixunPage
+参数 ：
+{
+//升序:asc 降序:desc ,  private String order;   desc
+//排序字段              private String orderBy;  create_time
+//当前页码              private Integer pageNo; 0
+//每页记录数            private Integer pageSize;
+//搜索关键字            private String keyword;
+}
+return 返回 ： pageList
+	private String code;
+	private String href;     //资讯链接
+	private String imgmd5;
+	private String zixunImage;
+
+	private String title;    //资讯标题
+	private String overview; //资讯概要
+	private String auther; //资讯来源
+	private String ctime;  //创建时间
+	private String ctimeStr;
+返回：userData
+ *   xhtProject      xhtProjectTotal    创投项目
+ *   dnProject       dnProjectTotal     创投大脑的项目
+ *   dnZixun         dnZixunTotal       创投大脑投融快讯
+ *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+
+//==  全局搜索 table end

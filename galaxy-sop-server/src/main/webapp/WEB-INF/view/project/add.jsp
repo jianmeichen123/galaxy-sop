@@ -394,10 +394,10 @@ function CallBackE(data){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
 		//获取TOKEN 用于验证表单提交
-		sendPostRequest(platformUrl.getToken,function(data){
+	/* 	sendPostRequest(platformUrl.getToken,function(data){
 			TOKEN=data.TOKEN;
 			return TOKEN;
-		});
+		}); */
 		$("#formatShareRatio").blur(function(){
 			var valuations = calculationValuations();
 			if(valuations != null){
