@@ -4,7 +4,7 @@
 %>
  
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
-<div class="ritmin bigPop">
+<div class="ritmin bigPop DN_list">
 	<div class="infoTop clearfix">
 	<!--1是页面  0是弹窗  -->
 			<div id="dataHidden">1</div>

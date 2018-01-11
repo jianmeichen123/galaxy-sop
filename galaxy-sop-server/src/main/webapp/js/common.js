@@ -1888,7 +1888,7 @@ function initTable(url,data,status,code) {
         sortOrder: "asc",     //排序方式
         pageNumber: 1,      //初始化加载第一页，默认第一页
         pageSize: 10,      //每页的记录行数（*）
-        pageList: [10, 50, 100, 150],  //可供选择的每页的行数（*）
+        pageList: [],  //可供选择的每页的行数（*）
         url: url,//这个接口需要处理bootstrap table传递的固定参数
         queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
         // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber 
@@ -1975,62 +1975,47 @@ function initTable(url,data,status,code) {
 }
 //1.11
 //status  是否引用 0 未引用
-function pagePop(even,btnstatus){  
-	var urlCode = $(even).attr("urlCode"); 
-	var code = $(even).attr("dncode");
-	$.getHtml({ 
-		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
-		data:"",//传递参数
-		okback:function(){  
-			 //infoDetail  
-				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text($("#project_name_t").text()); 
-				var data={ 
-			   			"keyword":projectInfo.projectName,
-						"orderBy":"projTitle", 
-			    		}
-				$(".rightLink").hide();
-				$(".over_pro").hide();
-				$("li[data-content=3]").hide();
-				$(".scheduleIcon").css("width","220px");
-				//大脑tableList分页    
-				initTable(_url,data,1,code); 
-				
-		}
-	})  
-}
-//pagePop2 多次返回  even已经变化  重写
-function pagePop2(codes){
+function pagePop(codes){  
 	var urlCode ="/galaxy/infoDanao/infoJsp/"; 
 	var code = codes;
 	$.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
+			$("#poptxt").css("padding","0");
+			$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");;
+			$("#powindow").css("background","#F4F4F4")
 			 //infoDetail  
-				var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-				$("#projectName").text($("#project_name_t").text()); 
-				var data={ 
-			   			"keyword":projectInfo.projectName,
-						"orderBy":"projTitle", 
-			    		} 
-				$(".rightLink").hide();
-				$(".over_pro").hide();
-				$("li[data-content=3]").hide();
-				$(".scheduleIcon").css("width","220px");
-				//大脑tableList分页   
-				$(".over_pro").hide();
-				$("li[data-content=3]").hide();
-				initTable(_url,data,1,code); 
+			var danaoProjCode= projectInfo.danaoProjCode; 
+			$(".DN_list h5").text("参考信息").css("background","none"); 
+			if(!danaoProjCode||danaoProjCode==null){
+				$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
+			}else{
+				$(".DN_list p:first").hide();
+			}
+			var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
+			$("#projectName").text($("#project_name_t").text()); 
+			var data={ 
+		   			"keyword":projectInfo.projectName,
+					"orderBy":"projTitle", 
+		    		}
+			$(".rightLink").hide();
+			$(".over_pro").hide();
+			$("li[data-content=3]").hide();
+			$(".scheduleIcon").css("width","220px");
+			//大脑tableList分页    
+			initTable(_url,data,1,codes); 
+				
 		}
-	}) 
-}
-function infoDPop(even,status){   
-	var urlCode = $(even).attr("urlCode");  
-	if(!projectInfo.danaoProjCode){
-		//从列表进入  
+	})  
+} 
+function infoDPop(even,status){  
+	var urlCode = $(even).attr("urlCode");   
+	if(status==1){ 
+		//从引入进入  
 		var code=$(even).attr("dncode");   
 		var projCode=$(even).attr("projcode");   
+		var danaoName = $(even).closest("tr").find(".DN_name").text();
 		var dataJson={
 				"projId":projectInfo.id,
 				"projCode":projCode, 
@@ -2038,61 +2023,56 @@ function infoDPop(even,status){
 		sendPostRequestByJsonObj(
 		 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
 		dataJson,
-		function(data){
+		function(data){ 
 			 if(data.result.status=="OK"){ 
-				 //移除其他
+				 //移除其他  
 				 $("#popbg").remove();
 				 $("#powindow").remove(); 
 				 projectInfo.danaoProjCode=projCode;
 				 $("a[dncode]").attr("onclick","infoDPop(this)"); 
-				 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoDJsp/"); 
-				
-				getpopHTML(code,event,status);
+				 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoDJsp/");  
+				getpopHTML(code,event,danaoName);
 			 }
 		 }) 
 	}else{ 	
 		//从按钮进入    
+		 $("#popbg").remove();
+		 $("#powindow").remove(); 
+		$("#poptxt").css("padding","0");
+		$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");
+		$("#powindow").css("background","#F4F4F4");
 		var code=$(even).attr("dncode");   
-		getpopHTML(code,even,0);
+		getpopHTML(code,even);
 		 
 	} 
-function getpopHTML(code,even,status){
+function getpopHTML(code,even,danaoName){
 	 $.getHtml({ 
-			url:Constants.sopEndpointURL + urlCode,//模版请求地址 
+		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
-		okback:function(){   
+		okback:function(){  
+			$("#poptxt").css("padding","0");
+			$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");;
+			$("#powindow").css("background","#F4F4F4") 
 			$(".over_pro").hide();
 			$("li[data-content=3]").hide();
 			$(".scheduleIcon").css("width","220px");
 			$(".backLink").attr("href","javascript:;");
-			$(".backLink").click(function(){ 
-				 var dataJson={
-							projId:projectId ,
-							projCode:"", 
-					} 
-					sendPostRequestByJsonObj(
-						 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 
-					dataJson,
-					function(data){
-						 if(data.result.status=="OK"){  
-							 delete projectInfo.danaoProjCode; 
-							 $("a[dncode]").attr("onclick","pagePop(this)"); 
-							 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoJsp/");
-							 } 
-					})					
-				 $("#popbg").remove();
-				 $("#powindow").remove();
-				$(even).attr("urlcode","/galaxy/infoDanao/infoJsp/");
-				if(status==1){
-					//从列表按钮进入   
-					pagePop2(code) 
+			$(".backLink").attr("urlcode","/galaxy/infoDanao/infoJsp/");
+			$(".backLink").click(function(){  					
+			$("#popbg").remove();
+			$("#powindow").remove();
+			 pagePop(code)  
+			 return false;
+			}) 
+				$("#projectName").text(danaoName); 
+				var danaoProjCode= projectInfo.danaoProjCode; 
+				$(".DN_list h5").text("参考信息").css("background","none"); 
+				if(!danaoProjCode||danaoProjCode==null){
+					$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
 				}else{
-					//从详情列表
-					pagePop(even);
-				} 
-				return false;
-			})
-			 //infoDetail     
+					$(".DN_list p:first").hide();
+				}
+				 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 				var projectName=projectInfo.projectName; 
 				var projectId=projectInfo.id;  
@@ -2100,8 +2080,7 @@ function getpopHTML(code,even,status){
 				var data={
 			   			"keyword":projectName,
 						"orderBy":"projTitle",
-			    		}
-				$("#projectName").text(projectName); 
+			    		} 
 					var jsonObj={
 							projId:projectId,
 							projCode:projCode,
@@ -2111,7 +2090,7 @@ function getpopHTML(code,even,status){
 					if($(".infoBox li:visible").length<=0){  
 						 $(".infoBox").hide();
 						 $(".fixedbottom").hide(); 
-							$(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+						 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
 					 } 
 			}
 		}) 

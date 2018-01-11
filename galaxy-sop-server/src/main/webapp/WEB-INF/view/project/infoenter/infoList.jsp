@@ -13,7 +13,12 @@
 <jsp:include page="../../common/taglib.jsp"></jsp:include> 
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<style>
+.pagination-info{
+color:#5A626D;
+}
 
+</style>
 </head>
 
 <body >
