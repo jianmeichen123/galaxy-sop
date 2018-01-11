@@ -374,7 +374,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @return
 	 * @throws ParseException
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/editProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project,
@@ -1073,7 +1072,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
 				
-				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.1", UrlNumber.one);
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请CEO评审排期!"));
@@ -1126,7 +1125,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.2", UrlNumber.one);
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请立项会排期!"));
@@ -2207,7 +2206,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime-客户端用
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTimeByApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTimeByApp(
@@ -3514,7 +3512,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				 *            项目id
 				 * @return
 				 */
-				@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+				@com.galaxyinternet.common.annotation.Logger(operationScope={LogType.LOG, LogType.MESSAGE})
 				@ResponseBody
 				@RequestMapping(value = "/deletePro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 				public ResponseData<Project> deletePro(@RequestBody Project param,

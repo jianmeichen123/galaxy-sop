@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.GrantTotalBo;
-import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
@@ -182,7 +181,6 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 新建总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> addGrantTotal(@RequestBody GrantTotal grantTotal,
@@ -421,7 +419,6 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 删除总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/deleteGrantTotal/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("pid") Long pid,
@@ -472,7 +469,6 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 编辑总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/resetGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> resetGrantTotal(@RequestBody GrantTotal grantTotal,

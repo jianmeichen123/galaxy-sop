@@ -1,5 +1,7 @@
 package com.galaxyinternet.project_process.event.handlers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,7 +9,10 @@ import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -59,6 +64,8 @@ public class LXHHandler implements ProgressChangeHandler
 		{
 			throw new BusinessException(e.getMessage(),e);
 		}
+		HttpServletRequest request = WebUtils.getRequest();
+		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.three);
 	}
 
 }

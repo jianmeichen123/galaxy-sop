@@ -88,23 +88,26 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 * 放弃任务
 	 * @param ids
 	 * @param userId
+	 * @param reason
 	 */
-	void giveup(Long[] ids, Long userId);
+	void giveup(Long[] ids, Long userId, String reason);
 	/**
 	 * 移交任务
 	 * @param ids
 	 * @param srcUserId
 	 * @param targetUserId
 	 * @param userId
+	 * @param reason
 	 */
-	void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId);
+	void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId, String reason);
 	/**
 	 * 指派任务
 	 * @param ids
 	 * @param targetUserId
 	 * @param userId
+	 * @param reason
 	 */
-	void assign(Long[] ids, Long targetUserId, Long userId);
+	void assign(Long[] ids, Long targetUserId, Long userId, String reason);
 	
 }
 

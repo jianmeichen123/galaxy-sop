@@ -1,19 +1,14 @@
 package com.galaxyinternet.ideaZixun.controller;
 
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,29 +16,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.IdeaZixunBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
-import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -52,15 +39,11 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.DataFormat;
-import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.chart.ZixunData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.idea.IdeaZixun;
 import com.galaxyinternet.model.idea.ZixunFinance;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
@@ -69,7 +52,6 @@ import com.galaxyinternet.service.IdeaZixunService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.ZixunFinanceService;
 import com.galaxyinternet.service.chart.ZixunGradeService;
-import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
 @RequestMapping("/galaxy/zixun")
@@ -405,7 +387,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 
 	@ResponseBody
 	@RequestMapping(value="/addzixun",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> addZixun(HttpServletRequest request,@RequestBody IdeaZixunBo zixunbo){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -448,7 +429,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	@ResponseBody
 	@RequestMapping(value="/editzixun",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> editZixun(HttpServletRequest request,@RequestBody IdeaZixunBo zixunbo){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
 		
@@ -492,7 +472,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	@ResponseBody
 	@RequestMapping(value="/delzixun/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> delZixun(@PathVariable("id") Long id,HttpServletRequest request){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -532,7 +511,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	@RequestMapping(value="/exportZixunGrade")
 	public void exportZixunGrade(HttpServletRequest request,HttpServletResponse response){
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		@SuppressWarnings("unchecked")
 		IdeaZixunBo ideaZixun = (IdeaZixunBo) request.getSession().getAttribute("zixunQuery");	
 		ideaZixun.setPageNum(0);
 		ideaZixun.setPageSize(100000000);
@@ -559,7 +537,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	public List<ZixunData> setData(List<IdeaZixunBo>list,IdeaZixunBo zixunBo){
 		List<ZixunData> zixunList=new ArrayList<ZixunData>();
-		  Map<Long,String> map=departmentMap();
 		if(null!=list&&!list.isEmpty()){
 			for(IdeaZixunBo ideaZixunBo:list){
 				ZixunData zixun=new ZixunData();

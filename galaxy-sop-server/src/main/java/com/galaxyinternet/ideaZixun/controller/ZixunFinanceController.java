@@ -166,7 +166,6 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	
 	@ResponseBody
 	@RequestMapping(value="/delRz/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<ZixunFinance> delRz(@PathVariable("id") Long id,HttpServletRequest request){
 		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);

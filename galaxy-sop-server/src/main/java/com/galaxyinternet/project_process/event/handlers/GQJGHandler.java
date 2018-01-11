@@ -1,11 +1,16 @@
 package com.galaxyinternet.project_process.event.handlers;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
@@ -20,6 +25,7 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
@@ -121,7 +127,13 @@ public class GQJGHandler implements ProgressChangeHandler
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();
-		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), num);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, project.getProjectName());
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, project.getId());
+		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, num.name());
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_TYPE, RecordType.PROJECT.getType());
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_RECORD_IDS, Arrays.asList(project.getId()));
+		ControllerUtils.setRequestParamsForMessageTip(request, params);
 	}
 
 }

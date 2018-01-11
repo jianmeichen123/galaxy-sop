@@ -1,7 +1,26 @@
 package com.galaxyinternet.touhou.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.galaxyinternet.bo.OperationalDataBo;
-import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.Page;
@@ -17,24 +36,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationalDataService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/galaxy/operationalData")
@@ -202,13 +203,11 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@RequestMapping(value = "/formAddOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
 		ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
 		User user = (User) getUserFromSession(request);
-		String messageType = "19.1";
 		UrlNumber number = UrlNumber.one;
 		try {
 			if(operationalData == null){
@@ -224,7 +223,6 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalData.setCreateTime(op.getCreateTime());
 				operationalData.setDataType(operationalData.getDataType());
 				operationalDataService.updateByIdSelective(operationalData);
-				messageType = "19.2";
 				number = UrlNumber.two;
 			}else{
 				operationalData.setCreateUid(user.getId());
@@ -234,7 +232,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalDataService.insert(operationalData);
 			}
 			responseBody.setResult(new Result(Status.OK, "success", "添加运营记录成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),messageType,number);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),number);
 			logger.info("添加运营记录成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -247,7 +245,6 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	/**
 	 *删除
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delOperationalData/{operationalDataId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OperationalData> delOperationalData(@PathVariable("operationalDataId") Long operationalDataId,HttpServletRequest request,HttpServletResponse response ) {

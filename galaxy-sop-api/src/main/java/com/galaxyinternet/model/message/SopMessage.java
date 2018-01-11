@@ -1,8 +1,8 @@
 package com.galaxyinternet.model.message;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.model.common.RecordEntity;
 
-public class SopMessage extends BaseEntity
+public class SopMessage extends RecordEntity
 {
 
 	/**
@@ -11,8 +11,6 @@ public class SopMessage extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	private String messageType;
-	private Integer relatedType;
-	private Integer relatedId;
 	private Long createdId;
 	private Long updatedId;
 	private Integer isPublished = 0;
@@ -27,22 +25,6 @@ public class SopMessage extends BaseEntity
 	public void setMessageType(String messageType)
 	{
 		this.messageType = messageType;
-	}
-	public Integer getRelatedType()
-	{
-		return relatedType;
-	}
-	public void setRelatedType(Integer relatedType)
-	{
-		this.relatedType = relatedType;
-	}
-	public Integer getRelatedId()
-	{
-		return relatedId;
-	}
-	public void setRelatedId(Integer relatedId)
-	{
-		this.relatedId = relatedId;
 	}
 	public Long getCreatedId()
 	{

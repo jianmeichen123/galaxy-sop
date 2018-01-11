@@ -94,7 +94,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		 * @param response
 		 * @return
 		 */
-		@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+		@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 		@ResponseBody
 		@RequestMapping(value = "/addfilemeetByNofile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> addIosFileMeetByNoFile(@RequestBody MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -274,7 +274,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		 * @param response
 		 * @return
 		 */
-		@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+		@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
 		@ResponseBody
 		@RequestMapping(value = "/addfilemeetByFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> addIosFileMeet(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {

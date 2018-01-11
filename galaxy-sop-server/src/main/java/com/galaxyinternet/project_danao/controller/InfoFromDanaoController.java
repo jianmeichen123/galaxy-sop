@@ -6,8 +6,10 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.DaNao.DnProject;
+import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.SopSearchHistory;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -30,7 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -244,7 +245,7 @@ public class InfoFromDanaoController{
 	// todo search global
 
 	/**
-	 *获取搜索的历史记录
+	 *初始 ： 获取搜索的历史记录
 	 */
 	@RequestMapping(value = "/searchHistory", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<SopSearchHistory> searchHistory(HttpServletRequest request, HttpServletResponse response )
@@ -268,16 +269,215 @@ public class InfoFromDanaoController{
 	}
 
 
-	/**
-	 * 查询， 并保存记录
-	 */
-	@RequestMapping(value = "/searchGlobalInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseData<Project> searchGlobalInfo(@RequestBody DnProject dnProject,
-														HttpServletRequest request, HttpServletResponse response)
+	//点击搜索按钮，保存记录搜索记录，并返回更新后的记录
+	@RequestMapping(value = "/saveSearchHistory", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<SopSearchHistory> saveSearchHistory(String keyword,HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<SopSearchHistory> responseBody = new ResponseData<SopSearchHistory>();
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			//保存查询记录
+			if(StringUtils.isNotBlank(keyword)){
+				SopSearchHistory searchHistory = sopSearchHistoryService.saveSearchHistory(user.getId(), keyword.trim());
+				responseBody.setEntity(searchHistory);
+			}
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+	//查询 星河投 项目
+	@RequestMapping(value = "/queryXhtProjectPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<Project> queryXhtProjectPage(@RequestBody Project project,
+																		 HttpServletRequest request, HttpServletResponse response)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 
-		Map<String,Long> tReslut = new HashMap<>();
+		try {
+			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(project.getKeyword());
+			Map<String,Object> tObj = new HashMap<>();
+			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
+				tObj.put(temp.getKey(), temp.getValue());
+			}
+			responseBody.setUserData(tObj);
+
+
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+			Integer pageNum = project.getPageNum() != null ? project.getPageNum() : 1;
+			Integer pageSize = project.getPageSize() != null ? project.getPageSize() : 10;
+			String direction = project.getDirection() != null ? project.getDirection() : "desc";
+			String property = project.getProperty()==null?"updated_time":project.getProperty();
+			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
+
+			if(tReslut.get("xhtProjectTotal").intValue() != 0)
+			{
+				Page<Project> pageProject = projectService.queryPageList(
+						project,
+						new PageRequest(pageNum,pageSize,Sort.Direction.fromString(direction),property)
+				);
+
+				//封装数据
+				for(Project p : pageProject.getContent()){
+					p.setProjectCareerline((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+p.getProjectDepartid(), "name"));
+					//p.setCreateUname((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+p.getCreateUid(), "realName"));
+				}
+				responseBody.setPageList(pageProject);
+			}
+
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+	//查询 dnProject    创投大脑的项目
+	@RequestMapping(value = "/queryDnProjectPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnProject> queryDnProjectPage(@RequestBody DnProject dnProject,
+																   HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
+
+		try {
+			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(dnProject.getKeyword());
+			Map<String,Object> tObj = new HashMap<>();
+			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
+				tObj.put(temp.getKey(), temp.getValue());
+			}
+			responseBody.setUserData(tObj);
+
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
+			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
+			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
+			String property = dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy();
+			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
+			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
+			dnProject.setOrder(direction);
+			dnProject.setPageNo(pageNum);
+			dnProject.setPageSize(pageSize);
+			dnProject.setOrderBy(property);
+
+			if(tReslut.get("dnProjectTotal").intValue() != 0){
+				Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
+				responseBody.setPageList(projectPage);
+			}
+
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+	//查询 dnZixun   创投大脑投融快讯
+	@RequestMapping(value = "/queryDnZixunPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnZixun> queryDnZixunPage(@RequestBody DnProject dnProject,
+																	HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<DnZixun> responseBody = new ResponseData<DnZixun>();
+
+		try {
+			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(dnProject.getKeyword());
+			Map<String,Object> tObj = new HashMap<>();
+			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
+				tObj.put(temp.getKey(), temp.getValue());
+			}
+			responseBody.setUserData(tObj);
+
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
+			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
+			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
+			String property = dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy();
+			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
+			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
+			dnProject.setOrder(direction);
+			dnProject.setPageNo(pageNum);
+			dnProject.setPageSize(pageSize);
+			dnProject.setOrderBy(property);
+
+			if(tReslut.get("dnZixunTotal").intValue() != 0){
+				Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
+				responseBody.setPageList(projectPage);
+			}
+
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+	//查询 xhtAppZixun   星河资讯-app资讯
+	@RequestMapping(value = "/queryXhtAppZixunPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<DnZixun> queryXhtAppZixunPage(@RequestBody DnProject dnProject,
+																  HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<DnZixun> responseBody = new ResponseData<DnZixun>();
+
+		try {
+			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(dnProject.getKeyword());
+			Map<String,Object> tObj = new HashMap<>();
+			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
+				tObj.put(temp.getKey(), temp.getValue());
+			}
+			responseBody.setUserData(tObj);
+
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
+			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
+			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
+			String property = dnProject.getOrderBy()==null?"create_time":dnProject.getOrderBy();
+			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
+			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
+			dnProject.setOrder(direction);
+			dnProject.setPageNo(pageNum);
+			dnProject.setPageSize(pageSize);
+			dnProject.setOrderBy(property);
+
+			if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
+				Page<DnZixun> projectPage = infoFromDanaoService.queryXhtAppZixunPage(BeanUtils.toMap(dnProject));
+				responseBody.setPageList(projectPage);
+			}
+
+			responseBody.setResult(new Result(Result.Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			logger.error("失败",e);
+		}
+
+		return responseBody;
+	}
+
+	/**
+	 * 查询， 并保存记录
+	 */
+	/**
+	 * 全局搜索 参数
+	 *  pageSearchInfo     total             说明
+	 *   xhtProject      xhtProjectTotal    创投项目
+	 *   dnProject       dnProjectTotal     创投大脑的项目
+	 *   dnZixun         dnZixunTotal       创投大脑投融快讯
+	 *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
+	 */
+
+	@RequestMapping(value = "/searchGlobalInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<SopSearchHistory> searchGlobalInfo(@RequestBody DnProject dnProject,
+														HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<SopSearchHistory> responseBody = new ResponseData<SopSearchHistory>();
+
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
@@ -304,15 +504,12 @@ public class InfoFromDanaoController{
 			}*/
 			project.setKeyword(keyword);
 
-			/**
-			 * 全局搜索 参数
-			 *  pageSearchInfo     total             说明
-			 *   xhtProject      xhtProjectTotal    创投项目
-			 *   dnProject       dnProjectTotal     创投大脑的项目
-			 *   dnZixun         dnZixunTotal       创投大脑投融快讯
-			 *   xhtAppZixun     xhtAppZixunTotal   星河资讯-app资讯
-			 */
-			tReslut =  infoFromDanaoService.globalSearchTypesTotal(project);
+
+			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(keyword);
+			Map<String,Object> tObj = new HashMap<>();
+			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
+				tObj.put(temp.getKey(), temp.getValue());
+			}
 
 
 			//创投项目 pageList xhtProject
@@ -335,11 +532,31 @@ public class InfoFromDanaoController{
 							p.setProjectCareerline((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+p.getProjectDepartid(), "name"));
 							//p.setCreateUname((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+p.getCreateUid(), "realName"));
 						}
-
-						responseBody.setPageList(pageProject);
+						responseBody.setPageVoList(pageProject);
 					}
 					break;
+				case "dnProject":
+					if(tReslut.get("dnProjectTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy());
+						Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageVoList(projectPage);
+					}
+					break;
+				case "dnZixun":
+					if(tReslut.get("dnZixunTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy());
+						Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageVoList(projectPage);
+					}
+					break;
+				case "xhtAppZixun":
+					if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
+						dnProject.setOrderBy(dnProject.getOrderBy()==null?"create_time":dnProject.getOrderBy());
+						Page<DnZixun> projectPage = infoFromDanaoService.queryXhtAppZixunPage(BeanUtils.toMap(dnProject));
+						responseBody.setPageVoList(projectPage);
 
+					}
+					break;
 				default:
 					throw new Exception("参数错误");
 			}
@@ -347,13 +564,14 @@ public class InfoFromDanaoController{
 			//保存查询记录
 			if(keyword!=null && !"y".equals(dnProject.getIsOld())){
 				SopSearchHistory searchHistory = sopSearchHistoryService.saveSearchHistory(user.getId(), keyword);
-				//responseBody.setEntity(searchHistory);
+				responseBody.setEntity(searchHistory);
 			}
 
-			if(responseBody.getPageList()==null){
-				responseBody.setPageList(new Page<Project>(new ArrayList<Project>() , 0l));
-			}
-			//responseBody.setUserData(tReslut);
+			/*if(responseBody.getPageList()==null){
+				responseBody.setPageList(new Page<SopSearchHistory>(new ArrayList<SopSearchHistory>() , 0l));
+			}*/
+			String is = GSONUtil.toJson(responseBody);
+			responseBody.setUserData(tObj);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
@@ -364,30 +582,7 @@ public class InfoFromDanaoController{
 	}
 
 
-/*
-* case "dnProject":
-					if(tReslut.get("dnProjectTotal").intValue() != 0){
-						dnProject.setOrderBy(dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy());
-						Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
-						responseBody.setPageList(projectPage);
-					}
-					break;
-				case "dnZixun":
-					if(tReslut.get("dnZixunTotal").intValue() != 0){
-						dnProject.setOrderBy(dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy());
-						Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
-						responseBody.setPageList(projectPage);
-					}
-					break;
-				case "xhtAppZixun":
-					if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
-						dnProject.setOrderBy(dnProject.getOrderBy()==null?"create_time":dnProject.getOrderBy());
-						Page<DnZixun> projectPage = infoFromDanaoService.queryXhtAppZixunPage(BeanUtils.toMap(dnProject));
-						responseBody.setPageList(projectPage);
 
-					}
-					break;
-					*/
 
 
 }

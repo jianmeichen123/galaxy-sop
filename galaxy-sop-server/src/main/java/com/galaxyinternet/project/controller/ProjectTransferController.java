@@ -22,7 +22,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.dictEnum.DictEnum.MessageType;
+import com.galaxyinternet.common.enums.DictEnum.MessageType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
@@ -40,7 +40,6 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
 import com.galaxyinternet.service.UserRoleService;
-import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -63,8 +62,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	@Autowired
 	private UserRoleService userRoleService;
 	
-	@Autowired
-	private UserService userService;
 	
 	@Override
 	protected BaseService<ProjectTransfer> getBaseService() {

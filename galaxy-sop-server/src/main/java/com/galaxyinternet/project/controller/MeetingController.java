@@ -336,7 +336,7 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 	 */
 	private boolean validMeetingType(String progress, String type, String businessTypeCode)
 	{
-		if (projectProgress.股权交割.getCode().equals(progress) || projectProgress.投资决策会.getCode().equals(progress))
+		if (projectProgress.投后运营.getCode().equals(progress) || projectProgress.股权交割.getCode().equals(progress) || projectProgress.投资决策会.getCode().equals(progress))
 		{
 			return true;
 		}

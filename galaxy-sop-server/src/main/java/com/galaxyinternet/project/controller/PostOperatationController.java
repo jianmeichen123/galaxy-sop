@@ -229,20 +229,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			Long projectId = meetingRecord.getProjectId();
 			Project project = projectService.queryById(projectId);
 			String projectName = project != null ? project.getProjectName() : null;
-			String messageType = null;
 			UrlNumber urlNumber = UrlNumber.one;
-			if("postMeetingType:3".endsWith(meetingRecord.getMeetingType()))
-			{
-				messageType = "12.3";
-			}
-			else if("postMeetingType:2".endsWith(meetingRecord.getMeetingType()))
-			{
-				messageType = "12.2";
-			}
-			else
-			{
-				messageType = "12.1";
-			}
 			
 			if(meetingRecord.getId() != null && meetingRecord.getId().intValue() >0)
 			{
@@ -274,7 +261,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			meetingService.saveMeeting(meetingRecord, user.getId());
 			responseBody.setResult(new Result(Status.OK,"")); 
 			responseBody.setId(meetingRecord.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, user, projectName, projectId, messageType, urlNumber);	
+			ControllerUtils.setRequestParamsForMessageTip(request, user, projectName, projectId, urlNumber);	
 		} catch (Exception e) {
 			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));

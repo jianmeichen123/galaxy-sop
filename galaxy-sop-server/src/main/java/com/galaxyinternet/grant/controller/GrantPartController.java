@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.GrantPartBo;
-import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -150,7 +149,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 * 新建分期注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantPart", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> addGrantPart(@RequestBody GrantPart grantPart,
@@ -217,7 +215,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 *删除
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delGrantPart/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationListdata> delGrantPart(@PathVariable("id") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
@@ -250,7 +247,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 *校验
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/isGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> isGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
