@@ -45,6 +45,7 @@ $(function(){
 	}
 	
 	$('#searchTable').bootstrapTable({
+		queryParamsType:'limit',
 		pageSize:10,
 		pageNumber:1,
 		method:'post',
