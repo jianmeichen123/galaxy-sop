@@ -20,11 +20,13 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<div class='content_task'>
 		<div class='title_top'>
-			<h3>指派项目</h3>
-			 <%-- <c:if test="${from eq 'assign' }"> --%>
+			
+			 <c:if test="${from eq 'assign' }">
+			 <h3>指派项目</h3>
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
-			<%-- </c:if> --%>
+			 </c:if> 
 			 <c:if test="${from eq 'transfer'}">
+			 <h3>移交项目</h3>
 			<span class='operate_project' data-code='abandon-task'>移交项目</span>
 			</c:if>
 		</div>
@@ -259,18 +261,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	//重置方法
 	$(".reset_search").click(function(){
-		console.log($("select[name='createUid']").val())
-			$("select[name='projectDepartid']").val("全部");
-			$("select[name='createUid']").val("全部");			
-			$("select[name='projectProgress']").val("全部");
-			$("select[name='projectStatus']").val("全部");
-			$("select[name='financeStatus']").val("全部");
-		/* $("select[name='financeStatus']").val("");
-		$("select[name='projectProgress']").val("");
-		$("select[name='projectStatus']").val("");
-		$("select[name='projectDepartid']").val("");
-		$("select[name='faFlag']").val(""); */
-		
+		$('.selectpicker').selectpicker('deselectAll');
+		$(".form-control").val("");
 	});
 	
   	
@@ -297,7 +289,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		console.log(param)
 		return param;
 		
 	} 	

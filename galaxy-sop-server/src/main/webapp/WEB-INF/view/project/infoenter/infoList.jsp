@@ -45,13 +45,11 @@
    			"keyword":projectName,
 			"orderBy":"projTitle",
     		}
-	function infoDetail(event){ 
-		var compCode=$(event).attr("compCode");
+	function infoDetail(event){  
 		var projCode=$(event).attr("projCode"); 
 		var dataJson={
 				projId:projectId,
-				projCode:projCode,
-				compCode:compCode
+				projCode:projCode, 
 		} 
 		sendPostRequestByJsonObj(
 				 Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat", 

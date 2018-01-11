@@ -688,16 +688,16 @@ function closePro(){
 function transferPro(obj){
 	var _url="";
 	if(obj=="transfer"){
-		_url=platformUrl.toProjectTransfer;	
+		_url='<%=path%>/html/handover_project.html';	
 	}else if(obj=="assign"){
-		_url='<%=path%>/html/handover_project.html';
+		_url='<%=path%>/html/assign_project.html';
 	}
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			$("#actionStyle").val(obj);
-			
+			$("#numCheck").css("display","none");
 			var arr=[proid];
 			doSumbit(arr);
 		}//模版反回成功执行	

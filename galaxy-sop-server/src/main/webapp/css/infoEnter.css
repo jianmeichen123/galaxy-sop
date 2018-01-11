@@ -243,6 +243,7 @@ font-weight: bold;
 	height: 260px;
 	position: relative; 
 	background: #fff;
+    margin-bottom: 120px;
 }
 .empty{
 	width: 150px;

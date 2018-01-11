@@ -42,16 +42,14 @@
 	var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
 	
 	var projectName=projectInfo.projectName; 
-	var projectId=projectInfo.id; 
-	var compCode=projectInfo.danaoCompCode; 
+	var projectId=projectInfo.id;  
 	var projCode=projectInfo.danaoProjCode; 
 	var DN_name=getURLParameter("DN_projectName")
 	$("#projectName").html(DN_name);
 	var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
 	var jsonObj={
 			projId:projectId,
-			projCode:projCode,
-			compCode:compCode, 
+			projCode:projCode, 
 	}; 
 	 buildDNinfo(_url,jsonObj);
 	 

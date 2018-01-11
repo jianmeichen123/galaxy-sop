@@ -57,10 +57,8 @@
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
                       <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
                 </c:if>
-
-
-                 <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
-                <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
+               <%--   <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
+               --%>  <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>
          <%-- </c:if> --%>
