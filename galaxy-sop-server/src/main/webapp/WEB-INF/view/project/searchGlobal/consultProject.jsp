@@ -87,6 +87,9 @@ $('.consut_span span').click(function(){
 	}
 	/* 星河咨询datamatter */
   	function xhtProjectContent(value,row,index){
+		/* if(row.zixunImage!='undefined'){
+			zixunImage = row.zixunImage;
+		} */
 		var html = "<div class='tdContent'>"+
 					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+
 					"<div class='rightContent'>"+

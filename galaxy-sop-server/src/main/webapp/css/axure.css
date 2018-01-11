@@ -4396,7 +4396,7 @@ p.outerProjectTitle {
 	display:inline-block;
 }
 .projectContent .dnContent{display:none;}
-
-
+.xhtContent .outerProject  thead  tr th{border-bottom:0px;display:none !important;}
+.dnContent .outerProject  thead  tr th{border-bottom:0px;display:none !important;}
 
 
