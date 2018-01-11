@@ -83,10 +83,7 @@ $("#save-detail-btn").click(function(){
 		return;
 	}
 	var rows = $("#task-table").bootstrapTable('getSelections');
-	var ids = new Array();
-	$.each(rows,function(){
-		ids.push(this.id);
-	});
+	var ids = getSelectedIds();
 	var targetUserId = $("#detail-form input[name='targetUserId']").val();
 	var reason  = $("#detail-form textarea[name='reason']").val();
 	var data = {
@@ -97,9 +94,17 @@ $("#save-detail-btn").click(function(){
 	var callback = function(data){
 		if(data.result.status == 'OK')
 		{
-			layer.msg('指派成功');
-			$("#task-table").bootstrapTable("refresh");
-			$("#powindow [data-close='close']").click();
+			layer.msg('指派成功',{time:'1000'},function(){
+				$("#powindow [data-close='close']").click();
+				if($("#task-table").length>0)
+				{
+					$("#task-table").bootstrapTable("refresh");
+				}
+				else
+				{
+					backToTaskList();
+				}
+			});
 		}
 		else
 		{

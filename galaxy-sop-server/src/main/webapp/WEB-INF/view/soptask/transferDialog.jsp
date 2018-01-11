@@ -93,16 +93,17 @@ $("#save-detail-btn").click(function(){
 	var callback = function(data){
 		if(data.result.status == 'OK')
 		{
-			layer.msg('移交成功');
-			$("#powindow [data-close='close']").click();
-			if($("#task-table").length>0)
-			{
-				$("#task-table").bootstrapTable("refresh");
-			}
-			else
-			{
-				backToTaskList();
-			}
+			layer.msg('移交成功',{time:'1000'},function(){
+				$("#powindow [data-close='close']").click();
+				if($("#task-table").length>0)
+				{
+					$("#task-table").bootstrapTable("refresh");
+				}
+				else
+				{
+					backToTaskList();
+				}
+			});
 		}
 		else
 		{
