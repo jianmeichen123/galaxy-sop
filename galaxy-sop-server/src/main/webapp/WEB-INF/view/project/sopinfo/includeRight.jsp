@@ -339,7 +339,6 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
-alert(${fx:hasPremission('project_assign')}+"555555555"+${fx:hasPremission('project_delete')});
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
