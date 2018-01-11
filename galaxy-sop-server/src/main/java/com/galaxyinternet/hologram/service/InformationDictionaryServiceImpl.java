@@ -1,20 +1,13 @@
 package com.galaxyinternet.hologram.service;
 
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.dao.hologram.InformationListdataDao;
-import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationListdata;
-import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.service.hologram.CacheOperationService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
-import com.galaxyinternet.utils.SopConstatnts;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +17,21 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
+import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
+import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
+import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Service("com.galaxyinternet.service.hologram.InformationDictionaryService")
@@ -37,15 +40,14 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 	@Autowired
 	private Cache cache;
+	
+	@Autowired
+	private LocalCache<String,Object> localCache;
 
 	@Autowired
 	private InformationListdataRemarkDao informationListdataRemarkDao;
 	@Autowired
 	private InformationListdataDao informationListdataDao;
-
-	
-	@Autowired
-	private CacheOperationService cacheOperationService;
 	
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
@@ -211,7 +213,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			}
 		}
 		if(useCacha && toCache && title!=null){
-			cacheOperationService.saveAllByRedies(pinfoKey, title);
+			saveAllByRedies(pinfoKey, title);
 		}
 
 		return title;
@@ -432,6 +434,30 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			}
 		}
 		return valueList;
+	}
+	@SuppressWarnings("unchecked")
+	public synchronized void saveAllByRedies(String code, InformationTitle title){
+		InformationTitle t_title = null;
+		
+		Set<String> cachVs = new HashSet<>();
+		String key_codes = SopConstatnts.Redis.ALL_TITLE_CACHE_CODE_KEY;
+		
+		String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
+		
+		Object kv = cache.get(key_pre+code);
+		if(kv != null){
+			t_title = (InformationTitle) kv;
+		}
+
+		if(t_title == null){
+			cache.set(key_pre+code, title);
+			
+			Object cs = cache.get(key_codes);
+			if(cs != null) cachVs= (Set<String>) cs;
+			cachVs.add(code);
+			cache.set(key_codes, cachVs);
+		}
+		localCache.clear();
 	}
 
 
