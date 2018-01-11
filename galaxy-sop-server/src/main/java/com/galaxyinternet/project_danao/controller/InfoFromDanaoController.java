@@ -181,11 +181,14 @@ public class InfoFromDanaoController{
 				}
 			}*/
 
-			String compCode = null;
+			//String compCode = null;
+			//String compName = null;
+
 			if(dnProject.getDanaoInfo() == null || dnProject.getDanaoInfo().contains("legalInfo")|| dnProject.getDanaoInfo().contains("equityInfo")){
-				compCode = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
+				DnProject proj = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
+				dnProject.setCompCode(proj.getCompCode());
+				dnProject.setProjCompanyName(proj.getProjCompanyName());
 			}
-			dnProject.setCompCode(compCode);
 
 			if(dnProject.getDanaoInfo() != null ){
 				String[] marks = dnProject.getDanaoInfo().split(",");
@@ -230,6 +233,7 @@ public class InfoFromDanaoController{
 				result.putAll(result3);
 			}
 
+			result.put("ProjCompanyName",dnProject.getProjCompanyName());
 			responseBody.setUserData(result);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
@@ -243,7 +247,6 @@ public class InfoFromDanaoController{
 
 
 	// todo search global
-
 	/**
 	 *初始 ： 获取搜索的历史记录
 	 */

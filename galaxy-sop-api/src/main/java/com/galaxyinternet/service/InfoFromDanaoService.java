@@ -14,7 +14,7 @@ public interface InfoFromDanaoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String queryDanaoProjCompCode(String projCode) throws Exception;
+	public DnProject queryDanaoProjCompCode(String projCode) throws Exception;
 	/**
 	 * 查询大脑项目列表,封装项目公司信息
 	 * 分条查询项目公司名称

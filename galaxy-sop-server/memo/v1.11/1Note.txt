@@ -66,7 +66,7 @@ return 返回：userData
 	姓名    name
 	职位    job  jobId “other其他”-> jobContentDescribe1
 //----------------------
-融资历史
+融资历史  financeInfo
 	融资轮次  round   roundId
 	融资时间  investDate
 	融资金额  num

@@ -3,6 +3,7 @@ package com.galaxyinternet.project_danao.service;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.DaNao.DnProject;
 import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -78,9 +79,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String queryDanaoProjCompCode(String projCode) throws Exception
+	public DnProject queryDanaoProjCompCode(String projCode) throws Exception
 	{
-
+		DnProject pro = new DnProject();
 		String uri = danaoDomain + projectInfo + projCode;
 		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
 
@@ -92,10 +93,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("data") != null){
 			if(((Map<String, Object>)object.get("data")).containsKey("compCode")){
 				compCode = ((String)((Map<String, Object>)object.get("data")).get("compCode"));
+				pro.setProjCode(compCode);
+				pro.setProjCompanyName((String)((Map<String, Object>)object.get("data")).get("company"));
 			}
 		}
 
-		return compCode;
+		return pro;
 	}
 
 
@@ -543,13 +546,11 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			DnZixun target = new DnZixun();
 			org.apache.commons.beanutils.BeanUtils.populate(target, tempMap);
 
-			if(target.getImgmd5() != null){
-				target.setZixunImage(danaoStaticDomain  + "news/" + target.getImgmd5() + ".png" );
+			if(StringUtils.isNotBlank(target.getImgmd5())){
+				target.setZixunImage(danaoStaticDomain  + "news/" + target.getImgmd5() + ".PNG" );
 			}
 
-			if(target.getCtime() != null){
-
-			}
+			target.setCtimeStr(convertTime(target.getCtime()));
 
 			list.add(target);
 		}
@@ -558,8 +559,6 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		return page;
 	}
-
-
 
 
 	/**
@@ -587,12 +586,13 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			target.setTitle((String) tempMap.get("newsCaption"));
 			target.setAuther((String) tempMap.get("newsSource"));
 			if(tempMap.get("listImgArray") != null){
-				List<String> listImgArray = (List<String>) tempMap.get("listImgArray");
-				target.setZixunImage(listImgArray.get(0));
+				List<Map<String,String>> listImgMap = (List<Map<String,String>>) tempMap.get("listImgArray");
+				target.setZixunImage(listImgMap.get(0).get("url"));
 			}
 
 			String ctime = (String) tempMap.get("createTime");
-
+			target.setCtime(ctime);
+			target.setCtimeStr(convertTime(ctime));
 
 			list.add(target);
 		}
@@ -602,7 +602,44 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		return page;
 	}
 
+    /**
+     1小时之内的新闻                 按照分钟展示（如29分钟前）
+     1小时之前，24小时之内的新闻     按小时展示（如2小时前或23小时前）
+     24小时之前    ，                格式为“YYYY-MM-DD”
+     * @param ctime
+     * @return
+     */
+    public String convertTime(String ctime){
+	    if(StringUtils.isBlank(ctime)){
+	        return null;
+        }
 
+	    if(ctime.indexOf(".")!=-1){
+	        ctime = ctime.substring(0,ctime.indexOf("."));
+        }
+
+        if(ctime.length()<13){
+	        for(;ctime.length()<13;){
+                ctime+="0";
+            }
+        }
+
+        Long curr = System.currentTimeMillis();
+        Long ctimeL = Long.parseLong(ctime);
+
+        Long value = curr - ctimeL;
+        if(value.intValue() < 1*60*60*1000){
+        	int ts = value.intValue()/(60*1000);
+			ctime = ts + "分钟前";
+        }else if(value.intValue() < 24*60*60*1000 ){
+			int ts = value.intValue()/(60*60*1000);
+			ctime = ts + "小时前";
+		}else{
+        	ctime = DateUtil.longToString(ctimeL);
+		}
+
+	    return ctime;
+    }
 
 
 
