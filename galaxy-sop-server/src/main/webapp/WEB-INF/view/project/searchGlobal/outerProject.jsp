@@ -6,7 +6,7 @@
 %>
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
- 		<div class='two pagination_common'>
+ 		<div class='two pagination_common outerContent'>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
 					<thead>
 						<tr>

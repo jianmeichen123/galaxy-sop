@@ -4398,5 +4398,6 @@ p.outerProjectTitle {
 .projectContent .dnContent{display:none;}
 .xhtContent .outerProject  thead  tr th{border-bottom:0px;display:none !important;}
 .dnContent .outerProject  thead  tr th{border-bottom:0px;display:none !important;}
-
-
+.task-pagebox .ventrueContent table thead tr th  .th-inner{padding:23px 0 0 0;}
+.task-pagebox .outerContent table thead tr th  .th-inner{padding:0px;}
+.
