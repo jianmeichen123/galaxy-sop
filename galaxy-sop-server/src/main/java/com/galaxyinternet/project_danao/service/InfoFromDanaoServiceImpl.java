@@ -459,7 +459,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	 //每页记录数            private Integer pageSize;
 	 //搜索关键字            private String keyword;
 	 */
-	public Map<String,Long> globalSearchTypesTotal(Project project) throws Exception{
+	public Map<String,Long> globalSearchTypesTotal(String keyword) throws Exception{
 		Map<String, Long> result = new HashMap<>();
 		Long xhtProjectTotal = 0l;
 		Long dnProjectTotal =  0l;
@@ -467,6 +467,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		Long xhtAppZixunTotal =  0l;
 
 		//xhtProject        星河投创投项目
+		Project project = new Project();
+		project.setKeyword(keyword);
 		xhtProjectTotal = projectDao.selectCount(project);
 
 		Map<String, Object> query = new HashMap<>();
@@ -585,8 +587,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			target.setTitle((String) tempMap.get("newsCaption"));
 			target.setAuther((String) tempMap.get("newsSource"));
 			if(tempMap.get("listImgArray") != null){
-				List<?> listImgArray = (List<?>) tempMap.get("listImgArray");
-				//target.setZixunImage(listImgArray.get(0));
+				List<String> listImgArray = (List<String>) tempMap.get("listImgArray");
+				target.setZixunImage(listImgArray.get(0));
 			}
 
 			String ctime = (String) tempMap.get("createTime");

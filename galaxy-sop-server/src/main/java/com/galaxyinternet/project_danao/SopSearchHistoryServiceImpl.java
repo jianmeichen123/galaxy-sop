@@ -38,21 +38,19 @@ public class SopSearchHistoryServiceImpl extends BaseServiceImpl<SopSearchHistor
             query = sopSearchHistoryDao.selectOne(query);
 
             if (query == null) {
+                query = new SopSearchHistory();
                 query.setContent(keyword);
                 sopSearchHistoryDao.insert(query);
-            } else {
-                if (query.getHisList() != null) {
-                    String content = "";
-                    if (query.getHisList().size() <= saveItem) {
-                        content = query.getContent();
-                    } else {
-                        content = query.getContent().substring(query.getContent().indexOf(query.getSpiltMark())
-                                + query.getSpiltMark().length(), query.getContent().length());
-                    }
-                    query.setContent(keyword + query.getSpiltMark() + content);
-                    sopSearchHistoryDao.updateById(query);
-
+            } else if (query.getHisList() != null && !query.getHisList().contains(keyword)) {
+                String content = "";
+                if (query.getHisList().size() <= saveItem) {
+                    content = query.getContent();
+                } else {
+                    content = query.getContent().substring(query.getContent().indexOf(query.getSpiltMark())
+                            + query.getSpiltMark().length(), query.getContent().length());
                 }
+                query.setContent(keyword + query.getSpiltMark() + content);
+                sopSearchHistoryDao.updateById(query);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
