@@ -184,11 +184,9 @@ public class InfoFromDanaoController{
 			//String compCode = null;
 			//String compName = null;
 
-			if(dnProject.getDanaoInfo() == null || dnProject.getDanaoInfo().contains("legalInfo")|| dnProject.getDanaoInfo().contains("equityInfo")){
-				DnProject proj = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
-				dnProject.setCompCode(proj.getCompCode());
-				dnProject.setProjCompanyName(proj.getProjCompanyName());
-			}
+            DnProject proj = infoFromDanaoService.queryDanaoProjCompCode(dnProject.getProjCode());
+            dnProject.setCompCode(proj.getCompCode());
+            dnProject.setProjCompanyName(proj.getProjCompanyName());
 
 			if(dnProject.getDanaoInfo() != null ){
 				String[] marks = dnProject.getDanaoInfo().split(",");
@@ -233,7 +231,7 @@ public class InfoFromDanaoController{
 				result.putAll(result3);
 			}
 
-			result.put("ProjCompanyName",dnProject.getProjCompanyName());
+			result.put("projCompanyName",dnProject.getProjCompanyName());
 			responseBody.setUserData(result);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
