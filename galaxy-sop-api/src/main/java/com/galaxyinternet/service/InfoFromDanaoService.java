@@ -3,7 +3,6 @@ package com.galaxyinternet.service;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.DaNao.DnProject;
 import com.galaxyinternet.model.DaNao.DnZixun;
-import com.galaxyinternet.model.project.Project;
 
 import java.util.Map;
 
@@ -52,7 +51,7 @@ public interface InfoFromDanaoService {
 	 *   dnZixun           创投大脑投融快讯
 	 *   xhtAppZixun       星河资讯-app资讯
 	 */
-	public Map<String,Long> globalSearchTypesTotal(Project project) throws Exception;
+	public Map<String,Long> globalSearchTypesTotal(String keyword) throws Exception;
 
 	/**
 	 * 查询创投大脑 投融快讯列表,
