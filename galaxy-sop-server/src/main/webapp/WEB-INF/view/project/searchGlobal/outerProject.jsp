@@ -47,7 +47,7 @@ $(function(){
 	
 	function queryParams(params){
 		return {
-			pageNum:params.offset/params.limit+1,
+			pageNo:params.offset/params.limit+1,
 			pageSize:params.limit,
 			keyword:'',
 			pageSearchInfo:'dnProject',
@@ -57,6 +57,7 @@ $(function(){
 	}
 	
 	$('#outerProject').bootstrapTable({
+		queryParamsType:'limit',
 		pageSize:10,
 		pageNumber:1,
 		method:'post',
