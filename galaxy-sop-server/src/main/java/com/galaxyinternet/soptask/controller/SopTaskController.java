@@ -732,7 +732,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.transfer(params.getIds(), user.getId(), params.getTargetUserId(), user.getId());
+			sopTaskService.transfer(params.getIds(), user.getId(), params.getTargetUserId(), user.getId(), params.getReason());
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
@@ -765,7 +765,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.giveup(params.getIds(), user.getId());
+			sopTaskService.giveup(params.getIds(), user.getId(), params.getReason());
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());
@@ -803,7 +803,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
-			sopTaskService.assign(params.getIds(), params.getTargetUserId(), user.getId());
+			sopTaskService.assign(params.getIds(), params.getTargetUserId(), user.getId(), params.getReason());
 			Map<String, Object> logParams = new HashMap<>();
 			logParams.put(PlatformConst.REQUEST_SCOPE_TASK_IDS, params.getIds());
 			logParams.put(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON,params.getReason());

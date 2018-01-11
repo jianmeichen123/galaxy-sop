@@ -29,7 +29,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
-import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -47,8 +46,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	private ProjectService projectService;
 	
 	
-	@Autowired
-	private UserService userService;
 	
 	@Override
 	protected BaseService<ProjectTransfer> getBaseService() {

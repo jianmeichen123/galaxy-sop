@@ -28,6 +28,7 @@ import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
+import com.galaxyinternet.dao.soptask.SopTaskRecordDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -40,6 +41,7 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.soptask.SopTaskRecord;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
@@ -63,6 +65,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	private SopFileService sopFileService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SopTaskRecordDao taskRecordDao;
 
 	
 	public UserService getUserService() {
@@ -589,10 +593,12 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		taskFileMap.put(SopConstant.TASK_FLAG_ZJBF, DictEnum.fileWorktype.资金拨付凭证.getCode());
 	}
 	@Override
-	public void giveup(Long[] ids, Long userId)
+	public void giveup(Long[] ids, Long userId, String reason)
 	{
 		SopTask task = null;
 		SopFile fileQuery = new SopFile();
+		SopTaskRecord record = null;
+		Long now = System.currentTimeMillis();
 		for(Long id : ids)
 		{
 			task = sopTaskDao.selectById(id);
@@ -600,21 +606,70 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			fileQuery.setFileWorktype(taskFileMap.get(task.getTaskFlag()));
 			sopFileDao.restore(fileQuery);
 			sopTaskDao.giveupTask(task);
+			
+			record = new SopTaskRecord();
+			record.setTaskId(id);
+			record.setBeforeUid(userId);
+			record.setBeforeDepId(task.getDepartmentId());
+			record.setAfterUid(null);
+			record.setAfterDepId(task.getDepartmentId());
+			record.setReason(reason);
+			record.setRecordType(SopTaskRecord.RecordType.GIVEUP.getCode());
+			record.setCreatedUid(userId);
+			record.setCreatedTime(now);
+			taskRecordDao.insert(record);
 		}
 	}
 
 	@Override
-	public void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId)
+	public void transfer(Long[] ids, Long srcUserId, Long targetUserId, Long userId, String reason)
 	{
 		SopTask entity = new SopTask();
 		entity.setAssignUid(targetUserId);
 		entity.setTaskIds(Arrays.asList(ids));
 		sopTaskDao.updateTask(entity);
+		
+		SopTaskRecord record = null;
+		SopTask task = null;
+		Long now = System.currentTimeMillis();
+		for(Long id : ids)
+		{
+			task = sopTaskDao.selectById(id);
+			record = new SopTaskRecord();
+			record.setTaskId(id);
+			record.setBeforeUid(srcUserId);
+			record.setBeforeDepId(task.getDepartmentId());
+			record.setAfterUid(targetUserId);
+			record.setAfterDepId(task.getDepartmentId());
+			record.setReason(reason);
+			record.setRecordType(SopTaskRecord.RecordType.TRANSFER.getCode());
+			record.setCreatedUid(userId);
+			record.setCreatedTime(now);
+			taskRecordDao.insert(record);
+		}
 	}
 
 	@Override
-	public void assign(Long[] ids, Long targetUserId, Long userId)
+	public void assign(Long[] ids, Long targetUserId, Long userId, String reason)
 	{
+		SopTaskRecord record = null;
+		SopTask task = null;
+		Long now = System.currentTimeMillis();
+		for(Long id : ids)
+		{
+			task = sopTaskDao.selectById(id);
+			record = new SopTaskRecord();
+			record.setTaskId(id);
+			record.setBeforeUid(task.getAssignUid());
+			record.setBeforeDepId(task.getDepartmentId());
+			record.setAfterUid(targetUserId);
+			record.setAfterDepId(task.getDepartmentId());
+			record.setReason(reason);
+			record.setRecordType(SopTaskRecord.RecordType.ASSIGN.getCode());
+			record.setCreatedUid(userId);
+			record.setCreatedTime(now);
+			taskRecordDao.insert(record);
+		}
 		SopTask entity = new SopTask();
 		entity.setAssignUid(targetUserId);
 		entity.setTaskIds(Arrays.asList(ids));
