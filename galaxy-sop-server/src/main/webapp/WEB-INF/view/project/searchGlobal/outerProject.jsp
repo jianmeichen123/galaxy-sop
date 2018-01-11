@@ -45,24 +45,25 @@
 <script type="text/javascript">
 $(function(){
 	
-	function queryParams(param){
-		param.keyword = "";
-		param.pageNo = 0;
-		param.pageSize =10;
-		param.pageSearchInfo = 'dnProject ';
-		param.orderBy='setupDT';
-		param.order ='desc'
-		return param;
+	function queryParams(params){
+		return {
+			pageNum:params.offset/params.limit+1,
+			pageSize:params.limit,
+			keyword:'',
+			pageSearchInfo:'dnProject',
+			order:'desc',
+			orderBy:'setupDT'
+		}
 	}
 	
 	$('#outerProject').bootstrapTable({
 		pageSize:10,
-		pageNumber:0,
+		pageNumber:1,
 		method:'post',
 		pagination:true,
 		//dataType: "json",
 		pageList:[10,20,30],
-		sortOrder : 'desc',
+		//sortOrder : 'desc',
 		sortName : 'updated_time',
 		sidePagination:'server',
 		queryParams:queryParams,

@@ -33,20 +33,22 @@
 <script type="text/javascript">
 
 $(function(){
-	function queryParams(param){
-		param.keyword = "";
-		param.pageNo = 0;
-		param.pageSize =10;
-		param.pageSearchInfo = 'xhtProject';
-		param.direction='desc';
-		param.property ='updated_time'
-		return param;
+	function queryParams(params){
+		return {
+			pageNum:params.offset/params.limit+1,
+			pageSize:params.limit,
+			keyword:'',
+			pageSearchInfo:'xhtProject',
+			direction:'desc',
+			property:'updated_time'
+		}
 	}
 	
 	$('#searchTable').bootstrapTable({
 		pageSize:10,
-		pageNumber:0,
+		pageNumber:1,
 		method:'post',
+		//contentType: "application/x-www-form-urlencoded",
 		pagination:true,
 		pageList:[10,20,30],
 		sortOrder : 'desc',
