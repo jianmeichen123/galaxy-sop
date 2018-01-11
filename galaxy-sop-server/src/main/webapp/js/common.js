@@ -2036,8 +2036,8 @@ function infoDPop(even,status){
 		 }) 
 	}else{ 	
 		//从按钮进入    
-		 $("#popbg").remove();
-		 $("#powindow").remove(); 
+		$("#popbg").remove();
+		$("#powindow").remove(); 
 		$("#poptxt").css("padding","0");
 		$(".pagination-info").css("color","#5A626D").append("<span style=color:#999; padding-left:18px;>（数据来源：创投大脑）</span>");
 		$("#powindow").css("background","#F4F4F4");
@@ -2103,6 +2103,7 @@ function getpopHTML(code,even,danaoName){
 function buildInfoD(url,data,code){ 
 	sendPostRequestByJsonObj(url, data, function(data){
 	 if(data.result.status=="OK"){
+		 $("#projectName").text(data.userData.projTitle)
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
 		 var legal=data.userData.legalInfo;
 		 var equityInfo=data.userData.equityInfo;
