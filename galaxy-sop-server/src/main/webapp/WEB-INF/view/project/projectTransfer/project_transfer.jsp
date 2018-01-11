@@ -9,9 +9,11 @@
     <div class="form clearfix">
         <div class="role_all">
         	<ul>
-        	<form action="" id="transfer_form" method="post">
+        	<form action="" id="detail-form" method="post">
             	<li>
-            		<input type="hidden" name="projectIds" value="">
+            		<input type="hidden" name="projectIds" id="projectIds" value="">
+        		    <input type="hidden" id="actionStyle" name="operateType" value="">
+        		
                     <div class="fl width_150 align_r">接收部门：</div>
                     <div class="fl">
                         <select name='afterDepartmentId' style="width:150px;">

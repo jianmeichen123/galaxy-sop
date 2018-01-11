@@ -253,7 +253,12 @@
 	            <div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
+	            	        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('transfer')" >移交项目</span>
+	            	    </c:if>
+	            	 <c:if test="${fx:hasPremission('project_assign')}">	
+	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
+	                </c:if>
 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
 	                <c:if test="${fx:hasPremission('project_delete')}">	
                       <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()"  id="delete_btn" style="display:none">删除项目</span>
@@ -302,7 +307,7 @@ var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
 var prostatus = pRigthInfo.projectStatusDs
 $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
-if('${fx:isTransfering(pid)}' == 'true')
+/* if('${fx:isTransfering(pid)}' == 'true')
 {	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
 	  $(".tzlc_btn").addClass("disabled");
@@ -325,8 +330,8 @@ if('${fx:isTransfering(pid)}' == 'true')
 	  $(".tzlc_btn").remove();
 	}
 	$("#cxxm_btn").attr("style","display:none;");
-}
-
+} */
+ 
 
 if(!prograss){
 	prograss = 'projectProgress:0';
@@ -680,13 +685,21 @@ function closePro(){
 	
 }
 
-function transferPro(){
-	var _url=platformUrl.toProjectTransfer;
+function transferPro(obj){
+	var _url="";
+	if(obj=="transfer"){
+		_url=platformUrl.toProjectTransfer;	
+	}else if(obj=="assign"){
+		_url='<%=path%>/html/handover_project.html';
+	}
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			doSumbit(proid);
+			$("#actionStyle").val(obj);
+			
+			var arr=[proid];
+			doSumbit(arr);
 		}//模版反回成功执行	
 	});
 }
@@ -797,10 +810,10 @@ function setJgqrProgress()
 
 
 $(function(){
-	if($(".new_correlation_cen").find(".fjxm_but").length==0){
+	/* if($(".new_correlation_cen").find(".fjxm_but").length==0){
 		$(".yjxm_btn").removeClass("new_btn_right").addClass("new_btn");
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
-	}
+	} */
 })
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
