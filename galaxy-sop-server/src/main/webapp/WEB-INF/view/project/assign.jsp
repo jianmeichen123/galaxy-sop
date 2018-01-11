@@ -261,18 +261,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	//重置方法
 	$(".reset_search").click(function(){
-		console.log($("select[name='createUid']").val())
-			$("select[name='projectDepartid']").val("全部");
-			$("select[name='createUid']").val("全部");			
-			$("select[name='projectProgress']").val("全部");
-			$("select[name='projectStatus']").val("全部");
-			$("select[name='financeStatus']").val("全部");
-		/* $("select[name='financeStatus']").val("");
-		$("select[name='projectProgress']").val("");
-		$("select[name='projectStatus']").val("");
-		$("select[name='projectDepartid']").val("");
-		$("select[name='faFlag']").val(""); */
-		
+		$('.selectpicker').selectpicker('deselectAll');
+		$(".form-control").val("");
 	});
 	
   	
@@ -299,7 +289,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}
 		param.projectDepartid = valueNum;//事业线
 		param.createUid = valueManager;//投资经理
-		console.log(param)
 		return param;
 		
 	} 	
