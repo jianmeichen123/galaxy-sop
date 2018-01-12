@@ -43,12 +43,13 @@
     <div class='fl input-search'>
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
-    	<ul class='globalSearhc-ul'>
-    		<li>搜索历史</li>
+    	<ul class='globalSearhc-ul clearfix'>
+    		<!-- <li>搜索历史</li>
     		<li>滴滴打车</li>
     		<li>数字娱乐</li>
     		<li>蚂蚁森林</li>
-    		<li>互联网医疗</li>
+    		<li>互联网医疗</li> -->
+    		<li>aaa</li>
     	</ul>
     </div>
   
@@ -145,13 +146,33 @@
 		 data:'',
 		 dataType:'json',
 		 success:function(data){
-			 console.log(data)
+			 $('.globalSearhc-ul').show();
+			 if(data.result.status=='OK'){
+				$.each(data.entity.hisList,function(index,n){
+					var n = n.split(',');
+					for(var i = 0;i<n.length;i++){
+						var html = "<li>'"+n[i]+"'</li>";
+					}
+						console.log(i)
+					 $('.globalSearhc-ul').html(html); 
+					console.log(html)
+					return html
+					
+				});
+				// $('.globalSearhc-ul').html(html); 
+			 }
+			console.log(data)
+			 
 		 }
 	 }) 
  })
  
-
-	 
+$('.globalSearhc-ul').mouseenter(function(){
+	$(this).show();
+})
+$('.globalSearhc-ul').mouseleave(function(){
+	$(this).hide();
+})
 	 
 	 
 	 
