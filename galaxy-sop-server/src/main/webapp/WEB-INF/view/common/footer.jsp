@@ -95,7 +95,6 @@ function createMenus(current){
 
 //吐槽
 var _nickname=$('.man_info .name').text();
-alert(window.location.host)
 var _src=window.location.host+'/sop/img/avatarTC.png'
 var data = {
 	      "nickname": _nickname,    //发帖人名称
