@@ -87,16 +87,9 @@ $('.consut_span span').click(function(){
 	}
 	/* 星河咨询datamatter */
   	function xhtProjectContent(value,row,index){
-		 if(row.zixunImage =='undefined'){
-			 alert('11')
-		}else{
-			var imgTag = "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
-				$('.tdContent').append("<p>Hello world!</p>");
-				$('span').appendTo('.tdContent')
-				console.log(imgTag)
-		}
+		
 		var html = "<div class='tdContent'>"+
-					/* "<img class='fl leftPic' src='"+row.zixunImage+"'/>"+ */
+					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+ 
 					"<div class='rightContent'>"+
 					"<h3>'"+row.title+"'</h3>"+
 					 "<p class='outerProjectTitle'>'"+row.overview+"'</p>"+
@@ -106,6 +99,7 @@ $('.consut_span span').click(function(){
 					"</p>"+
 					"</div>"+
 					"</div>"
+					
 		return html;
 		
 	}   
@@ -157,6 +151,7 @@ $('.consut_span span').click(function(){
 					"</p>"+
 					"</div>"+
 					"</div>"
+					
 		return html;
 		
 	}
