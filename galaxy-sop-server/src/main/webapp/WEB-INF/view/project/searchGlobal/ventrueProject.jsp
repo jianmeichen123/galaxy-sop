@@ -33,11 +33,12 @@
 <script type="text/javascript">
 
 $(function(){
+	var keyword = getHrefParamter("keyword");
 	function queryParams(params){
 		return {
 			pageNum:params.offset/params.limit,
 			pageSize:params.limit,
-			keyword:'机器人',
+			keyword:keyword,
 			pageSearchInfo:'xhtProject',
 			direction:'desc',
 			property:'updated_time'
@@ -64,6 +65,22 @@ $(function(){
 	
 	
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	
@@ -163,5 +180,7 @@ function proInfo(id){
 	cookieOperator.forwardPushCookie(formdata);
 }
 	
+	
+
 </script>
 
