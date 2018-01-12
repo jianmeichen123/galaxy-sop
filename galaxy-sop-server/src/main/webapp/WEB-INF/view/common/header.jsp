@@ -102,26 +102,55 @@
 	 		$('.input-search input').val(inputValue)
 	 	}
 })
-	
 
-/* 页面跳转,通过url传递参数 */
+/* 页面跳转,通过url传递参数 ,保存搜索历史传给后台*/
 	 $('.input-search span').click(function(){
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
+		 	//调用保存搜索历史方法
+		 	 var url= "<%=path %>/galaxy/infoDanao/saveSearchHistory"
+				 var data = {
+						 keyword:keyword
+				 }
+				 $.ajax({
+					 type:"POST",
+					 url:url,
+					 data:data,
+					 dataType:'json',
+					 success:function(data){
+						 consle.log(data)
+					 }
+				 }) 
 		 
-		window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
+		 
+		 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
 		$('.globleSearchInput').val(keyword)
 		
 	 })
 	 
 	 /* 键盘事件 */
-	 $('.globleSearchInput').bind('keypress',function(event){
+	<%--  $('.globleSearchInput').bind('keypress',function(event){
 		 var keyword = $('.globleSearchInput').val().trim();
 		 if(event.keyCode=='13'){
 			 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
 		 }
 		 
-	 })
+	 }) --%>
+/* 从后台获取搜索历史 */
+ $('.globleSearchInput').mouseenter(function(){
+	 var url = "<%=path %>/galaxy/infoDanao/searchHistory"
+	 $.ajax({
+		 type:"POST",
+		 url:url,
+		 data:'',
+		 dataType:'json',
+		 success:function(data){
+			 console.log(data)
+		 }
+	 }) 
+ })
+ 
+
 	 
 	 
 	 
