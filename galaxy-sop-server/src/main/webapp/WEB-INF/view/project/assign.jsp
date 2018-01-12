@@ -163,7 +163,6 @@ $(function(){
 	}
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
 if(${from eq 'assign' }){
-	alert('${fx:reloadCondition('project_batch_assign')}');
 	var result='${fx:reloadCondition('project_batch_assign')}';
 	if(result!=""){
 		if(result==1){
@@ -351,9 +350,14 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			
 		 $('#assign-table').bootstrapTable('refresh')
 	});
-
+  var urls;
+	if(${from eq 'assign' }){
+		 urls=platformUrl.searchProjectAssigin;
+	}else if(${from eq 'transfer' }){
+		urls=platformUrl.searchProjectTansfer;
+	}
 	
-	
+	alert(urls);
 	
 	//初始化项目列表
 	var initPageSize = 10;
@@ -362,7 +366,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		pageSize:initPageSize,
 		pageNum:1,
 		showRefresh : false,
-		url : 'http://fx.local.galaxyinternet.com/sop/galaxy/project/search',
+		url : urls,
 		sidePagination: 'server',
 		method : 'post',
 		sortName : 'updated_time',

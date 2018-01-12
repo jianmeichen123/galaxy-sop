@@ -1384,7 +1384,6 @@ function createCareelineOptions(url, name, selectStatus){
  * @param name  select的name属性值
  */
 function createCareelinePartShow(url, name,selectStatus,showId){
-	alert(showId);
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.project.ProjectTransferBo;
+import com.galaxyinternet.common.annotation.GalaxyResource;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -178,6 +179,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	 * @version 2016-06-21
 	 * @author yangshuhua
 	 */
+	@GalaxyResource(name="project_batch_transfer")
 	@ResponseBody
 	@RequestMapping(value = "/searchProjectTansfer", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProjectAssign(HttpServletRequest request, @RequestBody ProjectBo project)
@@ -255,6 +257,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	 * @version 2016-06-21
 	 * @author yangshuhua
 	 */
+	@GalaxyResource(name="project_batch_assign")
 	@ResponseBody
 	@RequestMapping(value = "/searchProjectAssigin", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProjectAssigin(HttpServletRequest request, @RequestBody ProjectBo project)
