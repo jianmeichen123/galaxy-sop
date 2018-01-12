@@ -2223,7 +2223,7 @@ function saveDN(even){
 	 $.each(tables,function(){
 		 var thatTable = $(this); 
 		 var code =thatTable.attr("code");
-		 var titleid = thatTable.attr("titleid");
+		 var titleid = thatTable.attr("titleid"); 
 		 if(code=="finance-history"){ 
 			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
 				function(data) {
@@ -2231,11 +2231,11 @@ function saveDN(even){
 			 }) 
 			 //融资历史的保存
 			saveDNsame(thatTable,dataDN)
-		 } else if(code="equity-structure"){
+		 } else if(code=="equity-structure"){
 			 //股权的保存
 			 saveDNsame(thatTable,dataDN)
 			 
-		 } else if(code=="company-info"){
+		 } else if(code=="company-info"){ 
 			 var resultIdList;
 			 //法人信息的保存
 			 sendGetRequest(platformUrl.getRelateTitleResults +"2/5813/"+projectInfo.id, null,
@@ -2259,8 +2259,7 @@ function saveDN(even){
 				 info.resultId=resultIdres; 
 				 info.type=1;
 				 infoListDN.push(info);
-			 })  
-			 
+			 })   
 			 dataDN.infoModeList=infoListDN;  
 			  sendPostRequestByJsonObj(
 					    platformUrl.saveOrUpdateInfo,
