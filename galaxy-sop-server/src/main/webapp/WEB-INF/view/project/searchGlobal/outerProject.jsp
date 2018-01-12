@@ -6,7 +6,7 @@
 %>
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
- 		<div class='two pagination_common'>
+ 		<div class='two pagination_common outerContent'>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
 					<thead>
 						<tr>
@@ -47,9 +47,9 @@ $(function(){
 	
 	function queryParams(params){
 		return {
-			pageNo:params.offset/params.limit+1,
+			pageNo:params.offset/params.limit,
 			pageSize:params.limit,
-			keyword:'',
+			keyword:'机器人',
 			pageSearchInfo:'dnProject',
 			order:'desc',
 			orderBy:'setupDT'

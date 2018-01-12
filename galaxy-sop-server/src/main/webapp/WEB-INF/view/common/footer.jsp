@@ -95,13 +95,11 @@ function createMenus(current){
 
 //吐槽
 var _nickname=$('.man_info .name').text();
-var _src='https://thirdqq.qlogo.cn/g?b=oidb&k=lWPNZOQIu2v4EYq2cZ0Hgw&s=100';
-//var _src='http://fx.qa.galaxyinternet.com/sop/img/defalut_avator.png';
-//window.location.host+'/sop/img/defalut_avator.png'
+var _src=window.location.host+'/sop/img/avatarTC.png';
 var data = {
 	      "nickname": _nickname,    //发帖人名称
 	      "avatar": _src,
-	      "openid": "121368588",    //用户ID
+	      "openid": userId,    //用户ID
 	  },
 	  productId = 21398;
 function feedback(){   //跳转吐个槽

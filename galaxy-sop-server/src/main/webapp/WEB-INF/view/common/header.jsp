@@ -41,7 +41,7 @@
 
   <a href="javascript:;" class="logo null">星河投</a>
     <div class='fl input-search'>
-    	<input type="text" placeholder="请输入关键字进行搜索"/>
+    	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul'>
     		<li>搜索历史</li>
@@ -51,10 +51,7 @@
     		<li>互联网医疗</li>
     	</ul>
     </div>
-    <div class='fl input-search input-show'>
-    	<input type="text" placeholder="请输入项目名称"/>
-    	<span><a href="javascript:;">全局搜索</a></span>
-    </div>
+  
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
     	<div class="erwm fl">
@@ -97,6 +94,25 @@
 </div>
 
 <script type="text/javascript">
+/*100个汉字限制  */
+/* $('.input-search').bind('input propertychange',function(){
+	 	var inputValue = $('.input-search input').val();
+	 	if(inputValue.length>100){
+	 		var inputValue = inputValue.substring(0,200);
+	 		$('.input-search input').val(inputValue)
+	 	}
+}) */
+	
+
+/* 页面跳转,通过url传递参数 */
+	 $('.input-search span').click(function(){
+		 /* 获取搜索的关键字 */
+			var keyword = $('.globleSearchInput').val().trim();
+		window.location.href="<%=path %>/galaxy/test/searchResult?value="+keyword
+		
+	 })
+	 
+	 
 $("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');
 reloadMessage();
 if(roleId=='1'||roleId=='2'||roleId=='3'){
@@ -303,19 +319,6 @@ $(window).resize(function(){
  
   })		
   
-  /*100个汉字限制  */
-  $('.input-search').bind('input propertychange',function(){
-	 	var inputValue = $('.input-search input').val();
-	 	if(inputValue.length>100){
-	 		var inputValue = inputValue.substring(0,200);
-	 		$('.input-search input').val(inputValue)
-	 	}
-  })
-  
-   /* 隐藏input */	
-	 $('.hideThis').click(function(){
-		window.location.href="<%=path %>/galaxy/test/searchResult" 
-		//$(this).hide();
-	 })
+
  
 </script>

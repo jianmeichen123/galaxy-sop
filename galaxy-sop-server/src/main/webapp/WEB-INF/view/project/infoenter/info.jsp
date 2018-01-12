@@ -55,21 +55,20 @@
 	 
 	function jumpPage(){
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-	} 
-	
-	
-	function position(){
-		var right=$(".infoBox").offset().right;
-		var left=$(".infoBox").offset().left;
+	}  
+	function position(){  
+		var left=$(".infoBox").offset().left; 
 		$(".fixedbottom").css({
-			"right":right,
+			"right":0,
 			"left":left,
 		})
 	}
+$(function(){
+
 	position();
 	$(window).resize(function(){
 		position();
 	}) 
-
+})
 
 </script>
