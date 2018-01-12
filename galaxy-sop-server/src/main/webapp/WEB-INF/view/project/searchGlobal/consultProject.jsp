@@ -59,11 +59,12 @@ $('.consut_span span').click(function(){
 	/* 星河资讯========================================== */
 	 xhtMessage()
  	function  xhtMessage(){
+		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
 				pageNo:params.offset/params.limit,
 				pageSize:params.limit,
-				keyword:'机器人',
+				keyword:keyword,
 				pageSearchInfo:'dnProject',
 				order:'desc',
 				orderBy:'create_time'
@@ -109,12 +110,12 @@ $('.consut_span span').click(function(){
 	/* 创投咨询 ===================================*/
 	
 	 function ctDnConsult(){ 
-		
+		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
 				pageNo:params.offset/params.limit,
 				pageSize:params.limit,
-				keyword:'',
+				keyword:keyword,
 				pageSearchInfo:'dnZixun',
 				order:'desc',
 				orderBy:'ctime'

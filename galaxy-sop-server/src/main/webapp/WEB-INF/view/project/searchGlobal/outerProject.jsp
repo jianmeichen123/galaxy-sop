@@ -44,12 +44,12 @@
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
 <script type="text/javascript">
 $(function(){
-	
+	var keyword = getHrefParamter("keyword");
 	function queryParams(params){
 		return {
 			pageNo:params.offset/params.limit,
 			pageSize:params.limit,
-			keyword:'机器人',
+			keyword:keyword,
 			pageSearchInfo:'dnProject',
 			order:'desc',
 			orderBy:'setupDT'

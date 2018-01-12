@@ -34,7 +34,6 @@
 
 $(function(){
 	var keyword = getHrefParamter("keyword");
-	alert(keyword)
 	function queryParams(params){
 		return {
 			pageNum:params.offset/params.limit,
