@@ -95,11 +95,11 @@ function createMenus(current){
 
 //吐槽
 var _nickname=$('.man_info .name').text();
-var _src=window.location.host+'/sop/img/avatarTC.png'
+var _src=window.location.host+'/sop/img/avatarTC.png';
 var data = {
 	      "nickname": _nickname,    //发帖人名称
 	      "avatar": _src,
-	      "openid": "121368588",    //用户ID
+	      "openid": userId,    //用户ID
 	  },
 	  productId = 21398;
 function feedback(){   //跳转吐个槽
