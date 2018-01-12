@@ -37,7 +37,7 @@ $(function(){
 		return {
 			pageNum:params.offset/params.limit,
 			pageSize:params.limit,
-			keyword:'',
+			keyword:'机器人',
 			pageSearchInfo:'xhtProject',
 			direction:'desc',
 			property:'updated_time'
