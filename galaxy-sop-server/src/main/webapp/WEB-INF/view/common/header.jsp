@@ -114,6 +114,18 @@
 		
 	 })
 	 
+	 /* 键盘事件 */
+	 $('.globleSearchInput').bind('keypress',function(event){
+		 var keyword = $('.globleSearchInput').val().trim();
+		 if(event.keyCode=='13'){
+			 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
+		 }
+		 
+	 })
+	 
+	 
+	 
+	 
 	 
 $("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');
 reloadMessage();
