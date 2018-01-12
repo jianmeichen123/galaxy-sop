@@ -95,20 +95,20 @@
 
 <script type="text/javascript">
 /*100个汉字限制  */
-/* $('.input-search').bind('input propertychange',function(){
+ $('.input-search').bind('input propertychange',function(){
 	 	var inputValue = $('.input-search input').val();
 	 	if(inputValue.length>100){
 	 		var inputValue = inputValue.substring(0,200);
 	 		$('.input-search input').val(inputValue)
 	 	}
-}) */
+})
 	
 
 /* 页面跳转,通过url传递参数 */
 	 $('.input-search span').click(function(){
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
-		window.location.href="<%=path %>/galaxy/test/searchResult?value="+keyword
+		window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
 		
 	 })
 	 

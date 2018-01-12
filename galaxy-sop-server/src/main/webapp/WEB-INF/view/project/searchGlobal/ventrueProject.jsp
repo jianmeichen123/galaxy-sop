@@ -33,11 +33,34 @@
 <script type="text/javascript">
 
 $(function(){
+	
+	/**
+	 * html之间传递参数
+	 * @param name
+	 * @returns
+	 */
+	function getHrefParamter(name){
+	      var url=decodeURI(location.search);
+	      var q = url.substr(1);
+	      var qs = q.split("&");
+	      if (qs) {
+	          for (var i = 0; i < qs.length; i++) {
+	              if (qs[i].substring(0, qs[i].indexOf("=")) == name) {
+	                  var ss = qs[i].substring(qs[i].indexOf("=") + 1)
+	                  return ss;
+	              }
+	          }
+	      }
+	}
+
+
+	var keyword = getHrefParamter("keyword");
+	
 	function queryParams(params){
 		return {
 			pageNum:params.offset/params.limit,
 			pageSize:params.limit,
-			keyword:'机器人',
+			keyword:keyword,
 			pageSearchInfo:'xhtProject',
 			direction:'desc',
 			property:'updated_time'
@@ -64,6 +87,22 @@ $(function(){
 	
 	
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	
@@ -163,5 +202,7 @@ function proInfo(id){
 	cookieOperator.forwardPushCookie(formdata);
 }
 	
+	
+
 </script>
 
