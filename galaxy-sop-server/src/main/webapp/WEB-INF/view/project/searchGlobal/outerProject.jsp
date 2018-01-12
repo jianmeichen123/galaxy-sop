@@ -47,7 +47,7 @@ $(function(){
 	
 	function queryParams(params){
 		return {
-			pageNo:params.offset/params.limit+1,
+			pageNo:params.offset/params.limit,
 			pageSize:params.limit,
 			keyword:'',
 			pageSearchInfo:'dnProject',

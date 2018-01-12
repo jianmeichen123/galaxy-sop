@@ -35,7 +35,7 @@
 $(function(){
 	function queryParams(params){
 		return {
-			pageNum:params.offset/params.limit+1,
+			pageNum:params.offset/params.limit,
 			pageSize:params.limit,
 			keyword:'',
 			pageSearchInfo:'xhtProject',
