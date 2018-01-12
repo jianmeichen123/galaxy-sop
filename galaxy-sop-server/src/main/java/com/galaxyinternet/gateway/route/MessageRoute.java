@@ -3,8 +3,6 @@ package com.galaxyinternet.gateway.route;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +27,18 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.model.user.User;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 
 public class MessageRoute extends ZuulFilter
 {
+	private static final Logger logger = LoggerFactory.getLogger(MessageRoute.class);
 	public static final String CONTENT_ENCODING = "Content-Encoding";
 	private String endpoint;
 	private CloseableHttpClient httpClient;
@@ -69,12 +72,12 @@ public class MessageRoute extends ZuulFilter
 	@Override
 	public Object run() throws ZuulException
 	{
+		RequestContext ctx = RequestContext.getCurrentContext();
+		HttpServletRequest request = ctx.getRequest();
+		String originalUri = request.getRequestURI();
 		try
 		{
-			RequestContext ctx = RequestContext.getCurrentContext();
-			HttpServletRequest request = ctx.getRequest();
 			Header[] headers = buildZuulRequestHeaders(request);
-			String originalUri = request.getRequestURI();
 			String path = originalUri.substring(originalUri.indexOf("/message") + 8);
 			URL url = new URL(endpoint + path);
 			String method = request.getMethod();
@@ -94,8 +97,10 @@ public class MessageRoute extends ZuulFilter
 
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(logger.isErrorEnabled())
+			{
+				logger.error(String.format("Proxy URL: %s, Error: %s", originalUri,e.getMessage()));
+			}
 		}
 		return null;
 	}
@@ -117,12 +122,34 @@ public class MessageRoute extends ZuulFilter
 
 		ArrayList<BasicHeader> headers = new ArrayList<>();
 		Enumeration<String> headerNames = request.getHeaderNames();
+		boolean hasSid = false;
+		boolean hasUid = false;
+		String sidName = "sessionId";
+		String uidName = "guserid";
 		while (headerNames.hasMoreElements())
 		{
 			String name = ((String) headerNames.nextElement()).toLowerCase();
 			String value = request.getHeader(name);
 			if (isValidHeader(name))
 				headers.add(new BasicHeader(name, value));
+			if(sidName.equalsIgnoreCase(name))
+			{
+				hasSid = true;
+			}
+			if(uidName.equalsIgnoreCase(name))
+			{
+				hasUid = true;
+			}
+		}
+		if(!hasSid)
+		{
+			String sessionId = request.getSession().getId();
+			new BasicHeader(sidName, sessionId);
+		}
+		User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if(!hasUid && user != null)
+		{
+			new BasicHeader(sidName, user.getId()+"");
 		}
 		return headers.toArray(new Header[headers.size()]);
 	}

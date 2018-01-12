@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -25,10 +27,12 @@ import com.netflix.zuul.monitoring.MonitoringHelper;
 @Controller
 public class GatewayController implements InitializingBean, ApplicationContextAware
 {
+	private static final Logger logger = LoggerFactory.getLogger(GatewayController.class);
 	private ZuulRunner zuulRunner = new ZuulRunner(false);
 	@RequestMapping("/gateway/**")
 	public void route(HttpServletRequest request, HttpServletResponse response)
 	{
+		long start = System.currentTimeMillis();
 		try {
             init(request, response);
 
@@ -62,6 +66,10 @@ public class GatewayController implements InitializingBean, ApplicationContextAw
             error(new ZuulException(e, 500, "UNHANDLED_EXCEPTION_" + e.getClass().getName()));
         } finally {
             RequestContext.getCurrentContext().unset();
+            if(logger.isDebugEnabled())
+            {
+            	logger.debug(String.format("Gateway URL:%s, Spend Time: %s", request.getRequestURI(),System.currentTimeMillis() - start));
+            }
         }
 	}
 
