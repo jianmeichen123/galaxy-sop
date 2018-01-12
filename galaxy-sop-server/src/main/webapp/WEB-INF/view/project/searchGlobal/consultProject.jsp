@@ -92,7 +92,7 @@ $('.consut_span span').click(function(){
 		var html = "<div class='tdContent'>"+
 					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+ 
 					"<div class='rightContent'>"+
-					"<h3>'"+row.title+"'</h3>"+
+					"<a href='"+row.href+"' target='_blank'><h3>'"+row.title+"'</h3></a>"+
 					 "<p class='outerProjectTitle'>'"+row.overview+"'</p>"+
 					"<p>"+
 					"<span class='picEm picEmOne'>'"+row.ctimeStr+"'</span>"+
@@ -144,7 +144,7 @@ $('.consut_span span').click(function(){
 		var html = "<div class='tdContent'>"+
 					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+
 					"<div class='rightContent'>"+
-					"<h3>'"+row.title+"'</h3>"+
+					"<a href='"+row.href+"' target='_blank'><h3>'"+row.title+"'</h3></a>"+
 					"<p class='outerProjectTitle'>'"+row.overview+"'</p>"+
 					"<p>"+
 					"<span class='picEm picEmOne'>'"+row.ctimeStr+"'</span>"+

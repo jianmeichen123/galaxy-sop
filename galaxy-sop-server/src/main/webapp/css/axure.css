@@ -4321,7 +4321,7 @@ input:-ms-input-placeholder {
 .two{background:#fff;}
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
-.outerProject .leftPic{width:80px;height:80px;margin:10px 0 20px 20px;}
+.outerProject .leftPic{width:80px;height:80px;margin:10px 0 20px 20px;border:1px solid #d8d8d8;}
 .outerProject .rightContent{margin:20px 0 10px 120px;width:90%;}
 .newsProject .rightContent{margin:20px 0 10px 161px;width:90%;}
 .outerProject .rightContent h3{font-size: 16px;color: #000000;}

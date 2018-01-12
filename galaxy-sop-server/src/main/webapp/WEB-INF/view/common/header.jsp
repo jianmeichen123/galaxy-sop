@@ -108,7 +108,9 @@
 	 $('.input-search span').click(function(){
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
-		window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
+		 
+		window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
+		$('.globleSearchInput').val(keyword)
 		
 	 })
 	 
