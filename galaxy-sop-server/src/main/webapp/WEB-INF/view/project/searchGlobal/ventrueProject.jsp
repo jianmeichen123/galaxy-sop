@@ -33,29 +33,8 @@
 <script type="text/javascript">
 
 $(function(){
-	
-	/**
-	 * html之间传递参数
-	 * @param name
-	 * @returns
-	 */
-	function getHrefParamter(name){
-	      var url=decodeURI(location.search);
-	      var q = url.substr(1);
-	      var qs = q.split("&");
-	      if (qs) {
-	          for (var i = 0; i < qs.length; i++) {
-	              if (qs[i].substring(0, qs[i].indexOf("=")) == name) {
-	                  var ss = qs[i].substring(qs[i].indexOf("=") + 1)
-	                  return ss;
-	              }
-	          }
-	      }
-	}
-
-
 	var keyword = getHrefParamter("keyword");
-	
+	alert(keyword)
 	function queryParams(params){
 		return {
 			pageNum:params.offset/params.limit,
