@@ -1379,6 +1379,31 @@ function createCareelineOptions(url, name, selectStatus){
 	});
 }
 /**
+ * 查询事业线
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createCareelinePartShow(url, name,selectStatus,showId){
+	alert(showId);
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			if(showId.contains(value.id)==true){
+				options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '') +'>'+value.name+'</option>');
+			}
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+		if(!selectStatus){
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
+		}
+		/*
+		var op=$('select[name="'+name+'"] option');
+		if(op.length<=2 && op.length!=1){
+			$('select[name="'+name+'"]').find(":first").remove();
+		}*/
+	});
+}
+/**
  * 根据事业线查询相应的投资经理
  * @param url   请求地址
  * @param name  select的name属性值

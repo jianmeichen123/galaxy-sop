@@ -56,4 +56,16 @@
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>java.lang.String dataScope(java.lang.String)</function-signature>
 	</function>
+	<function>
+		<name>reloadCondition</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>java.lang.String reloadCondition(java.lang.String)</function-signature>
+	</function>
+		<function>
+		<name>reloadDepts</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>java.lang.String reloadDepts(java.lang.String)</function-signature>
+	</function>
+	
+	
 </taglib>

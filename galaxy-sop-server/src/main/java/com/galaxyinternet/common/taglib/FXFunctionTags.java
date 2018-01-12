@@ -218,5 +218,46 @@ public class FXFunctionTags
 		}
 		return "";
 	}
+	
+	public static String reloadCondition(String resourceMark)
+	{
+		User user = WebUtils.getUserFromSession();
+		List<PlatformResource> resources = user.getAllResourceToUser();
+		if(resources != null && resources.size() >0)
+		{
+			for(PlatformResource resource : resources)
+			{
+				if(resourceMark != null && resourceMark.equals(resource.getResourceMark()))
+				{
+				  if(null!=resource.getSpId()){
+						 return resource.getSpId().toString();
+				  }
+				}
+			}
+		}
+		return "";
+	}
+	public static String reloadDepts(String resourceMark)
+	{
+		User user = WebUtils.getUserFromSession();
+		List<PlatformResource> resources = user.getAllResourceToUser();
+		if(resources != null && resources.size() >0)
+		{
+			for(PlatformResource resource : resources)
+			{
+				if(resourceMark != null && resourceMark.equals(resource.getResourceMark()))
+				{
+				  if(null!=resource.getSpId()){
+						List<Long> depIds = resource.getDepIds();
+					   if(null!=depIds&&depIds.size()>0){
+						
+						return StringUtils.join(depIds,",");
+					   }
+				  }
+				}
+			}
+		}
+		return "";
+	}
 
 }

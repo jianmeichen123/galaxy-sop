@@ -140,13 +140,11 @@
 </html>
 <script>
 $(function(){
-	
-	//导航
+  //导航
 	createMenus(5);
 
  ///////////////////////初始化筛选条件
- createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
- createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
+  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
 	/**
 	 * 获取融资状态下拉项
@@ -164,12 +162,44 @@ $(function(){
 	    }
 	}
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
+if(${from eq 'assign' }){
+	alert('${fx:reloadCondition('project_batch_assign')}');
+	var result='${fx:reloadCondition('project_batch_assign')}';
+	if(result!=""){
+		if(result==1){
+			$("[name='projectDepartid']").css("display","none");
+			$("[name='createUid']").css("display","none");
+		}else if(result==2){
+			createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
+		}else if(result==3){
+			 $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
+		}else if(result==6){
+			  var depts
+				if('${fx:reloadDepts('project_batch_assign')!=""}'){
+					  depts='${fx:reloadDepts('project_batch_assign')}'
+					  var deptArr=null!=depts?depts.split(","):[];
+					  createCareelinePartShow(platformUrl.getCareerlineList,"projectDepartid",1,deptArr);
+					
+				}
+		}
+	}
+	
+
+}else if(${from eq 'transfer' }){
+	var result='${fx:reloadCondition('project_batch_transfer')}';
+	if(result!=""){
+		if(result==1){
+              $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
+			  $("[name='createUid']").parent(".form-group ").attr("style","display:none");
+		}
+    }
+}
+
 /**
  * 根据事业线查询相应的投资经理
  * @version 2016-06-21
  */
 createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
-
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
@@ -239,26 +269,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}
 	//搜索
 	var initParams;
-	//var pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"});
 	var initPageSize = 10;
-	/* if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
-		initPageSize = pageParams.pageSize;
-		console.log(initPageSize+"222")
-	} */
-
-/* 	var param = {}
-	function queryParams(param){
-		param.pageNum = 1;
-		param.pageSize = 10;
-		param.projectDepartid = 8;//事业线
-		param.createUid = 0;//投资经理
-		param.projectProgress ='projectProgress:1'//项目进度
-		param.projectStatus = 'projectStatus:2';//项目状态
-		param.financeStatus = '1122';//融资状态
-		//param.faFlag = 2261  ;//项目来源
-		return param;
-	}   */
-	
 	//重置方法
 	$(".reset_search").click(function(){
 		$('.selectpicker').selectpicker('deselectAll');
@@ -299,16 +310,11 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		}
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		param.nameCodeLike = nameCodeLike!="undefined"?nameCodeLike:"";
-	/* 	param.projectDepartid = valueNum;//事业线
-		param.createUid = valueManager;//投资经理 */
 		return param;
 		
 	} 	
-  	
-
-
-
-  	
+	
+	
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
@@ -373,39 +379,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
         		$("input[name='faName']").show();
         	}
         	
-       /*  	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-    			if(initParams.pageNum==1){
-    				return;
-    			}else{
-    				$('.pagination li').removeClass('active');
-    				if($('.pagination .page-number').length< initParams.pageNum)
-    				{
-    					var len = $('.pagination .page-number').length;
-    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
-    					var end = initParams.pageNum + Math.floor(len/2);
-    					if(end>totalPages)
-						{
-    						end = totalPages;
-						}
-    					
-    					for(var i=len-1; i>=0; i--)
-    					{
-    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
-    					}
-    				}
-
-    				$('.pagination li').each(function(){
-    	    			if($(this).text()==initParams.pageNum){
-    	    				$(this).click();
-    	    				 return false;
-    	    				//$(this).addClass('active')
-    	    			}
-    				});
-    			}
-    		}
-        	initPageSize=10; */
-        	
-        	
        	 /* checkbox 点击 */
        	 $('.highlighCheckbox').click(function(event){
        		 $(this).toggleClass('highlighCheckbox_checked');
@@ -421,17 +394,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
        		 }
        		 event.preventDefault(); 
        	 })
-        	
-        	
-        	
         }
-        
-       
-        
-        
 	});
-	
- 
 })
  
 
@@ -448,47 +412,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 				return str;
 			}
 		} 
-		
-//点击跳转详情页面方法,附带参数过去
-function proInfo(id){
-	//项目详情页返回地址
-	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
-	//返回附带参数功能代码
-	var options = $("#project-table").bootstrapTable('getOptions');
-	var tempPageSize = options.pageSize ? options.pageSize : 10;
-	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-	//var projectType = $("select[name='projectType']").val();
-	var financeStatus = $("select[name='financeStatus']").val();
-	var projectProgress = $("select[name='projectProgress']").val();
-	var projectStatus = $("select[name='projectStatus']").val();
-	var projectDepartid = $("select[name='projectDepartid']").val();
-	var createUid = $("select[name='createUid']").val();
-	var nameCodeLike = $("input[name='nameCodeLike']").val();
-	var projectPerson = $("input[name='projectPerson']").val();
-	var faFlag = $("select[name='faFlag']").val();
-	
-	var formdata = {
-			_paramKey : 'projectList',
-			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-			_path : "/",
-			_param : {
-				pageNum : tempPageNum,
-        		pageSize : tempPageSize,
-        		//projectType : projectType,
-        		financeStatus : financeStatus,
-        		projectProgress : projectProgress,
-        		projectStatus : projectStatus,
-        		projectDepartid : projectDepartid,
-        		createUid : createUid,
-        		nameCodeLike : nameCodeLike,
-        		projectPerson:projectPerson,
-        		faFlag:faFlag
-			}
-	}
-	var href_url=window.location;
-	setCookie("href_url", href_url,24,'/');
-	cookieOperator.forwardPushCookie(formdata);
-}
 
 /**
  * 项目类型格式化
@@ -569,6 +492,7 @@ function financeStatusFormat(value,row,index){
 		var options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value='"+row.id+"'/></label> ";
 		return options;
 	}
+	 /*checked project num*/
 	function countNum() {
 		var projectIds=[];
 		var num=$(".highlighCheckbox_checked [name='isCheck']").length;
