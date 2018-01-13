@@ -9,7 +9,7 @@
  		<div class='three pagination_common'>
  			<div class='consut_span'>
  				<span class='hasBackround'>星河资讯</span>
- 				<span>创投资讯</span>
+ 				<span class='ctZixun'>创投资讯</span>
  			</div>
  			<div class='projectContent'>
  			<!--星河资讯  -->
@@ -79,7 +79,15 @@ $('.consut_span span').click(function(){
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
 				console.log('星河咨询')
-				console.log(data)
+				console.log(data.pageList)
+				if(data.pageList.content){
+					alert('dd')
+				}else{
+					$('.ctZixun').click();
+					
+				}
+				
+				
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
@@ -144,6 +152,7 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
+				console.log(data)
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
