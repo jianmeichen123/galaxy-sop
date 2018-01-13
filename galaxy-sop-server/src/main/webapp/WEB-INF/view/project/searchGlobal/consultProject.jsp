@@ -53,7 +53,7 @@ $('.consut_span span').click(function(){
 });
 
 	/* 星河资讯========================================== */
-	 xhtMessage()
+	 xhtMessage()// 默认调用星河资讯
  	function  xhtMessage(){
 		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
@@ -78,7 +78,22 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				//console.log(data)
+				console.log('星河咨询')
+				console.log(data)
+				var totalObject = data.userData;
+				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
+				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
+				var zixunProjectNumber =totalObject.xhtAppZixunTotal; //星河资讯
+				var totalProjectNumber =totalObject.dnZixunTotal; //创投资讯
+				console.log(totalObject)
+				var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
+				/*获取页面的值  */
+				$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")//创投资讯
+				$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	//外部项目资讯
+				$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
+				
+				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
+				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 			}
 	})
 	}
@@ -129,17 +144,20 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				//console.log(data)
-			var totalObject = data.userData;
-			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
-			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
-			var zixunProjectNumber =totalObject.xhtAppZixunTotal; //资讯
-			var totalProjectNumber =totalObject.dnZixunTotal; //总条数
-			
-				$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")
-				$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	
-				$('.zixunTotal').html("<span>("+outterProjectNumber+")</span>")	
-				$('.totalNumber').html("<span>"+totalProjectNumber+"</span>")	
+				var totalObject = data.userData;
+				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
+				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
+				var zixunProjectNumber =totalObject.xhtAppZixunTotal; //星河资讯
+				var totalProjectNumber =totalObject.dnZixunTotal; //创投资讯
+				console.log(totalObject)
+				var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
+				/*获取页面的值  */
+				$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")//创投资讯
+				$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	//外部项目资讯
+				$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
+				
+				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
+				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 			}
 	})
 		
