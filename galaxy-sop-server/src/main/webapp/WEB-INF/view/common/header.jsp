@@ -148,17 +148,26 @@
 		 success:function(data){
 			 $('.globalSearhc-ul').show();
 			 if(data.result.status=='OK'){
-				$.each(data.entity.hisList,function(index,n){
+				 var hisList = data.entity.hisList;
+				 console.log(hisList)
+				 for(var i = 0;i<hisList.length;i++){
+					 console.log(i)
+					 var html = "<li>"+hisList[i]+"</li>"
+				 }
+				 
+				 console.log(html+i)
+			/* 	$.each(data.entity.hisList,function(index,n){
 					var n = n.split(',');
 					for(var i = 0;i<n.length;i++){
 						var html = "<li>'"+n[i]+"'</li>";
+						
 					}
-						console.log(i)
+						
 					 $('.globalSearhc-ul').html(html); 
 					console.log(html)
 					return html
 					
-				});
+				}); */
 				// $('.globalSearhc-ul').html(html); 
 			 }
 			console.log(data)
