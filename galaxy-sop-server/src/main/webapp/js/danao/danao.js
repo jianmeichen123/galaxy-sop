@@ -16,9 +16,9 @@ function pagePop(codes){
 				$(".DN_list p:first").hide();
 			}
 			var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject"; 
-			$("#projectName").text($("#project_name_t").text()); 
+			$("#projectName").text($("#project_name_t").text());  
 			var data={ 
-		   			"keyword":projectInfo.projectName,
+		   			"keyword":projectInfoDetail.projectName,
 					"orderBy":"projTitle", 
 		    		}
 			$(".rightLink").hide();
@@ -96,7 +96,7 @@ function getpopHTML(code,even,danaoName){
 				}
 				 //infoDetail     
 				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
-				var projectName=projectInfo.projectName; 
+				var projectName=projectInfoDetail.projectName; 
 				var projectId=projectInfo.id;  
 				var projCode=projectInfo.danaoProjCode;
 				var data={
