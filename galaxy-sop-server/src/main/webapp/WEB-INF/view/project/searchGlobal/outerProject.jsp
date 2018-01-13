@@ -74,7 +74,9 @@ $(function(){
 		sidePagination:'server',
 		queryParams:queryParams,
 		onLoadSuccess:function(data){
-			console.log(data)
+			console.log(data);
+			var total = $('.outerProjectTotal').val();
+			sessionStorage.setItem("outerTotal",total)
 		}
 	
 	
@@ -86,7 +88,6 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
-		console.log(row)
 		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
@@ -101,10 +102,8 @@ $(function(){
 		
 		return html;
 	}
-/* 	function inputHiden(value,row,index){
-		var html = "<input type='hidden' name='ventrue' value='"+row.dnProjectTotal+"'>"
-		return html;
-	} */
+
+	
 	
 	
 </script>

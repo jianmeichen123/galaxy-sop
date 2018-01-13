@@ -40,15 +40,11 @@ $('.consut_span span').click(function(){
 	$(this).addClass('hasBackround');
 	var index = $(this).index();
 	if(index == 0){
-		console.log('0000')
-		
 		$('.dnContent').hide()
 		$('.xhtContent').show()
 		xhtMessage()
 		
 	}else if(index == 1){
-		console.log('111')
-		
 		$('.dnContent').show()
 		$('.xhtContent').hide()
 		ctDnConsult()

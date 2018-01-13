@@ -26,7 +26,7 @@
 			<div class='search-top'>
 				<ul class="clearfix to-task-tips">
 					<li data-tab="nav" class="bottomColor">创投项目<span>（12）</span></li>
-					<li data-tab="nav">外部项目<span>（6）</span></li>
+					<li data-tab="nav">外部项目<span class="outerTotal">（6）</span></li>
 					<li data-tab="nav">资讯<span>（6）</span></li>
 				</ul>
 				
@@ -64,6 +64,10 @@ $(function(){
  });
 
  
+ var outterTotal  = sessionStorage.getItem("outerTotal");
+ $('.outerTotal').html('<span>('+outterTotal+')</span>')
+
+ 
 
 
 });
@@ -75,8 +79,7 @@ $('.to-task-tips').tabLazyChange({
 			case 1 :initTabOuterProject();break;
 			case 2 :initTabConsultProject();break;
 		}
-		var number = $('.outerProjectTotal').val()
-		 console.log(number)
+		
 		
 	}
 })	
@@ -99,7 +102,6 @@ $('.to-task-tips').tabLazyChange({
 	}
 
 	
-
 
 
 </script>
