@@ -56,7 +56,6 @@
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
-
 <script type="text/javascript">
 	$(function(){
 		createMenus(1);
@@ -123,6 +122,12 @@
 	        }
 		});
 		
+		var url = platformUrl.markeMessageAsReaded;
+		var data = {time:new Date().getTime(),uid:"<%=userId%>"};
+		var callback = function(data){
+			reloadMessage();
+		};
+		sendPostRequestByJsonObj(url,data,callback);
 	});
 	function projectNameFormat(value, row, index){
 		var content = value;

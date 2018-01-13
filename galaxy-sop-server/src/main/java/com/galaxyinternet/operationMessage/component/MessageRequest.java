@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -25,19 +26,18 @@ public class MessageRequest
 		factory.setReadTimeout(3000);
 		template  = new RestTemplate(factory);
 	}
-	/**
-	 * 获取用户未读消息数目
-	 * @param userId
-	 * @return
-	 */
-	public Integer getUnReadCount(Long userId)
+	
+	public boolean send(String messageType, Long relatedId, Long userId)
 	{
-		String url = endpoint+"/galaxy/schedule/message/getUnReadCount";
-		Map<String, String> vars = new HashMap<>();
-		vars.put("uid", userId+"");
+		String url = endpoint+"/galaxy/schedule/message/saveSchedule";
+		Long[] ids = {relatedId};
+		Map<String, Object> vars = new HashMap<>();
+		vars.put("userId", userId+"");
+		vars.put("ids", ids);
+		vars.put("messageType", messageType);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Map<String, String>> request = new HttpEntity<>(vars, headers);
+		HttpEntity<Map<String, Object>> request = new HttpEntity<>(vars, headers);
 		if( logger.isDebugEnabled())
 		{
 			logger.debug(String.format("Request URI:%s, Params:%s", url, vars));
@@ -48,39 +48,13 @@ public class MessageRequest
 			logger.debug(String.format("Response Status:%s, Content:%s", rtn.getStatusCode(), rtn.getBody()));
 		}
 		MessageResponse resp = rtn.getBody();
-		if(!"OK".equals(resp.getStatus()))
+		if(rtn.getStatusCode().equals(HttpStatus.OK) && "OK".equals(resp.getStatus()))
 		{
-			return 0;
+			return true;
 		}
-		if( resp.getMap() == null || resp.getMap().size() == 0 || !resp.getMap().containsKey("count"))
-		{
-			return 0;
-		}
-		return (Integer)resp.getMap().get("count");
+		return false;
 	}
-	/**
-	 * 标记为已读
-	 * @param userId
-	 */
-	public void markAsReaded(Long userId)
-	{
-		String url = endpoint+"/galaxy/schedule/message/toReadByTime";
-		Map<String, String> vars = new HashMap<>();
-		vars.put("uid", userId+"");
-		vars.put("time", System.currentTimeMillis()+"");
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Map<String, String>> request = new HttpEntity<>(vars, headers);
-		if( logger.isDebugEnabled())
-		{
-			logger.debug(String.format("Request URI:%s, Params:%s", url, vars));
-		}
-		ResponseEntity<MessageResponse> rtn = template.postForEntity(url, request, MessageResponse.class);
-		if(logger.isDebugEnabled())
-		{
-			logger.debug(String.format("Response Status:%s, Content:%s", rtn.getStatusCode(), rtn.getBody()));
-		}
-	}
+	
 	
 
 	public String getEndpoint()
@@ -99,7 +73,7 @@ public class MessageRequest
 		//Integer count = req.getUnReadCount(4L);
 		//logger.info("Count: "+count);
 		
-		req.markAsReaded(4L);
+		req.send("1.2.2", 2318L, 53L);
 	}
 	
 	

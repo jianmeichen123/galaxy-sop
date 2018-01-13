@@ -312,6 +312,7 @@ var platformUrl = {
 	
 	operationMessageRemind : Constants.sopEndpointURL + "gateway/message/galaxy/schedule/message/getUnReadCount",
 	MessageIndex : Constants.sopEndpointURL + "/galaxy/operationMessage/index",
+	markeMessageAsReaded : Constants.sopEndpointURL + "/gateway/message/galaxy/schedule/message/toReadByTime",
 	/***
 	 * 日程列表
 	 */

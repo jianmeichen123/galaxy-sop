@@ -51,8 +51,10 @@
 	</bean>
 	<!-- Gateway start -->
 	<bean class="com.galaxyinternet.gateway.route.MessageRoute" p:endpoint="${galaxy.mob.endpoint}" />
-
+	
 	<!-- Gateway end -->
+	<bean class="com.galaxyinternet.operationMessage.component.MessageRequest" p:endpoint="${galaxy.mob.endpoint}" />
+	
 	<bean id="leaderSelector" class="com.galaxyinternet.framework.core.cluster.LeaderSelector">
 		<constructor-arg name="address" value="${cluster.zk.address}" />
 		<constructor-arg name="product" value="sop" />
@@ -67,7 +69,8 @@
 		<!-- 每月1号为有实际注资信息的项目发添加运营数据的消息 -->
 		<task:scheduled ref="pushMessageOperation" method="execute" cron="0 0 0 1 * ?" />
 		<task:scheduled ref="dictCacheUtils" method="execute" cron="0 0 2 * * ?" />
-		<!-- 每4小时，重新设置缓存的值 <task:scheduled ref="utilsService" method="execute" cron="0 0 0/4 * * ? "/> -->
+		
+		<task:scheduled ref="sopMessageJob" method="execute" fixed-delay="10000"/>
 	</task:scheduled-tasks>
 
 	<bean id="pollingConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager">

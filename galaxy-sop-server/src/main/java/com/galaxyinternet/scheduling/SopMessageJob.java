@@ -12,13 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.dao.Message.SopMessageDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.message.SopMessage;
+import com.galaxyinternet.operationMessage.component.MessageRequest;
 
-@Component
+@Component(value="sopMessageJob")
 public class SopMessageJob extends BaseGalaxyTask
 {
 	private static final Logger logger = LoggerFactory.getLogger(SopMessageJob.class);
 	@Autowired
 	private SopMessageDao messageDao;
+	@Autowired
+	private MessageRequest rest;
 	@Override
 	@Transactional
 	public void executeInteral() throws BusinessException
@@ -58,7 +61,11 @@ public class SopMessageJob extends BaseGalaxyTask
 	{
 		try
 		{
-			//TO-DO send 
+			boolean result = rest.send(message.getMessageType(), message.getRecordId(), message.getCreatedId());
+			if(!result)
+			{
+				return;
+			}
 			SopMessage entity = new SopMessage();
 			entity.setId(message.getId());
 			entity.setIsPublished(1);
