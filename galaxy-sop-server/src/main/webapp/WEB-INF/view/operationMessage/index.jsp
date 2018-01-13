@@ -132,16 +132,8 @@
 	function projectNameFormat(value, row, index){
 		var content = value;
 		var id = row.remarkId;
-		
-		var aa = "<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
-		var bb = "<a href='javascript:;' onclick=\"viewDetail(\'zx\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
-		
 		content = content.replace('"<pname>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>").replace('name"',"");
 		content = content.replace('</pname>"',"</a>");
-		 if(value.indexOf("ideazixuncode") != -1){
-			 content =value.replace("ideazixuncode",bb);
-		}
-		
 		return content;
 	}
 	function viewDetail(mark,id){

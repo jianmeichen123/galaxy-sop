@@ -29,8 +29,12 @@ String path = request.getContextPath();
 		sidePagination: 'server',
 		method : 'post',
 		sortOrder : 'desc',
-		sortName : 'updated_time',
+		sortName : 'send_time',
 		pagination: false,
+		customData: function(options, data){
+    		options.totalRows = data.entity.total;
+    		return data.entity.dataList;
+        },
 		queryParams:function(param){
 			param.pageNum=0;
 			param.pageSize=3;
@@ -38,7 +42,7 @@ String path = request.getContextPath();
 		},
         search: false,
         onLoadSuccess: function (data){
-        	if(data.pageList.total<3){
+        	if(data.entity.total<3){
         		$(".r_news .more").css("display","none");
         	}
         }

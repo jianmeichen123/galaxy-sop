@@ -1194,39 +1194,15 @@ function getVal(val,defaultValIfNull)
 	return val;
 }
 
-/*function projectNameLineFormat(value, row, index){
-	var id = row.projectId;
-	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
-				row.projectName + "</a>";
-	var content =value.replace("projectname",aa);
-	var str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
-	return str;
-	
-}
-*/
 function projectNameLineFormat(value, row, index){
 	var content = value;
-	var id = row.projectId;
-	
-	var aa = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>"+row.projectName+"</a>";
-	var bb = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/idea?mark=m&zixunid=" +id + "\' class='blue project_name'>"+row.projectName+"</a>";
-	
-	var str = "";
-	if(value.indexOf("projectname") != -1){
-		 content =value.replace("projectname",aa);
-		 str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
-	}else if(value.indexOf("ideazixuncode") != -1){
-		 content =value.replace("ideazixuncode",bb);
-		 str = "<span title='"+value.replace("ideazixuncode",row.projectName)+"'>"+content+"</span>";
-	}else{
-		str =content;
-	}
-	
-	return str;
+	var id = row.remarkId;
+	var title = value.replace(/<[^>]*>|<\/[^>]*>/gm,"");
+	content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>").replace('name"',"");
+	content = content.replace('</pname>"',"</a>");
+	content = "<span title='"+title+"'>"+content+"</span>";
+	return content;
 }
-
-
-
 
 function replaceStr(str){
 	if(str){
