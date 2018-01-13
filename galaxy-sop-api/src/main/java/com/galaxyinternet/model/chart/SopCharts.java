@@ -169,7 +169,10 @@ public class SopCharts extends BaseEntity implements Serializable {
 	
 	private String projectStatus;
 	
-	
+	   /**
+	    * 该字段为项目删除标识
+	    */
+	   private int isdelete;
 	
 	public String getProjectProgress() {
 		return projectProgress;
@@ -377,6 +380,12 @@ public class SopCharts extends BaseEntity implements Serializable {
 	}
 	public void setReportName(String reportName) {
 		this.reportName = reportName;
+	}
+	public int getIsdelete() {
+		return isdelete;
+	}
+	public void setIsdelete(int isdelete) {
+		this.isdelete = isdelete;
 	}
 	
 	

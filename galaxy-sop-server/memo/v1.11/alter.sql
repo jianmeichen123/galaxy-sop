@@ -25,3 +25,7 @@ ALTER TABLE `fx_db`.`sop_project`
 ALTER TABLE `fx_db`.`sop_transfer_record` 
 ADD COLUMN `operate_id` BIGINT(20) NULL COMMENT '操作人id（也是该条记录的创建人）  移交为投资经理本人；指派为：当前操作人 注意：历史数据处理该字段为 before_uid的值）' AFTER `updated_time`,
 ADD COLUMN `operate_type` VARCHAR(11) NULL DEFAULT NULL COMMENT '操作类型：0:移交，1：指派 ' AFTER `operate_id`;
+
+
+ALTER TABLE `fx_db`.`sop_meeting_scheduling` 
+ADD COLUMN `is_delete` INT(5) NULL DEFAULT 0 COMMENT '删除标识： 0：正常；1：删除' AFTER `created_time`;

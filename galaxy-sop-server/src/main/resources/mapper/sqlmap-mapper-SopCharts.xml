@@ -25,6 +25,7 @@
 				<if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if>
 				<if test="projectProgress != null"> and project_progress = #{projectProgress,jdbcType=VARCHAR}</if>
 				<if test="createUid != null"> and create_uid = #{createUid,jdbcType=BIGINT}</if>
+				<if test="isdelete != null"> and is_delete = #{isdelete,jdbcType=BIGINT}</if>
 			</trim>
 		</where>
 	</sql>
@@ -48,7 +49,7 @@
 	<!-- 查询总数 -->
 	<select id="selectCount" resultType="java.lang.Long"
 		parameterType="java.util.Map">
-		select count(0) from sop_project
+		select count(0) from sop_project 
 		<include refid="Base_Where_Clause" />
 	</select>
 
