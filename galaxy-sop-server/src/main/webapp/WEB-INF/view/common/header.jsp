@@ -44,12 +44,10 @@
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul clearfix'>
-    		<!-- <li>搜索历史</li>
-    		<li>滴滴打车</li>
-    		<li>数字娱乐</li>
-    		<li>蚂蚁森林</li>
-    		<li>互联网医疗</li> -->
-    		<li>aaa</li>
+    		<li>搜索历史</li>
+    		<ul clas="seach_history">
+    			
+    		</ul>
     	</ul>
     </div>
   
@@ -152,14 +150,12 @@
 					 var hisList = hisList.slice(0,10)
 				 	 var html =''
 					 for(var i = 0;i<hisList.length;i++){
-						 if(i<=9){
-							 html += "<li>"+hisList[i]+"</li>"
-						 }else{
-							 
-						 }
+							 html += "<li>aaaa<li/>"
+							 html += "<li>"+hisList[i+1]+"</li>"
+						
 				 }
 				  
-					$('.globalSearhc-ul').html(html); 
+					$('.seach_history').html(html); 
 			 }
 			console.log(data)
 			 
