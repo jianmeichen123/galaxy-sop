@@ -87,7 +87,15 @@ $(function(){
 			$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
 			
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
-			$('.totalNumber').html("<span>"+allTotal+"</span>")	
+			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 	
 	
@@ -101,12 +109,19 @@ $(function(){
 	function projectContent(value,row,index){
 		/* console.log(row)
 		console.log(index)  */
+		if(row.districtSubName){
+			var a = "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
+		}else{
+			
+		}
+		
+		
+		
 		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
 					"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
 					"<p>"+
-						"<span class='picEm picEmOne'><em></em>"+row.districtSubName+"</span>"+
 						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
 					"</p>"+
 					"<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
