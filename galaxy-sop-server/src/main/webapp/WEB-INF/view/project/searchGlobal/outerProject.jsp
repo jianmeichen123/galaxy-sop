@@ -81,13 +81,13 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
-		var html = "<div class='tdContent'><a href='"+row.href+"' target='_blank'><img class='fl leftPic'/ src='"+row.projImage+"' ></a>"+
+		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
-					"<h3>'"+row.projTitle+"'<span>'"+row.latestFinanceRound+"'</span></h3>"+
-					"<p class='outerProjectTitle'>'"+row.introduce+"'</p>"+
+					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
+					"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
 					"<p>"+
-						"<span class='picEm picEmOne'><em></em>'"+row.districtSubName+"'</span>"+
-						"<span class='picEm picEmTwo'><em></em>'"+row.industryName+"'</span>"+
+						"<span class='picEm picEmOne'><em></em>"+row.districtSubName+"</span>"+
+						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
 					"</p>"+
 					"</div>"+
 					"</div>"

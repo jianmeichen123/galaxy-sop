@@ -1,6 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<jsp:include page="../common/header_report.jsp" flush="true"></jsp:include>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<% 
+	String path = request.getContextPath(); 
+%>
 
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>投后运营</title>
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+</head>
+<body>
+<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 <div class="ritmin">
@@ -698,7 +714,10 @@
           </div>
     </div>
     </div>
- 
     
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+
+<!-- highcharts -->
+<script src="<%=request.getContextPath() %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/report/afterInvestFinace.js" type="text/javascript"></script>
