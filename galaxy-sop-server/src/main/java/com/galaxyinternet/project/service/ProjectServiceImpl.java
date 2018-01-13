@@ -312,6 +312,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			sopfile.setFileValid(3);	
 			sopfile.setProjectId(project.getId());
 			sopFileDao.updateByIdSelective(sopfile);
+			//删除排期
+			MeetingScheduling meetingScheduling=new MeetingScheduling();
+			meetingScheduling.setProjectId(project.getId());
+			meetingScheduling.setIsDelete(1);
+			meetingSchedulingDao.updateBySelective(meetingScheduling);
 		}
 		return updateById;
 	}

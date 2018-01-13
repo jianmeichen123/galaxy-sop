@@ -17,13 +17,14 @@
 	    <result column="last_time" property="lastTime"/>
 	    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+	    <result column="is_delete" property="isDelete" jdbcType="BIGINT" />
 	    
 	</resultMap>
 	
   <sql id="Base_Column_List" >
     id, project_id, meeting_type, meeting_count, meeting_date, status, remark, schedule_status,
     apply_time,reserve_time_start, reserve_time_end,last_time, updated_time, 
-    created_time
+    created_time,is_delete
   </sql>
   
 	<sql id="Base_Where_Clause">
@@ -37,13 +38,12 @@
 				<if test="status != null" >and status = #{status,jdbcType=VARCHAR} </if>
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
 				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus} </if>
+				<if test="isDelete != null">and is_delete = #{isDelete,jdbcType=BIGINT} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
-				
+				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
-			    <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
-			  
-				<if test="projectIdList != null">
+			    <if test="projectIdList != null">
 					AND project_id IN
 					<foreach collection="projectIdList" index="item" item="item" open="("
 						separator="," close=")">
@@ -80,21 +80,21 @@
 		select
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
-		    where meeting_type =  #{type} and status ="meetingResult:2"
+		    where meeting_type =  #{type} and status ="meetingResult:2" and is_delete=0
 		    order by meeting_count desc,meeting_date desc limit 2
 	</select>
 	 <select id="selectProjectMeetingByType" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
-		    where meeting_type =  #{type} and status ="meetingResult:2"
+		    where meeting_type =  #{type} and status ="meetingResult:2" and is_delete=0
 		    order by meeting_count desc,meeting_date desc 
 	</select>
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
-		from sop_meeting_scheduling where id = #{id}
+		from sop_meeting_scheduling where id = #{id} and id_delete=0
 	</select>
 	
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.MeetingScheduling" >
@@ -154,6 +154,7 @@
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			<if test="isDelete != null" > is_delete = #{isDelete} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -177,12 +178,12 @@
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
 			 reserve_time_start = #{reserveTimeStart}, 
 			 reserve_time_end = #{reserveTimeEnd},
-			
+			<if test="isDelete != null" > is_delete = #{isDelete}, </if>
 			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
-		where id = #{id}
+		where id = #{id} and id_delete=0
 	</update>
     
 	
@@ -198,6 +199,7 @@
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -219,7 +221,7 @@
 	</delete>
      <!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
-		delete from sop_meeting_scheduling where id = #{id}
+		delete from sop_meeting_scheduling where id = #{id} and is_delete=0
 	</delete>
 	
 	<!-- 根据projectId会议 -->
@@ -236,6 +238,7 @@
 						#{item}
 					</foreach>
 				</if>
+				  <if test="isDelete != null">and is_delete = #{isDelete,jdbcType=BIGINT}</if>
 			</trim>
 		</where>
 	</select>
@@ -257,6 +260,8 @@
 				</if>
 			</trim>
 			<if test="meetingType != null" > and meeting_type = #{meetingType} </if>
+			<if test="isDelete != null">and is_delete = #{isDelete,jdbcType=BIGINT}</if>
+			  
 		</where>
 	</select>
   
@@ -275,6 +280,8 @@
 		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
 		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
 		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
+		    <if test="isDelete != null">and is_delete = #{isDelete,jdbcType=BIGINT}</if>
+			  
 		    </trim>
 		    </where>
 	</select>
@@ -289,6 +296,8 @@
 		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
 		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
 		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
+		      <if test="isDelete != null">and is_delete = #{isDelete,jdbcType=BIGINT}</if>
+			  
 		    </trim>
 		</where>    
 		    <if test="offset != null and limit != null">

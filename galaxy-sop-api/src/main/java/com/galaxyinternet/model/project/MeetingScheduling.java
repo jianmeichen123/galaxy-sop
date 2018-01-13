@@ -77,6 +77,8 @@ public class MeetingScheduling extends PagableEntity {
 	private Long startTime; 
 	private Long endTime;
 	
+	private int isDelete;
+	
 	
 	public byte getIsTransfor() {
 		return isTransfor;
@@ -391,5 +393,15 @@ public class MeetingScheduling extends PagableEntity {
 	public void setCreateId(String createId) {
 		this.createId = createId;
 	}
+
+	public int getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
+	}
+	
+	
     
 }
