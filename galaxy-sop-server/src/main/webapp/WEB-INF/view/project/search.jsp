@@ -27,7 +27,7 @@
 				<ul class="clearfix to-task-tips">
 					<li data-tab="nav" class="bottomColor">创投项目<span>（12）</span></li>
 					<li data-tab="nav">外部项目<span>（6）</span></li>
-					<li data-tab="nav">咨询<span>（6）</span></li>
+					<li data-tab="nav">资讯<span>（6）</span></li>
 				</ul>
 				
 			</div>

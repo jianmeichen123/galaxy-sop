@@ -4321,7 +4321,7 @@ input:-ms-input-placeholder {
 .two{background:#fff;}
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
-.outerProject .leftPic{width:80px;height:80px;margin:10px 0 20px 20px;}
+.outerProject .leftPic{width:80px;height:80px;margin:10px 0 20px 20px;border:1px solid #d8d8d8;}
 .outerProject .rightContent{margin:20px 0 10px 120px;width:90%;}
 .newsProject .rightContent{margin:20px 0 10px 161px;width:90%;}
 .outerProject .rightContent h3{font-size: 16px;color: #000000;}
@@ -4347,8 +4347,8 @@ p.outerProjectTitle {
 .newsProject .rightContent h3{font-size: 16px;color: #282536;}
 .searchContainer{heigth:100%;}
 .searchPage{height:607px;background:#fff;}
-.globalSearhc-ul{width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
-.globalSearhc-ul li{height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;display:none;}
+.globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
+.globalSearhc-ul li{cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;}
 .globalSearhc-ul li:hover{background:#E5F3FF;}
 .assign_project ul li input:placeholder{}
 .assign_project ul li input::-webkit-input-placeholder, .inputsForm input::-webkit-input-placeholder{ /* WebKit browsers */

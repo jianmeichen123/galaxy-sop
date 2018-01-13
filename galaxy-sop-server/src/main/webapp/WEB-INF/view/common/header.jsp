@@ -43,12 +43,13 @@
     <div class='fl input-search'>
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
-    	<ul class='globalSearhc-ul'>
-    		<li>搜索历史</li>
+    	<ul class='globalSearhc-ul clearfix'>
+    		<!-- <li>搜索历史</li>
     		<li>滴滴打车</li>
     		<li>数字娱乐</li>
     		<li>蚂蚁森林</li>
-    		<li>互联网医疗</li>
+    		<li>互联网医疗</li> -->
+    		<li>aaa</li>
     	</ul>
     </div>
   
@@ -102,15 +103,78 @@
 	 		$('.input-search input').val(inputValue)
 	 	}
 })
-	
 
-/* 页面跳转,通过url传递参数 */
+/* 页面跳转,通过url传递参数 ,保存搜索历史传给后台*/
 	 $('.input-search span').click(function(){
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
-		window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
+		 	//调用保存搜索历史方法
+		 	 var url= "<%=path %>/galaxy/infoDanao/saveSearchHistory"
+				 var data = {
+						 keyword:keyword
+				 }
+				 $.ajax({
+					 type:"POST",
+					 url:url,
+					 data:data,
+					 dataType:'json',
+					 success:function(data){
+						 consle.log(data)
+					 }
+				 }) 
+		 
+		 
+		 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
+		$('.globleSearchInput').val(keyword)
 		
 	 })
+	 
+	 /* 键盘事件 */
+	<%--  $('.globleSearchInput').bind('keypress',function(event){
+		 var keyword = $('.globleSearchInput').val().trim();
+		 if(event.keyCode=='13'){
+			 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
+		 }
+		 
+	 }) --%>
+/* 从后台获取搜索历史 */
+ $('.globleSearchInput').mouseenter(function(){
+	 var url = "<%=path %>/galaxy/infoDanao/searchHistory"
+	 $.ajax({
+		 type:"POST",
+		 url:url,
+		 data:'',
+		 dataType:'json',
+		 success:function(data){
+			 $('.globalSearhc-ul').show();
+			 if(data.result.status=='OK'){
+				$.each(data.entity.hisList,function(index,n){
+					var n = n.split(',');
+					for(var i = 0;i<n.length;i++){
+						var html = "<li>'"+n[i]+"'</li>";
+					}
+						console.log(i)
+					 $('.globalSearhc-ul').html(html); 
+					console.log(html)
+					return html
+					
+				});
+				// $('.globalSearhc-ul').html(html); 
+			 }
+			console.log(data)
+			 
+		 }
+	 }) 
+ })
+ 
+$('.globalSearhc-ul').mouseenter(function(){
+	$(this).show();
+})
+$('.globalSearhc-ul').mouseleave(function(){
+	$(this).hide();
+})
+	 
+	 
 	 
 	 
 $("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');

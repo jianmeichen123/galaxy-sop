@@ -681,5 +681,6 @@
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
+<script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 
 

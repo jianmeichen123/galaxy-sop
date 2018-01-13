@@ -586,9 +586,10 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			target.setHref((String) tempMap.get("newsUrl"));
 			target.setTitle((String) tempMap.get("newsCaption"));
 			target.setAuther((String) tempMap.get("newsSource"));
+			target.setOverview((String) tempMap.get("overview"));
 			if(tempMap.get("listImgArray") != null){
 				List<Map<String,String>> listImgMap = (List<Map<String,String>>) tempMap.get("listImgArray");
-				target.setZixunImage(listImgMap.get(0).get("url"));
+				if(listImgMap.size()>0) target.setZixunImage(listImgMap.get(0).get("url"));
 			}
 
 			String ctime = (String) tempMap.get("createTime");
