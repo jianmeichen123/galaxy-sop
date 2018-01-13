@@ -2266,7 +2266,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					{
 						ms.setScheduleStatus(0);
 						meetingSchedulingService.updateByIdSelective(ms);
-						sendTaskProjectEmail(request, pj, messageInfo, userlist, null, null, 0, UrlNumber.three);
+/*						sendTaskProjectEmail(request, pj, messageInfo, userlist, null, null, 0, UrlNumber.three);*/
 						belongUser.setKeyword(
 								"cancle:" + DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));
 
@@ -2280,8 +2280,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 								|| oldMs.getReserveTimeEnd().getTime() != ms.getReserveTimeEnd().getTime())
 						{
 							meetingSchedulingService.updateByIdSelective(ms);
-							sendTaskProjectEmail(request, pj, messageInfo, userlist, ms.getReserveTimeStart(),
-									ms.getReserveTimeEnd(), 1, UrlNumber.two);
+						/*	sendTaskProjectEmail(request, pj, messageInfo, userlist, ms.getReserveTimeStart(),
+									ms.getReserveTimeEnd(), 1, UrlNumber.two);*/
 							belongUser.setKeyword(
 									"update:" + DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()) + ","
 											+ DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
@@ -2303,10 +2303,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					if (ms.getReserveTimeStart() != null && ms.getReserveTimeEnd() != null)
 					{
 						meetingSchedulingService.updateByIdSelective(ms);
-						sendTaskProjectEmail(request, pj, messageInfo, userlist, ms.getReserveTimeStart(),
-								ms.getReserveTimeEnd(), 1, UrlNumber.one);
-						belongUser
-								.setKeyword("insert:" + DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
+					/*	sendTaskProjectEmail(request, pj, messageInfo, userlist, ms.getReserveTimeStart(),
+								ms.getReserveTimeEnd(), 1, UrlNumber.one);*/
+						belongUser.setKeyword("insert:" + DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
 
 						redisPush.setReserveTimeStart(ms.getReserveTimeStart());
 						cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
