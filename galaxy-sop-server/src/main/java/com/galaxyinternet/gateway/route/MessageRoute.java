@@ -122,34 +122,21 @@ public class MessageRoute extends ZuulFilter
 
 		ArrayList<BasicHeader> headers = new ArrayList<>();
 		Enumeration<String> headerNames = request.getHeaderNames();
-		boolean hasSid = false;
-		boolean hasUid = false;
-		String sidName = "sessionId";
-		String uidName = "guserid";
 		while (headerNames.hasMoreElements())
 		{
 			String name = ((String) headerNames.nextElement()).toLowerCase();
 			String value = request.getHeader(name);
 			if (isValidHeader(name))
+			{
 				headers.add(new BasicHeader(name, value));
-			if(sidName.equalsIgnoreCase(name))
-			{
-				hasSid = true;
-			}
-			if(uidName.equalsIgnoreCase(name))
-			{
-				hasUid = true;
 			}
 		}
-		if(!hasSid)
-		{
-			String sessionId = request.getSession().getId();
-			new BasicHeader(sidName, sessionId);
-		}
+		String sessionId = request.getSession().getId();
+		headers.add(new BasicHeader("sessionId", sessionId));
 		User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(!hasUid && user != null)
+		if(user != null)
 		{
-			new BasicHeader(sidName, user.getId()+"");
+			headers.add(new BasicHeader("guserid", user.getId()+""));
 		}
 		return headers.toArray(new Header[headers.size()]);
 	}
@@ -162,6 +149,31 @@ public class MessageRoute extends ZuulFilter
 		}
 
 		if (name.toLowerCase().equals("host"))
+		{
+			return false;
+		}
+		
+		if (name.toLowerCase().equals("x-requested-with"))
+		{
+			return false;
+		}
+		if (name.toLowerCase().equals("referer"))
+		{
+			return false;
+		}
+		if (name.toLowerCase().equals("cookie"))
+		{
+			return false;
+		}
+		if (name.toLowerCase().equals("origin"))
+		{
+			return false;
+		}
+		if (name.toLowerCase().equals("guserid"))
+		{
+			return false;
+		}
+		if (name.toLowerCase().equals("sessionid"))
 		{
 			return false;
 		}

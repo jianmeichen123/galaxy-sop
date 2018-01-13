@@ -85,23 +85,15 @@
 			sidePagination: 'server',
 			method : 'post',
 			sortOrder : 'desc',
-			sortName : 'updated_time',
+			sortName : 'send_time',
 			pagination: true,
 	        search: false,
+	        customData: function(options, data){
+        		options.totalRows = data.entity.total;
+        		return data.entity.dataList;
+	        },
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	/* if(getCookieValue("backProjectList")!=''){
-	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
-	        		deleteCookie("backProjectList","/");
-	        	}else{
-	        		initParams=undefined;
-	        	}
-	    		if(typeof(initParams) !== 'undefined'){
-		    		//param.pageNum = initParams.pageNum - 1;
-		        	param.pageSize = initParams.pageSize;
-		        	var options = $("#data-table").bootstrapTable('getOptions');
-		 	        options.pageNumber = initParams.pageNum - 1;
-		    	} */
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
@@ -134,14 +126,14 @@
 	});
 	function projectNameFormat(value, row, index){
 		var content = value;
-		var id = row.projectId;
+		var id = row.remarkId;
 		
 		var aa = "<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
 		var bb = "<a href='javascript:;' onclick=\"viewDetail(\'zx\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
 		
-		if(value.indexOf("projectname") != -1){
-			 content =value.replace("projectname",aa);
-		}else if(value.indexOf("ideazixuncode") != -1){
+		content = content.replace('"<name>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>").replace('name"',"");
+		content = content.replace('</name>"',"</a>");
+		 if(value.indexOf("ideazixuncode") != -1){
 			 content =value.replace("ideazixuncode",bb);
 		}
 		

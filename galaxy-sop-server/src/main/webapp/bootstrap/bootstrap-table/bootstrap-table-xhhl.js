@@ -2117,11 +2117,18 @@
         var fixedScroll = false;
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
-        	//修改
-            this.options.totalRows = data.pageList.total;
-            fixedScroll = data.fixedScroll;
-            //修改
-            data = data.pageList.content;
+        	fixedScroll = data.fixedScroll;
+        	if(!this.options.customData)
+    		{
+        		//修改
+        		this.options.totalRows = data.pageList.total;
+        		//修改
+        		data = data.pageList.content;
+    		}
+        	else
+    		{
+        		data = this.options.customData(this.options,data);
+    		}
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
             // client
