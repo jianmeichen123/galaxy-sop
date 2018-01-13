@@ -81,9 +81,9 @@ $('.consut_span span').click(function(){
 				console.log('星河咨询')
 				console.log(data.pageList)
 				if(data.pageList.content){
-					alert('dd')
+					$('.hasBackround').click();//如果有数据则展示星河资讯
 				}else{
-					$('.ctZixun').click();
+					$('.ctZixun').click();//如果无数据则展示创投资讯
 					
 				}
 				
