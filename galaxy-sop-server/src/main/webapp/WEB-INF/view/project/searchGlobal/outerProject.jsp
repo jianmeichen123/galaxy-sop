@@ -74,9 +74,18 @@ $(function(){
 		sidePagination:'server',
 		queryParams:queryParams,
 		onLoadSuccess:function(data){
-			console.log(data);
-			var total = $('.outerProjectTotal').val();
-			sessionStorage.setItem("outerTotal",total)
+			var totalObject = data.userData;
+			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
+			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
+			var zixunProjectNumber =totalObject.xhtAppZixunTotal; //资讯
+			var totalProjectNumber =totalObject.dnZixunTotal; //总条数
+			
+			//console.log(data.userData)
+			
+			$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")
+			$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	
+			$('.zixunTotal').html("<span>("+outterProjectNumber+")</span>")	
+			$('.totalNumber').html("<span>"+totalProjectNumber+"</span>")	
 		}
 	
 	
@@ -88,6 +97,8 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
+		/* console.log(row)
+		console.log(index)  */
 		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+

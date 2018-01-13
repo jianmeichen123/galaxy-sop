@@ -58,7 +58,17 @@ $(function(){
 		sidePagination:'server',
 		queryParams:queryParams,
 		onLoadSuccess:function(data){
-			//console.log(data)
+			var totalObject = data.userData;
+			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
+			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
+			var zixunProjectNumber =totalObject.xhtAppZixunTotal; //资讯
+			var totalProjectNumber =totalObject.dnZixunTotal; //总条数
+			console.log(totalObject)
+			/*获取页面的值  */
+			$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")
+			$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	
+			$('.zixunTotal').html("<span>("+outterProjectNumber+")</span>")	
+			$('.totalNumber').html("<span>"+totalProjectNumber+"</span>")	
 		}
 	
 	

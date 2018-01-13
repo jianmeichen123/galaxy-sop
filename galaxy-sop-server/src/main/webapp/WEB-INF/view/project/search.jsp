@@ -21,13 +21,13 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	
 		<div class="ritmin searchPage"> 
-			<p class='searchNumber'>共搜索到<span>24</span>条结果</p>
+			<p class='searchNumber'>共搜索到<span class="totalNumber">24</span>条结果</p>
 			
 			<div class='search-top'>
 				<ul class="clearfix to-task-tips">
-					<li data-tab="nav" class="bottomColor">创投项目<span>（12）</span></li>
-					<li data-tab="nav">外部项目<span class="outerTotal">（6）</span></li>
-					<li data-tab="nav">资讯<span>（6）</span></li>
+					<li data-tab="nav" class="bottomColor">创投项目<span class='ventrueTotal'></span></li>
+					<li data-tab="nav">外部项目<span class="outerTotal"></span></li>
+					<li data-tab="nav">资讯<span class="zixunTotal"></span></li>
 				</ul>
 				
 			</div>
@@ -64,9 +64,19 @@ $(function(){
  });
 
  
- var outterTotal  = sessionStorage.getItem("outerTotal");
+ /* var outterTotal  = sessionStorage.getItem("outerTotal");
+ //alert(outterTotal)
  $('.outerTotal').html('<span>('+outterTotal+')</span>')
 
+ 
+ var ventrueTotal  = sessionStorage.getItem("venterProjectNumber");
+ $('.ventrueTotal').html('<span>('+ventrueTotal+')</span>')
+ 
+  */
+ 
+ 
+ 
+ 
  
 
 
