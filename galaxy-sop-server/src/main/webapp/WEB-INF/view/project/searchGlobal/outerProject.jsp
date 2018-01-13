@@ -16,6 +16,11 @@
 					<!-- <tr>
 						<td>
 							<div class='tdContent'>
+								<input type="hidden" name="ventrue">
+								<input type="hidden" name="outerproject">
+								<input type="hidden" name="consult">
+								<input type="hidden" name="totalNumber">
+								
 								<img class='fl leftPic'/>
 								<div class='rightContent'>
 									<h3>花心区块链研究院<span>A轮</span></h3>
@@ -81,6 +86,7 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
+		console.log(row)
 		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
@@ -89,12 +95,16 @@ $(function(){
 						"<span class='picEm picEmOne'><em></em>"+row.districtSubName+"</span>"+
 						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
 					"</p>"+
+					"<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
 					"</div>"+
 					"</div>"
 		
 		return html;
 	}
-	
+/* 	function inputHiden(value,row,index){
+		var html = "<input type='hidden' name='ventrue' value='"+row.dnProjectTotal+"'>"
+		return html;
+	} */
 	
 	
 </script>

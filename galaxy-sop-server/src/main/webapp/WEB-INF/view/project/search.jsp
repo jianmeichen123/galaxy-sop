@@ -63,6 +63,9 @@ $(function(){
 	_this.addClass('bottomColor').siblings().removeClass('bottomColor');
  });
 
+ 
+
+
 });
 $('.to-task-tips').tabLazyChange({
 	defaultnum:0,
@@ -72,6 +75,9 @@ $('.to-task-tips').tabLazyChange({
 			case 1 :initTabOuterProject();break;
 			case 2 :initTabConsultProject();break;
 		}
+		var number = $('.outerProjectTotal').val()
+		 console.log(number)
+		
 	}
 })	
 	//页面请求地址
@@ -92,6 +98,7 @@ $('.to-task-tips').tabLazyChange({
 		});
 	}
 
+	
 
 
 
