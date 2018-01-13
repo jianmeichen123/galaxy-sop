@@ -157,8 +157,6 @@
 						 }else{
 							 
 						 }
-					 
-					 
 				 }
 				  
 					$('.globalSearhc-ul').html(html); 
