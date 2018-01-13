@@ -308,9 +308,9 @@ var platformUrl = {
 	
 	showTask: Constants.sopEndpointURL + "/galaxy/soptask",
 	
-	operationMessageQueryList : Constants.sopEndpointURL + "/galaxy/operationMessage/queryList",
+	operationMessageQueryList : Constants.sopEndpointURL + "/gateway/message/galaxy/schedule/message/querySchedule",
 	
-	operationMessageRemind : Constants.sopEndpointURL + "/galaxy/operationMessage/remind",
+	operationMessageRemind : Constants.sopEndpointURL + "gateway/message/galaxy/schedule/message/getUnReadCount",
 	MessageIndex : Constants.sopEndpointURL + "/galaxy/operationMessage/index",
 	/***
 	 * 日程列表

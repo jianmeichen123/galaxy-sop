@@ -192,11 +192,11 @@ if(isContainResourceByMark("task_into_view")){
 	
 //window.setInterval("reloadMessage(),fillHeaderdata()",100000000); 
  function reloadMessage(){
- 	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
+	 sendPostRequestByJsonObj(platformUrl.operationMessageRemind,{uid:"<%=userId%>"}, remindcbf);
  }
  function remindcbf(data){
-	if(data.result.status == "OK"){
-		var remindCount=data.entity.count;
+	if(data.status == "OK"){
+		var remindCount=data.map.count;
 		if(remindCount>99){
 			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
 		}else{
