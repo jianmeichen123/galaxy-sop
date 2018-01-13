@@ -1,27 +1,25 @@
 
 	//1.8新加数据开始
 	//不同表格公共方法
-	function info_table(code,name,table){
-		var pid=table.attr("parentid");
-		table.attr("data-name",name);
-	    table.attr("data-url-code",code);			
-		sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
-	        var result = data.result.status;
-			var header=data.entityList;
-			if(result=="OK"){
-		    	$.each(header,function(){
-		    		var _header =$(this);
-		    		if(_header[0].name==name){
-		    			buildTable(_header[0]);
-		    			return false;
-		    		}
-		    	})
-			}
-	     })
-	     resizetable(table);
-	}
-
-
+function info_table(code,name,table){  
+	var pid=table.attr("parentid");
+	table.attr("data-name",name);
+    table.attr("data-url-code",code);			
+	sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
+        var result = data.result.status;
+		var header=data.entityList;
+		if(result=="OK"){  
+	    	$.each(header,function(){ 
+	    		var _header =$(this);
+	    		if(_header[0].name==name){
+	    			buildTable(_header[0]);
+	    			return false;
+	    		}
+	    	})
+		}
+     })
+     resizetable(table);
+} 
 //1.8新加数据结束
 function buildTable(title)
 {

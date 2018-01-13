@@ -24,22 +24,25 @@ function selectCache(subCode,filed){
 			return map;
 }
 //团队整体显示
-sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,function(data){
-    var result = data.result.status;
-    if (result == 'OK')
-    {
-       var entityList = data.entityList;
-        $(entityList).each(function(){
-            if($(this)[0]["tableHeader"]){
-                data = $(this)[0]
-            }
-        })
-        buildMemberTable(data);
-        var table=$("table[data-code=\"team-members\"]");
-        check_table_tr_edit(table);
-    }
- })
-		
+function teamShow(proId){ 
+	sendGetRequest(platformUrl.queryMemberList+"1302/"+proId,null,function(data){
+	    var result = data.result.status;
+	    if (result == 'OK')
+	    {
+	       var entityList = data.entityList;
+	        $(entityList).each(function(){
+	            if($(this)[0]["tableHeader"]){
+	                data = $(this)[0]
+	            }
+	        })
+	        buildMemberTable(data);
+	        var table=$("table[data-code=\"team-members\"]");
+	        check_table_tr_edit(table);
+	    }
+	 })
+	
+}
+teamShow(projectInfo.id)	
 function buildMemberTable(title){
         //列表Header
 	

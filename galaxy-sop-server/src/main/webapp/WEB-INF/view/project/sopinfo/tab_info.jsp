@@ -464,7 +464,7 @@
 	        <c:if test="${isEditable}">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="edit" data-cont="legal" data-name="basic" data-on="data-open">编辑</a>
-	            	<a href="javascript:;" class="DN_btn" onclick="pagePop('legalInfo')" dnCode="legalInfo" urlCode="" data-name="basic">参考信息</a>
+	            	<a href="javascript:;" style="float:right;" class="DN_btn" onclick="pagePop('legalInfo')" dnCode="legalInfo" urlCode="" data-name="basic">参考信息</a>
 	         	</span>
 	        </c:if>
 	    </div>
@@ -677,10 +677,10 @@
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
-<script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 
 

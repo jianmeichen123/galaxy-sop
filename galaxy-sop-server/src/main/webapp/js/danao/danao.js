@@ -239,6 +239,7 @@ function saveDN(even){
 		 var code =thatTable.attr("code");
 		 var titleid = thatTable.attr("titleid"); 
 		 if(code=="finance-history"){ 
+			 //融资历史的保存
 			 sendGetRequest(platformUrl.getTitleResults+"1902/"+projectInfo.id,null,
 				function(data) {
 				 var arr = data.entityList; 
@@ -248,9 +249,10 @@ function saveDN(even){
 				 }else{
 					 var length = array[0].dataList.length; 
 				 }
-				saveDNsame(thatTable,dataDN,length,"融资历史")
+				 //基本信息的保存刷新
+				 //全息报告的保存刷新
+				saveDNsame(thatTable,dataDN,length,"融资历史",code)
 			 }) 
-			 //融资历史的保存
 		 } else if(code=="equity-structure"){
 			 //股权的保存
 			 sendGetRequest(platformUrl.getTitleResults+"1902/"+projectInfo.id,null,
@@ -262,7 +264,7 @@ function saveDN(even){
 				 }else{
 					 var length = array[1].dataList.length; 
 				 }
-				 saveDNsame(thatTable,dataDN,length,"股权结构")
+				 saveDNsame(thatTable,dataDN,length,"股权结构",code)
 			 }) 
 			 
 		 } else if(code=="company-info"){ 
@@ -295,7 +297,13 @@ function saveDN(even){
 					    platformUrl.saveOrUpdateInfo,
 					    dataDN,
 			    function(data) { 
-					 layer.msg("保存成功")	 
+					 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
+					 $.each(checkTr,function(){  
+						 var that =$(this).find("td").last();
+						 var titleid = that.attr("titleid");
+						 $("#company-info span[data-title-id="+titleid+"]").text(that.text()); 
+					 }) 
+					 layer.msg("保存成功")	  
 					 $("#popbg").remove();
 					 $("#powindow").remove();
 					 $("body").css("overflow-y","auto");
@@ -340,17 +348,18 @@ function saveDN(even){
 					layer.msg("保存成功")	 
 					$("#popbg").remove();
 					$("#powindow").remove();
-					$("body").css("overflow-y","auto");
-					 refreshSection("1302");
+					$("body").css("overflow-y","auto"); 
+					teamShow(projectInfo.id)	
+					refreshSection("1302");
 			}) 
 		 }
 	 })
 //	 全部成功之后进入倒计时页面且只针对页面方式的保存 
-	 //加个对于页面的判断
-//	 $(".jumpBox").show()
-//	 timeOut(3,$("#time"));
+//  加个对于页面的判断
+	 $(".jumpBox").show()
+	 timeOut(3,$("#time"));
 } 
-function saveDNsame(thatTable,dataDN,length,tabName) {
+function saveDNsame(thatTable,dataDN,length,tabName,code) {
 		 var infoListDN=[];
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 		 var lastL = 10-length;
@@ -380,10 +389,13 @@ function saveDNsame(thatTable,dataDN,length,tabName) {
 				 layer.msg("保存成功")	 
 				 $("#popbg").remove();
 				 $("#powindow").remove();
-				 $("body").css("overflow-y","auto");   
+				 $("body").css("overflow-y","auto");     
+				 var table = $("table[data-code="+code+"]");
+				 info_table("NO9_1",table.attr("data-name"),table);
 				 refreshSection("1902");
 		})
  }   
+
 //倒计时
 function timeOut(num,dom) { 
 	if(dom.length<=0){
