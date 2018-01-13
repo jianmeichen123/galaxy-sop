@@ -45,9 +45,6 @@
     	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul clearfix'>
     		<li>搜索历史</li>
-    		<ul clas="seach_history">
-    			
-    		</ul>
     	</ul>
     </div>
   
@@ -150,18 +147,28 @@
 					 var hisList = hisList.slice(0,10)
 				 	 var html =''
 					 for(var i = 0;i<hisList.length;i++){
-							 html += "<li>aaaa<li/>"
-							 html += "<li>"+hisList[i+1]+"</li>"
+							 html += "<li class='seach_li'>"+hisList[i]+"</li>"
 						
 				 }
 				  
-					$('.seach_history').html(html); 
+					$('.globalSearhc-ul').html(html); 
+					/* 点击li跳转页面进行搜索 */
+					 $(".seach_li").click(function(){
+							var keyword = $(this).text();
+						  window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
+					 })
 			 }
+			
+			 
+			 
 			console.log(data)
 			 
 		 }
 	 }) 
  })
+ 
+ 
+ 
  
 $('.globalSearhc-ul').mouseenter(function(){
 	$(this).show();
@@ -169,6 +176,9 @@ $('.globalSearhc-ul').mouseenter(function(){
 $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
 })
+	 
+	  
+			 
 	 
 	 
 	 
