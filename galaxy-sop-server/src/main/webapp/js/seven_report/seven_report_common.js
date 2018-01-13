@@ -692,7 +692,7 @@ function buildMemberTable(sec,title){
                 }
     			//var editable = table.hasClass('editable');
                 tr +='<th data-field-name="opt">操作</th>';
-                tr+="</tr>";
+                tr+="</tr>"; 
     			table.append(tr);
     		});
     	}
@@ -708,7 +708,7 @@ function buildMemberTable(sec,title){
     				var table = $(this);
     				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
     				var tr = buildMemberRow(headerList,row,table.hasClass('editable'));
-    				table.append(tr);
+    				table.append(tr); 
     			});
     		});
     	}

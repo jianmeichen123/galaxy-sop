@@ -719,8 +719,7 @@ function buildMemberTable(sec,title){
     				var table = $(this);
     				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
     				var tr = buildMemberRow(headerList,row,table.hasClass('editable'));
-    				table.append(tr);
-    				table.show()
+    				table.append(tr); 
     			});
     		});
     	}
