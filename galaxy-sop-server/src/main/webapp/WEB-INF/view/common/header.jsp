@@ -228,6 +228,7 @@ if(isContainResourceByMark("task_into_view")){
 					contentType : "application/json; charset=UTF-8",
 					async : false,
 					beforeSend : function(xhr) {
+						xhr.setRequestHeader("gt", "pc");
 						if (sessionId) {
 							xhr.setRequestHeader("sessionId", sessionId);
 						}
@@ -238,9 +239,7 @@ if(isContainResourceByMark("task_into_view")){
 					error : function(request) {
 					},
 					success : function(data) {
-						if(data.result.status=="OK"){
-							location.href = url
-						}
+						location.href = url
 					}
 				}); 
 			}
