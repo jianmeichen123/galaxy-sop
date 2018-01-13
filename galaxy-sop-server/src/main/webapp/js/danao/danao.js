@@ -230,7 +230,6 @@ function buildDNtable(dom ,data,code){
 } 
 //保存
 function saveDN(even){  
-	
 	//判断列表超过10条数与否之后  才进行保存
 	 var dataDN={};
 	 dataDN.projectId=projectInfo.id;
@@ -244,17 +243,25 @@ function saveDN(even){
 				function(data) {
 				 var arr = data.entityList; 
 				 var array = arr.filter(function(val){return val.danaoInfo}) ;
-				 var length = array[0].dataList.length; 
+				 if(array[0].dataList==undefined){	
+					 var length = 0;  				 
+				 }else{
+					 var length = array[0].dataList.length; 
+				 }
 				saveDNsame(thatTable,dataDN,length,"融资历史")
 			 }) 
 			 //融资历史的保存
 		 } else if(code=="equity-structure"){
 			 //股权的保存
 			 sendGetRequest(platformUrl.getTitleResults+"1902/"+projectInfo.id,null,
-				function(data) {
+				function(data) { 
 				 var arr = data.entityList; 
-				 var array = arr.filter(function(val){return val.danaoInfo}) ;
-				 var length = array[1].dataList.length;  
+				 var array = arr.filter(function(val){return val.danaoInfo}) ; 
+				 if(array[1].dataList==undefined){	
+					 var length = 0;  				 
+				 }else{
+					 var length = array[1].dataList.length; 
+				 }
 				 saveDNsame(thatTable,dataDN,length,"股权结构")
 			 }) 
 			 
@@ -334,6 +341,7 @@ function saveDN(even){
 					$("#popbg").remove();
 					$("#powindow").remove();
 					$("body").css("overflow-y","auto");
+					 refreshSection("1302");
 			}) 
 		 }
 	 })
@@ -364,16 +372,16 @@ function saveDNsame(thatTable,dataDN,length,tabName) {
 			 })		
 			 infoListDN.push(info);
 		 })   
-		 dataDN.infoTableModelList=infoListDN;
+		 dataDN.infoTableModelList=infoListDN; 
 		 sendPostRequestByJsonObj(
 				 platformUrl.saveOrUpdateInfo,
 				    dataDN,
-		    function(data) { 
+		    function(data) {  
 				 layer.msg("保存成功")	 
 				 $("#popbg").remove();
 				 $("#powindow").remove();
 				 $("body").css("overflow-y","auto");   
-				 refreshSection("NO9_1")
+				 refreshSection("1902");
 		})
  }   
 //倒计时
@@ -383,7 +391,6 @@ function timeOut(num,dom) {
 	}
     var i = num; 
     setInterval(function(){ 
-    	debugger;
     		if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
 			}
     		dom.text(i--);

@@ -205,7 +205,7 @@ function tabInfoChange(index){
 		}
 
 
-	$.fn.showResults = function(readonly){
+	$.fn.showResults = function(readonly){ 
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
 		if(pid == 1302){
@@ -213,6 +213,7 @@ function tabInfoChange(index){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
+        			debugger;
                    var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){
@@ -223,9 +224,9 @@ function tabInfoChange(index){
                     buildMemberTable(sec,data);
                 }
 		     })
-		}else{
+		}else{ 
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-				function(data) {
+				function(data) { 
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -719,6 +720,7 @@ function buildMemberTable(sec,title){
     				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
     				var tr = buildMemberRow(headerList,row,table.hasClass('editable'));
     				table.append(tr);
+    				table.show()
     			});
     		});
     	}
@@ -2659,7 +2661,7 @@ function delRow(ele)
 	
 }
 function refreshSection(id)
-{  
+{   
 	var sec = $(".section[data-section-id='"+id+"']");
     sec.find("dd[data-type='3']").text('未选择');
 	//var sec = $(".section[data-section-id='"+id+"']");
