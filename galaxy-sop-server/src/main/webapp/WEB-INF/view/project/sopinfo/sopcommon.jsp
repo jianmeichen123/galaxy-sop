@@ -282,7 +282,7 @@ if(projectInfoDetail.projectName.length>20){
 			$("#s").hide();
 		}
 			$("#project_name_title").text(projectInfoDetail.projectName);
-			$("#project_name_t").text(projectInfoDetail.projectName);
+			$("#project_name_t").text(projectInfoDetail.projectName); 
 			$("#project_name_t").attr("pid",projectInfoDetail.id);
 			$("#create_date").text(projectInfoDetail.createDate);
 			$("#createUname").text(projectInfoDetail.createUname);

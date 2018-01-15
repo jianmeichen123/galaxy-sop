@@ -170,6 +170,7 @@ function updateReportMoneyBasic(){
 			projectInfoDetail=data.userData.pro;   
 			reportResult=data.userData.report; 
 			$("#project_name_t").text(projectInfoDetail.projectName);
+			projectInfo.projectName=projectInfoDetail.projectName
 			$("#project_name_t").attr("title",projectInfoDetail.projectName);
 			$("#project_name_t").attr("pid",projectInfoDetail.id);
 			$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
@@ -187,8 +188,7 @@ function updateReportMoneyBasic(){
 		}
 	})
 }
-function updataReport(projectInfoList){
-	debugger;
+function updataReport(projectInfoList){ 
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
