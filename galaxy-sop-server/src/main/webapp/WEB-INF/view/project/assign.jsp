@@ -356,9 +356,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	}else if(${from eq 'transfer' }){
 		urls=platformUrl.searchProjectTansfer;
 	}
-	
-	alert(urls);
-	
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({

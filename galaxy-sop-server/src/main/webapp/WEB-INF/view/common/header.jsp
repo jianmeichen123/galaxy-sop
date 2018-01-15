@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <% 
@@ -40,6 +41,8 @@
 <div class="header clearfix">
 
   <a href="javascript:;" class="logo null">星河投</a>
+    
+     <c:if test="${fx:hasPremission('project_search_overall')}">
     <div class='fl input-search'>
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
@@ -47,7 +50,7 @@
     		<li>搜索历史</li>
     	</ul>
     </div>
-  
+  </c:if>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
     	<div class="erwm fl">
