@@ -211,7 +211,7 @@
 	   			(select 	create_Uid,count(0) as wbCount
 			 	 from		sop_project
 			 	 where		project_type='projectType:1'
-			 	 and		project_progress='projectProgress:10'
+			 	 and		project_progress='projectProgress:10' and is_delete=0
 			 	 <if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if> 
 			 	 group by 	create_Uid	 ) pc
 	    on	du.id = pc.create_uid ) a
@@ -226,7 +226,7 @@
 	   			 (select 	create_Uid,count(0) as nbCount
 			 	  from		sop_project
 			 	  where		project_type='projectType:2'
-			 	  and		project_progress='projectProgress:10'
+			 	  and		project_progress='projectProgress:10' and is_delete=0
 			 	  <if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if> 			   	  
 			 	  group by 	create_Uid	 ) pc
 	   	on	du.id = pc.create_uid ) b
