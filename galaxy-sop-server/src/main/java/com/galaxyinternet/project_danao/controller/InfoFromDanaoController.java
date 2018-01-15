@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_danao.controller;
 
 
+import com.galaxyinternet.common.annotation.GalaxyResource;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -292,6 +293,7 @@ public class InfoFromDanaoController{
 		return responseBody;
 	}
 	//查询 星河投 项目
+	@GalaxyResource(name="project_search_overall")
 	@RequestMapping(value = "/queryXhtProjectPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<Project> queryXhtProjectPage(@RequestBody Project project,
 																		 HttpServletRequest request, HttpServletResponse response)
@@ -339,6 +341,7 @@ public class InfoFromDanaoController{
 		return responseBody;
 	}
 	//查询 dnProject    创投大脑的项目
+	@GalaxyResource(name="project_search_overall")
 	@RequestMapping(value = "/queryDnProjectPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnProject> queryDnProjectPage(@RequestBody DnProject dnProject,
 																   HttpServletRequest request, HttpServletResponse response)
@@ -380,6 +383,7 @@ public class InfoFromDanaoController{
 		return responseBody;
 	}
 	//查询 dnZixun   创投大脑投融快讯
+	@GalaxyResource(name="project_search_overall")
 	@RequestMapping(value = "/queryDnZixunPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnZixun> queryDnZixunPage(@RequestBody DnProject dnProject,
 																	HttpServletRequest request, HttpServletResponse response)
@@ -421,6 +425,7 @@ public class InfoFromDanaoController{
 		return responseBody;
 	}
 	//查询 xhtAppZixun   星河资讯-app资讯
+	@GalaxyResource(name="project_search_overall")
 	@RequestMapping(value = "/queryXhtAppZixunPage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<DnZixun> queryXhtAppZixunPage(@RequestBody DnProject dnProject,
 																  HttpServletRequest request, HttpServletResponse response)
