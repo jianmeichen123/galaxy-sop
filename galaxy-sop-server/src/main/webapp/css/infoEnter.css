@@ -21,8 +21,12 @@ color: #000;
 font-weight: normal;
 text-align: center;
 margin: 30px auto 20px; 
-width:500px;
-background:url("../img/process/infoCreat.png") no-repeat left center; 
+width:500px; 
+}
+.titleImg{
+	display:inline-block;	
+    vertical-align: middle;
+    padding-right: 10px;
 }
 .center{position: absolute;top:50%;left:50%; transform: translate(-50%, -50%);width:500px;height:auto;}
 .infoTop p{
@@ -385,7 +389,7 @@ background: #E5F3FF;
 	margin-right:19px;
 }
 #powindow .bigPop{
-	width: 900px;
+	width: 1000px;
     margin: 0 auto;
     max-height: 500px;
     overflow-y: auto;
@@ -438,4 +442,12 @@ background: #E5F3FF;
 	background-color: #fff;
 	margin:30px auto;
 	cursor: pointer;
+}
+.pop .close.outClose{	
+    top: -30px;
+    right: -40px;
+    width:30px;
+    height:30px;
+    background: url(../img/outClose.png) no-repeat;
+    background-size:100%;
 }

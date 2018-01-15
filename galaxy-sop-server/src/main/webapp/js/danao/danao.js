@@ -8,6 +8,7 @@ function pagePop(codes){
 		data:"",//传递参数
 		okback:function(){  
 			 //infoDetail  
+			$("#powindow .close").addClass("outClose")
 			var danaoProjCode= projectInfo.danaoProjCode; 
 			$(".DN_list h5").text("参考信息").css("background","none"); 
 			if(!danaoProjCode||danaoProjCode==null){
@@ -72,7 +73,8 @@ function getpopHTML(code,even,danaoName){
 	 $.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
-		okback:function(){  
+		okback:function(){   
+			$("#powindow .close").addClass("outClose")
 			$("#poptxt").css("padding","0");
 			$("#powindow").css("background","#F4F4F4") 
 			$(".over_pro").hide();
