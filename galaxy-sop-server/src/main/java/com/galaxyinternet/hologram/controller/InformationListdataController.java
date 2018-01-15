@@ -144,6 +144,29 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         }
         return responseBody;
     }
+    /**
+     * 成员简历保存
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseData<InformationListdata> save(@RequestBody InformationListdata data,HttpServletRequest request){
+        ResponseData<InformationListdata> responseBody = new ResponseData<>();
+        User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+        try{
+
+            List<InformationListdata> listdataList = data.getDataList();
+            
+                for (InformationListdata entity : listdataList){
+                        informationListdataService.save(entity);
+               
+            }
+            informationProgressService.threadForUpdate(user.getId(),data.getProjectId());
+        }catch(Exception e ){
+            responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
+            logger.error("save 保存失败 ",e);
+        }
+        return responseBody;
+    }
 
     /*
      *根据projectId 和 titleId查询表格列表
