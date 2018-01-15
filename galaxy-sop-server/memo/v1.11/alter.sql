@@ -29,3 +29,5 @@ ADD COLUMN `operate_type` VARCHAR(11) NULL DEFAULT NULL COMMENT '操作类型：
 
 ALTER TABLE `fx_db`.`sop_meeting_scheduling` 
 ADD COLUMN `is_delete` INT(5) NULL DEFAULT 0 COMMENT '删除标识： 0：正常；1：删除' AFTER `created_time`;
+
+alter table  schedule_message modify remrk_id varchar(100)
