@@ -38,6 +38,7 @@
 				<value>galaxy.project.platform.endpoint</value>
 				<value>galaxy.project.report.endpoint</value>
 				<value>galaxy.project.sop.endpoint</value>
+				<value>ctdn.domain</value>
 			</list>
 		</constructor-arg>
 		<constructor-arg index="2" ref="cache" />

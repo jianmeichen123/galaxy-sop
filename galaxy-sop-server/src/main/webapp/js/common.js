@@ -1198,7 +1198,14 @@ function projectNameLineFormat(value, row, index){
 	var content = value;
 	var id = row.remarkId;
 	var title = value.replace(/<[^>]*>|<\/[^>]*>/gm,"");
-	content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>").replace('name"',"");
+	if('1.1.4' == row.type)
+	{
+		content = content.replace('"<pname>',"<a href='"+Constants.ctdnURL+"project_qy.html?projCode="+id+"' target='_blank' class='blue project_name'>").replace('name"',"");
+	}
+	else
+	{
+		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>").replace('name"',"");
+	}
 	content = content.replace('</pname>"',"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
 	return content;
