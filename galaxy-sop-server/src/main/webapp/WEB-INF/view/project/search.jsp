@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8"> 
+<title>星河投</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
