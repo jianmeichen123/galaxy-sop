@@ -48,6 +48,9 @@
     	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul clearfix'>
     		<li>搜索历史</li>
+    		<ul class="history-content">
+    		
+    		</ul>
     	</ul>
     </div>
   </c:if>
@@ -144,7 +147,7 @@
 		 data:'',
 		 dataType:'json',
 		 success:function(data){
-			 $('.globalSearhc-ul').show();
+			// $('.globalSearhc-ul').show();
 			 if(data.result.status=='OK'){
 					 var hisList = data.entity.hisList;
 					 var hisList = hisList.slice(0,10)
@@ -154,7 +157,7 @@
 						
 				 }
 				  
-					$('.globalSearhc-ul').html(html); 
+					$('.history-content').html(html); 
 					/* 点击li跳转页面进行搜索 */
 					 $(".seach_li").click(function(){
 							var keyword = $(this).text();
@@ -173,9 +176,10 @@
  
  
  
-$('.globalSearhc-ul').mouseenter(function(){
-	$(this).show();
-})
+ $('.globleSearchInput').focus(function(){
+	$(this).parent().find('.globalSearhc-ul').show();
+}) 
+
 $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
 })
