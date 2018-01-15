@@ -144,7 +144,7 @@
 		 data:'',
 		 dataType:'json',
 		 success:function(data){
-			 $('.globalSearhc-ul').show();
+			// $('.globalSearhc-ul').show();
 			 if(data.result.status=='OK'){
 					 var hisList = data.entity.hisList;
 					 var hisList = hisList.slice(0,10)
@@ -173,9 +173,11 @@
  
  
  
-$('.globalSearhc-ul').mouseenter(function(){
-	$(this).show();
-})
+ $('.globleSearchInput').focus(function(){
+	/*  alert('cc') */
+	 
+	$(this).parent().find('.globalSearhc-ul').show();
+}) 
 $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
 })
