@@ -23,6 +23,11 @@ text-align: center;
 margin: 30px auto 20px; 
 width:500px; 
 }
+.infoTop h5 img{    
+	display: inline-block;
+    vertical-align: middle;
+    padding-right: 15px;
+}
 .titleImg{
 	display:inline-block;	
     vertical-align: middle;
