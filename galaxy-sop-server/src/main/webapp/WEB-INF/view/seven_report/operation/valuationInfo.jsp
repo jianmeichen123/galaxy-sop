@@ -86,6 +86,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 				})
 
 			});
+			$(".infoReport").remove();
 			//调整表格
 			$("table").css({"width":"100%","table-layout":"fixed"});
 			mustData(projectInfo.id,0);
