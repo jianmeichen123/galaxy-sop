@@ -30,10 +30,9 @@
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
- <script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
+<script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 </html>
-<script> 
-$(function(){
+<script>  
 	var projectInfo = ${projectInfo}; 
 	//导航
 	createMenus(5); 
@@ -67,8 +66,8 @@ $(function(){
 	position();
 	$(window).resize(function(){
 		position();
-	})  
-
-})
+	})   
 	
 </script>
+
+<script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>

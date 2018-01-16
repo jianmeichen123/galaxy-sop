@@ -212,8 +212,7 @@ function tabInfoChange(index){
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
-                {
-        			debugger;
+                { 
                    var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){

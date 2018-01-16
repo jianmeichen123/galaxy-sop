@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <div class="addmentc margin_45">
-	<div class="title_bj">删除原因</div>
+	<div class="title_bj abandon-title">删除原因</div>
     <div class="form clearfix">
         <div class="role_all">
         <form action="" id="form_refuse_project" method="post">
@@ -18,6 +18,7 @@
 					<b class="null tips_d">ico</b>
 					你确定要删除项目吗？
 					</p>
+					<p>删除创投项目会通知该项目投资经理</p>
 				</li>
                 <li>
                     <div class="fl width_150 align_r"><font color=red>*</font>删除原因：</div>

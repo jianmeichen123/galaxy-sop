@@ -56,7 +56,7 @@ input:checked + label::before {
 		 			<tbody>
 		 				<tr>
 		 					<td>
-		 						<input type="checkbox" class="checkAll" onclick="checkAll(this)"/>
+		 						<input type="checkbox"/>
 		 						<label></label>
 		 					</td>
 		 					<td>公司名称</td>

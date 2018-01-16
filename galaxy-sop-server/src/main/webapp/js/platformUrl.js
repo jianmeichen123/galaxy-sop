@@ -1275,6 +1275,10 @@ var platformUrl = {
 	 *保存团队成员
 	 */
 	saveTeamMember: Constants.sopEndpointURL + "/galaxy/team/saveorUpdate",
+	/**
+	 *新增团队成员
+	 */
+	saveAddTeamMember: Constants.sopEndpointURL + "/galaxy/team/save",
 
 	/**
 	 *查询成员列表

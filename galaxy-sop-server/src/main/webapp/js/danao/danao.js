@@ -73,7 +73,8 @@ function getpopHTML(code,even,danaoName){
 	 $.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
-		okback:function(){   
+		okback:function(){    
+			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
 			$("#poptxt").css("padding","0");
 			$("#powindow").css("background","#F4F4F4") 
@@ -88,36 +89,36 @@ function getpopHTML(code,even,danaoName){
 			 pagePop(code)  
 			 return false;
 			}) 
-				$("#projectName").text(danaoName); 
-				var danaoProjCode= projectInfo.danaoProjCode; 
-				$(".DN_list h5").text("参考信息").css("background","none"); 
-				if(!danaoProjCode||danaoProjCode==null){
-					$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
-				}else{
-					$(".DN_list p:first").hide();
-				}
-				 //infoDetail     
-				var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
-				var projectName=projectInfo.projectName; 
-				var projectId=projectInfo.id;  
-				var projCode=projectInfo.danaoProjCode;
-				var data={
-			   			"keyword":projectName,
-						"orderBy":"projTitle",
-			    		} 
-					var jsonObj={
-							projId:projectId,
-							projCode:projCode,
-							danaoInfo:code,
-					}    
-					buildInfoD(_url,jsonObj,code);  
-					if($(".infoBox li:visible").length<=0){  
-						 $(".infoBox").hide();
-						 $(".fixedbottom").hide(); 
-						 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
-					 } 
+			$("#projectName").text(danaoName); 
+			var danaoProjCode= projectInfo.danaoProjCode; 
+			$(".DN_list h5").text("参考信息").css("background","none"); 
+			if(!danaoProjCode||danaoProjCode==null){
+				$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
+			}else{
+				$(".DN_list p:first").hide();
 			}
-		}) 
+			 //infoDetail     
+			var _url = Constants.sopEndpointURL +"galaxy/infoDanao/searchProjectInfo/";
+			var projectName=projectInfo.projectName; 
+			var projectId=projectInfo.id;  
+			var projCode=projectInfo.danaoProjCode;
+			var data={
+		   			"keyword":projectName,
+					"orderBy":"projTitle",
+		    		} 
+				var jsonObj={
+						projId:projectId,
+						projCode:projCode,
+						danaoInfo:code,
+				}    
+				buildInfoD(_url,jsonObj,code);  
+				if($(".infoBox li:visible").length<=0){  
+					 $(".infoBox").hide();
+					 $(".fixedbottom").hide(); 
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+				 } 
+		}
+	}) 
 }	  
 }
 function buildInfoD(url,data,code){ 
@@ -232,7 +233,16 @@ function buildDNtable(dom ,data,code){
 } 
 //保存
 function saveDN(even){  
-	//判断列表超过10条数与否之后  才进行保存
+	//判断列表超过10条数与否之后  才进行保存 
+	var pageTypr=1;
+	if($(".jumpBox").length){
+		//新建项目页面保存
+		pageTypr=0;
+	}
+	if($(".infoReport").length>=1){
+		//全息报告
+		pageTypr=2
+	}
 	 var dataDN={};
 	 dataDN.projectId=projectInfo.id;
 	 var tables = $(even).closest(".fixedbottom").prev().find(".infoConList table:visible"); 
@@ -253,7 +263,7 @@ function saveDN(even){
 				 }
 				 //基本信息的保存刷新
 				 //全息报告的保存刷新
-				saveDNsame(thatTable,dataDN,length,"融资历史",code)
+				saveDNsame(thatTable,dataDN,length,"融资历史",code,pageTypr)
 			 }) 
 		 } else if(code=="equity-structure"){
 			 //股权的保存
@@ -266,7 +276,7 @@ function saveDN(even){
 				 }else{
 					 var length = array[1].dataList.length; 
 				 }
-				 saveDNsame(thatTable,dataDN,length,"股权结构",code)
+				 saveDNsame(thatTable,dataDN,length,"股权结构",code,pageTypr)
 			 }) 
 			 
 		 } else if(code=="company-info"){ 
@@ -341,27 +351,35 @@ function saveDN(even){
 				 infoListDN.push(info);
 				 
 			 }) 
-			 //团队的接口要变
+			 //团队的接口要变 
 			 dataDN.dataList=infoListDN;  
 			  sendPostRequestByJsonObj(
-					    platformUrl.saveTeamMember,
+					    platformUrl.saveAddTeamMember,
 					    dataDN,
-			    function(data) { 
+			    function(data) {  
 					layer.msg("保存成功")	 
 					$("#popbg").remove();
 					$("#powindow").remove();
-					$("body").css("overflow-y","auto"); 
-					teamShow(projectInfo.id)	
-					refreshSection("1302");
+					$("body").css("overflow-y","auto");  
+					 if(pageTypr==1){		
+						teamShow(projectInfo.id)			 
+					 }else if(pageTypr==2){
+						refreshSection("1302");		
+						 
+					 }else{
+					 }
 			}) 
 		 }
 	 })
 //	 全部成功之后进入倒计时页面且只针对页面方式的保存 
 //  加个对于页面的判断
-	 $(".jumpBox").show()
-	 timeOut(3,$("#time"));
+
+	 if(pageTypr==0){
+		 $(".jumpBox").show()
+		 timeOut(3,$("#time"));			 
+	 }	
 } 
-function saveDNsame(thatTable,dataDN,length,tabName,code) {
+function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 var infoListDN=[];
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 		 var lastL = 10-length;
@@ -393,8 +411,13 @@ function saveDNsame(thatTable,dataDN,length,tabName,code) {
 				 $("#powindow").remove();
 				 $("body").css("overflow-y","auto");     
 				 var table = $("table[data-code="+code+"]");
-				 info_table("NO9_1",table.attr("data-name"),table);
-				 refreshSection("1902");
+				 if(pageTypr==1){
+					 info_table("NO9_1",table.attr("data-name"),table); 
+				 }else if(pageTypr==2){
+					 refreshSection("1902");	
+					 
+				 }else{
+				 }
 		})
  }   
 
