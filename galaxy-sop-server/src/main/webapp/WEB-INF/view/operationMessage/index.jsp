@@ -131,14 +131,20 @@
 	});
 	function projectNameFormat(value, row, index){
 		var content = value;
-		var id = row.remarkId;
+		//外部项目
 		if('1.1.4' == row.type)
 		{
-			content = content.replace('"<pname>',"<a href='"+Constants.ctdnURL+"project_qy.html?projCode="+id+"' target='_blank' class='blue project_name'>").replace('name"',"");
+			content = content.replace('"<pname>',"<a href='"+Constants.ctdnURL+"project_qy.html?projCode="+row.remarkId+"' target='_blank' class='blue project_name'>").replace('name"',"");
+		}
+		else if('1.2.5' == row.type || '1.2.6' == row.type)
+		{
+			//尽职调查、股权交割
+			var target = $('#menus a[data-menueid=1071]').attr('href');
+			content = content.replace('"<pname>',"<a href='"+target+"' class='blue project_name'>").replace('name"',"");
 		}
 		else
 		{
-			content = content.replace('"<pname>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>").replace('name"',"");
+			content = content.replace('"<pname>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + row.projectId + "\')\" class='blue project_name'>").replace('name"',"");
 		}
 		content = content.replace('</pname>"',"</a>");
 		return content;

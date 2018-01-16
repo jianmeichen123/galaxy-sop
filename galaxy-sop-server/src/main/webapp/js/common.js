@@ -1196,21 +1196,30 @@ function getVal(val,defaultValIfNull)
 
 function projectNameLineFormat(value, row, index){
 	var content = value;
-	var id = row.remarkId;
 	var title = value.replace(/<[^>]*>|<\/[^>]*>/gm,"");
+	//外部项目
 	if('1.1.4' == row.type)
 	{
-		content = content.replace('"<pname>',"<a href='"+Constants.ctdnURL+"project_qy.html?projCode="+id+"' target='_blank' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='"+Constants.ctdnURL+"project_qy.html?projCode="+row.remarkId+"' target='_blank' class='blue project_name'>").replace('name"',"");
+	}
+	else if('1.2.5' == row.type || '1.2.6' == row.type)
+	{
+		//尽职调查、股权交割
+		content = content.replace('"<pname>',"<a href='#' onclick='toTaskList()' class='blue project_name'>").replace('name"',"");
 	}
 	else
 	{
-		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +row.projectId + "?mark=m\' class='blue project_name'>").replace('name"',"");
 	}
 	content = content.replace('</pname>"',"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
 	return content;
 }
-
+function toTaskList()
+{
+	var url = $("#menus a[data-menueid='1071']").attr('href');
+	window.location=url;
+}
 function replaceStr(str){
 	if(str){
 		var result=str.replace(/(\n)/g, "");
