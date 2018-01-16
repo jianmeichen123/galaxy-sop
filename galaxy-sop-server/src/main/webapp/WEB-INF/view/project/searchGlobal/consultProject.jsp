@@ -108,7 +108,7 @@ $('.consut_span span').click(function(){
 	/* 星河咨询datamatter */
   	function xhtProjectContent(value,row,index){
 		
-		var html = "<div class='tdContent'>"+
+		/* var html = "<div class='tdContent'>"+
 					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+ 
 					"<div class='rightContent'>"+
 					"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
@@ -118,9 +118,22 @@ $('.consut_span span').click(function(){
 					"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
 					"</p>"+
 					"</div>"+
-					"</div>"
-					
-		return html;
+					"</div>" */
+				var html = "";
+					html += "<div class='tdContent'>"
+				if(row.zixunImage){
+					html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
+				}
+				html += "<div class='rightContent'>"+
+						"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
+						 "<p class='outerProjectTitle'>"+row.overview+"</p>"+
+						"<p>"+
+						"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
+						"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
+						"</p>"+
+						"</div>"+
+						"</div>"
+			return html;
 		
 	}   
 	
@@ -167,6 +180,15 @@ $('.consut_span span').click(function(){
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
+				
+				/* 若创投咨询无数据 */
+				if(data.pageList.content){
+					//
+				}else{
+					$('.hasBackround').click();
+				}
+				
+				
 			}
 	})
 		
@@ -174,7 +196,7 @@ $('.consut_span span').click(function(){
 	 } 
 	/* 创投咨询datamatter */
 	function ctProjectContent(value,row,index){
-		var html = "<div class='tdContent'>"+
+		/* var html = "<div class='tdContent'>"+
 					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+
 					"<div class='rightContent'>"+
 					"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
@@ -184,9 +206,24 @@ $('.consut_span span').click(function(){
 					"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
 					"</p>"+
 					"</div>"+
-					"</div>"
+					"</div>" */
 					
-		return html;
+						var html = '';
+						html += "<div class='tdContent'>"
+						if(row.zixunImage){
+							html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
+						}
+						html += "<div class='rightContent'>"+
+								"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
+								"<p class='outerProjectTitle'>"+row.overview+"</p>"+
+								"<p>"+
+								"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
+								"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
+								"</p>"+
+								"</div>"+
+								"</div>"
+					
+						return html;
 		
 	}
 	

@@ -107,15 +107,8 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
-		/* console.log(row)
-		console.log(index)  */
 	
-		/* if(row.districtSubName==undefined){
-			row.districtSubName=''
-			row.find('.picOrigin').hide()
-			console.log(row)
-		} */
-		
+		/* 完整结构 */
 		/*  var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
