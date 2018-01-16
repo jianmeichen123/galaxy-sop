@@ -15,12 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -48,6 +50,8 @@ import com.galaxyinternet.service.ResourceService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.RoleUtils;
+
+import ch.qos.logback.classic.LoggerContext;
 
 @Controller
 @RequestMapping("/galaxy/common")
@@ -462,4 +466,33 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	     return responseBody;
 			 
 	}
+	@RequestMapping(value = "/logger", method = RequestMethod.GET)
+	public ModelAndView logger()
+	{
+		ModelAndView mv = new ModelAndView("common/logger");
+		LoggerContext ctx = (LoggerContext)LoggerFactory.getILoggerFactory();
+		List<ch.qos.logback.classic.Logger> list = ctx.getLoggerList();
+		mv.addObject("list", list);
+		return mv;
+	}
+	@RequestMapping(value = "/setLevel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> setLevel(String name, String level)
+	{
+		logger.info(String.format("{Logger Name:%s,Level To:%s}", name,level));
+		LoggerContext ctx = (LoggerContext)LoggerFactory.getILoggerFactory();
+		List<ch.qos.logback.classic.Logger> list = ctx.getLoggerList();
+		if(list != null && list.size() > 0)
+		{
+			for(ch.qos.logback.classic.Logger item : list)
+			{
+				if(item.getName().equals(name))
+				{
+					item.setLevel(ch.qos.logback.classic.Level.toLevel(level));
+					break;
+				}
+			}
+		}
+		return ResponseEntity.ok("OK");
+	}
+			
 }
