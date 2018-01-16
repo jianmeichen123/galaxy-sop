@@ -130,9 +130,13 @@ $(function(){
 			var html = "";		
 			 	html += "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 						"<div class='rightContent'>"+
-						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
-						"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
-						"<p>"
+						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"
+						
+				if(row.introduce){
+					html += "<p class='outerProjectTitle'>"+row.introduce+"</p>"+
+							"<p>"
+				}		
+						
 				 if(row.districtSubName){
 					html += "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
 			 	}
