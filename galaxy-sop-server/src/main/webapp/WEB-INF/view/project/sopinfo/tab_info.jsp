@@ -447,7 +447,7 @@
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix borderRadius">
 						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员">添加</a>	
-						<a id="" href="javascript:;" onclick="pagePop('teamInfo')" urlCode="" dnCode="teamInfo" data-href='' class="add_pro DN_btn lightbg" >参考信息</a>
+						<a id="" href="javascript:;" onclick="pagePop('teamInfo')" urlCode="" dnCode="teamInfo" data-href='' class="add_pro DN_btn lightbg btnbox_f1" >参考信息</a>
 					</div>
 				</div>
 			</c:if>
@@ -464,7 +464,7 @@
 	        <c:if test="${isEditable}">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="edit" data-cont="legal" data-name="basic" data-on="data-open">编辑</a>
-	            	<a href="javascript:;" style="float:right;" class="DN_btn" onclick="pagePop('legalInfo')" dnCode="legalInfo" urlCode="" data-name="basic">参考信息</a>
+	            	<a href="javascript:;" style="float:right;" class="DN_btn" onclick="pagePop('legalInfo')" dnCode="legalInfo" urlCode="" data-name="basi btnbox_f1c">参考信息</a>
 	         	</span>
 	        </c:if>
 	    </div>
@@ -505,7 +505,7 @@
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
 	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)">添加</a>
-	              <a id="" href="javascript:;"  onclick="pagePop('equityInfo')" urlCode="" dnCode="equityInfo" class="add_pro DN_btn lightbg" >参考信息</a>
+	              <a id="" href="javascript:;"  onclick="pagePop('equityInfo')" urlCode="" dnCode="equityInfo" class="add_pro DN_btn lightbg btnbox_f1" >参考信息</a>
 	          </div>
 	        </c:if>
 	    </div>
@@ -529,7 +529,7 @@
 			       <c:if test="${isEditable}">
 			          <div class="btnbox_f btnbox_f1 clearfix borderRadius">
 			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this,3)">添加</a>
-			              <a id="" href="javascript:;" onclick="pagePop('equityInfo')" dnCode="financeInfo" urlCode="" class="add_pro DN_btn lightbg" >参考信息</a>
+			              <a id="" href="javascript:;" onclick="pagePop('equityInfo')" dnCode="financeInfo" urlCode="" class="add_pro DN_btn lightbg btnbox_f1" >参考信息</a>
 			          </div>
 			        </c:if>
 		    </div>
