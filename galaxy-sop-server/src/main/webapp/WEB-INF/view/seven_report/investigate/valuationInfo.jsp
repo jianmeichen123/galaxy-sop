@@ -91,6 +91,13 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 			toggle_btn($('.anchor_btn span'),1);
 			fun_click();
 			hideNav();
+			var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
+			var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
+			if(financeLength>=10&&equityLength>=200){
+				$(".infoReport[dncode='financeInfo,equityInfo']").hide();
+			}else{
+				$(".infoReport[dncode='financeInfo,equityInfo']").show();
+			}
 			
 		} else {
 

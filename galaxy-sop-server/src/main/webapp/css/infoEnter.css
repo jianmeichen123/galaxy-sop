@@ -23,6 +23,15 @@ text-align: center;
 margin: 30px auto 20px; 
 width:500px; 
 }
+.DN_list .infoTop h5,.DN_info .infoTop h5{
+	margin-top:20px;
+}
+.DN_list .tableBox,.DN_info .tableBox{margin: 0 10px;}
+.infoTop h5 img{    
+	display: inline-block;
+    vertical-align: middle;
+    padding-right: 15px;
+}
 .titleImg{
 	display:inline-block;	
     vertical-align: middle;
@@ -394,7 +403,7 @@ background: #E5F3FF;
 #powindow .bigPop{
 	width: 1000px;
     margin: 0 auto;
-    max-height: 500px;
+    max-height: 450px;
     overflow-y: auto;
 }
 .fixedbottom,.jumpBox{
@@ -453,4 +462,7 @@ background: #E5F3FF;
     height:30px;
     background: url(../img/outClose.png) no-repeat;
     background-size:100%;
+}
+.fixed-table-toolbar .pull-left{
+margin:0;
 }

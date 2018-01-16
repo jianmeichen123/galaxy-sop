@@ -1251,11 +1251,24 @@ function saveRow(data)
 }
 
 function refreshSection(id)
-{
+{ 
 	var sec = $(".section[data-section-id='"+id+"']");
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 	btn_disable(0);
+	var trLength = $("table[data-code=team-members] tbody tr").length-1;  
+	if(trLength>=10){
+		$(".infoReport[dncode=teamInfo]").hide();
+	}else{
+		$(".infoReport[dncode=teamInfo]").show();
+	}
+	var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
+	var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
+	if(financeLength>=10&&equityLength>=200){
+		$(".infoReport[dncode='financeInfo,equityInfo']").hide();
+	}else{
+		$(".infoReport[dncode='financeInfo,equityInfo']").show();
+	}
 	
 }
 /**

@@ -13,7 +13,7 @@
 	<div class="infoTop clearfix">
 	<!--1是页面  0是弹窗  -->
 			<div id="dataHidden">1</div>
-		<h5>项目“<span id="projectName"></span>”创建成功</h5>
+		<h5><img src="<%=path %>/img/process/infoCreat.png" />项目“<span id="projectName"></span>”创建成功</h5>
 		<p>下一步，请完善项目信息</p>
 		<p><i>为了减少人工录入，</i>系统从“创投大脑”匹配出部分项目信息推荐给您，<i>可选择有效的信息，快速添加到项目内</i></p>
 		<ul class="scheduleIcon clearfix">

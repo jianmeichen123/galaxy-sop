@@ -311,7 +311,7 @@ public class InfoFromDanaoController{
 
 			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
-			Integer pageNum = project.getPageNum() != null ? project.getPageNum() : 1;
+			Integer pageNum = project.getPageNum() != null ? project.getPageNum() : 0;
 			Integer pageSize = project.getPageSize() != null ? project.getPageSize() : 10;
 			String direction = project.getDirection() != null ? project.getDirection() : "desc";
 			String property = project.getProperty()==null?"updated_time":project.getProperty();

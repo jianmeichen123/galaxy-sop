@@ -98,9 +98,9 @@ var deleteJSON={};
 				var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
 				var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
 				if(financeLength>=10&&equityLength>=200){
-					$(".infoReport").hide();
+					$(".infoReport[dncode='financeInfo,equityInfo']").hide();
 				}else{
-					$(".infoReport").show();
+					$(".infoReport[dncode='financeInfo,equityInfo']").show();
 				}
 				
 			} else {
@@ -476,9 +476,9 @@ var deleteJSON={};
 				var financeLength = $(".h_look table[data-code=finance-history] tbody tr").length-1;  
 				var equityLength = $(".h_look  table[data-code=equity-structure] tbody tr").length-1;   
 				if(financeLength>=10&&equityLength>=200){
-					$(".infoReport").hide();
+					$(".infoReport[dncode='financeInfo,equityInfo']").hide();
 				}else{
-					$(".infoReport").show();
+					$(".infoReport[dncode='financeInfo,equityInfo']").show();
 				}
 			}else{
 				layer.msg("操作失败!");

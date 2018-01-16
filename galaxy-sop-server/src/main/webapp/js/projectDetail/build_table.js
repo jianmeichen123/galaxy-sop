@@ -459,8 +459,11 @@ function saveRow(data)
 function check_table_tr_edit(table){
 	var code = $(table).attr('data-code');
 		var limit = getTableRowLimitNew(code);
-		var trs=$(table).find("tr").length-1;
-		if(trs==0){
+		var trs=$(table).find("tr").length-1; 
+		if($(table).find(".no-records-found").length>0){
+			return;
+		}
+		if(trs<=0){ 
 			var th_length =$(table).find("th").length
 			var noData='<tr class="no-records-found"><td colspan='+th_length+'  style=" text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
 			$(table).append(noData);

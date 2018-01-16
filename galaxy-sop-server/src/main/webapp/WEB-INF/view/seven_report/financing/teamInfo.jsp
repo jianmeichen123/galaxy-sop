@@ -85,6 +85,13 @@ $(function() {
     			toggle_btn($('.anchor_btn span'),1);
     			fun_click();
     			hideNav();
+    			//团队 参考信息  隐藏显示
+    			var trLength = $("table[data-code=team-members] tbody tr").length-1;  
+    			if(trLength>=10){
+    				$(".infoReport[dncode=teamInfo]").hide();
+    			}else{
+    				$(".infoReport[dncode=teamInfo]").show();
+    			}
 
     		} else {
 

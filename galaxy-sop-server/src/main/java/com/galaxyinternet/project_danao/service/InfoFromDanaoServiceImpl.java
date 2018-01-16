@@ -316,6 +316,10 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 				Map<String, Object> addMap = new HashMap<>();
 
 				addMap.put("investDate", dataCheck(tempMap.get("investDate"))); //融资时间
+				if(addMap.get("investDate") != null){
+					addMap.put("investDateStr", DateUtil.longToString(Long.parseLong(addMap.get("investDate").toString()))); //融资时间  1455811200000
+				}
+
 				addMap.put("stock", dataCheck(tempMap.get("stock"))); //股权占比
 
 				//融资轮次
