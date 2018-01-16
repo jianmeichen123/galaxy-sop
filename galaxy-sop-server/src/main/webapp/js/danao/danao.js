@@ -390,8 +390,12 @@ function saveDN(even){
 function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 var infoListDN=[];
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
-		 var lastL = 10-length;
-		 if(length+checkTr.length >10){ 
+		 var totleNumber=10; 
+		 if(tabName=="股权结构"){
+			 totleNumber=200;
+		 }
+		 var lastL = totleNumber-length;
+		 if(length+checkTr.length >totleNumber){ 
 			 layer.msg(tabName+"已超过列表上线，剩余"+lastL+"条可选择" )
 			 return false;
 		 }

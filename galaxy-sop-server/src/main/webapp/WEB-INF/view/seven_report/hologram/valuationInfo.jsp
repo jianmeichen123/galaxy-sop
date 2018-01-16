@@ -94,6 +94,14 @@ var deleteJSON={};
 				toggle_btn($('.anchor_btn span'),1);
 				fun_click();
 				hideNav();
+				//历史上的融资及估值   参考信息  隐藏显示
+				var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
+				var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
+				if(financeLength>=10&&equityLength>=200){
+					$(".infoReport").hide();
+				}else{
+					$(".infoReport").show();
+				}
 				
 			} else {
 
@@ -464,6 +472,14 @@ var deleteJSON={};
 								layer.msg("操作失败!");
 							}
 					});
+				//历史上的融资及估值   参考信息  隐藏显示
+				var financeLength = $(".h_look table[data-code=finance-history] tbody tr").length-1;  
+				var equityLength = $(".h_look  table[data-code=equity-structure] tbody tr").length-1;   
+				if(financeLength>=10&&equityLength>=200){
+					$(".infoReport").hide();
+				}else{
+					$(".infoReport").show();
+				}
 			}else{
 				layer.msg("操作失败!");
 			}
