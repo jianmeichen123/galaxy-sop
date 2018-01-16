@@ -34,8 +34,7 @@
 
 $(function(){
 	//返回附带参数功能代码
-	var initParams;
-	
+	var initParams="";
 	var keyword = getHrefParamter("keyword");
 	function queryParams(params){
 		return {
@@ -64,20 +63,18 @@ $(function(){
          queryParams : function(param){
         	if(getCookieValue("backProjectList")!=''){
         		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-        		deleteCookie("backProjectList","/");
+        		//deleteCookie("backProjectList","/");
         	}else{
         		initParams=undefined;
         	}
         	if(typeof(initParams)=='undefined'){
-        		
     			param.pageNum=param.offset/param.limit;
     			param.pageSize=param.limit;
     			param.keyword=keyword;
     			param.pageSearchInfo='xhtProject';
     			param.direction='desc';
-    			param.property='updated_time'
+    			param.property='updated_time' 
         	}else{
-        		
     			param.pageNum = initParams.pageNum-1;
         		param.pageSize = initParams.pageSize;
         		param.limit=initParams.pageSize;
@@ -104,9 +101,22 @@ $(function(){
 			
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
+		
 			//带参返回
         	 if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
         		$('.pagination-detail .page-size').text(initParams.pageSize);
+        		
+        		$('.dropdown-menu1 li').each(function(){
+	    			if($(this).text()==initParams.pageSize){
+	    				$(this).addClass('active').siblings().removeClass('active');
+	    				//$(this).click();
+	    				 return false;
+	    			}
+				});
+        		var initPage=initParams.offset+1;
+        		var endPage=initParams.offset+initParams.pageSize;
+        		var totalPage=data.pageList.total;
+        		$('.pagination-info').text('显示第 '+initPage+' 到第 '+endPage+' 条记录，总共 '+totalPage+' 条记录') 
     			if(initParams.pageNum==1){
     				return;
     			}else{
@@ -129,7 +139,8 @@ $(function(){
 
     				$('.pagination li').each(function(){
     	    			if($(this).text()==initParams.pageNum){
-    	    				$(this).click();
+    	    				$(this).addClass('active');
+    	    				//$(this).click();
     	    				 return false;
     	    			}
     				});
