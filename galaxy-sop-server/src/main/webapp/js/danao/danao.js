@@ -388,7 +388,7 @@ function saveDN(even){
 		 timeOut(3,$("#time"));			 
 	 }	
 } 
-function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
+function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) { 
 		 var infoListDN=[];
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 		 var totleNumber=10; 
@@ -397,9 +397,9 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 }
 		 var lastL = totleNumber-length;
 		 if(length+checkTr.length >totleNumber){ 
-			 layer.msg(tabName+"已超过列表上线，剩余"+lastL+"条可选择" )
-			 return false;
-		 }
+			 layer.msg(tabName+"已超过列表上线，剩余"+lastL+"条可选择" ); 
+			 return;
+		 } 
 		 $.each(checkTr,function(){ 
 			 var that =$(this),
 			 info={};
@@ -419,10 +419,21 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 				 platformUrl.saveOrUpdateInfo,
 				    dataDN,
 		    function(data) {  
-				 layer.msg("保存成功")	 
-				 $("#popbg").remove();
-				 $("#powindow").remove();
-				 $("body").css("overflow-y","auto");     
+				 var tabLe= $(".infoConList table:visible").length;
+				 if(tabLe>1){
+					 if(tabName=="融资历史"){
+						 layer.msg("保存成功")	  
+						 $("#popbg").remove();
+						 $("#powindow").remove();
+						 $("body").css("overflow-y","auto");     
+					 }
+				 }else{
+					 layer.msg("保存成功")	  
+					 $("#popbg").remove();
+					 $("#powindow").remove();
+					 $("body").css("overflow-y","auto");     
+				 }
+				
 				 var table = $("table[data-code="+code+"]");
 				 if(pageTypr==1){
 					 info_table("NO9_1",table.attr("data-name"),table); 
