@@ -1892,7 +1892,7 @@ function initTable(url,data,status,code) {
         cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: true,     //是否显示分页（*）
         sortable: true,      //是否启用排序
-        sortOrder: "asc",     //排序方式
+        sortOrder: "desc",     //排序方式
         pageNumber: 1,      //初始化加载第一页，默认第一页
         pageSize: 10,      //每页的记录行数（*）
         pageList: [],  //可供选择的每页的行数（*）
@@ -1903,7 +1903,7 @@ function initTable(url,data,status,code) {
         	var paramData=data;
         	paramData.pageNo=params.pageNumber-1;              
         	paramData.pageSize=params.pageSize;
-        	paramData.order=params.sortOrder; 
+        	paramData.setupDT=params.sortOrder; 
 			return paramData;
 		} ,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
         sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
