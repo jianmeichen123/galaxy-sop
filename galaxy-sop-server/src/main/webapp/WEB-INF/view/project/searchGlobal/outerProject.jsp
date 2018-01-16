@@ -109,24 +109,44 @@ $(function(){
 	function projectContent(value,row,index){
 		/* console.log(row)
 		console.log(index)  */
-		if(row.districtSubName){
-			var a = "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
-		}else{
-			
-		}
+	
+		/* if(row.districtSubName==undefined){
+			row.districtSubName=''
+			row.find('.picOrigin').hide()
+			console.log(row)
+		} */
 		
-		
-		
-		var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
+		/*  var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
 					"<div class='rightContent'>"+
 					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
 					"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
 					"<p>"+
+						"<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"+
 						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
 					"</p>"+
 					"<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
 					"</div>"+
-					"</div>"
+					"</div>"  */
+			var html = "";		
+			 	html += "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
+						"<div class='rightContent'>"+
+						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
+						"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
+						"<p>"
+				 if(row.districtSubName){
+					html += "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
+			 	}
+				if(row.industryName){
+					html +="<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
+						 "</p>"
+				}
+				html +="<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
+					 "</div>"+
+					 "</div>" 
+				
+	
+					
+					
 		
 		return html;
 	}
