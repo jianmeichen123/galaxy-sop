@@ -126,7 +126,7 @@ $(function(){
 						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"
 						
 				if(row.introduce){
-					html += "<p class='outerProjectTitle'>"+row.introduce+"</p>"+
+					html += "<p class='outerProjectTitle outerProjectNew'>"+row.introduce+"</p>"+
 							"<p>"
 				}		
 						
