@@ -128,11 +128,13 @@ $('.consut_span span').click(function(){
 						"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
 						 "<p class='outerProjectTitle'>"+row.overview+"</p>"+
 						"<p>"+
-						"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
-						"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
-						"</p>"+
-						"</div>"+
-						"</div>"
+						"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"
+				if(row.auther){
+					html += "<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"
+					}
+					html += "</p>"+
+							"</div>"+
+							"</div>"
 			return html;
 		
 	}   
@@ -209,20 +211,22 @@ $('.consut_span span').click(function(){
 					"</div>" */
 					
 						var html = '';
-						html += "<div class='tdContent'>"
+							html += "<div class='tdContent'>"
 						if(row.zixunImage){
 							html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
 						}
-						html += "<div class='rightContent'>"+
+							html += "<div class='rightContent'>"+
 								"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
 								"<p class='outerProjectTitle'>"+row.overview+"</p>"+
 								"<p>"+
-								"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
-								"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
-								"</p>"+
-								"</div>"+
-								"</div>"
-					
+								"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"
+								
+					   if(row.auther){
+						 	html +=  "<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"
+					   	}
+							html +=	"</p>"+
+									"</div>"+
+									"</div>"	
 						return html;
 		
 	}
