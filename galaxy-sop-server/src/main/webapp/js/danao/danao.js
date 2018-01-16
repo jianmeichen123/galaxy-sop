@@ -335,48 +335,49 @@ function saveDN(even){
 			 dataDN.titleId=thatTable.attr("titleid");	
 			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
 				function(data) { 
+				 debugger;
 				 var dttaLength = data.entityList[0].dataList.length;
 				 var lengthTr = checkTr.length; 
 				 var lastL=10-dttaLength;
 				 if(lastL<0){lastL=0}
 				 if(dttaLength+lengthTr >10){
-					 layer.msg("已超过列表上线，剩余"+lastL+"条可选择" )
-					 return false;
+					 layer.msg("已超过列表上线，剩余"+lastL+"条可选择" ) 
+				 }else{ 
+					 $.each(checkTr,function(){ 
+						 var info={}; 
+						 info.code=tables.attr("code");
+						 info.projectId=projectInfo.id;
+						 info.subCode=thatTable.attr("code");
+						 info.titleId=thatTable.attr("titleid");	 
+						 var fileds=$(this).find("td[dnval]");
+						 $.each(fileds,function(){ 
+							 var key =$(this).attr("name");
+							 var val = $(this).attr("dnval"); 
+							 info[key] = val;
+						 }) 
+						 infoListDN.push(info);
+						 
+					 }) 
+					 //团队的接口要变 
+					 dataDN.dataList=infoListDN;  
+					  sendPostRequestByJsonObj(
+							    platformUrl.saveAddTeamMember,
+							    dataDN,
+					    function(data) {  
+							layer.msg("保存成功")	 
+							$("#popbg").remove();
+							$("#powindow").remove();
+							$("body").css("overflow-y","auto");  
+							 if(pageTypr==1){		
+								teamShow(projectInfo.id)			 
+							 }else if(pageTypr==2){
+								refreshSection("1302");		
+								 
+							 }else{
+							 }
+					}) 
 				 }
 			 })  
-			 $.each(checkTr,function(){ 
-				 var info={}; 
-				 info.code=tables.attr("code");
-				 info.projectId=projectInfo.id;
-				 info.subCode=thatTable.attr("code");
-				 info.titleId=thatTable.attr("titleid");	 
-				 var fileds=$(this).find("td[dnval]");
-				 $.each(fileds,function(){ 
-					 var key =$(this).attr("name");
-					 var val = $(this).attr("dnval"); 
-					 info[key] = val;
-				 }) 
-				 infoListDN.push(info);
-				 
-			 }) 
-			 //团队的接口要变 
-			 dataDN.dataList=infoListDN;  
-			  sendPostRequestByJsonObj(
-					    platformUrl.saveAddTeamMember,
-					    dataDN,
-			    function(data) {  
-					layer.msg("保存成功")	 
-					$("#popbg").remove();
-					$("#powindow").remove();
-					$("body").css("overflow-y","auto");  
-					 if(pageTypr==1){		
-						teamShow(projectInfo.id)			 
-					 }else if(pageTypr==2){
-						refreshSection("1302");		
-						 
-					 }else{
-					 }
-			}) 
 		 }
 	 })
 //	 全部成功之后进入倒计时页面且只针对页面方式的保存 
