@@ -33,6 +33,9 @@
 <script type="text/javascript">
 
 $(function(){
+	//返回附带参数功能代码
+	var initParams;
+	
 	var keyword = getHrefParamter("keyword");
 	function queryParams(params){
 		return {
@@ -56,7 +59,36 @@ $(function(){
 		sortOrder : 'desc',
 		sortName : 'updated_time',
 		sidePagination:'server',
-		queryParams:queryParams,
+		//queryParams:queryParams,
+		//返回附带参数功能代码
+         queryParams : function(param){
+        	if(getCookieValue("backProjectList")!=''){
+        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+        		deleteCookie("backProjectList","/");
+        	}else{
+        		initParams=undefined;
+        	}
+        	if(typeof(initParams)=='undefined'){
+        		
+    			param.pageNum=param.offset/param.limit;
+    			param.pageSize=param.limit;
+    			param.keyword=keyword;
+    			param.pageSearchInfo='xhtProject';
+    			param.direction='desc';
+    			param.property='updated_time'
+        	}else{
+        		
+    			param.pageNum = initParams.pageNum-1;
+        		param.pageSize = initParams.pageSize;
+        		param.limit=initParams.pageSize;
+ 	        	param.keyword=keyword;
+ 	        	param.offset=initParams.offset;
+ 	        	param.pageSearchInfo='xhtProject';
+    			param.direction='desc';
+    			param.property='updated_time';
+        	}
+        	return param;
+        }, 
 		onLoadSuccess:function(data){
 			var totalObject = data.userData;
 			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
@@ -71,7 +103,38 @@ $(function(){
 			$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
 			
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
-			$('.totalNumber').html("<span>"+allTotal+"</span>")	
+			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
+			//带参返回
+        	 if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+        		$('.pagination-detail .page-size').text(initParams.pageSize);
+    			if(initParams.pageNum==1){
+    				return;
+    			}else{
+    				$('.pagination li').removeClass('active');
+    				if($('.pagination .page-number').length< initParams.pageNum)
+    				{
+    					var len = $('.pagination .page-number').length;
+    					var totalPages = $("#searchTable").bootstrapTable('getOptions').totalPages;
+    					var end = initParams.pageNum + Math.floor(len/2);
+    					if(end>totalPages)
+						{
+    						end = totalPages;
+						}
+    					
+    					for(var i=len-1; i>=0; i--)
+    					{
+    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
+    					}
+    				}
+
+    				$('.pagination li').each(function(){
+    	    			if($(this).text()==initParams.pageNum){
+    	    				$(this).click();
+    	    				 return false;
+    	    			}
+    				});
+    			}
+    		} 
 		}
 	
 	
@@ -157,19 +220,9 @@ function proInfo(id){
 	//项目详情页返回地址
 	setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
 	//返回附带参数功能代码
-	var options = $("#project-table").bootstrapTable('getOptions');
+	var options = $("#searchTable").bootstrapTable('getOptions');
 	var tempPageSize = options.pageSize ? options.pageSize : 10;
 	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-	var projectType = $("select[name='projectType']").val();
-	var financeStatus = $("select[name='financeStatus']").val();
-	var projectProgress = $("select[name='projectProgress']").val();
-	var projectStatus = $("select[name='projectStatus']").val();
-	var projectDepartid = $("select[name='projectDepartid']").val();
-	var createUid = $("select[name='createUid']").val();
-	var nameCodeLike = $("input[name='nameCodeLike']").val();
-	var projectPerson = $("input[name='projectPerson']").val();
-	var faFlag = $("select[name='faFlag']").val();
-	
 	var formdata = {
 			_paramKey : 'projectList',
 			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -177,15 +230,7 @@ function proInfo(id){
 			_param : {
 				pageNum : tempPageNum,
         		pageSize : tempPageSize,
-        		projectType : projectType,
-        		financeStatus : financeStatus,
-        		projectProgress : projectProgress,
-        		projectStatus : projectStatus,
-        		projectDepartid : projectDepartid,
-        		createUid : createUid,
-        		nameCodeLike : nameCodeLike,
-        		projectPerson:projectPerson,
-        		faFlag:faFlag
+        		offset:tempPageSize*(tempPageNum-1)        		
 			}
 	}
 	var href_url=window.location;
