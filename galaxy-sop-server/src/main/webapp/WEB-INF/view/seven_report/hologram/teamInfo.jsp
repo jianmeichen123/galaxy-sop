@@ -78,7 +78,15 @@
 						}
 					})
 				});
+				//团队 参考信息  隐藏显示
+				var trLength = $("table[data-code=team-members] tbody tr").length-1; 
+				if(trLength>=10){
+					$(".infoReport[dncode=teamInfo]").hide();
+				}else{
+					$(".infoReport[dncode=teamInfo]").show();
+				}
 			} else {
+				
 
 			}
 		})
@@ -120,7 +128,7 @@
 						autoTextarea(textareaId);
 					}
 					//检查表格tr是否10行
-					check_table_tr_edit();
+					check_table_tr_edit(); 
 					edit_bsaicfun();
 				} else {
 
@@ -204,8 +212,7 @@
         			}
         			else{
         				noedi_table.show();
-        				noedi_table.parents('dl').find('.no_enter').remove();
-        				
+        				noedi_table.parents('dl').find('.no_enter').remove(); 
         			}
         		})
                 sendPostRequestByJsonObj(
@@ -477,6 +484,13 @@ function refreshSection(id)
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 	btn_disable(0);
+	//团队 参考信息  隐藏显示
+	var trLength = $("table[data-code=team-members] tbody tr").length-1;  
+	if(trLength>=10){
+		$(".infoReport[dncode=teamInfo]").hide();
+	}else{
+		$(".infoReport[dncode=teamInfo]").show();
+	}
 	
 }
 function getDetailUrl(code)
