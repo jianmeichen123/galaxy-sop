@@ -19,7 +19,7 @@ function pagePop(codes){
 			$("#projectName").text($("#project_name_t").text()); 
 			var data={ 
 		   			"keyword":projectInfo.projectName,
-					"orderBy":"projTitle", 
+					"orderBy":"setupDT", 
 		    		}
 			$(".rightLink").hide();
 			$(".over_pro").hide();
@@ -101,7 +101,7 @@ function getpopHTML(code,even,danaoName){
 				var projCode=projectInfo.danaoProjCode;
 				var data={
 			   			"keyword":projectName,
-						"orderBy":"projTitle",
+						"orderBy":"setupDT",
 			    		} 
 					var jsonObj={
 							projId:projectId,

@@ -49,7 +49,7 @@ color:#5A626D;
 	$("#projectName").text(projectName);
 	var data={
    			"keyword":projectName,
-			"orderBy":"projTitle",
+			"orderBy":"setupDT",
     		}
 	function infoDetail(event){  
 		var projCode=$(event).attr("projCode"); 
