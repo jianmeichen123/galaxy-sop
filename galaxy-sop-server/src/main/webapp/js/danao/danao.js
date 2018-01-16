@@ -195,13 +195,21 @@ function buildDNtable(dom ,data,code){
 		dom.find("tbody").html(str);
 	}else if(code=="teamInfo"){
 		for(i=0;i<data.length;i++){
-			 var that = data[i]
+			 var that = data[i];
+			 if(that.jobContentDescribe1){
+				 //"1363-啊啊师傅"
+				 var jobV = that.jobId+"-"+filter(that.jobContentDescribe1);
+				 var jobText=filter(that.jobContentDescribe1);
+			 }else{ 
+				var jobV = that.jobId;
+			 	var jobText=filter(that.job);				 
+			 }
 			 str+='<tr >'
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+that.name+'>'+filter(that.name)+'</td>'
-				+'<td name="field2" dnVal='+that.jobId+'>'+filter(that.job)+'</td>' 
+				+'<td name="field2" dnVal='+jobV+'>'+jobText+'</td>' 
 				+'</tr>'
 		 }
 		dom.find("tbody").html(str);
