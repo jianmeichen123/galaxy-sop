@@ -80,6 +80,7 @@ function buildTable(title)
 			});
 		});
 	}
+	check_table_tr_edit(tables);
 }
 
 function buildRow(row,showOpts,titleId)
