@@ -88,9 +88,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 
 		String compCode = null;
@@ -125,9 +125,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
@@ -175,9 +175,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 
 		if(object.get("data") !=null)
@@ -261,9 +261,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
         if(object.get("data") !=null)
         {
@@ -318,9 +318,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
         if(object.get("data") !=null)
         {
@@ -507,9 +507,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnProjectTotal = new Long(pageMap.get("total").toString());
 
@@ -520,9 +520,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 		pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnZixunTotal = new Long(pageMap.get("total").toString());
 
@@ -559,9 +559,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception(status.toString());
+				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception(object.toString());
+			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
