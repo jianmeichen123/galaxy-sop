@@ -4198,7 +4198,7 @@ li .projectSource11 span.m_r30{
 .blue-bg-pop .title_bj{
 	height:56px;
 	background:url(../img/base_info/top_bg_big.png);
-	font-family:MicrosoftYaHei-Bold;
+	font-family:Microsoft YaHei-Bold;
 	font-size:14px;
 	color:#ffffff;
 	line-height:56px;
@@ -4211,7 +4211,7 @@ li .projectSource11 span.m_r30{
 #file_history_grid td a{font-family:Microsoft YaHei;}
 /* 新版分页样式，调用类名pagination_common  */
 .pagination_common .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
-.pagination_common .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:MicrosoftYaHei}
+.pagination_common .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:Microsoft YaHei}
 .pagination_common .fixed-table-pagination .pagination > .active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common .fixed-table-pagination .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
@@ -4360,7 +4360,7 @@ p.outerProjectNew{
 .globalSearhc-ul li{
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;}
+    white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: Microsoft YaHei;font-size: 14px;color: #666666;}
 .globalSearhc-ul li:hover{background:#E5F3FF;}
 .assign_project ul li input:placeholder{}
 .assign_project ul li input::-webkit-input-placeholder, .inputsForm input::-webkit-input-placeholder{ /* WebKit browsers */
