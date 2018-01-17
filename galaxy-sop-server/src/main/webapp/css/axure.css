@@ -4360,7 +4360,7 @@ p.outerProjectNew{
 .globalSearhc-ul li{
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;}
+    white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: Microsoft YaHei;font-size: 14px;color: #666666;}
 .globalSearhc-ul li:hover{background:#E5F3FF;}
 .assign_project ul li input:placeholder{}
 .assign_project ul li input::-webkit-input-placeholder, .inputsForm input::-webkit-input-placeholder{ /* WebKit browsers */
