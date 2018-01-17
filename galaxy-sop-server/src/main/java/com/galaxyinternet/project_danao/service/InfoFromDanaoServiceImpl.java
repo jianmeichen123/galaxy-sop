@@ -85,9 +85,13 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		String uri = danaoDomain + projectInfo + projCode;
 		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
 
-		Integer status = (Integer) object.get("status");
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
+
 
 		String compCode = null;
 		if(object.get("data") != null){
@@ -118,9 +122,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		Map<String,Object> object = restTemplate.postForObject(uri,map.containsKey("query")?(Map<String,Object>)map.get("query"):map, Map.class);
 
-		Integer status = (Integer) object.get("status"); //成功:10000 失败:10001 缺少参数:10002
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
@@ -138,9 +145,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 			uri = danaoDomain + businessInfo + target.getCompCode(); //+ "?uid="+map.get("uid");
 			Map<String,Object> gsxx = restTemplate.getForObject(uri, Map.class);
-			status = (Integer) gsxx.get("status");
-			if(status.intValue() == 10000 && gsxx.get("data") !=null )
-			{
+			if(gsxx.get("status") != null && ((Integer) gsxx.get("status")).intValue() == 10000 && gsxx.get("data") !=null){
 				target.setProjCompanyName((String)((Map<String, Object>)gsxx.get("data")).get("company"));
 			}
 
@@ -167,9 +172,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		String uri = danaoDomain + businessInfo + compCode;
 		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
 
-		Integer status = (Integer) object.get("status");
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 
 
 		if(object.get("data") !=null)
@@ -250,9 +258,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
         String uri = danaoDomain + projectTeam;
         Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
 
-        Integer status = (Integer) object.get("status");
-        if(status.intValue() != 10000)
-            throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 
         if(object.get("data") !=null)
         {
@@ -304,9 +315,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
         String uri = danaoDomain + projectEven;
         Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
 
-        Integer status = (Integer) object.get("status");
-        if(status.intValue() != 10000)
-            throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 
         if(object.get("data") !=null)
         {
@@ -490,9 +504,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		//dnProject         创投大脑的项目
 		String uri = danaoDomain + searchProject;
 		Map<String,Object> object = restTemplate.postForObject(uri,query, Map.class);
-		Integer status = (Integer) object.get("status");
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnProjectTotal = new Long(pageMap.get("total").toString());
 
@@ -500,9 +517,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		//dnZixun           创投大脑投融快讯
 		uri = danaoDomain + searchNews;
 		object = restTemplate.postForObject(uri,query, Map.class);
-		status = (Integer) object.get("status");
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 		pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnZixunTotal = new Long(pageMap.get("total").toString());
 
@@ -536,9 +556,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		Map<String,Object> object = restTemplate.postForObject(uri,map, Map.class);
 
-		Integer status = (Integer) object.get("status"); //成功:10000 失败:10001 缺少参数:10002
-		if(status.intValue() != 10000)
-			throw new Exception(status.toString());
+		if(object.get("status") != null){
+			Integer status = (Integer) object.get("status");
+			if(status.intValue() != 10000)
+				throw new Exception(status.toString());
+		}else
+			throw new Exception(object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
