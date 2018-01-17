@@ -36,6 +36,7 @@ $(function(){
 	//返回附带参数功能代码
 	var initParams="";
 	var keyword = getHrefParamter("keyword");
+	 $('.globleSearchInput').val(keyword)
 	function queryParams(params){
 		return {
 			pageNum:params.offset/params.limit,

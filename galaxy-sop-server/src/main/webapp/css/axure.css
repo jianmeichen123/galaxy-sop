@@ -4350,7 +4350,7 @@ p.outerProjectNew{
 .searchContainer{heigth:100%;}
 .searchPage{height:607px;background:#fff;}
 .globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
-.globalSearhc-ul li{width: 310px;
+.globalSearhc-ul li{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: MicrosoftYaHei;font-size: 14px;color: #666666;}

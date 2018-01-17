@@ -161,8 +161,12 @@
 					/* 点击li跳转页面进行搜索 */
 					 $(".seach_li").click(function(){
 							var keyword = $(this).text();
+							alert(keyword)
+							
 						  window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
+						 
 					 })
+					 
 			 }
 			
 			 
@@ -180,9 +184,9 @@
 	$(this).parent().find('.globalSearhc-ul').show();
 }) 
 
-$('.globalSearhc-ul').mouseleave(function(){
+/* $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
-})
+}) */
 	 
 	  
 			 
