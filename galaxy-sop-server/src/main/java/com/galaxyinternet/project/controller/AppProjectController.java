@@ -48,8 +48,6 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 	private DepartmentService departmentService;
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -69,7 +67,7 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 		public ResponseData<Project> searchAppProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 			ResponseData<Project> responseBody = new ResponseData<Project>();
 			User user = (User) getUserFromSession(request);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 				project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				project.setProjectProgress(null);

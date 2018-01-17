@@ -67,7 +67,6 @@ import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 
 
@@ -94,10 +93,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	public String getTempfilePath() { return tempfilePath; }
 	@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) { this.tempfilePath = tempfilePath; }
-	
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	private ProjectService projectService;
@@ -174,7 +169,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
 				//query.setUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
@@ -467,7 +462,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			//角色校验
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
 				//query.setUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门

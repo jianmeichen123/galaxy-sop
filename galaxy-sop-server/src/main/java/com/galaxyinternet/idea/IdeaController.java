@@ -72,7 +72,6 @@ import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.RoleUtils;
 @Controller
@@ -81,8 +80,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	private static final Logger logger = LoggerFactory.getLogger(IdeaController.class);
 	@Autowired
 	private IdeaService ideaService;
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private DepartmentService departmentService;
 	@Autowired
@@ -270,7 +267,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			
 			User user = (User)getUserFromSession(request);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			//无权限查看，返回null
 			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
 					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)&& !roleIdList.contains(UserConstant.YJY))){
@@ -357,7 +354,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		ResponseData<Department> resp = new ResponseData<Department>();
 		try {
 			User user = (User)getUserFromSession(request);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(roleIdList != null && roleIdList.size()>0)
 			{
 				List<Department> departments = new ArrayList<Department>();
@@ -475,7 +472,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				queryById.setCreateBySelf("other");
 			}
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
 				queryById.setDepartmentEditable("false");
 			}else{
@@ -770,7 +767,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						ideafile.setProjectProgress(DictEnum.IdeaProgress.CYDY.getCode());
 					}
 					
-					List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+					List<Long> roleIdList = user.getRoleIds();
 					if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
 							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)&& !roleIdList.contains(UserConstant.YJY)){
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
@@ -868,8 +865,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 				return responseBody;
 			}
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			Idea idea = new Idea();
 			idea.setCreatedUid(user.getId());
 			idea.setCreatedUname(user.getRealName());
@@ -915,8 +911,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		
 		if(idea.getDepartmentId() == null || idea.getDepartmentId().toString().equals("")){
 			if(RoleUtils.isGaoGuan(roleIdList)){
@@ -1269,7 +1264,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			try {
 				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+				List<Long> roleIdList = user.getRoleIds();
 				if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
 						&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.YJY)){
 					responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
@@ -1405,7 +1400,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					responseBody.setResult(new Result(Status.ERROR,null, "创意信息错误"));
 					return responseBody;
 				}else {
-					List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+					List<Long> roleIdList = user.getRoleIds();
 					if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
 							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.YJY)){
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));

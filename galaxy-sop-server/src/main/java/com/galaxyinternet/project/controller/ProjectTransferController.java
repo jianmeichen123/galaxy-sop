@@ -43,7 +43,6 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -63,9 +62,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 
 	@Autowired
 	private DepartmentService departmentService;
-
-	@Autowired
-	private UserRoleService userRoleService;
 
 	@Override
 	protected BaseService<ProjectTransfer> getBaseService()
@@ -190,7 +186,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
 		{
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.TZJL))
 			{
 				project.setCreateUid(user.getId());
@@ -268,7 +264,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
 		{
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.TZJL))
 			{
 				project.setCreateUid(user.getId());

@@ -87,8 +87,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 			Date currentYear = DateUtil.getCurrYearFirst();
 			sopCharts.setStartTime(currentYear.getTime());
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			
 			if (roleIdList.contains(UserConstant.CEO)
 					|| roleIdList.contains(UserConstant.DSZ)) {
@@ -136,8 +135,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 			Date currentYear = DateUtil.getCurrYearFirst();
 			sopCharts.setStartTime(currentYear.getTime());
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){

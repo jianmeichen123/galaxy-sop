@@ -43,7 +43,6 @@ import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopVoucherFileService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 @Controller
@@ -61,8 +60,6 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private InterviewRecordService interviewRecordService;
 
@@ -938,8 +935,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 			ResponseData<AppCounts> responseBody = new ResponseData<AppCounts>();
 			User user = (User) getUserFromSession(request);
 			// 判断当前用户是否为投资经理
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (!roleIdList.contains(UserConstant.HHR)
 					&& !roleIdList.contains(UserConstant.CEO)
 					&&!roleIdList.contains(UserConstant.DSZ)) {

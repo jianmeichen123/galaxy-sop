@@ -1,13 +1,9 @@
 package com.galaxyinternet.chart.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -30,12 +25,10 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.SopCharts;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.chart.SopProjectAnalysisService;
 
 
@@ -47,8 +40,6 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 	private SopProjectAnalysisService analysisService;
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	
 	@Override
@@ -79,7 +70,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.YYFZR) || roleIdList.contains(UserConstant.THYY)) {
 				query.setCreateUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){
@@ -115,8 +106,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}		
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
@@ -153,8 +143,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
@@ -188,8 +177,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
@@ -217,8 +205,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
@@ -250,8 +237,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){

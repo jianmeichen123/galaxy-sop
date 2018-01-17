@@ -79,7 +79,6 @@ import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopVoucherFileService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.FileUtils;
@@ -106,8 +105,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private DepartmentService departMentService;
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private UserService userService;
 	
@@ -190,8 +187,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		List<Department> departDicts = null;
 		Result result = new Result();
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				departmentId = "all";
 			}
@@ -266,8 +262,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		try {
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
-					.getId());
+			List<Long> roleIdList = obj.getRoleIds();
 			//获取可显示的业务分类
 //			List<RoleWorkTypeRule> tempRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
 //			List<String> fileworktypeList = new ArrayList<String>();
@@ -703,8 +698,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 					return responseBody;
 				}
-				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
-						.getId());
+				List<Long> roleIdList = obj.getRoleIds();
 				
 
 				//人财法上传文档时 file_valid 为无效
@@ -980,7 +974,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				resp.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
 				return resp;
 			}
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			boolean result = RoleUtils.isDAGLY(roleIdList);
 			if(result){
 				resp.setResult(new Result(Status.OK, ""));

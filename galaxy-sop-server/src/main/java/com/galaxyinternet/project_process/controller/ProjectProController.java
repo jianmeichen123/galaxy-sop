@@ -48,7 +48,6 @@ import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.UserRoleService;
 
 
 /**
@@ -77,8 +76,6 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	
 	@Autowired
 	private SopFileService sopFileService;
-	@Autowired
-	private UserRoleService userRoleService;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -118,7 +115,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			//Long proDept = pro.getProjectDepartid();
 			
 			//登录人的角色
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			
 			//封装结果
 			List<SopFile> files =  proFlowAboutFileService.getFileListForProFlow(query);

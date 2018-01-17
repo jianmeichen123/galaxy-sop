@@ -49,7 +49,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaZixunService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.ZixunFinanceService;
 import com.galaxyinternet.service.chart.ZixunGradeService;
 
@@ -67,9 +66,6 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	@Autowired
 	private ZixunFinanceService zixunFinanceService;
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	private DepartmentService departmentService;
@@ -315,7 +311,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			//User user = (User)getUserFromSession(request);
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());  //UserConstant.DSZ
+			List<Long> roleIdList = user.getRoleIds();  //UserConstant.DSZ
 			
 			//无权限查看，返回null
 			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)

@@ -219,7 +219,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
 		{
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (roleIdList.contains(UserConstant.TZJL))
 			{
 				project.setCreateUid(user.getId());
@@ -314,7 +314,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		{
 			User user = (User) getUserFromSession(request);
 			// 判断当前用户是否为投资经理
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if (!roleIdList.contains(UserConstant.TZJL))
 			{
 				responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
@@ -561,7 +561,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		ResponseData<Department> responseBody = new ResponseData<Department>();
 		try
 		{
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			List<Department> syxList = null;
 			if (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO))
 			{
@@ -613,7 +613,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			property = "created_time";
 		}
 
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		if (project.getProjectProgress() != null && project.getProjectProgress().equals("guanbi"))
 		{
 			project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
@@ -2212,7 +2212,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			for (MeetingScheduling ms : query)
 			{
 				MeetingScheduling redisPush = new MeetingScheduling();
-				String mestr = "";
 				String messageType = "";
 				MeetingScheduling oldMs = msmap.get(ms.getId());
 
@@ -2232,31 +2231,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				}
 				if (DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType()))
 				{
-					mestr = DictEnum.meetingType.投决会.getName();
 					messageType = "11.3";
 				}
 				if (DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType()))
 				{
-					mestr = DictEnum.meetingType.立项会.getName();
 					messageType = "11.2";
 				}
 				if (DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType()))
 				{
-					mestr = DictEnum.meetingType.CEO评审.getName();
 					messageType = "11.1";
 				}
-				String messageInfo = mestr + "排期时间为";
-				if (oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null)
-				{
-					messageInfo = mestr + "排期时间变更为";
-				}
-				if (oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null)
-				{
-					messageInfo = mestr + "排期时间已取消";
-				}
-				List<String> userLs = proMap.get(pj.getId());
 				// 获取项目中的user
-				List<User> userlist = userService.queryListById(userLs);
 				User belongUser = userService.queryById(pj.getCreateUid());
 				// 如果是更新或取消排期时间
 				if (oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() != null)
@@ -2555,7 +2540,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		{
 			try
 			{
-				roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+				roleIdList = user.getRoleIds();
 			} catch (Exception e)
 			{
 				_common_logger_.error("获取角色列表失败!", e);

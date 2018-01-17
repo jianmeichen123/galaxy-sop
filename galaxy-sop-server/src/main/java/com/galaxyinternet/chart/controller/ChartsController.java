@@ -1,7 +1,6 @@
 package com.galaxyinternet.chart.controller;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.DepartmentBo;
 import com.galaxyinternet.bo.chart.ChartBo;
-import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -33,8 +31,6 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.Chart;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.chart.ChartService;
 
 @Controller
@@ -43,12 +39,6 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 	final Logger logger = LoggerFactory.getLogger(ChartsController.class);
 	@Autowired
 	private ChartService chartService;
-	
-	@Autowired
-	private ProjectService projectService;
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -409,7 +399,7 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 		ResponseBodyData responseBody = new ResponseBodyData();
 		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

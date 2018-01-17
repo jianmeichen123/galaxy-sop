@@ -41,7 +41,6 @@ import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 
 
 /**
@@ -58,8 +57,6 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	private ProjectHealthService projectHealthService;
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	private String tempfilePath;
 
@@ -172,7 +169,7 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 			return responseBody;
 		}	
 		
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -221,7 +218,7 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
         User user = (User) getUserFromSession(request);
 		
 		//有搜索条件则不启动默认筛选
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		if (roleIdList.contains(UserConstant.HHR)){
 			query.setDepId(user.getDepartmentId());
 		}

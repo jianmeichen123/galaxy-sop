@@ -136,8 +136,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		try {
 			Result result = null;
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			Project query = new Project();
 			//1为高管
 			if(RoleUtils.isGaoGuan(roleIdList)){
@@ -229,7 +228,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	public ResponseData<Department> getCareerlineListByRole(HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		
 		Department query = new Department();
 		query.setType(1);

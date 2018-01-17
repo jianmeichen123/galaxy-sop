@@ -33,7 +33,6 @@ import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.IndexConfigService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.template.controller.SopTemplateController;
@@ -43,8 +42,7 @@ import com.galaxyinternet.template.controller.SopTemplateController;
 @RequestMapping("/galaxy")
 public class IndexController extends BaseControllerImpl<User, UserBo>{
 	final Logger logger = LoggerFactory.getLogger(IndexController.class);
-	@Autowired
-	private UserRoleService userRoleService;
+	
 	@Autowired
 	private IndexConfigService indexConfigService;
 	
@@ -72,7 +70,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
 		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 //		if(roleIdList != null && (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.HHR))){
 //			//serverUrl = getServerUrl();
 //			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
@@ -325,8 +323,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
 	public String lxh(HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 0);
 		return "shedule/lxh";
@@ -338,8 +335,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
 	public String tjh(HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 1);
 		return "shedule/lxh";
@@ -351,8 +347,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/psh", method = RequestMethod.GET)
 	public String psh(HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 2);
 		return "shedule/lxh";

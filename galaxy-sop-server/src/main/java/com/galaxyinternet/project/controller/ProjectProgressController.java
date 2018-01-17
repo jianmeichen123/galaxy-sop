@@ -58,16 +58,12 @@ import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/project/progress")
 public class ProjectProgressController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	private ProjectService projectService;
@@ -414,7 +410,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
 				//query.setUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
@@ -798,7 +794,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		//根据角色判断-显示文件上传列表
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = user.getRoleIds();
 		
 		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && (roleIdList.contains(UserConstant.TZJL)
 				||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ))){  

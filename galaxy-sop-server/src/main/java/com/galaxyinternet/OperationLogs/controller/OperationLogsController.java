@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.OperationLogsBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -25,7 +26,6 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.bo.OperationLogsBo;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.project.Project;
@@ -33,7 +33,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.ProgressLogService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/operatlog")
@@ -51,9 +50,6 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Override
 	protected BaseService<OperationLogs> getBaseService() {
@@ -143,7 +139,7 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());  //所有角色
+			List<Long> roleIdList = user.getRoleIds();  //所有角色
 			
 			if(roleIdList!=null && !roleIdList.isEmpty()){
 				if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){ //高管:董事长、CEO UserConstant.DSZ = 1L UserConstant.CEO = 2;

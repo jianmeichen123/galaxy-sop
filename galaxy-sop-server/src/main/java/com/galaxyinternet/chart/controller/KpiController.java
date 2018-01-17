@@ -33,12 +33,9 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.chart.DataFormat;
-import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.report.SopReportModal;
-import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.chart.KpiGradeService;
 import com.galaxyinternet.service.chart.KpiService;
 
@@ -49,9 +46,6 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
-	
-	@Autowired
-	private UserRoleService userRoleService;
 	
 	@Autowired
 	private KpiService kpiService;
@@ -136,7 +130,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -230,7 +224,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -292,7 +286,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -344,7 +338,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -445,7 +439,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -506,7 +500,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -585,7 +579,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<Project> kpiPage = new Page<Project>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -657,7 +651,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -723,7 +717,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -795,7 +789,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<Project> kpiPage = new Page<Project>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -871,7 +865,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
@@ -930,7 +924,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Long> roleIdList = user.getRoleIds();
 			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setPageList(kpiPage);
