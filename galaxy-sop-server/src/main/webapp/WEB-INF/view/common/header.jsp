@@ -47,7 +47,7 @@
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
     	<span class="hideThis">全局搜索</span>
     	<ul class='globalSearhc-ul clearfix'>
-    		<li>搜索历史</li>
+    		<li class='search_history'>搜索历史</li>
     		<ul class="history-content">
     		
     		</ul>
@@ -161,8 +161,6 @@
 					/* 点击li跳转页面进行搜索 */
 					 $(".seach_li").click(function(){
 							var keyword = $(this).text();
-							alert(keyword)
-							
 						  window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
 						 
 					 })
@@ -183,7 +181,10 @@
  $('.globleSearchInput').focus(function(){
 	$(this).parent().find('.globalSearhc-ul').show();
 }) 
-
+/* $(document).click(function(e){
+	e.preventDefault()
+	$('.globalSearhc-ul').hide();
+}) */
 /* $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
 }) */

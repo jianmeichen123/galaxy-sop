@@ -4322,7 +4322,7 @@ input:-ms-input-placeholder {
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
 .outerProject .leftPic{width:80px;height:80px;margin:20px 0 20px 20px;border:1px solid #d8d8d8;}
-.outerProject .rightContent{margin:10px 0 10px 20px;width:90%;float:left;}
+.outerProject .rightContent{margin:10px 0 10px 20px;width:90%;float:left;font-family: Microsoft YaHei;}
 .outerProject .rightContent h3{font-size: 16px;color: #000000;}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
 .outerProject .picEm em{display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
@@ -4347,7 +4347,7 @@ p.outerProjectNew{
 .newsProject .leftPic{width:121px;height:75px;}
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;}
-.searchContainer{heigth:100%;}
+.searchContainer{heigth:100%;font-family: Microsoft YaHei;}
 .searchPage{height:607px;background:#fff;}
 .globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{
@@ -4405,3 +4405,4 @@ p.outerProjectNew{
 .dnContent .outerProject  thead  tr th{border-bottom:0px;display:none !important;}
 .task-pagebox .ventrueContent table thead tr th  .th-inner{padding:23px 0 0 0;}
 .task-pagebox .outerContent table thead tr th  .th-inner{padding:0px;}
+.globalSearhc-ul .search_history{pointer-events:none;}
