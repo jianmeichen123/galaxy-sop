@@ -255,6 +255,13 @@ function saveDN(even){
 		//全息报告
 		pageTypr=2
 	}
+	var checkLength = $(".infoBox").find("tbody input[type=checkbox]:checked").length; 
+	if(checkLength<=0&&pageTypr!=0){
+		$("#popbg").remove();
+		$("#powindow").remove();
+		 $("body").css("overflow-y","auto");
+		return;
+	}
 	 var dataDN={};
 	 dataDN.projectId=projectInfo.id;
 	 var tables = $(even).closest(".fixedbottom").prev().find(".infoConList table:visible"); 
@@ -337,8 +344,8 @@ function saveDN(even){
 			 var infoListDN=[];
 			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 			 dataDN.titleId=thatTable.attr("titleid");	
-			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
-				function(data) { 
+			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null, 
+				function(data) {   
 				 var dttaLength = data.entityList[0].dataList.length;
 				 var lengthTr = checkTr.length; 
 				 var lastL=10-dttaLength;
@@ -374,7 +381,7 @@ function saveDN(even){
 							 if(pageTypr==1){		
 								teamShow(projectInfo.id)			 
 							 }else if(pageTypr==2){
-								refreshSection("1302");		
+								refreshSection("1302");	 		
 								 
 							 }else{
 							 }
@@ -436,13 +443,24 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 $("#powindow").remove();
 					 $("body").css("overflow-y","auto");     
 				 }
-				
 				 var table = $("table[data-code="+code+"]");
 				 if(pageTypr==1){
 					 info_table("NO9_1",table.attr("data-name"),table); 
 				 }else if(pageTypr==2){
 					 refreshSection("1902");	
-					 
+					 var table = $("#a_NO9_1").find('.mb_24 table')
+					 table.each(function(){
+					    resizetable($(this))
+						if($(this).find('tr').length<=1){
+							$(this).hide();
+							if($(this).parents('dl').find('dd:gt(0)').length<=0){
+								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							} 
+						}
+						else{
+							$(this).show();
+						}
+					})					 
 				 }else{
 				 }
 		})
