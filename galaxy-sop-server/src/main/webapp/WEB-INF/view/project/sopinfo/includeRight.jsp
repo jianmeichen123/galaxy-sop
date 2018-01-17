@@ -931,8 +931,9 @@ function deletePro(){
 			title:'提示',
 			area:['600px','405px'],
 			btn:['确定','取消'],
+			skin:"delete_content",
 			content:"<div id='wraper_delete'>"+
-        		"<p>是否删除项目</p>"+
+        		"<p><span></span>是否删除项目</p>"+
         		'<p>删除创投项目会通知该项目投资经理</p>'+
         		'<div>'+
         			'<span>删除原因：</span>'+

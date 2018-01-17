@@ -4417,12 +4417,16 @@ p.outerProjectNew{
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
 .new_blueBtn{background-color: #3CA6FF !important;border-radius: 2px;}
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
-
-
-
-
-
-
+#wraper_delete p{text-align:center;margin-top:20px;color:#666;font-size:14px;}
+#wraper_delete p:nth-child(1){font-size:18px;color:#333;font-family: Microsoft YaHei;margin-top:30px;}
+#wraper_delete  textarea{width:452px;height:128px;vertical-align:top;}
+.delete_content .layui-layer-content{padding:0px !important;}
+.delete_content  .layui-layer-title{height:56px;line-height:56px;font-family:Microsoft YaHei-Bold;
+font-size:14px;
+color:#ffffff;
+background: url(../img/base_info/top-bj.png) no-repeat center center
+}
+.delete_content{border-radius:0 2px !important;}
 
 
 
