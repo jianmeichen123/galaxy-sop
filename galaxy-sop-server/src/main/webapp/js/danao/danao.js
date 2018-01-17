@@ -111,7 +111,7 @@ function getpopHTML(code,even,danaoName){
 						projCode:projCode,
 						danaoInfo:code,
 				}    
-				buildInfoD(_url,jsonObj,code);  
+				buildInfoD(_url,jsonObj,code);   
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
