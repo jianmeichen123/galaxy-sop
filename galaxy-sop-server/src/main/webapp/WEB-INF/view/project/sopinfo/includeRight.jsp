@@ -914,6 +914,8 @@ setProcess(pn);
 setProcess(cn);
 setProcess(gn);
 setProcess(on); 
+		
+
   //删除项目请求
 function deletePro(){
 	var _url = "<%=path %>/galaxy/project/deletePro?_="+new Date().getTime();
@@ -953,7 +955,7 @@ function deletePro(){
         		'<div class="delete_reason">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
-        				'<textarea rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
         			'</span>'+
         		'</div>'+
         		'</div>',
@@ -1003,8 +1005,8 @@ function popMiddle(){
 	ht = parseInt($(".tab_info_common_width").outerHeight(true));
 	var win_w = $(window).width(),
 	win_h = $(window).height(),
-	win_x = (win_w-wh)/2+100,
-	win_y = (win_h-ht)/2-100;
+	win_x = (win_w-wh)/2,
+	win_y = (win_h-ht)/2;
 	//弹出层定位+显示
 	$(".tab_info_common_width").Fixed({
 		x:win_x,
@@ -1014,6 +1016,17 @@ function popMiddle(){
 $(window).resize(function(){
 	popMiddle()
 })
+   			
+ 		function LimitTextArea(obj){
+			var length = $(obj).val().length;
+			if(length>100){
+				var content = $(obj).val().substring(0,100);
+				$(obj).val(content);
+			}
+	
+		}
+  
+  
   
 
 </script>
