@@ -4415,7 +4415,8 @@ p.outerProjectNew{
 .globalSearhc-ul .search_history{pointer-events:none;}
 .form-group .dropdown-menu{max-height:448px !important;}
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
-
+.new_blueBtn{background-color: #3CA6FF !important;border-radius: 2px;}
+.handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
 
 
 
