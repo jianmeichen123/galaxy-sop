@@ -339,7 +339,6 @@ function saveDN(even){
 			 dataDN.titleId=thatTable.attr("titleid");	
 			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
 				function(data) { 
-				 debugger;
 				 var dttaLength = data.entityList[0].dataList.length;
 				 var lengthTr = checkTr.length; 
 				 var lastL=10-dttaLength;
