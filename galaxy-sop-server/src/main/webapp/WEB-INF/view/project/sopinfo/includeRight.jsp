@@ -300,8 +300,23 @@
         <!-- <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
         </div> -->
         
+      <!-- 二次确认弹窗 -->
       
-        
+			 <div class="second_confirm">
+				 <div class="title_bj_tzjl">
+					  提示
+					<em class="agency_close" data-on="close" data-name="basic"></em>
+				 </div>
+				 <div>
+				 	<p>是否删除项目？</p>
+				 	<div class="btn btnbox basic_mes_button basicSpButton">
+		              <button class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type="save_basic">保存</button>
+		              <button class="pubbtn fffbtn version19_cancel_btn" data-name="basic" data-on="close">取消</button>
+		            </div>
+				 </div>
+			 
+			 </div>   
+	 
         
         
         
@@ -927,6 +942,7 @@ function deletePro(){
 				}
 			);
 		}); */
+		
 		layer.open({
 			title:'提示',
 			area:['600px','405px'],
@@ -941,10 +957,18 @@ function deletePro(){
         				'<textarea rows="" cols="" placeholder="请输入原因"></textarea>'+
         			'</span>'+
         		'</div>'+
-        		'</div>'
+        		'</div>',
+        		yes:function(index){
+        			
+        			
+        			//layer.close(index)
+        		}
 					
 			
-		})
+		});
+		
+		
+		
 	}else{
 		var _url = "<%=path %>/galaxy/project/toDeleteProject";	
 		$.getHtml({
@@ -957,7 +981,9 @@ function deletePro(){
 		});
 	}
 }
-	 
+	
+
+  
 
 </script>
 
