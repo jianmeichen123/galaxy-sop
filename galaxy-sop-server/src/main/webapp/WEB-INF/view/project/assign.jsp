@@ -20,7 +20,6 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<div class='content_task'>
 		<div class='title_top'>
-			
 			 <c:if test="${from eq 'assign' }">
 			 <h3>指派项目</h3>
 			<span class='operate_project' data-code='transfer-task'>指派项目</span>
@@ -323,7 +322,8 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	//投资经理
 	$('select[name="createUid"]').change(function(){
 		if($('select[name="createUid"]').find('.ilter-option').text()=="全部"){
-			$('select[name="createUid"]').find('.ilter-option').text('aaa')
+			
+			//$('select[name="createUid"]').find('.ilter-option').text('aaa')
 		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
@@ -333,6 +333,12 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
+		if($('select[name="projectStatus"]').val()=="全部"){
+			alert('ccc')
+			
+			$('select[name="projectStatus"]').val('项目状态')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
