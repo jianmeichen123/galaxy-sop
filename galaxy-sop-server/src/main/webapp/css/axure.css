@@ -4315,9 +4315,15 @@ input:-ms-input-placeholder {
 .createProject tbody tr{border-bottom:1px solid #e4e4e4;}
 .createProject{border-collapse:collapse;border-radius:0px;}
 .createProject thead tr th:nth-child(1){padding-left:20px;text-align:left;}
+.createProject thead tr th:nth-child(2){text-align:left;}
+.createProject thead tr th:nth-child(5){text-align:left;}
+.createProject thead tr th:nth-child(6){text-align:left;}
+
 .createProject tbody tr td{height:40px;text-align:center;font-family: Microsoft YaHei;font-size: 14px;color: #5A626D;}
 .createProject tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
-
+.createProject tbody tr td:nth-child(2){text-align:left;}
+.createProject tbody tr td:nth-child(5){text-align:left;}
+.createProject tbody tr td:nth-child(6){text-align:left;}
 .two{background:#fff;}
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
@@ -4337,6 +4343,7 @@ p.outerProjectTitle {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	padding-bottom: 10px;
+	font-size: 12px;
 }
 p.outerProjectNew{
 	color:#666;
@@ -4406,3 +4413,23 @@ p.outerProjectNew{
 .task-pagebox .ventrueContent table thead tr th  .th-inner{padding:23px 0 0 0;}
 .task-pagebox .outerContent table thead tr th  .th-inner{padding:0px;}
 .globalSearhc-ul .search_history{pointer-events:none;}
+.form-group .dropdown-menu{max-height:448px !important;}
+.bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
+.new_blueBtn{background-color: #3CA6FF !important;border-radius: 2px;}
+.handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

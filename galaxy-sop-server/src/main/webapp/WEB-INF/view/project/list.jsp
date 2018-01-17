@@ -49,16 +49,19 @@
          <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
+                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4 new_blueBtn" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
                
-               	 <c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn ico c4" style="margin-top:10px;" >移交项目</a>
-                </c:if>
-                 <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn ico c4" style="margin-top:10px;">指派项目</a>
-                </c:if>
+               	 
                <%--   <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
                --%>  <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
+            </div>
+            <div class="handover_project">
+            	<c:if test="${fx:hasPremission('project_batch_transfer')}">	
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;" >批量移交</a>
+                </c:if>
+                 <c:if test="${fx:hasPremission('project_batch_assign')}">	
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;">批量指派</a>
+                </c:if>
             </div>
          </div>
          <%-- </c:if> --%>

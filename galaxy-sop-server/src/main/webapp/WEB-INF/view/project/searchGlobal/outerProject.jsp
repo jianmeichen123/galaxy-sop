@@ -82,9 +82,9 @@ $(function(){
 			console.log(totalObject)
 			var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
 			/*获取页面的值  */
-			$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")//创投资讯
-			$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	//外部项目资讯
-			$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
+			$(".ventrueTotal").html("<span>（"+venterProjectNumber+"）</span>")//创投资讯
+			$('.outerTotal').html("<span>（"+outterProjectNumber+"）</span>")	//外部项目资讯
+			$('.zixunTotal').html("<span>（"+zixunTotal+"）</span>")//资讯
 			
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
@@ -134,7 +134,7 @@ $(function(){
 					html += "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
 			 	}
 				if(row.industryName){
-					html +="<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
+					html +="<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span><span>-</span><span class='picEm'>"+row.industrySubName+"</span>"+
 						 "</p>"
 				}
 				html +="<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+

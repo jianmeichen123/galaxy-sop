@@ -96,9 +96,9 @@ $('.consut_span span').click(function(){
 				console.log(totalObject)
 				var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
 				/*获取页面的值  */
-				$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")//创投资讯
-				$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	//外部项目资讯
-				$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
+				$(".ventrueTotal").html("<span>（"+venterProjectNumber+"）</span>")//创投资讯
+				$('.outerTotal').html("<span>（"+outterProjectNumber+"）</span>")	//外部项目资讯
+				$('.zixunTotal').html("<span>（"+zixunTotal+"）</span>")//资讯
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	

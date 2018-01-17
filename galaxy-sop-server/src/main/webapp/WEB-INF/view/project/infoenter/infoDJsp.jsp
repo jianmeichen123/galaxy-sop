@@ -9,11 +9,13 @@ height:12px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
 display: block;
-position:absolute;
+/* position:absolute; */
 z-index:10;
-  top:50%;
+ /*  top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%); */
+  margin-left:10px;
+  margin-top:-5px;
 }
 
 

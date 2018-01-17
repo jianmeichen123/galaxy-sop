@@ -344,8 +344,8 @@ function saveDN(even){
 			 var infoListDN=[];
 			 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 			 dataDN.titleId=thatTable.attr("titleid");	
-			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,
-				function(data) {  
+			 sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null, 
+				function(data) {   
 				 var dttaLength = data.entityList[0].dataList.length;
 				 var lengthTr = checkTr.length; 
 				 var lastL=10-dttaLength;
