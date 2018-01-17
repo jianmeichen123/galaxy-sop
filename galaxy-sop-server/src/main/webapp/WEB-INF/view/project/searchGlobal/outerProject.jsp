@@ -134,7 +134,7 @@ $(function(){
 					html += "<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"
 			 	}
 				if(row.industryName){
-					html +="<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
+					html +="<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span><span>-</span><span class='picEm'>"+row.industrySubName+"</span>"+
 						 "</p>"
 				}
 				html +="<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+

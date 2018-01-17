@@ -135,87 +135,14 @@
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
-<script src="<%=path %>/js/init.js"></script>  
+<%-- <script src="<%=path %>/js/init.js"></script>  --%> 
 </html>
 <script>
 $(function(){
   //导航
 	createMenus(5);
 
- ///////////////////////初始化筛选条件
-  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
- createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
-	/**
-	 * 获取融资状态下拉项
-	 * @version 2016-06-21
-	 */
-	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
-	function CallBackB(data){
-	    var _dom=$("select[name='financeStatus']");
-	    var childNum = _dom.find("option").length;
-	    var entity=data.entity.childList[0];
-	    if(!childNum || childNum !=0 ){
-	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-			});
-	    }
-	}
-createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
-if(${from eq 'assign' }){
-	var result='${fx:reloadCondition('project_batch_assign')}';
-	if(result!=""){
-		if(result==1){
-			$("[name='projectDepartid']").css("display","none");
-			$("[name='createUid']").css("display","none");
-		}else if(result==2){
-			createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
-		}else if(result==3){
-			 $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
-		}else if(result==6){
-			  var depts
-				if('${fx:reloadDepts('project_batch_assign')!=""}'){
-					  depts='${fx:reloadDepts('project_batch_assign')}'
-					  var deptArr=null!=depts?depts.split(","):[];
-					  createCareelinePartShow(platformUrl.getCareerlineList,"projectDepartid",1,deptArr);
-					
-				}
-		}
-	}
-	
 
-}else if(${from eq 'transfer' }){
-	var result='${fx:reloadCondition('project_batch_transfer')}';
-	if(result!=""){
-		if(result==1){
-              $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
-			  $("[name='createUid']").parent(".form-group ").attr("style","display:none");
-		}
-    }
-}
-
-/**
- * 根据事业线查询相应的投资经理
- * @version 2016-06-21
- */
-createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
-	/**
-	 * 改变事业线时获取该事业线下的投资经理
-	 * @version 2016-06-21
-	 */
-	$('select[name="projectDepartid"]').change(function(){
-		var did = $('select[name="projectDepartid"]').val();
-	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
-	    $('.selectpicker').selectpicker('refresh');
-	});
-	 $('.selectpicker').selectpicker({
-		  style: 'btn-info',
-		  size: 4,
-		  
-		});
-	 $('.selectpicker').selectpicker('refresh');
-	
-
-///////////////////////初始化筛选条件finish
  
  
  detailHeaderWidth();
@@ -316,37 +243,49 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
-		//queryParams(param)
+		if($('select[name="projectDepartid"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('全部事业线')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		if($('select[name="createUid"]').find('.ilter-option').text()=="全部"){
+		if($('select[name="createUid"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('投资经理')
 			
-			//$('select[name="createUid"]').find('.ilter-option').text('aaa')
 		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
+		if($('select[name="projectProgress"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('项目进度')
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
 		if($('select[name="projectStatus"]').val()=="全部"){
-			alert('ccc')
-			
-			$('select[name="projectStatus"]').val('项目状态')
+			$(this).parent().find('.filter-option').html('项目状态')
 			
 		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
+		if($('select[name="financeStatus"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('融资状态')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
+		if($('select[name="faFlag"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('项目来源')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//搜索方法
@@ -405,6 +344,82 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	});
 })
  
+
+ ///////////////////////初始化筛选条件
+  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress")//项目进度
+ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus")//项目状态
+	/**
+	 * 获取融资状态下拉项
+	 * @version 2016-06-21
+	 */
+	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
+	function CallBackB(data){
+	    var _dom=$("select[name='financeStatus']");
+	    var childNum = _dom.find("option").length;
+	    var entity=data.entity.childList[0];
+	    if(!childNum || childNum !=0 ){
+	    	$.each(entity.valueList,function(){
+	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+			});
+	    }
+	}
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
+if(${from eq 'assign' }){
+	var result='${fx:reloadCondition('project_batch_assign')}';
+	if(result!=""){
+		if(result==1){
+			$("[name='projectDepartid']").css("display","none");
+			$("[name='createUid']").css("display","none");
+		}else if(result==2){
+			createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
+		}else if(result==3){
+			 $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
+		}else if(result==6){
+			  var depts
+				if('${fx:reloadDepts('project_batch_assign')!=""}'){
+					  depts='${fx:reloadDepts('project_batch_assign')}'
+					  var deptArr=null!=depts?depts.split(","):[];
+					  createCareelinePartShow(platformUrl.getCareerlineList,"projectDepartid",1,deptArr);
+					
+				}
+		}
+	}
+	
+
+}else if(${from eq 'transfer' }){
+	var result='${fx:reloadCondition('project_batch_transfer')}';
+	if(result!=""){
+		if(result==1){
+              $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
+			  $("[name='createUid']").parent(".form-group ").attr("style","display:none");
+		}
+    }
+}
+
+/**
+ * 根据事业线查询相应的投资经理
+ * @version 2016-06-21
+ */
+createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
+	/**
+	 * 改变事业线时获取该事业线下的投资经理
+	 * @version 2016-06-21
+	 */
+	$('select[name="projectDepartid"]').change(function(){
+		var did = $('select[name="projectDepartid"]').val();
+	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+	    $('.selectpicker').selectpicker('refresh');
+	});
+	 $('.selectpicker').selectpicker({
+		  style: 'btn-info',
+		  size: 4,
+		  
+		});
+	 $('.selectpicker').selectpicker('refresh');
+	
+
+///////////////////////初始化筛选条件finish
+
 
  	 function projectInfo(value,row,index){//项目名称
 		    var id=row.id;
@@ -508,8 +523,8 @@ function financeStatusFormat(value,row,index){
 		});
 		var param={
 				"num":num,
-		 "projectIds":projectIds,
-		 "actionStyle":'${from}'
+				"projectIds":projectIds,
+		 		"actionStyle":'${from}'
 			};
 		return param;
 		
