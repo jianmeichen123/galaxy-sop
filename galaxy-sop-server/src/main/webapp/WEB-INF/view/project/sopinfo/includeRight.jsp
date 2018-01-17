@@ -10,11 +10,25 @@
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
   <!--删除项目的弹窗div  -->
-        	
-
-
-        
-        	
+        	 <!-- 二次确认弹窗 -->
+     <!--  <div class="basic_on basic_common_width tab_info_common_width basic_second_confirm">
+	      <form id="basicForm" onsubmit="return false;">
+				 <div class="second_confirm">
+					 <div class="title_bj_tzjl">
+						  提示
+						<em class="agency_close" data-on="close" data-name="basic"></em>
+					 </div>
+					 <div>
+					 	<p>是否删除项目？</p>
+					 	<div class="btn btnbox basic_mes_button basicSpButton">
+			              <button class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type="save_basic">保存</button>
+			              <button class="pubbtn fffbtn version19_cancel_btn" data-name="basic" data-on="close">取消</button>
+			            </div>
+					 </div>
+				 
+				 </div>
+			</form>
+		</div>   --> 
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject or isThyy}">
         	
@@ -300,22 +314,7 @@
         <!-- <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
         </div> -->
         
-      <!-- 二次确认弹窗 -->
-      
-			 <div class="second_confirm">
-				 <div class="title_bj_tzjl">
-					  提示
-					<em class="agency_close" data-on="close" data-name="basic"></em>
-				 </div>
-				 <div>
-				 	<p>是否删除项目？</p>
-				 	<div class="btn btnbox basic_mes_button basicSpButton">
-		              <button class="pubbtn bluebtn version19_save_btn" data-on="save_basic" save_type="save_basic">保存</button>
-		              <button class="pubbtn fffbtn version19_cancel_btn" data-name="basic" data-on="close">取消</button>
-		            </div>
-				 </div>
-			 
-			 </div>   
+     
 	 
         
         
@@ -959,7 +958,22 @@ function deletePro(){
         		'</div>'+
         		'</div>',
         		yes:function(index){
-        			
+        			sendPostRequestByJsonObj(
+        					_url,
+        					data,
+        					function(data){
+        						if(data.result.status=='OK')
+        						{
+        							 layer.msg('删除成功');
+        							var url = $("#menus .on a").attr('href');
+        							window.location = url;
+        						}
+        						else
+        						{
+        							layer.msg("删除失败。");
+        						}
+        					}
+        				);
         			
         			//layer.close(index)
         		}
@@ -982,7 +996,24 @@ function deletePro(){
 	}
 }
 	
-
+//浏览器窗口带下改变，弹层重新定位
+popMiddle()
+function popMiddle(){
+	var wh = parseInt($(".tab_info_common_width").outerWidth(true)),
+	ht = parseInt($(".tab_info_common_width").outerHeight(true));
+	var win_w = $(window).width(),
+	win_h = $(window).height(),
+	win_x = (win_w-wh)/2+100,
+	win_y = (win_h-ht)/2-100;
+	//弹出层定位+显示
+	$(".tab_info_common_width").Fixed({
+		x:win_x,
+		y:win_y
+	});
+}
+$(window).resize(function(){
+	popMiddle()
+})
   
 
 </script>

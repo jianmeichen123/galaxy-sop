@@ -4455,6 +4455,6 @@ font-weight:bold;
      font-size:12px;
 }
 .delete_content .layui-layer-setwin .layui-layer-ico{background: url(../img/base_info/close.png) no-repeat center;}
-
-
+.second_confirm{width:480px;height:215px;background:#fff;left:50%;top:50%; }
+.basic_second_confirm{z-index:99999999;width:480px !important;}
 
