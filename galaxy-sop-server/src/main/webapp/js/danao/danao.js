@@ -116,6 +116,7 @@ function getpopHTML(code,even,danaoName){
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
 					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+					 $(".DN_info").addClass("noPad");
 				 } 
 		}
 	}) 
@@ -159,6 +160,7 @@ function buildDNinfo(_url,jsonObj){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
 			$(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
+			 $(".DN_info").addClass("noPad");
 			return false;
 		}
 		 var legal=data.userData.legalInfo;

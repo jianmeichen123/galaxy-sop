@@ -123,6 +123,9 @@ color: #3CA6FF;
 
 }
 .DN_info{
+	padding-bottom: 88px;
+}
+.DN_info.noPad{	
 	padding-bottom: 10px;
 }
 .infoList{
@@ -405,9 +408,6 @@ background: #E5F3FF;
     margin: 0 auto;
     max-height: 450px;
     overflow-y: auto;
-}
-#powindow .bigPop.DN_list{
-	margin-bottom:10px;
 }
 .fixedbottom,.jumpBox{
 	position: fixed;
