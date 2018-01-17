@@ -222,7 +222,7 @@ function buildDNtable(dom ,data,code){
 				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
-			+'<td name="field1" dnVal='+that.investDate+'>'+filter(that.investDate)+'</td>'
+			+'<td name="field1" dnVal='+that.investDateStr+'>'+filter(that.investDateStr)+'</td>'
 			+'<td name="field3" dnVal='+that.num+'>'+filter(that.num)+'</td>'
 			+'<td name="field6" dnVal = '+that.unitId+'>'+filter(that.unit)+'</td>'
 			+'<td name="field4" dnVal='+that.stock+'>'+filter(that.stock)+'</td> '
