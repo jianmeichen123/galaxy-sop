@@ -9,7 +9,8 @@
 %>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
-
+  <!--删除项目的弹窗div  -->
+        	
 
 
         
@@ -298,6 +299,13 @@
         <!-- 投前End -->
         <!-- <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
         </div> -->
+        
+      
+        
+        
+        
+        
+        
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
@@ -900,7 +908,7 @@ function deletePro(){
 			'deleteReason':null
 		};
 	if(pRigthInfo.createUid==userId){
-		layer.confirm("确定删除？",function(i){
+		/* layer.confirm("确定删除？",function(i){
 			layer.close(i);
 			sendPostRequestByJsonObj(
 				_url,
@@ -918,7 +926,24 @@ function deletePro(){
 					}
 				}
 			);
-		});
+		}); */
+		layer.open({
+			title:'提示',
+			area:['600px','405px'],
+			btn:['确定','取消'],
+			content:"<div id='wraper_delete'>"+
+        		"<p>是否删除项目</p>"+
+        		'<p>删除创投项目会通知该项目投资经理</p>'+
+        		'<div>'+
+        			'<span>删除原因：</span>'+
+        			'<span>'+
+        				'<textarea rows="" cols="" placeholder="请输入原因"></textarea>'+
+        			'</span>'+
+        		'</div>'+
+        		'</div>'
+					
+			
+		})
 	}else{
 		var _url = "<%=path %>/galaxy/project/toDeleteProject";	
 		$.getHtml({
