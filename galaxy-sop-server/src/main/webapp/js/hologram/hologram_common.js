@@ -232,7 +232,7 @@ function tabInfoChange(index){
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
-        					$.each(entityList,function(){
+        					$.each(entityList,function(){ 
         						var title = this;
         						buildResults(sec,title,readonly);
         						buildTable(sec,title);
@@ -800,8 +800,7 @@ function buildMemberRow(headerList,row,showOpts)
 }
 function buildTable(sec,title)
 {
-	//列表Header
-	
+	//列表Header 
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
@@ -850,7 +849,7 @@ function buildTable(sec,title)
 	}
 	//列表Row
 	if(title.dataList)
-	{
+	{ 
 		$.each(title.dataList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
