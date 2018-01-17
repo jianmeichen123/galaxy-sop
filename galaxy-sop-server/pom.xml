@@ -149,8 +149,9 @@
 
 				<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
 				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>  <!--project/ news/ -->
-				<xht.app.domain>http://10.9.21.25:8818/newsbox/mobile/getNewsList.json</xht.app.domain>
+				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>
+				<!--project/ news/ http://10.9.21.25:8818/newsbox/mobile/getNewsList.json-->
+				<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
 				<galaxy.mob.endpoint>http://fxmob.dev.galaxyinternet.com/starservice</galaxy.mob.endpoint>
 
 			</properties>
@@ -197,7 +198,7 @@
 				<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
 				<danao.domain>http://ctdnqa.gi.com/</danao.domain>
 				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>  <!--project/ news/ -->
-				<xht.app.domain>http://10.9.21.25:8818/newsbox/mobile/getNewsList.json</xht.app.domain>
+				<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
 				<galaxy.mob.endpoint>http://fxmob.dev.galaxyinternet.com/starservice</galaxy.mob.endpoint>
 			</properties>
 		</profile>
