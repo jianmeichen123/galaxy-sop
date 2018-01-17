@@ -4424,16 +4424,37 @@ p.outerProjectNew{
 .delete_content  .layui-layer-title{height:56px;line-height:56px;font-family:Microsoft YaHei-Bold;
 font-size:14px;
 color:#ffffff;
-background: url(../img/base_info/top-bj.png) no-repeat center center
+background: url(../img/base_info/top-bj.png) no-repeat center center;
+font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
-
-
-
-
-
-
-
+.delete_reason span:nth-child(1){margin-left:40px;}
+.delete_reason {margin-top:22px;}
+.delete_reason span:nth-child(2){margin-left:10px;}
+.delete_reason span textarea{padding-left:8px;padding-top:4px;}
+.delete_content .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
+.delete_content .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;}
+#wraper_delete .delete_msg{background:url(../img/delte_mes.png) no-repeat center center;display:inline-block;width:20px;height:20px;vertical-align:text-bottom;margin-right:8px;}
+.delete_reason span textarea::-webkit-input-placeholder { 
+   color:#d8d8d8;
+    font-size:12px!important;
+    line-height:22px;
+}
+.delete_reason span textarea:-moz-placeholder { 
+    color:#d8d8d8;
+     font-size:12px;
+    line-height:22px;
+}
+.delete_reason span textarea::-moz-placeholder { 
+   color:#d8d8d8;
+     font-size:12px;
+    line-height:22px;
+}
+.delete_reason span textarea:-ms-input-placeholder { 
+   color:#d8d8d8;
+     font-size:12px;
+}
+.delete_content .layui-layer-setwin .layui-layer-ico{background: url(../img/base_info/close.png) no-repeat center;}
 
 
 

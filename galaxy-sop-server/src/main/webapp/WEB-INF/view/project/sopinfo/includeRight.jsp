@@ -933,9 +933,9 @@ function deletePro(){
 			btn:['确定','取消'],
 			skin:"delete_content",
 			content:"<div id='wraper_delete'>"+
-        		"<p><span></span>是否删除项目</p>"+
+        		"<p><span class='delete_msg'></span>是否删除项目</p>"+
         		'<p>删除创投项目会通知该项目投资经理</p>'+
-        		'<div>'+
+        		'<div class="delete_reason">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
         				'<textarea rows="" cols="" placeholder="请输入原因"></textarea>'+
