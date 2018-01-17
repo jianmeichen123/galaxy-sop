@@ -243,37 +243,49 @@ $(function(){
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
-		//queryParams(param)
+		if($('select[name="projectDepartid"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('全部事业线')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		if($('select[name="createUid"]').find('.ilter-option').text()=="全部"){
+		if($('select[name="createUid"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('投资经理')
 			
-			//$('select[name="createUid"]').find('.ilter-option').text('aaa')
 		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
+		if($('select[name="projectProgress"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('项目进度')
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
 		if($('select[name="projectStatus"]').val()=="全部"){
-			alert('ccc')
-			
-			$('select[name="projectStatus"]').val('项目状态')
+			$(this).parent().find('.filter-option').html('项目状态')
 			
 		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
+		if($('select[name="financeStatus"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('融资状态')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
+		if($('select[name="faFlag"]').val()=="全部"){
+			$(this).parent().find('.filter-option').html('项目来源')
+			
+		}
 		$('#assign-table').bootstrapTable('refresh')
 	});
 	//搜索方法
