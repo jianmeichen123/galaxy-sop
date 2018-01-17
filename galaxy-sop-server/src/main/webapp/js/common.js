@@ -1978,7 +1978,7 @@ function initTable(url,data,status,code) {
             		var a ='<button type="button" onclick="infoDetail(this)" class="enterIn blueBtn"  projCode='+row.projCode+'>引用</button>'
                     
             	}else{  
-            		var a ='<button type="button" onclick="infoDPop(this,1)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn"  projCode='+row.projCode+'>引用1</button>'
+            		var a ='<button type="button" onclick="infoDPop(this,1)" dncode='+code+' urlcode="/galaxy/infoDanao/infoDJsp/" class="enterIn blueBtn"  projCode='+row.projCode+'>引用</button>'
                     
             	}
                 return a;

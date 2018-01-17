@@ -215,8 +215,10 @@ function buildDNtable(dom ,data,code){
 		dom.find("tbody").html(str);
 		
 	}else if(code=="financeInfo"){	 
+		
 		for(i=0;i<data.length;i++){
-			 var that = data[i]
+			 var that = data[i];
+			 var unitId=that.unitId?that.unitId:2181;
 			 str+='<tr >'
 				+'<td>'
 				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
@@ -224,7 +226,7 @@ function buildDNtable(dom ,data,code){
 			+'<td name="field7" dnVal='+that.roundId+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+that.investDateStr+'>'+filter(that.investDateStr)+'</td>'
 			+'<td name="field3" dnVal='+that.num+'>'+filter(that.num)+'</td>'
-			+'<td name="field6" dnVal = '+that.unitId+'>'+filter(that.unit)+'</td>'
+			+'<td name="field6" dnVal = '+unitId+'>'+filter(that.unit)+'</td>'
 			+'<td name="field4" dnVal='+that.stock+'>'+filter(that.stock)+'</td> '
 			+'<td name="field2" dnVal='+that.empty+'>'+filter(that.empty)+'</td> '
 			+'</tr>'
