@@ -78,7 +78,7 @@
 					 <option index="-1">全部</option>
 					 <c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
-	                    	</c:forEach>
+	                 </c:forEach>
 					</select>
 			  	</div>
 				
