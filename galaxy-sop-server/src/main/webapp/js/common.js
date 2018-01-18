@@ -1897,6 +1897,9 @@ function cut(cutelement, cutlength) {
 function filter(str){
 	return str==undefined?"--":str
 }
+function filterData(data){
+	return data==undefined?"":str
+}
 ///status  判断是弹窗还是页面
 function initTable(url,data,status,code) { 
     $('#dataTable').bootstrapTable({
