@@ -448,10 +448,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 info_table("NO9_1",table.attr("data-name"),table); 
 				 }else if(pageTypr==2){
 					 refreshSection("1902");	
-					 var table = $("#a_NO9_1").find('.mb_24 table');
-					 if(table.length<=0){
-						 table=$("#a_DNO9_1").find('.mb_24 table');
-					 }
+					 var table = $(".infoReport").closest(".h_look").find('.mb_24 table');
 					 table.each(function(){ 
 					    resizetable($(this)) 
 						if($(this).find('tr').length<=1){

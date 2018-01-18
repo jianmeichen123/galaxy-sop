@@ -9,13 +9,12 @@ height:12px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
 display: block;
-/* position:absolute; */
+position:absolute;
 z-index:10;
- /*  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%); */
-  margin-left:10px;
-  margin-top:-5px;
+top:50%;
+left:50%; 
+margin-left:-6px;
+margin-top:-6px;
 }
 
 
@@ -27,10 +26,10 @@ input:checked + label {
 width:12px;
 height:12px;
 background:#55A7FF ;
-  text-align:center;
-  border-color:#55A7FF ;    
-  overflow: hidden;
-    line-height: 12px;
+text-align:center;
+border-color:#55A7FF ;    
+overflow: hidden;
+line-height: 12px;
 }
 input:checked + label::before {
    content:"✔";
