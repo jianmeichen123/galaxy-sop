@@ -4420,7 +4420,7 @@ p.outerProjectNew{
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
 .new_blueBtn{background-color: #3CA6FF !important;border-radius: 2px;}
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
-#wraper_delete p{text-align:center;margin-top:20px;color:#666;font-size:14px;}
+#wraper_delete p{text-align:center;margin-top:20px;color:#666;font-size:14px;font-family: Microsoft YaHei;}
 #wraper_delete p:nth-child(1){font-size:18px;color:#333;font-family: Microsoft YaHei;margin-top:30px;}
 #wraper_delete  textarea{width:452px;height:128px;vertical-align:top;}
 .delete_content .layui-layer-content{padding:0px !important;}
@@ -4431,12 +4431,12 @@ background: url(../img/base_info/top-bj.png) no-repeat center center;
 font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
-.delete_reason span:nth-child(1){margin-left:40px;}
+.delete_reason span:nth-child(1){margin-left:40px;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
 .delete_reason {margin-top:22px;}
 .delete_reason span:nth-child(2){margin-left:10px;}
 .delete_reason span textarea{padding-left:8px;padding-top:4px;}
-.delete_content .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
-.delete_content .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;}
+.delete_content .layui-layer-btn  .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
+.delete_content .layui-layer-btn   .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;color:#3ca6ff;}
 #wraper_delete .delete_msg{background:url(../img/delte_mes.png) no-repeat center center;display:inline-block;width:20px;height:20px;vertical-align:text-bottom;margin-right:8px;}
 .delete_reason span textarea::-webkit-input-placeholder { 
    color:#d8d8d8;
