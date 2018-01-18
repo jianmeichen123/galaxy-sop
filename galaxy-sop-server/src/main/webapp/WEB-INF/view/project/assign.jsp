@@ -231,15 +231,22 @@ $(function(){
 			param.financeStatus = valuefinanceStatus;//融资状态
 		}
 		if(valueManager=="全部"||valueManager=="投资经理"){
-			
+			//
 		}else{
 			param.createUid = valueManager;//投资经理
 		}
 		if(valueNum=="全部"||valueNum=="全部事业部"){
-			
+			//
 		}else{
 			param.projectDepartid = valueNum;//全部事业部
 		}
+		if(valueFlag=="全部"||valueFlag =="项目来源"){
+			//
+		}else{
+			param.faFlag = valueFlag;
+		}	
+		
+		
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		param.nameCodeLike = nameCodeLike!="undefined"?nameCodeLike:"";
 		return param;

@@ -84,19 +84,6 @@ function doSumbit(projectId){
 			$(".select-simulate ul").hide(); 
 	   });
 	}
-	
-	$("select[name='afterDepartmentId']").on("change",function(){
-		var did = $(this).val();
-		if(did != ''){
-			$("#receive-did").css("visibility","hidden");
-		}
-	});
-	$("select[name='afterUid']").on("change",function(){
-		var uid = $(this).val();
-		if(uid != ''){
-			$("#receive-uid").css("visibility","hidden");
-		}
-	});
 	$("#projectTransfer").on("click",function() {
 		if(!$('#detail-form').validate().form()){//验证不通过时候执行
 			return false;	
@@ -157,18 +144,4 @@ function callbackFunRevoke(data){
 	window.location=window.location;
 }
 
-}
-function setText(obj){
-	if(obj=="set"){
-		$("#faNameEdit").attr("style","display:inline-block;")
-		$("#faNameEdit").removeAttr("allowNULL");
-		$("#faNameEdit").focus();
-	}else{
-		if($('.tip-yellowsimple')[0]){
-			$('.tip-yellowsimple').remove();
-		}
-		$("#faNameEdit").val(projectInfo.faName);
-		$("#faNameEdit").attr("allowNULL","yes");
-		$("#faNameEdit").attr("style","display:none;");
-	}
 }
