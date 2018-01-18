@@ -993,13 +993,51 @@ function deletePro(){
 		
 		
 	}else{
-		var _url = "<%=path %>/galaxy/project/toDeleteProject";	
+	<%-- 	var _url = "<%=path %>/galaxy/project/toDeleteProject";	
 		$.getHtml({
 			url:_url,
 			data:"",//传递参数
 			okback:function(){
 				$('input[name="projectId"]').val(proid);
 			}//模版反回成功执行	
+			
+		}); --%>
+		layer.open({
+			title:'提示',
+			area:['600px','405px'],
+			btn:['确定','取消'],
+			skin:"delete_content",
+			content:"<div id='wraper_delete'>"+
+        		"<p><span class='delete_msg'></span>是否删除项目</p>"+
+        		'<p>删除创投项目会通知该项目投资经理</p>'+
+        		'<div class="delete_reason">'+
+        			'<span>删除原因：</span>'+
+        			'<span>'+
+        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        			'</span>'+
+        		'</div>'+
+        		'</div>',
+        		yes:function(index){
+        			sendPostRequestByJsonObj(
+        					_url,
+        					data,
+        					function(data){
+        						if(data.result.status=='OK')
+        						{
+        							 layer.msg('删除成功');
+        							var url = $("#menus .on a").attr('href');
+        							window.location = url;
+        						}
+        						else
+        						{
+        							layer.msg("删除失败。");
+        						}
+        					}
+        				);
+        			
+        			//layer.close(index)
+        		}
+					
 			
 		});
 	}
