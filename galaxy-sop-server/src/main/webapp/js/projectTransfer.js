@@ -45,6 +45,7 @@ function doSumbit(projectId){
         	 _dom.append("<li value='"+this.id+"'>"+this.name+"</li>");
 		});
 	   $('ul[name="afterDepartmentId"] li').click(function(){
+		   $(this).closest('.select-simulate').find('span.error').hide();
 			var target = $(this).closest('.select-simulate').find('input[type="text"]');
 			target.removeClass('up')
 			var txt = $(this).text(); 
@@ -74,6 +75,7 @@ function doSumbit(projectId){
        	 _dom.append("<li value='"+this.idstr+"'>"+this.realName+"</li>");
 		});
 	   $('ul[name="afterUid"] li').click(function(){
+		   $(this).closest('.select-simulate').find('span.error').hide();
 			var target = $(this).closest('.select-simulate').find('input[type="text"]');
 			target.removeClass('up')
 			var txt = $(this).text(); 
