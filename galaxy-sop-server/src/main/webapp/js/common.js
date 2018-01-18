@@ -1209,7 +1209,12 @@ function projectNameLineFormat(value, row, index){
 	}
 	else
 	{
-		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +row.projectId + "?mark=m\' class='blue project_name'>").replace('name"',"");
+		var projectId = row.projectId;
+		if(typeof(row.projectId) == 'undefined')
+		{
+			projectId = row.remarkId;
+		}
+		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +projectId + "?mark=m\' class='blue project_name'>").replace('name"',"");
 	}
 	content = content.replace('</pname>"',"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
