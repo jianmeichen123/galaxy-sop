@@ -2188,7 +2188,7 @@ function tableDictColumn(code){
 		return json={"investor-situation":["field1","field6"]};
 	}
 }
-function resizetable(table){
+function resizetable(table){ 
     var dict_map = {}
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code")
@@ -2206,9 +2206,7 @@ function resizetable(table){
             })
         }
     }
-}
-
- 
+} 
 
 
 

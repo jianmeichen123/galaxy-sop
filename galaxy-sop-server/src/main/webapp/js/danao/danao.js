@@ -448,9 +448,12 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 info_table("NO9_1",table.attr("data-name"),table); 
 				 }else if(pageTypr==2){
 					 refreshSection("1902");	
-					 var table = $("#a_NO9_1").find('.mb_24 table')
-					 table.each(function(){
-					    resizetable($(this))
+					 var table = $("#a_NO9_1").find('.mb_24 table');
+					 if(table.length<=0){
+						 table=$("#a_DNO9_1").find('.mb_24 table');
+					 }
+					 table.each(function(){ 
+					    resizetable($(this)) 
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -465,7 +468,27 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 				 }
 		})
  }   
-
+//resizetable
+//function resizetableDn(table){
+//    var dict_map = {};
+//    var title_id = table.attr("data-title-id")
+//    var  code = table.attr("data-code")
+//    var fields_json=tableDictColumn(code);
+//    if (fields_json && code in fields_json){
+//        var fields = fields_json[code]
+//        for(var i=0;i<fields.length;i++){
+//            var v = fields[i]
+//            var dict = dictCache(title_id,code,v)
+//            dict_map[title_id+"-"+code+"-"+v] = dict
+//            table.find('td[data-field-name="'+v+'"]').each(function(){
+//                var o = $(this)
+//                o.text(dict[o.text()])
+//            })
+//           var dd = $('.see_block dd[name="'+v+'"]');
+//           dd.text(dict[dd.text()])
+//        }
+//    }
+//}
 //倒计时
 function timeOut(num,dom) { 
 	if(dom.length<=0){
