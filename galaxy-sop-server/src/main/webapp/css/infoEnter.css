@@ -406,7 +406,7 @@ background: #E5F3FF;
 #powindow .bigPop{
 	width: 1000px;
     margin: 0 auto;
-    max-height: 450px;
+    max-height: 400px;
     overflow-y: auto;
 }
 .fixedbottom,.jumpBox{
