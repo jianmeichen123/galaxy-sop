@@ -549,10 +549,14 @@ function buildResults(sec,title,readonly)
 					var _val = title.resultList[0].contentDescribe1;
 					var test_num = $(".field[data-title-id='"+title.id+"']").next().text();
 					if(test_num.indexOf("元")<0){
-						_val = _parsefloat(_val);
-						var moneyT =test_num;
+						if(_val==undefined){	
+							_val="未填写"
+						}else{
+							_val = _parsefloat(_val);
+							var moneyT =test_num;
+						}
 					}else{
-						if(_val==undefined){						
+						if(_val==undefined){	
 							_val="未填写"
 						}else{
 							var res = change_number(_val);
