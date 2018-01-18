@@ -113,7 +113,7 @@
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-width="8%">融资状态</th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"   data-width="8%">项目进度</th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"   data-width="8%">项目状态</th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源</th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="10%">项目来源</th>
 			        	<th data-field="projectCareerline"   data-width="12%">事业部</th>
 			        	<th data-field="createUname"   data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"    data-width="8%">创建日期</th>
@@ -136,7 +136,7 @@
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>  
 <link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
+<link href="<%=path %>/css/searchGlobal.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
