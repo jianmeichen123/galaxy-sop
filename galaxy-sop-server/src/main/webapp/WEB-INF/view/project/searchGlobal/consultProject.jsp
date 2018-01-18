@@ -119,6 +119,9 @@ $('.consut_span span').click(function(){
 					"</p>"+
 					"</div>"+
 					"</div>" */
+					if(row.overview==undefined){
+						row.overview = '';
+					}
 				var html = "";
 					html += "<div class='tdContent'>"
 				if(row.zixunImage){
