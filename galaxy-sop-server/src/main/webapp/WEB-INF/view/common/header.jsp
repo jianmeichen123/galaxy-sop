@@ -175,16 +175,17 @@
 	 }) 
  })
  
- 
- 
- 
+
+
  $('.globleSearchInput').focus(function(){
 	$(this).parent().find('.globalSearhc-ul').show();
 }) 
-/* $(document).click(function(e){
-	e.preventDefault()
-	$('.globalSearhc-ul').hide();
-}) */
+
+ $('.globleSearchInput').blur(function(){
+	$(this).parent().find('.globalSearhc-ul').hide();
+}) 
+
+
 /* $('.globalSearhc-ul').mouseleave(function(){
 	$(this).hide();
 }) */
