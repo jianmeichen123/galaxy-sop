@@ -924,7 +924,14 @@ function deletePro(){
 			'deleteReason':null
 		};
 	if(pRigthInfo.createUid==userId){
-		/* layer.confirm("确定删除？",function(i){
+		 layer.confirm("确定删除？",{
+			 	title:'信息',
+			 	area:['480px','212px'],
+			 	btn:['确定','取消'],
+			 	skin:"manager_role",
+			 	content:'是否删除项目'
+			 
+		 },function(i){
 			layer.close(i);
 			sendPostRequestByJsonObj(
 				_url,
@@ -942,9 +949,9 @@ function deletePro(){
 					}
 				}
 			);
-		}); */
+		}); 
 		
-		layer.open({
+	/* 	layer.open({
 			title:'提示',
 			area:['600px','405px'],
 			btn:['确定','取消'],
@@ -981,7 +988,7 @@ function deletePro(){
         		}
 					
 			
-		});
+		}); */
 		
 		
 		
