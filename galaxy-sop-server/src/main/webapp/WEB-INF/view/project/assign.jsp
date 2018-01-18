@@ -7,7 +7,8 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8"> 
+<meta charset="utf-8">
+<title>星河投</title> 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
