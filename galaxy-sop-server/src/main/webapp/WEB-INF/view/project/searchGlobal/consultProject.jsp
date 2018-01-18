@@ -209,7 +209,8 @@ $('.consut_span span').click(function(){
 					"</p>"+
 					"</div>"+
 					"</div>" */
-					
+					var len = row.overview.length;
+					var overview = row.overview.substring(0,len-5)
 						var html = '';
 							html += "<div class='tdContent'>"
 						if(row.zixunImage){
@@ -217,7 +218,7 @@ $('.consut_span span').click(function(){
 						}
 							html += "<div class='rightContent'>"+
 								"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
-								"<p class='outerProjectTitle'>"+row.overview+"</p>"+
+								"<p class='outerProjectTitle'>"+overview+"</p>"+
 								"<p>"+
 								"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"
 								
