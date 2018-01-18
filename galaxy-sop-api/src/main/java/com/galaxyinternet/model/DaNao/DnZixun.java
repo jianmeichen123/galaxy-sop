@@ -29,6 +29,7 @@ public class DnZixun extends BaseEntity {
 	private String ctime;  //创建时间
 	private String ctimeStr;
 
+	private String orderTime;
 
 
 	public String getOrder() {
@@ -133,5 +134,13 @@ public class DnZixun extends BaseEntity {
 
 	public void setCtimeStr(String ctimeStr) {
 		this.ctimeStr = ctimeStr;
+	}
+
+	public String getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
 	}
 }

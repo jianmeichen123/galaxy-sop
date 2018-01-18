@@ -403,7 +403,7 @@ public class InfoFromDanaoController{
 			Integer pageNum = dnProject.getPageNo() != null ? dnProject.getPageNo() : 0;
 			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
 			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
-			String property = dnProject.getOrderBy()==null?"ctime":dnProject.getOrderBy();
+			String property = dnProject.getOrderBy()==null?"orderTime":dnProject.getOrderBy();
 			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
 			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
 			dnProject.setOrder(direction);
