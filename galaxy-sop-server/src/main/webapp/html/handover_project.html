@@ -11,31 +11,24 @@
                 
         	<li class='select-simulate'>
         		<em>接收部门 ：</em>
-        		<!-- <input type='text' placeholder='请选择'>
-        		<ul class='toggle-ul'>
-        			<li>请选择</li>
-        			<li>人力资源部</li>
-        		</ul> -->
+        		 <input type='text' placeholder='请选择' readonly>
+        		 <input type='hidden' name="afterDepartmentId"/>
+        		<ul class='toggle-ul' name='afterDepartmentId'></ul>
         		
-        		<select name='afterDepartmentId' style="width:300px;" >
+        		<!--   <select name='afterDepartmentId' style="width:300px;" >
                            <option value="">请选择</option>
-                        </select>
+                        </select>  -->  
                               <div id="receive-did" class="tip-yellowsimple" style="visibility: hidden; left: 266px; top: 55px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>接收部门不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        	<!-- 	<input type='text' placeholder='请选择'>
-        		<ul class='toggle-ul'>
-        			<li>请选择</li>
-        			<li>投资经理</li>
-        			<li>张三</li>
-        			<li>李四</li>
-        			<li>李四</li>
-        		</ul> -->
+        		<input type='text' placeholder='请选择' readonly>
+        		 <input type='hidden'  name="afterUid"/>
+        		<ul class='toggle-ul' name='afterUid'></ul> 
         		
-        		  <select name='afterUid' style="width:300px;">
+        		   <!--  <select name='afterUid' style="width:300px;">
                            <option value="">请选择</option>
-                         </select>
+                         </select>  --> 
                          <div id="receive-uid" class="tip-yellowsimple" style="visibility: hidden; left: 266px; top: 106px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>接收人不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                
         	</li>

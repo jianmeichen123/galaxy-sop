@@ -5,28 +5,79 @@ function doSumbit(projectId){
 	 * @version 2016-08-03
 	 */
 	createCareelineOptions(platformUrl.getCareerlineList,"afterDepartmentId",1);
+	sendGetRequest(platformUrl.getCareerlineList,null,callBackA);
 	/**
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-08-03
 	 */
-	if(null==$('select[name="afterDepartmentId"]').val()||$('select[name="afterDepartmentId"]').val()==""){
+	/*if(null==$('select[name="afterDepartmentId"]').val()||$('select[name="afterDepartmentId"]').val()==""){
           createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
 	}else{
 		  createUserOptions(platformUrl.getUserList+$('select[name="afterDepartmentId"]').val(), "afterUid",1);
+			
+	}*/
+	var targetInput=$('ul[name="afterDepartmentId"]').closest('.select-simulate').find('input');
+	if(null==targetInput.val()||targetInput.val()==""){
+        //createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
+        sendGetRequest(platformUrl.getUserList+"0",null,callBackB);
+	}else{
+		  //createUserOptions(platformUrl.getUserList+$('select[name="afterDepartmentId"]').val(), "afterUid",1);
+		  sendGetRequest(platformUrl.getUserList+targetInput.val(),null,callBackB);
 			
 	}
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
 	 */
-	$('select[name="afterDepartmentId"]').change(function(){
+/*	$('select[name="afterDepartmentId"]').change(function(){
 		var did = $('select[name="afterDepartmentId"]').val();
 		if(did == null || did == ''){
 			createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
 		}else{
 			createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
 		}
-	});
+	});*/
+	//接收部门下拉赋值
+	function callBackA(data){
+		 var _dom=$('ul[name="afterDepartmentId"]');
+         _dom.html("");
+         $.each(data.entityList,function(){
+        	 _dom.append("<li value='"+this.id+"'>"+this.name+"</li>");
+		});
+	   $('ul[name="afterDepartmentId"] li').click(function(){
+			var target = $(this).closest('.select-simulate').find('input[type="text"]');
+			target.removeClass('up')
+			var txt = $(this).text(); 
+			target.val(txt);
+			$(this).closest('.select-simulate').find('input[type="hidden"]').val($(this).val());
+			$(".select-simulate ul").hide();
+			$('ul[name="afterUid"]').closest('.select-simulate').find('input').val('');
+			//级联投资经理下拉框的值
+			var targetVal = $(this).val();
+			if(targetVal == null || targetVal == ''){
+				sendGetRequest(platformUrl.getUserList+"0",null,callBackB);
+			}else{
+				sendGetRequest(platformUrl.getUserList+targetVal,null,callBackB);
+			}
+	   });
+	}
+	//事业线下的投资经理下拉赋值
+	function callBackB(data){
+		console.log(data);
+		 var _dom=$('ul[name="afterUid"]');
+        _dom.html("");
+        $.each(data.entityList,function(){
+       	 _dom.append("<li value='"+this.idstr+"'>"+this.realName+"</li>");
+		});
+	   $('ul[name="afterUid"] li').click(function(){
+			var target = $(this).closest('.select-simulate').find('input[type="text"]');
+			target.removeClass('up')
+			var txt = $(this).text(); 
+			target.val(txt);
+			$(this).closest('.select-simulate').find('input[type="hidden"]').val($(this).val());
+			$(".select-simulate ul").hide(); 
+	   });
+	}
 	
 	$("select[name='afterDepartmentId']").on("change",function(){
 		var did = $(this).val();
@@ -47,6 +98,7 @@ function doSumbit(projectId){
 		}
 	});
 	$("#projectTransfer").on("click",function() {
+		
 		var did = $("select[name='afterDepartmentId']").val();
 		if(did == ''){
 			$("#receive-did").css("visibility","inherit");
@@ -63,9 +115,7 @@ function doSumbit(projectId){
 			return;
 		}
 		var reqUrl=platformUrl.applyTransfer;
-		//alert($('input[name="projectIds"]').val());
 		sendPostRequestByJsonStr(reqUrl, $("#detail-form").serializeObject(), callbackFun);
-		//sendPostRequestByJsonStr(reqUrl, $("#transfer_form").serializeObject(), callbackFun);
 
 	});
 }
