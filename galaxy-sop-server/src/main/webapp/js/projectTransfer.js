@@ -63,7 +63,11 @@ function doSumbit(projectId){
 	}
 	//事业线下的投资经理下拉赋值
 	function callBackB(data){
-		console.log(data);
+		if(data.entityList.length==0){
+			$('ul[name="afterUid"]').addClass("borderNone");
+		}else{
+			$('ul[name="afterUid"]').removeClass("borderNone");
+		}
 		 var _dom=$('ul[name="afterUid"]');
         _dom.html("");
         $.each(data.entityList,function(){
@@ -91,28 +95,9 @@ function doSumbit(projectId){
 			$("#receive-uid").css("visibility","hidden");
 		}
 	});
-	$("textarea[name='transferReason']").on("keydown",function(){
-		var reason = $(this).val();
-		if(reason != ''){
-			$("#receive-reason").css("visibility","hidden");
-		}
-	});
 	$("#projectTransfer").on("click",function() {
-		
-		var did = $("select[name='afterDepartmentId']").val();
-		if(did == ''){
-			$("#receive-did").css("visibility","inherit");
-			return;
-		}
-		var uid = $("select[name='afterUid']").val();
-		if(uid == 0){
-			$("#receive-uid").css("visibility","inherit");
-			return;
-		}
-		var reason = $("textarea[name='transferReason']").val();
-		if(reason == ''){
-			$("#receive-reason").css("visibility","inherit");
-			return;
+		if(!$('#detail-form').validate().form()){//验证不通过时候执行
+			return false;	
 		}
 		var reqUrl=platformUrl.applyTransfer;
 		sendPostRequestByJsonStr(reqUrl, $("#detail-form").serializeObject(), callbackFun);

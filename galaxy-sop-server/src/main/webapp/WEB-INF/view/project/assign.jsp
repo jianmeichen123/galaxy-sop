@@ -9,8 +9,8 @@
 <head>
 <meta charset="utf-8">
 <title>星河投</title> 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+ --%><!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/js/projectTransfer.js"></script>
@@ -136,6 +136,7 @@
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <%-- <script src="<%=path %>/js/init.js"></script>  --%> 
 </html>
 <script>

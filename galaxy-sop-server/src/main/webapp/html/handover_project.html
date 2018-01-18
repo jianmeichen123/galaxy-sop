@@ -11,30 +11,28 @@
                 
         	<li class='select-simulate'>
         		<em>接收部门 ：</em>
-        		 <input type='text' placeholder='请选择' readonly>
-        		 <input type='hidden' name="afterDepartmentId"/>
+        		 <input type='text' placeholder='请选择' readonly  name="afterDepartmentIdTxt" required data-msg-required="<font color=red>*</font>接收部门不能为空">
+        		 <input type='hidden' name="afterDepartmentId" />
         		<ul class='toggle-ul' name='afterDepartmentId'></ul>
         		
         		<!--   <select name='afterDepartmentId' style="width:300px;" >
                            <option value="">请选择</option>
                         </select>  -->  
-                              <div id="receive-did" class="tip-yellowsimple" style="visibility: hidden; left: 266px; top: 55px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>接收部门不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        		<input type='text' placeholder='请选择' readonly>
-        		 <input type='hidden'  name="afterUid"/>
+        		<input type='text' placeholder='请选择' readonly name="afterUidTxt" required data-msg-required="<font color=red>*</font>接收人">
+        		 <input type='hidden'  name="afterUid" />
         		<ul class='toggle-ul' name='afterUid'></ul> 
         		
         		   <!--  <select name='afterUid' style="width:300px;">
                            <option value="">请选择</option>
                          </select>  --> 
-                         <div id="receive-uid" class="tip-yellowsimple" style="visibility: hidden; left: 266px; top: 106px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>接收人不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                
         	</li>
         	<li class='task-todeal-textarea'>
         		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因'  class="role_toolTip_area" name="transferReason" maxlength="100"></textarea>
+        		<textarea placeholder='请输入移交原因'  class="role_toolTip_area" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空"></textarea>
         	</li>
         </ul>
       	
@@ -46,6 +44,14 @@
 
 </div>
 </form>
+</div>
+</div>
+<style>
+span.error{
+	display:block;
+	margin-left:75px;
+}
+</style>
 <script>
 
 $('.select-simulate input').click(function(){
@@ -68,4 +74,8 @@ $('.select-simulate ul li').click(function(){
 	$(this).parents('.select-simulate').find('input').val(liText);
 	_this.parent().hide();
 })
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+$.validator.setDefaults({
+	errorElement:'span'
+});
 </script>
