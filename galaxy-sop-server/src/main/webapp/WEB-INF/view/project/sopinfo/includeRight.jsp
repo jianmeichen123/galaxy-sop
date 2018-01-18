@@ -929,7 +929,7 @@ function deletePro(){
 			 	area:['480px','212px'],
 			 	btn:['确定','取消'],
 			 	skin:"manager_role",
-			 	content:'是否删除项目'
+			 	content:'是否删除项目？'
 			 
 		 },function(i){
 			layer.close(i);

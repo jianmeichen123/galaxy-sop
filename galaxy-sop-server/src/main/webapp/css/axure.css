@@ -4455,7 +4455,7 @@ font-weight:bold;
      font-size:12px;
 }
 .delete_content,.manager_role .layui-layer-setwin .layui-layer-ico{background: url(../img/base_info/close.png) no-repeat center;}
-.manager_role .layui-layer-content{padding:0px !important;}
+.manager_role .layui-layer-content{padding:0px !important;text-align:center;line-height:92px !important;font-size:18px !important;color:#333;}
 
 
 
