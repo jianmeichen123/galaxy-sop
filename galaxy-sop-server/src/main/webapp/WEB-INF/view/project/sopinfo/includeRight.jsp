@@ -925,7 +925,7 @@ function deletePro(){
 		};
 	if(pRigthInfo.createUid==userId){
 		 layer.confirm("确定删除？",{
-			 	title:'信息',
+			 	title:'提示',
 			 	area:['480px','212px'],
 			 	btn:['确定','取消'],
 			 	skin:"manager_role",
