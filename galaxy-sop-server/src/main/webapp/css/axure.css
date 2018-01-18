@@ -4285,7 +4285,7 @@ input:-ms-input-placeholder {
 .buttonGroup {float:left;margin-top: 6px;}
 .input-group{float:left;}
 .pageTop {border:1px solid #d8d8d8;}
-.content_task{margin-top:50px;margin-left: 9.375%;}
+.content_task{margin-top:50px;margin-left: 9.375%;display:none;}
 .input-content{position:relative;}
 .input-content span{display:inline-block;width:32px;height:35px;cursor:pointer;position:absolute;right:3px;border-radius: 0 2px 2px 0;background:url(../img/search_new.png) no-repeat 6px 8px;background-color: #3CA6FF;}
 .input-content input{}

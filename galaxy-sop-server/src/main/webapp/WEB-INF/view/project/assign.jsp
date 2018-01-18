@@ -413,6 +413,8 @@ if(${from eq 'assign' }){
 		}
     }
 }
+	
+	$('.content_task').show()
 
 /**
  * 根据事业线查询相应的投资经理
