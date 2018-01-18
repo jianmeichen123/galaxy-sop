@@ -4329,7 +4329,7 @@ input:-ms-input-placeholder {
 .outerProject{width:100%;}
 .outerProject .leftPic{width:80px;height:80px;margin:20px 0 20px 20px;border:1px solid #d8d8d8;}
 .outerProject .rightContent{margin:10px 0 10px 20px;width:90%;float:left;font-family: Microsoft YaHei;}
-.outerProject .rightContent h3{font-size: 16px;color: #000000;}
+.outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
 .outerProject .picEm em{display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
 .outerProject .picOrigin{padding-right:40px;}
@@ -4353,7 +4353,7 @@ p.outerProjectNew{
 .more-operateOne{top:34px;}
 .newsProject .leftPic{width:121px;height:75px;}
 .newsProject .rightContent{width:84%;}
-.newsProject .rightContent h3{font-size: 16px;color: #282536;}
+.newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
 .searchPage{height:607px;background:#fff;}
 .globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
