@@ -160,13 +160,18 @@ $(function(){
  
  	/*指派项目弹窗点击事件*/
 	$('.title_top span').click(function(){
-		var rows = $("#task-table").bootstrapTable('getSelections');
+		/* var rows = $("#task-table").bootstrapTable('getSelections');
 		if(rows.length==0)
 		{
 			layer.msg('请至少选择一条待办任务');
 			return;
 		} 
-		var index = $(this).index();
+		var index = $(this).index(); */
+		var len = $('.highlighCheckbox_checked').length;
+		if(len == 0){
+			layer.msg('请至少选择一个项目')
+			return
+		}
 		var param=countNum();
 		var code = $(this).attr("data-code");
 		$.getHtml({
