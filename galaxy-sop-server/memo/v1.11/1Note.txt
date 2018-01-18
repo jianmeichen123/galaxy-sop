@@ -161,7 +161,7 @@ post ：/galaxy/infoDanao/queryDnZixunPage
 参数 ：
 {
 //升序:asc 降序:desc ,  private String order;   desc
-//排序字段              private String orderBy;  ctime
+//排序字段              private String orderBy;  orderTime
 //当前页码              private Integer pageNo; 0
 //每页记录数            private Integer pageSize;
 //搜索关键字            private String keyword;

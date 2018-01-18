@@ -578,7 +578,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 				target.setZixunImage(danaoStaticDomain  + "news/" + target.getImgmd5() + ".PNG" );
 			}
 
-			target.setCtimeStr(convertTime(target.getCtime()));
+			target.setCtimeStr(convertTime(target.getOrderTime()));
 
 			list.add(target);
 		}
