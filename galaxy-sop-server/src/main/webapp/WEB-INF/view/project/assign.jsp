@@ -76,6 +76,9 @@
 			      <select name="faFlag" class="selectpicker">
 					  <option>项目来源</option>
 					 <option index="-1">全部</option>
+					 <c:forEach items="${projectSourceList }" var="item">
+	                    		<option value="${item.id }">${item.name }</option>
+	                    	</c:forEach>
 					</select>
 			  	</div>
 				
@@ -377,7 +380,8 @@ $(function(){
 			});
 	    }
 	}
-createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
+	
+	//createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
 if(${from eq 'assign' }){
 	var result='${fx:reloadCondition('project_batch_assign')}';
 	if(result!=""){
