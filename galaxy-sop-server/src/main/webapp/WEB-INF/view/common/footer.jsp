@@ -84,7 +84,7 @@ function createMenus(current){
 	   	 //星眸链接
 	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	//意见反馈
-	   	html += '<li data-type="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>'
+	 	<%-- html += '<li data-type="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>' --%>
 	  $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
@@ -94,7 +94,7 @@ function createMenus(current){
 }
 
 //吐槽
-var _nickname=$('.man_info .name').text();
+/* var _nickname=$('.man_info .name').text();
 var _src=window.location.host+'/sop/img/avatarTC.png';
 var data = {
 	      "nickname": _nickname,    //发帖人名称
@@ -104,7 +104,7 @@ var data = {
 	  productId = 21398;
 function feedback(){   //跳转吐个槽
 	Tucao.request(productId, data);
-}
+} */
 </script>
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
