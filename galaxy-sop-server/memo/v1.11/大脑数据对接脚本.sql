@@ -1,10 +1,10 @@
 ALTER TABLE `fx_db`.`sop_project`
   ADD COLUMN `danao_proj_code` VARCHAR(50) NULL  COMMENT '大脑项目code' AFTER `delete_reason`;
 
-ALTER TABLE `fx_db`.`information_title_relate`
+ALTER TABLE `fx_db`.`information_title` 
 ADD COLUMN `danao_info` VARCHAR(50) NULL COMMENT '标识是否从大脑同步数据，为null表示不需要' AFTER `val_rule_formula`;
 
-ALTER TABLE `fx_db`.`information_title`
+ALTER TABLE `fx_db`.`information_title_relate` 
 ADD COLUMN `danao_info` VARCHAR(50) NULL COMMENT '标识是否从大脑同步数据，为null表示不需要' AFTER `updated_time`;
 
 --搜索历史
