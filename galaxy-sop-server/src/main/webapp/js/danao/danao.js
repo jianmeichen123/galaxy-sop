@@ -238,6 +238,15 @@ function buildDNtable(dom ,data,code){
 		 $("#DN_projectCompany").text(data.company);
 		 $("#DN_formationDate").text(data.foundDate);
 		 $("#DN_companyLegal").text(data.legalPerson); 
+		 if(data.company==""){
+			 $("#DN_projectCompany").closest("tr").remove();
+		 }
+		 if(data.foundDate==""){
+			 $("#DN_formationDate").closest("tr").remove();
+		 }
+		 if(data.legalPerson==""){
+			 $("#DN_companyLegal").closest("tr").remove();
+		 }
 	}
 	if(dom.find("tbody tr").length<=0){
 		dom.hide();
@@ -465,27 +474,6 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 				 }
 		})
  }   
-//resizetable
-//function resizetableDn(table){
-//    var dict_map = {};
-//    var title_id = table.attr("data-title-id")
-//    var  code = table.attr("data-code")
-//    var fields_json=tableDictColumn(code);
-//    if (fields_json && code in fields_json){
-//        var fields = fields_json[code]
-//        for(var i=0;i<fields.length;i++){
-//            var v = fields[i]
-//            var dict = dictCache(title_id,code,v)
-//            dict_map[title_id+"-"+code+"-"+v] = dict
-//            table.find('td[data-field-name="'+v+'"]').each(function(){
-//                var o = $(this)
-//                o.text(dict[o.text()])
-//            })
-//           var dd = $('.see_block dd[name="'+v+'"]');
-//           dd.text(dict[dd.text()])
-//        }
-//    }
-//}
 //倒计时
 function timeOut(num,dom) { 
 	if(dom.length<=0){
