@@ -268,7 +268,10 @@ font-weight: bold;
     border-bottom: 1px solid #d8d8d8;
 }
 .infoItem table td:nth-child(1){border-left:0; width:32px; position:relative;}
-.infoItem table td:nth-child(2){ width:20%;}
+.infoItem table td:nth-child(2){ width:20%;overflow:hidden;white-space:nowrap; text-overflow:ellipsis; }
+.infoItem table[code="equity-structure"]{
+table-layout: fixed;
+} 
 .tabrow{
 	width: 80%;
 } 

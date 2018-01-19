@@ -459,16 +459,11 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 refreshSection("1902");	
 					 var table = $(".infoReport").closest(".h_look").find('.mb_24 table');
 					 table.each(function(){ 
-					    resizetable($(this)) 
-						if($(this).find('tr').length<=1){
-							$(this).hide();
-							if($(this).parents('dl').find('dd:gt(0)').length<=0){
-								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-							} 
-						}
-						else{
-							$(this).show();
-						}
+					    resizetable($(this));
+					    
+					    if( $(this).find("tr").length>1){
+						    $(this).closest(".mb_24").find(".no_enter").remove();					    	
+					    }
 					})					 
 				 }else{
 				 }
