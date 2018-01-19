@@ -423,7 +423,9 @@ $(function(){
 	 //删除项目按钮是否显示
 	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<=3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
 		$("#delete_btn").attr("style","display:black");
-	} 
+	}else{
+		$(".correlation").css("display","none");
+	}
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
