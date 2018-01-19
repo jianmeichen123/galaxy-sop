@@ -485,7 +485,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg{ color:#FFF;float: left;font-family:"宋体";font-size:12px;}
 .header .usermsg a{ color:#FFF; float:left}
 .input-search{width:32%;position:absolute;top:7px;left:50%;transform:translateX(-50%);}
-.input-search input{width:61%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
+.input-search input{font-family: Microsoft YaHei;width:61%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px;}
 .input-search span{cursor:pointer;display:inline-block;margin-left:10px;width:17%;height:32px;background: #2B82D7;border-radius: 2px;text-align:center;line-height:32px;color:#fff;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .header .usermsg span,
@@ -4479,6 +4479,7 @@ font-weight:bold;
 .select-simulate label.error{background:none;margin-left: 78px;display: block;}
 .new_correlation_cen .btn_right{float:right;} 
 .new_correlation_cen .btn_left{float:left;} 
+.new_correlation_cen .btn_right:hover{background:#0084f5;}
 
 
 
