@@ -123,7 +123,7 @@ $('.consut_span span').click(function(){
 						row.overview = '';
 					}
 				var html = "";
-					html += "<div class='tdContent'>"
+					html += "<div class='tdContent clearfix'>"
 				if(row.zixunImage){
 					html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
 				}
@@ -215,7 +215,7 @@ $('.consut_span span').click(function(){
 					var len = row.overview.length;
 					var overview = row.overview.substring(0,len-5)
 						var html = '';
-							html += "<div class='tdContent'>"
+							html += "<div class='tdContent clearfix'>"
 						if(row.zixunImage){
 							html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
 						}

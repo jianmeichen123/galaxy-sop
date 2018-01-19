@@ -4355,7 +4355,7 @@ p.outerProjectNew{
 .picEm em{background:url(../img/process/local.png) no-repeat;}
 .picEmTwo em{background:url(../img/process/tag.png) no-repeat;}
 .more-operateOne{top:34px;}
-.newsProject .leftPic{width:121px;height:75px;}
+.newsProject .leftPic{height:75px;margin:20px 0px 0 20px;}
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
