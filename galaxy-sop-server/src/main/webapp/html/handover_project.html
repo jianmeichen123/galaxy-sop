@@ -55,6 +55,8 @@ span.error{
 <script>
 
 $('.select-simulate input').click(function(event){
+	$(this).closest('.select-simulate').siblings('.select-simulate').find('input[type="text"]').removeClass('up');	
+	$(this).closest('.select-simulate').siblings('.select-simulate').find('.toggle-ul').slideUp("fast");
 	var ul =  $(this).parent().find('ul.toggle-ul');
 	var _this = $(this);	
 	_this.toggleClass("up");
