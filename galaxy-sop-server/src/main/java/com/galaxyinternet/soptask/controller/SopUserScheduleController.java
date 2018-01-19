@@ -31,6 +31,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -40,7 +41,6 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
-import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.model.user.User;
@@ -86,7 +86,7 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/addOrUpdateSopUserSchedule", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserScheduleBo> addProjectPerson(@RequestBody SopUserScheduleBo sopUserSchedule, HttpServletRequest request) {
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		sopUserSchedule.setUserId(user.getId());
 		String date=sopUserSchedule.getItemDateStr()+" 00:00:00";
 		try {
@@ -117,7 +117,7 @@ public class SopUserScheduleController extends
 			@PathVariable Integer type, HttpServletRequest request) throws ParseException {
 
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new Date());
 		Long currentTime = sdf.parse(date).getTime();
@@ -136,7 +136,7 @@ public class SopUserScheduleController extends
 	 */
 	@RequestMapping(value = "/scheduleList",method = RequestMethod.GET)
 	public String scheduleList(HttpServletRequest request) {
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<SheduleCommon> sop=sopUserScheduleService.scheduleListByDate(user.getId());
 		request.setAttribute("sheduleList", sop);
 		return "shedule/sheduleList";
@@ -174,7 +174,7 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/queryscheduleList",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserSchedule> queryscheduleList(HttpServletRequest request,@RequestBody SopUserScheduleBo sopUserScheduleBo) {
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		User user = (User) getUserFromSession(request);		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);		
 		sopUserScheduleBo.setUserId(user.getId());
 		try {
 			
@@ -214,7 +214,7 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/sh", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> shedulingMeeting(HttpServletRequest request,@RequestBody MeetingScheduling query){
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try{
 			ProjectBo pb = new ProjectBo();
 			pb.setCreateUid(user.getId());
@@ -348,10 +348,8 @@ public class SopUserScheduleController extends
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
 		PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
 		Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
-		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
 		
 		try {	
-			User user = (User) getUserFromSession(request);
 			/**
 			 * 查询出所有的事业线
 			 */

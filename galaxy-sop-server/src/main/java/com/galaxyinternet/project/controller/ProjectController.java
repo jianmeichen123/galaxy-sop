@@ -214,7 +214,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
@@ -312,7 +312,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		}
 		try
 		{
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			// 判断当前用户是否为投资经理
 			List<Long> roleIdList = user.getRoleIds();
 			if (!roleIdList.contains(UserConstant.TZJL))
@@ -432,7 +432,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		project.getCurrencyUnit();
 		project.getProjectShareRatio();
 
-		final User user = (User) getUserFromSession(request);
+		final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (project.getProjectValuations() == null)
 		{
 			if (project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0
@@ -597,7 +597,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> queryAllProjects(HttpServletRequest request, @RequestBody ProjectBo project)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		Direction direction = Direction.DESC;
 		String property = "updated_time";
@@ -759,7 +759,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Direction direction = Direction.DESC;
 		String property = "updated_time";
 		if (!StringUtils.isEmpty(project.getProperty()))
@@ -856,7 +856,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project p = projectService.queryById(pool.getProjectId());
 		// 项目创建者用户ID与当前登录人ID是否一样
 		if (p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue())
@@ -891,7 +891,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project p = projectService.queryById(projectId);
 		// 项目创建者用户ID与当前登录人ID是否一样
 		if (p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue())
@@ -1092,7 +1092,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> inCeoMeetingPool(HttpServletRequest request, @PathVariable("pid") Long pid)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project project = projectService.queryById(pid);
 		Result result = validate(DictEnum.projectProgress.CEO评审.getCode(), project, user);
 		if (!result.getStatus().equals(Status.OK))
@@ -1148,7 +1148,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> inLxmeetingPool(HttpServletRequest request, @PathVariable("pid") Long pid)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project project = projectService.queryById(pid);
 		Result result = validate(DictEnum.projectProgress.立项会.getCode(), project, user);
 		if (!result.getStatus().equals(Status.OK))
@@ -1953,7 +1953,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			{
 				query.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 			}
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			List<Long> roleIdList = user.getRoleIds();
 
 			if (!roleIdList.contains(UserConstant.DMS) && !roleIdList.contains(UserConstant.CEOMS))
@@ -2534,7 +2534,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	@RequestMapping(value = "/getRoleList")
 	public List<Long> getRoleList(HttpServletRequest request)
 	{
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = null;
 		if (user != null)
 		{
@@ -2758,7 +2758,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<BaseEntity> initProMeetBut(@PathVariable Long id, HttpServletRequest request)
 	{
 		ResponseData<BaseEntity> responseBody = new ResponseData<BaseEntity>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try
@@ -3161,7 +3161,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				}
 			}
 
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			Project p = projectService.queryById(pool.getProjectId());
 			// 项目创建者用户ID与当前登录人ID是否一样
 			if (p != null && user.getId().longValue() != p.getCreateUid().longValue())

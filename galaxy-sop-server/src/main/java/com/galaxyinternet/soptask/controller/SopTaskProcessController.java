@@ -22,6 +22,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -39,7 +40,6 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 
@@ -74,7 +74,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	{
 		Result result = new Result();
 		try {
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			MultipartFile file = null;
 			if(request instanceof MultipartHttpServletRequest)
 			{

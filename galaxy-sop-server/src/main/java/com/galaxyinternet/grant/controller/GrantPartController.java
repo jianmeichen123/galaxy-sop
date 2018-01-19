@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.GrantPartBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -172,7 +173,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			Project project = new Project();
 			project = projectService.queryById(total.getProjectId());
 			
-			User user = (User) getUserFromSession(request);
+			User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			grantPart.setCreateUid(user.getId());
 			grantPart.setCreateUname(user.getRealName());
 			grantPart.setGrantTotal(total);

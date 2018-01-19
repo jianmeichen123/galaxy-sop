@@ -215,7 +215,7 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		
-        User user = (User) getUserFromSession(request);
+        User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//有搜索条件则不启动默认筛选
 		List<Long> roleIdList = user.getRoleIds();

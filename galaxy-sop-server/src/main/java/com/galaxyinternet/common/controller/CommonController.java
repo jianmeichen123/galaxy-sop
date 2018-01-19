@@ -202,7 +202,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getCareerlineList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Department> getCareerlineList(HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		Department query = new Department();
 		query.setType(1);
@@ -227,7 +227,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getCareerlineListByRole", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Department> getCareerlineListByRole(HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = user.getRoleIds();
 		
 		Department query = new Department();
@@ -257,7 +257,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getUserList/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
 		ResponseData<User> responseBody = new ResponseData<User>();
-		User currentUser = (User) getUserFromSession(request);
+		User currentUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		User user = new User();
 		List<Long> departmentIds = new ArrayList<Long>();
 		if(departmentId.longValue() == 0L){
@@ -333,7 +333,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@SuppressWarnings("unchecked")
 	private List<Menus> getUserMenus(HttpServletRequest request)
 	{
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Menus> tabs = null;
 		HttpSession session = request.getSession();
 		if(session != null)
@@ -376,7 +376,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			}
 		}
 
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<PlatformResource> userRes = new ArrayList<>(user.getAllResourceToUser());
 		Collections.sort(userRes, new Comparator<PlatformResource>(){
 			@Override
@@ -449,7 +449,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	public ResponseData<User> buryPoint(HttpServletRequest request,@RequestBody 
 			BuryPoint buryPoint) {
 		// TODO Auto-generated method stub
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		BuryPointEntity entity=new BuryPointEntity();
 		List<BuryPoint>  list=new ArrayList<BuryPoint>();
 		buryPoint.setUserId(user.getId().toString());

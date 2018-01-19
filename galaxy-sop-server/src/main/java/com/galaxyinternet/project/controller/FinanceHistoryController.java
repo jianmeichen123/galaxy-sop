@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.FinanceHistoryBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -61,7 +61,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			FinanceHistory financeHistory=new FinanceHistory();
 			financeHistory.setProjectId(Long.parseLong(pid));
@@ -91,7 +91,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			financeHistory.setProjectId(pid);
 			financeHistoryService.insert(financeHistory);
@@ -115,7 +115,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			financeHistory.setId(id);
 			int updateById = financeHistoryService.updateById(financeHistory);
@@ -146,7 +146,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		FinanceHistory fh = new FinanceHistory();
 		try {
 			fh=financeHistoryService.queryById(Long.parseLong(id));
@@ -179,7 +179,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
 			return responseBody;
 		}
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		FinanceHistory financeHistory=new FinanceHistory();
 		try {
 			financeHistory=financeHistoryService.queryById(Long.parseLong(id));

@@ -20,6 +20,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -32,7 +33,6 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
 /**
  * ios对接接口
  * @author gxc
@@ -66,7 +66,7 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 		@RequestMapping(value = "/splapp", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<Project> searchAppProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 			ResponseData<Project> responseBody = new ResponseData<Project>();
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			List<Long> roleIdList = user.getRoleIds();
 			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 				project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());

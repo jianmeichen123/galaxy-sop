@@ -67,16 +67,9 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
 	public String redirect(HttpServletRequest request) {
-		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
-		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = user.getRoleIds();
-//		if(roleIdList != null && (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.HHR))){
-//			//serverUrl = getServerUrl();
-//			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-//			return "redirect:/galaxy/report/platform?"+params;
-//		}else 
-			if(roleIdList != null && roleIdList.contains(UserConstant.GLY)){
+		if(roleIdList != null && roleIdList.contains(UserConstant.GLY)){
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 			return "redirect:" + serverUrl +"platform/galaxy/user?"+params;
 		}else if(roleIdList != null && roleIdList.contains(UserConstant.DAGLY)){
@@ -85,7 +78,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 		}else{
 			return "redirect:/galaxy/index";
 		}
-		
 	}
 	
 	/**
@@ -95,7 +87,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
 		List<IndexConfig> models = new ArrayList<>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<PlatformResource> resList = user.getAllResourceToUser();
 		Map<String,PlatformResource> resMap = new HashMap<>();
 		for(PlatformResource item : resList)
@@ -322,7 +314,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
 	public String lxh(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 0);
@@ -334,7 +326,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
 	public String tjh(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 1);
@@ -346,7 +338,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value = "/psh", method = RequestMethod.GET)
 	public String psh(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = user.getRoleIds();
 		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 2);
@@ -391,7 +383,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
 	public String personTab(@PathVariable Long id, HttpServletRequest request){
 		
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		boolean flag = false;
 		if(id != null){
 			Project pro = projectService.queryById(id);

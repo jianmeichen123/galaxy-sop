@@ -89,7 +89,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	{
 		ResponseData<SopTemplate> rtn = new ResponseData<SopTemplate>();
 		try {
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			if(user != null && user.getId() != null)
 			{
 				List<String>  types = null;

@@ -77,7 +77,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	public int getDepId(HttpServletRequest request){
 		
 		//返回对象
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(user != null){
 			if(UserConstant.HHR == user.getRoleId()){
 				Long depId = user.getDepartmentId();
@@ -101,7 +101,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	    * @throws
 	 */
 	public boolean isHHR(HttpServletRequest request){
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(user != null){
 			return UserConstant.HHR == user.getRoleId(); 
 		} 

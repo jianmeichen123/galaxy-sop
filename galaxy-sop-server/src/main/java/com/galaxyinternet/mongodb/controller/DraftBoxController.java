@@ -79,9 +79,7 @@ public class DraftBoxController  extends BaseControllerImpl<InformationDataMG, I
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
-	    Long projectId=Long.parseLong(informationData.getProjectId());
 	   // Project project = projectService.queryById(projectId);
-		User user = (User) getUserFromSession(request);
 		try{
 				informationMGService.save(informationData);
 		   // logger.info("全息图编辑项目相关信息["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
