@@ -278,7 +278,7 @@
 	                </c:if>
 <!-- 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span> -->
 	                <c:if test="${fx:hasPremission('project_delete')}">	
-                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()"  id="delete_btn" >删除项目</span>
+                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
                     </c:if>
 	               
 	            </div>
