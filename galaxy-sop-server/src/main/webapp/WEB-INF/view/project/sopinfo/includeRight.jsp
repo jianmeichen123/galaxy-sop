@@ -271,14 +271,14 @@
 	             <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
-	            	        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('transfer')" >移交项目</span>
+	            	        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('transfer')" >移交项目</span>
 	            	    </c:if>
 	            	 <c:if test="${fx:hasPremission('project_assign')}">	
 	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
 	                </c:if>
 <!-- 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span> -->
 	                <c:if test="${fx:hasPremission('project_delete')}">	
-                      <span class="bluebtn new_btn_right delete_btn" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
+                      <span class="bluebtn new_btn_right btn_right" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
                     </c:if>
 	               
 	            </div>
