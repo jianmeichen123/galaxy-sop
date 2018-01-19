@@ -4418,7 +4418,7 @@ p.outerProjectNew{
 .globalSearhc-ul .search_history{pointer-events:none;}
 .form-group .dropdown-menu{max-height:448px !important;}
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
-.new_blueBtn{background-color: #3CA6FF !important;border-radius: 2px;}
+.new_blueBtn{background-color: #3CA6FF;border-radius: 2px;}
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
 #wraper_delete p{text-align:center;margin-top:20px;color:#666;font-size:14px;font-family: Microsoft YaHei;}
 #wraper_delete p:nth-child(1){font-size:18px;color:#333;font-family: Microsoft YaHei;margin-top:30px;}
