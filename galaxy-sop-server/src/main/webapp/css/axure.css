@@ -4285,7 +4285,7 @@ input:-ms-input-placeholder {
 .buttonGroup {float:left;margin-top: 6px;}
 .input-group{float:left;}
 .pageTop {border:1px solid #d8d8d8;}
-.content_task{margin-top:50px;margin-left: 9.375%;}
+.content_task{margin-top:50px;margin-left: 9.375%;display:none;}
 .input-content{position:relative;}
 .input-content span{display:inline-block;width:32px;height:35px;cursor:pointer;position:absolute;right:3px;border-radius: 0 2px 2px 0;background:url(../img/search_new.png) no-repeat 6px 8px;background-color: #3CA6FF;}
 .input-content input{}
@@ -4472,11 +4472,11 @@ font-weight:bold;
 .manager_role .layui-layer-btn  .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;color:#3ca6ff;}
 .manager_role .layui-layer-content{text-align:center;line-height:92px !important;font-size:18px !important;color:#333333;}
 .manager_role .layui-layer-setwin .layui-layer-ico{background: url(../img/base_info/close.png) no-repeat center;}
-
-
-
-
-
+.content_task .buttonGroup  .form-group .bootstrap-select > .btn{max-width:auto;}
+/*  */
+.task-todeal-textarea label.error{background:none;display:block;margin-left: 78px;display: block;}
+.select-simulate label.error{background:none;margin-left: 78px;display: block;}
+ 
 
 
 

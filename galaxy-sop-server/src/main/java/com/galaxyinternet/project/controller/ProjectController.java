@@ -74,6 +74,7 @@ import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationProgress;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
@@ -114,6 +115,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
@@ -183,6 +185,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 
 	@Autowired
 	private InformationProgressService informationProgressService;
+	
+	@Autowired
+	private InformationDictionaryService infoDictService;
 
 	private String tempfilePath;
 
@@ -3842,6 +3847,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		// 判断是指派还是移交
 		String from = request.getParameter("from");
 		request.setAttribute("from", from);
+		InformationDictionary query = new InformationDictionary();
+		query.setTitleId(1120L);
+		List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
+		request.setAttribute("projectSourceList", projectSourceList);
 		return "project/assign";
 	}
 

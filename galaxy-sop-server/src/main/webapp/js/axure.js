@@ -840,7 +840,7 @@
 							if(userId){
 								xhr.setRequestHeader("guserId", userId);
 							}
-							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
+							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.png">'+'</img></center></div>';
 							$(_this.id).find(".tabtxt").html(imgDiv);
 						},
 						success:function(html){
@@ -885,7 +885,7 @@
 							if(userId){
 								xhr.setRequestHeader("guserId", userId);
 							}
-							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
+							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.png">'+'</img></center></div>';
 							$(_this.id).find(".tabtxt").html(imgDiv);
 						},
 						success:function(html){

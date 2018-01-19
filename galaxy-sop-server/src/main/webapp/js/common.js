@@ -1895,7 +1895,10 @@ function cut(cutelement, cutlength) {
 //创投大脑弹窗页面统一方法
 
 function filter(str){
-	return str==undefined?"--":str
+	return str==undefined?"":str
+}
+function filterData(data){
+	return data==undefined?"":str
 }
 ///status  判断是弹窗还是页面
 function initTable(url,data,status,code) { 

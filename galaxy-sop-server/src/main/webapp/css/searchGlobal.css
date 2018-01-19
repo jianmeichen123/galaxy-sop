@@ -141,7 +141,6 @@ color: #3CA6FF;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis; 
-    max-width: 260px;
 }
 .listTitle.listThree .threeLi{
 	border-bottom: 1px solid #d8d8d8;
@@ -302,7 +301,7 @@ font-weight: bold;
 	width:auto;
 }
 .bootstrap-select > .btn,.open>.dropdown-toggle.btn-info:hover,.dropdown-toggle.btn-info:active,.dropdown-toggle.btn-info:focus {
-	max-width: 130px;
+	/* max-width: 130px; */
     padding-right: 30px;
 	background: none;
 	border: none;	

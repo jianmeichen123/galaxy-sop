@@ -64,16 +64,15 @@ $(function(){
 	_this.addClass('bottomColor').siblings().removeClass('bottomColor');
  });
 
- 
- /* var outterTotal  = sessionStorage.getItem("outerTotal");
- //alert(outterTotal)
- $('.outerTotal').html('<span>('+outterTotal+')</span>')
-
- 
- var ventrueTotal  = sessionStorage.getItem("venterProjectNumber");
- $('.ventrueTotal').html('<span>('+ventrueTotal+')</span>')
- 
-  */
+ detailHeaderWidth();
+ function detailHeaderWidth(){
+ 	  var  w_lft=$(".lft").width();
+ 	  	$('.searchPage').css({'margin-left':w_lft+20});
+ 	  	$('.searchPage').css('width','1395px')
+ }
+ $(window).resize(function(){
+ 	detailHeaderWidth();
+ })	
  
  
  
