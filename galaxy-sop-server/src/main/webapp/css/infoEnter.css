@@ -72,6 +72,8 @@ font-style: normal;
 	position: relative;
 	left: 47px;
 	top: -8px; 
+	font-weight: lighter;
+	font-size:12px;
 }
 .scheduleIcon li.active,.scheduleIcon li.active:before{
 background: #3CA6FF;
@@ -185,7 +187,7 @@ color: #3CA6FF;
     padding-left: 20px!important; 
 }
 .fixed-table-container thead th .th-inner{
-	padding: 30px 0 20px 0;
+	padding: 20px 0 10px 0;
 }
 .infoList .threeLiSecond{
 	width:45%;
@@ -409,7 +411,8 @@ background: #E5F3FF;
 	margin-right:19px;
 }
 #powindow .bigPop{
-	width: 1000px;
+	min-width: 1000px;
+	width: 80%;
     margin: 0 auto;
     max-height: 400px;
     overflow-y: auto;
