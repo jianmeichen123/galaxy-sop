@@ -67,7 +67,7 @@ $(function(){
  detailHeaderWidth();
  function detailHeaderWidth(){
  	  var  w_lft=$(".lft").width();
- 	  	$('.searchPage').css({'margin-left':w_lft+20});
+ 	  	$('.searchPage').css({'margin-left':w_lft});
  	  	
  }
  $(window).resize(function(){
