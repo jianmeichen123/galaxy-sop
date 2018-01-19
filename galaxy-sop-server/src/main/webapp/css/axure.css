@@ -3988,7 +3988,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .opretion-log tbody tr td{font-size:14px;color:#5a626d;text-align:center;}
 .opretion-log tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
 /* 指派任务 */
-.task-abandon-content{width:580px;}
+.task-abandon-content{width:580px;min-height:335px;}
 .task-pop{border-radius:2px;border:none;}
 .abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:Microsoft YaHei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
 .task-qulification p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
@@ -4005,14 +4005,14 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-todeal ul li{margin-top:22px;text-align:justify;}
 .task-todeal-textarea em.task-reason{vertical-align:top;}
 .task-todeal-textarea textarea{width:444px;height:124px;padding:4px 0 0 8px;margin-left:4px;border:1px solid #d8d8d8;font-size:14px;}
-.select-simulate input{width:444px;height:32px;border:1px solid #d8d8d8;font-family:Microsoft YaHei;font-size:12px;border-radius:2px;padding-left:8px;background:url(../img/base_info/down.png) no-repeat right 7px center}
+.select-simulate input{width:434px;height:32px;border:1px solid #d8d8d8;font-family:Microsoft YaHei;font-size:12px;border-radius:2px;padding-left:8px;background:url(../img/base_info/down.png) no-repeat right 7px center}
 .select-simulate input.up{background:url(../img/base_info/up.png) no-repeat right 7px center}
 /* .select-simulate input.down{background:url(../img/base_info/down.png) no-repeat right 7px center} */
 .task-recive-person{letter-spacing:4.4px;}
-.toggle-ul{width:452px;border:1px solid #d8d8d8;display:none;}
+.toggle-ul{width:442px;border:1px solid #d8d8d8;display:none;}
 .toggle-ul li{margin-top:auto !important;border-bottom:1px solid #d8d8d8;padding:5px 0 5px 8px;cursor:pointer;color:#666666;}
 .select-simulate{position:relative;}
-.toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;max-height:240px;overflow-y:auto;}
+.toggle-ul{position:absolute;z-index:99;background:#fff;top: 36px;left: 78px;max-height:210px;overflow-y:auto;margin-top:-3px;}
 .toggle-ul.borderNone{
 	border:none;
 }
