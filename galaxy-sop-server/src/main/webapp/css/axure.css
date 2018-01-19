@@ -1507,6 +1507,10 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     color: #66b1f2;
     text-decoration: none;
 }
+.new_fctbox a.DN_btn{
+    font-family: Microsoft YaHei;
+    font-weight: normal;
+}
 .new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
