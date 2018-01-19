@@ -232,11 +232,11 @@
 			    <galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
 			    <auth.uri>http://fx.qa.galaxyinternet.com/authority_service</auth.uri>
 			       	<!-- mongodb 开始 --> 
-                <mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27017</mongo.port>
-				<mongo.username>xhhlqa</mongo.username>
-				<mongo.password>y92j4yot</mongo.password>
-				<mongo.dbname>xhhlqa</mongo.dbname>
+                <mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
 				 <!-- mongodb 结束-->
 			    	<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
                 <danao.domain>http://ctdn.galaxyinternet.com/</danao.domain>
