@@ -28,6 +28,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -138,7 +139,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		}
 	    Long projectId=Long.parseLong(informationData.getProjectId());
 	    Project project = projectService.queryById(projectId);
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try{
 			infoDataService.save(informationData);
 		    logger.info("全息图编辑项目相关信息["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");

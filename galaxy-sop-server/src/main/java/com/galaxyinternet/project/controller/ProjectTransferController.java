@@ -27,6 +27,7 @@ import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -101,13 +102,13 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		}
 		String[] arrprojectId = projectTransfer.getProjectIds().split(",");
 
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user.getId().longValue() == projectTransfer.getAfterUid().longValue())
 		{
 			data.setResult(new Result(Status.ERROR, "err", "不能将项目移交给本人！"));
 			return data;
 		}
-		User u = (User) getUserFromSession(request);
+		User u = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
 			Project project = new Project();
@@ -181,7 +182,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	public ResponseData<Project> searchProjectAssign(HttpServletRequest request, @RequestBody ProjectBo project)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
@@ -259,7 +260,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	public ResponseData<Project> searchProjectAssigin(HttpServletRequest request, @RequestBody ProjectBo project)
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)

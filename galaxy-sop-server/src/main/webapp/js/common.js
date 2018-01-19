@@ -1895,7 +1895,7 @@ function cut(cutelement, cutlength) {
 //创投大脑弹窗页面统一方法
 
 function filter(str){
-	return str==undefined?"--":str
+	return str==undefined?"":str
 }
 function filterData(data){
 	return data==undefined?"":str

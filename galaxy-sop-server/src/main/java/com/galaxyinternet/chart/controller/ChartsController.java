@@ -278,7 +278,7 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 	//	Integer datatype = chartBo.getDatatype();
 		Integer pageNum = chartBo.getPageNum();
 		Integer pageSize = chartBo.getPageSize();
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project project=new Project();
 		project.setCreateUid(user.getId());
 		PageRequest pageable = new PageRequest();
@@ -1006,7 +1006,7 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		//判断角色
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		long roleid = user.getRoleId();
 		if(roleid==UserConstant.DSZ || roleid==UserConstant.CEO){
 			params.put("deptid", -1);
@@ -1041,7 +1041,7 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 	public int getDepId(HttpServletRequest request){
 		
 		//返回对象
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(user != null){
 			if(UserConstant.HHR == user.getRoleId()){
 				Long depId = user.getDepartmentId();
@@ -1063,7 +1063,7 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 	    * @throws
 	 */
 	public boolean isHHR(HttpServletRequest request){
-		User user =  (User) getUserFromSession(request);
+		User user =  (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(user != null){
 			return UserConstant.HHR == user.getRoleId(); 
 		} 

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.OperationalDataBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -207,7 +208,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	@ResponseBody
 	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
 		ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
-		User user = (User) getUserFromSession(request);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		UrlNumber number = UrlNumber.one;
 		try {
 			if(operationalData == null){

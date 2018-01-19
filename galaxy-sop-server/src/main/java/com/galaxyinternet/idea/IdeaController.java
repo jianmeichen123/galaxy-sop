@@ -266,7 +266,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}
 			
 			
-			User user = (User)getUserFromSession(request);
+			User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			List<Long> roleIdList = user.getRoleIds();
 			//无权限查看，返回null
 			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
@@ -353,7 +353,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	{
 		ResponseData<Department> resp = new ResponseData<Department>();
 		try {
-			User user = (User)getUserFromSession(request);
+			User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			List<Long> roleIdList = user.getRoleIds();
 			if(roleIdList != null && roleIdList.size()>0)
 			{
@@ -437,7 +437,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	@RequestMapping("/getIdea/{id}")
 	public ResponseData<Idea> getIdea( @PathVariable Long id,HttpServletRequest request)
 	{
-		User user = (User)getUserFromSession(request);
+		User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
 		if(id == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));

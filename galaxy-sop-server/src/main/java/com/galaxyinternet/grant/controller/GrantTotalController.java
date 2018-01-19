@@ -27,6 +27,7 @@ import com.galaxyinternet.bo.GrantTotalBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -207,7 +208,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			project.setServiceCharge(grantTotal.getServiceCharge());
 			projectService.updateById(project);
 			
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			grantTotal.setUpdatedUname(user.getRealName());
 			grantTotal.setUpdatedTime(System.currentTimeMillis());
 			long id=0;

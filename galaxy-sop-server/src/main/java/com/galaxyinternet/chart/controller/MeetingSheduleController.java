@@ -36,11 +36,9 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.soptask.controller.SopUserScheduleController;
 
 @Controller
 @RequestMapping("/galaxy/meetingShe")
@@ -94,10 +92,8 @@ public class MeetingSheduleController extends BaseControllerImpl<MeetingScheduli
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
 		PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
 		Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
-		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
 		
 		try {	
-			User user = (User) getUserFromSession(request);
 			/**
 			 * 查询出所有的事业线
 			 */

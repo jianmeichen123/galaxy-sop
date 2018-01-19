@@ -21,6 +21,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -933,7 +934,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 		@RequestMapping(value = "/appCounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	   	public ResponseData<AppCounts> searchAppProjectList(HttpServletRequest request) {
 			ResponseData<AppCounts> responseBody = new ResponseData<AppCounts>();
-			User user = (User) getUserFromSession(request);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			// 判断当前用户是否为投资经理
 			List<Long> roleIdList = user.getRoleIds();
 			if (!roleIdList.contains(UserConstant.HHR)

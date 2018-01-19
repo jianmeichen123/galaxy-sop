@@ -141,6 +141,7 @@ color: #3CA6FF;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis; 
+    max-width: 260px;
 }
 .listTitle.listThree .threeLi{
 	border-bottom: 1px solid #d8d8d8;
