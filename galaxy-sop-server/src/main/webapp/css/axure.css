@@ -4331,7 +4331,7 @@ input:-ms-input-placeholder {
 .two{background:#fff;}
 .tdContent{width:100%;margin-bottom:7px;}
 .outerProject{width:100%;}
-.outerProject .leftPic{width:80px;height:80px;margin:20px 0 20px 20px;border:1px solid #d8d8d8;}
+.outerProject .leftPic{width:80px;}
 .outerProject .rightContent{margin:10px 0 10px 20px;width:90%;float:left;font-family: Microsoft YaHei;}
 .outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
@@ -4480,6 +4480,8 @@ font-weight:bold;
 .new_correlation_cen .btn_right{float:right;} 
 .new_correlation_cen .btn_left{float:left;} 
 .new_correlation_cen .btn_right:hover{background:#0084f5;}
+.img_content {width:auto;float:left;margin:20px 0 20px 20px;}
+.img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 
 
 
