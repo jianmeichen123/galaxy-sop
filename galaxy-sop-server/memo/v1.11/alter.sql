@@ -1,6 +1,6 @@
 
 ALTER TABLE `fx_db`.`sop_project` 
-ADD COLUMN `is_delete` INT(11) NULL DEFAULT 1 AFTER `business_type_code`;
+ADD COLUMN `is_delete` INT(11) NULL DEFAULT 0 AFTER `business_type_code`;
 
 ALTER TABLE `fx_db`.`sop_project` 
 ADD COLUMN `delete_reason` VARCHAR(225) NULL AFTER `is_delete`;
