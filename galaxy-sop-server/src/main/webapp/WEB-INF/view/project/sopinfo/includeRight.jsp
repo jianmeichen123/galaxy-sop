@@ -726,6 +726,7 @@ function transferPro(obj){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$('.close').addClass('tast-close')//添加关闭按钮
 			$("#actionStyle").val(obj);
 			$("#numCheck").css("display","none");
 			var arr=[proid];
