@@ -265,7 +265,7 @@
 			</div>
 			<!-- 七大报告入口结束 -->
             <div class="tq_div">
-                <c:if test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3))&&(fx:hasPremission('project_assign')||fx:hasPremission('project_delete'))}">
+                <c:if test="${fx:hasPremission('project_transfer')||fx:hasPremission('project_assign')||fx:hasPremission('project_delete')}">
 	                <div class="correlation">相关操作</div>
 	            </c:if> 
 	             <div class="new_correlation_cen">
@@ -286,7 +286,7 @@
             
             
             <div class="tq_div" style="display:none;">
-          <%--   <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+          <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
            <!--  <div class="correlation">
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;">more</span>
@@ -306,7 +306,7 @@
             		暂无访谈记录
             	</div>
             </div> -->
-            </c:if> --%>
+            </c:if>
             
             
         </div>
@@ -357,6 +357,12 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 	$("#cxxm_btn").attr("style","display:none;");
 } 
   */
+  if(isCreatedByUser == "true"){
+	/*   $(".yjxm_btn").attr("style","display:block;"); */
+	}else{
+	  $(".tzlc_btn").remove();
+	}
+  
 
 if(!prograss){
 	prograss = 'projectProgress:0';
@@ -834,10 +840,10 @@ function setJgqrProgress()
 
 
 $(function(){
-	 /* if($(".new_correlation_cen").find(".fjxm_but").length==0){
+	/*   if($(".new_correlation_cen").find(".fjxm_but").length==0){
 		$(".yjxm_btn").removeClass("new_btn_right").addClass("new_btn");
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
-	}  */
+	}  */ 
 })
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
