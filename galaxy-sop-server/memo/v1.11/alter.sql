@@ -14,9 +14,6 @@ CHANGE COLUMN `delete_reason` `delete_reason` VARCHAR(225) CHARACTER SET 'utf8' 
 ALTER TABLE `fx_db`.`sop_task` 
 ADD COLUMN `is_delete` INT(11) NULL DEFAULT 0 COMMENT '默认值为0；1：已删除；0：正常数据；' AFTER `created_time`;
 
-ALTER TABLE `fx_db`.`information_title_relate`   
-  ADD COLUMN `danao_info` VARCHAR(50) NULL  COMMENT '标识是否从大脑同步数据，为null表示不需要' AFTER `val_rule_formula`;
-
 ALTER TABLE `fx_db`.`sop_project`   
   ADD COLUMN `danao_proj_code` VARCHAR(50) NULL  COMMENT '大脑项目code' AFTER `delete_reason`,
   ADD COLUMN `danao_comp_code` VARCHAR(50) NULL  COMMENT '大脑项目公司code' AFTER `danao_proj_code`;
@@ -30,4 +27,4 @@ ADD COLUMN `operate_type` VARCHAR(11) NULL DEFAULT NULL COMMENT '操作类型：
 ALTER TABLE `fx_db`.`sop_meeting_scheduling` 
 ADD COLUMN `is_delete` INT(5) NULL DEFAULT 0 COMMENT '删除标识： 0：正常；1：删除' AFTER `created_time`;
 
-alter table  schedule_message modify remrk_id varchar(100)
+alter table  schedule_message modify remrk_id varchar(100);
