@@ -54,26 +54,18 @@ span.error{
 </style>
 <script>
 
-$('.select-simulate input').click(function(){
+$('.select-simulate input').click(function(event){
 	var ul =  $(this).parent().find('ul.toggle-ul');
-	var _this = $(this);
-	if(ul.css('display')=='none'){
-		_this.addClass('up');
-		ul.slideDown('fast')
-	}else{
-		ul.slideUp('fast');
-		_this.removeClass('up');
-	}	
+	var _this = $(this);	
+	_this.toggleClass("up");
+	ul.slideToggle("fast");
+	event.stopPropagation(); 
+	$(document).on("click", function(){
+		ul.slideUp("fast");
+		_this.removeClass('up');		
+	});
 });
-$('.select-simulate ul li').click(function(){
-	var _this = $(this);
-	var liText = _this.text();
-	console.log(liText);
-	var target = _this.closest('.select-simulate').find('input').removeClass('up')
-	//$('.select-simulate input').val(liText);
-	$(this).parents('.select-simulate').find('input').val(liText);
-	_this.parent().hide();
-})
+
 //配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
 $.validator.setDefaults({
 	errorElement:'span'

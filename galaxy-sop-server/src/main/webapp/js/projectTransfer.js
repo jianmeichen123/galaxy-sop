@@ -85,6 +85,8 @@ function doSumbit(projectId){
 	   });
 	}
 	$("#projectTransfer").on("click",function() {
+		$('.select-simulate').find('input[type="text"]').removeClass('up');
+		$('.toggle-ul').hide();
 		if(!$('#detail-form').validate().form()){//验证不通过时候执行
 			return false;	
 		}
