@@ -30,9 +30,10 @@ overflow: hidden;
 line-height: 12px;
 }
 input:checked + label::before {
-   content:"✔";
+   content:"✓ ";
    width:12px;
    color:#fff; 
+   font-weight: 100;
 }
 </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
