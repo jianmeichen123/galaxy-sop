@@ -40,14 +40,14 @@
 
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker">
-					  <option>投资经理</option>
+					 <!--  <option>投资经理</option> -->
 					 <option index="-1">全部</option>
 					</select>
 			  	</div>
 				
 				<div class="form-group">
 			      <select name="projectProgress" class="selectpicker">
-					  <option>项目进度</option>
+					  <!-- <option>项目进度</option> -->
 					  <option index="-1">全部</option>
 					</select>
 			  	</div>
@@ -60,21 +60,21 @@
 
 				<div class="form-group">
 			      <select name="projectStatus" class="selectpicker">
-					  <option>项目状态</option>
+					  <!-- <option>项目状态</option> -->
 					 <option index="-1">全部</option>
 					</select>
 			    </div>
 
 				<div class="form-group">
 			      <select name="financeStatus" class="selectpicker">
-					  <option>融资状态</option>
+					 <!--  <option>融资状态</option> -->
 					 <option index="-1">全部</option>
 					</select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="faFlag" class="selectpicker">
-					  <option>项目来源</option>
+					 <!--  <option>项目来源</option> -->
 					 <option index="-1">全部</option>
 					 <c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
@@ -147,7 +147,13 @@ $(function(){
   //导航
 	createMenus(5);
 
-
+	 // 搜索条件初始化 
+   	$('select[name="projectDepartid"]').parent().find('.filter-option').html('全部事业线');
+	$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
+	$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度');
+	$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
+	$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
+	$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
  
  
  detailHeaderWidth();
@@ -356,7 +362,8 @@ $(function(){
        			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
        		 }
        		 event.preventDefault(); 
-       	 })
+       	 });
+       
         }
 	});
 })
