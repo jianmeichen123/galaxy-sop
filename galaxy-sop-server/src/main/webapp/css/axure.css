@@ -4498,4 +4498,12 @@ font-weight:bold;
 .ventrueContent,.outerContent .pagination{line-height: 63px;margin-top:3px;}    
 .ventrueContent,.outerContent .pagination-detail{margin-top:13px;}
 .ventrueContent,.outerContent .page-size{font-size:12px;color:#45aaff;}
-.xhtContent .fixed-table-pagination{}
+.xhtContent .clearfix{background:#f4f4f4;}
+.xhtContent .pagination{line-height: 63px;margin-top:3px;}   
+.xhtContent .pagination-detail{margin-top:13px;}
+.xhtContent .page-size{font-size:12px;color:#45aaff;}
+.dnContent .clearfix{background:#f4f4f4;}
+.dnContent .pagination{line-height: 63px;margin-top:3px;}   
+.dnContent  .pagination-detail{margin-top:13px;}
+.dnContent  .page-size{font-size:12px;color:#45aaff;}
+
