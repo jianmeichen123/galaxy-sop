@@ -5,3 +5,7 @@ INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `co
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2284', '2180', '2062', 'currency7', '英镑', 'D213_7', '7', '0');
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2285', '2180', '2062', 'currency8', '卢比', 'D213_8', '8', '0');
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2286', '2180', '2062', 'currency9', '其他', 'D213_9', '9', '0');
+
+
+UPDATE `fx_db`.`information_dictionary` SET `name`='业内信息（专业人士介绍）' WHERE `id`='2252';
+UPDATE `fx_db`.`information_dictionary` SET `name`='定点挖掘（春风）' WHERE `id`='2255';
