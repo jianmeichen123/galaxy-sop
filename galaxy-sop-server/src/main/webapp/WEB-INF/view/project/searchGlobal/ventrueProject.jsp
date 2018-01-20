@@ -95,6 +95,12 @@ $(function(){
         	return param;
         }, 
 		onLoadSuccess:function(data){
+			 $('.ventrueContent .dropdown-toggle').click(function(){
+	        		
+	 				$(this).parent().addClass('open')
+	 			})
+			
+			
 			var isShow='${fx:hasPremission('project_search_sop')}';
 			if(isShow=="false"&&$(".no_info_icon_xhhl").text()==""){
 				$(".no_info_icon_xhhl").text("暂无数据权限");
@@ -147,10 +153,7 @@ $(function(){
     			}
     		} 
 			
-        	 $('.ventrueContent .dropdown-toggle').click(function(){
-        		 alert('ddd')
- 				$(this).parent().addClass('open')
- 			})
+        	
 		}
 	
 	
