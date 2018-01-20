@@ -4493,10 +4493,9 @@ font-weight:bold;
 .img_content {width:auto;float:left;margin:20px 0 20px 20px;}
 .img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 .input-search span:hover{background:#2878C7;}
-.ventrueContent .clearfix{background:#f4f4f4;}
+.ventrueContent,.outerContent .clearfix{background:#f4f4f4;}
 .searchGlobal .ritmin{padding-left:0px;}
-
-
-
-
-
+.ventrueContent,.outerContent .pagination{line-height: 63px;margin-top:3px;}    
+.ventrueContent,.outerContent .pagination-detail{margin-top:13px;}
+.ventrueContent,.outerContent .page-size{font-size:12px;color:#45aaff;}
+.xhtContent .fixed-table-pagination{}

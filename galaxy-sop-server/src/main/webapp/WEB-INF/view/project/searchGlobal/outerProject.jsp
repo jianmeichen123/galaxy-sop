@@ -123,7 +123,7 @@ $(function(){
 					"</div>"+
 					"</div>"  */
 			var html = "";		
-			 	html += "<div class='tdContent clearfix'><div class='img_content clearfix'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a></div>"+
+			 	html += "<div class='tdContent'><div class='img_content'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a></div>"+
 						"<div class='rightContent'>"+
 						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"
 						

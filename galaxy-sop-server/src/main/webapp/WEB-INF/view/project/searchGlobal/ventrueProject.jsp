@@ -148,6 +148,7 @@ $(function(){
     		} 
 			
         	 $('.ventrueContent .dropdown-toggle').click(function(){
+        		 alert('ddd')
  				$(this).parent().addClass('open')
  			})
 		}
