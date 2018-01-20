@@ -266,7 +266,7 @@
 			<!-- 七大报告入口结束 -->
             <div class="tq_div">
                 <c:if test="${fx:hasPremission('project_transfer')||fx:hasPremission('project_assign')||fx:hasPremission('project_delete')}">
-	                <div class="correlation">相关操作</div>
+	                <div class="correlation" id="correlation">相关操作</div>
 	            </c:if> 
 	             <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
@@ -421,10 +421,10 @@ $(function(){
 	}
 	
 	 //删除项目按钮是否显示
-	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<=3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
+	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
 		$("#delete_btn").attr("style","display:black");
 	}else{
-		$(".correlation").css("display","none");
+		$("#correlation").css("display","none");
 	}
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
