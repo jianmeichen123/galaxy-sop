@@ -131,8 +131,10 @@ public class InfoFromDanaoController{
 		ResponseData<DnProject> responseBody = new ResponseData<DnProject>();
 
 		try {
-			if(dnProject.getOrder() == null) dnProject.setOrder("desc");
-			if(dnProject.getOrderBy() == null) dnProject.setOrderBy("setupDT");
+			dnProject.setOrder(null);
+			dnProject.setOrderBy(null);
+			//if(dnProject.getOrder() == null) dnProject.setOrder("desc");
+			//if(dnProject.getOrderBy() == null) dnProject.setOrderBy("setupDT");
 			if(dnProject.getPageNo() == null) dnProject.setPageNo(0);
 			if(dnProject.getPageSize() == null) dnProject.setPageSize(5);
 
@@ -362,12 +364,11 @@ public class InfoFromDanaoController{
 			Integer pageSize = dnProject.getPageSize() != null ? dnProject.getPageSize() : 10;
 			String direction = dnProject.getOrder() != null ? dnProject.getOrder() : "desc";
 			String property = dnProject.getOrderBy()==null?"setupDT":dnProject.getOrderBy();
-			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
-			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
-			dnProject.setOrder(direction);
+
 			dnProject.setPageNo(pageNum);
 			dnProject.setPageSize(pageSize);
-			dnProject.setOrderBy(property);
+			dnProject.setOrder(null);
+			dnProject.setOrderBy(null);
 
 			if(tReslut.get("dnProjectTotal").intValue() != 0){
 				Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));

@@ -4369,7 +4369,7 @@ p.outerProjectNew{
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
-.searchPage{height:607px;background:#fff;}
+.searchPage{background:#fff;}
 .globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{
     overflow: hidden;

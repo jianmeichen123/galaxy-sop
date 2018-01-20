@@ -187,9 +187,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			//法人信息
 			if(checkToChooseCode == null || "legalInfo".equals(checkToChooseCode))
 			{
-				legalInfo.put("company",dataCheck(dataD.get("company")));  // 公司名称
-				legalInfo.put("foundDate",dataCheck(dataD.get("foundDate"))); // 成立日期
-				legalInfo.put("legalPerson",dataCheck(dataD.get("legalPerson"))); // 法人
+				legalInfo.put("company",dataCheck(dataD.get("company"),null));  // 公司名称
+				legalInfo.put("foundDate",dataCheck(dataD.get("foundDate"),null)); // 成立日期
+				legalInfo.put("legalPerson",dataCheck(dataD.get("legalPerson"),null)); // 法人
 			}
 
 			//股权结构
@@ -202,11 +202,11 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 						Map<String, Object> addMap = new HashMap<>();
 
 						//股东名称
-						addMap.put("shareholder", dataCheck(tempMap.get("shareholder")));
+						addMap.put("shareholder", dataCheck(tempMap.get("shareholder"),null));
 
 						//股东性质
 						// id 2170 ;  下拉选： pid 2170
-						String shareholderType = dataCheck(tempMap.get("shareholderType"));
+						String shareholderType = dataCheck(tempMap.get("shareholderType"),null);
 						if(StringUtils.isNotBlank(shareholderType)){
 							shareholderType = shareholderType.replace("股东","");
 							InformationDictionary temp = selectDictionaryRecord(2170l,shareholderType);
@@ -216,16 +216,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 							}
 						}
 						//占股比例
-						String equityRate = dataCheck(tempMap.get("equityRate"));
+						String equityRate = dataCheck(tempMap.get("equityRate"),null);
 						if(StringUtils.isNotBlank(equityRate)){
 							addMap.put("equityRate", equityRate.replace("%",""));
 						}
+						if(StringUtils.isNotBlank((String) addMap.get("equityRate"))){
+							addMap.put("equityRate", dataCheck((String) addMap.get("equityRate"),2));
+						}
 
-						addMap.put("prePayDate", dataCheck(tempMap.get("prePayDate"))); // 认缴出资时间
-						addMap.put("prePayAmountStr", dataCheck(tempMap.get("prePayAmountStr"))); // 认缴出资金额
-						addMap.put("paidDate", dataCheck(tempMap.get("paidDate"))); // 实缴出资时间
-						addMap.put("paidPayAmountStr", dataCheck(tempMap.get("paidPayAmountStr"))); // 实缴出资金额
-						addMap.put("payType", dataCheck(tempMap.get("payType"))); // 出资方式
+						addMap.put("prePayDate", dataCheck(tempMap.get("prePayDate"),null)); // 认缴出资时间
+						addMap.put("prePayAmountStr", dataCheck(tempMap.get("prePayAmountStr"),null)); // 认缴出资金额
+						addMap.put("paidDate", dataCheck(tempMap.get("paidDate"),null)); // 实缴出资时间
+						addMap.put("paidPayAmountStr", dataCheck(tempMap.get("paidPayAmountStr"),null)); // 实缴出资金额
+						addMap.put("payType", dataCheck(tempMap.get("payType"),null)); // 出资方式
 
 						equityInfo.add(addMap);
 					}
@@ -272,11 +275,11 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			for(Map<String,Object> tempMap : dataL) {
 				Map<String, Object> addMap = new HashMap<>();
 
-				addMap.put("name", dataCheck(tempMap.get("name"))); //姓名
+				addMap.put("name", dataCheck(tempMap.get("name"),null)); //姓名
 
 				//职位
 				// 字典id 1351 ;  下拉选： pid 1351， other其他：1363
-				String job = dataCheck(tempMap.get("job"));
+				String job = dataCheck(tempMap.get("job"),null);
 				if(StringUtils.isNotBlank(job)){
 					InformationDictionary temp = selectDictionaryRecord(1351l,job);
 					if(temp!=null){
@@ -329,16 +332,16 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			for(Map<String,Object> tempMap : dataL) {
 				Map<String, Object> addMap = new HashMap<>();
 
-				addMap.put("investDate", dataCheck(tempMap.get("investDate"))); //融资时间
+				addMap.put("investDate", dataCheck(tempMap.get("investDate"),null)); //融资时间
 				if(addMap.get("investDate") != null){
 					addMap.put("investDateStr", DateUtil.longToString(Long.parseLong(addMap.get("investDate").toString()))); //融资时间  1455811200000
 				}
 
-				addMap.put("stock", dataCheck(tempMap.get("stock"))); //股权占比
+				addMap.put("stock", dataCheck(tempMap.get("stock"),2)); //股权占比
 
 				//融资轮次
 				// 字典id 2183 ;  下拉选： pid 2183，
-				String round = dataCheck(tempMap.get("round"));
+				String round = dataCheck(tempMap.get("round"),null);
 				if(StringUtils.isNotBlank(round)){
 					InformationDictionary temp = selectDictionaryRecord(2183l,round);
 					if(temp!=null){
@@ -365,7 +368,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 
 				//投资方
-				String investSideJson = dataCheck(tempMap.get("investSideJson"));
+				String investSideJson = dataCheck(tempMap.get("investSideJson"),null);
 				if(StringUtils.isNotBlank(investSideJson)){
 					//Map<String,Object> map = GSONUtil.fromJson(investSideJson, Map.class);
 				}
@@ -397,8 +400,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		}
 		return result;
 	}
-
-	public String dataCheck(Object temp){
+	//	scal 不为空，则处理小数位
+	public String dataCheck(Object temp,Integer scal){
 		if(temp == null){
 			return null;
 		}
@@ -413,7 +416,20 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			return null;
 		}
 
+		if(scal!= null){
+			return scaleDouble(str.trim(),scal);
+		}
 		return str.trim();
+	}
+	public String scaleDouble(String data,int scal){
+
+		String result = new BigDecimal(data).setScale(scal, BigDecimal.ROUND_HALF_UP).toPlainString();
+
+		if(result.indexOf(".") > 0){
+			result = result.replaceAll("0+?$", "");//去掉多余的0
+			result = result.replaceAll("[.]$", "");//如最后一位是.则去掉
+		}
+		return result;
 	}
 	public Map<String,String> moneyCheck(Object temp){
 		if(temp == null){
