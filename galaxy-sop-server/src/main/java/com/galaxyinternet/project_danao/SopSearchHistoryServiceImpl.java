@@ -5,6 +5,7 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.SopSearchHistory;
 import com.galaxyinternet.service.SopSearchHistoryService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +43,15 @@ public class SopSearchHistoryServiceImpl extends BaseServiceImpl<SopSearchHistor
                 sopSearchHistoryDao.insert(query);
             } else {
                 String content = result.getContent();
-                if (result.getHisList() != null && !result.getHisList().contains(keyword)) {
+                if(StringUtils.isBlank(content)){
+                    content = keyword;
+                }else if (result.getHisList() != null && !result.getHisList().contains(keyword)) {
                     if (result.getHisList().size() >= saveItem) {
                         content = content.substring(0,content.lastIndexOf(result.getSpiltMark()));
                     }
                     content = keyword + result.getSpiltMark() + content;
                 }else{
-                    content = keyword;
+                    return result;
                 }
                 result.setContent(content);
                 sopSearchHistoryDao.updateById(result);
