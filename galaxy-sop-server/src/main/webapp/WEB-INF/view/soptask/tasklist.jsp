@@ -129,7 +129,7 @@ function getSelectedIds()
 function taskCheckboxFormatter(value, row, index)
 {
 	var activeTab = $('.tipslink li.on a').attr('id');
-	if(activeTab == 'claim')
+	if(activeTab == 'claim' && "${fx:hasPremission('task_assign')}" == "true")
 	{
 		return value;
 	}
