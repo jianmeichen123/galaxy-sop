@@ -8,19 +8,54 @@
 		html,body{
 			width:100%;
 			height:100%;
+			overflow:hidden;
 		}
 		
 		.iframe_container{
 			height:100%;
+			width:780px;
+			margin:0 auto;
+			position: relative;
+            overflow: hidden;
 		}
+		.myIframe{
+			overflow:hidden;
+		}
+		::-webkit-scrollbar {display: none}
+		::scrollbar {display: none}
 	</style>
+
 </head>
 <body>
 	
 	<div class="iframe_container">
-		<iframe frameborder="0" name="Iframe1" src="http://www.jb51.net/" width="100%" height="100%">
+		<iframe class='myIframe' scrolling="auto" frameborder="0" name="Iframe1" id ='myIframe' width="800px" height="100%">
 			您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
 		</iframe>
 	</div>
 </body>
+	<script>
+/**
+ * html之间传递参数
+ * @param name
+ * @returns
+ */
+function getHrefParamter(name){
+      var url=decodeURI(location.search);
+      var q = url.substr(1);
+      var qs = q.split("&");
+      if (qs) {
+          for (var i = 0; i < qs.length; i++) {
+              if (qs[i].substring(0, qs[i].indexOf("=")) == name) {
+                  var ss = qs[i].substring(qs[i].indexOf("=") + 1)
+                  return ss;
+              }
+          }
+      }
+}
+
+var keyword = getHrefParamter("keyword")
+
+document.getElementById('myIframe').src = keyword;
+</script>
 </html>

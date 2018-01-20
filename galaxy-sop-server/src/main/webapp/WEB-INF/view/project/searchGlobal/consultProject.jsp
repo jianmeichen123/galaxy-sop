@@ -122,13 +122,15 @@ $('.consut_span span').click(function(){
 					if(row.overview==undefined){
 						row.overview = '';
 					}
+					
+					
 				var html = "";
 					html += "<div class='tdContent clearfix'>"
 				if(row.zixunImage){
 					html += "<img class='fl leftPic' src='"+row.zixunImage+"'/>"
 				}
 				html += "<div class='rightContent'>"+
-						"<a href='<%=path%>/html/xhConsult.html?keyword=' target='_blank'><h3>"+row.title+"</h3></a>"+
+						"<a  name='"+row.href+"' href='<%=path%>/html/xhConsult.html?keyword="+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
 						 "<p class='outerProjectTitle'>"+row.overview+"</p>"+
 						"<p>"+
 						"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"
