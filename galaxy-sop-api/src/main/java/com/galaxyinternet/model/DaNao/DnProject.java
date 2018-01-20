@@ -58,6 +58,7 @@ public class DnProject extends BaseEntity {
 
 	//成立时间
 	private String setupDT;
+	private String setupDTEs;
 
 	//项目slogan 简介
 	private String introduce;
@@ -267,5 +268,13 @@ public class DnProject extends BaseEntity {
 
 	public void setIsOld(String isOld) {
 		this.isOld = isOld;
+	}
+
+	public String getSetupDTEs() {
+		return setupDTEs;
+	}
+
+	public void setSetupDTEs(String setupDTEs) {
+		this.setupDTEs = setupDTEs;
 	}
 }
