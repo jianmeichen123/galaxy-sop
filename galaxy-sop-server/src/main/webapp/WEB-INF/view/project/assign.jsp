@@ -355,15 +355,12 @@ $(function(){
        		 
        	 });
        	 //全选
-       	 $('.highlighCheckbox_th').click(function(event){
+       	  $('.highlighCheckbox_th').removeClass('highlighCheckbox_checked');
+       	 $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
        		 $(this).toggleClass('highlighCheckbox_checked');
-       		 $('.highlighCheckbox').addClass('highlighCheckbox_checked');
-       		 if(!$(this).hasClass('highlighCheckbox_checked')){
-       			 $('.highlighCheckbox').removeClass('highlighCheckbox_checked');
-       		 }
+       		 $('.highlighCheckbox').toggleClass('highlighCheckbox_checked');
        		 event.preventDefault(); 
        	 });
-       
         }
 	});
 })
