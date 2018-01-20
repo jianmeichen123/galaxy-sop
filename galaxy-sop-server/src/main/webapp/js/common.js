@@ -6,14 +6,13 @@ function getURLParameter(name) {
 //去除小数点末尾无用0  
 function _parsefloat(date){
 	if(date!=undefined){
-		if(parseInt(date)){
-			var dd =  String(date).split(".");
+		if(parseInt(date)!=NaN||parseInt(date)!=undefined){
+			var dd =  String(date).split("."); 
 			if(dd.length>=2){
 				var aa =Number("0."+dd[1]);
 				aa=parseFloat(aa);
 				aa=String(aa).split(".")[1];
 			}
-
 			dd=dd[0];
 			var res=dd;
 			if(aa!=undefined){
