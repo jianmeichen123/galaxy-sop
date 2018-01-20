@@ -4297,22 +4297,22 @@ input:-ms-input-placeholder {
 .input-content input{}
 .reset_search{font-size: 12px;color: #3CA6FF;margin-left:20px;cursor:pointer;}
 .assign_project .ritmin{margin:10px 20px 0px 20px;}
-.assingTable{width:100%;border-collapse:collapse;}
-.assingTable thead tr th{text-align:center;height:40px;border-bottom:1px solid #d8d8d8;font-weight:bold;font-size: 14px;color: #33363E;font-family: Microsoft YaHei;}
-.assingTable thead tr th:nth-child(1){padding-left:20px;}
-.assingTable tbody tr td:nth-child(1){padding-left:20px;}
+.assingTable{width:100%;border-collapse:collapse;border-radius:0 !important;}
+.assingTable thead tr th{text-align:center;height:38px;border-bottom:1px solid #d8d8d8;font-weight:bold;font-size: 14px;color: #33363E;font-family: Microsoft YaHei;}
+.assingTable thead tr th:nth-child(1),.assingTable thead tr th:nth-child(2){padding-left:20px;}
+.assingTable tbody tr td:nth-child(1),.assingTable tbody tr td:nth-child(2){padding-left:20px;}
 .assingTable tbody tr td:nth-child(1) input{visibility:hidden;}
-.assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:40px;text-align:center;}
+.assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:38px;text-align:center;font-family:Microsoft YaHei;font-size: 14px;color: #5A626D;}
 .highlighCheckbox input{display:none;}
 .highlighCheckbox_th input{display:none;}
 .highlighCheckbox{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_th{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
-.assingTable thead{height:40px;}
 .bs-checkbox{width:1% !important;}
 .assingTable tbody tr td:nth-child(1) input{} 
 .pagination_common .fixed-table-pagination{margin-top:13px;}
-.content_task .bootstrap-select .btn{min-width:113px;}
+.content_task .bootstrap-select .btn{min-width:98px;}
+.ctlist {margin-left:10px;}
 /*1.11全局搜索  */
 .search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
 .search-top ul li{float:left;margin-left:40px;cursor:pointer;}

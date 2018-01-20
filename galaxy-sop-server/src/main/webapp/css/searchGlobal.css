@@ -183,9 +183,9 @@ color: #3CA6FF;
 .infoList .threeLiFirst {
     padding-left: 20px!important; 
 }
-.fixed-table-container thead th .th-inner{
+/* .fixed-table-container thead th .th-inner{
 	padding: 30px 0 20px 0;
-}
+} */
 .infoList .threeLiSecond{
 	width:45%;
 }
@@ -302,7 +302,7 @@ font-weight: bold;
 }
 .bootstrap-select > .btn,.open>.dropdown-toggle.btn-info:hover,.dropdown-toggle.btn-info:active,.dropdown-toggle.btn-info:focus {
 	/* max-width: 130px; */
-    padding-right: 30px;
+    padding-right: 40px;
 	background: none;
 	border: none;	
     color: #33363E;
@@ -321,6 +321,7 @@ font-weight: bold;
 	color: #59626D ;
 	border-bottom: 0px !important;	
     border-top: 5px dashed !important;
+    right:20px;
 }
 .open>.dropdown-menu{ 
 	border: 1px solid #D8D8D8;

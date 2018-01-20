@@ -108,7 +108,7 @@
 				    		</label> 
 				    		
 				    	</th>
-			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%">项目名称</th>
+			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%" data-align="left">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"    data-width="8%">项目类型</th>
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-width="8%">融资状态</th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"   data-width="8%">项目进度</th>
