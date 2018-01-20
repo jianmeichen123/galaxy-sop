@@ -1970,7 +1970,7 @@ function initTable(url,data,status,code) {
                 var a ='<div class="conInfo">'
 						+'<p class="rightText">'+filter(row.projCompanyName)+'</p>'
 						+'<p class="textBotm">'
-							+'<span>成立时间：'+filter(row.setupDT)+'</span>' 
+							+'<span>成立时间：'+filter(row.setupDTEs)+'</span>'
 						+'</p>'
 					+'</div>'
                 return a;
