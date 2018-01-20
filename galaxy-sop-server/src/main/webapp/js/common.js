@@ -1941,11 +1941,17 @@ function initTable(url,data,status,code) {
                 //通过formatter可以自定义列显示的内容
                 //value：当前field的值，即id
                 //row：当前行的数据
+            	if(row.industryName){ 
+                	var b = '<span class="industryName">'+filter(row.industryName)+'</span>'
+            	}else{
+
+                	var b = ''
+            	}
                 var a = '<img class="comImg" src='+filter(row.projImage)+' alt="">'
 						+'<div class="conInfo">'
 						+'<p class="DN_name">'+row.projTitle+'</p>'
 						+'<p class="textBotm">'
-						+'<span class="industryName">'+filter(row.industryName)+'</span>'
+						+b
 						+'<span class="districtSubName">'+filter(row.districtSubName)+'</span>'
 						+'</p>'
 						+'</div>';

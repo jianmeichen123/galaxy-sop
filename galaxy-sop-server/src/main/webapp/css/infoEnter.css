@@ -54,7 +54,7 @@ color: #FF5124;
 font-style: normal;
 }
 .scheduleIcon{
-	margin:30px auto 60px;
+	margin:30px auto 45px;
 	width: 330px;
 }
 .scheduleIcon li{
@@ -425,12 +425,20 @@ background: #E5F3FF;
 }
 .fixedbottom,.jumpBox{
 	position: fixed;
-	padding: 20px 0 20px 16px;
-	left: 0;
+	padding: 20px 0 20px 20px;
+	left: 60px;
 	right: 0;
 	bottom: 0;
 	background: #e9ebf2; 
     z-index: 102;
+}
+@media (min-width: 1390px) {
+	.fixedbottom,.jumpBox{
+	left:9.375%;
+	}
+}
+.poptxt .fixedbottom,.poptxt .jumpBox{
+	left:0;
 }
 .jumpBox{
 	display:none;
