@@ -11,10 +11,8 @@ border: 1px solid #B2B2B2;
 display: block;
 position:absolute;
 z-index:10;
-top:50%;
-left:50%; 
-margin-left:-6px;
-margin-top:-6px;
+top:10px;
+left:10px;  
 }
 
 

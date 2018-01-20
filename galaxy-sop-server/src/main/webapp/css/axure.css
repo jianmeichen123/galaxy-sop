@@ -3413,6 +3413,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
    	right: -60px;
     margin-left: 5px;
     color: #999060!important;
+      white-space:nowrap;
     }
 .new_poptxt #resultRadion label.error{margin-left: 33px; top: 2px;}
 .new_poptxt #resultRadion .resel_box label.error{ position: absolute; right: -35px;}
