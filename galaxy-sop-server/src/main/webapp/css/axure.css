@@ -881,9 +881,9 @@ pre{white-space:pre-wrap;margin:0;}
 }
 /* 投后静态预览 */
 .label_static{position: relative;}
-.label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 999;}
+.label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 10;}
 .chartbox_bottom{position: relative;}
-.chartbox_bottom img{position: absolute;left: 50%;margin-left: -74px;top: 220px;z-index: 999;}
+.chartbox_bottom img{position: absolute;left: 50%;margin-left: -74px;top: 220px;z-index: 10;}
 /* 加皇冠 */
 .tabtable_con table .no1{background:url(../img/hg1.png) center center no-repeat;z-index: -999;font-size: 0;}
 .tabtable_con table .no2{background:url(../img/hg2.png) center center no-repeat;z-index: -999;font-size: 0;}
