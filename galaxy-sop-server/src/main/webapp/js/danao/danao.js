@@ -12,7 +12,7 @@ function pagePop(codes){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.8
+				"max-height":Wheight*0.7
 			})
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
@@ -72,7 +72,7 @@ function infoDPop(even,status){
 		$("#powindow").remove(); 
 		$("#poptxt").css("padding","0");
 		$("#powindow").css("background","#F4F4F4");
-		var code=$(even).attr("dncode");   
+		var code=$(even).attr("dncode");    
 		getpopHTML(code,even);
 		 
 	} 
@@ -85,7 +85,7 @@ function getpopHTML(code,even,danaoName){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.8
+				"max-height":Wheight*0.7
 			})
 			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
@@ -101,7 +101,7 @@ function getpopHTML(code,even,danaoName){
 			$("#powindow").remove();
 			 pagePop(code)  
 			 return false;
-			}) 
+			})
 			$("#projectName").text(danaoName); 
 			var danaoProjCode= projectInfo.danaoProjCode; 
 			$(".DN_list h5").text("参考信息").css("background","none"); 
@@ -138,7 +138,7 @@ function getpopHTML(code,even,danaoName){
 }
 function buildInfoD(url,data,code){ 
 	sendPostRequestByJsonObj(url, data, function(data){
-	 if(data.result.status=="OK"){
+	 if(data.result.status=="OK"){ 
 		 $("#projectName").text(data.userData.projTitle)
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
 		 var legal=data.userData.legalInfo;
@@ -350,13 +350,19 @@ function saveDN(even){
 			  sendPostRequestByJsonObj(
 					    platformUrl.saveOrUpdateInfo,
 					    dataDN,
-			    function(data) { 
-					 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
-					 $.each(checkTr,function(){  
-						 var that =$(this).find("td").last();
-						 var titleid = that.attr("titleid");
-						 $("#company-info span[data-title-id="+titleid+"]").text(that.text()); 
-					 }) 
+			    function(data) {  
+					 if(pageTypr==2){
+							refreshSection("1812");	 		
+							 
+					 }else if(pageTypr==1){
+
+						 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
+						 $.each(checkTr,function(){  
+							 var that =$(this).find("td").last();
+							 var titleid = that.attr("titleid");
+							 $("#company-info span[data-title-id="+titleid+"]").text(that.text()); 
+						 })
+					 }
 					 layer.msg("保存成功")	  
 					 $("#popbg").remove();
 					 $("#powindow").remove();
@@ -374,7 +380,7 @@ function saveDN(even){
 				 var lastL=10-dttaLength;
 				 if(lastL<0){lastL=0}
 				 if(dttaLength+lengthTr >10){
-					 layer.msg("已超过列表上线，剩余"+lastL+"条可选择" ) 
+					 layer.msg("已超列表上限，当前页还可选择"+lastL+"条" ) 
 				 }else{ 
 					 $.each(checkTr,function(){ 
 						 var info={}; 
@@ -406,8 +412,7 @@ function saveDN(even){
 							 }else if(pageTypr==2){
 								refreshSection("1302");	 		
 								 
-							 }else{
-							 }
+							 } 
 					}) 
 				 }
 			 })  
@@ -430,7 +435,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 }
 		 var lastL = totleNumber-length;
 		 if(length+checkTr.length >totleNumber){ 
-			 layer.msg(tabName+"已超过列表上线，剩余"+lastL+"条可选择" ); 
+			 layer.msg(tabName+"已超列表上限，当前页还可选择"+lastL+"条" ); 
 			 return;
 		 } 
 		 $.each(checkTr,function(){ 

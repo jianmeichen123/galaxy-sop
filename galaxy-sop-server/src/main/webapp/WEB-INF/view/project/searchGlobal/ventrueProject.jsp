@@ -34,7 +34,12 @@
 
 $(function(){
 	//返回附带参数功能代码
-	var initParams="";
+	var initParams,
+		pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
+		initPageSize = 10;
+		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+			initPageSize = pageParams.pageSize;
+		}
 	var keyword = getHrefParamter("keyword");
 	 $('.globleSearchInput').val(keyword)
 	function queryParams(params){
@@ -50,8 +55,9 @@ $(function(){
 	
 	$('#searchTable').bootstrapTable({
 		queryParamsType:'limit',
-		pageSize:10,
-		pageNumber:1,
+		pageSize:initPageSize,
+		//pageNumber:1,
+		showRefresh : false,
 		method:'post',
 		//contentType: "application/x-www-form-urlencoded",
 		pagination:true,
@@ -76,7 +82,8 @@ $(function(){
     			param.direction='desc';
     			param.property='updated_time' 
         	}else{
-    			param.pageNum = initParams.pageNum-1;
+    			//param.pageNum = initParams.pageNum-1;
+        		param.pageNum = initParams.offset/initParams.pageSize;
         		param.pageSize = initParams.pageSize;
         		param.limit=initParams.pageSize;
  	        	param.keyword=keyword;
@@ -97,7 +104,6 @@ $(function(){
 			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
 			var zixunProjectNumber =totalObject.xhtAppZixunTotal; //星河资讯
 			var totalProjectNumber =totalObject.dnZixunTotal; //创投资讯
-			console.log(totalObject)
 			var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
 			/*获取页面的值  */
 			$(".ventrueTotal").html("<span>（"+venterProjectNumber+"）</span>")//创投资讯
@@ -106,22 +112,8 @@ $(function(){
 			
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
-		
 			//带参返回
         	 if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-        		$('.pagination-detail .page-size').text(initParams.pageSize);
-        		
-        		$('.dropdown-menu1 li').each(function(){
-	    			if($(this).text()==initParams.pageSize){
-	    				$(this).addClass('active').siblings().removeClass('active');
-	    				//$(this).click();
-	    				 return false;
-	    			}
-				});
-        		var initPage=initParams.offset+1;
-        		var endPage=initParams.offset+initParams.pageSize;
-        		var totalPage=data.pageList.total;
-        		$('.pagination-info').text('显示第 '+initPage+' 到第 '+endPage+' 条记录，总共 '+totalPage+' 条记录') 
     			if(initParams.pageNum==1){
     				return;
     			}else{
@@ -141,11 +133,11 @@ $(function(){
     						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
     					}
     				}
-
+					
     				$('.pagination li').each(function(){
     	    			if($(this).text()==initParams.pageNum){
-    	    				$(this).addClass('active');
-    	    				//$(this).click();
+    	    				//$(this).addClass('active');
+    	    				$(this).click();
     	    				 return false;
     	    			}
     				});

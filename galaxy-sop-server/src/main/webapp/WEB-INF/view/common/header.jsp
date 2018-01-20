@@ -166,10 +166,6 @@
 					 })
 					 
 			 }
-			
-			 
-			 
-			console.log(data)
 			 
 		 }
 	 }) 
@@ -182,13 +178,11 @@
 $(document).click(function(e){
 	//e.preventDefault()
 	var target  = $(e.target);
-	console.log(target)
 	if(target.parents('.input-search').length == 0){
 		$('.globalSearhc-ul').hide();
 	}
 	
-});
-
+}); 
  $('.globleSearchInput').focus(function(){
 	$(this).parent().find('.globalSearhc-ul').show();
 }) 
