@@ -4315,7 +4315,7 @@ input:-ms-input-placeholder {
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
 .bs-checkbox{width:1% !important;}
 .assingTable tbody tr td:nth-child(1) input{} 
-.pagination_common .fixed-table-pagination{margin-top:13px;}
+/* .pagination_common .fixed-table-pagination{margin-top:13px;} */
 .content_task .bootstrap-select .btn{min-width:98px;}
 .assign_project .ctlist {margin-left:10px;}
 /*1.11全局搜索  */
@@ -4493,8 +4493,8 @@ font-weight:bold;
 .img_content {width:auto;float:left;margin:20px 0 20px 20px;}
 .img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 .input-search span:hover{background:#2878C7;}
-
-
+.ventrueContent .clearfix{background:#f4f4f4;}
+.searchGlobal .ritmin{padding-left:0px;}
 
 
 

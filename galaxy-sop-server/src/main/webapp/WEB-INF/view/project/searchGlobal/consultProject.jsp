@@ -78,6 +78,9 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
+				$('.xhtContent .dropdown-toggle').click(function(){
+	 				$(this).parent().addClass('open')
+	 			})
 				console.log('星河咨询')
 				console.log(data.pageList)
 				if(data.pageList.content){
@@ -195,6 +198,9 @@ $('.consut_span span').click(function(){
 					$('.hasBackround').click();
 				}
 				
+				$('.dnContent .dropdown-toggle').click(function(){
+	 				$(this).parent().addClass('open')
+	 			})
 				
 			}
 	})

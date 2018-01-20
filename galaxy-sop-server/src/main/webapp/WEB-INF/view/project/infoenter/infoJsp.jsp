@@ -28,7 +28,7 @@
 			<thead class="width">
 				<tr class="listTitle listThree">
 					<th data-field="projTitle" class="threeLi threeLiFirst">项目信息</th>
-					<th data-field="setupDT" class="threeLi threeLiSecond">工商信息</th>
+					<th data-field="setupDTEs" class="threeLi threeLiSecond">工商信息</th>
 					<th class="threeLi">操作</th>
 				</tr>
 			</thead>
