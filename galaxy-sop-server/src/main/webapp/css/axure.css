@@ -4315,7 +4315,7 @@ input:-ms-input-placeholder {
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
 .bs-checkbox{width:1% !important;}
 .assingTable tbody tr td:nth-child(1) input{} 
-.pagination_common .fixed-table-pagination{margin-top:13px;}
+/* .pagination_common .fixed-table-pagination{margin-top:13px;} */
 .content_task .bootstrap-select .btn{min-width:98px;}
 .assign_project .ctlist {margin-left:10px;}
 /*1.11全局搜索  */
