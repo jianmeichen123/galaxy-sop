@@ -100,7 +100,7 @@
  $('.input-search').bind('input propertychange',function(){
 	 	var inputValue = $('.input-search input').val();
 	 	if(inputValue.length>100){
-	 		var inputValue = inputValue.substring(0,200);
+	 		var inputValue = inputValue.substring(0,100);
 	 		$('.input-search input').val(inputValue)
 	 	}
 })
