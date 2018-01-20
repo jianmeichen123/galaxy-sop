@@ -109,6 +109,9 @@
 	 $('.input-search span').click(function(){
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
+		 if(keyword == ''){
+			 return false
+		 }
 		 	//调用保存搜索历史方法
 		 	 var url= "<%=path %>/galaxy/infoDanao/saveSearchHistory"
 				 var data = {
