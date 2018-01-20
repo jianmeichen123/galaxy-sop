@@ -14,6 +14,7 @@ function pagePop(codes){
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
 			})
+			$(".scheduleIcon").remove();
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
 			var danaoProjCode= projectInfo.danaoProjCode; 
@@ -87,6 +88,7 @@ function getpopHTML(code,even,danaoName){
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
 			})
+			$(".scheduleIcon").remove();
 			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
 			$("#poptxt").css("padding","0");
