@@ -107,6 +107,9 @@
 
 /* 页面跳转,通过url传递参数 ,保存搜索历史传给后台*/
 	 $('.input-search span').click(function(){
+		if($('.globleSearchInput').val()==""){ 
+			return;
+		}
 		 /* 获取搜索的关键字 */
 			var keyword = $('.globleSearchInput').val().trim();
 		 	//调用保存搜索历史方法
