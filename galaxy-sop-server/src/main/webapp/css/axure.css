@@ -4312,7 +4312,7 @@ input:-ms-input-placeholder {
 .assingTable tbody tr td:nth-child(1) input{} 
 .pagination_common .fixed-table-pagination{margin-top:13px;}
 .content_task .bootstrap-select .btn{min-width:98px;}
-.ctlist {margin-left:10px;}
+.assign_project .ctlist {margin-left:10px;}
 /*1.11全局搜索  */
 .search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
 .search-top ul li{float:left;margin-left:40px;cursor:pointer;}
