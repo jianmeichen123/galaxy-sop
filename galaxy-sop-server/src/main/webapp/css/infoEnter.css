@@ -411,10 +411,8 @@ background: #E5F3FF;
 	margin-right:19px;
 }
 #powindow .bigPop{
-	min-width: 1000px;
-	width: 80%;
-    margin: 0 auto;
-    max-height: 400px;
+	min-width: 1000px; 
+    margin: 0 auto; 
     overflow-y: auto;
 }
 .fixedbottom,.jumpBox{

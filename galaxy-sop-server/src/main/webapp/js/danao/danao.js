@@ -7,6 +7,13 @@ function pagePop(codes){
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
 		okback:function(){  
+			//设置宽高
+			var Wheight=$(window).height(); 
+			var Wwidth=$(window).width();
+			$("#powindow .bigPop").css({
+				"width":Wwidth*0.8,
+				"max-height":Wheight*0.8
+			})
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
 			var danaoProjCode= projectInfo.danaoProjCode; 
@@ -73,7 +80,13 @@ function getpopHTML(code,even,danaoName){
 	 $.getHtml({ 
 		url:Constants.sopEndpointURL + urlCode,//模版请求地址 
 		data:"",//传递参数
-		okback:function(){    
+		okback:function(){  
+			var Wheight=$(window).height(); 
+			var Wwidth=$(window).width();
+			$("#powindow .bigPop").css({
+				"width":Wwidth*0.8,
+				"max-height":Wheight*0.8
+			})
 			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
 			$("#poptxt").css("padding","0");
@@ -115,7 +128,8 @@ function getpopHTML(code,even,danaoName){
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
-					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
+					 $(".emptyInfo").find("a").remove();
 					 $(".DN_info").addClass("noPad");
 				 } 
 		}

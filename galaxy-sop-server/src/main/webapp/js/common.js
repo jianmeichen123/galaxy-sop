@@ -1963,7 +1963,7 @@ function initTable(url,data,status,code) {
                 //value：当前field的值，即id
                 //row：当前行的数据
                 var a ='<div class="conInfo">'
-						+'<p>'+filter(row.projCompanyName)+'</p>'
+						+'<p class="rightText">'+filter(row.projCompanyName)+'</p>'
 						+'<p class="textBotm">'
 							+'<span>成立时间：'+filter(row.setupDT)+'</span>' 
 						+'</p>'
