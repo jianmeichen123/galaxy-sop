@@ -18,7 +18,7 @@
 </head>
 
 <body >
-<div class="pagebox clearfix">
+<div class="pagebox clearfix searchGlobal">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	
 		<div class="ritmin searchPage"> 
