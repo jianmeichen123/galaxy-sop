@@ -12,7 +12,7 @@ function pagePop(codes){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.8
+				"max-height":Wheight*0.7
 			})
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
@@ -85,7 +85,7 @@ function getpopHTML(code,even,danaoName){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.8
+				"max-height":Wheight*0.7
 			})
 			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
@@ -350,13 +350,19 @@ function saveDN(even){
 			  sendPostRequestByJsonObj(
 					    platformUrl.saveOrUpdateInfo,
 					    dataDN,
-			    function(data) { 
-					 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
-					 $.each(checkTr,function(){  
-						 var that =$(this).find("td").last();
-						 var titleid = that.attr("titleid");
-						 $("#company-info span[data-title-id="+titleid+"]").text(that.text()); 
-					 }) 
+			    function(data) {  
+					 if(pageTypr==2){
+							refreshSection("1812");	 		
+							 
+					 }else if(pageTypr==1){
+
+						 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
+						 $.each(checkTr,function(){  
+							 var that =$(this).find("td").last();
+							 var titleid = that.attr("titleid");
+							 $("#company-info span[data-title-id="+titleid+"]").text(that.text()); 
+						 })
+					 }
 					 layer.msg("保存成功")	  
 					 $("#popbg").remove();
 					 $("#powindow").remove();
@@ -406,8 +412,7 @@ function saveDN(even){
 							 }else if(pageTypr==2){
 								refreshSection("1302");	 		
 								 
-							 }else{
-							 }
+							 } 
 					}) 
 				 }
 			 })  
