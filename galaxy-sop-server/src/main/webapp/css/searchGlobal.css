@@ -370,9 +370,10 @@ background: #E5F3FF;
 .title_top h3{
 	float:left;
 	margin-top:20px;
-	margin-left:20px;	
+	margin-left:40px;	
 	font-size: 24px;
 	color: #202533;
+	font-weight:normal;
 }
 .title_top span:nth-child(2){
 	float:right;
