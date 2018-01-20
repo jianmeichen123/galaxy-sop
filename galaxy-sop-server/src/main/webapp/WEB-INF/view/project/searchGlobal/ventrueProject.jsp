@@ -8,7 +8,7 @@
 <div class="pagebox clearfix task-pagebox">
     <!--右中部内容-->
  		<div class='one pagination_common ventrueContent'>
-			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" class='createProject table table-hover' style="width:100%;">
+			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" data-auth="isShow" class='createProject table table-hover' style="width:100%;">
 				<thead>
 					<th data-field="projectName" data-formatter="projectInfo">项目</th>
 					<th data-field="finance_status" data-formatter="financeStatusFormat">融资状态</th>
@@ -88,6 +88,10 @@ $(function(){
         	return param;
         }, 
 		onLoadSuccess:function(data){
+			var isShow='${fx:hasPremission('project_search_sop')}';
+			if(isShow=="false"&&$(".no_info_icon_xhhl").text()==""){
+				$(".no_info_icon_xhhl").text("暂无数据权限");
+			}
 			var totalObject = data.userData;
 			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
