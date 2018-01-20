@@ -146,6 +146,10 @@ $(function(){
     				});
     			}
     		} 
+			
+        	 $('.ventrueContent .dropdown-toggle').click(function(){
+ 				$(this).parent().addClass('open')
+ 			})
 		}
 	
 	
