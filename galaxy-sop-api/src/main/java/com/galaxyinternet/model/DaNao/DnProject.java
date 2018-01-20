@@ -58,7 +58,7 @@ public class DnProject extends BaseEntity {
 
 	//成立时间
 	private String setupDT;
-	private String setupDTEs;
+	private String setupDTEs; // yyyy-MM
 
 	//项目slogan 简介
 	private String introduce;
