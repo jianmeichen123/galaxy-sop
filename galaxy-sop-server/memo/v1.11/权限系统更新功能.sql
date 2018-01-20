@@ -1,5 +1,9 @@
 INSERT INTO `power`.`resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`)
- VALUES('1055','0','project_search_overall','全局搜索', '3', NULL,'117000', '可操作项目列表的批量指派项目功能','0','0','0', NULL, NULL, NULL,NULL,'1',NULL) ;
+ VALUES('1055','0','project_search_overall','全局搜索', '3', NULL,'117000', '创投项目全局搜索功能','0','0','0', NULL, NULL, NULL,NULL,'1',NULL) ;
+
+ 
+ INSERT INTO `power`.`resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`)
+ VALUES('1191','1190','project_search_sop','全局搜索-创投项目', '3', NULL,'117001', '创投项目全局搜索功能-创投项目','0','0','0', NULL, NULL, NULL,NULL,'1',NULL) ;
 
 /*
 -- Query: SELECT * FROM power.resource where id = 1015
