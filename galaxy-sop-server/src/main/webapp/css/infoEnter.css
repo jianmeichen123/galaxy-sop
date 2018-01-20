@@ -37,7 +37,12 @@ width:500px;
     vertical-align: middle;
     padding-right: 10px;
 }
-.center{position: absolute;top:50%;left:50%; transform: translate(-50%, -50%);width:500px;height:auto;}
+.center{position: absolute;top:50%;left:50%; 
+transform: translate(-50%, -50%);
+-webkit-transform: translate(-50%, -50%);
+-moz-transform: translate(-50%, -50%);
+-o-transform: translate(-50%, -50%);
+width:500px;height:auto;}
 .infoTop p{
 font-size: 14px;
 color: #666666;
@@ -294,6 +299,9 @@ table-layout: fixed;
     left:50%;
     top:50%;
     transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
 }
 
 .pageTop{
