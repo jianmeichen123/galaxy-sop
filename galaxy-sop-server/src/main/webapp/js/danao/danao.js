@@ -12,7 +12,7 @@ function pagePop(codes){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.7
+				"max-height":Wheight*0.8
 			})
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
@@ -85,7 +85,7 @@ function getpopHTML(code,even,danaoName){
 			var Wwidth=$(window).width();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
-				"max-height":Wheight*0.7
+				"max-height":Wheight*0.8
 			})
 			$(".jumpBox").remove()
 			$("#powindow .close").addClass("outClose")
@@ -159,10 +159,12 @@ function buildInfoD(url,data,code){
  * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
  */
 function isEmpty(obj)
-{
+{ 
     for (var name in obj) 
     {
-        return false;
+    	if(name!="projTitle"){
+            return false;
+    	}
     }
     return true;
 };
@@ -170,6 +172,7 @@ function isEmpty(obj)
 function buildDNinfo(_url,jsonObj){
 
 	sendPostRequestByJsonObj(_url, jsonObj, function(data){   
+		alert(isEmpty(data.userData))
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
