@@ -98,6 +98,9 @@ $(function(){
 			var isShow='${fx:hasPremission('project_search_sop')}';
 			if(isShow=="false"&&$(".no_info_icon_xhhl").text()==""){
 				$(".no_info_icon_xhhl").text("暂无数据权限");
+			}else{
+				$(".no_info_icon_xhhl").text("没有找到匹配的记录");
+				
 			}
 			var totalObject = data.userData;
 			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
