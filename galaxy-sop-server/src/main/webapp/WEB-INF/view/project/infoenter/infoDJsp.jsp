@@ -8,14 +8,12 @@ width:10px;
 height:10px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
-display: block;
-position:absolute;
-z-index:10;
-top:10px;
-left:10px;  
-}
-
-
+display: block; 
+z-index:10; 
+margin: 0 auto;
+position:relative;
+margin-bottom: -11px;
+} 
 table input {
 opacity: 0; 
 z-index:11;
@@ -81,8 +79,8 @@ border: none;
 		 					</td> 
 		 					<td>股东名称</td>
 		 					<td>股东类型</td>
-		 					<td>股东性质</td>
-		 					<td>占股比例（%）</td>
+		 					<td>股东性质（%）</td>
+		 					<td>占股比例</td>
 		 					<td>备注</td>	
 		 				</tr>
 		 			</thead>
