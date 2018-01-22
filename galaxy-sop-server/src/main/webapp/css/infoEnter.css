@@ -50,6 +50,16 @@ color: #666666;
 text-align: center;
 margin-bottom: 10px;
 }
+.DN_info .infoTop p{	
+margin-bottom: 0px;
+}
+.DN_list .infoList{
+	margin-top:5px;
+}
+.DN_info .infoTop .backLink{
+    bottom: 18px;
+    top:auto;
+}
 .infoTop i{ 
 color: #FF5124;
 font-style: normal;
