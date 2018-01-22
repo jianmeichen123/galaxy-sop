@@ -24,7 +24,8 @@ margin: 30px auto 20px;
 width:500px; 
 }
 .DN_list .infoTop h5,.DN_info .infoTop h5{
-	margin-top:20px;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 .DN_list .tableBox,.DN_info .tableBox{margin: 0 10px;}
 .infoTop h5 img{    
@@ -47,7 +48,17 @@ width:500px;height:auto;}
 font-size: 14px;
 color: #666666;
 text-align: center;
-margin-bottom: 10px;
+margin-bottom: 5px;
+}
+.DN_info .infoTop p{	
+margin-bottom: 0px;
+}
+.DN_list .infoList{
+	margin-top:510px;
+}
+.DN_info .infoTop .backLink{
+    bottom: 20px;
+    top:auto;
 }
 .infoTop i{ 
 color: #FF5124;
