@@ -499,8 +499,8 @@ function timeOut(num,dom) {
 	}
     var i = num; 
     setInterval(function(){ 
-//    	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-//	}
+    	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+	}
     		dom.text(i--);
  
     },1000); 
