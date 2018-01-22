@@ -13,6 +13,7 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <%-- <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>  --%>
 
 </head>

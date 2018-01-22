@@ -13,6 +13,7 @@
  --%><!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/projectTransfer.js"></script>
 </head>
 
