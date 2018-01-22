@@ -432,7 +432,7 @@ background: #E5F3FF;
 	background: #e9ebf2; 
     z-index: 102;
 }
-@media (min-width: 1390px) {
+@media (min-width: 1359px) {
 	.fixedbottom,.jumpBox{
 	left:9.375%;
 	}
