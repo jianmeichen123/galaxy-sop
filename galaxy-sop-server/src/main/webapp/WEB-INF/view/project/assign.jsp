@@ -213,7 +213,18 @@ $(function(){
 	var initPageSize = 10;
 	//重置方法
 	$(".reset_search").click(function(){
-		$('.selectpicker').selectpicker('deselectAll');
+		//$('.selectpicker').selectpicker('deselectAll');
+		 // 搜索条件初始化 
+		 $('ul.selectpicker').each(function(){
+			 $(this).find('li').removeClass('selected');
+			 $(this).find('li:first').addClass('selected');
+		 })
+	   	$('select[name="projectDepartid"]').parent().find('.filter-option').html('全部事业线');
+		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
+		$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度');
+		$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
+		$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
+		$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
 		$(".form-control").val("");
 	});
 	
