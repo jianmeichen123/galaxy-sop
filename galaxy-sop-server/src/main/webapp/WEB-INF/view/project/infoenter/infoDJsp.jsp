@@ -12,11 +12,11 @@ display: block;
 z-index:10; 
 margin: 0 auto;
 position:relative;
-margin-bottom: -11px;
 } 
 table input {
 opacity: 0; 
 z-index:11;
+margin-bottom: -11px;
 }
 input:checked + label {
 width:12px;
