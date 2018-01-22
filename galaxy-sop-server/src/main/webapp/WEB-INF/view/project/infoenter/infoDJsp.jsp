@@ -4,8 +4,8 @@
 %>
 <style>
 input+ label,table input  {
-width:12px;
-height:12px;
+width:10px;
+height:10px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
 display: block;
@@ -22,19 +22,10 @@ z-index:11;
 }
 input:checked + label {
 width:12px;
-height:12px;
-background:#55A7FF ;
-text-align:center;
-border-color:#55A7FF ;    
-overflow: hidden;
-line-height: 12px;
-}
-input:checked + label::before {
-   content:"✓ ";
-   width:12px;
-   color:#fff; 
-   font-weight: 100;
-}
+height:12px;  
+background: url('<%=path %>/img/seven_report/myBlue.png') no-repeat -86px -5px;
+border: none;
+} 
 </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop DN_info">
