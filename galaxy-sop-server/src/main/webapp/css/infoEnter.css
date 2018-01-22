@@ -140,8 +140,8 @@ color: #3CA6FF;
 .tableBox .pagination > .disabled > span, .tableBox .pagination > .disabled > span:hover, .tableBox .pagination > .disabled > span:focus, .tableBox .pagination > .disabled > a, .tableBox .pagination > .disabled > a:hover, .tableBox .pagination > .disabled > a:focus{
 
 }
-.DN_info{
-	padding-bottom: 88px;
+#powindow .bigPop.DN_info .tableBox {
+	margin-bottom: 88px;
 }
 .DN_info.noPad{	
 	padding-bottom: 10px;
