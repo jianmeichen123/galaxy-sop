@@ -210,8 +210,7 @@ function buildDNtable(dom ,data,code){
 				if(filter(that.prePayAmountStr)){
 					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'万元</p>';
 					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr)+'万元 ';
-				}
-				debugger;
+				} 
 				if(filter(that.paidDate)){ 
 					str3='<p>实缴出资时间：'+filter(that.paidDate)+'</p>';
 					Vstr3='实缴出资时间：'+filter(that.paidDate);
