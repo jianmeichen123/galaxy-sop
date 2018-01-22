@@ -350,17 +350,41 @@ $(function(){
         	
        	 /* checkbox 点击 */
        	 $('.highlighCheckbox').click(function(event){
-       		 $(this).toggleClass('highlighCheckbox_checked');
+      		 if($(this).hasClass("highlighCheckbox_checked")){
+           		$(this).prop('checked',false);
+          		$(this).removeClass('highlighCheckbox_checked'); 
+       		  }else{
+           		$(this).prop('checked',true);
+          		$(this).addClass('highlighCheckbox_checked'); 
+       		  }
+       		var table = $(this).closest("table");
+       		var Tbody = table.find("tbody");
+       		var length=Tbody.find("input[type=checkbox]").length;
+       		var checkLength =Tbody.find(".highlighCheckbox_checked").length;  
+       		if(length==checkLength){ 
+       			table.find(".highlighCheckbox_th input").prop('checked',true);
+       		 $('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
+       		} else{ 
+       			table.find(".highlighCheckbox_th input").prop('checked',false);
+          		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
+       		} 
        		 event.preventDefault(); 
        		 
        	 });
-       	 //全选
-       	  $('.highlighCheckbox_th').removeClass('highlighCheckbox_checked');
-       	 $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
-       		 $(this).toggleClass('highlighCheckbox_checked');
-       		 $('.highlighCheckbox').toggleClass('highlighCheckbox_checked');
-       		 event.preventDefault(); 
-       	 });
+       	 //全选 
+       	  $('.highlighCheckbox_th').click(function(){
+       		$(this).toggleClass('highlighCheckbox_checked'); 
+       		  if($(this).hasClass("highlighCheckbox_checked")){
+           		$(this).find("input").prop('checked',true);
+           		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+           		$(this).closest("table").find(".highlighCheckbox").addClass('highlighCheckbox_checked');
+       		  }else{
+           		$(this).find("input").prop('checked',false);
+           		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+           		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
+       		  }
+       		event.preventDefault(); 
+       	  }) 
         }
 	});
 })
