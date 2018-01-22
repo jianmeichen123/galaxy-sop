@@ -89,15 +89,6 @@ $(function(){
 			var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 			$('.totalNumber').html("<span>"+allTotal+"</span>")	;
 			
-			$('.outerContent .dropdown-toggle').click(function(){
-				$(this).parent().addClass('open')
-			})
-			
-			
-			
-			
-			
-			
 		}
 	
 	

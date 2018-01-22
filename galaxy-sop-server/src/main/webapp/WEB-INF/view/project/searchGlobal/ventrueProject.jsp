@@ -95,11 +95,6 @@ $(function(){
         	return param;
         }, 
 		onLoadSuccess:function(data){
-			 $('.ventrueContent .dropdown-toggle').click(function(){
-	        		
-	 				$(this).parent().addClass('open')
-	 			})
-			
 			
 			var isShow='${fx:hasPremission('project_search_sop')}';
 			if(isShow=="false"&&$(".no_info_icon_xhhl").text()==""){

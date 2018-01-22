@@ -78,11 +78,6 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				$('.xhtContent .dropdown-toggle').click(function(){
-	 				$(this).parent().addClass('open')
-	 			})
-				console.log('星河咨询')
-				console.log(data.pageList)
 				if(data.pageList.content){
 					$('.hasBackround').click();//如果有数据则展示星河资讯
 				}else{
@@ -197,10 +192,6 @@ $('.consut_span span').click(function(){
 				}else{
 					$('.hasBackround').click();
 				}
-				
-				$('.dnContent .dropdown-toggle').click(function(){
-	 				$(this).parent().addClass('open')
-	 			})
 				
 			}
 	})
