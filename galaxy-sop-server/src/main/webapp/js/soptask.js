@@ -6,9 +6,13 @@ $(function(){
 	$('#custom-toolbar').on('mouseenter','.more-task',function(){
 		$('.task-toggle').slideDown();
 	});
-	$('#custom-toolbar').on('mouseleave','.task-toggle',function(){
+	/*$('#custom-toolbar').on('mouseleave','.task-toggle',function(){
 		$('.task-toggle').slideUp();
-	});
+	});*/
+	$('.task-toggle').mouseleave(function(){
+		$(this).slideUp()
+		
+	})
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		addTaskCookie();
