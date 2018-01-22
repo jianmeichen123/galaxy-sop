@@ -4494,5 +4494,7 @@ font-weight:bold;
 .img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 .input-search span:hover{background:#2878C7;}
 /* footer */
-
-
+.ventrueContent .clearfix{background:#E9EBF2;}
+.searchGlobal .ritmin{padding-left:0px;}
+ .ventrueContent .fixed-table-pagination .pagination-detail{margin-top:13px;} 
+ .ventrueContent .fixed-table-pagination .pagination{margin-top:6px;} 
