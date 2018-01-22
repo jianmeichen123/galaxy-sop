@@ -479,7 +479,13 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	
 	 /* 下拉框宽度 */
 	 
-	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px')
+	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px');
+	 $('.bootstrap-select').click(function(){
+		if($(this).hasClass('open')){
+			$(this).closest('form-group')
+		}
+		 
+	 })
 ///////////////////////初始化筛选条件finish
 
 
