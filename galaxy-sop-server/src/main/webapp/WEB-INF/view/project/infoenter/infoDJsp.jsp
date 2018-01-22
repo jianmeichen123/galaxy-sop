@@ -81,7 +81,7 @@ border: none;
 		 					</td> 
 		 					<td>股东名称</td>
 		 					<td>股东类型</td>
-		 					<td>股东性质</td>
+		 					<td>股东性质（%）</td>
 		 					<td>占股比例</td>
 		 					<td>备注</td>	
 		 				</tr>
@@ -118,9 +118,9 @@ border: none;
 		 					</td> 
 		 					<td>融资轮次</td>
 		 					<td>融资时间</td>
-		 					<td>融资金额</td>
+		 					<td>融资金额（万）</td>
 		 					<td>币种</td>
-		 					<td>股权占比</td>	
+		 					<td>股权占比（%）</td>	
 		 					<td>投资方</td>	 
 		 				</tr>
 		 			</thead>
