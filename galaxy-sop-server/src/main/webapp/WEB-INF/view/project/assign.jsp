@@ -477,7 +477,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		});
 	 $('.selectpicker').selectpicker('refresh');
 	
-
+	 /* 下拉框宽度 */
+	 
+	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px')
 ///////////////////////初始化筛选条件finish
 
 
@@ -589,4 +591,11 @@ function financeStatusFormat(value,row,index){
 		return param;
 		
 	}
+	 
+	
+	 
+	 
+	 
+	 
+	 
 </script>
