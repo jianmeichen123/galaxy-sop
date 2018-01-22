@@ -174,8 +174,7 @@ function isEmpty(obj)
 //显示数据 
 function buildDNinfo(_url,jsonObj){
 
-	sendPostRequestByJsonObj(_url, jsonObj, function(data){   
-		alert(isEmpty(data.userData))
+	sendPostRequestByJsonObj(_url, jsonObj, function(data){    
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
