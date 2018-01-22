@@ -18,7 +18,7 @@ function pagePop(codes){
 			 //infoDetail  
 			$("#powindow .close").addClass("outClose")
 			var danaoProjCode= projectInfo.danaoProjCode; 
-			$(".DN_list h5").text("参考信息").css("background","none"); 
+			$(".DN_list h5").text("参考信息").css("background","none");  
 			if(!danaoProjCode||danaoProjCode==null){
 				$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
 			}else{
@@ -107,6 +107,7 @@ function getpopHTML(code,even,danaoName){
 			$("#projectName").text(danaoName); 
 			var danaoProjCode= projectInfo.danaoProjCode; 
 			$(".DN_list h5").text("参考信息").css("background","none"); 
+			debugger;
 			if(!danaoProjCode||danaoProjCode==null){
 				$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
 			}else{

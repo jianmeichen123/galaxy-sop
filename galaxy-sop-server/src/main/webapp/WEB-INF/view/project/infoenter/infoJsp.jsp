@@ -36,7 +36,13 @@
 		</table>
 		
  	</div>
+ 	<div class="tableBox emptyInfo" style="display:none;">
+	<div class="empty">
+		 暂无项目推荐
+	</div>		
+</div>
 </div>  
+
 
 <script>  
 </script>

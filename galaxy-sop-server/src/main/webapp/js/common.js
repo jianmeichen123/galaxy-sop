@@ -2000,9 +2000,15 @@ function initTable(url,data,status,code) {
 
         ],
         onLoadSuccess: function (data) {
+        	if(data.pageList.content.length<=0){
+        		$(".infoTop p:first").remove();
+        		$(".infoTop p i").css("color","#666");
+        		$(".tableBox").hide();
+        		$(".emptyInfo").show().css("margin-bottom",0);
+        	}
         	$(".pagination-info").css({"color":"#5A626D","overflow":"hidden"});
 			$(".pagination-info").append("<span style=color:#999;padding-left:18px;>（数据来源：创投大脑）</span>");
-			$(".bootstrap-table").next().hide();
+			$(".bootstrap-table").next().hide(); 
 			return false;
         },
         pagination: true
