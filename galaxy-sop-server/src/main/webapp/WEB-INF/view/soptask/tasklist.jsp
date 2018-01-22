@@ -79,7 +79,9 @@
 		</table>
     </div>
 </div>
-
+<script type="text/javascript">
+var hasAssignPremission = "${fx:hasPremission('task_assign')}";
+</script>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
