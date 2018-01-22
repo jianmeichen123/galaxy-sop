@@ -285,6 +285,11 @@ font-weight: bold;
 	border-left: 1px solid #d8d8d8;	
     border-bottom: 1px solid #d8d8d8;
 }
+.infoItem table td[name="field5"] p{
+	line-height:1.5;
+	padding-left:10px;
+	text-align:left;
+}
 .infoItem table td:nth-child(1){border-left:0; width:32px; position:relative;}
 .infoItem table td:nth-child(2){ width:20%;overflow:hidden;white-space:nowrap; text-overflow:ellipsis; }
 .infoItem table[code="equity-structure"]{
