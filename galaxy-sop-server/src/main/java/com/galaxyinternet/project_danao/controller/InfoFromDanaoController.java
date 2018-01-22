@@ -450,7 +450,7 @@ public class InfoFromDanaoController{
 			//String keyword = StringUtils.isNotBlank(dnProject.getKeyword()) ? dnProject.getKeyword() : null;
 			//String keyword = StringUtils.isNotBlank(project.getKeyword()) ? project.getKeyword() : null;
 			dnProject.setOrder(direction);
-			dnProject.setPageNo(pageNum);
+			dnProject.setPageNo(pageNum+1);
 			dnProject.setPageSize(pageSize);
 			dnProject.setOrderBy(property);
 
