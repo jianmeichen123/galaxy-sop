@@ -54,7 +54,7 @@ margin-bottom: 5px;
 margin-bottom: 0px;
 }
 .DN_list .infoList{
-	margin-top:510px;
+	margin-top:10px;
 }
 .DN_info .infoTop .backLink{
     bottom: 20px;
@@ -439,7 +439,7 @@ background: #E5F3FF;
 	padding: 20px 0 20px 20px;
 	left: 60px;
 	right: 0;
-	bottom: 0;
+	bottom: 0;	
 	background: #e9ebf2; 
     z-index: 102;
 }
@@ -454,10 +454,10 @@ background: #E5F3FF;
 .jumpBox{
 	display:none;
 	z-index: 103;
-	background: #e9ebf2;
-    width: 100%;
+	background: #e9ebf2; 
     height: 100%;
     padding:0;
+    top:53px;
 }
 .add_pro,.over_pro{
 	background: #3CA6FF;
