@@ -4,37 +4,26 @@
 %>
 <style>
 input+ label,table input  {
-width:12px;
-height:12px;
+width:10px;
+height:10px;
 background: #FFFFFF;
 border: 1px solid #B2B2B2;
-display: block;
-position:absolute;
-z-index:10;
-top:10px;
-left:10px;  
-}
-
-
+display: block; 
+z-index:10; 
+margin: 0 auto;
+position:relative;
+} 
 table input {
 opacity: 0; 
 z-index:11;
+margin-bottom: -11px;
 }
 input:checked + label {
 width:12px;
-height:12px;
-background:#55A7FF ;
-text-align:center;
-border-color:#55A7FF ;    
-overflow: hidden;
-line-height: 12px;
-}
-input:checked + label::before {
-   content:"✓ ";
-   width:12px;
-   color:#fff; 
-   font-weight: 100;
-}
+height:12px;  
+background: url('<%=path %>/img/seven_report/myBlue.png') no-repeat -86px -5px;
+border: none;
+} 
 </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop DN_info">
@@ -90,7 +79,7 @@ input:checked + label::before {
 		 					</td> 
 		 					<td>股东名称</td>
 		 					<td>股东类型</td>
-		 					<td>股东性质</td>
+		 					<td>股东性质（%）</td>
 		 					<td>占股比例</td>
 		 					<td>备注</td>	
 		 				</tr>
@@ -127,9 +116,9 @@ input:checked + label::before {
 		 					</td> 
 		 					<td>融资轮次</td>
 		 					<td>融资时间</td>
-		 					<td>融资金额</td>
+		 					<td>融资金额（万）</td>
 		 					<td>币种</td>
-		 					<td>股权占比</td>	
+		 					<td>股权占比（%）</td>	
 		 					<td>投资方</td>	 
 		 				</tr>
 		 			</thead>

@@ -54,7 +54,7 @@ margin-bottom: 5px;
 margin-bottom: 0px;
 }
 .DN_list .infoList{
-	margin-top:510px;
+	margin-top:10px;
 }
 .DN_info .infoTop .backLink{
     bottom: 20px;
@@ -140,8 +140,8 @@ color: #3CA6FF;
 .tableBox .pagination > .disabled > span, .tableBox .pagination > .disabled > span:hover, .tableBox .pagination > .disabled > span:focus, .tableBox .pagination > .disabled > a, .tableBox .pagination > .disabled > a:hover, .tableBox .pagination > .disabled > a:focus{
 
 }
-.DN_info{
-	padding-bottom: 88px;
+#powindow .bigPop.DN_info .tableBox {
+	margin-bottom: 88px;
 }
 .DN_info.noPad{	
 	padding-bottom: 10px;
@@ -285,13 +285,21 @@ font-weight: bold;
 	border-left: 1px solid #d8d8d8;	
     border-bottom: 1px solid #d8d8d8;
 }
+.infoItem table td[name="field5"]{
+	padding:10px 0;
+}
+.infoItem table td[name="field5"] p{
+	line-height:1.8;
+	padding-left:10px;
+	text-align:left;
+}
 .infoItem table td:nth-child(1){border-left:0; width:32px; position:relative;}
 .infoItem table td:nth-child(2){ width:20%;overflow:hidden;white-space:nowrap; text-overflow:ellipsis; }
 .infoItem table[code="equity-structure"]{
 table-layout: fixed;
 } 
 .tabrow{
-	width: 80%;
+	width: 90%;
 } 
 .emptyInfo{
 	height: 260px;
@@ -324,60 +332,6 @@ table-layout: fixed;
 .pageTop .form-group{
 	float: left;
 	width:auto;
-}
-.bootstrap-select > .btn,.open>.dropdown-toggle.btn-info:hover,.dropdown-toggle.btn-info:active,.dropdown-toggle.btn-info:focus {
-	max-width: 130px;
-    padding-right: 30px;
-	background: none;
-	border: none;	
-    color: #33363E;
-    outline: none!important;
-} 
-.bootstrap-select.btn-group .btn .filter-option{
-	position: relative;
-	font-family: Microsoft YaHei; 
-	overflow: hidden;
-	display: inline-block; 
-    min-width: 50px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.bootstrap-select.btn-group .btn .caret{
-	color: #59626D ;
-	border-bottom: 0px !important;	
-    border-top: 5px dashed !important;
-}
-.open>.dropdown-menu{ 
-	border: 1px solid #D8D8D8;
-	border-radius: 0 0 2px 2px;
-	background: #fff;
-	padding: 0;
-}
-.bootstrap-select.btn-group .dropdown-menu li{
-	line-height: 30px;
-	border-bottom: 1px solid #f0f0f0;
-	padding-left: 7px;
-    padding-right: 25px;
-	overflow: hidden;
-	font-family: Microsoft YaHei;
-	position: relative;
-} 
-.bootstrap-select.btn-group .dropdown-menu li>a{
-	background: none;
-	width: 100%;	
-    display: block;
-}
-.bootstrap-select.btn-group .dropdown-menu li.selected{
-background: #E5F3FF;
-}
-.bootstrap-select.btn-group .dropdown-menu li.selected a:after{ 
-	content: "✓ "; 
-	float: right;
-	padding-right:7px;
-	color: #55A7FF; 
-    position: absolute;
-    right: 2px;
-    top: 0px;
 }
 .input-group input{
 	width:240px;
@@ -439,7 +393,7 @@ background: #E5F3FF;
 	padding: 20px 0 20px 20px;
 	left: 60px;
 	right: 0;
-	bottom: 0;
+	bottom: 0;	
 	background: #e9ebf2; 
     z-index: 102;
 }
@@ -450,14 +404,15 @@ background: #E5F3FF;
 }
 .poptxt .fixedbottom,.poptxt .jumpBox{
 	left:0;
+	position:absolute;
 }
 .jumpBox{
 	display:none;
 	z-index: 103;
-	background: #e9ebf2;
-    width: 100%;
+	background: #e9ebf2; 
     height: 100%;
     padding:0;
+    top:53px;
 }
 .add_pro,.over_pro{
 	background: #3CA6FF;

@@ -56,11 +56,11 @@ return 返回：userData
 	股东性质  shareholderType 选择项 shareholderTypeId
 	占股比例  equityRate
 	备注 :
-		”认缴出资时间”、  prePayDate
-		”认缴出资金额”、  prePayAmountStr
+		”认缴出资时间”、  prePayDate 
+		”认缴出资金额”、  prePayAmountStr 万元
 		”实缴出资时间”、  paidDate
-		”实缴出资金额”、  paidPayAmountStr
-		”出资方式”        payType
+		”实缴出资金额”、  paidPayAmountStr 万元
+	”出资方式”        payType
 //----------------------
 团队成员: teamInfo
 	姓名    name

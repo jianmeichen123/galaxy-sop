@@ -13,6 +13,7 @@
  --%><!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]--> 
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/projectTransfer.js"></script>
 </head>
 
@@ -69,6 +70,8 @@
 			      <select name="financeStatus" class="selectpicker">
 					 <!--  <option>融资状态</option> -->
 					 <option index="-1">全部</option>
+					 <option index="" value="尚未获投">尚未获投</option>
+                      <option index="" value="不明确">不明确</option>
 					</select>
 			  	</div>
 
@@ -79,6 +82,9 @@
 					 <c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
 	                 </c:forEach>
+	                		<option>创业者</option>
+	                    	<option>外部独立合伙人</option>
+	                    	<option>自开发</option>
 					</select>
 			  	</div>
 				
@@ -213,7 +219,18 @@ $(function(){
 	var initPageSize = 10;
 	//重置方法
 	$(".reset_search").click(function(){
-		$('.selectpicker').selectpicker('deselectAll');
+		//$('.selectpicker').selectpicker('deselectAll');
+		 // 搜索条件初始化 
+		 $('ul.selectpicker').each(function(){
+			 $(this).find('li').removeClass('selected');
+			 $(this).find('li:first').addClass('selected');
+		 })
+	   	$('select[name="projectDepartid"]').parent().find('.filter-option').html('全部事业线');
+		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
+		$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度');
+		$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
+		$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
+		$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
 		$(".form-control").val("");
 	});
 	
@@ -350,17 +367,41 @@ $(function(){
         	
        	 /* checkbox 点击 */
        	 $('.highlighCheckbox').click(function(event){
-       		 $(this).toggleClass('highlighCheckbox_checked');
+      		 if($(this).hasClass("highlighCheckbox_checked")){
+           		$(this).prop('checked',false);
+          		$(this).removeClass('highlighCheckbox_checked'); 
+       		  }else{
+           		$(this).prop('checked',true);
+          		$(this).addClass('highlighCheckbox_checked'); 
+       		  }
+       		var table = $(this).closest("table");
+       		var Tbody = table.find("tbody");
+       		var length=Tbody.find("input[type=checkbox]").length;
+       		var checkLength =Tbody.find(".highlighCheckbox_checked").length;  
+       		if(length==checkLength){ 
+       			table.find(".highlighCheckbox_th input").prop('checked',true);
+       		 $('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
+       		} else{ 
+       			table.find(".highlighCheckbox_th input").prop('checked',false);
+          		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
+       		} 
        		 event.preventDefault(); 
        		 
        	 });
-       	 //全选
-       	  $('.highlighCheckbox_th').removeClass('highlighCheckbox_checked');
-       	 $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
-       		 $(this).toggleClass('highlighCheckbox_checked');
-       		 $('.highlighCheckbox').toggleClass('highlighCheckbox_checked');
-       		 event.preventDefault(); 
-       	 });
+       	 //全选 
+       	  $('.highlighCheckbox_th').click(function(){
+       		$(this).toggleClass('highlighCheckbox_checked'); 
+       		  if($(this).hasClass("highlighCheckbox_checked")){
+           		$(this).find("input").prop('checked',true);
+           		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+           		$(this).closest("table").find(".highlighCheckbox").addClass('highlighCheckbox_checked');
+       		  }else{
+           		$(this).find("input").prop('checked',false);
+           		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+           		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
+       		  }
+       		event.preventDefault(); 
+       	  }) 
         }
 	});
 })
@@ -441,7 +482,15 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		});
 	 $('.selectpicker').selectpicker('refresh');
 	
-
+	 /* 下拉框宽度以及点击互斥事件 */
+	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px');
+	 $('.btn').click(function(){
+		 if($('.btn-group').hasClass('open')){
+			 $(this).closest('.form-group').siblings().find('.btn-group').removeClass('open')
+		 }
+			
+		 
+	 })
 ///////////////////////初始化筛选条件finish
 
 
@@ -553,4 +602,11 @@ function financeStatusFormat(value,row,index){
 		return param;
 		
 	}
+	 
+	
+	 
+	 
+	 
+	 
+	 
 </script>

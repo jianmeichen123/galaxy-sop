@@ -177,12 +177,14 @@ function toggleOperatBtns()
 	var content = '';
 	if(opts.length>1)
 	{
+		content +='<span class="ul_content">'
 		content += '<span class="more-task fr dynamic">更多操作</span>';
 		content += '<ul class="task-toggle dynamic">';
 		$.each(opts,function(){
 			content += '<li data-code="'+this.code+'">'+this.name+'</li>';
 		});
 		content += '</ul>';
+		content += '</span>'
 	}
 	else if(opts.length == 1)
 	{

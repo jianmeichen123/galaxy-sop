@@ -58,7 +58,7 @@ $('.consut_span span').click(function(){
 		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
-				pageNo:params.offset/params.limit+1,
+				pageNo:params.offset/params.limit,
 				pageSize:params.limit,
 				keyword:keyword,
 				pageSearchInfo:'dnProject',
@@ -69,7 +69,7 @@ $('.consut_span span').click(function(){
 		
 		$('#xhtConsult').bootstrapTable({
 			pageSize:10,
-			pageNumber:0,
+			pageNumber:1,
 			method:'post',
 			pagination:true,
 			pageList:[10,20,30],
@@ -78,11 +78,6 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				$('.xhtContent .dropdown-toggle').click(function(){
-	 				$(this).parent().addClass('open')
-	 			})
-				console.log('星河咨询')
-				console.log(data.pageList)
 				if(data.pageList.content){
 					$('.hasBackround').click();//如果有数据则展示星河资讯
 				}else{
@@ -197,10 +192,6 @@ $('.consut_span span').click(function(){
 				}else{
 					$('.hasBackround').click();
 				}
-				
-				$('.dnContent .dropdown-toggle').click(function(){
-	 				$(this).parent().addClass('open')
-	 			})
 				
 			}
 	})

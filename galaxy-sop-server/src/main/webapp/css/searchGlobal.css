@@ -331,13 +331,16 @@ font-weight: bold;
 }
 .bootstrap-select.btn-group .dropdown-menu li{
 	line-height: 30px;
-	border-bottom: 1px solid #f0f0f0;
 	padding-left: 7px;
     padding-right: 25px;
 	overflow: hidden;
 	font-family: Microsoft YaHei;
 	position: relative;
 } 
+.bootstrap-select.btn-group .dropdown-menu{
+	border:0;
+	z-index:10;
+}
 .bootstrap-select.btn-group .dropdown-menu li>a{
 	background: none;
 	width: 100%;	
@@ -347,13 +350,16 @@ font-weight: bold;
 background: #E5F3FF;
 }
 .bootstrap-select.btn-group .dropdown-menu li.selected a:after{ 
-	content: "✓ "; 
+	content: ""; 
 	float: right;
 	padding-right:7px;
 	color: #55A7FF; 
     position: absolute;
     right: 2px;
-    top: 0px;
+    top: 11px;
+    height:12px;
+    width:12px;
+    background: url(../img/singleChoose.png) no-repeat;
 }
 .input-group input{
 	width:240px;

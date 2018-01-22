@@ -198,9 +198,34 @@ function buildDNtable(dom ,data,code){
 		return false;
 	};
 	var str="";
-	if(code=="equityInfo"){
+	if(code=="equityInfo"){ 
 		for(i=0;i<data.length;i++){
-			 var that = data[i]
+			 var that = data[i];			 
+			 var str1="",str2="",str3="",str4="",str5="",Vstr1="",Vstr2="",Vstr3="",Vstr4="",Vstr5="",spStr; 
+				 if(filter(that.prePayDate)){
+					 str1='<p>认缴出资时间：'+filter(that.prePayDate)+'</p>';
+					 Vstr1='认缴出资时间：'+filter(that.prePayDate);
+					}
+
+				if(filter(that.prePayAmountStr)){
+					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'万元</p>';
+					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr)+'万元 ';
+				} 
+				if(filter(that.paidDate)){ 
+					str3='<p>实缴出资时间：'+filter(that.paidDate)+'</p>';
+					Vstr3='实缴出资时间：'+filter(that.paidDate);
+				}
+				if(filter(that.paidPayAmountStr)){
+					str4='<p>实缴出资金额：'+filter(that.paidPayAmountStr)+'万元</p>';
+					Vstr4='实缴出资金额：'+filter(that.paidPayAmountStr)+'万元 ';
+				}
+				if(filter(that.payType)){
+					str5='<p>出资方式：'+filter(that.payType)+'</p>';					
+				 	Vstr5='出资方式：'+filter(that.payType);
+				}
+				var StrTo = str1+str2+str3+str4+str5;
+				var VStrTo = Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
+				spStr= '<td name="field5" class="SpField"  dnVal='+ VStrTo+'>'+StrTo+'</td> '; 
 			 str+='<tr >'
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
@@ -209,10 +234,10 @@ function buildDNtable(dom ,data,code){
 				+'<td name="field3" dnVal='+filterData(that.name)+'>'+filter(that.shareholder11)+'</td>'
 				+'<td name="field4" dnVal='+filterData(that.shareholderTypeId)+'>'+filter(that.shareholderType)+'</td>'
 				+'<td name="field2" dnVal='+filterData(that.equityRate)+'>'+filter(that.equityRate)+'</td>'
-				+'<td name="field5" dnVal='+filterData(that.name)+'>'+filter(that.shareholder11)+'</td> '
-				+'</tr>'
+				+spStr+'</tr>'
 		 }
-		dom.find("tbody").html(str);
+		dom.find("tbody").html(str); 
+		
 	}else if(code=="teamInfo"){
 		for(i=0;i<data.length;i++){
 			 var that = data[i];
@@ -245,7 +270,7 @@ function buildDNtable(dom ,data,code){
 			+'</td>'
 			+'<td name="field7" dnVal='+filterData(that.roundId)+'>'+filter(that.round)+'</td>'
 			+'<td name="field1" dnVal='+filterData(that.investDateStr)+'>'+filter(that.investDateStr)+'</td>'
-			+'<td name="field3" dnVal='+filterData(that.num)+'>'+filter(that.num)+'</td>'
+			+'<td name="field3" dnVal='+filterData(that.money)+'>'+filter(that.money)+'</td>'
 			+'<td name="field6" dnVal = '+unitId+'>'+filter(that.unit)+'</td>'
 			+'<td name="field4" dnVal='+filterData(that.stock)+'>'+filter(that.stock)+'</td> '
 			+'<td name="field2" dnVal='+filterData(that.empty)+'>'+filter(that.empty)+'</td> '
@@ -499,8 +524,8 @@ function timeOut(num,dom) {
 	}
     var i = num; 
     setInterval(function(){ 
-    		if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-			}
+    	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+	}
     		dom.text(i--);
  
     },1000); 
