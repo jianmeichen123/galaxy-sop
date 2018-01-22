@@ -3138,10 +3138,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         width: 245px;
     }
     .check_result div{
-        /* margin-bottom: 37px;
-	    margin-left: 77px;
-	    margin-top: -29px; */
-	    margin-bottom:10px;
+         margin-bottom: 37px;
+	   /*  margin-left: 77px; */
+	    margin-top: -29px; 
+	   /*  margin-bottom:10px; */
+	}
+	#resultRadion{
+	padding-top:30px;
 	}	
 	.check_result div:last-child{
 	margin-bottom: 0px;
