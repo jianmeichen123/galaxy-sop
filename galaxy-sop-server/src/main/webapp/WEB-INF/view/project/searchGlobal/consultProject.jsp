@@ -58,7 +58,7 @@ $('.consut_span span').click(function(){
 		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
-				pageNo:params.offset/params.limit+1,
+				pageNo:params.offset/params.limit,
 				pageSize:params.limit,
 				keyword:keyword,
 				pageSearchInfo:'dnProject',
@@ -69,7 +69,7 @@ $('.consut_span span').click(function(){
 		
 		$('#xhtConsult').bootstrapTable({
 			pageSize:10,
-			pageNumber:0,
+			pageNumber:1,
 			method:'post',
 			pagination:true,
 			pageList:[10,20,30],

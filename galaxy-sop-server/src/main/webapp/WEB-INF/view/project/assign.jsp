@@ -481,8 +481,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	 
 	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px');
 	 $('.bootstrap-select').click(function(){
+		 alert('ddd')
 		if($(this).hasClass('open')){
-			$(this).closest('form-group')
+			$(this).closest('.form-group').find('.bootstrap-select ').removeClass('open');
 		}
 		 
 	 })
