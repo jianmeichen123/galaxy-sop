@@ -404,6 +404,7 @@ table-layout: fixed;
 }
 .poptxt .fixedbottom,.poptxt .jumpBox{
 	left:0;
+	position:absolute;
 }
 .jumpBox{
 	display:none;
