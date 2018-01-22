@@ -331,13 +331,16 @@ font-weight: bold;
 }
 .bootstrap-select.btn-group .dropdown-menu li{
 	line-height: 30px;
-	border-bottom: 1px solid #f0f0f0;
 	padding-left: 7px;
     padding-right: 25px;
 	overflow: hidden;
 	font-family: Microsoft YaHei;
 	position: relative;
 } 
+.bootstrap-select.btn-group .dropdown-menu{
+	border:0;
+	z-index:10;
+}
 .bootstrap-select.btn-group .dropdown-menu li>a{
 	background: none;
 	width: 100%;	
