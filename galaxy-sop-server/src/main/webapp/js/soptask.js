@@ -3,17 +3,15 @@
  */
 $(function(){
 	   //更多操作点击显示
-	$('#custom-toolbar').on('mouseenter','.more-task',function(){
+	/*$('.ul_content').on('mouseenter','.more-task',function(){
 		$('.task-toggle').slideDown();
-	});
-	/*$('#custom-toolbar').on('mouseleave','.task-toggle',function(){
+	})
+	$('.ul_content').on('mouseleave','.task-toggle',function(){
 		$('.task-toggle').slideUp();
 	});*/
-	$('.more-task').mouseleave(function(){
-		alert('22222')
-		$('.task-toggle').slideUp();
-		
-	})
+
+	
+	
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		addTaskCookie();
@@ -117,6 +115,14 @@ var tableDefaultOpts = {
     search: false,
     onLoadSuccess: function (data) {
     	toggleOperatBtns();
+    	$('.ul_content').mouseenter(function(){
+    		$(this).children('.task-toggle').stop(true).slideDown();
+    	}).mouseleave(function(){
+    		$(this).children('.task-toggle').stop(true).slideUp();
+    	});
+    	
+    	
+    	
     }
 };
 function searchTask()

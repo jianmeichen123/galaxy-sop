@@ -3960,7 +3960,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task_tipslink li a{color:#33363e;font-size:14px;font-family:Microsoft YaHei;}
 .pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
 .task-searchbox{width:auto !important;display:inline-block;float:right !important;margin-top:-49px;}
-.task-cx{height:32px;line-height:32px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 6px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
+.task-cx{height:28px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 4px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
 .one-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
@@ -4501,3 +4501,6 @@ font-weight:bold;
 /* .searchGlobal .ritmin{padding-left:0px;} */
  .ventrueContent .fixed-table-pagination .pagination-detail{margin-top:13px;} 
  .ventrueContent .fixed-table-pagination .pagination{margin-top:6px;} 
+
+ 
+ 
