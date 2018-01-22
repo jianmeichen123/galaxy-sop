@@ -382,8 +382,7 @@ function timeOut(num,dom) {
 		return;
 	}
     var i = num; 
-    setInterval(function(){ 
-    	debugger;
+    setInterval(function(){  
     		if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
 			}
     		dom.text(i--);

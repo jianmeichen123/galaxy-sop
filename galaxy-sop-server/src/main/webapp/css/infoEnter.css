@@ -24,7 +24,8 @@ margin: 30px auto 20px;
 width:500px; 
 }
 .DN_list .infoTop h5,.DN_info .infoTop h5{
-	margin-top:20px;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 .DN_list .tableBox,.DN_info .tableBox{margin: 0 10px;}
 .infoTop h5 img{    
