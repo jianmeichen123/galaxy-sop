@@ -70,6 +70,8 @@
 			      <select name="financeStatus" class="selectpicker">
 					 <!--  <option>融资状态</option> -->
 					 <option index="-1">全部</option>
+					 <option index="" value="尚未获投">尚未获投</option>
+                      <option index="" value="不明确">不明确</option>
 					</select>
 			  	</div>
 
@@ -80,6 +82,9 @@
 					 <c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
 	                 </c:forEach>
+	                		<option>创业者</option>
+	                    	<option>外部独立合伙人</option>
+	                    	<option>自开发</option>
 					</select>
 			  	</div>
 				

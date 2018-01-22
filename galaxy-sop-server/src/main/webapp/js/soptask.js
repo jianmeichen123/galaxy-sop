@@ -9,8 +9,9 @@ $(function(){
 	/*$('#custom-toolbar').on('mouseleave','.task-toggle',function(){
 		$('.task-toggle').slideUp();
 	});*/
-	$('.task-toggle').mouseleave(function(){
-		$(this).slideUp()
+	$('.more-task').mouseleave(function(){
+		alert('22222')
+		$('.task-toggle').slideUp();
 		
 	})
 	//待认领
