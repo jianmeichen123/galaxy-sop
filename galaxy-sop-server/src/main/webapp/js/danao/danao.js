@@ -468,7 +468,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 		 var totleNumber=10; 
 		 if(tabName=="股权结构"){
-			 totleNumber=10;
+			 totleNumber=200;
 		 }   
 		 var lastL = totleNumber-length;
 		 if(length+checkTr.length >totleNumber){ 
