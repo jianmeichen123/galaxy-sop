@@ -699,7 +699,7 @@ function buildMemberTable(sec,title){
     			var tr="<tr>";
     			for(var key in header)
     			{   //过滤掉电话字段
-                    if(key.indexOf('field')>-1 && key != "field4")
+                    if(key.indexOf('field')>-1 && key != "field4"&&key != "field6")
                     {
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
