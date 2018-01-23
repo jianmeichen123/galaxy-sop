@@ -152,9 +152,7 @@ var tableDefaultOpts = {
       			var rows = $(this).find('input').val();
       			arr.push(rows);
       		}*/
-      		console.log(this)
       		getSelectedIds(this)
-      		console.log(ids)
       		 event.preventDefault(); 
       		 
       	 });
@@ -185,13 +183,13 @@ function searchTask()
 	var id = a.attr('id');
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
-	console.log(options)
 	//设置checkbox
 	if(id == 'finish')
 	{
 		//opts.checkboxHeader = false;
-		$('.highlighCheckbox_th').css('display','none');
-		alert('ccc')
+		console.log($('.task-ritmin table thead tr th div label'))
+		$('.task-ritmin table thead tr th div label').hide()
+		
 	}
 	else if(id == 'claim')
 	{
