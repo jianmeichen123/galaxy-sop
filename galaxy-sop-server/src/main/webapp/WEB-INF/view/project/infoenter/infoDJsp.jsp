@@ -106,7 +106,7 @@ border: none;
 		 		</table>
 		 	</li>
 		 	<li class="infoItem" id="fina_historyInfo">
-		 		<p class="titles">历史融资</p>
+		 		<p class="titles">融资历史</p>
 		 		<table class="tabrow" code="finance-history" titleId="1903"> 
 		 			<thead>
 		 				<tr>
