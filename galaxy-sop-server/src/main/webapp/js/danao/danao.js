@@ -208,16 +208,16 @@ function buildDNtable(dom ,data,code){
 					}
 
 				if(filter(that.prePayAmountStr)){
-					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'万元</p>';
-					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr)+'万元 ';
+					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'</p>';
+					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr);
 				} 
 				if(filter(that.paidDate)){ 
 					str3='<p>实缴出资时间：'+filter(that.paidDate)+'</p>';
 					Vstr3='实缴出资时间：'+filter(that.paidDate);
 				}
 				if(filter(that.paidPayAmountStr)){
-					str4='<p>实缴出资金额：'+filter(that.paidPayAmountStr)+'万元</p>';
-					Vstr4='实缴出资金额：'+filter(that.paidPayAmountStr)+'万元 ';
+					str4='<p>实缴出资金额：'+filter(that.paidPayAmountStr)+'</p>';
+					Vstr4='实缴出资金额：'+filter(that.paidPayAmountStr);
 				}
 				if(filter(that.payType)){
 					str5='<p>出资方式：'+filter(that.payType)+'</p>';					
