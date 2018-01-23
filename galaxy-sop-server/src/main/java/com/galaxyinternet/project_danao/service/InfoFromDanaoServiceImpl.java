@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -46,7 +46,8 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	private  @Value("${danao.static.domain}") String  danaoStaticDomain;
 	private  @Value("${xht.app.domain}") String  xhtAppDomain;
 
-
+	public static final String app_err_code = "502A";
+	public static final String danao_err_code = "502D";
 
 	//post 查询项目接口
 	private String searchProject = "search/project";
@@ -83,15 +84,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 	{
 		DnProject pro = new DnProject();
 		String uri = danaoDomain + projectInfo + projCode;
-		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.getForObject(uri, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
-		if(object.get("status") != null){
+		if(object.get("status") != null && object.get("data") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
-
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 		String compCode = null;
 		if(object.get("data") != null){
@@ -120,14 +125,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		String uri = danaoDomain + searchProject; //+ "?uid="+map.get("uid");
 
-		Map<String,Object> object = restTemplate.postForObject(uri,map.containsKey("query")?(Map<String,Object>)map.get("query"):map, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri,map.containsKey("query")?(Map<String,Object>)map.get("query"):map, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
@@ -144,7 +154,12 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			target.setHref(danaoDomain + toDanaoDetailInfo + target.getProjCode() );
 
 			uri = danaoDomain + businessInfo + target.getCompCode(); //+ "?uid="+map.get("uid");
-			Map<String,Object> gsxx = restTemplate.getForObject(uri, Map.class);
+			Map<String,Object> gsxx = null;
+			try {
+				gsxx = restTemplate.getForObject(uri, Map.class);
+			}catch (RestClientException ex){
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+			}
 			if(gsxx.get("status") != null && ((Integer) gsxx.get("status")).intValue() == 10000 && gsxx.get("data") !=null){
 				target.setProjCompanyName((String)((Map<String, Object>)gsxx.get("data")).get("company"));
 			}
@@ -170,14 +185,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		List<Map<String,Object>> equityInfo = new ArrayList<>();
 
 		String uri = danaoDomain + businessInfo + compCode;
-		Map<String,Object> object = restTemplate.getForObject(uri, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.getForObject(uri, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
-		if(object.get("status") != null){
+		if(object.get("status") != null && object.get("data") !=null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 
 		if(object.get("data") !=null)
@@ -259,14 +279,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
         query.put("state", "0"); //0 在职 1离职
 
         String uri = danaoDomain + projectTeam;
-        Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
+        Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri, query, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
         if(object.get("data") !=null)
         {
@@ -316,14 +341,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
         query.put("sourceCode", projCode);
 
         String uri = danaoDomain + projectEven;
-        Map<String,Object> object = restTemplate.postForObject(uri, query, Map.class);
+        Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri, query, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
         if(object.get("data") !=null)
         {
@@ -352,7 +382,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 				Map<String,String> m_unit =  moneyCheck(tempMap.get("amountStr"));
 				if(m_unit!=null){
-					addMap.put("money", m_unit.get("num"));
+					addMap.put("money",  dataCheck(m_unit.get("num"),2));
 
 					//融资历史币种 2180
 					// 字典id 2180 ;  下拉选： pid 2180，
@@ -470,7 +500,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		}
 
 		Map<String, String> result = new HashMap<>();
-		result.put("num", bnum.divide(new BigDecimal("10000"),new MathContext(2)).toPlainString());
+		result.put("num", bnum.divide(new BigDecimal("10000")).toPlainString());
 		result.put("unit",unit);
 
 		return result;
@@ -519,33 +549,46 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		//dnProject         创投大脑的项目
 		String uri = danaoDomain + searchProject;
-		Map<String,Object> object = restTemplate.postForObject(uri,query, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri,query, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnProjectTotal = new Long(pageMap.get("total").toString());
 
 
 		//dnZixun           创投大脑投融快讯
 		uri = danaoDomain + searchNews;
-		object = restTemplate.postForObject(uri,query, Map.class);
+		try {
+			object = restTemplate.postForObject(uri,query, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 		pageMap = (Map<String, Object>) object.get("page");
 		if(pageMap!=null && pageMap.get("total")!= null) dnZixunTotal = new Long(pageMap.get("total").toString());
 
 
 		//xhtAppZixunZixun  星河资讯-app资讯
 		uri = xhtAppDomain;
-		object = restTemplate.postForObject(uri,query, Map.class);
+		try {
+			object = restTemplate.postForObject(uri,query, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(app_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 		if(object!=null && object.get("listCount")!=null){
 			xhtAppZixunTotal = new Long(object.get("listCount").toString());
 		}
@@ -570,14 +613,19 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		String uri = danaoDomain + searchNews;
 
-		Map<String,Object> object = restTemplate.postForObject(uri,map, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri,map, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 
 		if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
-				throw new Exception("外部接口调用失败: "+uri+" 返回: " +status.toString());
+				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
-			throw new Exception("外部接口调用失败: "+uri+" 返回: " +object.toString());
+			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
 
 		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
 
@@ -617,11 +665,18 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 
 		String uri = xhtAppDomain;
 		map.put("newCaption",map.get("keyword"));
-		Map<String,Object> object = restTemplate.postForObject(uri,map, Map.class);
+		Map<String,Object> object = null;
+		try {
+			object = restTemplate.postForObject(uri,map, Map.class);
+		}catch (RestClientException ex){
+			throw new Exception(app_err_code+" 外部接口调用失败: "+uri, ex);
+		}
 		if(object!=null && object.get("listCount")!=null){
 			total = new Long(object.get("listCount").toString());
 		}
-
+		if(object.get("object")!=null && (int) object.get("object")!=0){
+			throw new Exception(app_err_code+" 外部接口调用失败: "+uri +"  ;"+object.toString() );
+		}
 		List<Map<String,Object>> objectList = (List<Map<String, Object>>) object.get("newsList");
 		for(Map<String,Object> tempMap : objectList){
 			DnZixun target = new DnZixun();
