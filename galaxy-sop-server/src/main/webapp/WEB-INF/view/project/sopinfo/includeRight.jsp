@@ -415,10 +415,10 @@ $(function(){
 		$("#delete_btn").attr("style","display:block");
 	}
 	 //移交项目按钮是否显示
-	if((isCreatedByUser == "true"&&${fx:hasPremission('project_transfer')})||(${fx:hasPremission('project_transfer')}&&!isCreatedByUser)){
+	if((isCreatedByUser == "true"&&${fx:hasPremission('project_transfer')})||(${fx:hasPremission('project_transfer')}&&!isCreatedByUser&&!${fx:hasRole(4)})){
 		$("#tansfer_btn").attr("style","display:block");
 	}
-	 //移交项目按钮是否显示
+	 //指派项目按钮是否显示
 	if(${fx:hasPremission('project_assign')}){
 		$("#assign_btn").attr("style","display:block");
 	}
