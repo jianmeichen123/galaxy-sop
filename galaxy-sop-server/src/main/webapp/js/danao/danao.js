@@ -278,7 +278,7 @@ function buildDNtable(dom ,data,code){
 			+'<td name="field3" dnVal='+filterData(that.money)+'>'+filter(that.money)+'</td>'
 			+'<td name="field6" dnVal = '+unitId+'>'+filter(that.unit)+'</td>'
 			+'<td name="field4" dnVal='+filterData(that.stock)+'>'+filter(that.stock)+'</td> '
-			+'<td name="field2" dnVal='+filterData(that.empty)+'>'+filter(that.empty)+'</td> '
+			+'<td name="field2" dnVal='+filterData(that.invstors)+'>'+filter(that.invstors)+'</td> '
 			+'</tr>'
 		 }
 		dom.find("tbody").html(str);
