@@ -33,6 +33,9 @@ width:500px;
     vertical-align: middle;
     padding-right: 15px;
 }
+.DN_info .infoBox {
+	margin-bottom: 70px;
+}
 .titleImg{
 	display:inline-block;	
     vertical-align: middle;
