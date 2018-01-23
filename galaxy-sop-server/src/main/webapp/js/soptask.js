@@ -128,6 +128,8 @@ var tableDefaultOpts = {
     	
 //    	全选和非全选
      	 /* checkbox 点击 */
+    	//移除
+    	$('.highlighCheckbox_th ').removeClass('highlighCheckbox_checked')
       	 $('.highlighCheckbox').click(function(event){
      		 if($(this).hasClass("highlighCheckbox_checked")){
           		$(this).prop('checked',false);
@@ -157,7 +159,7 @@ var tableDefaultOpts = {
       		 
       	 });
       	 //全选 
-      	  $('.highlighCheckbox_th').click(function(){
+      	  $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
       		$(this).toggleClass('highlighCheckbox_checked'); 
       		  if($(this).hasClass("highlighCheckbox_checked")){
           		$(this).find("input").prop('checked',true);
