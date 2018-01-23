@@ -388,7 +388,7 @@ $(function(){
        		var checkLength =Tbody.find(".highlighCheckbox_checked").length;  
        		if(length==checkLength){ 
        			table.find(".highlighCheckbox_th input").prop('checked',true);
-       		 $('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
+       		 	$('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
        		} else{ 
        			table.find(".highlighCheckbox_th input").prop('checked',false);
           		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")

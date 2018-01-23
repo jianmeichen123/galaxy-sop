@@ -52,12 +52,17 @@ $(function(){
 	});
 	//指派任务点击跳转
 	$('#custom-toolbar').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
-		var rows = $("#task-table").bootstrapTable('getSelections');
-		if(rows.length==0)
+		//var rows = $("#task-table").bootstrapTable('getSelections');
+		var len = $('.highlighCheckbox_checked').length;
+		if(len == 0){
+			layer.msg('请至少选择一个项目')
+			return
+		}
+	/*	if(rows.length==0)
 		{
 			layer.msg('请至少选择一条待办任务');
 			return;
-		}
+		}*/
 		var code = $(this).attr('data-code');
 		$.getHtml({
 			url:getDetailUrl(code)
@@ -121,6 +126,51 @@ var tableDefaultOpts = {
     		$(this).children('.task-toggle').stop(true).slideUp();
     	});
     	
+//    	全选和非全选
+     	 /* checkbox 点击 */
+      	 $('.highlighCheckbox').click(function(event){
+     		 if($(this).hasClass("highlighCheckbox_checked")){
+          		$(this).prop('checked',false);
+         		$(this).removeClass('highlighCheckbox_checked'); 
+      		  }else{
+          		$(this).prop('checked',true);
+         		$(this).addClass('highlighCheckbox_checked'); 
+      		  }
+      		var table = $(this).closest("table");
+      		var Tbody = table.find("tbody");
+      		var length=Tbody.find("input[type=checkbox]").length;
+      		var checkLength =Tbody.find(".highlighCheckbox_checked").length;  
+      		if(length==checkLength){ 
+      			table.find(".highlighCheckbox_th input").prop('checked',true);
+      		 	$('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
+      		} else{ 
+      			table.find(".highlighCheckbox_th input").prop('checked',false);
+         		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
+      		} 
+      		
+      		
+      		
+      		
+      		
+      		
+      		 event.preventDefault(); 
+      		 
+      	 });
+      	 //全选 
+      	  $('.highlighCheckbox_th').click(function(){
+      		$(this).toggleClass('highlighCheckbox_checked'); 
+      		  if($(this).hasClass("highlighCheckbox_checked")){
+          		$(this).find("input").prop('checked',true);
+          		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+          		$(this).closest("table").find(".highlighCheckbox").addClass('highlighCheckbox_checked');
+      		  }else{
+          		$(this).find("input").prop('checked',false);
+          		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+          		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
+      		  }
+      		event.preventDefault(); 
+      	  }) 
+    	
     	
     	
     }
@@ -133,6 +183,7 @@ function searchTask()
 	var id = a.attr('id');
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
+	console.log(options)
 	//设置checkbox
 	if(id == 'finish')
 	{
