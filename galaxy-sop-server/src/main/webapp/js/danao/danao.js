@@ -208,16 +208,16 @@ function buildDNtable(dom ,data,code){
 					}
 
 				if(filter(that.prePayAmountStr)){
-					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'万元</p>';
-					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr)+'万元 ';
+					str2='<p>认缴出资金额：'+filter(that.prePayAmountStr)+'</p>';
+					Vstr2='认缴出资金额：'+filter(that.prePayAmountStr);
 				} 
 				if(filter(that.paidDate)){ 
 					str3='<p>实缴出资时间：'+filter(that.paidDate)+'</p>';
 					Vstr3='实缴出资时间：'+filter(that.paidDate);
 				}
 				if(filter(that.paidPayAmountStr)){
-					str4='<p>实缴出资金额：'+filter(that.paidPayAmountStr)+'万元</p>';
-					Vstr4='实缴出资金额：'+filter(that.paidPayAmountStr)+'万元 ';
+					str4='<p>实缴出资金额：'+filter(that.paidPayAmountStr)+'</p>';
+					Vstr4='实缴出资金额：'+filter(that.paidPayAmountStr);
 				}
 				if(filter(that.payType)){
 					str5='<p>出资方式：'+filter(that.payType)+'</p>';					
@@ -323,6 +323,7 @@ function saveDN(even){
 		 var titleid = thatTable.attr("titleid"); 
 		 if(code=="finance-history"){ 
 			 //融资历史的保存
+			 var res =true;
 			 sendGetRequest(platformUrl.getTitleResults+"1902/"+projectInfo.id,null,
 				function(data) {
 				 var arr = data.entityList; 
@@ -333,11 +334,15 @@ function saveDN(even){
 					 var length = array[0].dataList.length; 
 				 }
 				 //基本信息的保存刷新
-				 //全息报告的保存刷新
-				saveDNsame(thatTable,dataDN,length,"融资历史",code,pageTypr)
-			 }) 
-		 } else if(code=="equity-structure"){
+				 //全息报告的保存刷新 
+				 res = saveDNsame(thatTable,dataDN,length,"融资历史",code,pageTypr); 
+			 })  
+			 if(!res){
+				 //return false;
+			 }
+		 } else if(code=="equity-structure"){ 
 			 //股权的保存
+			 var res=true;
 			 sendGetRequest(platformUrl.getTitleResults+"1902/"+projectInfo.id,null,
 				function(data) { 
 				 var arr = data.entityList; 
@@ -347,8 +352,11 @@ function saveDN(even){
 				 }else{
 					 var length = array[1].dataList.length; 
 				 }
-				 saveDNsame(thatTable,dataDN,length,"股权结构",code,pageTypr)
+				 res = saveDNsame(thatTable,dataDN,length,"股权结构",code,pageTypr);  
 			 }) 
+			 if(!res){
+				 return false;
+			 }
 			 
 		 } else if(code=="company-info"){ 
 			 var resultIdList;
@@ -456,17 +464,17 @@ function saveDN(even){
 	 }	
 } 
 function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) { 
-		 var infoListDN=[];
+		 var infoListDN=[]; 
 		 var checkTr=thatTable.find("tbody input[type=checkbox]:checked").closest("tr");
 		 var totleNumber=10; 
 		 if(tabName=="股权结构"){
 			 totleNumber=200;
-		 }
+		 }   
 		 var lastL = totleNumber-length;
 		 if(length+checkTr.length >totleNumber){ 
 			 layer.msg(tabName+"已超列表上限，当前页还可选择"+lastL+"条" ); 
-			 return;
-		 } 
+			 return false;
+		 }  
 		 $.each(checkTr,function(){ 
 			 var that =$(this),
 			 info={};
@@ -485,8 +493,8 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 		 sendPostRequestByJsonObj(
 				 platformUrl.saveOrUpdateInfo,
 				    dataDN,
-		    function(data) {  
-				 var tabLe= $(".infoConList table:visible").length;
+		    function(data) {   
+				 var tabLe= $(".infoConList table:visible").length; 
 				 if(tabLe>1){
 					 if(tabName=="融资历史"){
 						 layer.msg("保存成功")	  
@@ -494,7 +502,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 						 $("#powindow").remove();
 						 $("body").css("overflow-y","auto");     
 					 }
-				 }else{
+				 }else{ 
 					 layer.msg("保存成功")	  
 					 $("#popbg").remove();
 					 $("#powindow").remove();
@@ -507,15 +515,14 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 refreshSection("1902");	
 					 var table = $(".infoReport").closest(".h_look").find('.mb_24 table');
 					 table.each(function(){ 
-					    resizetable($(this));
-					    
+					    resizetable($(this));					    
 					    if( $(this).find("tr").length>1){
 						    $(this).closest(".mb_24").find(".no_enter").remove();					    	
 					    }
 					})					 
-				 }else{
-				 }
+				 } 		 
 		})
+		return 1;
  }   
 //倒计时
 function timeOut(num,dom) { 

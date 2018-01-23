@@ -362,13 +362,14 @@
 	</c:if>
 	var content = '';
 	if(opts.length>1)
-	{
+	{	content += '<span class="more_ul_content">'
 		content += '<span class="more-task fr">更多操作</span>';
 		content += '<ul class="task-toggle  more-operateOne">';
 		$.each(opts,function(){
 			content += '<li data-code="'+this.code+'">'+this.name+'</li>';
 		});
 		content += '</ul>';
+		content +='</span>'
 	}
 	else if(opts.length == 1)
 	{
@@ -376,11 +377,11 @@
 	}
 	$(".taskDetail-mesage-update").append(content);
 	/* 事件 */
-	$('.more-task').mouseenter(function(){
-	   $('.task-toggle').slideDown();
+	$('.more_ul_content').mouseenter(function(){
+	   $('.task-toggle').stop(true).slideDown();
    });
-   $('.task-toggle').mouseleave(function(){
-	    $('.task-toggle').slideUp();
+   $('.more_ul_content').mouseleave(function(){
+	    $('.task-toggle').stop(true).slideUp();
    });
    /*指派任务弹窗点击事件*/
 	$('.taskDetail-mesage-update').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){

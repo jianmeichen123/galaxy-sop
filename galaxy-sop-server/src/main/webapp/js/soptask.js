@@ -134,9 +134,13 @@ function searchTask()
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
 	//设置checkbox
-	if(id == 'claim' || id == 'finish')
+	if(id == 'finish')
 	{
 		opts.checkboxHeader = false;
+	}
+	else if(id == 'claim')
+	{
+		opts.checkboxHeader = hasAssignPremission == "true";
 	}
 	else
 	{
