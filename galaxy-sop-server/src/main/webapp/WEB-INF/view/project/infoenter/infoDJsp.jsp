@@ -81,7 +81,7 @@ border: none;
 		 					<td>股东类型</td>
 		 					<td>股东性质</td>
 		 					<td>占股比例（%）</td>
-		 					<td>备注</td>	
+		 					<td width="30%">备注</td>	
 		 				</tr>
 		 			</thead>
 		 			<tbody> 

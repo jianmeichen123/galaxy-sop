@@ -22,7 +22,7 @@
 <div class="pagebox clearfix searchGlobal">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	
-		<div class="ritmin searchPage"> 
+		<div class="ritmin searchPage" style="display:none"> 
 			<p class='searchNumber'>共搜索到<span class="totalNumber">24</span>条结果</p>
 			
 			<div class='search-top'>
@@ -112,6 +112,7 @@ $('.to-task-tips').tabLazyChange({
 		});
 	}
 
+	
 	
 
 

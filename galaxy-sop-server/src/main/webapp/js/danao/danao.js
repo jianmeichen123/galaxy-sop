@@ -140,6 +140,11 @@ function getpopHTML(code,even,danaoName){
 }
 function buildInfoD(url,data,code){ 
 	sendPostRequestByJsonObj(url, data, function(data){
+	 if(data.result.errorCode=="502D"){
+		 var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+				$('.bigPop').html(div);
+				$('.bigPop').show();
+	 }
 	 if(data.result.status=="OK"){ 
 		 $("#projectName").text(data.userData.projTitle)
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team

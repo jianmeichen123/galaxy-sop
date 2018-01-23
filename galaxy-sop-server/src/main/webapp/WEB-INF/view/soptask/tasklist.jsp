@@ -60,13 +60,17 @@
     <!--右中部内容-->
  	<div class="ritmin task-ritmin pagination_common">
  	<div>
-        <!--表格内容-->
+        <!--表格内容--><!-- data-checkbox="true" -->
 			<table class='no-radius table_new_style table_new_checkbox' width="100%"  cellspacing="0" cellpadding="0" 
 			 id="task-table" data-url=""  data-page-list="[10, 20, 30]" data-show-refresh="true" 
 	         data-toolbar="#custom-toolbar" >
 			   <thead>
 			    <tr>
-			    	<th data-checkbox="true" data-formatter="taskCheckboxFormatter"></th>
+			    	<th data-formatter="taskCheckboxFormatter">
+			    		<label class='highlighCheckbox_th'>
+				    				<input type="checkbox">
+				    	</label> 
+			    	</th>
 			        <th data-field="taskName"  data-width="172px" data-align='left' >任务名称</th>
 			        <th data-field="taskType"  data-align='center'>任务类型</th>
 			        <th data-field="projectName"  data-formatter="projectNameFormatter"  data-align='center'>所属项目</th>
@@ -121,7 +125,8 @@ function projectNameFormatter(value,row,index){
  */
 function getSelectedIds()
 {
-	var rows = $("#task-table").bootstrapTable('getSelections');
+	//var rows = $("#task-table").bootstrapTable('getSelections');
+	var rows = $('.highlighCheckbox_checked').find('input').val();
 	var ids = new Array();
 	$.each(rows,function(){
 		ids.push(this.id);
@@ -130,16 +135,18 @@ function getSelectedIds()
 }
 function taskCheckboxFormatter(value, row, index)
 {
-	var activeTab = $('.tipslink li.on a').attr('id');
+	//console.log(row)
+	 var activeTab = $('.tipslink li.on a').attr('id');
 	if(activeTab == 'claim' && "${fx:hasPremission('task_assign')}" == "true")
 	{
-		return value;
+		return options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value='"+row.id+"'/></label> ";
 	}
 	if(row.taskStatus=='taskStatus:2')
 	{
-		return value;
+		return options = "<label class='highlighCheckbox'><input type='checkbox' name='isCheck' value='"+row.id+"'/></label> ";
 	}
-	return {disabled:true};
+	//return {disabled:true}; 
+	return '';
 }
 /***
  * 
