@@ -231,6 +231,14 @@ $(function(){
 		$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
 		$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
 		$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
+		/* 把select的 val()设置为默认 */
+		var valueNum = $('select[name="projectDepartid"]').val('全部事业线');//事业线
+		var valueManager = $('select[name="createUid"]').val('投资经理');//投资经理
+		var valueProjectProgress = $('select[name="projectProgress"]').val('项目进度');//项目进度
+		var valueProjectStatus= $('select[name="projectStatus"]').val('项目状态');//项目状态
+		var valuefinanceStatus= $('select[name="financeStatus"]').val('融资状态');//融资状态
+		var valueFlag= $('select[name="faFlag"]').val('项目来源');//项目来源
+		
 		$(".form-control").val("");
 	});
 	
