@@ -3881,7 +3881,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			project.setIsdelete(1);
 			if (null != param.getDeleteReason() && !"".equals(param.getDeleteReason()))
 			{
-				project.setDeleteReason(project.getDeleteReason());
+				project.setDeleteReason(param.getDeleteReason());
 			}
 			int id = projectService.deleteProject(project);
 			if (id != 1)

@@ -1021,11 +1021,13 @@ function deletePro(){
         		'<div class="delete_reason">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
-        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" id="deleteReason" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
         			'</span>'+
         		'</div>'+
         		'</div>',
         		yes:function(index){
+        			var deleteReason=$("#deleteReason").val();
+        			data.deleteReason=deleteReason;
         			sendPostRequestByJsonObj(
         					_url,
         					data,
