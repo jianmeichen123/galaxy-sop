@@ -97,7 +97,7 @@
 		      <!-- <span class="input-group-btn">
 		        <button class="btn btn-default" type="button"></button>
 		      </span> -->
-		      <span class='reset_search'>重置</span>
+		      <span class='reset_search visibility'>重置</span>
 		    </div>
 		</div> 
 	</div>
@@ -295,7 +295,8 @@ $(function(){
 			$(this).parent().find('.filter-option').html('全部事业线')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
@@ -303,14 +304,16 @@ $(function(){
 			$(this).parent().find('.filter-option').html('投资经理')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//项目进度
 	$('select[name="projectProgress"]').change(function(){
 		if($('select[name="projectProgress"]').val()=="全部"){
 			$(this).parent().find('.filter-option').html('项目进度')
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//项目状态
 	$('select[name="projectStatus"]').change(function(){
@@ -318,7 +321,8 @@ $(function(){
 			$(this).parent().find('.filter-option').html('项目状态')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//融资状态
 	$('select[name="financeStatus"]').change(function(){
@@ -326,7 +330,8 @@ $(function(){
 			$(this).parent().find('.filter-option').html('融资状态')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//项目来源
 	$('select[name="faFlag"]').change(function(){
@@ -334,14 +339,16 @@ $(function(){
 			$(this).parent().find('.filter-option').html('项目来源')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh')
+		$('#assign-table').bootstrapTable('refresh');
+		$('.reset_search').removeClass('visibility');
 	});
 	//搜索方法
 	$("span[class='querySearch']").click(function(){
 		//buryPoint("98");
 		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 			
-		 $('#assign-table').bootstrapTable('refresh')
+		 $('#assign-table').bootstrapTable('refresh');
+		 $('.reset_search').removeClass('visibility');
 	});
   var urls;
 	if(${from eq 'assign' }){
@@ -374,6 +381,7 @@ $(function(){
         	}
         	
        	 /* checkbox 点击 */
+       	 $('.highlighCheckbox_th').removeClass('highlighCheckbox_checked');
        	 $('.highlighCheckbox').click(function(event){
       		 if($(this).hasClass("highlighCheckbox_checked")){
            		$(this).prop('checked',false);
@@ -397,7 +405,7 @@ $(function(){
        		 
        	 });
        	 //全选 
-       	  $('.highlighCheckbox_th').click(function(){
+       	 $('.highlighCheckbox_th').unbind('click').bind('click',function(){
        		$(this).toggleClass('highlighCheckbox_checked'); 
        		  if($(this).hasClass("highlighCheckbox_checked")){
            		$(this).find("input").prop('checked',true);

@@ -57,6 +57,7 @@ input.disabled{background-color: #000;}
 .light_gray{color:#c9cbcf !important;}
 /*隐藏*/
 .none{ display:none !important; }
+.visibility{visibility:hidden;}
 .null{ display:block; overflow:hidden; font-size:0; line-height:0; text-indent:-999px}
 /*公用表格*/
 table{ background:#ffffff;}
@@ -2554,7 +2555,7 @@ span.error,label.error,span.error_span{color:#ff0000 !important;}
 .team_wid_p input{margin-right:5px;} */
 
 .team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
-.no_bl{ display:none;}
+.no_bl{ display:none;}   
 /* V201703全息图 */
 .h_navbar{padding: 30px 0 30px 40px;background-color: #fff;margin-bottom: 10px;}
 .h_navbar li{cursor:pointer;width: 60px;text-align:center;margin-right: 30px;background: url(../img/qxt/h_navbarbg.png) 0 -90px no-repeat;color:#5badfc;}
