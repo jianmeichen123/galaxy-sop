@@ -1,5 +1,6 @@
 package com.galaxyinternet.project_danao.service;
 
+
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -9,6 +10,8 @@ import com.galaxyinternet.model.DaNao.DnZixun;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.service.InfoFromDanaoService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -396,11 +399,22 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 					}
 				}
 
-
 				//投资方
 				String investSideJson = dataCheck(tempMap.get("investSideJson"),null);
 				if(StringUtils.isNotBlank(investSideJson)){
-					//Map<String,Object> map = GSONUtil.fromJson(investSideJson, Map.class);
+					JSONObject json = JSONObject.fromObject(investSideJson);
+					JSONArray jsona = (JSONArray) json.get("investSideJson");
+					StringBuffer sb = new StringBuffer();
+					for(int i = 0; i < jsona.size();i++){
+						JSONObject jsonObject2 = jsona.getJSONObject(i);
+						if(StringUtils.isNotBlank((String) jsonObject2.get("invstor"))){
+							if(i == (jsona.size()-1)){
+								sb.append ((String) jsonObject2.get("invstor"));
+							}else
+								sb.append ((String) jsonObject2.get("invstor")+"，");
+						}
+					}
+					addMap.put("invstors", sb.toString());
 				}
 
 				info.add(addMap);
@@ -462,7 +476,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		return result;
 	}
 	public Map<String,String> moneyCheck(Object temp){
-		if(temp == null){
+		if(StringUtils.isBlank((String) temp )){
 			return null;
 		}
 
@@ -472,7 +486,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		//2.数字 汉子 分离
 		String num = "";
 		String unit = "";
-		Pattern pattern = Pattern.compile("^(\\d+\\.?\\d+)(.*)");
+		Pattern pattern = Pattern.compile("^(\\d+\\.\\d+|\\d)(.*)");
 		Matcher matcher = pattern.matcher(str);
 		if (matcher.matches()) {//数字开头
 			num = matcher.group(1);

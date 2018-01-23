@@ -123,14 +123,20 @@ function projectNameFormatter(value,row,index){
 /*
  * 获取选中记录的id
  */
-function getSelectedIds()
+ var ids = [];
+function getSelectedIds(obj)
 {
 	//var rows = $("#task-table").bootstrapTable('getSelections');
-	var rows = $('.highlighCheckbox_checked').find('input').val();
+	/* var rows = $('.highlighCheckbox_checked').find('input').val();
 	var ids = new Array();
 	$.each(rows,function(){
-		ids.push(this.id);
+		ids.push(rows);
 	});
+	return ids; */
+	if($(obj).hasClass('highlighCheckbox_checked')){
+		var rows = $(obj).find('input').val();
+		ids.push(rows);
+	}
 	return ids;
 }
 function taskCheckboxFormatter(value, row, index)

@@ -267,18 +267,10 @@
             <div class="tq_div">
 	                <div class="correlation" id="correlation" style="display:none">相关操作</div>
 	             <div class="new_correlation_cen">
-	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
-	            	        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('transfer')" >移交项目</span>
-	            	    </c:if>
-	            	 <c:if test="${fx:hasPremission('project_assign')}">	
-	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
-	                </c:if>
-<!-- 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span> -->
-	                <c:if test="${fx:hasPremission('project_delete')}">	
-                      <span class="bluebtn new_btn_right btn_right" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
-                    </c:if>
-	               
+	            	<!-- <span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span> -->
+	            	        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('transfer')" style="display:none" id="tansfer_btn" >移交项目</span>
+	                        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('assign')" style="display:none" id="assign_btn" >指派项目</span>
+                            <span class="bluebtn new_btn_right btn_right" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
 	            </div>
             </div>
             
@@ -420,11 +412,22 @@ $(function(){
 	
 	 //删除项目按钮是否显示
 	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
-		$("#delete_btn").attr("style","display:black");
+		$("#delete_btn").attr("style","display:block");
 	}
-	 if(${fx:hasPremission('project_transfer')}||${fx:hasPremission('project_assign')}||${fx:hasPremission('project_delete')&&index>3}){
+	 //移交项目按钮是否显示
+	if((isCreatedByUser == "true"&&${fx:hasPremission('project_transfer')})||(${fx:hasPremission('project_transfer')}&&!isCreatedByUser&&!${fx:hasRole(4)})){
+		$("#tansfer_btn").attr("style","display:block");
+	}
+	 //指派项目按钮是否显示
+	if(${fx:hasPremission('project_assign')}){
+		$("#assign_btn").attr("style","display:block");
+	}
+	/*  if(${fx:hasPremission('project_transfer')}||${fx:hasPremission('project_assign')}||${fx:hasPremission('project_delete')&&index>3}){
 		 $("#correlation").css("display","block"); 
-	 }
+	 } */
+	if($("#delete_btn").css("display")=="block"||$("#tansfer_btn").css("display")=="block"||$("#assign_btn").css("display")=="block"){
+		 $("#correlation").css("display","block"); 
+	 } 
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
