@@ -4510,4 +4510,15 @@ font-weight:bold;
 .outerContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
 .xhtContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
 .dnContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
-
+.taskDetail-mesage table tbody tr td:nth-child(5){width:210px;display:inline-block;}
+.taskDetail-mesage table tbody tr td:nth-child(5) span{display:inline-block;
+ 	width: 167px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;}
+.taskDetail-mesage table tbody tr td:nth-child(6) span{
+ 	display:inline-block;
+ 	width: 167px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;} 
