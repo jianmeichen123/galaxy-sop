@@ -483,7 +483,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	 $('.selectpicker').selectpicker('refresh');
 	
 	 /* 下拉框宽度以及点击互斥事件 */
-	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('width','180px');
+	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('min-width','155px');
 	 $('.btn').click(function(){
 		 if($('.btn-group').hasClass('open')){
 			 $(this).closest('.form-group').siblings().find('.btn-group').removeClass('open')
