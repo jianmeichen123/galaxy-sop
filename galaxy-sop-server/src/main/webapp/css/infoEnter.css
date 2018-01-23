@@ -325,7 +325,9 @@ table-layout: fixed;
     -moz-transform: translate(-50%,-50%);
     -o-transform: translate(-50%,-50%);
 }
-
+.DN_list .tableBox.emptyInfo{
+	margin-top:20px;
+}
 .pageTop{
 	position: relative;
 	background: #fff;
