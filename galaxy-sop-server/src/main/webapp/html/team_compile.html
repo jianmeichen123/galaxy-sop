@@ -21,13 +21,18 @@
    			<li>
    				
    				<dl class="fmdl">
-   				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;性别</span>
+   				<span class="team_compile_ul_l"><!-- <em class="red">*</em> -->&nbsp;性别</span>
 	                <dd class="clearfix team_compile_ul_l_dd">
-	                	<input type="radio" name="field3" data-value="1343" required data-msg-required="<font color=red>*</font>请选择性别"/>男
-	                </dd>
+	              <!--   	<input type="radio" name="field3" data-value="1343" required data-msg-required="<font color=red>*</font>请选择性别"/>男
+	              
+	              -->   
+	              <input type="radio" name="field3" data-value="1343" />男
+	              </dd>
 	                <dd class="clearfix">
-	                	<input type="radio" name="field3" data-value="1344" required data-msg-required="<font color=red>*</font>请选择性别"/>女
-	                </dd>
+	                <!-- 	<input type="radio" name="field3" data-value="1344" required data-msg-required="<font color=red>*</font>请选择性别"/>女
+	              -->   
+	              <input type="radio" name="field3" data-value="1344" />女
+	              </dd>
 	            </dl>
    			</li>
    			<li>
@@ -58,6 +63,10 @@
 					<option value="Other其他">Other其他</option> -->
 				</select>
 				<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"/>
+   			</li>
+   			<li class="wid_li">
+   				<span class="team_compile_ul_l">&nbsp;微信号</span>
+	            <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>格式不对" />
    			</li>
    		</ul>
 		</form>
@@ -92,6 +101,11 @@
       var phone = /^[\+\-\(\)0-9]{0,40}$/;
    	return this.optional(element) || (phone.test(value));
     }, "手机格式不对");
+    //验证手机号
+    jQuery.validator.addMethod("wechat", function (value, element) {
+      var wechat = /^[a-zA-Z0-9_-]{0,20}$/;
+   	return this.optional(element) || (wechat.test(value));
+    }, "微信格式不对");
   //职位选择其他
   $("select[name='field2']").change(function(){
 	  var val=$(this).find("option:selected").attr("value");
