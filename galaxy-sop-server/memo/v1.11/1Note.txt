@@ -1,4 +1,20 @@
 
+
+
+系统报错时，区分是sop错误还是调用外部错误：
+ajax 调用接口
+返回
+function(data){
+    var result = data.result.status;
+    if(result == "ERROR"){
+        var ecode = data.result.errorCode;
+        //**** InfoFromDanaoServiceImpl.app_err_code
+        	调用APP接口失败 "502A";
+        	调用大脑接口失败 "502D";
+        //****
+    }
+
+
 记录
 0、判断标识，是否引用大脑数据
 	判断是否出现 参考信息 的功能选项。
