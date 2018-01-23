@@ -58,11 +58,11 @@
 	</div>
 
 
-<script type="text/javascript">
+<script type="text/javascript"> 
 var key = Date.parse(new Date());
 var keyJSON={};
 var deleteJSON={};
-	//整体页面显示
+	//整体页面显示 
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
 			var result = data.result.status;
@@ -93,7 +93,7 @@ var deleteJSON={};
 				mustData(projectInfo.id,0);
 				toggle_btn($('.anchor_btn span'),1);
 				fun_click();
-				hideNav();
+				hideNav(); 
 				//历史上的融资及估值   参考信息  隐藏显示
 				var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
 				var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
@@ -148,8 +148,7 @@ var deleteJSON={};
 		keyJSON["b_"+id_code]=key;
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
-			function(data) {
-				console.log(data.entity)
+			function(data) { 
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -277,7 +276,7 @@ var deleteJSON={};
 		$('body,html').scrollTop(sTop);  //定位
 		$("table").each(function(){resizetable($(this))})
 		//编辑表格显示隐藏
-		 check_table();
+		 check_table(); 
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -472,18 +471,9 @@ var deleteJSON={};
 								layer.msg("操作失败!");
 							}
 					});
-				//历史上的融资及估值   参考信息  隐藏显示
-				var financeLength = $(".h_look table[data-code=finance-history] tbody tr").length-1;  
-				var equityLength = $(".h_look  table[data-code=equity-structure] tbody tr").length-1;   
-				if(financeLength>=10&&equityLength>=200){
-					$(".infoReport[dncode='financeInfo,equityInfo']").hide();
-				}else{
-					$(".infoReport[dncode='financeInfo,equityInfo']").show();
-				}
 			}else{
 				layer.msg("操作失败!");
 			}
-			
 		});
 
 	});
