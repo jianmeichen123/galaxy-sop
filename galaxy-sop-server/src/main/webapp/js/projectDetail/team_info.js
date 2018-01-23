@@ -169,6 +169,12 @@ function showMemberRow(ele){
                         ele.text(map_pos[row.data(name)]);
                     }else if(name=="field3"){
     					ele.text(map_sex[row.data(name)]);
+                    }else if(name=="field4"){
+                    	$("#phone").css("display","block")
+                    	ele.text("手机号:"+row.data(name));
+                    }else if(name=="field6"){
+                    	$("#wechat").css("display","block")
+                    	ele.text("微信号:"+row.data(name));
                     }else{
                     	ele.text(row.data(name));
                     }
