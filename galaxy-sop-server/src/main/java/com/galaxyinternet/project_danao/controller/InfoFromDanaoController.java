@@ -146,7 +146,7 @@ public class InfoFromDanaoController{
 			responseBody.setPageList(projectPage);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			responseBody.setResult(new Result(Result.Status.ERROR,e.getMessage().startsWith("502")?e.getMessage().substring(0,e.getMessage().indexOf(" ")):null, "失败"));
 			logger.error("失败",e);
 		}
 
@@ -239,7 +239,7 @@ public class InfoFromDanaoController{
 			responseBody.setUserData(result);
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			responseBody.setResult(new Result(Result.Status.ERROR,e.getMessage().startsWith("502")?e.getMessage().substring(0,e.getMessage().indexOf(" ")):null, "失败"));
 			logger.error("失败",e);
 		}
 
@@ -377,7 +377,7 @@ public class InfoFromDanaoController{
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			responseBody.setResult(new Result(Result.Status.ERROR,e.getMessage().startsWith("502")?e.getMessage().substring(0,e.getMessage().indexOf(" ")):null, "失败"));
 			logger.error("失败",e);
 		}
 
@@ -419,7 +419,7 @@ public class InfoFromDanaoController{
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			responseBody.setResult(new Result(Result.Status.ERROR,e.getMessage().startsWith("502")?e.getMessage().substring(0,e.getMessage().indexOf(" ")):null, "失败"));
 			logger.error("失败",e);
 		}
 
@@ -461,7 +461,7 @@ public class InfoFromDanaoController{
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Result.Status.ERROR,null, "失败"));
+			responseBody.setResult(new Result(Result.Status.ERROR,e.getMessage().startsWith("502")?e.getMessage().substring(0,e.getMessage().indexOf(" ")):null, "失败"));
 			logger.error("失败",e);
 		}
 
