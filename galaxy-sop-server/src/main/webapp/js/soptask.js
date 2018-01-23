@@ -148,11 +148,13 @@ var tableDefaultOpts = {
          		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
       		} 
       		
-      		
-      		
-      		
-      		
-      		
+      		/*if($(this).hasClass('highlighCheckbox_checked')){
+      			var rows = $(this).find('input').val();
+      			arr.push(rows);
+      		}*/
+      		console.log(this)
+      		getSelectedIds(this)
+      		console.log(ids)
       		 event.preventDefault(); 
       		 
       	 });
@@ -187,7 +189,9 @@ function searchTask()
 	//设置checkbox
 	if(id == 'finish')
 	{
-		opts.checkboxHeader = false;
+		//opts.checkboxHeader = false;
+		$('.highlighCheckbox_th').css('display','none');
+		alert('ccc')
 	}
 	else if(id == 'claim')
 	{
