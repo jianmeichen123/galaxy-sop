@@ -75,7 +75,7 @@
 					</select>
 			  	</div>
 
-				<div class="form-group">
+				<div class="form-group projectSourceSelect">
 			      <select name="faFlag" class="selectpicker">
 					 <!--  <option>项目来源</option> -->
 					 <option index="-1">全部</option>
@@ -490,6 +490,11 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 		var did = $('select[name="projectDepartid"]').val();
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	    $('.selectpicker').selectpicker('refresh');
+		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
+		$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度');
+		$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
+		$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
+		$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
 	});
 	 $('.selectpicker').selectpicker({
 		  style: 'btn-info',
@@ -499,7 +504,6 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	 $('.selectpicker').selectpicker('refresh');
 	
 	 /* 下拉框宽度以及点击互斥事件 */
-	 $('select[name="faFlag"]').parent().find('.dropdown-menu li ').css('min-width','155px');
 	 $('.btn').click(function(){
 		 if($('.btn-group').hasClass('open')){
 			 $(this).closest('.form-group').siblings().find('.btn-group').removeClass('open')

@@ -4525,3 +4525,4 @@ font-weight:bold;
     text-overflow: ellipsis;} 
 .dataQuestError{width:400px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
 .dataQuestError img{padding-bottom:25px;}
+.projectSourceSelect ul.selectpicker li{min-width:155px;}
