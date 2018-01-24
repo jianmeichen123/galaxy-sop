@@ -58,6 +58,7 @@ input.disabled{background-color: #000;}
 /*隐藏*/
 .none{ display:none !important; }
 .visibility{visibility:hidden;}
+.nonespan{display:none;}
 .null{ display:block; overflow:hidden; font-size:0; line-height:0; text-indent:-999px}
 /*公用表格*/
 table{ background:#ffffff;}

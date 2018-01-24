@@ -399,8 +399,11 @@ table-layout: fixed;
 	left: 60px;
 	right: 0;
 	bottom: 0;	
-	background: #e9ebf2; 
+	background: #e9ebf2;  
     z-index: 102;
+}
+#powindow .fixedbottom{
+	background: rgb(244, 244, 244) ; 
 }
 @media (min-width: 1359px) {
 	.fixedbottom,.jumpBox{
