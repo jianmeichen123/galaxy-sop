@@ -62,9 +62,9 @@ input.disabled{background-color: #000;}
 /*公用表格*/
 table{ background:#ffffff;}
 table th{ text-align:left; color:#2d3342; font-weight:normal; font-size:12px; line-height:34px;border-bottom: 1px solid #d6d8e1;outline:none;}
-table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
+table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#536379; font-family:"Microsoft Yahei"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
-table td a{ font-size:12px;  color:#536379; font-family:"宋体";}
+table td a{ font-size:12px;  color:#536379; font-family:"Microsoft Yahei";}
 table .on td{ background:#f8f8fb}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
@@ -401,7 +401,7 @@ table .width_gd{width:12%;}
 .searchall .searchbtn{ float:left; margin:0 0 0 -30px}
 .searchall .cx,.searchall .tj{margin-left: 25px;}
 /*公用按钮*/
-.pubbtn{cursor:pointer; display:block; width:80px; height:28px; border:1px solid #FFF; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;}
+.pubbtn{cursor:pointer; display:block; width:80px; height:28px; border:1px solid #FFF; text-align:center; line-height:28px; font-size:14px; font-family:"Microsoft Yahei"; border-radius:4px;}
 .lpubbtn{width: 115px;}
 .llpubbtn{width: 155px;}
 .pubbtn:hover{ text-decoration:none}
@@ -425,7 +425,7 @@ table .width_gd{width:12%;}
 .fmdl dd select,
 .fmdl dd .txt,
 .fmdl dd textarea,
-.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:12px; color:#525662; font-family:"宋体"}
+.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:12px; color:#525662; font-family:"Microsoft Yahei"; }
 .fmdl dd select{ width:160px;font-size: 12px;}
 .fmdl dd .txt{ width:225px;;font-size: 12px;height:28px !important;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
@@ -1726,11 +1726,11 @@ word-wrap:break-word;
 .searchall_prj .fmdl .txt{width:135px;height:30px; float: left; line-height: 30px;box-sizing: border-box; border:1px solid #ccd2d7;border-radius: 4px;font-size: 12px;padding-left: 5px;}
 .searchall_prj button{display: inline-block;cursor:pointer;}
 .searchall_prj .bluebtn{height:28px;background-color: #66b1f2;margin-left: 5px;}
-.cx_prj{height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
+.cx_prj{height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"Microsoft Yahei";  border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .searchall_prj .reset{width:60px;}
 .searchall_prj .btn{margin-left: 35px; float: left;}
 .searchall_prj .show_more{position: absolute;right:25px;bottom:15px;}
-.searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
+.searchall_prj .show_more a{margin-left: 10px;cursor: pointer; font-family:"Microsoft Yahei"; }
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .searchall_prj .f4{background-position: right -95px;padding: 0 30px 0 20px; }
