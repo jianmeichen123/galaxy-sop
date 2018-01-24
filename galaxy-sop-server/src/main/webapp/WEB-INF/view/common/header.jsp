@@ -153,7 +153,7 @@
 		 success:function(data){
 			// $('.globalSearhc-ul').show();
 			 if(data.result.status=='OK'){
-				 	if(data.entity.hisList!=undefined){
+				 	if(data.entity != undefined){
 				 		var hisList = data.entity.hisList;
 						 var hisList = hisList.slice(0,10)
 					 	 var html =''
