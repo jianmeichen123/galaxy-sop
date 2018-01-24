@@ -98,7 +98,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		String pid=request.getParameter("pid");
 		if(StringUtils.isNotEmpty(pid)){
 			//投资金额,估值安排所有值,投资方主体
-			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			String[] titleIds = {"3004","3012","3010","3020"};
 			Set<String> set=new HashSet<String>();         
 			set.addAll(Arrays.asList(titleIds));
 			InformationResult informationResult = new InformationResult();
@@ -145,7 +145,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		Project c = projectService.queryById(id);
 		if(c != null){
 			//投资金额,估值安排所有值,投资方主体
-			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			String[] titleIds = {"3004","3012","3010","3020"};
 			Set<String> set=new HashSet<String>();         
 			set.addAll(Arrays.asList(titleIds));
 			InformationResult informationResult = new InformationResult();
@@ -301,7 +301,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		informationResult.setTitleId("3004");
 		informationResult.setIsValid("0");*/
 		//投资金额,估值安排所有值,投资方主体
-		String[] titleIds = {"3004","3012","3011","3010","3020"};
+		String[] titleIds = {"3004","3012","3010","3020"};
 		Set<String> set=new HashSet<String>();         
 		set.addAll(Arrays.asList(titleIds));
 		InformationResult informationResult = new InformationResult();
@@ -441,7 +441,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		try {
 			//投资金额,估值安排所有值,投资方主体
-			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			String[] titleIds = {"3004","3012","3010","3020"};
 			Set<String> set=new HashSet<String>();         
 			set.addAll(Arrays.asList(titleIds));
 			InformationResult informationResult = new InformationResult();
