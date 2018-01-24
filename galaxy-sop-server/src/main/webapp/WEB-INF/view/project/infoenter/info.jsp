@@ -14,7 +14,6 @@
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include> 
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
 </head>
 
 <body >
@@ -33,6 +32,7 @@
 <script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 </html>
 <script>  
+$(".lightColor").remove();
 	var projectInfo = ${projectInfo}; 
 	//导航
 	createMenus(5); 
@@ -56,7 +56,6 @@
 	function jumpPage(){
 		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
 	}    
-	
 </script>
 
 <script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>

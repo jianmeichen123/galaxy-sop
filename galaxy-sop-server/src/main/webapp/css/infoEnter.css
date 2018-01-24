@@ -462,3 +462,8 @@ table-layout: fixed;
 .fixed-table-toolbar .pull-left{
 margin:0;
 }
+.lightColor{
+color:#999;
+font-size: 12px;
+padding-top:8px;
+}
