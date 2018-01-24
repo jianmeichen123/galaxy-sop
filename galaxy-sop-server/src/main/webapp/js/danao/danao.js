@@ -535,12 +535,13 @@ function timeOut(num,dom) {
 		return;
 	}
     var i = num; 
-    setInterval(function(){ 
+    var timer = setInterval(function(){ 
     	dom.text(i--);
     	if(i == -1) { 
-    		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-    		return false;
-		}
+    		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");;
+        	clearInterval(timer);
+        	return;
+    	}
  
-    },1000); 
+    },1000);  
 }; 
