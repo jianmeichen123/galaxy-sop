@@ -190,8 +190,8 @@ function judgeCheckbox(){
 	}
 	else if(id == 'claim')
 	{
-		hasAssignPremission == "true"
-		$('.task-ritmin table thead tr th div label').show()
+			hasAssignPremission == "true"
+			$('.task-ritmin table thead tr th div label').hide()
 	}
 	else
 	{
