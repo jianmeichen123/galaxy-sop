@@ -67,8 +67,13 @@ $('.select-simulate ul li').click(function(){
 	
 })
 //var rows = $("#task-table").bootstrapTable('getSelections');
-	var rows = $('.highlighCheckbox_checked');
-	$("#numOfTask").text(rows.length);
+	if($('.highlighCheckbox_th').hasClass('highlighCheckbox_checked')){
+		var len = $('.highlighCheckbox_checked').length-1;
+	}else{
+		var len = $('.highlighCheckbox_checked').length;
+	}
+	
+	$("#numOfTask").text(len);
 
 
 /******************Validate Start***********************/
