@@ -4523,6 +4523,6 @@ font-weight:bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;} 
-.dataQuestError{width:400px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
-.dataQuestError img{padding-bottom:25px;}
+.dataQuestError{width:350px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
+.dataQuestError img{padding-bottom:25px; width:100%;}
 .projectSourceSelect ul.selectpicker li{min-width:155px;}
