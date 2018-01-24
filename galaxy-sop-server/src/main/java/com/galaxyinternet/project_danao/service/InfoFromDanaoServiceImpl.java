@@ -195,7 +195,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
 		}
 
-		if(object.get("status") != null && object.get("data") !=null){
+		if(object.get("status") != null ){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
 				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
