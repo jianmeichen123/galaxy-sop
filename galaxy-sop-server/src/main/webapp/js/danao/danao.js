@@ -229,7 +229,7 @@ function buildDNtable(dom ,data,code){
 				 	Vstr5='出资方式：'+filter(that.payType);
 				}
 				var StrTo = str1+str2+str3+str4+str5;
-				var VStrTo = Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
+				var VStrTo =Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
 				spStr= '<td name="field5" class="SpField"  dnVal='+ VStrTo+'>'+StrTo+'</td> '; 
 			 str+='<tr >'
 					+'<td>'
@@ -464,7 +464,7 @@ function saveDN(even){
 //  加个对于页面的判断
 
 	 if(pageTypr==0){
-		 $(".jumpBox").show()
+		 $(".jumpBox").show() 
 		 timeOut(3,$("#time"));			 
 	 }	
 } 
@@ -537,8 +537,9 @@ function timeOut(num,dom) {
     var i = num; 
     setInterval(function(){ 
     	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+    	return;
 	}
-    		dom.text(i--);
+	dom.text(i--);
  
     },1000); 
 }; 
