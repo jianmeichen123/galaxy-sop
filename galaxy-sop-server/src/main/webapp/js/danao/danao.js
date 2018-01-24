@@ -536,10 +536,12 @@ function timeOut(num,dom) {
 	}
     var i = num; 
     setInterval(function(){ 
-    	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-    	return;
-	}
-	dom.text(i--);
+    	dom.text(i--);
+    	if(i == -1) {
+    		debugger;
+    		//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+    		return false;
+		}
  
     },1000); 
 }; 
