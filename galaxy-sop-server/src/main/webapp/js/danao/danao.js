@@ -537,9 +537,8 @@ function timeOut(num,dom) {
     var i = num; 
     setInterval(function(){ 
     	dom.text(i--);
-    	if(i == -1) {
-    		debugger;
-    		//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
+    	if(i == -1) { 
+    		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
     		return false;
 		}
  

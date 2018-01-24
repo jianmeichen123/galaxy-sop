@@ -29,7 +29,7 @@
 				<tr class="listTitle listThree">
 					<th data-field="projTitle" class="threeLi threeLiFirst">项目信息</th>
 					<th data-field="setupDTEs" class="threeLi threeLiSecond">工商信息</th>
-					<th class="threeLi">操作</th>
+					<th class="threeLi" width="90px">操作</th>
 				</tr>
 			</thead>
 			<tbody class="listCon" id="dataBody"> </tbody>
