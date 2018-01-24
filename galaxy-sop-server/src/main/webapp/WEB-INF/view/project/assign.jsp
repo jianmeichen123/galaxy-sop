@@ -240,6 +240,7 @@ $(function(){
 		var valueFlag= $('select[name="faFlag"]').val('项目来源');//项目来源
 		
 		$(".form-control").val("");
+		$(this).addClass('visibility')
 	});
 	
   	

@@ -198,6 +198,7 @@ function judgeCheckbox(){
 		$('.task-ritmin table thead tr th div label').show()
 	}
 }
+
 function searchTask()
 {
 	var a = $('.tipslink li.on a');
