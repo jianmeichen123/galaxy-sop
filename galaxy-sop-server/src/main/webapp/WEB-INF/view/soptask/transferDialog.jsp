@@ -66,8 +66,11 @@ $('.select-simulate ul li').click(function(){
 	_this.parent().hide();
 	
 })
-var rows = $("#task-table").bootstrapTable('getSelections');
-$("#numOfTask").text(rows.length);
+//var rows = $("#task-table").bootstrapTable('getSelections');
+	var rows = $('.highlighCheckbox_checked');
+	$("#numOfTask").text(rows.length);
+
+
 /******************Validate Start***********************/
 var validator = $("#detail-form").validate({
 	focusCleanup:true,
@@ -78,7 +81,7 @@ var validator = $("#detail-form").validate({
 /******************Validate End***********************/
 
 /******************Save Start***********************/
-$("#save-detail-btn").click(function(){
+$("#save-detail-btn").click(function(){	
 	if(!validator.form()){
 		return;
 	}

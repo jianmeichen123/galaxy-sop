@@ -66,7 +66,8 @@ $('.select-simulate ul li').click(function(){
 	_this.parent().hide();
 	
 })
-var rows = $("#task-table").bootstrapTable('getSelections');
+//var rows = $("#task-table").bootstrapTable('getSelections');
+var rows = $('.highlighCheckbox_checked');
 $("#numOfTask").text(rows.length);
 /******************Validate Start***********************/
 var validator = $("#detail-form").validate({
