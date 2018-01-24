@@ -20,7 +20,7 @@
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        		<input class="choice" type='text' placeholder='请选择' required>
+        		<input class="choice" type='text' placeholder='请选择' required data-msg-required="*接收人不能为空">
         		<input type='hidden' class="hiddenVal" name="targetUserId" >
         		<ul class='toggle-ul'>
         			<li>请选择</li>
@@ -31,7 +31,7 @@
         	</li>
         	<li class='task-todeal-textarea'>
         		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因' name="reason" required maxLength="50"></textarea>
+        		<textarea placeholder='请输入移交原因' name="reason" required maxLength="100" data-msg-required="*移交原因不能为空"></textarea>
         	</li>
         </ul>
       	
