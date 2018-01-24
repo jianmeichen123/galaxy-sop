@@ -660,7 +660,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			task = sopTaskDao.selectById(id);
 			record = new SopTaskRecord();
 			record.setTaskId(id);
-			record.setBeforeUid(task.getAssignUid());
+			record.setBeforeUid(task.getAssignUid() != null ? task.getAssignUid() : 0L);
 			record.setBeforeDepId(task.getDepartmentId());
 			record.setAfterUid(targetUserId);
 			record.setAfterDepId(task.getDepartmentId());
@@ -673,6 +673,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		SopTask entity = new SopTask();
 		entity.setAssignUid(targetUserId);
 		entity.setTaskIds(Arrays.asList(ids));
+		entity.setTaskStatus(taskStatus.待完工.getCode());
 		sopTaskDao.updateTask(entity);
 	}
 }
