@@ -307,7 +307,9 @@
      
 	 
         
-        
+ <style>
+ .delete_reason span.error{display:block;margin-left:118px;}
+ </style>       
         
         
 <script src="<%=path %>/js/refuseProject.js"></script>
@@ -1024,13 +1026,18 @@ function deletePro(){
         		'<div class="delete_reason">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
-        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" id="deleteReason" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<textarea oninput="LimitTextArea(this)" id="deleteReason" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<span class="error none"><font>*</font>删除原因不能为空</span>'+
         			'</span>'+
         		'</div>'+
         		'</div>',
         		yes:function(index){
         			var deleteReason=$("#deleteReason").val();
         			data.deleteReason=deleteReason;
+        			if(deleteReason.trim().length==0){
+        				$('span.error').removeClass('none');
+        				return;
+        			}
         			sendPostRequestByJsonObj(
         					_url,
         					data,
@@ -1046,7 +1053,7 @@ function deletePro(){
         							layer.msg("删除失败。");
         						}
         					}
-        				);
+        				); 
         			
         			//layer.close(index)
         		}
@@ -1077,6 +1084,9 @@ $(window).resize(function(){
    			
  		function LimitTextArea(obj){
 			var length = $(obj).val().length;
+			if($(obj).val().trim().length>0){
+				$(obj).next('.error').addClass('none');
+			}
 			if(length>100){
 				var content = $(obj).val().substring(0,100);
 				$(obj).val(content);
