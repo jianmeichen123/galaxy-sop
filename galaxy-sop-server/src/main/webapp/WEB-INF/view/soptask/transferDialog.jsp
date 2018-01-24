@@ -90,6 +90,7 @@ $("#save-detail-btn").click(function(){
 	if(!validator.form()){
 		return;
 	}
+	$(this).addClass('disabled');
 	var ids = getSelectedIds();
 	var targetUserId = $("#detail-form input[name='targetUserId']").val();
 	var reason  = $("#detail-form textarea[name='reason']").val();
@@ -116,6 +117,7 @@ $("#save-detail-btn").click(function(){
 		else
 		{
 			layer.msg('移交失败');
+			$(this).removeClass('disabled');
 		}
 	};
 	sendPostRequestByJsonObj(platformUrl.transferTask, data, callback);

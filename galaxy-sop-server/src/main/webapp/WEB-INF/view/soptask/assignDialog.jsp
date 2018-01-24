@@ -88,6 +88,7 @@ $("#save-detail-btn").click(function(){
 	if(!validator.form()){
 		return;
 	}
+	$(this).addClass('disabled');
 	var rows = $("#task-table").bootstrapTable('getSelections');
 	var ids = getSelectedIds();
 	var targetUserId = $("#detail-form input[name='targetUserId']").val();
@@ -115,6 +116,7 @@ $("#save-detail-btn").click(function(){
 		else
 		{
 			layer.msg('指派失败');
+			$(this).removeClass('disabled');
 		}
 	};
 	sendPostRequestByJsonObj(platformUrl.assignTask, data, callback);
