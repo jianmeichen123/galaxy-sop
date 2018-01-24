@@ -128,6 +128,8 @@ var tableDefaultOpts = {
     	
 //    	全选和非全选
      	 /* checkbox 点击 */
+    	//移除
+    	$('.highlighCheckbox_th ').removeClass('highlighCheckbox_checked')
       	 $('.highlighCheckbox').click(function(event){
      		 if($(this).hasClass("highlighCheckbox_checked")){
           		$(this).prop('checked',false);
@@ -148,16 +150,16 @@ var tableDefaultOpts = {
          		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
       		} 
       		
-      		
-      		
-      		
-      		
-      		
+      		/*if($(this).hasClass('highlighCheckbox_checked')){
+      			var rows = $(this).find('input').val();
+      			arr.push(rows);
+      		}*/
+      		getSelectedIds(this)
       		 event.preventDefault(); 
       		 
       	 });
       	 //全选 
-      	  $('.highlighCheckbox_th').click(function(){
+      	  $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
       		$(this).toggleClass('highlighCheckbox_checked'); 
       		  if($(this).hasClass("highlighCheckbox_checked")){
           		$(this).find("input").prop('checked',true);
@@ -183,11 +185,13 @@ function searchTask()
 	var id = a.attr('id');
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
-	console.log(options)
 	//设置checkbox
 	if(id == 'finish')
 	{
-		opts.checkboxHeader = false;
+		//opts.checkboxHeader = false;
+		console.log($('.task-ritmin table thead tr th div label'))
+		$('.task-ritmin table thead tr th div label').hide()
+		
 	}
 	else if(id == 'claim')
 	{
