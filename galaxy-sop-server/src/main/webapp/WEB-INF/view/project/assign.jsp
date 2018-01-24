@@ -281,14 +281,20 @@ $(function(){
 			param.faFlag = valueFlag;
 		}	
 		
-		
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		param.nameCodeLike = nameCodeLike!="undefined"?nameCodeLike:"";
+		console.log('refresh')
+		console.log(param);
 		return param;
 		
 	} 	
 	
-	
+	  var urls;
+		if(${from eq 'assign' }){
+			 urls=platformUrl.searchProjectAssigin;
+		}else if(${from eq 'transfer' }){
+			urls=platformUrl.searchProjectTansfer;
+		}
 	/* change事件*/
 	//事业线
 	$('select[name="projectDepartid"]').change(function(){
@@ -296,7 +302,7 @@ $(function(){
 			$(this).parent().find('.filter-option').html('全部事业线')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//投资经理
@@ -305,7 +311,7 @@ $(function(){
 			$(this).parent().find('.filter-option').html('投资经理')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//项目进度
@@ -313,7 +319,7 @@ $(function(){
 		if($('select[name="projectProgress"]').val()=="全部"){
 			$(this).parent().find('.filter-option').html('项目进度')
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//项目状态
@@ -322,7 +328,7 @@ $(function(){
 			$(this).parent().find('.filter-option').html('项目状态')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//融资状态
@@ -331,7 +337,7 @@ $(function(){
 			$(this).parent().find('.filter-option').html('融资状态')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//项目来源
@@ -340,29 +346,23 @@ $(function(){
 			$(this).parent().find('.filter-option').html('项目来源')
 			
 		}
-		$('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
 	});
 	//搜索方法
 	$("span[class='querySearch']").click(function(){
 		//buryPoint("98");
 		//initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-			
-		 $('#assign-table').bootstrapTable('refresh');
+		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		 $('.reset_search').removeClass('visibility');
 	});
-  var urls;
-	if(${from eq 'assign' }){
-		 urls=platformUrl.searchProjectAssigin;
-	}else if(${from eq 'transfer' }){
-		urls=platformUrl.searchProjectTansfer;
-	}
+
 	//初始化项目列表
 	var initPageSize = 10;
 	$('#assign-table').bootstrapTable({
 		queryParamsType: 'size|page',
 		pageSize:initPageSize,
-		pageNum:1,
+		/* pageNum:1, */
 		showRefresh : false,
 		url : urls,
 		sidePagination: 'server',
@@ -370,7 +370,7 @@ $(function(){
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
-        singleSelect:true,
+       /*  singleSelect:true, */
         //返回附带参数功能代码
         queryParams : queryParams,
         onLoadSuccess: function (data) {
