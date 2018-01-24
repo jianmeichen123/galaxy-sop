@@ -437,6 +437,7 @@ $(function(){
 	//createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");//项目来源
 if(${from eq 'assign' }){
 	var result='${fx:reloadCondition('project_batch_assign')}';
+	alert(result);
 	if(result!=""){
 		if(result==1){
 			$("[name='projectDepartid']").css("display","none");
