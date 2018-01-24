@@ -2040,4 +2040,16 @@ function getHrefParamter(name){
           }
       }
 }
+//封装自用方法
 
+(function(){
+
+	jQuery.fn.extend( {
+	    newCheck:function(){
+	         var that =this;
+	         var res = that+"aaaaa";
+	         return res
+	    },
+	      
+	}) 
+})

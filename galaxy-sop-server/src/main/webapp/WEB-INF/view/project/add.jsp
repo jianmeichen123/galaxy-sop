@@ -623,7 +623,7 @@ function CallBackE(data){
 						var jsonObj={
 								keyword:projectName
 						} 
-						sendPostRequestByJsonObj(_url, jsonObj, function(data){
+						sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
 							if(data.result.status=="ERROR"){
 								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 								return false;
