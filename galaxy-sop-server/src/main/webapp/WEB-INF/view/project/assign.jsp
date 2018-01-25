@@ -307,9 +307,8 @@ $(function(){
 	});
 	//投资经理
 	$('select[name="createUid"]').change(function(){
-		if($('select[name="createUid"]').val()=="全部"){
+		if($('select[name="createUid"]').val()=="全部" || $('select[name="createUid"]').val()=='0'){
 			$(this).parent().find('.filter-option').html('投资经理')
-			
 		}
 		$('#assign-table').bootstrapTable('refresh',{url:urls});
 		$('.reset_search').removeClass('visibility');
