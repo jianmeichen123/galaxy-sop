@@ -56,6 +56,12 @@ margin-bottom: 5px;
 .DN_info .infoTop p{	
 margin-bottom: 0px;
 }
+.DN_list{
+	padding-bottom:40px;
+}
+#powindow .DN_list{
+	padding-bottom:0px;
+}
 .DN_list .infoList{
 	margin-top:10px;
 }
@@ -114,10 +120,7 @@ color: #3CA6FF;
 }
 .tableBox .fixed-table-pagination{
 	margin-top:10px;
-}
-#powindow .tableBox .fixed-table-pagination{
-	margin-top:0px;
-}
+} 
 .tableBox  .pagination li{ 
 }
 .tableBox  .pagination > li > a, .tableBox .pagination > li > span,.tableBox  .pagination > li > a:hover, .tableBox .pagination > li > span:hover,.tableBox .pagination > li > a:focus,.tableBox  .pagination > li > span:focus{
@@ -475,7 +478,4 @@ margin:0;
 color:#999;
 font-size: 12px;
 padding-top:8px;
-}
-#powindow .DN_list .fixed-table-pagination div.pagination .pagination{
-	margin-top:10px;
-}
+} 
