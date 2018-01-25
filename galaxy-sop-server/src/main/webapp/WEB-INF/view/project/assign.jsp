@@ -40,7 +40,7 @@
 			  	</div>
 
 				<div class="form-group">
-			      <select name="createUid" class="selectpicker .touziManager">
+			      <select name="createUid" class="selectpicker touziManager">
 					 <!--  <option>投资经理</option> -->
 					 <option index="-1">全部</option>
 					</select>
@@ -238,12 +238,14 @@ $(function(){
 		var valueProjectStatus= $('select[name="projectStatus"]').val('项目状态');//项目状态
 		var valuefinanceStatus= $('select[name="financeStatus"]').val('融资状态');//融资状态
 		var valueFlag= $('select[name="faFlag"]').val('项目来源');//项目来源
-		
+		changeShiYeXian()
 		$(".form-control").val("");
 		$(this).addClass('visibility')
+		 resetManager()
 	});
 	
-  	
+	
+	
 	function queryParams(param){
 		var valueNum = $('select[name="projectDepartid"]').val();//事业线
 		var valueManager = $('select[name="createUid"]').val();//投资经理
@@ -481,14 +483,44 @@ if(${from eq 'assign' }){
  * 根据事业线查询相应的投资经理
  * @version 2016-06-21
  */
+
 createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
 	 */
-	$('select[name="projectDepartid"]').change(function(){
-		var did = $('select[name="projectDepartid"]').val();
-	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+	 changeShiYeXian()
+	 function changeShiYeXian(){
+		 $('select[name="projectDepartid"]').change(function(){
+				var did = $('select[name="projectDepartid"]').val();
+			    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+			    $('.selectpicker').selectpicker('refresh');
+				$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
+					//项目进度
+				if($('select[name="projectProgress"]').val()=="全部"){
+					$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度')
+				}
+					//项目状态
+				if($('select[name="projectStatus"]').val()=="全部"){
+					$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态')
+					
+				}
+					//融资状态
+				if($('select[name="financeStatus"]').val()=="全部"){
+					$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态')
+					
+				}
+					//项目来源
+				if($('select[name="faFlag"]').val()=="全部"){
+					$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源')
+					
+				}
+					
+			});
+	}
+	
+	function  resetManager(){
+		createUserOptions_All(platformUrl.getUserList+0, "createUid", 1);
 	    $('.selectpicker').selectpicker('refresh');
 		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
 			//项目进度
@@ -510,7 +542,9 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 			$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源')
 			
 		}
-	});
+	}
+	
+	
 	 $('.selectpicker').selectpicker({
 		  style: 'btn-info',
 		  size: 4,
