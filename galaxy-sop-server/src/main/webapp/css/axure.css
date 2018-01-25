@@ -4572,3 +4572,6 @@ font-weight:bold;
 
 .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
 .searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}
+.touziManager  ul.selectpicker li{min-width:150px;}
+
+
