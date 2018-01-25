@@ -238,7 +238,7 @@ $(function(){
 		var valueProjectStatus= $('select[name="projectStatus"]').val('项目状态');//项目状态
 		var valuefinanceStatus= $('select[name="financeStatus"]').val('融资状态');//融资状态
 		var valueFlag= $('select[name="faFlag"]').val('项目来源');//项目来源
-		changeShiYeXian()
+		//changeShiYeXian()
 		$(".form-control").val("");
 		$(this).addClass('visibility')
 		 resetManager()
@@ -483,7 +483,6 @@ if(${from eq 'assign' }){
  * 获取多有的事业线id
  * @version 2016-06-21
  */
-<<<<<<< HEAD
  function getDeptIds(){
 		 var arr= $('select[name="projectDepartid"] option');
 			var deptIds=[];
@@ -500,8 +499,6 @@ if(${from eq 'assign' }){
 	 */
     createUserOptions_part(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0,getDeptIds());
 	//createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
-	 changeShiYeXian()
-	 function changeShiYeXian(){
 		 $('select[name="projectDepartid"]').change(function(){
 				var did = $('select[name="projectDepartid"]').val();
 				//一个合伙人负责多个事业线，事业线选择全部，事业线投资经理处理
@@ -533,7 +530,7 @@ if(${from eq 'assign' }){
 				}
 					
 			});
-	}
+	
 	
 	function  resetManager(){
 		createUserOptions_All(platformUrl.getUserList+0, "createUid", 1);

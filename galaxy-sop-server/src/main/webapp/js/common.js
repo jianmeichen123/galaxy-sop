@@ -1428,7 +1428,7 @@ function createUserOptions_part(url, name, mark,showId){
 			options.push('<option value="0">全部</option>');
 		}
 		$.each(data.entityList, function(i, value){
-			if(showId.contains(value.departmentId)){
+			if(showId.contains(value.departmentId)==true){
 				options.push('<option value="'+value.idstr+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
 			}
 					});
