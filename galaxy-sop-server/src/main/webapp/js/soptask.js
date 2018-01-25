@@ -42,7 +42,7 @@ $(function(){
 	});
 	//指派任务点击跳转
 	$('#custom-toolbar').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
-		var len = $('.highlighCheckbox_checked').length;
+		var len = $('.highlighCheckbox.highlighCheckbox_checked').length;
 		if(len == 0){
 			layer.msg('请至少选择一条待办任务')
 			return
