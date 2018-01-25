@@ -175,7 +175,7 @@
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
-			$(".tablink .icon").hide();
+			$(".tablink .icon").show();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');

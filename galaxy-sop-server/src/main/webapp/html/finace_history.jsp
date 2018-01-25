@@ -17,6 +17,7 @@
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
     <div class="qualifications_all">
+    	<span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
         <div class="conference_all">
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>

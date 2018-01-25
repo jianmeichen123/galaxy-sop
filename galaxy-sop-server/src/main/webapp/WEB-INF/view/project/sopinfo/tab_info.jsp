@@ -200,6 +200,7 @@
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划<em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
+						<span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td class="million">
@@ -318,6 +319,7 @@
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont" id='company-info-form'>
 					 <input type="hidden" name="id" value="${projectId }">
+					 <span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td>

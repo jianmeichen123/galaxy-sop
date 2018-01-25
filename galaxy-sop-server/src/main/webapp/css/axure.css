@@ -4525,3 +4525,9 @@ font-weight:bold;
 .infoTopS{
 	display:none;
 }
+/*--------------------- v1.12 ---------------------*/
+ .editTips img{display:inline-block;margin:-2px 10px 0 0;vertical-align:middle;}
+ .basic_message_cont .editTips{margin-top:-20px;margin-bottom:10px;}
+  .editTips font.red{font-size:12px;}
+  .new_poptxt .tablink .icon{width:138px;}
+  .qualificationstc .editTips{margin-right:10px;}
