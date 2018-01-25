@@ -157,7 +157,14 @@ table .width_gd{width:12%;}
   height: 0;
   margin:-2px 2px 0 2px;
   vertical-align: middle;
- border-bottom: 4px dashed !important;
+ border-top: 4px dashed !important;
+ border-top: 4px solid \9 !important;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.open .caret{
+	border-top:0 !important;
+	border-bottom: 4px dashed !important;
  border-bottom: 4px solid \9 !important;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
@@ -487,10 +494,25 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg{ color:#FFF;float: left;font-family:"宋体";font-size:12px;}
 .header .usermsg a{ color:#FFF; float:left}
 .input-search{width:32%;position:absolute;top:7px;left:50%;transform:translateX(-50%);font-size:0px;}
-.input-search input{font-family: Microsoft YaHei;width:61%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px 0 0 2px;vertical-align: top;}
-.input-search span{font-size:12px;cursor:pointer;display:inline-block;width:17%;height:32px;background: #2B82D7;border-radius:0 2px 2px 0px;text-align:center;margin-left:-2px;line-height:32px;color:#fff;}
+.input-search input{font-family: Microsoft YaHei;color:#5A626D;width:61%;height:32px;line-height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px 0 0 2px;vertical-align: top;margin-top:2px;}
+.input-search span{margin-top:2px;font-size:12px;cursor:pointer;display:inline-block;width:17%;height:32px;background: #2B82D7;border-radius:0 2px 2px 0px;text-align:center;margin-left:-2px;line-height:32px;color:#fff;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
+.input-search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #d8d8d8; 
+}
+
+.input-search::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #d8d8d8;
+}
+
+.input-search input:-ms-input-placeholder{
+    color: #d8d8d8;
+}
+
+.input-search input::-webkit-input-placeholder{
+    color: #d8d8d8;
+}
 .header .usermsg span,
 .header .usermsg b{ float:left}
 .header .usermsg .name{ padding:0 15px 0 20px;  margin:0 5px 0 0;height: 18px;background-position: 0 0px;background: url(../img/xiala.png) right 3px no-repeat;cursor: pointer;}
@@ -4003,16 +4025,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .opretion-log tbody tr td{font-size:14px;color:#5a626d;text-align:center;}
 .opretion-log tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
 /* 指派任务 */
-.task-abandon-content{width:580px;min-height:335px;}
+.task-abandon-content{width:580px;/* min-height:335px; */}
 .task-pop{border-radius:2px;border:none;}
-.abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:Microsoft YaHei-Bold;background:url(../img/base_info/top-bj.png) no-repeat center center}
+.abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:Microsoft YaHei;background:url(../img/base_info/top-bj.png) no-repeat center center}
 .task-qulification p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
 .task-qulification p {padding:30px 0 0 118px;color:#666666;font-size:14px;}
 .task-textarea{width:444px;font-size:14px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
 .tast-content{margin-left:38px;}
 .tast-content em{display:inline-block;margin-right:8px;color:#666666;font-size:14px;}
-.tast-btn{margin-top:20px;}
-.tast-btn a{width:92px;height:32px;line-height:32px;border-radius:2px;border:1px solid #eef6fc ;}
+.tast-btn{margin-top:30px;}
+.tast-btn a{width:92px;height:32px;line-height:32px;border-radius:2px;border:1px solid #eef6fc ;font-family:Microsoft YaHei;}
 .task-confirm{background:#3ca6ff;}
 .task-cancle{background:#eef6fc;color:#3ca6ff;}
 .task-todeal{margin:80px 0 0 40px;font-size:14px;color:#666666;}
@@ -4247,6 +4269,13 @@ li .projectSource11 span.m_r30{
 	padding:0;
 	margin-top:-4px;
 }
+.pagination_common .btn-default .page-size{
+	color:#45aaff;
+	font-size:12px;
+	line-height:18px;
+	margin-top:-2px;
+	display:inline-block;
+}
 .pagination_common .dropdown-menu1{
 	min-width:40px;
 	background:#fff;
@@ -4324,8 +4353,8 @@ input:-ms-input-placeholder {
 .content_task .bootstrap-select .btn{min-width:98px;}
 .assign_project .ctlist {margin-left:10px;}
 /*1.11全局搜索  */
-.search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
-.search-top ul li{float:left;margin-left:40px;cursor:pointer;}
+.search-top{margin-left: -10px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
+.search-top ul li{float:left;margin-left:40px;cursor:pointer;font-size:14px;padding-top:30px;padding-bottom:20px;}
 .search-top ul li:nth-child(1){margin-left:20px;}
 .bottomColor{border-bottom:4px solid #45AAFF;}
 .searchNumber{margin-top:10px;padding-bottom:10px;font-size:12px;color:#333;positon:absolute;    position: absolute;top: 61px;}
@@ -4348,7 +4377,7 @@ input:-ms-input-placeholder {
 .outerProject{width:100%;}
 .outerProject .leftPic{width:80px;}
 .outerProject .rightContent{margin:20px 0 10px 20px;float:left;font-family: Microsoft YaHei;}
-.outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei}
+.outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei;font-weight:normal;}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
 .outerProject .picEm em{display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
 .outerProject .picOrigin{padding-right:40px;}
@@ -4362,7 +4391,7 @@ p.outerProjectTitle {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	/* padding-bottom: 10px; */
-	font-size: 12px;
+	font-size: 14px;
 }
 p.outerProjectNew{
 	color:#666;
@@ -4370,12 +4399,12 @@ p.outerProjectNew{
 .picEm em{background:url(../img/process/local.png) no-repeat;}
 .picEmTwo em{background:url(../img/process/tag.png) no-repeat;}
 .more-operateOne{top:34px;}
-.newsProject .leftPic{height:75px;margin:20px 0px 15px 20px;width:121px;}
+.newsProject .leftPic{height:75px;margin:20px 0px 15px 0px;width:121px;}
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
 .searchPage{background:#fff;}
-.globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
+.globalSearhc-ul{display:none;width:64.7%;border-radius:2px;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4432,7 +4461,8 @@ p.outerProjectNew{
 .task-pagebox .ventrueContent table thead tr th  .th-inner{ padding:23px 0 0 0; }
 .task-pagebox .outerContent table thead tr th  .th-inner{padding:0px;}
 .globalSearhc-ul .search_history{pointer-events:none;}
-.form-group .dropdown-menu{max-height:438px !important;}
+.form-group .dropdown-menu{max-height:438px !important;margin-left:8px;}
+.form-group .bootstrap-select.btn-group .dropdown-menu.inner{border-radius:2px;}
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
 .new_blueBtn{background-color: #3CA6FF;border-radius: 2px;}
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
@@ -4448,8 +4478,8 @@ font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
 .delete_reason span:nth-child(1){margin-left:40px;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
-.delete_reason {margin-top:22px;}
-.delete_reason span:nth-child(2){margin-left:10px;}
+.delete_reason {margin-top:20px;}
+.delete_reason span:nth-child(2){margin-left:10px;display: inline-block;}
 .delete_reason span textarea{padding-left:8px;padding-top:4px;}
 .delete_content .layui-layer-btn  .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
 .delete_content .layui-layer-btn   .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;color:#3ca6ff;}
@@ -4495,7 +4525,7 @@ font-weight:bold;
 .new_correlation_cen .btn_right{float:right;} 
 .new_correlation_cen .btn_left{float:left;} 
 .new_correlation_cen .btn_right:hover{background:#0084f5;}
-.img_content {width:auto;float:left;margin:20px 0 20px 20px;}
+.img_content {width:auto;float:left;margin:20px 0 20px 0px;}
 .img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 .input-search span:hover{background:#2878C7;}
 /* footer */
@@ -4514,7 +4544,7 @@ font-weight:bold;
 .dnContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
 .taskDetail-mesage table tbody tr td:nth-child(5){width:210px;display:inline-block;}
 .taskDetail-mesage table tbody tr td:nth-child(5) span{display:inline-block;
- 	width: 167px;
+ 	width: 167px; 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;}
@@ -4524,6 +4554,21 @@ font-weight:bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;} 
+.taskDetail-mesage table tbody tr td.task-operation{
+	width:100%;
+}
+.taskDetail-mesage table tbody tr td.task-operation span{
+	width:auto;
+}
 .dataQuestError{width:350px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
 .dataQuestError img{padding-bottom:25px; width:100%;}
 .projectSourceSelect ul.selectpicker li{min-width:155px;}
+.infoTopS{
+	display:none;
+}
+.select-simulate .recieve_person{max-height:89px;}
+.task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
+.task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
+
+.searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
+.searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}

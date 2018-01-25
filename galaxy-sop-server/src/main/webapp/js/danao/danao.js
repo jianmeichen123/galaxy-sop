@@ -259,7 +259,7 @@ function buildDNtable(dom ,data,code){
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
 				+'<td name="field1" dnVal='+filterData(that.name)+'>'+filter(that.name)+'</td>'
-				+'<td name="field2" dnVal='+filterData(jobV)+'>'+jobText+'</td>' 
+				+"<td name='field2' dnVal='"+filterData(jobV)+"'>"+jobText+'</td>' 
 				+'</tr>'
 		 }
 		dom.find("tbody").html(str);

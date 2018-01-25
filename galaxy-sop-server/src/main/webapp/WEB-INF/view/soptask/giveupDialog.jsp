@@ -17,7 +17,7 @@
         	</li>
         	<li class='task-todeal-textarea'>
         		<em class='task-reason'>放弃原因：</em>
-        		<textarea placeholder='请输入放弃原因' name="reason" required maxLength="50"></textarea>
+        		<textarea placeholder='请输入放弃原因' name="reason" required maxLength="100" data-msg-required="*放弃原因不能为空"></textarea>
         	</li>
         </ul>
       	

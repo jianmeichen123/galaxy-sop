@@ -492,10 +492,25 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]'
 	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 	    $('.selectpicker').selectpicker('refresh');
 		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
-		$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度');
-		$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态');
-		$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态');
-		$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源');
+			//项目进度
+		if($('select[name="projectProgress"]').val()=="全部"){
+			$('select[name="projectProgress"]').parent().find('.filter-option').html('项目进度')
+		}
+			//项目状态
+		if($('select[name="projectStatus"]').val()=="全部"){
+			$('select[name="projectStatus"]').parent().find('.filter-option').html('项目状态')
+			
+		}
+			//融资状态
+		if($('select[name="financeStatus"]').val()=="全部"){
+			$('select[name="financeStatus"]').parent().find('.filter-option').html('融资状态')
+			
+		}
+			//项目来源
+		if($('select[name="faFlag"]').val()=="全部"){
+			$('select[name="faFlag"]').parent().find('.filter-option').html('项目来源')
+			
+		}
 	});
 	 $('.selectpicker').selectpicker({
 		  style: 'btn-info',
