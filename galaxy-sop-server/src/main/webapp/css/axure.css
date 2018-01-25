@@ -4560,7 +4560,7 @@ font-weight:bold;
 .taskDetail-mesage table tbody tr td.task-operation span{
 	width:auto;
 }
-.dataQuestError{width:350px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
+.dataQuestError{width:350px;margin:0 auto;padding:20px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
 .dataQuestError img{padding-bottom:25px; width:100%;}
 .projectSourceSelect ul.selectpicker li{min-width:155px;}
 .infoTopS{
