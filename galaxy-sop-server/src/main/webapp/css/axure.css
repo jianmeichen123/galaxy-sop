@@ -162,6 +162,13 @@ table .width_gd{width:12%;}
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+.open .caret{
+	border-top:0 !important;
+	border-bottom: 4px dashed !important;
+ border-bottom: 4px solid \9 !important;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
 .caret1 {
   display: inline-block;
   width: 0;
