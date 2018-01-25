@@ -157,8 +157,8 @@ table .width_gd{width:12%;}
   height: 0;
   margin:-2px 2px 0 2px;
   vertical-align: middle;
- border-bottom: 4px dashed !important;
- border-bottom: 4px solid \9 !important;
+ border-top: 4px dashed !important;
+ border-top: 4px solid \9 !important;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -4247,6 +4247,13 @@ li .projectSource11 span.m_r30{
 	padding:0;
 	margin-top:-4px;
 }
+.pagination_common .btn-default .page-size{
+	color:#45aaff;
+	font-size:12px;
+	line-height:18px;
+	margin-top:-2px;
+	display:inline-block;
+}
 .pagination_common .dropdown-menu1{
 	min-width:40px;
 	background:#fff;
@@ -4432,7 +4439,8 @@ p.outerProjectNew{
 .task-pagebox .ventrueContent table thead tr th  .th-inner{ padding:23px 0 0 0; }
 .task-pagebox .outerContent table thead tr th  .th-inner{padding:0px;}
 .globalSearhc-ul .search_history{pointer-events:none;}
-.form-group .dropdown-menu{max-height:438px !important;}
+.form-group .dropdown-menu{max-height:438px !important;margin-left:8px;}
+.form-group .bootstrap-select.btn-group .dropdown-menu.inner{border-radius:2px;}
 .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;}
 .new_blueBtn{background-color: #3CA6FF;border-radius: 2px;}
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
@@ -4514,7 +4522,7 @@ font-weight:bold;
 .dnContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
 .taskDetail-mesage table tbody tr td:nth-child(5){width:210px;display:inline-block;}
 .taskDetail-mesage table tbody tr td:nth-child(5) span{display:inline-block;
- 	width: 167px;
+ 	width: 167px; 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;}
@@ -4524,6 +4532,12 @@ font-weight:bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;} 
+.taskDetail-mesage table tbody tr td.task-operation{
+	width:100%;
+}
+.taskDetail-mesage table tbody tr td.task-operation span{
+	width:auto;
+}
 .dataQuestError{width:350px;margin:0 auto;padding:50px 0;text-align:center;color:#666666;font-size:20px;font-family:Microsoft YaHei;}
 .dataQuestError img{padding-bottom:25px; width:100%;}
 .projectSourceSelect ul.selectpicker li{min-width:155px;}
