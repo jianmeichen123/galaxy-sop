@@ -502,9 +502,9 @@ if(${from eq 'assign' }){
 		 $('select[name="projectDepartid"]').change(function(){
 				var did = $('select[name="projectDepartid"]').val();
 				//一个合伙人负责多个事业线，事业线选择全部，事业线投资经理处理
-				if(did==0){
-					createUserOptions_part(platformUrl.getUserList+did, "createUid", 0,getDeptIds());
-				}else{
+			 	if(did==0){
+					createUserOptions_part(platformUrl.getUserList+did, "createUid", 1,getDeptIds());
+				}else{ 
 					  createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);	
 				}
 				$('.selectpicker').selectpicker('refresh');
