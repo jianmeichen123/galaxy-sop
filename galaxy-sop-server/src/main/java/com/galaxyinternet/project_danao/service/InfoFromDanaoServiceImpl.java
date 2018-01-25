@@ -486,7 +486,7 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		//2.数字 汉子 分离
 		String num = "";
 		String unit = "";
-		Pattern pattern = Pattern.compile("^(\\d+\\.\\d+|\\d)(.*)");
+		Pattern pattern = Pattern.compile("^(\\d+\\.\\d+|\\d+)(.*)");
 		Matcher matcher = pattern.matcher(str);
 		if (matcher.matches()) {//数字开头
 			num = matcher.group(1);
