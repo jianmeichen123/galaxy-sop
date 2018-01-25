@@ -1213,7 +1213,7 @@ function projectNameLineFormat(value, row, index){
 		{
 			projectId = row.remarkId;
 		}
-		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +projectId + "?mark=m\' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='#' onclick='toProjectDetail("+projectId+")' class='blue project_name'>").replace('name"',"");
 	}
 	content = content.replace('</pname>"',"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
@@ -1223,6 +1223,24 @@ function toTaskList()
 {
 	var url = $("#menus a[data-menueid='1071']").attr('href');
 	window.location=url;
+}
+function toProjectDetail(id)
+{
+	var url = Constants.sopEndpointURL+"/galaxy/project/checkProjectExit";
+	var data = {'id' : id};
+	var callback = function(data){
+		if(data.result.status=="ERROR")
+		{
+			if(data.result.errorCode == "project-delete")
+			{
+				layer.msg("项目已经被删除");
+				return;
+			}
+		}
+		var detailUrl = Constants.sopEndpointURL + "/galaxy/project/detail/" +id+"?mark=m";
+		forwardWithHeader(detailUrl);
+	};
+	sendPostRequestByJsonObj(url,data,callback);
 }
 function replaceStr(str){
 	if(str){
