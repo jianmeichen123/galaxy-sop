@@ -291,6 +291,9 @@ font-weight: bold;
 	border-left: 1px solid #d8d8d8;	
     border-bottom: 1px solid #d8d8d8;
 }
+.infoItem table[code="finance-history"] td[name="field2"]{
+	width:35%;
+}
 .infoItem table td[name="field5"]{
 	padding:10px 0;
 }
