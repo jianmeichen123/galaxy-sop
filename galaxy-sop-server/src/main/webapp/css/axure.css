@@ -494,8 +494,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg{ color:#FFF;float: left;font-family:"宋体";font-size:12px;}
 .header .usermsg a{ color:#FFF; float:left}
 .input-search{width:32%;position:absolute;top:7px;left:50%;transform:translateX(-50%);font-size:0px;}
-.input-search input{font-family: Microsoft YaHei;width:61%;height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px 0 0 2px;vertical-align: top;}
-.input-search span{font-size:12px;cursor:pointer;display:inline-block;width:17%;height:32px;background: #2B82D7;border-radius:0 2px 2px 0px;text-align:center;margin-left:-2px;line-height:32px;color:#fff;}
+.input-search input{font-family: Microsoft YaHei;width:61%;height:32px;line-height:32px;padding-left:20px;background: #FFFFFF;border:none;border-radius:2px 0 0 2px;vertical-align: top;margin-top:2px;}
+.input-search span{margin-top:2px;font-size:12px;cursor:pointer;display:inline-block;width:17%;height:32px;background: #2B82D7;border-radius:0 2px 2px 0px;text-align:center;margin-left:-2px;line-height:32px;color:#fff;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .input-search span a{font-family: Microsoft YaHei;cursor:pointer;font-size: 12px;color: #FFFFFF;}
 .header .usermsg span,
@@ -4389,7 +4389,7 @@ p.outerProjectNew{
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
 .searchPage{background:#fff;}
-.globalSearhc-ul{display:none;width:65%;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
+.globalSearhc-ul{display:none;width:64.7%;border-radius:2px;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{
     overflow: hidden;
     text-overflow: ellipsis;
