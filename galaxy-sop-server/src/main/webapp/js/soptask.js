@@ -174,8 +174,11 @@ function judgeCheckbox(){
 	}
 	else if(id == 'claim')
 	{
-			hasAssignPremission == "true"
-			$('.task-ritmin table thead tr th div label').hide()
+				if(hasAssignPremission == "true"){
+					$('.task-ritmin table thead tr th div label').show()
+				}else{
+					$('.task-ritmin table thead tr th div label').hide()
+				}
 	}
 	else
 	{
