@@ -460,7 +460,7 @@ if(${from eq 'assign' }){
 					  depts='${fx:reloadDepts('project_batch_assign')}'
 					  var deptArr=null!=depts?depts.split(","):[];
 					  createCareelinePartShow(platformUrl.getCareerlineList,"projectDepartid",1,deptArr);
-					
+					  
 				}
 		}
 	}
@@ -479,18 +479,39 @@ if(${from eq 'assign' }){
 	$('.content_task').show()
 
 /**
- * 根据事业线查询相应的投资经理
+ * 获取多有的事业线id
  * @version 2016-06-21
  */
-createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
+ function getDeptIds(){
+		 var arr= $('select[name="projectDepartid"] option');
+			var deptIds=[];
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].value!=0){
+					deptIds.push(arr[i].value);
+				}
+			}	
+			return deptIds;
+  }
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-06-21
+	 */
+    createUserOptions_part(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0,getDeptIds());
+	//createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
+
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
 	 */
 	$('select[name="projectDepartid"]').change(function(){
 		var did = $('select[name="projectDepartid"]').val();
-	    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
-	    $('.selectpicker').selectpicker('refresh');
+		//一个合伙人负责多个事业线，事业线选择全部，事业线投资经理处理
+		if(did==0){
+			createUserOptions_part(platformUrl.getUserList+did, "createUid", 0,getDeptIds());
+		}else{
+			  createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);	
+		}
+	      $('.selectpicker').selectpicker('refresh');
 		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
 			//项目进度
 		if($('select[name="projectProgress"]').val()=="全部"){

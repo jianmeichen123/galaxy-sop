@@ -1421,6 +1421,32 @@ function createCareelinePartShow(url, name,selectStatus,showId){
  * @param url   请求地址
  * @param name  select的name属性值
  */
+function createUserOptions_part(url, name, mark,showId){
+	sendGetRequest(url, null, function(data){
+		var options = [];
+		if(mark == 1){
+			options.push('<option value="0">全部</option>');
+		}
+		$.each(data.entityList, function(i, value){
+			if(showId.contains(value.departmentId)){
+				options.push('<option value="'+value.idstr+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
+			}
+					});
+		if(mark == 1){
+	     	$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);	
+				
+		}
+	});
+}
+
+/**
+ * 根据事业线查询相应的投资经理
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
 function createUserOptions(url, name, mark){
 	sendGetRequest(url, null, function(data){
 		var options = [];
