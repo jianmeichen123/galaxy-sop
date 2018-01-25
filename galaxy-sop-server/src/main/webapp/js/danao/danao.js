@@ -229,6 +229,9 @@ function buildDNtable(dom ,data,code){
 				}
 				var StrTo = str1+str2+str3+str4+str5;
 				var VStrTo =Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
+				if(VStrTo=="&nbsp;&nbsp;&nbsp;&nbsp;"){
+					VStrTo="";
+				}
 				spStr= '<td name="field5" class="SpField"  dnVal='+ VStrTo+'>'+StrTo+'</td> '; 
 			 str+='<tr >'
 					+'<td>'

@@ -476,3 +476,6 @@ color:#999;
 font-size: 12px;
 padding-top:8px;
 }
+#powindow .DN_list .fixed-table-pagination div.pagination .pagination{
+	margin-top:10px;
+}
