@@ -130,8 +130,7 @@ function getpopHTML(code,even,danaoName){
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
-					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
-					 $(".emptyInfo").find("a").remove();
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
 					 $(".DN_info").addClass("noPad");
 				 } 
 		}
@@ -177,7 +176,7 @@ function buildDNinfo(_url,jsonObj){
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
-			$(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
+			$(".emptyInfo").show().css({"margin-bottom":0});
 			 $(".DN_info").addClass("noPad");
 			return false;
 		}

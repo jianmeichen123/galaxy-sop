@@ -38,6 +38,7 @@ font-weight:normal;
 }
 table{
 	width: 100%;
+	margin-top:20px;
 }
 table td,table th{
 	font-family:Microsoft YaHei;
@@ -67,25 +68,15 @@ table th{
 				</thead>
 				<tbody>
 					<tr>
-						<td name="filed1">data</td>
+						<td name="filed1">namename</td>
 						<td name="filed2">data</td>
-						<td name="filed3">data</td>
+						<td name="filed3">texttext</td>
 						<td class="edit">
-							<label class="blue" data-btn="btn" onclick="seeR(this)">查看</label>
-							<label class="blue" data-btn="btn" onclick="editR(this)">编辑</label>
-							<label class="blue" data-btn="btn" onclick="closeR(this)">关闭</label>
+							<label class="blue" data-btn="btn" onclick="PopR(this,'s')">查看</label>
+							<label class="blue" data-btn="btn" onclick="PopR(this,'e')">编辑</label>
+							<label class="blue" data-btn="btn" onclick="">关闭</label>
 						</td>
-					</tr>
-					<tr>
-						<td name="filed1">data</td>
-						<td name="filed2">data</td>
-						<td name="filed3">data</td>
-						<td class="edit">
-							<label class="blue" data-btn="btn" onclick="seeR(this)">查看</label>
-							<label class="blue" data-btn="btn" onclick="editR(this)">编辑</label>
-							<label class="blue" data-btn="btn" onclick="closeR(this)">关闭</label>
-						</td>
-					</tr>
+					</tr> 
 				</tbody>
 			</table>
 		</div>
@@ -100,4 +91,25 @@ table th{
 </html>
 <script> 
 createMenus(5); 
+function PopR(event,status){
+	var that = $(event);
+	var tr = that.closest("tr");	
+	$.getHtml({ 
+		url:"/sop/html/writePop.html",//模版请求地址 
+		data:"",//传递参数
+		okback:function(){ 
+			var name=tr.find("td[name='filed1']").text(); 
+			var text=tr.find("td[name='filed3']").text(); 
+			if(status=="e"){
+				$(".edit").show();
+				$(".edit dd[name='name']").text(name);
+				$(".edit textarea").val(text);
+			}else if(status=="s"){
+				$(".see").show();
+				$(".see dd[name='name']").text(name);
+				$(".see dd[name='text']").text(text);
+			}
+		}
+	})
+}
 </script>
