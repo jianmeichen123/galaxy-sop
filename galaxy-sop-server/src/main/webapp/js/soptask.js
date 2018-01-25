@@ -2,16 +2,6 @@
  * sop用户任务
  */
 $(function(){
-	   //更多操作点击显示
-	/*$('.ul_content').on('mouseenter','.more-task',function(){
-		$('.task-toggle').slideDown();
-	})
-	$('.ul_content').on('mouseleave','.task-toggle',function(){
-		$('.task-toggle').slideUp();
-	});*/
-
-	
-	
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		addTaskCookie();
@@ -52,17 +42,11 @@ $(function(){
 	});
 	//指派任务点击跳转
 	$('#custom-toolbar').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
-		//var rows = $("#task-table").bootstrapTable('getSelections');
 		var len = $('.highlighCheckbox_checked').length;
 		if(len == 0){
-			layer.msg('请至少选择一个项目')
+			layer.msg('请至少选择一条待办任务')
 			return
 		}
-	/*	if(rows.length==0)
-		{
-			layer.msg('请至少选择一条待办任务');
-			return;
-		}*/
 		var code = $(this).attr('data-code');
 		$.getHtml({
 			url:getDetailUrl(code)
