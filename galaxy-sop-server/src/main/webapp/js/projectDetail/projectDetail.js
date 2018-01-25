@@ -122,7 +122,7 @@ function initTabPostMeeting(){
 //填写标准
 function writeStand(){ 
 	$.getTabHtml({
-		url : platformUrl.writeStand +'/'+ projectId
+		url : platformUrl.writeStand 
 	});
 }
 //项目文档

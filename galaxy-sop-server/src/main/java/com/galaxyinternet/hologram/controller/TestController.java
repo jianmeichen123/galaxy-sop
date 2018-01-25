@@ -59,8 +59,12 @@ public class TestController{
 	}
 	
 	@RequestMapping(value = "/writeStand")
-	public String platformTest4(HttpServletRequest request) {
-		return "project/sopinfo/tab_writerStand";
+	public String platformTest123(HttpServletRequest request) {
+		return "project/sopinfo/tab_writeStand";
+	}
+	@RequestMapping(value = "/writePage")
+	public String platformTest12(HttpServletRequest request) {
+		return "write/writePage";
 	}
 	
 /*

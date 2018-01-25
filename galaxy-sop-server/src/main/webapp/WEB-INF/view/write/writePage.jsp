@@ -5,11 +5,11 @@
 	String path = request.getContextPath(); 
 %>
 <style>
- .bg{
- 	background:#fff;
- 	padding:20px 28px 20px 20px;
+  padding:20px 28px 20px 20px;
  }
 </style>
-<div class="bg">
-勝多負少
-</div>
+ 
+<script>
+
+
+</script>
