@@ -85,7 +85,7 @@
             var multiple = this.multiple ? ' show-tick' : '';
             var autofocus = this.autofocus ? ' autofocus' : '';
             var header = this.options.header ? '<div class="popover-title"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
-            //var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /></div>' : '';
+            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /></div>' : '';
             var drop =
                 '<div class="btn-group bootstrap-select' + multiple + '">' +
                     '<button type="button" class="btn dropdown-toggle selectpicker" data-toggle="dropdown"'+ autofocus +'>' +
@@ -94,7 +94,7 @@
                     '</button>' +
                     '<div class="dropdown-menu open">' +
                         header +
-//                        searchbox +
+                       searchbox +
                         '<ul class="dropdown-menu inner selectpicker" role="menu">' +
                         '</ul>' +
                     '</div>' +
