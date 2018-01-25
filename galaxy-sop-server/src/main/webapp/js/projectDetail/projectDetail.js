@@ -26,16 +26,15 @@ $(function(){
 				case 4: initTabMeeting(projectId);buryPoint("101");   break;  //标签4:会议记录
 				case 5: initTabDelivery();  buryPoint("102"); break;  //标签5:交割前事项
 				case 6: initTabAppropriation(projectId);buryPoint("103");   break;  //标签6:注资信息
-				case 7: initTabPostMeeting(); 
+				case 7: initTabPostMeeting();
 				if(!flag){
 					buryPoint("104");
 				}
 				  break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);  buryPoint("105"); break;  //标签8:项目文档
 				case 9: initTabOperLog(); buryPoint("107");  break;  //标签9:操作日志
-				/*case 10:initTabInfomation();   break;  //标签10:全息图
-				case 11:laobanTest();   break;  //标签11:老板测试
-*/				default: return false;
+				case 10:writeStand(); break;//填写标准 
+				default: return false;
 			}
 			
 			//右侧刷新	
@@ -118,6 +117,12 @@ function initTabPostMeeting(){
 	//buryPoint("104");
 	$.getTabHtml({
 		url : platformUrl.showOperationsAnalysis +'/'+ projectId
+	});
+}
+//填写标准
+function writeStand(){ 
+	$.getTabHtml({
+		url : platformUrl.writeStand +'/'+ projectId
 	});
 }
 //项目文档

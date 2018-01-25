@@ -58,6 +58,10 @@ public class TestController{
 		return "project/search";
 	}
 	
+	@RequestMapping(value = "/writeStand")
+	public String platformTest4(HttpServletRequest request) {
+		return "project/sopinfo/tab_writerStand";
+	}
 	
 /*
 

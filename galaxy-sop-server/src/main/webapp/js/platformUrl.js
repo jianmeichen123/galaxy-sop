@@ -982,6 +982,10 @@ var platformUrl = {
 	 */
 	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting",
 	/**
+	 * 填写标准
+	 */
+	writeStand: Constants.sopEndpointURL+"/galaxy/test/writeStand",
+	/**
 	 * 项目详情-右边
 	 */
 	toRight : Constants.sopEndpointURL + "/galaxy/project/detail/toRight",
