@@ -114,7 +114,7 @@
 				    		</label> 
 				    		
 				    	</th>
-			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="10%" data-align="left">项目名称</th>
+			        	<th data-field="projectName"  data-formatter="projectInfo" data-width="12%" data-align="left">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"    data-width="8%">项目类型</th>
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"   data-width="8%">融资状态</th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"   data-width="8%">项目进度</th>
@@ -577,16 +577,16 @@ if(${from eq 'assign' }){
 
 
  	 function projectInfo(value,row,index){//项目名称
-		    var id=row.id;
+		 var id=row.id;
 			var str=row.projectName;
 			if(str.length>10){
 				subStr = str.substring(0,10);
-				//var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
-				return subStr;
+				var options = '<a href="javascript:void(0)" style="cursor:default" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+				return options;
 			}
 			else{
-				//var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
-				return str;
+				var options = '<a href="javascript:void(0)" style="cursor:default "  data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+				return options;
 			}
 		} 
 
