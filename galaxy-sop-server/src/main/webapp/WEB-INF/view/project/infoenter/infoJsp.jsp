@@ -10,7 +10,7 @@
  </style>
 <link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop DN_list">
-	<div class="infoTop clearfix">
+	<div class="infoTop infoTopS clearfix">
 	<!--1是页面  0是弹窗  -->
 			<div id="dataHidden">1</div>
 		<h5><img src="<%=path %>/img/process/infoCreat.png" />项目“<span id="projectName"></span>”创建成功</h5>

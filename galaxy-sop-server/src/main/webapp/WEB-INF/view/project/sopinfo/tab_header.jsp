@@ -15,6 +15,7 @@
 				<li data-tab="nav">运营分析</li>
 				<li data-tab="nav">项目文档</li>
 				<li data-tab="nav">操作日志</li>
+				<li data-tab="nav">填写标准</li>
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
 		<c:when test="${aclViewProject==true }">
@@ -27,6 +28,7 @@
 				<li data-tab="nav">运营分析</li>
 				<li data-tab="nav">项目文档</li>
 				<li data-tab="nav">操作日志</li>
+				<li data-tab="nav">填写标准</li>
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
 		<c:otherwise>
