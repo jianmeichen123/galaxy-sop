@@ -4010,7 +4010,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .opretion-log tbody tr td{font-size:14px;color:#5a626d;text-align:center;}
 .opretion-log tbody tr td:nth-child(1){text-align:left;padding-left:20px;}
 /* 指派任务 */
-.task-abandon-content{width:580px;min-height:335px;}
+.task-abandon-content{width:580px;/* min-height:335px; */}
 .task-pop{border-radius:2px;border:none;}
 .abandon-title{height:56px;line-height:56px;color:#fff;font-size:14px;font-weight:bold; font-family:Microsoft YaHei;background:url(../img/base_info/top-bj.png) no-repeat center center}
 .task-qulification p span{display:inline-block;width:18px;height:18px;background:url('../img/task-tips.png') no-repeat center center;vertical-align:text-bottom;margin-right:10px;}
@@ -4018,7 +4018,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-textarea{width:444px;font-size:14px;height:128px;vertical-align:top;padding-left:8px;padding-top:4px;border:1px solid #d8d8d8;}
 .tast-content{margin-left:38px;}
 .tast-content em{display:inline-block;margin-right:8px;color:#666666;font-size:14px;}
-.tast-btn{margin-top:20px;}
+.tast-btn{margin-top:30px;}
 .tast-btn a{width:92px;height:32px;line-height:32px;border-radius:2px;border:1px solid #eef6fc ;font-family:Microsoft YaHei;}
 .task-confirm{background:#3ca6ff;}
 .task-cancle{background:#eef6fc;color:#3ca6ff;}
@@ -4463,8 +4463,8 @@ font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
 .delete_reason span:nth-child(1){margin-left:40px;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
-.delete_reason {margin-top:22px;}
-.delete_reason span:nth-child(2){margin-left:10px;}
+.delete_reason {margin-top:20px;}
+.delete_reason span:nth-child(2){margin-left:10px;display: inline-block;}
 .delete_reason span textarea{padding-left:8px;padding-top:4px;}
 .delete_content .layui-layer-btn  .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
 .delete_content .layui-layer-btn   .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;color:#3ca6ff;}
@@ -4551,3 +4551,4 @@ font-weight:bold;
 .infoTopS{
 	display:none;
 }
+.select-simulate .recieve_person{max-height:89px;}
