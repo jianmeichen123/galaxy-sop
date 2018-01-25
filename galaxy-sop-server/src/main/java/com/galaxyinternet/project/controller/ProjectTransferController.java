@@ -108,6 +108,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			data.setResult(new Result(Status.ERROR, "err", "不能将项目移交给本人！"));
 			return data;
 		}
+	//	Project queryById = projectService.queryById(projectTransfer.getProjectId());
 		User u = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
@@ -120,6 +121,15 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				data.setResult(new Result(Status.ERROR, "csds", "部分项目不存在!"));
 				return data;
 			}
+			if(projectTransfer.getOperateType().equals("assign")){
+				for(Project p:queryList){
+					if(p.getCreateUid().longValue()==projectTransfer.getAfterUid().longValue()){
+						data.setResult(new Result(Status.ERROR, "err", "不能将项目指派给项目负责人！"));
+						return data;
+					}
+				}
+			}
+		
 			UrlNumber urlNumber = null;
 			List<Long> projectIds = new ArrayList<>(queryList.size());
 			for (Project p : queryList)
