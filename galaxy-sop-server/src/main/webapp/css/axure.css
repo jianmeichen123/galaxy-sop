@@ -4353,8 +4353,8 @@ input:-ms-input-placeholder {
 .content_task .bootstrap-select .btn{min-width:98px;}
 .assign_project .ctlist {margin-left:10px;}
 /*1.11全局搜索  */
-.search-top{height:63px;line-height:60px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
-.search-top ul li{float:left;margin-left:40px;cursor:pointer;}
+.search-top{margin-left: -10px;width:100%;background:#fff;border-bottom:1px solid #e4e4e4;}
+.search-top ul li{float:left;margin-left:40px;cursor:pointer;font-size:14px;padding-top:30px;padding-bottom:20px;}
 .search-top ul li:nth-child(1){margin-left:20px;}
 .bottomColor{border-bottom:4px solid #45AAFF;}
 .searchNumber{margin-top:10px;padding-bottom:10px;font-size:12px;color:#333;positon:absolute;    position: absolute;top: 61px;}
@@ -4377,7 +4377,7 @@ input:-ms-input-placeholder {
 .outerProject{width:100%;}
 .outerProject .leftPic{width:80px;}
 .outerProject .rightContent{margin:20px 0 10px 20px;float:left;font-family: Microsoft YaHei;}
-.outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei}
+.outerProject .rightContent h3{font-size: 16px;color: #000000;font-family: Microsoft YaHei;font-weight:normal;}
 .outerProject .rightContent h3 span{padding:3px 10px;background: #73BFFF;border-radius: 10px;margin-left:20px;font-size:12px;color:#fff;font-weight: normal;}
 .outerProject .picEm em{display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:10px;}
 .outerProject .picOrigin{padding-right:40px;}
@@ -4391,7 +4391,7 @@ p.outerProjectTitle {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	/* padding-bottom: 10px; */
-	font-size: 12px;
+	font-size: 14px;
 }
 p.outerProjectNew{
 	color:#666;
@@ -4399,7 +4399,7 @@ p.outerProjectNew{
 .picEm em{background:url(../img/process/local.png) no-repeat;}
 .picEmTwo em{background:url(../img/process/tag.png) no-repeat;}
 .more-operateOne{top:34px;}
-.newsProject .leftPic{height:75px;margin:20px 0px 15px 20px;width:121px;}
+.newsProject .leftPic{height:75px;margin:20px 0px 15px 0px;width:121px;}
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
@@ -4525,7 +4525,7 @@ font-weight:bold;
 .new_correlation_cen .btn_right{float:right;} 
 .new_correlation_cen .btn_left{float:left;} 
 .new_correlation_cen .btn_right:hover{background:#0084f5;}
-.img_content {width:auto;float:left;margin:20px 0 20px 20px;}
+.img_content {width:auto;float:left;margin:20px 0 20px 0px;}
 .img_content a{display:table-cell;height:80px;vertical-align:middle;max-height:80px;border:1px solid #d8d8d8;text-align:center;}
 .input-search span:hover{background:#2878C7;}
 /* footer */
@@ -4570,4 +4570,5 @@ font-weight:bold;
 .task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 
-
+.searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
+.searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}
