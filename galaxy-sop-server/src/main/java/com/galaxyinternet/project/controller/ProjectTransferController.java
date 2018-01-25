@@ -272,7 +272,8 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-
+		project.setProperty("updated_time");
+		project.setDirection("desc");
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
 		{
