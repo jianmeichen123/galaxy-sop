@@ -185,7 +185,7 @@ $(function(){
 		var index = $(this).index(); */
 		var len = $('.highlighCheckbox_checked').length;
 		if(len == 0){
-			layer.msg('请至少选择一个项目')
+			layer.msg('请至少选择一条待办任务')
 			return
 		}
 		var param=countNum();
@@ -241,7 +241,7 @@ $(function(){
 		//changeShiYeXian()
 		$(".form-control").val("");
 		$(this).addClass('visibility')
-		 resetManager()
+		resetManager()
 	});
 	
 	
@@ -538,8 +538,13 @@ if(${from eq 'assign' }){
 	
 	
 	function  resetManager(){
-		createUserOptions_All(platformUrl.getUserList+0, "createUid", 1);
+	 	createUserOptions_part(platformUrl.getUserList+0, "createUid", 1,getDeptIds());
 	    $('.selectpicker').selectpicker('refresh');
+	    
+	    
+	    
+	    
+	    
 		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
 			//项目进度
 		if($('select[name="projectProgress"]').val()=="全部"){

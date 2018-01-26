@@ -137,8 +137,23 @@ function getSelectedIds(obj)
 		var rows = $(obj).find('input').val();
 		ids.push(rows);
 	}
+	console.log(ids)
+	/* if(!$(".highlighCheckbox_th ").hasClass('.highlighCheckbox_checked')){
+		alert('ddd')
+		var rows = $(obj).closest('table').find('tbody tr td label input');
+		rows.each(function(){
+				var arr = $(this).val();
+				ids.push(arr)
+		})
+		
+	} */
+	
+	
+	
 	return ids;
 }
+
+
 function taskCheckboxFormatter(value, row, index)
 {
 	//console.log(row)

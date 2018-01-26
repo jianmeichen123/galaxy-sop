@@ -158,6 +158,7 @@ function checkboxClick(){
     		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
     		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
 		  }
+		  getSelectedIds(this)
 		event.preventDefault(); 
 	  }) 
 	
