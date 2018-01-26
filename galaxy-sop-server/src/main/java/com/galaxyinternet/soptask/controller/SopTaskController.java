@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -715,10 +717,22 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ModelAndView transfer(HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView("soptask/transferDialog");
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Long depId = user.getDepartmentId();
 		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
 		List<User> users = getDepUserFromCache(depId);
+		CollectionUtils.filter(users, new Predicate(){
+			@Override
+			public boolean evaluate(Object object)
+			{
+				User u = (User)object;
+				if(user.getId().intValue() == u.getId().intValue())
+				{
+					return false;
+				}
+				return true;
+			}
+		});
 		mv.addObject("depName", depName);
 		mv.addObject("users", users);
 		return mv;
@@ -786,10 +800,22 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ModelAndView assign(HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView("soptask/assignDialog");
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Long depId = user.getDepartmentId();
 		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
 		List<User> users = getDepUserFromCache(depId);
+		CollectionUtils.filter(users, new Predicate(){
+			@Override
+			public boolean evaluate(Object object)
+			{
+				User u = (User)object;
+				if(user.getId().intValue() == u.getId().intValue())
+				{
+					return false;
+				}
+				return true;
+			}
+		});
 		mv.addObject("depName", depName);
 		mv.addObject("users", users);
 		return mv;
