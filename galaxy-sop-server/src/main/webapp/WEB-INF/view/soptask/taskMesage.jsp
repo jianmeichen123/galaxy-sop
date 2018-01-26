@@ -260,6 +260,7 @@
 			else
 			{
 				layer.msg("提交失败");
+				$(this).removeClass('disabled');
 			}
 		};
 		//更新task为完成状态
