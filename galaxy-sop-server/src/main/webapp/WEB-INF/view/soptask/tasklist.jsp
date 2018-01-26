@@ -123,21 +123,15 @@ function projectNameFormatter(value,row,index){
 /*
  * 获取选中记录的id
  */
- var ids = [];
+
  function getSelectedIds(obj)
  {
  	var rows;
- 	if($(obj).hasClass('highlighCheckbox') && $(obj).hasClass('highlighCheckbox_checked')){
- 		rows = $(obj).find('input').val();
- 		ids.push(rows);
- 	}else if($(obj).hasClass('highlighCheckbox_th') && $(obj).hasClass('highlighCheckbox_checked')){
- 		$(".highlighCheckbox.highlighCheckbox_checked").each(function(){
- 			rows = $(this).find('input').val();
- 			console.log(rows);
- 			ids.push(rows);
- 		})
- 	}
- 	console.log(ids);
+ 	 var ids = [];
+ 	$(".highlighCheckbox.highlighCheckbox_checked").each(function(){
+			rows = $(this).find('input').val();
+			ids.push(rows);
+		})
  	return ids;
  }
 
