@@ -64,7 +64,7 @@ color:#5A626D;
 					 if(data.result.status=="OK"){
 						 var DN_projectName=$(event).closest("tr").find(".DN_name").html()
 							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/info/"+projectId+"?DN_projectName="+DN_projectName);
-					 }else if(data.result.errorCode=="502D"){
+					 }else if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
 						 var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
 								$('.bigPop').html(div);
 								$('.bigPop').show();

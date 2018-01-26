@@ -95,7 +95,7 @@ $(function(){
         	return param;
         }, 
 		onLoadSuccess:function(data){
-			if(data.result.errorCode=="502D"){
+			if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
 				var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
 				$('.searchPage').html(div);
 				$('.searchPage').show();
