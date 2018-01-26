@@ -1204,7 +1204,7 @@ function projectNameLineFormat(value, row, index){
 	else if('1.2.5' == row.type || '1.2.6' == row.type)
 	{
 		//尽职调查、股权交割
-		content = content.replace('"<pname>',"<a href='#' onclick='toTaskList()' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='#' onclick='toTaskList()' class='blue project_name'>\"").replace('name"',"");
 	}
 	else
 	{
@@ -1213,9 +1213,9 @@ function projectNameLineFormat(value, row, index){
 		{
 			projectId = row.remarkId;
 		}
-		content = content.replace('"<pname>',"<a href='#' onclick='toProjectDetail("+projectId+")' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='#' onclick='toProjectDetail("+projectId+")' class='blue project_name'>\"").replace('name"',"");
 	}
-	content = content.replace('</pname>"',"</a>");
+	content = content.replace('</pname>"',"\"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
 	return content;
 }
