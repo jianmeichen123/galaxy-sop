@@ -20,10 +20,10 @@
         	</li>
         	<li class='select-simulate'>
         		<em class='task-recive-person'>接收人：</em>
-        		<input class="choice" type='text' placeholder='请选择' required data-msg-required="*接收人不能为空">
+        		<input class="choice" type='text' placeholder='请选择' readonly required data-msg-required="*接收人不能为空">
         		<input type='hidden' class="hiddenVal" name="targetUserId" >
         		<ul class='toggle-ul'>
-        			<li>请选择</li>
+        			<!-- <li>请选择</li> -->
         			<c:forEach var="item" items="${users }">
         			<li value="${item.id }">${item.realName }</li>
         			</c:forEach>
@@ -45,16 +45,18 @@
 
 <script>
 
-$('.select-simulate input').click(function(){
-	var ul = $('.toggle-ul');
-	var _this = $(this);
-	if(ul.css('display')=='none'){
-		_this.addClass('up');
-		ul.slideDown('fast')
-	}else{
-		ul.slideUp('fast');
-		_this.removeClass('up');
-	}	
+$('.select-simulate input').click(function(event){
+	$(this).closest('.select-simulate').siblings('.select-simulate').find('input[type="text"]').removeClass('up');	
+	$(this).closest('.select-simulate').siblings('.select-simulate').find('.toggle-ul').slideUp("fast");
+	var ul =  $(this).parent().find('ul.toggle-ul');
+	var _this = $(this);	
+	_this.toggleClass("up");
+	ul.slideToggle("fast");
+	event.stopPropagation(); 
+	$(document).on("click", function(){
+		ul.slideUp("fast");
+		_this.removeClass('up');		
+	});
 });
 $('.select-simulate ul li').click(function(){
 	var _this = $(this);
