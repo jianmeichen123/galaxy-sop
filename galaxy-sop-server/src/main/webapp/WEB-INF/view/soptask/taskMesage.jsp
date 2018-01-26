@@ -228,6 +228,7 @@
 	/**********************文件上传 START ************************/
 	/**********************提交完成 START ************************/
 	$("#complete-task-btn").click(function(){
+		$(this).addClass('disabled');
 		//判断是否放弃该任务的提交
 		var label=$(".task-no-need label");
 		var giveUp=label.hasClass('label-checked');
