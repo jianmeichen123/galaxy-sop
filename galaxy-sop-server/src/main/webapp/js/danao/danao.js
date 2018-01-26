@@ -237,10 +237,10 @@ function buildDNtable(dom ,data,code){
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
-				+'<td name="field1" dnVal='+filterData(that.shareholder)+'>'+filter(that.shareholder)+'</td>'
-				+'<td name="field3" dnVal='+filterData(that.name)+'>'+filter(that.shareholder11)+'</td>'
-				+'<td name="field4" dnVal='+filterData(that.shareholderTypeId)+'>'+filter(that.shareholderType)+'</td>'
-				+'<td name="field2" dnVal='+filterData(that.equityRate)+'>'+filter(that.equityRate)+'</td>'
+				+"<td name='field1' dnVal='"+filterData(that.shareholder)+"'>"+filter(that.shareholder)+'</td>'
+				+"<td name='field3' dnVal='"+filterData(that.name)+"'>"+filter(that.shareholder11)+'</td>'
+				+"<td name='field4' dnVal='"+filterData(that.shareholderTypeId)+"'>"+filter(that.shareholderType)+'</td>'
+				+"<td name='field2' dnVal='"+filterData(that.equityRate)+"'>"+filter(that.equityRate)+'</td>'
 				+spStr+'</tr>'
 		 }
 		dom.find("tbody").html(str); 
@@ -260,7 +260,7 @@ function buildDNtable(dom ,data,code){
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
-				+'<td name="field1" dnVal='+filterData(that.name)+'>'+filter(that.name)+'</td>'
+				+"<td name='field1' dnVal='"+filterData(that.name)+"'>"+filter(that.name)+'</td>'
 				+"<td name='field2' dnVal='"+filterData(jobV)+"'>"+jobText+'</td>' 
 				+'</tr>'
 		 }
@@ -275,12 +275,12 @@ function buildDNtable(dom ,data,code){
 				+'<td>'
 				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
-			+'<td name="field7" dnVal='+filterData(that.roundId)+'>'+filter(that.round)+'</td>'
-			+'<td name="field1" dnVal='+filterData(that.investDateStr)+'>'+filter(that.investDateStr)+'</td>'
-			+'<td name="field3" dnVal='+filterData(that.money)+'>'+filter(that.money)+'</td>'
-			+'<td name="field6" dnVal = '+unitId+'>'+filter(that.unit)+'</td>'
-			+'<td name="field4" dnVal='+filterData(that.stock)+'>'+filter(that.stock)+'</td> '
-			+'<td name="field2" dnVal='+filterData(that.invstors)+'>'+filter(that.invstors)+'</td> '
+			+"<td name='field7' dnVal='"+filterData(that.roundId)+"'>"+filter(that.round)+'</td>'
+			+"<td name='field1' dnVal='"+filterData(that.investDateStr)+"'>"+filter(that.investDateStr)+'</td>'
+			+"<td name='field3' dnVal='"+filterData(that.money)+"'>"+filter(that.money)+'</td>'
+			+"<td name='field6' dnVal = '"+unitId+"'>"+filter(that.unit)+'</td>'
+			+"<td name='field4' dnVal='"+filterData(that.stock)+"'>"+filter(that.stock)+'</td> '
+			+"<td name='field2' dnVal='"+filterData(that.invstors)+"'>"+filter(that.invstors)+'</td> '
 			+'</tr>'
 		 }
 		dom.find("tbody").html(str);
