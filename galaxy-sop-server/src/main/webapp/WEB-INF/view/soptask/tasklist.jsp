@@ -124,34 +124,22 @@ function projectNameFormatter(value,row,index){
  * 获取选中记录的id
  */
  var ids = [];
-function getSelectedIds(obj)
-{
-	//var rows = $("#task-table").bootstrapTable('getSelections');
-	/* var rows = $('.highlighCheckbox_checked').find('input').val();
-	var ids = new Array();
-	$.each(rows,function(){
-		ids.push(rows);
-	});
-	return ids; */
-	if($(obj).hasClass('highlighCheckbox_checked')){
-		var rows = $(obj).find('input').val();
-		ids.push(rows);
-	}
-	console.log(ids)
-	/* if(!$(".highlighCheckbox_th ").hasClass('.highlighCheckbox_checked')){
-		alert('ddd')
-		var rows = $(obj).closest('table').find('tbody tr td label input');
-		rows.each(function(){
-				var arr = $(this).val();
-				ids.push(arr)
-		})
-		
-	} */
-	
-	
-	
-	return ids;
-}
+ function getSelectedIds(obj)
+ {
+ 	var rows;
+ 	if($(obj).hasClass('highlighCheckbox') && $(obj).hasClass('highlighCheckbox_checked')){
+ 		rows = $(obj).find('input').val();
+ 		ids.push(rows);
+ 	}else if($(obj).hasClass('highlighCheckbox_th') && $(obj).hasClass('highlighCheckbox_checked')){
+ 		$(".highlighCheckbox.highlighCheckbox_checked").each(function(){
+ 			rows = $(this).find('input').val();
+ 			console.log(rows);
+ 			ids.push(rows);
+ 		})
+ 	}
+ 	console.log(ids);
+ 	return ids;
+ }
 
 
 function taskCheckboxFormatter(value, row, index)

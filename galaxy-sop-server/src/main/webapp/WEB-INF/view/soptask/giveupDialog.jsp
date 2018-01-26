@@ -76,6 +76,7 @@ $("#save-detail-btn").click(function(){
 	}
 	$(this).addClass('disabled');
 	var ids = getSelectedIds();
+	console.log(ids);
 	var targetUserId = $("#detail-form input[name='targetUserId']").val();
 	var reason  = $("#detail-form textarea[name='reason']").val();
 	var data = {
@@ -83,7 +84,7 @@ $("#save-detail-btn").click(function(){
 		'reason'		:	reason,
 		'ids'			:	ids
 	};
-	var callback = function(data){
+	 var callback = function(data){
 		if(data.result.status == 'OK')
 		{
 			layer.msg('放弃成功',{time:'1000'},function(){
@@ -104,7 +105,7 @@ $("#save-detail-btn").click(function(){
 			$(this).removeClass('disabled');
 		}
 	};
-	sendPostRequestByJsonObj(platformUrl.giveupTask, data, callback);
+	sendPostRequestByJsonObj(platformUrl.giveupTask, data, callback); 
 });
 /******************Save End***********************/
 </script>
