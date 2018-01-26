@@ -491,14 +491,19 @@ if(${from eq 'assign' }){
 					deptIds.push(arr[i].value);
 				}
 			}	
+			if(null==deptIds||deptIds.length==0){
+				deptIds.push(${departmentId});
+			}
+				
 			return deptIds;
   }
 	/**
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21
 	 */
-    createUserOptions_part(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0,getDeptIds());
-	//createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
+	  createUserOptions_part(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1,getDeptIds());
+		
+   //createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);//投资经理
 		 $('select[name="projectDepartid"]').change(function(){
 				var did = $('select[name="projectDepartid"]').val();
 				//一个合伙人负责多个事业线，事业线选择全部，事业线投资经理处理
