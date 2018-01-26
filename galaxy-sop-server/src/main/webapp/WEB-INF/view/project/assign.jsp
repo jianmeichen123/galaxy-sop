@@ -540,11 +540,6 @@ if(${from eq 'assign' }){
 	function  resetManager(){
 	 	createUserOptions_part(platformUrl.getUserList+0, "createUid", 1,getDeptIds());
 	    $('.selectpicker').selectpicker('refresh');
-	    
-	    
-	    
-	    
-	    
 		$('select[name="createUid"]').parent().find('.filter-option').html('投资经理');
 			//项目进度
 		if($('select[name="projectProgress"]').val()=="全部"){
