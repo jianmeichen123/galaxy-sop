@@ -515,7 +515,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 $("#powindow").remove();
 					 $("body").css("overflow-y","auto");     
 				 }
-				 var table = $("table[data-code="+code+"]");
+				 var table = $("table[data-code="+code+"]"); 
 				 if(pageTypr==1){
 					 info_table("NO9_1",table.attr("data-name"),table); 
 				 }else if(pageTypr==2){
@@ -526,7 +526,14 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					    if( $(this).find("tr").length>1){
 						    $(this).closest(".mb_24").find(".no_enter").remove();					    	
 					    }
-					})					 
+					})		 
+					var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
+     				var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
+     				if(financeLength>=10&&equityLength>=200){
+     					$(".infoReport[dncode='financeInfo,equityInfo']").hide();
+     				}else{
+     					$(".infoReport[dncode='financeInfo,equityInfo']").show();
+     				}	
 				 } 		 
 		})
 		return 1;
