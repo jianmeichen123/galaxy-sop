@@ -2044,6 +2044,7 @@ function initTable(url,data,status,code) {
 
         ],
         onLoadSuccess: function (data) {
+        	$("#dataTable").show();
         	if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
         		var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
     				$('.bigPop').html(div);
