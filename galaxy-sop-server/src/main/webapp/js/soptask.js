@@ -113,10 +113,6 @@ var tableDefaultOpts = {
     	checkboxClick();
     	judgeCheckbox();
       	  
-    	
-      	  
-    	
-    	
     }
 };
 
@@ -159,7 +155,7 @@ function checkboxClick(){
     		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
 		  }
 		  getSelectedIds(this)
-		event.preventDefault(); 
+		  event.preventDefault(); 
 	  }) 
 	
 }

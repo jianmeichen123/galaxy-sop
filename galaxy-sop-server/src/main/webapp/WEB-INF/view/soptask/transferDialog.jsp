@@ -101,7 +101,7 @@ $("#save-detail-btn").click(function(){
 		'reason'		:	reason,
 		'ids'			:	ids
 	};
-	/* var callback = function(data){
+ var callback = function(data){
 		if(data.result.status == 'OK')
 		{
 			layer.msg('移交成功',{time:'1000'},function(){
@@ -122,7 +122,7 @@ $("#save-detail-btn").click(function(){
 			$(this).removeClass('disabled');
 		}
 	};
-	sendPostRequestByJsonObj(platformUrl.transferTask, data, callback); */
+	sendPostRequestByJsonObj(platformUrl.transferTask, data, callback);
 });
 /******************Save End***********************/
 </script>

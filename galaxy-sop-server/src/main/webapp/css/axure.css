@@ -4385,6 +4385,7 @@ input:-ms-input-placeholder {
 .outerProjectTitle{font-size: 14px;color: #828a92;}
 .outerProject tbody tr td{border-bottom:1px solid #e4e4e4;width:90%;}
 p.outerProjectTitle {
+	/* width:97%; */
   	 overflow : hidden;
 	text-overflow: ellipsis;
 	white-space:nowrap;
