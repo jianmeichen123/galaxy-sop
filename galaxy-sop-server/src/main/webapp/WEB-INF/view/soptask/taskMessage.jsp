@@ -25,9 +25,7 @@
 		        	<ul class='task-item task-item-right'>
 		        		<li>项目编码：<span id="projectCode"></span></li>
 		       			<li>投资经理：<span id="createUname"></span></li>
-		       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
-		       			<li>认领人：<span>${assignUname }</span></li>
-		       			</c:if>
+		       			<li id="assignUname" style="display:none;">认领人：<span>${assignUname }</span></li>
 		        	</ul> 
  		 		</div>
 	        	<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
@@ -80,6 +78,11 @@
 </div>
 <script type="text/javascript">
 	$("#task-title").text('${task.taskName}');
+	var originAcitveTab = getCookieValue('task-active-tab');
+	if(originAcitveTab == 'dep-unfinished')
+	{
+		$("#assignUname").show();
+	}
 	/**********************显示任务详情 START************************/
 	var url = platformUrl.detailProject+"/${projectId}";
 	var data = {};

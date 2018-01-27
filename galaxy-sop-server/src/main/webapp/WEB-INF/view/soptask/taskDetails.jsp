@@ -85,7 +85,7 @@ $('.to-task-tips').tabLazyChange({
 	//页面请求地址
 	function initTabTaskMessage(){
 		$.getTabHtml({
-			url : platformUrl.toTaskMesage+'?taskId=${taskId}'
+			url : platformUrl.toTaskMessage+'?taskId=${taskId}'
 		});
 	}
 	function initTabTaskLog(){

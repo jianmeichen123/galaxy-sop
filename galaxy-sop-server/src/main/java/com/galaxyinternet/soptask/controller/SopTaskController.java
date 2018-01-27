@@ -530,10 +530,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/toTaskMesage")
+	@RequestMapping(value = "/toTaskMessage")
 	public ModelAndView toTaskMesage(Long taskId) 
 	{
-		ModelAndView mv = new ModelAndView("soptask/taskMesage");
+		ModelAndView mv = new ModelAndView("soptask/taskMessage");
 		SopTask task = sopTaskService.queryById(taskId);
 		Project project = projectService.queryById(task.getProjectId());
 		mv.addObject("task", task);
