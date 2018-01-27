@@ -41,4 +41,7 @@ UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1011';
 UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1012';
 UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1013';
 
+
+INSERT INTO `power`.`data_scope`(`sp_name`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`)
+VALUES ('所有人（含离职人员）',0,0,UNIX_TIMESTAMP(NOW())*1000,NULL,UNIX_TIMESTAMP(NOW())*1000,NULL,1);
  
