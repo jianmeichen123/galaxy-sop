@@ -287,6 +287,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			} else if(roleIdList.contains(UserConstant.HRJL)){
 				// 人事经理
 				sopFile.setBelongUid(obj.getId());
+				sopFile.setNotDelete("3");
 			} else if (roleIdList.contains(UserConstant.FWZJ)) {
 				// 法务总监
 				List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
@@ -303,6 +304,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			} else if(roleIdList.contains(UserConstant.FWJL)){
 				// 法务经理
 				sopFile.setBelongUid(obj.getId());
+				sopFile.setNotDelete("3");
 			} else if (roleIdList.contains(UserConstant.CWZJ)) {
 				// 财务总监
 				List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
@@ -319,6 +321,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			} else if(roleIdList.contains(UserConstant.CWJL)){
 				// 财务经理
 				sopFile.setBelongUid(obj.getId());
+				sopFile.setNotDelete("3");
 			} else if (roleIdList.contains(UserConstant.TZJL)) {
 				// 投资经理
 				Project pQuery = new Project();
