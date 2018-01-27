@@ -121,7 +121,7 @@
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"   data-width="8%">项目状态</th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="10%">项目来源</th>
 			        	<th data-field="projectCareerline"   data-width="12%">事业部</th>
-			        	<th data-field="createUname"   data-width="14%">投资经理</th>
+			        	<th data-field="createUname" data-formatter="projectCarrerlineCreatUname"  data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"    data-width="8%">创建日期</th>
 			        	<th data-field="updated_time" data-formatter="updateFormat"   data-width="8%">最后编辑时间</th>
  					</tr>	
@@ -572,7 +572,11 @@ if(${from eq 'assign' }){
 		 
 	 })
 ///////////////////////初始化筛选条件finish
-
+	function projectCarrerlineCreatUname(value,row,index){
+		 console.log(row)
+		 var option = "<span>"+row.createUname+"</span><span>|</span><span>"+row.projectCareerline+"</span>"
+		 return option;
+	 }
 
  	 function projectInfo(value,row,index){//项目名称
 		 var id=row.id;
