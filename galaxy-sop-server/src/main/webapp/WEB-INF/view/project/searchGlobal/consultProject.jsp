@@ -173,13 +173,12 @@ $('.consut_span span').click(function(){
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 				/* 若创投咨询无数据 */
-			/* 	if(data.pageList.content==undefined){
+			 	if(data.pageList.content==undefined){
 					$('.xhZxun').click()
 				}else{
 					
-				} */
-				var ctConsult = data.pageList.content;
-				return ctConsult;
+				} 
+				
 					
 			}
 	})
