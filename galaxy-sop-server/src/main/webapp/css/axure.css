@@ -4374,7 +4374,7 @@ input:-ms-input-placeholder {
 .createProject tbody tr td:nth-child(6){text-align:left;}
 .two{background:#fff;}
 .tdContent{width:100%;/* margin-bottom:7px; */}
-.outerProject{width:100%;}
+.outerProject{width:100%; table-layout:fixed;}
 .outerProject .leftPic{width:80px;}
 .outerProject .rightContent{margin:20px 0 10px 20px;float:left;font-family: Microsoft YaHei;}
 .outerProject .rightContent h3 a{font-size: 16px;color: #000000;font-family: Microsoft YaHei;font-weight:normal;}
