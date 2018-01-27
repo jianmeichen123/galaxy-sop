@@ -211,13 +211,13 @@
 						</when>
 						<when test="flagkeyword==null">
 							and (upper(project_name) like CONCAT("%",upper(#{keyword}),"%")
-							<if test="escapeChar ">
+							<!-- <if test="escapeChar ">
 								escape '/'
 							</if>
 							or upper(project_code) like CONCAT("%",upper(#{keyword}),"%")
 							<if test="escapeChar ">
 								escape '/'
-							</if>
+							</if> -->
 							)
 						</when>
 						<when test="flagkeyword=='onlyName'">
