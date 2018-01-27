@@ -4475,7 +4475,7 @@ background: url(../img/base_info/top-bj.png) no-repeat center center;
 font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
-.delete_reason span:nth-child(1){margin-left:40px;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
+.delete_reason span:nth-child(1){margin-left:40px;vertical-align: top;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
 .delete_reason {margin-top:20px;}
 .delete_reason span:nth-child(2){margin-left:10px;display: inline-block;}
 .delete_reason span textarea{padding-left:8px;padding-top:4px;}

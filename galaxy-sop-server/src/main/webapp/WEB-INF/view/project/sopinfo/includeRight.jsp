@@ -309,6 +309,7 @@
         
  <style>
  .delete_reason span.error{display:block;margin-left:118px;}
+ .delete_reason_left span.error{display:block;margin-left:-3px;}
  </style>       
         
         
@@ -1023,7 +1024,7 @@ function deletePro(){
 			content:"<div id='wraper_delete'>"+
         		"<p><span class='delete_msg'></span>是否删除项目</p>"+
         		'<p>删除创投项目会通知该项目投资经理</p>'+
-        		'<div class="delete_reason">'+
+        		'<div class="delete_reason delete_reason_left">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
         				'<textarea oninput="LimitTextArea(this)" id="deleteReason" rows="" cols="" placeholder="请输入原因"></textarea>'+
