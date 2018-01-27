@@ -4568,7 +4568,7 @@ font-weight:bold;
 .select-simulate .recieve_person{max-height:89px;}
 .task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
-
+.ventrueContent .fixed-table-body{overflow-x:hidden;}
 .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
 .searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}
 .touziManager  ul.selectpicker li{min-width:150px;}
