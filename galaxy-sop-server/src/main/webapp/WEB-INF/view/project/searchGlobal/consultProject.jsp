@@ -8,7 +8,7 @@
     <!--右中部内容-->
  		<div class='three pagination_common'>
  			<div class='consut_span'>
- 				<span class='hasBackround'>星河资讯</span>
+ 				<span class='hasBackround xhZxun'>星河资讯</span>
  				<span class='ctZixun'>创投资讯</span>
  			</div>
  			<div class='projectContent'>
@@ -78,11 +78,10 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				if(data.pageList.content){
-					$('.hasBackround').click();//如果有数据则展示星河资讯
-				}else{
+				if(data.pageList.content==undefined){
 					$('.ctZixun').click();//如果无数据则展示创投资讯
-					
+				}else{
+					$('.xhZxun').click();//如果有数据则展示星河资讯
 				}
 				
 				
@@ -95,8 +94,8 @@ $('.consut_span span').click(function(){
 				var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
 				/*获取页面的值  */
 				$(".ventrueTotal").html("<span>（"+venterProjectNumber+"）</span>")//创投资讯
-			$('.outerTotal').html("<span>（"+outterProjectNumber+"）</span>")	//外部项目资讯
-			$('.zixunTotal').html("<span>（"+zixunTotal+"）</span>")//资讯
+				$('.outerTotal').html("<span>（"+outterProjectNumber+"）</span>")	//外部项目资讯
+				$('.zixunTotal').html("<span>（"+zixunTotal+"）</span>")//资讯
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
@@ -105,18 +104,6 @@ $('.consut_span span').click(function(){
 	}
 	/* 星河咨询datamatter */
   	function xhtProjectContent(value,row,index){
-		
-		/* var html = "<div class='tdContent'>"+
-					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+ 
-					"<div class='rightContent'>"+
-					"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
-					 "<p class='outerProjectTitle'>"+row.overview+"</p>"+
-					"<p>"+
-					"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
-					"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
-					"</p>"+
-					"</div>"+
-					"</div>" */
 					if(row.overview==undefined){
 						row.overview = '';
 					}
@@ -170,7 +157,7 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-				console.log(data)
+				/* console.log(data) */
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
@@ -179,38 +166,27 @@ $('.consut_span span').click(function(){
 				console.log(totalObject)
 				var  zixunTotal = parseInt(zixunProjectNumber)+parseInt(totalProjectNumber)
 				/*获取页面的值  */
-				$(".ventrueTotal").html("<span>("+venterProjectNumber+")</span>")//创投资讯
-				$('.outerTotal').html("<span>("+outterProjectNumber+")</span>")	//外部项目资讯
-				$('.zixunTotal').html("<span>("+zixunTotal+")</span>")//资讯
+				$(".ventrueTotal").html("<span>（"+venterProjectNumber+"）</span>")//创投资讯
+				$('.outerTotal').html("<span>（"+outterProjectNumber+"）</span>")	//外部项目资讯
+				$('.zixunTotal').html("<span>（"+zixunTotal+"）</span>")//资讯
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
-				
 				/* 若创投咨询无数据 */
-				if(data.pageList.content){
-					//
+			/* 	if(data.pageList.content==undefined){
+					$('.xhZxun').click()
 				}else{
-					$('.hasBackround').click();
-				}
-				
+					
+				} */
+				var ctConsult = data.pageList.content;
+				return ctConsult;
+					
 			}
 	})
-		
 		
 	 } 
 	/* 创投咨询datamatter */
 	function ctProjectContent(value,row,index){
-		/* var html = "<div class='tdContent'>"+
-					"<img class='fl leftPic' src='"+row.zixunImage+"'/>"+
-					"<div class='rightContent'>"+
-					"<a href='"+row.href+"' target='_blank'><h3>"+row.title+"</h3></a>"+
-					"<p class='outerProjectTitle'>"+row.overview+"</p>"+
-					"<p>"+
-					"<span class='picEm picEmOne'>"+row.ctimeStr+"</span>"+
-					"<span class='picEm picEmOne resource'><span>来自:</span>"+row.auther+"</span>"+
-					"</p>"+
-					"</div>"+
-					"</div>" */
 					var len = row.overview.length;
 					var overview = row.overview.substring(0,len-5)
 						var html = '';
