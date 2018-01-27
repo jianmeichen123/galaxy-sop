@@ -10987,20 +10987,18 @@
         </w:p>
 <w:p w:rsidR="004C3F82" w:rsidRPr="00172C07" w:rsidRDefault="00301815" w:rsidP="004C3F82">
 <w:pPr>
-    <w:spacing w:line="360" w:lineRule="auto"/>
-    <w:ind w:firstLine="420"/>
+    <w:spacing w:line="360" w:lineRule="exact"/>
+    <w:ind w:left="420"/>
     <w:jc w:val="left"/>
     <w:rPr>
         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-        <w:sz w:val="18"/>
-        <w:szCs w:val="18"/>
+        <w:sz w:val="22"/>
     </w:rPr>
 </w:pPr>
 <w:r>
     <w:rPr>
         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-        <w:sz w:val="18"/>
-        <w:szCs w:val="18"/>
+        <w:sz w:val="22"/>
     </w:rPr>
     <w:t><#if NO5_6_3?? >${NO5_6_3.N1!"-"}<#else>- </#if> </w:t>
 </w:r>
@@ -11008,20 +11006,18 @@
 
 <w:p w:rsidR="004C3F82" w:rsidRPr="00172C07" w:rsidRDefault="00301815" w:rsidP="004C3F82">
 <w:pPr>
-    <w:spacing w:line="360" w:lineRule="auto"/>
-    <w:ind w:firstLine="420"/>
+    <w:spacing w:line="360" w:lineRule="exact"/>
+    <w:ind w:left="420"/>
     <w:jc w:val="left"/>
     <w:rPr>
         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-        <w:sz w:val="18"/>
-        <w:szCs w:val="18"/>
+        <w:sz w:val="22"/>
     </w:rPr>
 </w:pPr>
 <w:r>
     <w:rPr>
         <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
-        <w:sz w:val="18"/>
-        <w:szCs w:val="18"/>
+        <w:sz w:val="22"/>
     </w:rPr>
     <w:t><#if NO5_6_3?? >${NO5_6_3.N2!"-"}<#else>- </#if> </w:t>
 </w:r>
