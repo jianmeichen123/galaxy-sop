@@ -116,7 +116,7 @@ $(function(){
 			var html = "";		
 			 	html += "<div class='tdContent'><div class='img_content'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a></div>"+
 						"<div class='rightContent'>"+
-						"<h3><a href='"+row.href+"'>"+row.projTitle+"</a><span>"+row.latestFinanceRound+"</span></h3>"
+						"<h3><a target='_blank' href='"+row.href+"'>"+row.projTitle+"</a><span>"+row.latestFinanceRound+"</span></h3>"
 						
 				if(row.introduce){
 					html += "<p class='outerProjectTitle outerProjectNew'>"+row.introduce+"</p>"+
