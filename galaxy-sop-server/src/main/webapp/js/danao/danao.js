@@ -284,17 +284,17 @@ function buildDNtable(dom ,data,code){
 			+'</tr>'
 		 }
 		dom.find("tbody").html(str);
-	}else{
-		 $("#DN_projectCompany").text(data.company);
-		 $("#DN_formationDate").text(data.foundDate);
-		 $("#DN_companyLegal").text(data.legalPerson); 
-		 if(data.company==""){
+	}else{ 
+		 $("#DN_projectCompany").text(filter(data.company));
+		 $("#DN_formationDate").text(filter(data.foundDate));
+		 $("#DN_companyLegal").text(filter(data.legalPerson));  
+		 if(!data.company){
 			 $("#DN_projectCompany").closest("tr").remove();
 		 }
-		 if(data.foundDate==""){
+		 if(!data.foundDate){
 			 $("#DN_formationDate").closest("tr").remove();
 		 }
-		 if(data.legalPerson==""){
+		 if(!data.legalPerson){
 			 $("#DN_companyLegal").closest("tr").remove();
 		 }
 	}

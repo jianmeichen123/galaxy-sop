@@ -5,7 +5,7 @@
 	String path = request.getContextPath(); 
 %>
 <link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
-<div class="pagebox clearfix task-pagebox">
+
     <!--右中部内容-->
  		<div class='one pagination_common ventrueContent'>
 			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" data-auth="isShow" class='createProject table table-hover' style="width:100%;">
@@ -15,7 +15,7 @@
 					<th data-field="project_progress" data-formatter="projectProgress">项目进度</th>
 					<th data-field="createUname" data-formatter="projectCarrerlineCreatUname">投资经理</th>
 					<th data-field="project_status" data-formatter="projectStatusFormat">项目状态</th>
-					<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true">最后编辑时间</th>
+					<th data-field="updated_time" data-formatter="updateFormat">最后编辑时间</th>
 				</thead> 
 				 <tbody>
 			
@@ -24,7 +24,7 @@
 					</tbody>
 				</table> 
 		</div>
-</div>
+
 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>

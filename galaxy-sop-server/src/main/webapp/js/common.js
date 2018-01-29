@@ -2011,10 +2011,14 @@ function initTable(url,data,status,code) {
                 //通过formatter可以自定义列显示的内容
                 //value：当前field的值，即id
                 //row：当前行的数据
+            	var timeStr = '<span>成立时间：'+filter(row.setupDTEs)+'</span>';
+            	if(!filter(row.setupDTEs)){
+            		timeStr="";
+            	}
                 var a ='<div class="conInfo">'
 						+'<p class="rightText">'+filter(row.projCompanyName)+'</p>'
 						+'<p class="textBotm">'
-							+'<span>成立时间：'+filter(row.setupDTEs)+'</span>'
+							+timeStr
 						+'</p>'
 					+'</div>'
                 return a;

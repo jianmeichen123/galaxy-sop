@@ -3982,8 +3982,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task_tipslink li{margin:0 40px 0 0;}
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;font-family:Microsoft YaHei;}
-.pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
-.task-searchbox{width:auto !important;display:inline-block;float:right !important;margin-top:-49px;}
+.pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;float:right;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
+.pagebox .ritmin .task-searchbox{width:465px;margin-top:-49px;}
 .task-cx{height:28px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 4px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
@@ -4403,7 +4403,7 @@ p.outerProjectNew{
 .newsProject .rightContent{width:84%;}
 .newsProject .rightContent h3{font-size: 16px;color: #282536;font-family: Microsoft YaHei;font-weight:normal;}
 .searchContainer{heigth:100%;font-family: Microsoft YaHei;}
-.searchPage{background:#fff;}
+
 .globalSearhc-ul{display:none;width:64.7%;border-radius:2px;background:#fff;margin-top:10px;box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.15);}
 .globalSearhc-ul li{
     overflow: hidden;
@@ -4446,7 +4446,7 @@ p.outerProjectNew{
 	color:#0886ff;
 }
 .input-show{display:none;}
-.pagebox .searchPage{margin-top:99px;}
+.pagebox .searchPage{margin-top:99px;box-sizing:border-box;}
 .three .consut_span{margin-top: 20px;margin-left: 20px;font-size:0;}
 .three .consut_span span{display:inline-block;width:96px;height:32px;line-height:32px;text-align:center;border-radius:1px;color:#45aaff;font-size:14px;border:1px solid #45aaff;cursor:pointer;}
 .consut_span span.hasBackround{background:#45aaff;color:#fff;}
@@ -4571,13 +4571,20 @@ font-weight:bold;
 .task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .ventrueContent .fixed-table-body{overflow-x:hidden;}
-.searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
-.searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}
+/* .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;} */
+.searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{border-radius:0px;}
+.ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
+.ventrueContent .fixed-table-body{border-radius:0px;}
+.ventrueContent table thead tr th .th-inner {margin-left:20px;}
+.ventrueContent .bootstrap-table .table > tbody > tr > td{padding-left:20px !important;}
 .touziManager  ul.selectpicker li{min-width:150px;}
 #wraper_delete{
 	padding:0 40px;
 }
-.outerContent{width:98.5%;}
-.dnContent{width:98.5%;}
-.xhtContent{width:98.5%;}
+.outerContent{width:100%;}
+.dnContent{width:100%;}
+.xhtContent{width:100%;}
+.outerContent .bootstrap-table .table > tbody > tr > td{padding:0 20px !important;}
+.outerContent .bootstrap-table .table>thead{height:0px;}
 .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;}
+.outerContent .fixed-table-body{overflow:hidden;}
