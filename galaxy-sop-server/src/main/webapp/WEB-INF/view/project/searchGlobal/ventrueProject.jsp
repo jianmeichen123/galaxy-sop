@@ -13,7 +13,7 @@
 					<th data-field="projectName" data-formatter="projectInfo">项目</th>
 					<th data-field="finance_status" data-formatter="financeStatusFormat">融资状态</th>
 					<th data-field="project_progress" data-formatter="projectProgress">项目进度</th>
-					<th data-field="createUname">投资经理</th>
+					<th data-field="createUname" data-formatter="projectCarrerlineCreatUname">投资经理</th>
 					<th data-field="project_status" data-formatter="projectStatusFormat">项目状态</th>
 					<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true">最后编辑时间</th>
 				</thead> 
@@ -182,7 +182,12 @@ $(function(){
 	
 	
 })
-
+/* 投资经理 */
+	function projectCarrerlineCreatUname(value,row,index){
+		 console.log(row)
+		 var option = "<span>"+row.createUname+"</span><span>|</span><span>"+row.projectCareerline+"</span>"
+		 return option;
+	 }
 /**
  * 更新时间格式化
  * @version 2016-06-21
