@@ -4581,8 +4581,10 @@ font-weight:bold;
 #wraper_delete{
 	padding:0 40px;
 }
-.outerContent{width:98.5%;}
-.dnContent{width:98.5%;}
-.xhtContent{width:98.5%;}
+.outerContent{width:100%;}
+.dnContent{width:100%;}
+.xhtContent{width:100%;}
+.outerContent .bootstrap-table .table > tbody > tr > td{padding:0 20px !important;}
+.outerContent .bootstrap-table .table>thead{height:0px;}
 .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;}
 .outerContent .fixed-table-body{overflow:hidden;}
