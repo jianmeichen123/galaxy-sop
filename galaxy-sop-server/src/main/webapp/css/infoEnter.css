@@ -57,7 +57,7 @@ margin-bottom: 5px;
 margin-bottom: 0px;
 }
 .DN_list{
-	padding-bottom:40px;
+	padding-bottom:30px;
 }
 #powindow .DN_list{
 	padding-bottom:0px;
@@ -448,7 +448,7 @@ table-layout: fixed;
 	display:none;
 }
 .jumpCon{text-align:center; }
-.jumpCon img{margin:30px auto; }
+.jumpCon img{margin:60px auto; }
 .jumpCon .p1{
 	font-family: Microsoft YaHei;
 	font-size: 18px;
