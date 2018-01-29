@@ -15,7 +15,7 @@
 					<th data-field="project_progress" data-formatter="projectProgress">项目进度</th>
 					<th data-field="createUname" data-formatter="projectCarrerlineCreatUname">投资经理</th>
 					<th data-field="project_status" data-formatter="projectStatusFormat">项目状态</th>
-					<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true">最后编辑时间</th>
+					<th data-field="updated_time" data-formatter="updateFormat">最后编辑时间</th>
 				</thead> 
 				 <tbody>
 			

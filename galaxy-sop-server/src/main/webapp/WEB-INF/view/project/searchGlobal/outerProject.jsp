@@ -4,7 +4,7 @@
 <%
 	String path = request.getContextPath(); 
 %>
-<div class="pagebox clearfix task-pagebox">
+
     <!--右中部内容-->
  		<div class='two pagination_common outerContent'>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
@@ -42,7 +42,7 @@
 			
 			</div>
 			
-</div>
+
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>

@@ -4576,7 +4576,7 @@ font-weight:bold;
 .ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
 .ventrueContent .fixed-table-body{border-radius:0px;}
 .ventrueContent table thead tr th .th-inner {margin-left:20px;}
-.ventrueContent .bootstrap-table .table > tbody > tr > td{margin-left:20px;}
+.ventrueContent .bootstrap-table .table > tbody > tr > td{padding-left:20px !important;}
 .touziManager  ul.selectpicker li{min-width:150px;}
 #wraper_delete{
 	padding:0 40px;
