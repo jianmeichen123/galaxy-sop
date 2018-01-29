@@ -4373,7 +4373,6 @@ table.assingTable td a{font-size:14px;}
 .createProject tbody tr td:nth-child(2){text-align:left;}
 .createProject tbody tr td:nth-child(5){text-align:left;}
 .createProject tbody tr td:nth-child(6){text-align:left;}
-.two{background:#fff;}
 .tdContent{width:100%;/* margin-bottom:7px; */}
 .outerProject{width:100%; table-layout:fixed;}
 .outerProject .leftPic{width:80px;}
@@ -4533,7 +4532,7 @@ font-weight:bold;
 /* .searchGlobal .ritmin{padding-left:0px;} */
  .ventrueContent .fixed-table-pagination .pagination-detail{margin-top:13px;margin-left:-18px;} 
  .ventrueContent .fixed-table-pagination .pagination{margin-top:11px;} 
-.outerContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right: -21px;}
+/* .outerContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right: -21px;} */
 .outerContent  .fixed-table-pagination{margin-top:0px;}
 .outerContent .fixed-table-pagination .pagination{margin-top:7px;}
 .xhtContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right:-21px;}
@@ -4574,6 +4573,8 @@ font-weight:bold;
 /* .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;} */
 .searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{border-radius:0px;}
 .ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
+.ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
+
 .ventrueContent .fixed-table-body{border-radius:0px;}
 .ventrueContent table thead tr th .th-inner {margin-left:20px;}
 .ventrueContent .bootstrap-table .table > tbody > tr > td{padding-left:20px !important;}
@@ -4585,6 +4586,8 @@ font-weight:bold;
 .dnContent{width:100%;}
 .xhtContent{width:100%;}
 .outerContent .bootstrap-table .table > tbody > tr > td{padding:0 20px !important;}
-.outerContent .bootstrap-table .table>thead{height:0px;}
-.line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;}
+.outerContent .fixed-table-container thead th .th-inner{padding:0px;}
+.outerContent .fixed-table-container table tbody tr td{}
+/* .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;} */
+.to-task-tips{border:1px solid #e4e4e4;}
 .outerContent .fixed-table-body{overflow:hidden;}

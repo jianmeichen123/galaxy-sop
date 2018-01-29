@@ -6,7 +6,7 @@
 %>
 
     <!--右中部内容-->
- 		<div class='two pagination_common outerContent'>
+ 		<div class='pagination_common outerContent'>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
 					<thead>
 						<tr>
@@ -100,19 +100,6 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
-	
-		/* 完整结构 */
-		/*  var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
-					"<div class='rightContent'>"+
-					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
-					"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
-					"<p>"+
-						"<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"+
-						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
-					"</p>"+
-					"<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
-					"</div>"+
-					"</div>"  */
 			var html = "";		
 			 	html += "<div class='tdContent'><div class='img_content'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a></div>"+
 						"<div class='rightContent'>"+
