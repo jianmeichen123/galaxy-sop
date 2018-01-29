@@ -4263,8 +4263,8 @@ li .projectSource11 span.m_r30{
 	background:#ffffff;
 	border:1px solid #d8d8d8;
 	border-radius:2px;
-	width:44px;
-	height:18px;
+	width:46px;
+	height:20px;
 	line-height:18px;
 	padding:0;
 	margin-top:-4px;
@@ -4337,6 +4337,7 @@ input:-ms-input-placeholder {
 .reset_search{font-size: 12px;color: #3CA6FF;margin-left:20px;cursor:pointer;}
 .assign_project .ritmin{margin:10px 20px 0px 20px;}
 .assingTable{width:100%;border-collapse:collapse;border-radius:0 !important;}
+table.assingTable td a{font-size:14px;}
 .assingTable thead tr th{text-align:center;height:38px;border-bottom:1px solid #d8d8d8;font-weight:bold;font-size: 14px;color: #33363E;font-family: Microsoft YaHei;}
 .assingTable thead tr th:nth-child(1),.assingTable thead tr th:nth-child(2){padding-left:20px;}
 .assingTable tbody tr td:nth-child(1),.assingTable tbody tr td:nth-child(2){padding-left:20px;}
@@ -4467,7 +4468,7 @@ p.outerProjectNew{
 .handover_project{display:inline-block;text-align:right;float:right;width:88px !important;}
 #wraper_delete p{text-align:center;margin-top:20px;color:#666;font-size:14px;font-family: Microsoft YaHei;}
 #wraper_delete p:nth-child(1){font-size:18px;color:#333;font-family: Microsoft YaHei;margin-top:30px;}
-#wraper_delete  textarea{width:452px;height:128px;vertical-align:top;}
+#wraper_delete  textarea{width:428px;height:128px;vertical-align:top; border-color:#d8d8d8;}
 .delete_content .layui-layer-content{padding:0px !important;}
 .delete_content  .layui-layer-title{height:56px;line-height:56px;font-family:Microsoft YaHei-Bold;
 font-size:14px;
@@ -4476,7 +4477,7 @@ background: url(../img/base_info/top-bj.png) no-repeat center center;
 font-weight:bold;
 }
 .delete_content{border-radius:0 2px !important;}
-.delete_reason span:nth-child(1){margin-left:40px;vertical-align: top;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
+.delete_reason span:nth-child(1){vertical-align: top;font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
 .delete_reason {margin-top:20px;}
 .delete_reason span:nth-child(2){margin-left:10px;display: inline-block;}
 .delete_reason span textarea{padding-left:8px;padding-top:4px;}
@@ -4566,11 +4567,14 @@ font-weight:bold;
 	display:none;
 }
 .select-simulate .recieve_person{max-height:89px;}
+.select-simulate ul[name="afterDepartmentId"]{max-height:138px;}
 .task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .ventrueContent .fixed-table-body{overflow-x:hidden;}
 .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;}
 .searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{margin-left:10px;}
 .touziManager  ul.selectpicker li{min-width:150px;}
-
+#wraper_delete{
+	padding:0 40px;
+}
 
