@@ -29,7 +29,7 @@
 <body>
 	
 	<div class="iframe_container">
-		<iframe id='iframe1' onload="this.height=this.contentWindow.document.body.scrollHeight" class='myIframe' src="http://industry.caijing.com.cn/20180129/4400713.shtml" scrolling="no" frameborder="0" name="Iframe1" id ='myIframe' width="800px" height="100%">
+		<iframe id='iframe1' onload="this.height=this.contentWindow.document.body.scrollHeight" class='myIframe'  scrolling="no" frameborder="0" name="Iframe1" id ='myIframe' width="800px" height="100%">
 			您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
 		</iframe>
 	</div>
@@ -58,6 +58,6 @@ function getHrefParamter(name){
 
 var keyword = getHrefParamter("keyword")
 
-document.getElementById('myIframe').src = keyword; 
+document.getElementById('iframe1').src = keyword; 
 </script>
 </html>

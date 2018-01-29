@@ -4062,7 +4062,10 @@ input::input-placeholder{color:red !important;}
 .table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
 .fixed-table-container .table_new_style thead th .th-inner{padding:8px;}
 .fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
-.task-pagebox .fixed-table-body{border-radius:0}
+.task-pagebox .fixed-table-body{border-radius:0;	}
+.outerContent .fixed-table-body{border-radius:0;}
+
+
 /* 添加项目 */
 .add-project-title{width:100%;height:62px;position:fixed;z-index:10;left:9.375%; right:0;margin-top:50px;width:90.625%;background:#fff;padding-left:39px;font-size:24px;color:#202533;font-family:Microsoft YaHei;box-shadow:0 1px 2px 0 rgba(0,0,0,0.10);}
 .add-poject-right{width:100%;}
@@ -4446,7 +4449,8 @@ p.outerProjectNew{
 }
 .input-show{display:none;}
 .pagebox .searchPage{margin-top:99px;box-sizing:border-box;}
-.three .consut_span{margin-top: 20px;margin-left: 20px;font-size:0;}
+.three .consut_span{padding-top: 20px;padding-left: 20px;font-size:0;background:#fff;}
+.dnContent .bootstrap-table .table > tbody > tr > td{padding:0 20px !important;}
 .three .consut_span span{display:inline-block;width:96px;height:32px;line-height:32px;text-align:center;border-radius:1px;color:#45aaff;font-size:14px;border:1px solid #45aaff;cursor:pointer;}
 .consut_span span.hasBackround{background:#45aaff;color:#fff;}
 #outerProject thead tr th{border-bottom:none;}
@@ -4535,8 +4539,8 @@ font-weight:bold;
 /* .outerContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right: -21px;} */
 .outerContent  .fixed-table-pagination{margin-top:0px;}
 .outerContent .fixed-table-pagination .pagination{margin-top:7px;}
-.xhtContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right:-21px;}
-.dnContent .clearfix{background:#E9EBF2;margin-left:-10px;margin-right:-21px;}
+.xhtContent .clearfix{background:#E9EBF2;}
+.dnContent .clearfix{background:#E9EBF2;}
 .dnContent .fixed-table-pagination .pagination{margin-top:7px;}
 .outerContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
 .xhtContent .fixed-table-pagination .pagination-detail{margin-left:-18px;}
@@ -4573,8 +4577,8 @@ font-weight:bold;
 /* .searchContainer .bootstrap-table .table > tbody > tr > td{padding:0px !important;} */
 .searchContainer .task-pagebox #outerProject,#searchTable,#dnConsult{border-radius:0px;}
 .ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
-.ventrueContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
-
+.outerContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
+.xhtContent .bootstrap-table .fixed-table-container .fixed-table-body table{border-radius:0px !important;}
 .ventrueContent .fixed-table-body{border-radius:0px;}
 .ventrueContent table thead tr th .th-inner {margin-left:20px;}
 .ventrueContent .bootstrap-table .table > tbody > tr > td{padding-left:20px !important;}
