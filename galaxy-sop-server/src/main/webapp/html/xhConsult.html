@@ -37,16 +37,10 @@
 </body>
 <script src='../js/jquery-2.1.4.min.js'></script>
 	<script>
-	
-		/* var ifm= document.getElementById("iframe1");
-		alert(ifm.contentWindow.document.body.scrollHeight)	
-		console.log(ifm.contentWindow.document.body) */
-		
-		//document.getElementById('iframe1').contentWindow.document.body  
  		$("#iframe1").on("load",function(){//iframe加载完后 高度自适应。
   	 		var frameObj = document.getElementById("iframe1").contentDocument || document.getElementById("iframe1").contentWindow.document;       
 		    frame_height = frameObj.documentElement.scrollHeight;  
- 			alert(frame_height)
+ 			console.log(document.getElementById("iframe1").contentWindow.document)
    			$("#iframe1").height(frame_height);
  		});
 		
