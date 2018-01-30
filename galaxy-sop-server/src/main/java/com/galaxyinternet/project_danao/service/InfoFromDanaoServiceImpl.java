@@ -575,9 +575,10 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
 			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
-		Map<String,Object> pageMap = (Map<String, Object>) object.get("page");
-		if(pageMap!=null && pageMap.get("total")!= null) dnProjectTotal = new Long(pageMap.get("total").toString());
 
+		if(object.get("totalhit")!=null){
+			dnProjectTotal = new Long(object.get("totalhit").toString());
+		}
 
 		//dnZixun           创投大脑投融快讯
 		uri = danaoDomain + searchNews;
@@ -592,9 +593,9 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
 			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
-		pageMap = (Map<String, Object>) object.get("page");
-		if(pageMap!=null && pageMap.get("total")!= null) dnZixunTotal = new Long(pageMap.get("total").toString());
-
+		if(object.get("totalhit")!=null){
+			dnZixunTotal = new Long(object.get("totalhit").toString());
+		}
 
 		//xhtAppZixunZixun  星河资讯-app资讯
 		uri = xhtAppDomain;
