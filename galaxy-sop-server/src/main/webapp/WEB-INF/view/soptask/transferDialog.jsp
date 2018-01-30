@@ -79,11 +79,19 @@ $('.select-simulate input').click(function(event){
 
 
 /******************Validate Start***********************/
+jQuery.validator.addMethod("not_blank", function(value, element) {   
+	var regx =/\s*\S+/;
+	return this.optional(element) || regx.test(value);
+}, "*移交原因不能全为空格");
+
 var validator = $("#detail-form").validate({
 	focusCleanup:true,
 	onfocusout:false,
 	onclick:false,
-	focusCleanup:true
+	focusCleanup:true,
+	rules:{
+		reason : "not_blank"
+	}
 });
 /******************Validate End***********************/
 

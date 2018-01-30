@@ -11,14 +11,15 @@
 	<div class="title_bj abandon-title" >放弃任务</div>
 	<form action="" id="detail-form">
     <div class="qualifications_all task-todeal">
+    <div class="task-qulification">
+		    		<p style="padding:0 0 0px 80px"><span></span>放弃任务会清除已上传的文件，你确定要放弃此任务吗？</p>
+		     	</div>
         <ul>
         	<li>
         		<em>已选择<span id="numOfTask"></span>个任务</em>
         	</li>
         	<li class='task-todeal-textarea'>
-	        	<div class="task-qulification">
-		    		<p style="padding:0 0 15px 80px"><span></span>放弃任务会清除已上传的文件，你确定要放弃此任务吗？</p>
-		     	</div>
+	        	
         		<em class='task-reason'>放弃原因：</em>
         		<textarea placeholder='请输入放弃原因' name="reason" required maxLength="100" data-msg-required="*放弃原因不能为空"></textarea>
         	</li>
@@ -64,11 +65,19 @@ if($('.highlighCheckbox_th').hasClass('highlighCheckbox_checked')){
 
 $("#numOfTask").text(len);
 /******************Validate Start***********************/
+jQuery.validator.addMethod("not_blank", function(value, element) {   
+	var regx =/\s*\S+/;
+	return this.optional(element) || regx.test(value);
+}, "*放弃原因不能全为空格");
+
 var validator = $("#detail-form").validate({
 	focusCleanup:true,
 	onfocusout:false,
 	onclick:false,
-	focusCleanup:true
+	focusCleanup:true,
+	rules:{
+		reason : "not_blank"
+	}
 });
 /******************Validate End***********************/
 

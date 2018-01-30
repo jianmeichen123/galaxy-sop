@@ -51,7 +51,7 @@ $(function(){
 		$.getHtml({
 			url:getDetailUrl(code),
 			okback:function(){
-				$('.task-qulification').hide();
+				/*$('.task-qulification').hide();*/
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
