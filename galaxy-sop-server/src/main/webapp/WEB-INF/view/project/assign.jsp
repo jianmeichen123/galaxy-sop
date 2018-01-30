@@ -444,7 +444,7 @@ if(${from eq 'assign' }){
 		if(result==1){
 			$("[name='projectDepartid']").css("display","none");
 			$("[name='createUid']").css("display","none");
-		}else if(result==2){
+		}else if(result==2||result==7){
 			createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");//全部事业部
 		}else if(result==3){
 			 $("[name='projectDepartid']").parent(".form-group ").attr("style","display:none");
