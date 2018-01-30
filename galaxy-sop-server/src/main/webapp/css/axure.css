@@ -4599,3 +4599,4 @@ font-weight:bold;
 /* .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;} */
 .search-top .to-task-tips{border-bottom:1px solid #e4e4e4;}
 .outerContent .fixed-table-body{overflow:hidden;}
+.assign_project .fixed-table-body{border-radius:0px;}
