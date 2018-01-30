@@ -4574,7 +4574,7 @@ font-weight:bold;
 	display:none;
 }
 .select-simulate .recieve_person{max-height:89px;}
-.select-simulate ul[name="afterDepartmentId"]{max-height:138px;}
+.select-simulate ul[name="afterDepartmentId"]{max-height:120px;}
 .task-pagebox table tbody tr td{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .task-pagebox table thead  tr th div{font-family:"Microsoft YaHei";color:#5A626D;font-size:14px;}
 .ventrueContent .fixed-table-body{overflow-x:hidden;}
