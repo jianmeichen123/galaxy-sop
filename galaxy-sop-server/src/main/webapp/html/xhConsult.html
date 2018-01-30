@@ -16,14 +16,12 @@
 			width:780px;
 			margin:0 auto;
 			position: relative;
-			
-            /* overflow: hidden; */
+            overflow: hidden; 
 		}
 		.myIframe{
 			/* overflow:hidden; */
 		}
-	/* 	::-webkit-scrollbar {display: none}
-		::scrollbar {display: none} */
+	
 	</style>
 
 </head>
@@ -39,9 +37,9 @@
 	<script>
  		$("#iframe1").on("load",function(){//iframe加载完后 高度自适应。
   	 		var frameObj = document.getElementById("iframe1").contentDocument || document.getElementById("iframe1").contentWindow.document;       
-		    frame_height = frameObj.documentElement.scrollHeight;  
- 			console.log(document.getElementById("iframe1").contentWindow.document)
+		    frame_height = frameObj.documentElement.scrollHeight; 
    			$("#iframe1").height(frame_height);
+   			$('.iframe_container').height(frame_height)
  		});
 		
 	  
