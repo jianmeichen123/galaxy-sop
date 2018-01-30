@@ -4517,8 +4517,11 @@ background: url(../img/base_info/top-bj.png) no-repeat center center;
 font-weight:bold;
 }
 .manager_role{border-radius:0 2px !important;}
+.manager_role{border-radius:0 2px !important;}
 .manager_role .layui-layer-btn  .layui-layer-btn0{padding:0px;margin:0px;border:none;margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;font-family:Microsoft YaHei;}
+.manager_role .layui-layer-btn  .layui-layer-btn0:hover{background-color:#0084f5;}
 .manager_role .layui-layer-btn  .layui-layer-btn1{padding:0px;margin:0px;border:none;line-height: 32px;background:#eef6fc;border:1px solid #eef6fc; display:inline-block; border-radius:2px;width:92px;height:32px;font-size:14px;font-family:Microsoft YaHei;color:#3ca6ff;}
+.manager_role .layui-layer-btn  .layui-layer-btn1:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .manager_role .layui-layer-content{text-align:center;line-height:92px !important;font-size:18px !important;color:#333333;}
 .manager_role .layui-layer-setwin .layui-layer-ico{background: url(../img/base_info/close.png) no-repeat center;}
 .content_task .buttonGroup  .form-group .bootstrap-select > .btn{max-width:auto;}
