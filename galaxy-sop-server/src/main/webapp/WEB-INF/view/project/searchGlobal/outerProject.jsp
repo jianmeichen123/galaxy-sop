@@ -56,6 +56,10 @@ $(function(){
                 var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
                 $('.outerContent').html(div);
                 $('.outerContent').show();
+                $('.outerContent').css('background','#fff')
+                var winHeight =  window.innerHeight;
+                var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                $('.outerContent').css('height',avilableHeight)
             }else{
                 $('.outerContent').show();
             }

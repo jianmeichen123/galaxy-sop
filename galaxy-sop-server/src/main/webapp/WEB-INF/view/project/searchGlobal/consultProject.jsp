@@ -84,6 +84,10 @@ $('.consut_span span').click(function(){
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到星河资讯数据库</div>"
                     $('.projectContent').html(div);
+                    $('.projectContent').css('background','#fff')
+                    var winHeight =  window.innerHeight;
+                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                    $('.projectContent').css('height',avilableHeight)
                     $('.projectContent').show();
                 }else{
                     $('.projectContent').show();
@@ -174,6 +178,10 @@ $('.consut_span span').click(function(){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
                     $('.projectContent').html(div);
                     $('.projectContent').show();
+                    $('.projectContent').css('background','#fff')
+                    var winHeight =  window.innerHeight;
+                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                    $('.projectContent').css('height',avilableHeight)
                 }else{
                     $('.projectContent').show();
                 }
