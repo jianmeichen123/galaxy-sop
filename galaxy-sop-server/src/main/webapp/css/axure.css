@@ -4593,5 +4593,5 @@ font-weight:bold;
 .outerContent .fixed-table-container thead th .th-inner{padding:0px;}
 .outerContent .fixed-table-container table tbody tr td{}
 /* .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;} */
-.to-task-tips{border-bottom:1px solid #e4e4e4;}
+.search-top .to-task-tips{border-bottom:1px solid #e4e4e4;}
 .outerContent .fixed-table-body{overflow:hidden;}
