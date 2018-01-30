@@ -170,6 +170,7 @@ color: #3CA6FF;
 	text-overflow: ellipsis; 
     max-width: 260px;
 }
+.threeLi p.rightText{max-width: 335px;}
 .listTitle.listThree .threeLi{
 	border-bottom: 1px solid #d8d8d8;
 }
