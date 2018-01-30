@@ -78,6 +78,16 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
+
+                if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+                    var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到星河资讯数据库</div>"
+                    $('.searchPage').html(div);
+                    $('.searchPage').show();
+                }else{
+                    $('.searchPage').show();
+                }
+
+
 				if(data.pageList.content==undefined){
 					$('.ctZixun').click();//如果无数据则展示创投资讯
 				}else{
@@ -157,6 +167,15 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
+
+                if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+                    var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+                    $('.searchPage').html(div);
+                    $('.searchPage').show();
+                }else{
+                    $('.searchPage').show();
+                }
+
 				/* console.log(data) */
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目

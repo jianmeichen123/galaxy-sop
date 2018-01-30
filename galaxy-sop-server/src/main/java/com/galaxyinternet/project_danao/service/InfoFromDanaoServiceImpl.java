@@ -566,47 +566,50 @@ public class InfoFromDanaoServiceImpl implements InfoFromDanaoService {
 		Map<String,Object> object = null;
 		try {
 			object = restTemplate.postForObject(uri,query, Map.class);
+            if(object!=null && object.get("totalhit")!=null){
+                dnProjectTotal = new Long(object.get("totalhit").toString());
+            }
 		}catch (RestClientException ex){
-			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+			//throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
 		}
-		if(object.get("status") != null){
+		/*if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
 				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
 			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
+*/
 
-		if(object.get("totalhit")!=null){
-			dnProjectTotal = new Long(object.get("totalhit").toString());
-		}
 
 		//dnZixun           创投大脑投融快讯
 		uri = danaoDomain + searchNews;
 		try {
 			object = restTemplate.postForObject(uri,query, Map.class);
+            if(object!=null && object.get("totalhit")!=null){
+                dnZixunTotal = new Long(object.get("totalhit").toString());
+            }
 		}catch (RestClientException ex){
-			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
+			//throw new Exception(danao_err_code+" 外部接口调用失败: "+uri, ex);
 		}
-		if(object.get("status") != null){
+		/*if(object.get("status") != null){
 			Integer status = (Integer) object.get("status");
 			if(status.intValue() != 10000)
 				throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +status.toString());
 		}else
 			throw new Exception(danao_err_code+" 外部接口调用失败: "+uri+" 返回: " +object.toString());
-		if(object.get("totalhit")!=null){
-			dnZixunTotal = new Long(object.get("totalhit").toString());
-		}
+		*/
 
 		//xhtAppZixunZixun  星河资讯-app资讯
 		uri = xhtAppDomain;
 		try {
 			object = restTemplate.postForObject(uri,query, Map.class);
+            if(object!=null && object.get("listCount")!=null){
+                xhtAppZixunTotal = new Long(object.get("listCount").toString());
+            }
 		}catch (RestClientException ex){
-			throw new Exception(app_err_code+" 外部接口调用失败: "+uri, ex);
+			//throw new Exception(app_err_code+" 外部接口调用失败: "+uri, ex);
 		}
-		if(object!=null && object.get("listCount")!=null){
-			xhtAppZixunTotal = new Long(object.get("listCount").toString());
-		}
+
 
 		result.put("xhtProjectTotal", xhtProjectTotal);
 		result.put("dnProjectTotal", dnProjectTotal);

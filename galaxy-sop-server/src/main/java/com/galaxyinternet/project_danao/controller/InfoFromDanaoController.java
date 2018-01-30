@@ -370,10 +370,10 @@ public class InfoFromDanaoController{
 			dnProject.setOrder(null);
 			dnProject.setOrderBy(null);
 
-			if(tReslut.get("dnProjectTotal").intValue() != 0){
+			//if(tReslut.get("dnProjectTotal").intValue() != 0){
 				Page<DnProject> projectPage = infoFromDanaoService.queryDnaoProjectPage(BeanUtils.toMap(dnProject));
 				responseBody.setPageList(projectPage);
-			}
+			//}
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
@@ -392,6 +392,7 @@ public class InfoFromDanaoController{
 		ResponseData<DnZixun> responseBody = new ResponseData<DnZixun>();
 
 		try {
+			// 获取所有数目
 			Map<String,Long> tReslut =  infoFromDanaoService.globalSearchTypesTotal(dnProject.getKeyword());
 			Map<String,Object> tObj = new HashMap<>();
 			for(Map.Entry<String,Long> temp:tReslut.entrySet()){
@@ -412,10 +413,10 @@ public class InfoFromDanaoController{
 			dnProject.setPageSize(pageSize);
 			dnProject.setOrderBy(property);
 
-			if(tReslut.get("dnZixunTotal").intValue() != 0){
+			//if(tReslut.get("dnZixunTotal").intValue() != 0){
 				Page<DnZixun> projectPage = infoFromDanaoService.queryDnaoZixunPage(BeanUtils.toMap(dnProject));
 				responseBody.setPageList(projectPage);
-			}
+			//}
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
@@ -454,10 +455,10 @@ public class InfoFromDanaoController{
 			dnProject.setPageSize(pageSize);
 			dnProject.setOrderBy(property);
 
-			if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
+			//if(tReslut.get("xhtAppZixunTotal").intValue() != 0){
 				Page<DnZixun> projectPage = infoFromDanaoService.queryXhtAppZixunPage(BeanUtils.toMap(dnProject));
 				responseBody.setPageList(projectPage);
-			}
+			//}
 
 			responseBody.setResult(new Result(Result.Status.OK, ""));
 		} catch (Exception e) {
