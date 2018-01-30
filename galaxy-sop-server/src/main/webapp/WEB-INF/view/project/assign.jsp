@@ -640,7 +640,19 @@ function financeStatusFormat(value,row,index){
 
 	return row.progress;
 }
-
+ function projectInfo(value,row,index){
+	    var id=row.id;
+		var str=row.projectName;
+		if(str.length>9){
+			subStr = str.substring(0,9);
+			var options = '<span  title="'+str+'">'+subStr+'</span>';
+			return options;
+		}
+		else{
+			var options = '<span  title="'+str+'">'+str+'</span>';
+			return options;
+		}
+	}
 	/**
 	 * 创建时间格式化
 	 * @version 2016-06-21
