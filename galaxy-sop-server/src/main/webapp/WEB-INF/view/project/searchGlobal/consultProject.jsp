@@ -81,10 +81,10 @@ $('.consut_span span').click(function(){
 
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到星河资讯数据库</div>"
-                    $('.searchPage').html(div);
-                    $('.searchPage').show();
+                    $('.projectContent').html(div);
+                    $('.projectContent').show();
                 }else{
-                    $('.searchPage').show();
+                    $('.projectContent').show();
                 }
 
 
@@ -170,10 +170,10 @@ $('.consut_span span').click(function(){
 
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
-                    $('.searchPage').html(div);
-                    $('.searchPage').show();
+                    $('.projectContent').html(div);
+                    $('.projectContent').show();
                 }else{
-                    $('.searchPage').show();
+                    $('.projectContent').show();
                 }
 
 				/* console.log(data) */

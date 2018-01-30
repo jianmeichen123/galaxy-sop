@@ -13,28 +13,6 @@
 							<th data-formatter='projectContent'></th>
 						</tr>
 					</thead>
-					<!-- <tr>
-						<td>
-							<div class='tdContent'>
-								<input type="hidden" name="ventrue">
-								<input type="hidden" name="outerproject">
-								<input type="hidden" name="consult">
-								<input type="hidden" name="totalNumber">
-								
-								<img class='fl leftPic'/>
-								<div class='rightContent'>
-									<h3>花心区块链研究院<span>A轮</span></h3>
-									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮</p>
-									<p>
-										<span class='picEm picEmOne'><em></em>江苏</span>
-										<span class='picEm picEmTwo'><em></em>企业服务</span>
-									</p>	
-								</div>							
-							</div>
-						</td>
-					</tr> -->
-					
-				
 				
 				</table>
 			
@@ -76,10 +54,10 @@ $(function(){
 		onLoadSuccess:function(data){
             if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                 var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
-                $('.searchPage').html(div);
-                $('.searchPage').show();
+                $('.outerContent').html(div);
+                $('.outerContent').show();
             }else{
-                $('.searchPage').show();
+                $('.outerContent').show();
             }
 
 			var totalObject = data.userData;
