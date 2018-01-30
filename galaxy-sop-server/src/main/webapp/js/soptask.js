@@ -51,7 +51,12 @@ $(function(){
 		$.getHtml({
 			url:getDetailUrl(code),
 			okback:function(){
-				/*$('.task-qulification').hide();*/
+				//待完工 - 移交、指派不能给自己
+				var acitveTab = $('.tipslink li.on a').attr('id');
+				if(userId > 0 && acitveTab == 'todeal')
+				{
+					$("ul.toggle-ul li[value='"+userId+"']").remove();
+				}
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
