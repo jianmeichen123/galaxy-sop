@@ -14072,7 +14072,7 @@
                         <w:pPr>
                             <w:widowControl/>
                             <w:spacing w:line="360" w:lineRule="exact"/>
-                            <w:jc w:val="left"/>
+                            <w:jc w:val="center"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="宋体"/>
                                 <w:kern w:val="0"/>
@@ -14085,8 +14085,7 @@
                                 <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:lastRenderedPageBreak/>
-                            <w:t>第<#if estr_index == 0 >一<#elseif estr_index == 1>二<#elseif estr_index == 2>三<#elseif estr_index ==3>四<#elseif estr_index == 4>五<#elseif estr_index == 5>六<#elseif estr_index == 6>七<#elseif estr_index== 7>八<#elseif estr_index == 8>九<#elseif estr_index == 9>十<#else>${estr_index +1}</#if>大股东</w:t>
+                            <w:t>${estr_index+1}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>

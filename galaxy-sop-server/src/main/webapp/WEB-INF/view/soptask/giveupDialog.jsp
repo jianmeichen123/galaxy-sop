@@ -16,6 +16,9 @@
         		<em>已选择<span id="numOfTask"></span>个任务</em>
         	</li>
         	<li class='task-todeal-textarea'>
+	        	<div class="task-qulification">
+		    		<p style="padding:0 0 15px 80px"><span></span>放弃任务会清除已上传的文件，你确定要放弃此任务吗？</p>
+		     	</div>
         		<em class='task-reason'>放弃原因：</em>
         		<textarea placeholder='请输入放弃原因' name="reason" required maxLength="100" data-msg-required="*放弃原因不能为空"></textarea>
         	</li>

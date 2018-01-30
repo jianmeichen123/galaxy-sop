@@ -49,10 +49,14 @@ $(function(){
 		}
 		var code = $(this).attr('data-code');
 		$.getHtml({
-			url:getDetailUrl(code)
+			url:getDetailUrl(code),
+			okback:function(){
+				$('.task-qulification').hide();
+			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 		$('.pop').addClass('task-pop');//去掉圆角
+		
 	});
 	
 	//页面请求地址
