@@ -35,19 +35,21 @@
 			</div>
 		</div>
 <script type="text/javascript">
-$('.consut_span span').click(function(){
+$('.consut_span span').click(function(){ 
 	$('.consut_span span').removeClass('hasBackround');
 	$(this).addClass('hasBackround');
-	var index = $(this).index();
+	var index = $(this).index(); 
 	if(index == 0){
-		$('.dnContent').hide()
-		$('.xhtContent').show()
-		xhtMessage()
+		$('.dnContent').hide();
+		$('.xhtContent').show();
+		$('#xhtConsult').bootstrapTable('destroy');
+		xhtMessage();
 		
 	}else if(index == 1){
-		$('.dnContent').show()
-		$('.xhtContent').hide()
-		ctDnConsult()
+		$('.dnContent').show();
+		$('.xhtContent').hide();
+		$('#dnConsult').bootstrapTable('destroy');
+		ctDnConsult();
 	}
 	
 });
@@ -86,13 +88,13 @@ $('.consut_span span').click(function(){
                 }else{
                     $('.projectContent').show();
                 }
-
-
 				if(data.pageList.content==undefined){
-					$('.ctZixun').click();//如果无数据则展示创投资讯
-				}else{
-					$('.xhZxun').click();//如果有数据则展示星河资讯
-				}
+					$('.consut_span span').removeClass('hasBackround');
+					$(".ctZixun").addClass('hasBackround');
+					$('.dnContent').show();
+					$('.xhtContent').hide(); 
+					ctDnConsult();
+				} 
 				
 				
 				var totalObject = data.userData;
