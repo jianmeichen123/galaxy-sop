@@ -118,7 +118,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			List<Project> queryList = projectService.queryList(project);
 			if (null == queryList || queryList.size() != projectList.size())
 			{
-				if(projectList.size()>=1){
+				if(projectList.size()>1){
 					data.setResult(new Result(Status.ERROR, "csds", "部分项目已被删除，请刷新列表重新选择!"));
 				}else{
 					data.setResult(new Result(Status.ERROR, "csds", "项目已被删除，请刷新列表重新选择!"));
