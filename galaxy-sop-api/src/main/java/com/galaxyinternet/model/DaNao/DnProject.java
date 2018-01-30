@@ -62,6 +62,10 @@ public class DnProject extends BaseEntity {
 
 	//项目slogan 简介
 	private String introduce;
+
+	private Integer totalhit ;  //实际条数
+
+
 	/*
 	 * 星河投项目id ：  projId
      * 报告题code ：   titleCode
@@ -276,5 +280,13 @@ public class DnProject extends BaseEntity {
 
 	public void setSetupDTEs(String setupDTEs) {
 		this.setupDTEs = setupDTEs;
+	}
+
+	public Integer getTotalhit() {
+		return totalhit;
+	}
+
+	public void setTotalhit(Integer totalhit) {
+		this.totalhit = totalhit;
 	}
 }
