@@ -395,6 +395,12 @@
 			url:getDetailUrl(code),
 			okback:function(){
 				$("#numOfTask").parent().hide();
+				var assignUid = "${task.assignUid}";
+				//详情页不能移交给当前人令人
+				if(assignUid>0)
+				{
+					$("ul.toggle-ul li[value='"+assignUid+"']").remove();
+				}
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
