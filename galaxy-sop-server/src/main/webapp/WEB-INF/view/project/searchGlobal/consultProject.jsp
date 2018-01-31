@@ -42,14 +42,17 @@ $('.consut_span span').click(function(){
 	if(index == 0){
 		$('.dnContent').hide();
 		$('.xhtContent').show();
-		$('#xhtConsult').bootstrapTable('destroy');
-		xhtMessage();
+		//$('#xhtConsult').bootstrapTable('destroy');
+		$("#xhtConsult").bootstrapTable('refresh');
+		//xhtMessage();
 		
 	}else if(index == 1){
 		$('.dnContent').show();
 		$('.xhtContent').hide();
-		$('#dnConsult').bootstrapTable('destroy');
+		//$('#dnConsult').bootstrapTable('destroy');
+		$("#dnConsult").bootstrapTable('refresh')
 		ctDnConsult();
+		
 	}
 	
 });
@@ -68,7 +71,7 @@ $('.consut_span span').click(function(){
 				orderBy:'create_time'
 			}
 		}
-		$("#xhtConsult").bootstrapTable('destroy'); 
+		
 		$('#xhtConsult').bootstrapTable({
 			pageSize:10,
 			pageNumber:1,
@@ -91,9 +94,6 @@ $('.consut_span span').click(function(){
                 }else{
                     $('.projectContent').show();
                 }
-				
-				
-				
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 				var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
@@ -168,7 +168,7 @@ $('.consut_span span').click(function(){
 				orderBy:'ctime'
 			}
 		}
-		$("#dnConsult").bootstrapTable('destroy'); 
+		
 		$('#dnConsult').bootstrapTable({
 			pageSize:10,
 			pageNumber:1,
@@ -180,7 +180,6 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
                     $('.projectContent').html(div);

@@ -184,7 +184,6 @@ $(function(){
 })
 /* 投资经理 */
 	function projectCarrerlineCreatUname(value,row,index){
-		 console.log(row)
 		 var option = "<span>"+row.createUname+"</span><span>|</span><span>"+row.projectCareerline+"</span>"
 		 return option;
 	 }
