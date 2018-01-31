@@ -10,6 +10,7 @@ function pagePop(codes){
 			//设置宽高
 			var Wheight=$(window).height(); 
 			var Wwidth=$(window).width();
+			$("#powindow").hide();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
@@ -83,7 +84,7 @@ function getpopHTML(code,even,danaoName){
 		data:"",//传递参数
 		okback:function(){  
 			var Wheight=$(window).height(); 
-			var Wwidth=$(window).width();
+			var Wwidth=$(window).width(); 
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
