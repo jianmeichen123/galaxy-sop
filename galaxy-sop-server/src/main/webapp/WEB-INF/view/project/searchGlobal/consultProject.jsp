@@ -38,6 +38,7 @@
 			</div>
 		</div>
 <script type="text/javascript">
+var judgeClick = 0;
 $('.consut_span span').click(function(){ 
 	$('.consut_span span').removeClass('hasBackround');
 	$(this).addClass('hasBackround');
@@ -46,8 +47,7 @@ $('.consut_span span').click(function(){
 		$('.dnContent').hide();
 		$('.xhtContent').show();
 		$('.ctimg').hide();
-		//$('#xhtConsult').bootstrapTable('destroy');
-		xhtMessage()
+		 judgeClick = 1;
 		$("#xhtConsult").bootstrapTable('refresh');
 		
 		
@@ -55,9 +55,8 @@ $('.consut_span span').click(function(){
 		$('.dnContent').show();
 		$('.xhtContent').hide();
 		$('.xhimg').hide();
-		ctDnConsult()
+		 judgeClick = 1;
 		$("#dnConsult").bootstrapTable('refresh')
-		//$('#dnConsult').bootstrapTable('destroy')
 		
 	}
 	
@@ -67,8 +66,8 @@ $('.consut_span span').click(function(){
 
 	/* 星河资讯========================================== */
 	 xhtMessage()// 默认调用星河资讯
- 	function  xhtMessage(){
-		 var keyword = getHrefParamter("keyword");
+ 		function  xhtMessage(){
+		var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
 				pageNo:params.offset/params.limit,
@@ -128,13 +127,18 @@ $('.consut_span span').click(function(){
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
-				/*   if(zixunProjectNumber == 0&& totalProjectNumber !=0){
-					$('.xhZxun').removeClass('hasBackround');
-					$(".ctZixun").addClass('hasBackround');
-					$('.dnContent').show();
-					$('.xhtContent').hide(); 
-					ctDnConsult();
-				}  */ 
+					if(judgeClick == 0){
+						if(zixunProjectNumber == 0&& totalProjectNumber !=0){
+							$('.xhZxun').removeClass('hasBackround');
+							$(".ctZixun").addClass('hasBackround');
+							$('.dnContent').show();
+							$('.xhtContent').hide(); 
+							/* $("#dnConsult").bootstrapTable('refresh'); */
+							ctDnConsult()
+						}  
+					}  
+				
+				
 				
 				
 			}
@@ -171,7 +175,7 @@ $('.consut_span span').click(function(){
 	
 	/* 创投咨询 ===================================*/
 	
-	 function ctDnConsult(){ 
+	 function ctDnConsult(num){ 
 		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
@@ -234,13 +238,17 @@ $('.consut_span span').click(function(){
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 				/* 若创投咨询无数据 */
-				/* if(zixunProjectNumber!=0&&totalProjectNumber == 0){
-					$('.ctZixun').removeClass('hasBackround');
-					$(".xhZxun").addClass('hasBackround');
-					$('.xhtContent').show();
-					$('.dnContent').hide(); 
-					$("#xhtConsult").bootstrapTable('refresh');
-				} */
+				if(judgeClick == 0){
+					 if(zixunProjectNumber!=0&&totalProjectNumber == 0){
+							$('.ctZixun').removeClass('hasBackround');
+							$(".xhZxun").addClass('hasBackround');
+							$('.xhtContent').show();
+							$('.dnContent').hide(); 
+							/* $("#xhtConsult").bootstrapTable('refresh'); */
+							 xhtMessage()
+						} 
+				}
+				
 				
 					
 			}
