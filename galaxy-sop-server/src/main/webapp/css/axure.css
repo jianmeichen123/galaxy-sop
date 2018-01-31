@@ -4036,6 +4036,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .tast-btn{margin-top:30px;}
 .tast-btn a{width:92px;height:32px;line-height:32px;border-radius:2px;border:1px solid #eef6fc ;font-family:Microsoft YaHei;}
 .task-confirm{background:#3ca6ff;}
+.tast-btn .task-confirm:hover{background:#0084f5;}
 .task-cancle{background:#eef6fc;color:#3ca6ff;}
 .task-todeal{margin:80px 0 0 40px;font-size:14px;color:#666666;}
 .task-todeal em{font-size:14px;}
@@ -4512,7 +4513,7 @@ font-weight:bold;
 /* .second_confirm{width:480px;height:215px;background:#fff;left:50%;top:50%; }
 .basic_second_confirm{z-index:99999999;width:480px !important;} */
 .manager_role .layui-layer-content{padding:0px !important;}
-.manager_role  .layui-layer-title{height:56px;line-height:56px;font-family:Microsoft YaHei-Bold;
+.manager_role  .layui-layer-title{height:56px;line-height:56px;font-family:Microsoft YaHei;
 font-size:14px;
 color:#ffffff;
 background: url(../img/base_info/top-bj.png) no-repeat center center;
