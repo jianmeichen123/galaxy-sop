@@ -9,18 +9,18 @@
 		html,body{
 			width:100%;
 			height:100%;
-			/* overflow:hidden; */
+			 overflow:hidden;
 		}
 		
 		.iframe_container{
 			height:100%;
-			width:780px;
+			max-width:850px;
 			margin:0 auto;
 			position: relative;
             overflow: hidden; 
 		}
 		.myIframe{
-			/* overflow:hidden; */
+			overflow:hidden;
 		}
 	
 	</style>
@@ -29,19 +29,19 @@
 <body>
 	
 	<div class="iframe_container">
-		<iframe id='iframe1'    class='myIframe'  scrolling="no" frameborder="0" name="Iframe1" id ='myIframe' width="800px" height="100%">
+		<iframe id='iframe1'    class='myIframe'  scrolling="auto"  frameborder="no" border="0" name="Iframe1" id ='myIframe' width="850px" height="100%">
 			您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
 		</iframe>
 	</div>
 </body>
 <script src='../js/jquery-2.1.4.min.js'></script>
 	<script>
- 		$("#iframe1").on("load",function(){//iframe加载完后 高度自适应。
+ 		/*  $("#iframe1").on("load",function(){//iframe加载完后 高度自适应。
   	 		var frameObj = document.getElementById("iframe1").contentDocument || document.getElementById("iframe1").contentWindow.document;       
 		    frame_height = frameObj.documentElement.scrollHeight; 
    			$("#iframe1").height(frame_height);
    			$('.iframe_container').height(frame_height)
- 		});
+ 		});  */
 		
 	  
 /**
