@@ -7,6 +7,7 @@
 
     <!--右中部内容-->
  		<div class='pagination_common outerContent'>
+ 			<div class="img_content_new xhimg"></div>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
 					<thead>
 						<tr>
@@ -54,14 +55,24 @@ $(function(){
 		onLoadSuccess:function(data){
             if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                 var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
-                $('.outerContent').html(div);
+                $('.img_content_new').html(div);
+                $('.img_content_new').show();
+                $('#outerProject').hide()
                 $('.outerContent').show();
                 $('.outerContent').css('background','#fff')
-                var winHeight =  window.innerHeight;
-                var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
-                $('.outerContent').css('height',avilableHeight)
+                window.onresize = function(){
+                	imgHeight()
+                }
+                imgHeight()
+                function imgHeight(){
+                	var winHeight =  window.innerHeight;
+                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                    $('.img_content_new .dataQuestError').css('height',avilableHeight)
+                }
+                
             }else{
                 $('.outerContent').show();
+                $('#outerProject').show()
             }
 
 			var totalObject = data.userData;

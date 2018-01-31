@@ -9,11 +9,13 @@
  		<div class='three pagination_common'>
  			<div class='consut_span'>
  				<span class='hasBackround xhZxun'>星河资讯</span>
- 				<span class='ctZixun'>创投资讯</span>
+ 				<span class='ctZixun secondClick'>创投资讯</span>
  			</div>
  			<div class='projectContent'>
+ 			
  			<!--星河资讯  -->
  				<div class='xhtContent'>
+ 				<div class="img_content_new xhimg"></div>
 					<table id="xhtConsult" class='outerProject newsProject' data-url="<%=path %>/galaxy/infoDanao/queryXhtAppZixunPage">
 						<thead>
 							<tr>
@@ -24,6 +26,7 @@
 				</div>
 				<!-- 创投咨询 -->
 				<div class='dnContent'>
+				<div class="img_content_new  ctimg"></div>
 					<table id="dnConsult" class='outerProject newsProject'  data-url="<%=path %>/galaxy/infoDanao/queryDnZixunPage">
 						<thead>
 								<tr>
@@ -42,20 +45,25 @@ $('.consut_span span').click(function(){
 	if(index == 0){
 		$('.dnContent').hide();
 		$('.xhtContent').show();
+		$('.ctimg').hide();
 		//$('#xhtConsult').bootstrapTable('destroy');
+		xhtMessage()
 		$("#xhtConsult").bootstrapTable('refresh');
-		//xhtMessage();
+		
 		
 	}else if(index == 1){
 		$('.dnContent').show();
 		$('.xhtContent').hide();
-		//$('#dnConsult').bootstrapTable('destroy');
+		$('.xhimg').hide();
+		ctDnConsult()
 		$("#dnConsult").bootstrapTable('refresh')
-		ctDnConsult();
+		//$('#dnConsult').bootstrapTable('destroy')
 		
 	}
 	
 });
+
+
 
 	/* 星河资讯========================================== */
 	 xhtMessage()// 默认调用星河资讯
@@ -85,14 +93,26 @@ $('.consut_span span').click(function(){
 			onLoadSuccess:function(data){
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到星河资讯数据库</div>"
-                    $('.projectContent').html(div);
-                    $('.projectContent').css('background','#fff')
-                    var winHeight =  window.innerHeight;
-                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
-                    $('.projectContent').css('height',avilableHeight)
+                    	$('#xhtConsult').hide();
+                        $('.img_content_new').html(div)
+                        $('.xhimg').show();
+                        $('.projectContent').show();
+                        $('.projectContent').css('background','#fff')
+                        window.onresize = function(){
+                        	imgHeight();
+                        }
+                        imgHeight(); 
+                        function imgHeight(){
+                    	var winHeight =  window.innerHeight;
+                        var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                        /* $('.projectContent').css('height',avilableHeight) */
+                        $('.img_content_new .dataQuestError').css('height',avilableHeight)
+                    }
+                    
                     $('.projectContent').show();
                 }else{
                     $('.projectContent').show();
+                    $('#xhtConsult').show();
                 }
 				var totalObject = data.userData;
 				var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
@@ -108,20 +128,15 @@ $('.consut_span span').click(function(){
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
-				if(zixunProjectNumber == 0&& totalProjectNumber !=0){
+				/*   if(zixunProjectNumber == 0&& totalProjectNumber !=0){
 					$('.xhZxun').removeClass('hasBackround');
 					$(".ctZixun").addClass('hasBackround');
 					$('.dnContent').show();
 					$('.xhtContent').hide(); 
 					ctDnConsult();
-				}
-				/* if(data.pageList.content==undefined){
-					$('.consut_span span').removeClass('hasBackround');
-					$(".ctZixun").addClass('hasBackround');
-					$('.dnContent').show();
-					$('.xhtContent').hide(); 
-					ctDnConsult();
-				}  */
+				}  */ 
+				
+				
 			}
 	})
 	}
@@ -182,14 +197,25 @@ $('.consut_span span').click(function(){
 			onLoadSuccess:function(data){
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
-                    $('.projectContent').html(div);
+                    $('#dnConsult').hide();
+                    $('.img_content_new').html(div)
+                   	$('.ctimg').show();
                     $('.projectContent').show();
                     $('.projectContent').css('background','#fff')
-                    var winHeight =  window.innerHeight;
-                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
-                    $('.projectContent').css('height',avilableHeight)
+                    window.onresize = function(){
+                    	imgHeight();
+                    }
+                    imgHeight(); 
+                  	function imgHeight(){
+                    	var winHeight =  window.innerHeight;
+                        var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                        /* $('.projectContent').css('height',avilableHeight) */
+                        $('.img_content_new .dataQuestError').css('height',avilableHeight)
+                    }
+                    
                 }else{
                     $('.projectContent').show();
+                    $('#dnConsult').show();
                 }
 
 				/* console.log(data) */
@@ -208,11 +234,13 @@ $('.consut_span span').click(function(){
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 				/* 若创投咨询无数据 */
-			 	/* if(data.pageList.content==undefined){
-					$('.xhZxun').click()
-				}else{
-					
-				}  */
+				/* if(zixunProjectNumber!=0&&totalProjectNumber == 0){
+					$('.ctZixun').removeClass('hasBackround');
+					$(".xhZxun").addClass('hasBackround');
+					$('.xhtContent').show();
+					$('.dnContent').hide(); 
+					$("#xhtConsult").bootstrapTable('refresh');
+				} */
 				
 					
 			}
