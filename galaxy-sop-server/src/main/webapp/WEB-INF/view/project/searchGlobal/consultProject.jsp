@@ -48,14 +48,17 @@ $('.consut_span span').click(function(){
 		$('.xhtContent').show();
 		$('.ctimg').hide();
 		 judgeClick = 1;
+		 xhtMessage()
 		$("#xhtConsult").bootstrapTable('refresh');
 		
 		
 	}else if(index == 1){
+		$('.projectContent').show()
 		$('.dnContent').show();
 		$('.xhtContent').hide();
 		$('.xhimg').hide();
 		 judgeClick = 1;
+		 ctDnConsult()
 		$("#dnConsult").bootstrapTable('refresh')
 		
 	}
@@ -175,7 +178,7 @@ $('.consut_span span').click(function(){
 	
 	/* 创投咨询 ===================================*/
 	
-	 function ctDnConsult(num){ 
+	 function ctDnConsult(){ 
 		 var keyword = getHrefParamter("keyword");
 		function queryParams(params){
 			return {
