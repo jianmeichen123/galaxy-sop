@@ -4606,4 +4606,5 @@ font-weight:bold;
 .search-top .to-task-tips{border-bottom:1px solid #e4e4e4;}
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
-.img_content_new{display:none;}
+.img_content_new{display:none;min-height:390px;}
+.
