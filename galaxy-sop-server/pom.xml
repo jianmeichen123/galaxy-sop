@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
@@ -12,9 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
-		<dependency.project>1.0.2-SNAPSHOT</dependency.project>
+		<dependency.project>1.0.1</dependency.project>
 	</properties>
-
 	<repositories>
 		<repository>
 			<id>nexus</id>
@@ -22,7 +22,6 @@
 			<url>http://nexus.gi.com/content/groups/public/</url>
 		</repository>
 	</repositories>
-
 	<build>
 		<plugins>
 			<!-- war插件, 设定war名称不带版本号 -->
@@ -52,7 +51,7 @@
 					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>7878</port>
+							<port>9393</port>
 						</connector>
 					</connectors>
 					<contextPath>/sop</contextPath>
@@ -96,15 +95,14 @@
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8086</dubbo.protocol.port>
-
+				
 				<xinge.enviroment>2</xinge.enviroment>
-
+				
 				<project.server.url>http://zfeng.local.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://zfeng.local.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://zfeng.local.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://zfeng.local.com/sop/</galaxy.project.sop.endpoint>
-				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
-				<galaxy.mob.endpoint>http://fxmob.dev.galaxyinternet.com/starservice</galaxy.mob.endpoint>
+
 			</properties>
 		</profile>
 		<profile>
@@ -119,42 +117,28 @@
 				</jdbc.url>
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
-
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy</log4j.path>
+				<log4j.path>D:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8087</dubbo.protocol.port>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
+				
 				<xinge.enviroment>2</xinge.enviroment>
+				
+				<mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
+				
 				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>127.0.0.1:2181</cluster.zk.address>
-				<galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
-				<!-- <galaxy.project.bury.endpoint>http://10.8.233.150:8888/bury</galaxy.project.bury.endpoint> -->
-				<auth.uri>http://fx.dev.galaxyinternet.com/authority_service/</auth.uri>
-
-				<!-- mongodb 开始 -->
-				<mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27017</mongo.port>
-				<mongo.username>sop</mongo.username>
-				<mongo.password>sop</mongo.password>
-				<mongo.dbname>sop</mongo.dbname>
-				<!-- mongodb 结束 -->
-
-				<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
-				<danao.domain>http://ctdn.galaxyinternet.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>
-				<!--project/ news/ http://10.9.21.25:8818/newsbox/mobile/getNewsList.json-->
-
-				<xht.app.domain>http://fxmobnew.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
-				<!--<xht.app.domain>http://fxapp.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>-->
-				<galaxy.mob.endpoint>http://fxmob.dev.galaxyinternet.com/starservice</galaxy.mob.endpoint>
 
 			</properties>
 		</profile>
@@ -180,28 +164,30 @@
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 
 				<xinge.enviroment>2</xinge.enviroment>
+				
+				
+				<mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
 
 				<project.server.url>http://fx.dev.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<cluster.zk.address>10.9.210.22:12181</cluster.zk.address>
-				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
-				<galaxy.project.bury.endpoint>http://fx.dev.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-				<auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
-				<!-- mongodb 开始 -->
-				<mongo.host>10.11.8.34</mongo.host>
-				<mongo.port>27017</mongo.port>
-				<mongo.username>sop</mongo.username>
-				<mongo.password>sop</mongo.password>
-				<mongo.dbname>sop</mongo.dbname>
-				<!-- mongodb 结束 -->
+				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
+					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
+					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
+					<mongodb.address>192.168.101.131:27017</mongodb.address> -->
 
-				<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
-                <danao.domain>http://ctdn.galaxyinternet.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain>  <!--project/ news/ -->
-				<xht.app.domain>http://fxmobnew.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
-				<galaxy.mob.endpoint>http://fxmob.dev.galaxyinternet.com/starservice</galaxy.mob.endpoint>
+				<!-- redis集群配置 -->
+				<!-- <redis1.url>101.200.78.14:6379</redis1.url> <redis2.url>101.200.78.14:6379</redis2.url> 
+					<redis.master>galaxymaster</redis.master> -->
+
+				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
+
 			</properties>
 		</profile>
 		<profile>
@@ -225,31 +211,21 @@
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://10.9.210.22:12182?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8085</dubbo.protocol.port>
-
+				
 				<xinge.enviroment>2</xinge.enviroment>
-
-				<project.server.url>http://fx.qa.galaxyinternet.com/</project.server.url>
-				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
-				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
-				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
-				<cluster.zk.address>10.9.210.22:12182</cluster.zk.address>
-				<buryPoint.softWare.vesion>v1.9</buryPoint.softWare.vesion>
-				<galaxy.project.bury.endpoint>http://fx.qa.galaxyinternet.com/bury/</galaxy.project.bury.endpoint>
-				<auth.uri>http://fx.dev.galaxyinternet.com/authority_service</auth.uri>
-				<!-- mongodb 开始 -->
+				
+				
 				<mongo.host>10.9.210.22</mongo.host>
 				<mongo.port>27012</mongo.port>
 				<mongo.username>sop</mongo.username>
 				<mongo.password>sop</mongo.password>
 				<mongo.dbname>sop</mongo.dbname>
-				<!-- mongodb 结束 -->
-
-				<!-- 创投大脑 域名 1.dev域名:ctdndev.gi.com 2.qa域名ctdnqa.gi.com 3.rc域名 ctdnrc.galaxyinternet.com 4.线上 ctdn.galaxyinternet.com -->
-                <danao.domain>http://ctdn.galaxyinternet.com/</danao.domain>
-				<danao.static.domain>http://static.galaxyinternet.com/img/</danao.static.domain> <!--project/ news/ -->
-				<xht.app.domain>http://fxmobnew.galaxyinternet.com/newsbox/mobile/getNewsList.json</xht.app.domain>
-				<galaxy.mob.endpoint>http://fxmob.qa.galaxyinternet.com/starservice</galaxy.mob.endpoint>
-	
+				
+				<project.server.url>http://fx.qa.galaxyinternet.com/</project.server.url>
+				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
+				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
+			    <cluster.zk.address>10.9.210.22:12182</cluster.zk.address>
 			</properties>
 		</profile>
 		<profile>
@@ -412,8 +388,8 @@
 			<artifactId>jxl</artifactId>
 			<version>2.6.10</version>
 		</dependency>
-
-		<!-- log start -->
+		
+		<!-- log start-->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -431,22 +407,22 @@
 			<version>1.1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.logback-extensions</groupId>
-			<artifactId>logback-ext-spring</artifactId>
-			<version>0.1.4</version>
+		    <groupId>org.logback-extensions</groupId>
+		    <artifactId>logback-ext-spring</artifactId>
+		    <version>0.1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.6</version>
-		</dependency>
-		<!-- log end -->
-
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+         <dependency>
+             <groupId>org.slf4j</groupId>
+             <artifactId>jcl-over-slf4j</artifactId>
+             <version>1.7.6</version>
+         </dependency>
+        <!-- log end-->
+		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -467,6 +443,11 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.6.11</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.36</version>
+		</dependency> -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -507,6 +488,24 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- mongodb -->
+		<!-- <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.9.1.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-expression</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> 
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.2.2</version>
+		</dependency>-->
+		<!-- mongodb end -->
 		<!-- dubbo 服务注册方式 start -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -543,12 +542,12 @@
 		<!-- dubbo 服务注册方式 end -->
 		<!-- ios推送 -->
 		<dependency>
-			<groupId>com.galaxyinternet</groupId>
-			<artifactId>xingePush</artifactId>
-			<version>[1.0.0,)</version>
+		  <groupId>com.galaxyinternet</groupId>
+		  <artifactId>xingePush</artifactId>
+		  <version>[1.0.0,)</version>
 		</dependency>
-
-		<!-- poi -->
+		
+		<!-- poi-->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -559,7 +558,7 @@
 			<artifactId>poi-scratchpad</artifactId>
 			<version>3.11</version>
 		</dependency>
-		<dependency>
+        <dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.11</version>
@@ -569,22 +568,14 @@
 			<artifactId>jsqlparser</artifactId>
 			<version>1.0</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>2.3.23</version>
 		</dependency>
-		<dependency>
-			<groupId>com.netflix.zuul</groupId>
-			<artifactId>zuul-core</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-    		<artifactId>guava</artifactId>
-    		<version>18.0</version>
-		</dependency>
-
+		
+		
 	</dependencies>
 </project>
