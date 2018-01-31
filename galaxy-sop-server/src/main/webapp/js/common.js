@@ -2052,6 +2052,7 @@ function initTable(url,data,status,code) {
         		var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
     				$('.bigPop').html(div);
     				$('.bigPop').show();
+        			$("#powindow").show();
         	}else{
         		if(data.pageList.content.length<=0){
             		$(".infoTop p:first").remove();
