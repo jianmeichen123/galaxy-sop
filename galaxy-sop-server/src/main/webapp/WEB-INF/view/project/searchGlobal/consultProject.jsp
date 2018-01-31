@@ -68,7 +68,7 @@ $('.consut_span span').click(function(){
 				orderBy:'create_time'
 			}
 		}
-		
+		$("#xhtConsult").bootstrapTable('destroy'); 
 		$('#xhtConsult').bootstrapTable({
 			pageSize:10,
 			pageNumber:1,
@@ -80,7 +80,6 @@ $('.consut_span span').click(function(){
 			sidePagination:'server',
 			queryParams:queryParams,
 			onLoadSuccess:function(data){
-
                 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
                     var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到星河资讯数据库</div>"
                     $('.projectContent').html(div);
@@ -92,13 +91,7 @@ $('.consut_span span').click(function(){
                 }else{
                     $('.projectContent').show();
                 }
-				if(data.pageList.content==undefined){
-					$('.consut_span span').removeClass('hasBackround');
-					$(".ctZixun").addClass('hasBackround');
-					$('.dnContent').show();
-					$('.xhtContent').hide(); 
-					ctDnConsult();
-				} 
+				
 				
 				
 				var totalObject = data.userData;
@@ -115,6 +108,20 @@ $('.consut_span span').click(function(){
 				
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
+				if(zixunProjectNumber == 0&& totalProjectNumber !=0){
+					$('.xhZxun').removeClass('hasBackround');
+					$(".ctZixun").addClass('hasBackround');
+					$('.dnContent').show();
+					$('.xhtContent').hide(); 
+					ctDnConsult();
+				}
+				/* if(data.pageList.content==undefined){
+					$('.consut_span span').removeClass('hasBackround');
+					$(".ctZixun").addClass('hasBackround');
+					$('.dnContent').show();
+					$('.xhtContent').hide(); 
+					ctDnConsult();
+				}  */
 			}
 	})
 	}
@@ -161,7 +168,7 @@ $('.consut_span span').click(function(){
 				orderBy:'ctime'
 			}
 		}
-		
+		$("#dnConsult").bootstrapTable('destroy'); 
 		$('#dnConsult').bootstrapTable({
 			pageSize:10,
 			pageNumber:1,
@@ -202,11 +209,11 @@ $('.consut_span span').click(function(){
 				var allTotal = parseInt(venterProjectNumber)+parseInt(outterProjectNumber)+parseInt(zixunTotal)
 				$('.totalNumber').html("<span>"+allTotal+"</span>")	
 				/* 若创投咨询无数据 */
-			 	if(data.pageList.content==undefined){
+			 	/* if(data.pageList.content==undefined){
 					$('.xhZxun').click()
 				}else{
 					
-				} 
+				}  */
 				
 					
 			}
