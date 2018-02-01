@@ -14,6 +14,7 @@ public class Standard extends PagableEntity
 	private String moduleName;
 	private String standardDetails;
 	private Integer status = 1;
+	private String statusDesc;
 	private Integer isValid = 0;
 	private Long createdId;
 	private Long updatedId;
@@ -58,6 +59,16 @@ public class Standard extends PagableEntity
 		this.status = status;
 	}
 
+	public String getStatusDesc()
+	{
+		return statusDesc;
+	}
+
+	public void setStatusDesc(String statusDesc)
+	{
+		this.statusDesc = statusDesc;
+	}
+
 	public Integer getIsValid()
 	{
 		return isValid;
@@ -94,6 +105,32 @@ public class Standard extends PagableEntity
 		return "Standard [moduleCode=" + moduleCode + ", moduleName=" + moduleName + ", standardDetails="
 				+ standardDetails + ", status=" + status + ", isValid=" + isValid + ", createdId=" + createdId
 				+ ", updatedId=" + updatedId + "]";
+	}
+	
+	public enum StandardStatus
+	{
+		HIDE(0,"隐藏"),
+		SHOW(1,"显示");
+		private Integer code;
+		private String desc;
+		private StandardStatus(Integer code, String desc)
+		{
+			this.code = code;
+			this.desc = desc;
+		}
+		public static String getDesc(Integer code)
+		{
+			StandardStatus[] values = StandardStatus.values();
+			for(StandardStatus item : values)
+			{
+				if(item.code.intValue() == code.intValue())
+				{
+					return item.desc;
+				}
+			}
+			return null;
+		}
+		
 	}
 
 }
