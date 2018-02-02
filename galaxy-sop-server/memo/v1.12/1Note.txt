@@ -1,0 +1,9 @@
+
+项目承揽人交互样式及数据源调整
+url：
+ Constants.platformEndpointURL+ "/galaxy/user/searchCLR"
+请求方式： get
+参数： keyword
+
+返回
+json ： data.entityList
