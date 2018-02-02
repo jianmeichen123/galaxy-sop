@@ -4,37 +4,16 @@
 <%
 	String path = request.getContextPath(); 
 %>
-<div class="pagebox clearfix task-pagebox">
+
     <!--右中部内容-->
- 		<div class='two pagination_common outerContent'>
+ 		<div class='pagination_common outerContent'>
+ 			<div class="img_content_new xhimg"></div>
 				<table id="outerProject" data-url='<%=path %>/galaxy/infoDanao/queryDnProjectPage' class='outerProject'>
 					<thead>
 						<tr>
 							<th data-formatter='projectContent'></th>
 						</tr>
 					</thead>
-					<!-- <tr>
-						<td>
-							<div class='tdContent'>
-								<input type="hidden" name="ventrue">
-								<input type="hidden" name="outerproject">
-								<input type="hidden" name="consult">
-								<input type="hidden" name="totalNumber">
-								
-								<img class='fl leftPic'/>
-								<div class='rightContent'>
-									<h3>花心区块链研究院<span>A轮</span></h3>
-									<p class='outerProjectTitle'>简介:引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮培养高素质人才的摇篮引领全国区块链行业，培养高素质人才的摇篮</p>
-									<p>
-										<span class='picEm picEmOne'><em></em>江苏</span>
-										<span class='picEm picEmTwo'><em></em>企业服务</span>
-									</p>	
-								</div>							
-							</div>
-						</td>
-					</tr> -->
-					
-				
 				
 				</table>
 			
@@ -42,7 +21,7 @@
 			
 			</div>
 			
-</div>
+
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -74,6 +53,28 @@ $(function(){
 		sidePagination:'server',
 		queryParams:queryParams,
 		onLoadSuccess:function(data){
+            if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+                var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+                $('.img_content_new').html(div);
+                $('.img_content_new').show();
+                $('#outerProject').hide()
+                $('.outerContent').show();
+                $('.outerContent').css('background','#fff')
+                window.onresize = function(){
+                	imgHeight()
+                }
+                imgHeight()
+                function imgHeight(){
+                	var winHeight =  window.innerHeight;
+                    var avilableHeight = winHeight-$('.header').height()-$('.to-task-tips').height()-50-30;
+                    $('.img_content_new .dataQuestError').css('height',avilableHeight)
+                }
+                
+            }else{
+                $('.outerContent').show();
+                $('#outerProject').show()
+            }
+
 			var totalObject = data.userData;
 			var venterProjectNumber =totalObject.xhtProjectTotal; //创投项目
 			var outterProjectNumber =totalObject.dnProjectTotal; //外部项目
@@ -100,23 +101,10 @@ $(function(){
 	
 });
 	function projectContent(value,row,index){
-	
-		/* 完整结构 */
-		/*  var html = "<div class='tdContent'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a>"+
-					"<div class='rightContent'>"+
-					"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"+
-					"<p class='outerProjectTitle'>"+row.introduce+"</p>"+
-					"<p>"+
-						"<span class='picEm picEmOne picOrigin'><em></em>"+row.districtSubName+"</span>"+
-						"<span class='picEm picEmTwo'><em></em>"+row.industryName+"</span>"+
-					"</p>"+
-					"<input class='outerProjectTotal' type='hidden' name='ventrue' value="+row.pageSize+">"+
-					"</div>"+
-					"</div>"  */
 			var html = "";		
 			 	html += "<div class='tdContent'><div class='img_content'><a href="+row.href+" target='_blank'><img class='fl leftPic'/ src="+row.projImage+"></a></div>"+
 						"<div class='rightContent'>"+
-						"<h3>"+row.projTitle+"<span>"+row.latestFinanceRound+"</span></h3>"
+						"<h3><a target='_blank' href='"+row.href+"'>"+row.projTitle+"</a><span>"+row.latestFinanceRound+"</span></h3>"
 						
 				if(row.introduce){
 					html += "<p class='outerProjectTitle outerProjectNew'>"+row.introduce+"</p>"+

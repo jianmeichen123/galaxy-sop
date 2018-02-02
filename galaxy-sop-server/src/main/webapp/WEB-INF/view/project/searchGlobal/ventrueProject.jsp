@@ -5,7 +5,7 @@
 	String path = request.getContextPath(); 
 %>
 <link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
-<div class="pagebox clearfix task-pagebox">
+
     <!--右中部内容-->
  		<div class='one pagination_common ventrueContent'>
 			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" data-auth="isShow" class='createProject table table-hover' style="width:100%;">
@@ -13,9 +13,9 @@
 					<th data-field="projectName" data-formatter="projectInfo">项目</th>
 					<th data-field="finance_status" data-formatter="financeStatusFormat">融资状态</th>
 					<th data-field="project_progress" data-formatter="projectProgress">项目进度</th>
-					<th data-field="createUname">投资经理</th>
+					<th data-field="createUname" data-formatter="projectCarrerlineCreatUname">投资经理</th>
 					<th data-field="project_status" data-formatter="projectStatusFormat">项目状态</th>
-					<th data-field="updated_time" data-formatter="updateFormat"  data-sortable="true">最后编辑时间</th>
+					<th data-field="updated_time" data-formatter="updateFormat">最后编辑时间</th>
 				</thead> 
 				 <tbody>
 			
@@ -24,7 +24,7 @@
 					</tbody>
 				</table> 
 		</div>
-</div>
+
 
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
@@ -95,7 +95,13 @@ $(function(){
         	return param;
         }, 
 		onLoadSuccess:function(data){
-			
+			if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+				var div="<div class='dataQuestError'><img src='<%=path %>/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+				$('.searchPage').html(div);
+				$('.searchPage').show();
+			}else{
+				$('.searchPage').show();
+			}
 			var isShow='${fx:hasPremission('project_search_sop')}';
 			if(isShow=="false"&&$(".no_info_icon_xhhl").text()==""){
 				$(".no_info_icon_xhhl").text("暂无数据权限");
@@ -176,7 +182,11 @@ $(function(){
 	
 	
 })
-
+/* 投资经理 */
+	function projectCarrerlineCreatUname(value,row,index){
+		 var option = "<span>"+row.createUname+"</span><span>|</span><span>"+row.projectCareerline+"</span>"
+		 return option;
+	 }
 /**
  * 更新时间格式化
  * @version 2016-06-21

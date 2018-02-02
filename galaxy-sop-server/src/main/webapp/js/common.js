@@ -1204,7 +1204,7 @@ function projectNameLineFormat(value, row, index){
 	else if('1.2.5' == row.type || '1.2.6' == row.type)
 	{
 		//尽职调查、股权交割
-		content = content.replace('"<pname>',"<a href='#' onclick='toTaskList()' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='#' onclick='toTaskList()' class='blue project_name'>\"").replace('name"',"");
 	}
 	else
 	{
@@ -1213,9 +1213,9 @@ function projectNameLineFormat(value, row, index){
 		{
 			projectId = row.remarkId;
 		}
-		content = content.replace('"<pname>',"<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +projectId + "?mark=m\' class='blue project_name'>").replace('name"',"");
+		content = content.replace('"<pname>',"<a href='#' onclick='toProjectDetail("+projectId+")' class='blue project_name'>\"").replace('name"',"");
 	}
-	content = content.replace('</pname>"',"</a>");
+	content = content.replace('</pname>"',"\"</a>");
 	content = "<span title='"+title+"'>"+content+"</span>";
 	return content;
 }
@@ -1223,6 +1223,24 @@ function toTaskList()
 {
 	var url = $("#menus a[data-menueid='1071']").attr('href');
 	window.location=url;
+}
+function toProjectDetail(id)
+{
+	var url = Constants.sopEndpointURL+"/galaxy/project/checkProjectExit";
+	var data = {'id' : id};
+	var callback = function(data){
+		if(data.result.status=="ERROR")
+		{
+			if(data.result.errorCode == "project-delete")
+			{
+				layer.msg("项目已经被删除");
+				return;
+			}
+		}
+		var detailUrl = Constants.sopEndpointURL + "/galaxy/project/detail/" +id+"?mark=m";
+		forwardWithHeader(detailUrl);
+	};
+	sendPostRequestByJsonObj(url,data,callback);
 }
 function replaceStr(str){
 	if(str){
@@ -1398,6 +1416,32 @@ function createCareelinePartShow(url, name,selectStatus,showId){
 		}*/
 	});
 }
+/**
+ * 根据事业线查询相应的投资经理
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createUserOptions_part(url, name, mark,showId){
+	sendGetRequest(url, null, function(data){
+		var options = [];
+		if(mark == 1){
+			options.push('<option value="0">全部</option>');
+		}
+		$.each(data.entityList, function(i, value){
+			if(showId.contains(value.departmentId)==true){
+				options.push('<option value="'+value.idstr+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
+			}
+					});
+		if(mark == 1){
+	     	$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);	
+				
+		}
+	});
+}
+
 /**
  * 根据事业线查询相应的投资经理
  * @param url   请求地址
@@ -1967,10 +2011,14 @@ function initTable(url,data,status,code) {
                 //通过formatter可以自定义列显示的内容
                 //value：当前field的值，即id
                 //row：当前行的数据
+            	var timeStr = '<span>成立时间：'+filter(row.setupDTEs)+'</span>';
+            	if(!filter(row.setupDTEs)){
+            		timeStr="";
+            	}
                 var a ='<div class="conInfo">'
 						+'<p class="rightText">'+filter(row.projCompanyName)+'</p>'
 						+'<p class="textBotm">'
-							+'<span>成立时间：'+filter(row.setupDTEs)+'</span>'
+							+timeStr
 						+'</p>'
 					+'</div>'
                 return a;
@@ -2000,17 +2048,27 @@ function initTable(url,data,status,code) {
 
         ],
         onLoadSuccess: function (data) {
-        	if(data.pageList.content.length<=0){
-        		$(".infoTop p:first").remove();
-        		$(".infoTop p i").css("color","#666");
-        		$(".tableBox").hide();
-        		$(".emptyInfo").show().css("margin-bottom",0); 
+        	if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+        		var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+    				$('.bigPop').html(div);
+    				$('.bigPop').show();
+        			$("#powindow").show();
+        	}else{
+        		if(data.pageList.content.length<=0){
+            		$(".infoTop p:first").remove();
+            		$(".infoTop p i").css("color","#666");
+            		$(".tableBox").hide();
+            		$(".emptyInfo").show().css("margin-bottom",0);
+            	}
+            	$(".pagination-info").css({"color":"#5A626D","overflow":"hidden"});
+    			$(".pagination-info").append("<span style=color:#999;padding-left:18px;>（数据来源：创投大脑）</span>");
+    			$(".bootstrap-table").next().hide(); 
+            	$("#dataTable").show();
+    			$(".infoTopS").show();
+    			$("#powindow").show();
+    			return false;
         	}
-        	$(".pagination-info").css({"color":"#5A626D","overflow":"hidden"});
-			$(".pagination-info").append("<span style=color:#999;padding-left:18px;>（数据来源：创投大脑）</span>");
-			$(".bootstrap-table").next().hide(); 
-			$(".infoTopS").show();
-			return false;
+        	
         },
         pagination: true
     });
@@ -2034,4 +2092,3 @@ function getHrefParamter(name){
           }
       }
 }
-

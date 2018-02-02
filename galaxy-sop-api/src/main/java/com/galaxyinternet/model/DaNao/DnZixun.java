@@ -30,7 +30,7 @@ public class DnZixun extends BaseEntity {
 	private String ctimeStr;
 
 	private String orderTime;
-
+	private Integer totalhit ;  //实际条数
 
 	public String getOrder() {
 		return order;
@@ -142,5 +142,13 @@ public class DnZixun extends BaseEntity {
 
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
+	}
+
+	public Integer getTotalhit() {
+		return totalhit;
+	}
+
+	public void setTotalhit(Integer totalhit) {
+		this.totalhit = totalhit;
 	}
 }

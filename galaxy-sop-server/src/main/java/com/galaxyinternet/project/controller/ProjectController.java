@@ -3851,6 +3851,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		query.setTitleId(1120L);
 		List<InformationDictionary> projectSourceList = infoDictService.queryList(query);
 		request.setAttribute("projectSourceList", projectSourceList);
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		request.setAttribute("departmentId", user.getDepartmentId());
 		return "project/assign";
 	}
 

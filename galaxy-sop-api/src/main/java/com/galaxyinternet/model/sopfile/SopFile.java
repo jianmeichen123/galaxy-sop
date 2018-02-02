@@ -216,6 +216,8 @@ public class SopFile extends SopParentFile implements Serializable{
   	 */
   	private Long fileId;
 
+  	
+  private String notDelete;
   
 	public MultipartFile getMultipartFile() {
 		return multipartFile;
@@ -595,4 +597,11 @@ public class SopFile extends SopParentFile implements Serializable{
 	{
 		this.fileId = fileId;
 	}
+	public String getNotDelete() {
+		return notDelete;
+	}
+	public void setNotDelete(String notDelete) {
+		this.notDelete = notDelete;
+	}
+	
 }

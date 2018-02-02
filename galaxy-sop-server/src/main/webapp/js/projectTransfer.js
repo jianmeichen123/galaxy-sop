@@ -90,6 +90,7 @@ function doSumbit(projectId){
 		if(!$('#detail-form').validate().form()){//验证不通过时候执行
 			return false;	
 		}
+		$(this).addClass('disabled');
 		var reqUrl=platformUrl.applyTransfer;
 		sendPostRequestByJsonStr(reqUrl, $("#detail-form").serializeObject(), callbackFun);
 
@@ -98,6 +99,7 @@ function doSumbit(projectId){
 function callbackFun(data){
 	if (data.result.status != "OK") {
 			layer.msg(data.result.message);
+			$("#projectTransfer").removeClass('disabled');
 	} else {
 		   var message="";
 		   if($("#actionStyle").val()=="transfer"){
@@ -113,7 +115,7 @@ function callbackFun(data){
 			 }else{
 				 window.location=platformUrl.toAssignProject+'?from='+$("#actionStyle").val();
 			 }
-			
+			$("#projectTransfer").removeClass('disabled');
 		});
 	}
 

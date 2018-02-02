@@ -24,8 +24,8 @@ margin: 30px auto 20px;
 width:500px; 
 }
 .DN_list .infoTop h5,.DN_info .infoTop h5{
-	margin-top:10px;
-	margin-bottom:10px;
+	margin-top:16px;
+	margin-bottom:20px;
 }
 .DN_list .tableBox,.DN_info .tableBox{margin: 0 10px;}
 .infoTop h5 img{    
@@ -41,11 +41,11 @@ width:500px;
     vertical-align: middle;
     padding-right: 10px;
 }
-.center{position: absolute;top:50%;left:50%; 
-transform: translate(-50%, -50%);
--webkit-transform: translate(-50%, -50%);
--moz-transform: translate(-50%, -50%);
--o-transform: translate(-50%, -50%);
+.center{position: absolute;top:30px;left:50%; 
+transform: translateX(-50%);
+-webkit-transform: translateX(-50%);
+-moz-transform: translateX(-50%);
+-o-transform: translateX(-50%);
 width:500px;height:auto;}
 .infoTop p{
 font-size: 14px;
@@ -55,6 +55,12 @@ margin-bottom: 5px;
 }
 .DN_info .infoTop p{	
 margin-bottom: 0px;
+}
+.DN_list{
+	padding-bottom:30px;
+}
+#powindow .DN_list{
+	padding-bottom:0px;
 }
 .DN_list .infoList{
 	margin-top:10px;
@@ -68,7 +74,7 @@ color: #FF5124;
 font-style: normal;
 }
 .scheduleIcon{
-	margin:30px auto 45px;
+	margin:26px auto 26px;
 	width: 330px;
 }
 .scheduleIcon li{
@@ -113,8 +119,8 @@ color: #3CA6FF;
 	margin: 0 16px; 
 }
 .tableBox .fixed-table-pagination{
-	margin-top:15px;
-}
+	margin-top:10px;
+} 
 .tableBox  .pagination li{ 
 }
 .tableBox  .pagination > li > a, .tableBox .pagination > li > span,.tableBox  .pagination > li > a:hover, .tableBox .pagination > li > span:hover,.tableBox .pagination > li > a:focus,.tableBox  .pagination > li > span:focus{
@@ -144,7 +150,7 @@ color: #3CA6FF;
 
 }
 #powindow .bigPop.DN_info .tableBox {
-	margin-bottom: 88px;
+	margin-bottom: 40px;
 }
 .DN_info.noPad{	
 	padding-bottom: 10px;
@@ -164,6 +170,7 @@ color: #3CA6FF;
 	text-overflow: ellipsis; 
     max-width: 260px;
 }
+.threeLi p.rightText{max-width: 335px;}
 .listTitle.listThree .threeLi{
 	border-bottom: 1px solid #d8d8d8;
 }
@@ -222,7 +229,7 @@ color: #3CA6FF;
 	color: #999;
 	font-size: 12px;
 	padding-top: 10px;
-	line-height: 1;
+	line-height: 1.2;
 }
 .textBotm .industryName,.textBotm .districtSubName{
 	display:inline-block;
@@ -287,6 +294,9 @@ font-weight: bold;
 	line-height: 32px;
 	border-left: 1px solid #d8d8d8;	
     border-bottom: 1px solid #d8d8d8;
+}
+.infoItem table[code="finance-history"] td[name="field2"]{
+	width:35%;
 }
 .infoItem table td[name="field5"]{
 	padding:10px 0;
@@ -399,8 +409,11 @@ table-layout: fixed;
 	left: 60px;
 	right: 0;
 	bottom: 0;	
-	background: #e9ebf2; 
+	background: #e9ebf2;  
     z-index: 102;
+}
+#powindow .fixedbottom{
+	background: rgb(244, 244, 244) ; 
 }
 @media (min-width: 1359px) {
 	.fixedbottom,.jumpBox{
@@ -436,7 +449,7 @@ table-layout: fixed;
 	display:none;
 }
 .jumpCon{text-align:center; }
-.jumpCon img{margin:30px auto; }
+.jumpCon img{margin:60px auto; }
 .jumpCon .p1{
 	font-family: Microsoft YaHei;
 	font-size: 18px;
@@ -461,4 +474,12 @@ table-layout: fixed;
 }
 .fixed-table-toolbar .pull-left{
 margin:0;
+}
+.lightColor{
+color:#999;
+font-size: 12px;
+padding-top:8px;
+} 
+#dataTable{
+	display:none;
 }

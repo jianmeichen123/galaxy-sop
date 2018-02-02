@@ -687,6 +687,10 @@ function saveTeamInfo(v){
     var json = {"projectId":projectInfo.id,"titleId":titleId};
 	var dataList = new Array();
 	$.each($("table.team_info"),function(){
+
+		if($(this).find("tr[data-row-id]").length>=1){
+			$(this).find(".no-records-found").remove();
+		}
 		$.each($(this).find('tr:gt(0)'),function(){
 			var row = $(this).data("person");
 			if(row.id=="")

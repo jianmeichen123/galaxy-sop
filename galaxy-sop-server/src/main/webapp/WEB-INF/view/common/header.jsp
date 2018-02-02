@@ -153,14 +153,14 @@
 		 success:function(data){
 			// $('.globalSearhc-ul').show();
 			 if(data.result.status=='OK'){
-					 var hisList = data.entity.hisList;
-					 var hisList = hisList.slice(0,10)
-				 	 var html =''
-					 for(var i = 0;i<hisList.length;i++){
-							 html += "<li class='seach_li'>"+hisList[i]+"</li>"
-						
-				 }
-				  
+				 	if(data.entity != undefined){
+				 		var hisList = data.entity.hisList;
+						 var hisList = hisList.slice(0,10)
+					 	 var html =''
+						 for(var i = 0;i<hisList.length;i++){
+							html += "<li class='seach_li'>"+hisList[i]+"</li>"
+						 }
+				 	}
 					$('.history-content').html(html); 
 					/* 点击li跳转页面进行搜索 */
 					 $(".seach_li").click(function(){
