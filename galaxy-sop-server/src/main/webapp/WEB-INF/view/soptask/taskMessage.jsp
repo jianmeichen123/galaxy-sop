@@ -25,9 +25,7 @@
 		        	<ul class='task-item task-item-right'>
 		        		<li>项目编码：<span id="projectCode"></span></li>
 		       			<li>投资经理：<span id="createUname"></span></li>
-		       			<c:if test="${ sessionScope.galax_session_user.id != task.assignUid }">
-		       			<li>认领人：<span>${assignUname }</span></li>
-		       			</c:if>
+		       			<li id="assignUname" style="display:none;">认领人：<span>${assignUname }</span></li>
 		        	</ul> 
  		 		</div>
 	        	<a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t' class='pro-detail'>项目详细信息 ></a>
@@ -80,6 +78,11 @@
 </div>
 <script type="text/javascript">
 	$("#task-title").text('${task.taskName}');
+	var originAcitveTab = getCookieValue('task-active-tab');
+	if(originAcitveTab == 'dep-unfinished')
+	{
+		$("#assignUname").show();
+	}
 	/**********************显示任务详情 START************************/
 	var url = platformUrl.detailProject+"/${projectId}";
 	var data = {};
@@ -228,6 +231,7 @@
 	/**********************文件上传 START ************************/
 	/**********************提交完成 START ************************/
 	$("#complete-task-btn").click(function(){
+		$(this).addClass('disabled');
 		//判断是否放弃该任务的提交
 		var label=$(".task-no-need label");
 		var giveUp=label.hasClass('label-checked');
@@ -259,6 +263,7 @@
 			else
 			{
 				layer.msg("提交失败");
+				$(this).removeClass('disabled');
 			}
 		};
 		//更新task为完成状态
@@ -390,6 +395,12 @@
 			url:getDetailUrl(code),
 			okback:function(){
 				$("#numOfTask").parent().hide();
+				var assignUid = "${task.assignUid}";
+				//详情页不能移交给当前人令人
+				if(assignUid>0)
+				{
+					$("ul.toggle-ul li[value='"+assignUid+"']").remove();
+				}
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮

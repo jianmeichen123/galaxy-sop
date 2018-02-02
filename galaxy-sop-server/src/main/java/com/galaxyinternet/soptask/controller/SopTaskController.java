@@ -528,10 +528,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/toTaskMesage")
+	@RequestMapping(value = "/toTaskMessage")
 	public ModelAndView toTaskMesage(Long taskId) 
 	{
-		ModelAndView mv = new ModelAndView("soptask/taskMesage");
+		ModelAndView mv = new ModelAndView("soptask/taskMessage");
 		SopTask task = sopTaskService.queryById(taskId);
 		Project project = projectService.queryById(task.getProjectId());
 		mv.addObject("task", task);
@@ -715,7 +715,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ModelAndView transfer(HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView("soptask/transferDialog");
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Long depId = user.getDepartmentId();
 		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
 		List<User> users = getDepUserFromCache(depId);
@@ -786,7 +786,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ModelAndView assign(HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView("soptask/assignDialog");
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Long depId = user.getDepartmentId();
 		String depName = (String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId, "name");
 		List<User> users = getDepUserFromCache(depId);

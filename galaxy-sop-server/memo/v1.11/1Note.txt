@@ -88,6 +88,7 @@ return 返回：userData
 	融资金额  num
 	币种      unit  unitId
 	股权占比  stock
+	投资人    invstors
 
 
 

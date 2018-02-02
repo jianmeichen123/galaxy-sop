@@ -32,7 +32,7 @@
         	</li>
         	<li class='task-todeal-textarea'>
         		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因'  class="role_toolTip_area" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空"></textarea>
+        		<textarea placeholder='请输入移交原因'  class="role_toolTip_area" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
         	</li>
         </ul>
       	
@@ -72,4 +72,8 @@ $('.select-simulate input').click(function(event){
 $.validator.setDefaults({
 	errorElement:'span'
 });
+jQuery.validator.addMethod("verify_100", function(value, element) {  
+	var verify_100 = /^(?!.{101}|^\s*$)/;
+	return this.optional(element) || (verify_100.test(value));
+}, "不能超过100字");
 </script>

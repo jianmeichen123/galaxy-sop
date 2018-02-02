@@ -1,5 +1,5 @@
 INSERT INTO `power`.`resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`)
- VALUES('1055','0','project_search_overall','全局搜索', '3', NULL,'117000', '创投项目全局搜索功能','0','0','0', NULL, NULL, NULL,NULL,'1',NULL) ;
+ VALUES('1190','0','project_search_overall','全局搜索', '3', NULL,'117000', '创投项目全局搜索功能','0','0','0', NULL, NULL, NULL,NULL,'1',NULL) ;
 
  
  INSERT INTO `power`.`resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`)
@@ -41,4 +41,7 @@ UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1011';
 UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1012';
 UPDATE `power`.`resource` SET `is_del`='1' WHERE `Id`='1013';
 
+
+INSERT INTO `power`.`data_scope`(`sp_name`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`)
+VALUES ('所有人（含离职人员）',0,0,UNIX_TIMESTAMP(NOW())*1000,NULL,UNIX_TIMESTAMP(NOW())*1000,NULL,1);
  

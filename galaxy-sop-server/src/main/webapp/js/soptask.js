@@ -2,16 +2,6 @@
  * sop用户任务
  */
 $(function(){
-	   //更多操作点击显示
-	/*$('.ul_content').on('mouseenter','.more-task',function(){
-		$('.task-toggle').slideDown();
-	})
-	$('.ul_content').on('mouseleave','.task-toggle',function(){
-		$('.task-toggle').slideUp();
-	});*/
-
-	
-	
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		addTaskCookie();
@@ -52,18 +42,26 @@ $(function(){
 	});
 	//指派任务点击跳转
 	$('#custom-toolbar').on('click','[data-code="assign-task"], [data-code="transfer-task"],[data-code="abandon-task"]',function(){
-		var rows = $("#task-table").bootstrapTable('getSelections');
-		if(rows.length==0)
-		{
-			layer.msg('请至少选择一条待办任务');
-			return;
+		var len = $('.highlighCheckbox.highlighCheckbox_checked').length;
+		if(len == 0){
+			layer.msg('请至少选择一条待办任务')
+			return
 		}
 		var code = $(this).attr('data-code');
 		$.getHtml({
-			url:getDetailUrl(code)
+			url:getDetailUrl(code),
+			okback:function(){
+				//待完工 - 移交、指派不能给自己
+				var acitveTab = $('.tipslink li.on a').attr('id');
+				if(userId > 0 && acitveTab == 'todeal')
+				{
+					$("ul.toggle-ul li[value='"+userId+"']").remove();
+				}
+			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 		$('.pop').addClass('task-pop');//去掉圆角
+		
 	});
 	
 	//页面请求地址
@@ -121,10 +119,79 @@ var tableDefaultOpts = {
     		$(this).children('.task-toggle').stop(true).slideUp();
     	});
     	
-    	
-    	
+    	checkboxClick();
+    	judgeCheckbox();
+      	  
     }
 };
+
+ /* checkbox 点击 */
+function checkboxClick(){
+	$('.highlighCheckbox_th ').removeClass('highlighCheckbox_checked')
+	 $('.highlighCheckbox').click(function(event){
+		 if($(this).hasClass("highlighCheckbox_checked")){
+    		$(this).prop('checked',false);
+   		$(this).removeClass('highlighCheckbox_checked'); 
+		  }else{
+    		$(this).prop('checked',true);
+   		$(this).addClass('highlighCheckbox_checked'); 
+		  }
+		var table = $(this).closest("table");
+		var Tbody = table.find("tbody");
+		var length=Tbody.find("input[type=checkbox]").length;
+		var checkLength =Tbody.find(".highlighCheckbox_checked").length;  
+		if(length==checkLength){ 
+			table.find(".highlighCheckbox_th input").prop('checked',true);
+		 	$('.highlighCheckbox_th').addClass("highlighCheckbox_checked")
+		} else{ 
+			table.find(".highlighCheckbox_th input").prop('checked',false);
+   		 $('.highlighCheckbox_th').removeClass("highlighCheckbox_checked")
+		} 
+			getSelectedIds(this)
+			event.preventDefault(); 
+		 
+	 });
+	 //全选 
+	  $('.highlighCheckbox_th').unbind('click').bind('click',function(event){
+		$(this).toggleClass('highlighCheckbox_checked'); 
+		  if($(this).hasClass("highlighCheckbox_checked")){
+    		$(this).find("input").prop('checked',true);
+    		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+    		$(this).closest("table").find(".highlighCheckbox").addClass('highlighCheckbox_checked');
+		  }else{
+    		$(this).find("input").prop('checked',false);
+    		$(this).closest("table").find('input').prop('checked', $(this).find("input").prop('checked'));
+    		$(this).closest("table").find(".highlighCheckbox").removeClass('highlighCheckbox_checked');
+		  }
+		  getSelectedIds(this)
+		  event.preventDefault(); 
+	  }) 
+	
+}
+function judgeCheckbox(){
+	//th
+  	var a = $('.tipslink li.on a');
+  	var id = a.attr('id');
+  	if(id == 'finish')
+	{
+		
+		$('.task-ritmin table thead tr th div label').hide()
+		
+	}
+	else if(id == 'claim')
+	{
+				if(hasAssignPremission == "true"){
+					$('.task-ritmin table thead tr th div label').show()
+				}else{
+					$('.task-ritmin table thead tr th div label').hide()
+				}
+	}
+	else
+	{
+		$('.task-ritmin table thead tr th div label').show()
+	}
+}
+
 function searchTask()
 {
 	var a = $('.tipslink li.on a');
@@ -134,9 +201,12 @@ function searchTask()
 	var opts = {url:url,pageNumber : 1};
 	var options = $("#task-table").bootstrapTable('getOptions');
 	//设置checkbox
-	if(id == 'finish')
+/*	if(id == 'finish')
 	{
-		opts.checkboxHeader = false;
+		//opts.checkboxHeader = false;
+		console.log($('.task-ritmin table thead tr th div label'))
+		$('.task-ritmin table thead tr th div label').hide()
+		
 	}
 	else if(id == 'claim')
 	{
@@ -145,7 +215,7 @@ function searchTask()
 	else
 	{
 		opts.checkboxHeader = true;
-	}
+	}*/
 	if(id == 'dep-unfinished')
 	{
 		var originalCols = options.columns[0];

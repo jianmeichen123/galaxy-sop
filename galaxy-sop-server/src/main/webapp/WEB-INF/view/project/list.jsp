@@ -151,7 +151,7 @@
                   </dd>
                 </dl>  
                 <dl class="fmdl fmdll clearfix">
-                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号" style="margin-left:15px;">
+                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称" style="margin-left:15px;">
 	                <div class="btn fr">
 	                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
 	                    <input type="hidden" value="0" id="showResetBtn">

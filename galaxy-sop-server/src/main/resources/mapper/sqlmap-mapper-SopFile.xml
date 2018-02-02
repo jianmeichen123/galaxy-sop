@@ -123,7 +123,9 @@
 			        </foreach>
 				</if>
 				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
-				<if test="meetingId != null"> and meeting_id = #{meetingId,jdbcType=BIGINT} </if>			
+				<if test="meetingId != null"> and meeting_id = #{meetingId,jdbcType=BIGINT} </if>
+				<if test="notDelete != null"> and file_valid !=3 </if>
+							
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -242,6 +244,7 @@
 			<if test="recordType != null"> and sf.record_type = #{recordType,jdbcType=TINYINT} </if>
 			<if test="meetingId != null"> and sf.meeting_id = #{meetingId,jdbcType=BIGINT} </if>
 			<if test="keyword !=null"> and	(sp.project_name like CONCAT("%",#{keyword},"%") or pu.real_name like CONCAT("%",#{keyword},"%") ) </if>
+			<if test="notDelete != null"> and sf.file_valid !=3 </if>
 	</sql>
 	
 	

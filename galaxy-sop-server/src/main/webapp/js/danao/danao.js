@@ -10,6 +10,7 @@ function pagePop(codes){
 			//设置宽高
 			var Wheight=$(window).height(); 
 			var Wwidth=$(window).width();
+			$("#powindow").hide();
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
@@ -83,7 +84,7 @@ function getpopHTML(code,even,danaoName){
 		data:"",//传递参数
 		okback:function(){  
 			var Wheight=$(window).height(); 
-			var Wwidth=$(window).width();
+			var Wwidth=$(window).width(); 
 			$("#powindow .bigPop").css({
 				"width":Wwidth*0.8,
 				"max-height":Wheight*0.8
@@ -139,6 +140,11 @@ function getpopHTML(code,even,danaoName){
 }
 function buildInfoD(url,data,code){ 
 	sendPostRequestByJsonObj(url, data, function(data){
+	 if(data.result.errorCode=="502D" || data.result.errorCode=="502A"){
+		 var div="<div class='dataQuestError'><img src='/sop/img/dataQuestError.png'/>无法访问到创投大脑数据库</div>"
+				$('.bigPop').html(div);
+				$('.bigPop').show(); 
+	 }
 	 if(data.result.status=="OK"){ 
 		 $("#projectName").text(data.userData.projTitle)
 		 //根据code进行渲染  融资历史---history   股权结构-----equity  法人信息----legal   团队成员--team
@@ -223,16 +229,19 @@ function buildDNtable(dom ,data,code){
 				 	Vstr5='出资方式：'+filter(that.payType);
 				}
 				var StrTo = str1+str2+str3+str4+str5;
-				var VStrTo = Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
+				var VStrTo =Vstr1+"&nbsp;"+Vstr2+"&nbsp;"+Vstr3+"&nbsp;"+Vstr4+"&nbsp;"+Vstr5;
+				if(VStrTo=="&nbsp;&nbsp;&nbsp;&nbsp;"){
+					VStrTo="";
+				}
 				spStr= '<td name="field5" class="SpField"  dnVal='+ VStrTo+'>'+StrTo+'</td> '; 
 			 str+='<tr >'
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
-				+'<td name="field1" dnVal='+filterData(that.shareholder)+'>'+filter(that.shareholder)+'</td>'
-				+'<td name="field3" dnVal='+filterData(that.name)+'>'+filter(that.shareholder11)+'</td>'
-				+'<td name="field4" dnVal='+filterData(that.shareholderTypeId)+'>'+filter(that.shareholderType)+'</td>'
-				+'<td name="field2" dnVal='+filterData(that.equityRate)+'>'+filter(that.equityRate)+'</td>'
+				+"<td name='field1' dnVal='"+filterData(that.shareholder)+"'>"+filter(that.shareholder)+'</td>'
+				+"<td name='field3' dnVal='"+filterData(that.name)+"'>"+filter(that.shareholder11)+'</td>'
+				+"<td name='field4' dnVal='"+filterData(that.shareholderTypeId)+"'>"+filter(that.shareholderType)+'</td>'
+				+"<td name='field2' dnVal='"+filterData(that.equityRate)+"'>"+filter(that.equityRate)+'</td>'
 				+spStr+'</tr>'
 		 }
 		dom.find("tbody").html(str); 
@@ -252,8 +261,8 @@ function buildDNtable(dom ,data,code){
 					+'<td>'
 					+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 				+'</td>'
-				+'<td name="field1" dnVal='+filterData(that.name)+'>'+filter(that.name)+'</td>'
-				+'<td name="field2" dnVal='+filterData(jobV)+'>'+jobText+'</td>' 
+				+"<td name='field1' dnVal='"+filterData(that.name)+"'>"+filter(that.name)+'</td>'
+				+"<td name='field2' dnVal='"+filterData(jobV)+"'>"+jobText+'</td>' 
 				+'</tr>'
 		 }
 		dom.find("tbody").html(str);
@@ -267,26 +276,26 @@ function buildDNtable(dom ,data,code){
 				+'<td>'
 				+'<input type="checkbox" onclick="checkSelf(this)" /><label></label>'
 			+'</td>'
-			+'<td name="field7" dnVal='+filterData(that.roundId)+'>'+filter(that.round)+'</td>'
-			+'<td name="field1" dnVal='+filterData(that.investDateStr)+'>'+filter(that.investDateStr)+'</td>'
-			+'<td name="field3" dnVal='+filterData(that.money)+'>'+filter(that.money)+'</td>'
-			+'<td name="field6" dnVal = '+unitId+'>'+filter(that.unit)+'</td>'
-			+'<td name="field4" dnVal='+filterData(that.stock)+'>'+filter(that.stock)+'</td> '
-			+'<td name="field2" dnVal='+filterData(that.empty)+'>'+filter(that.empty)+'</td> '
+			+"<td name='field7' dnVal='"+filterData(that.roundId)+"'>"+filter(that.round)+'</td>'
+			+"<td name='field1' dnVal='"+filterData(that.investDateStr)+"'>"+filter(that.investDateStr)+'</td>'
+			+"<td name='field3' dnVal='"+filterData(that.money)+"'>"+filter(that.money)+'</td>'
+			+"<td name='field6' dnVal = '"+unitId+"'>"+filter(that.unit)+'</td>'
+			+"<td name='field4' dnVal='"+filterData(that.stock)+"'>"+filter(that.stock)+'</td> '
+			+"<td name='field2' dnVal='"+filterData(that.invstors)+"'>"+filter(that.invstors)+'</td> '
 			+'</tr>'
 		 }
 		dom.find("tbody").html(str);
-	}else{
-		 $("#DN_projectCompany").text(data.company);
-		 $("#DN_formationDate").text(data.foundDate);
-		 $("#DN_companyLegal").text(data.legalPerson); 
-		 if(data.company==""){
+	}else{ 
+		 $("#DN_projectCompany").text(filter(data.company));
+		 $("#DN_formationDate").text(filter(data.foundDate));
+		 $("#DN_companyLegal").text(filter(data.legalPerson));  
+		 if(!data.company){
 			 $("#DN_projectCompany").closest("tr").remove();
 		 }
-		 if(data.foundDate==""){
+		 if(!data.foundDate){
 			 $("#DN_formationDate").closest("tr").remove();
 		 }
-		 if(data.legalPerson==""){
+		 if(!data.legalPerson){
 			 $("#DN_companyLegal").closest("tr").remove();
 		 }
 	}
@@ -458,7 +467,7 @@ function saveDN(even){
 //  加个对于页面的判断
 
 	 if(pageTypr==0){
-		 $(".jumpBox").show()
+		 $(".jumpBox").show() 
 		 timeOut(3,$("#time"));			 
 	 }	
 } 
@@ -507,7 +516,7 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					 $("#powindow").remove();
 					 $("body").css("overflow-y","auto");     
 				 }
-				 var table = $("table[data-code="+code+"]");
+				 var table = $("table[data-code="+code+"]"); 
 				 if(pageTypr==1){
 					 info_table("NO9_1",table.attr("data-name"),table); 
 				 }else if(pageTypr==2){
@@ -518,7 +527,14 @@ function saveDNsame(thatTable,dataDN,length,tabName,code,pageTypr) {
 					    if( $(this).find("tr").length>1){
 						    $(this).closest(".mb_24").find(".no_enter").remove();					    	
 					    }
-					})					 
+					})		 
+					var financeLength = $("table[data-code=finance-history] tbody tr").length-1;  
+     				var equityLength = $("table[data-code=equity-structure] tbody tr").length-1;  
+     				if(financeLength>=10&&equityLength>=200){
+     					$(".infoReport[dncode='financeInfo,equityInfo']").hide();
+     				}else{
+     					$(".infoReport[dncode='financeInfo,equityInfo']").show();
+     				}	
 				 } 		 
 		})
 		return 1;
@@ -529,10 +545,13 @@ function timeOut(num,dom) {
 		return;
 	}
     var i = num; 
-    setInterval(function(){ 
-    	if(i == 0) {forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");
-	}
-    		dom.text(i--);
+    var timer = setInterval(function(){ 
+    	dom.text(i--);
+    	if(i == -1) { 
+    		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+projectId+ "?backurl=list");;
+        	clearInterval(timer);
+        	return;
+    	}
  
-    },1000); 
+    },1000);  
 }; 

@@ -67,6 +67,7 @@ border: none;
 		 				</tr>
 		 			</tbody>
 		 		</table>
+		 		<p class="lightColor">(数据来源：创投大脑)</p>
 		 	</li>
 	 	 	<li class="infoItem" id="equityInfo">
 		 		<p class="titles">股权结构</p>
@@ -81,12 +82,13 @@ border: none;
 		 					<td>股东类型</td>
 		 					<td>股东性质</td>
 		 					<td>占股比例（%）</td>
-		 					<td>备注</td>	
+		 					<td width="30%">备注</td>	
 		 				</tr>
 		 			</thead>
 		 			<tbody> 
 		 			</tbody>
 		 		</table>
+		 		<p class="lightColor">(数据来源：创投大脑)</p>
 		 	</li>
 		 	<li class="infoItem" id="teamInfo">
 		 		<p class="titles">团队成员</p>
@@ -104,6 +106,7 @@ border: none;
 		 			<tbody> 
 		 			</tbody>
 		 		</table>
+		 		<p class="lightColor">(数据来源：创投大脑)</p>
 		 	</li>
 		 	<li class="infoItem" id="fina_historyInfo">
 		 		<p class="titles">融资历史</p>
@@ -125,6 +128,7 @@ border: none;
 		 			<tbody> 
 		 			</tbody>
 		 		</table>
+		 		<p class="lightColor">(数据来源：创投大脑)</p>
 		 	</li>
 		 </ul>
 		 

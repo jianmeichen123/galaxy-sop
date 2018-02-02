@@ -108,6 +108,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			data.setResult(new Result(Status.ERROR, "err", "不能将项目移交给本人！"));
 			return data;
 		}
+	//	Project queryById = projectService.queryById(projectTransfer.getProjectId());
 		User u = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try
 		{
@@ -117,9 +118,23 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			List<Project> queryList = projectService.queryList(project);
 			if (null == queryList || queryList.size() != projectList.size())
 			{
-				data.setResult(new Result(Status.ERROR, "csds", "部分项目不存在!"));
+				if(projectList.size()>1){
+					data.setResult(new Result(Status.ERROR, "csds", "部分项目已被删除，请刷新列表重新选择!"));
+				}else{
+					data.setResult(new Result(Status.ERROR, "csds", "项目已被删除，请刷新列表重新选择!"));
+				}
+				
 				return data;
 			}
+			if(projectTransfer.getOperateType().equals("assign")){
+				for(Project p:queryList){
+					if(p.getCreateUid().longValue()==projectTransfer.getAfterUid().longValue()){
+						data.setResult(new Result(Status.ERROR, "err", "不能将项目指派给项目负责人！"));
+						return data;
+					}
+				}
+			}
+		
 			UrlNumber urlNumber = null;
 			List<Long> projectIds = new ArrayList<>(queryList.size());
 			for (Project p : queryList)
@@ -262,7 +277,8 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-
+		project.setProperty("updated_time");
+		project.setDirection("desc");
 		// 有搜索条件则不启动默认筛选
 		if (project.getCreateUid() == null && project.getProjectDepartid() == null)
 		{

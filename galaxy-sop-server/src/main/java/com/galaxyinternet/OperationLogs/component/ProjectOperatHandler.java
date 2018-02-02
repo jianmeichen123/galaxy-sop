@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.annotation.RecordType;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
@@ -80,7 +81,7 @@ public class ProjectOperatHandler implements OperationLogHandler
 			entity.setUserDepartid(user.getDepartmentId());
 			entity.setProjectName(project.getProjectName());
 			entity.setProjectId(projectId);
-			entity.setSopstage(type.getSopstage());
+			entity.setSopstage(projectProgress.getNameByCode(project.getProjectProgress()));
 			entity.setReason(reason);
 			entity.setRecordType(RecordType.PROJECT.getType());
 			list.add(entity);

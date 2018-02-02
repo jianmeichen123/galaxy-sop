@@ -3,7 +3,6 @@ package com.galaxyinternet.mongodb.model;
 import java.util.List;
 
 public class TableModelMG  {
-	private static final long serialVersionUID = 1L;
 	
 		private String  id;
 	    private Long titleId;

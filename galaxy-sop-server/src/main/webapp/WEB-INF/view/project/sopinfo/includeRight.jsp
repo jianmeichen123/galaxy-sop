@@ -267,18 +267,10 @@
             <div class="tq_div">
 	                <div class="correlation" id="correlation" style="display:none">相关操作</div>
 	             <div class="new_correlation_cen">
-	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            		 <c:if test="${fx:hasPremission('project_transfer')}">	
-	            	        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('transfer')" >移交项目</span>
-	            	    </c:if>
-	            	 <c:if test="${fx:hasPremission('project_assign')}">	
-	                        <span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro('assign')" >指派项目</span>
-	                </c:if>
-<!-- 	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span> -->
-	                <c:if test="${fx:hasPremission('project_delete')}">	
-                      <span class="bluebtn new_btn_right btn_right" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
-                    </c:if>
-	               
+	            	<!-- <span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span> -->
+	            	        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('transfer')" style="display:none" id="tansfer_btn" >移交项目</span>
+	                        <span class="bluebtn new_btn_right yjxm_btn btn_left" onclick="transferPro('assign')" style="display:none" id="assign_btn" >指派项目</span>
+                            <span class="bluebtn new_btn_right btn_right" onclick="deletePro()" style="display:none" id="delete_btn" >删除项目</span>
 	            </div>
             </div>
             
@@ -315,7 +307,10 @@
      
 	 
         
-        
+ <style>
+ .delete_reason span.error{display:block;margin-left:118px;}
+ .delete_reason_left span.error{display:block;margin-left:-3px;}
+ </style>       
         
         
 <script src="<%=path %>/js/refuseProject.js"></script>
@@ -420,11 +415,22 @@ $(function(){
 	
 	 //删除项目按钮是否显示
 	if((isCreatedByUser == "true"&&${fx:hasPremission('project_delete')}&&index<3)||(${fx:hasPremission('project_delete')}&&!${fx:hasRole(4)})){
-		$("#delete_btn").attr("style","display:black");
+		$("#delete_btn").attr("style","display:block");
 	}
-	 if(${fx:hasPremission('project_transfer')}||${fx:hasPremission('project_assign')}||${fx:hasPremission('project_delete')&&index>3}){
+	 //移交项目按钮是否显示
+	if((isCreatedByUser == "true"&&${fx:hasPremission('project_transfer')})||(${fx:hasPremission('project_transfer')}&&!isCreatedByUser&&!${fx:hasRole(4)})){
+		$("#tansfer_btn").attr("style","display:block");
+	}
+	 //指派项目按钮是否显示
+	if(${fx:hasPremission('project_assign')}){
+		$("#assign_btn").attr("style","display:block");
+	}
+	/*  if(${fx:hasPremission('project_transfer')}||${fx:hasPremission('project_assign')}||${fx:hasPremission('project_delete')&&index>3}){
 		 $("#correlation").css("display","block"); 
-	 }
+	 } */
+	if($("#delete_btn").css("display")=="block"||$("#tansfer_btn").css("display")=="block"||$("#assign_btn").css("display")=="block"){
+		 $("#correlation").css("display","block"); 
+	 } 
 	init_lct(); //流程图初始化
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
@@ -1018,16 +1024,21 @@ function deletePro(){
 			content:"<div id='wraper_delete'>"+
         		"<p><span class='delete_msg'></span>是否删除项目</p>"+
         		'<p>删除创投项目会通知该项目投资经理</p>'+
-        		'<div class="delete_reason">'+
+        		'<div class="delete_reason delete_reason_left">'+
         			'<span>删除原因：</span>'+
         			'<span>'+
-        				'<textarea onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" id="deleteReason" onkeypress="LimitTextArea(this)" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<textarea oninput="LimitTextArea(this)" id="deleteReason" rows="" cols="" placeholder="请输入原因"></textarea>'+
+        				'<span class="error none"><font>*</font>删除原因不能为空</span>'+
         			'</span>'+
         		'</div>'+
         		'</div>',
         		yes:function(index){
         			var deleteReason=$("#deleteReason").val();
         			data.deleteReason=deleteReason;
+        			if(deleteReason.trim().length==0){
+        				$('span.error').removeClass('none');
+        				return;
+        			}
         			sendPostRequestByJsonObj(
         					_url,
         					data,
@@ -1043,7 +1054,7 @@ function deletePro(){
         							layer.msg("删除失败。");
         						}
         					}
-        				);
+        				); 
         			
         			//layer.close(index)
         		}
@@ -1074,6 +1085,9 @@ $(window).resize(function(){
    			
  		function LimitTextArea(obj){
 			var length = $(obj).val().length;
+			if($(obj).val().trim().length>0){
+				$(obj).next('.error').addClass('none');
+			}
 			if(length>100){
 				var content = $(obj).val().substring(0,100);
 				$(obj).val(content);

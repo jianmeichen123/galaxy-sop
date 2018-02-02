@@ -123,7 +123,7 @@ var platformUrl = {
 	/**
 	 * 待办-信息
 	 */
-	toTaskMesage: Constants.sopEndpointURL + "/galaxy/soptask/toTaskMesage",
+	toTaskMessage: Constants.sopEndpointURL + "/galaxy/soptask/toTaskMessage",
 	
 	
 	/**

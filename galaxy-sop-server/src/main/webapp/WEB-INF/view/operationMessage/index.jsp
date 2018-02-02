@@ -140,7 +140,7 @@
 		{
 			//尽职调查、股权交割
 			var target = $('#menus a[data-menueid=1071]').attr('href');
-			content = content.replace('"<pname>',"<a href='"+target+"' class='blue project_name'>").replace('name"',"");
+			content = content.replace('"<pname>',"<a href='"+target+"' class='blue project_name'>\"").replace('name"',"");
 		}
 		else
 		{
@@ -149,9 +149,9 @@
 			{
 				projectId = row.remarkId;
 			}
-			content = content.replace('"<pname>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + projectId + "\')\" class='blue project_name'>").replace('name"',"");
+			content = content.replace('"<pname>',"<a href='#' onclick=\"viewDetail(\'pro\',\'" + projectId + "\')\" class='blue project_name'>\"").replace('name"',"");
 		}
-		content = content.replace('</pname>"',"</a>");
+		content = content.replace('</pname>"',"\"</a>");
 		return content;
 	}
 	function viewDetail(mark,id){

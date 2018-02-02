@@ -623,7 +623,11 @@ function CallBackE(data){
 						var jsonObj={
 								keyword:projectName
 						} 
-						sendPostRequestByJsonObj(_url, jsonObj, function(data){
+						sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
+							if(data.result.status=="ERROR"){
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+								return false;
+							}
 							var num =data.pageList.total;
 							if(num==0||!num){
 								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
