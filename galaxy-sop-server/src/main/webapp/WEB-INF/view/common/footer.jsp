@@ -95,7 +95,7 @@ function createMenus(current){
 
 //吐槽
 var _nickname=$('.man_info .name').text();
-var _src=window.location.host+'/sop/img/avatarTC.png';
+var _src='https://fxapp.galaxyinternet.com/appFiles/head_image/touxiang@3x.png';
 var data = {
 	      "nickname": _nickname,    //发帖人名称
 	      "avatar": _src,
