@@ -7,3 +7,9 @@ url：
 
 返回
 json ： data.entityList
+ 用户id ： id,
+ 用户名 ： real_name,
+ 部门id ： department_id,
+ 部门名 ： department_name
+
+
