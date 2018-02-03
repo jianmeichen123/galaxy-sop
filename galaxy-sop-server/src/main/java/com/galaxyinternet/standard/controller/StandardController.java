@@ -23,11 +23,15 @@ import com.galaxyinternet.model.Standard;
 import com.galaxyinternet.model.Standard.StandardStatus;
 import com.galaxyinternet.service.StandardService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @Controller
 @RequestMapping("/galaxy/standard")
-public class StandarcController
+public class StandardController
 {
-	private static final Logger logger = LoggerFactory.getLogger(StandarcController.class);
+	private static final Logger logger = LoggerFactory.getLogger(StandardController.class);
 	@Autowired
 	private StandardService service;
 
@@ -65,7 +69,12 @@ public class StandarcController
 
 		return data;
 	}
-
+	@ApiOperation("根据ID查询")
+	@ApiImplicitParams(
+		value = {
+			@ApiImplicitParam(name="id", value="主键id",paramType="path",required=true)
+		}	
+	)
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<Standard> get(@PathVariable Long id)
@@ -84,7 +93,12 @@ public class StandarcController
 		}
 		return data;
 	}
-	
+	@ApiOperation("根据Coe查询")
+	@ApiImplicitParams(
+		value = {
+			@ApiImplicitParam(name="code", value="编号",paramType="path",required=true)
+		}	
+	)
 	@RequestMapping(value = "/getByCode/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<Standard> getByCode(@PathVariable String code)
@@ -105,7 +119,8 @@ public class StandarcController
 		}
 		return data;
 	}
-	
+	@ApiOperation("保存")
+	@ApiImplicitParam(name="vo", value="需要设置id和standardDetails", dataTypeClass=Standard.class)
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<Standard> save(@RequestBody Standard vo)
