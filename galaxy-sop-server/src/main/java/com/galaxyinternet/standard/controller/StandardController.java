@@ -93,7 +93,7 @@ public class StandardController
 		}
 		return data;
 	}
-	@ApiOperation("根据Coe查询")
+	@ApiOperation("根据Code查询")
 	@ApiImplicitParams(
 		value = {
 			@ApiImplicitParam(name="code", value="编号",paramType="path",required=true)
