@@ -9,9 +9,9 @@
     <result column="standard_details" jdbcType="VARCHAR" property="standardDetails" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="is_valid" jdbcType="TINYINT" property="isValid" />
-    <result column="created_uid" jdbcType="BIGINT" property="createdUid" />
+    <result column="created_id" jdbcType="BIGINT" property="createdId" />
     <result column="created_time" jdbcType="BIGINT" property="createdTime" />
-    <result column="updated_uid" jdbcType="BIGINT" property="updatedUid" />
+    <result column="updated_id" jdbcType="BIGINT" property="updatedId" />
     <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
   </resultMap>
   
@@ -76,13 +76,13 @@
 	 		insert into project_standard (
 				id, module_code, module_name,
 			    standard_details, status, is_valid,
-			    created_time, created_id, updated_time,
-			    updated_id
+			    created_id, created_time, updated_id,
+			    updated_time
 			)
 		    values (
 		    	#{id,jdbcType=BIGINT}, #{modulCode,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, 
 		      	#{standardDetails,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{isValid,jdbcType=TINYINT}, 
-		      	#{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updatedUid,jdbcType=BIGINT}, 
+		      	#{createdId,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updatedId,jdbcType=BIGINT}, 
 		      	#{updatedTime,jdbcType=BIGINT}
 		    )
  		 ]]>
@@ -94,7 +94,7 @@
 	      <if test="standardDetails != null">  standard_details = #{standardDetails,jdbcType=VARCHAR}, </if>
 	      <if test="status != null"> status = #{status,jdbcType=TINYINT}, </if>
 	      <if test="isValid != null"> is_valid = #{isValid,jdbcType=TINYINT}, </if>
-	      <if test="updatedUid != null">  updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
+	      <if test="updatedId != null">  updated_id = #{updatedId,jdbcType=BIGINT}, </if>
 	      <if test="updatedTime != null">  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
