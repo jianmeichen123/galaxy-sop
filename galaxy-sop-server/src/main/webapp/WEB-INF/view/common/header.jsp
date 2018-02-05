@@ -37,6 +37,8 @@
    
  
 %>
+
+<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
 <div class="header clearfix">
 

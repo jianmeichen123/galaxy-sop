@@ -131,7 +131,16 @@ function getpopHTML(code,even,danaoName){
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
-					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
+					 debugger;
+					 var block_w =$("#powindow").width(),
+						block_h =$("#powindow").height(), 
+						trans_x = -Math.round(block_w/2),
+						trans_y = -Math.round(block_h/2); 
+		    			$("#powindow").css({
+							"margin-left":trans_x,
+							"margin-top":trans_y,
+						})
 					 $(".DN_info").addClass("noPad");
 				 } 
 		}
@@ -182,8 +191,8 @@ function buildDNinfo(_url,jsonObj){
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
-			$(".emptyInfo").show().css({"margin-bottom":0});
-			 $(".DN_info").addClass("noPad");
+			$(".emptyInfo").show().css({"margin-bottom":0}); 
+			$(".DN_info").addClass("noPad");
 			return false;
 		}
 		 var legal=data.userData.legalInfo;

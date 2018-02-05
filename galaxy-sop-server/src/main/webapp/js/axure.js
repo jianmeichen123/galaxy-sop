@@ -714,7 +714,7 @@
 						$(_this.id).find(".poptxt").html(html);
 						opts.okback(_this);
 						//重新定位
-						_this.postionEve();
+						_this.postionEve(); 
 						$("body").css("overflow-y","hidden");
 						//浏览器大小改变，弹窗重新定位
 						$(window).resize(function(){  
