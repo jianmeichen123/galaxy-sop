@@ -4196,7 +4196,7 @@ li .projectSource11 span.m_r30{
 .selectcheck .btn-default .caret{display:none;}
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
 .open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
-.selectcheck .text{width:100%;color:#333; padding-left:10px; border-bottom:1px solid #f0f0f0;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
+.selectcheck .text{width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
 .selectcheck .text:hover{color:#333;}
 .selectcheck .open>.dropdown-menu{background:#fff;right:0;border-radius:1px;}
 .selectcheck .dropdown-menu{padding:0;}
@@ -4617,3 +4617,6 @@ font-weight:bold;
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
 .img_content_new{display:none;min-height:390px;}
+.dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
+	background:#e5f3ff;
+}
