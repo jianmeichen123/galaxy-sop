@@ -152,8 +152,27 @@ table th {
 		var row = $table.bootstrapTable('getRowByUniqueId',index); 
 	}
 	*/function toggleStandard(id,opt)
-	{
-		var row = $("#standard-table").bootstrapTable('getRowByUniqueId',index); 
+	{  
+		var statusCode=1;
+		if(opt=="close"){
+			statusCode=0;
+		}
+		var dataJson={
+				id:id,
+				status:statusCode 
+		}
+		sendPostRequestByJsonObj(
+		platformUrl.saveStandard, 
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				debugger;
+				 layer.msg("")	  
+				$("#standard-table").bootstrapTable('refresh');
+				$("#popbg").remove();
+				$("#powindow").remove();
+			}
+		 })
 	} 
 	
 	function PopR(event, status) {
