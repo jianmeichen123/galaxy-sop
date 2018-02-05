@@ -244,9 +244,18 @@
             if (!title) {
                 title = this.options.title !== undefined ? this.options.title : this.options.noneSelectedText;
             }
-
-            this.$button.attr('title', $.trim(title));
-            this.$newElement.find('.filter-option').html(title);
+            /*this.$button.attr('title', $.trim(title));
+            this.$newElement.find('.filter-option').html(title);*/
+            //项目承揽人去掉部门
+            var _title=title.split('、');
+            var arr=[];
+            for(var i=0;i<_title.length;i++){
+            	var n=_title[i].indexOf('|');
+            	arr.push(_title[i].substring(0,n));
+            }
+          //项目承揽人去掉部门
+            this.$button.attr('title', $.trim(arr.join('、')));
+            this.$newElement.find('.filter-option').html(arr.join('、'));
         },
 
         setStyle: function(style, status) {

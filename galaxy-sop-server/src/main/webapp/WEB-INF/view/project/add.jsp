@@ -325,13 +325,11 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 */
 	 sendGetRequest(platformUrl.searchCLR, null,CallBackE);
 	 function CallBackE(data){ 
-		 console.log('9000000')
-		 console.log(data)
 	 	 var data_list = data.entityList;
 	 	//var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
 	 	var res="";
 	 	$.each(data_list,function(){
-	 		res+="<option value='"+this.id+"'>"+this.realName+'|'+this.departmentName+"</option>"
+	 		res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
 	 	})
 	 	$("#selectRadio").html(res) 
 	 	}
@@ -632,9 +630,9 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 							}
 							var num =data.pageList.total;
 							if(num==0||!num){
-								//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 							}else{
-								//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
+								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
 							} 
 						})
 						 } else {

@@ -399,16 +399,19 @@ function one_select_edit(title,inputtype,type){
 			var _resultList=title.resultList;
 			sendGetRequest(platformUrl.searchCLR, null,function(data){
 				var data_list = data.entityList;
+				var idArr=[];
+				$.each(_resultList,function(){
+					idArr.push(this.contentChoose);					
+				})
 				$.each(data_list,function(i,o){
-					console.log(o)
-					$.each(_resultList,function(){
-						if(this.contentChoose==o.id){
+					var _id=o.id;
+					if(_id!=null){
+						if(_id!=null && idArr.indexOf(_id.toString())>-1){
 							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'|'+o.departmentName+"</option>"
 						}else{
 							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'|'+o.departmentName+"</option>"
 						}
-					})
-					
+					}
 			 	})
 			});
 		}else{

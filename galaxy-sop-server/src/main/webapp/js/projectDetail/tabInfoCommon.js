@@ -136,7 +136,9 @@ $(function(){
 							var that2=$(this);							
 							var spanValue = that2.find("span").attr("data-value");							
 							if(that.contentChoose==spanValue){ 
-								valueL+=that2.find("span").text()+"、";
+								var n=that2.find("span").text().indexOf('|');
+								valueL+=that2.find("span").text().substring(0,n)+"、";
+								//valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
 								if(that2.text()=="非投资线员工"){
 									$(".addpro-input").show().val(that.contentDescribe1).attr("ovalue",that2.find("span").data("value"));
@@ -146,6 +148,11 @@ $(function(){
 						}) 
 					}) 
 					valueL=valueL.substring(0,valueL.length-1);
+					/*var _title=title.split('、');
+		            for(var i=0;i<_title.length;i++){
+		            	var n=_title[i].indexOf('|');
+		            	arr.push(_title[i].substring(0,n));
+		            }*/
 					$("button.selectpicker ").attr("title",valueL);
 					$("button.selectpicker span").text(valueL)
 					$('#selectRadio').selectpicker({
