@@ -126,22 +126,20 @@ table th {
 			action = 'open';
 			actionDesc = '开启';
 		}
-		var content = '<label class="blue" data-btn="btn" onclick="showDetail('+row.id+',\'view\')">查看</label>&nbsp;&nbsp;';
-		content += '<label class="blue" data-btn="btn" onclick="showDetail('+row.id+',\'edit\')">编辑</label>&nbsp;&nbsp;';
+		var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
+		content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
 		content += '<label class="blue" data-btn="btn" onclick="toggleStandard('+row.id+',\''+action+'\')">'+actionDesc+'</label>';
 		return content;
 		
 	}
-	function showDetail(index, opt)
+	/* function showDetail(index, opt)
 	{
-		var row = $table.bootstrapTable('getRowByUniqueId',index);
-		console.log(row);
+		var row = $table.bootstrapTable('getRowByUniqueId',index); 
 	}
-	function toggleStandard(id,opt)
+	*/function toggleStandard(id,opt)
 	{
-		var row = $("#standard-table").bootstrapTable('getRowByUniqueId',index);
-		console.log(row);
-	}
+		var row = $("#standard-table").bootstrapTable('getRowByUniqueId',index); 
+	} 
 	
 	function PopR(event, status) {
 		var that = $(event);
@@ -150,8 +148,8 @@ table th {
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
 			okback : function() {
-				var name = tr.find("td[name='filed1']").text();
-				var text = tr.find("td[name='filed3']").text();
+				var name = tr.find("td:first").text();
+				var text = tr.find("td").eq(2).text();
 				if (status == "e") {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);

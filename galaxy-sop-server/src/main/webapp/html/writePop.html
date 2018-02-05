@@ -21,7 +21,21 @@
 .popBlock{
 	display: none;
 }
- </style>  
+#save_standard,.save_button a{
+	border:0px;
+	background:#3ca6ff;
+	border-radius:2px;
+	width:92px;
+	height:32px;
+	line-height:32px;
+	display:inline-block;
+	font-family:Miscrosoft Yahei;
+}
+#detail-form .form_textarea textarea{ font-family:Miscrosoft Yahei;}
+.save_button a{
+	background:#eef6fc;
+}
+</style>  
 <body>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="edit popBlock">		
@@ -40,9 +54,12 @@
 							<textarea></textarea>
 						</dd>
 					</dl>
-				</div>
-	  
-			</form>
+				</div> 
+			</form> 
+			<div class="save_button layui-layer-btn">
+            	<button type="button" class="layui-layer-btn0" id="save_standard">保存</button>
+                <a href="javascript:;" data-close="close">取消</a>
+            </div>
 		</div>
 	</div>
 	<div class="see popBlock">
