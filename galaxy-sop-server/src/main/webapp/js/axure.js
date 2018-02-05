@@ -101,8 +101,8 @@
 					ht = parseInt($(_this.id).outerHeight(true));
 				var win_w = $(window).width(),
 					win_h = $(window).height(),
-					win_x = "50%",
-					win_y = "50%";
+					win_x = Math.round(win_w/2),
+					win_y = Math.round(win_h/2);
 				//背景设置高度+显示
 				$("#popbg,#popbg iframe").css({"height":win_h});
 				$("#popbg01").css({"height":win_h});
