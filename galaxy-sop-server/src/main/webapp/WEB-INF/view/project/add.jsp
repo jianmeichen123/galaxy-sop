@@ -329,7 +329,12 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 	//var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
 	 	var res="";
 	 	$.each(data_list,function(){
-	 		res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
+	 		if(this.departmentName!=null){
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
+	 		}else{
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+	 		}
+	 		
 	 	})
 	 	$("#selectRadio").html(res) 
 	 	}

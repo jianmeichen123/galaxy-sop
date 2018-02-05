@@ -407,9 +407,19 @@ function one_select_edit(title,inputtype,type){
 					var _id=o.id;
 					if(_id!=null){
 						if(_id!=null && idArr.indexOf(_id.toString())>-1){
-							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'|'+o.departmentName+"</option>"
+							if(o.departmentName!=null){
+								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'|'+o.departmentName+"</option>"
+							}else{
+								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+"</option>"
+							}
+							
 						}else{
-							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'|'+o.departmentName+"</option>"
+							if(o.departmentName!=null){
+								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'|'+o.departmentName+"</option>"
+							}else{
+								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+"</option>"
+							}
+							
 						}
 					}
 			 	})
