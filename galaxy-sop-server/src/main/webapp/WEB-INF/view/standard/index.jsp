@@ -93,6 +93,8 @@ table th {
 
 </html>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script>
 	createMenus(5);
 	
@@ -154,20 +156,21 @@ table th {
 	*/function toggleStandard(id,opt)
 	{  
 		var statusCode=1;
+		var msg="开启成功"
 		if(opt=="close"){
 			statusCode=0;
+			msg="关闭成功"
 		}
 		var dataJson={
 				id:id,
 				status:statusCode 
 		}
 		sendPostRequestByJsonObj(
-		platformUrl.saveStandard, 
+		platformUrl.toggleStandard, 
 		dataJson,
 		function(data){ 
-			if(data.result.status=="OK"){
-				debugger;
-				 layer.msg("")	  
+			if(data.result.status=="OK"){ 
+				 layer.msg(msg)	  
 				$("#standard-table").bootstrapTable('refresh');
 				$("#popbg").remove();
 				$("#powindow").remove();
@@ -208,7 +211,11 @@ table th {
 					$("#viewNotes").show(); 
 					}
 				
-				$("#save_standard").click(function(){ 
+				$("#save_standard").click(function(){  
+					 var validate =$("#detail-form").validate().form();
+					if(!validate){
+						return;
+					}
 					var standardDetails=""; 
 					if($("#Viewtext").is(":hidden")){
 						standardDetails =$.trim(CKEDITOR.instances.viewNotes.getData());

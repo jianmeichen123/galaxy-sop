@@ -1365,6 +1365,7 @@ var platformUrl = {
     /**保存提示语标准**/
     saveStandard : Constants.sopEndpointURL + "/galaxy/standard/save",
     getStandard: Constants.sopEndpointURL + "/galaxy/standard/get", 
+    toggleStandard: Constants.sopEndpointURL + "/galaxy/standard/toggle",
     /**提示语信息**/
     fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode"
 }
