@@ -85,7 +85,7 @@
             var multiple = this.multiple ? ' show-tick' : '';
             var autofocus = this.autofocus ? ' autofocus' : '';
             var header = this.options.header ? '<div class="popover-title"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
-            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /></div>' : '';
+            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /><span class="close_selectpicker"></span></div>' : '';
             var drop =
                 '<div class="btn-group bootstrap-select' + multiple + '">' +
                     '<button type="button" class="btn dropdown-toggle selectpicker" data-toggle="dropdown"'+ autofocus +'>' +
@@ -846,7 +846,7 @@
         title: null,
         selectedTextFormat : 'values',
         noneSelectedText : '请选择',
-        noneResultsText : 'No results match',
+        noneResultsText : '没有找到匹配的',
         countSelectedText: '{0} of {1} selected',
         width: false,
         container: false,
