@@ -846,7 +846,7 @@
         title: null,
         selectedTextFormat : 'values',
         noneSelectedText : '请选择',
-        noneResultsText : 'No results match',
+        noneResultsText : '没有找到匹配的',
         countSelectedText: '{0} of {1} selected',
         width: false,
         container: false,
