@@ -146,5 +146,30 @@ public class StandardController
 		}
 		return data;
 	}
+	@ApiOperation("开启/关闭")
+	@ApiImplicitParam(name="vo", value="需要设置id和status", dataTypeClass=Standard.class)
+	@RequestMapping(value = "/toggle", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<Standard> toggle(@RequestBody Standard vo)
+	{
+		ResponseData<Standard> data = new ResponseData<>();
+		try
+		{
+			Assert.notNull(vo,"信息不完整");
+			Standard entity = new Standard();
+			entity.setId(vo.getId());
+			entity.setStatus(vo.getStatus());;
+			entity.setUpdatedId(WebUtils.getUserFromSession().getId());
+			entity.setUpdatedTime(System.currentTimeMillis());
+			service.updateById(entity);
+		} catch (Exception e)
+		{
+			if (logger.isDebugEnabled())
+			{
+				logger.error(String.format("开启/关闭失败,Code:%s", vo), e);
+			}
+		}
+		return data;
+	}
 
 }
