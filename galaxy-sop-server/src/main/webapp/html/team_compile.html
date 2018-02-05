@@ -131,8 +131,14 @@
 			 url:url,
 			 dataType:'json',
 			 success:function(data){
-				var tips = data.entity.standardDetails;
-				$('.team').attr('title',tips)
+				 if(data.entity.status==1){
+					 	$('.team').show()
+					 	var tips = data.entity.standardDetails;
+						$('.team').attr('title',tips)
+				 }else{
+					 $('.team').hide()
+				 }
+				
 			 }
 		 }) 
   })

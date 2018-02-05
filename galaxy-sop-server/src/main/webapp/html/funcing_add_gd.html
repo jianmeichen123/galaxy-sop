@@ -96,8 +96,14 @@
       			 url:url,
       			 dataType:'json',
       			 success:function(data){
-      				var tips = data.entity.standardDetails;
-      				$('.shareHolder').attr('title',tips)
+      				 if(data.entity.status==1){
+      					$('.shareHolder').show()
+      					var tips = data.entity.standardDetails;
+          				$('.shareHolder').attr('title',tips)
+      				 }else{
+      					$('.shareHolder').hide()
+      				 }
+      				
       			 }
       		 }) 
         })

@@ -188,8 +188,14 @@ $(function(){
   			 url:url,
   			 dataType:'json',
   			 success:function(data){
-  				var tips = data.entity.standardDetails;
-  				$('.finaceHistory').attr('title',tips)
+  				 if(data.entity.status==1){
+  					$('.finaceHistory').show()
+  					var tips = data.entity.standardDetails;
+  	  				$('.finaceHistory').attr('title',tips)
+  				 }else{
+  					$('.finaceHistory').hide()
+  				 }
+  				
   			 }
   		 }) 
     })

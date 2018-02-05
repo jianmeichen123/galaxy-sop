@@ -683,8 +683,14 @@ createMenus(5);
 				 url:url,
 				 dataType:'json',
 				 success:function(data){
-					var tips = data.entity.standardDetails;
-					$('.legalPerson').attr('title',tips)
+					 if(data.entity.status==1){
+						 	$('.legalPerson').show();
+						 	var tips = data.entity.standardDetails;
+							$('.legalPerson').attr('title',tips)
+					 }else{
+						 $('.legalPerson').hide();
+					 }
+					
 				 }
 			 }) 
 	  })
@@ -697,8 +703,14 @@ createMenus(5);
 				 url:url,
 				 dataType:'json',
 				 success:function(data){
-					var tips = data.entity.standardDetails;
-					$('.finacePlan').attr('title',tips)
+					 if(data.entity.status==1){
+						 $('.finacePlan').show()
+						 	var tips = data.entity.standardDetails;
+							$('.finacePlan').attr('title',tips)
+					 }else{
+						 $('.finacePlan').hide()
+					 }
+					
 				 }
 			 }) 
 	  })
