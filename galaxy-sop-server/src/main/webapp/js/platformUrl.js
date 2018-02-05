@@ -1302,7 +1302,11 @@ var platformUrl = {
 		 *全局搜索
 		 */
 	 toVentrueProject: Constants.sopEndpointURL + "/galaxy/project/toVentrueProject/",  
-
+	 
+	 /**
+		 *项目承揽人下拉
+		 */
+	 searchCLR: Constants.platformEndpointURL + "/galaxy/user/searchCLR",  
 
 	/**
 	 * 高管报表----拜访管理
