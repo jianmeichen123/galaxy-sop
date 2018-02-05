@@ -1361,8 +1361,9 @@ var platformUrl = {
     saveDanaoProInfo : Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat",
     toAssignProject:   Constants.sopEndpointURL + "/galaxy/project/toAssignProject",
     searchProjectAssigin:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectAssigin",
-    searchProjectTansfer:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectTansfer"
-   
+    searchProjectTansfer:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectTansfer",
+    /**保存提示语标准**/
+    saveStandard : Constants.sopEndpointURL + "/galaxy/standard/save",
 }
 
 /**

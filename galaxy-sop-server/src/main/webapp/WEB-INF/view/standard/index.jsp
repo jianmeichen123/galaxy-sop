@@ -11,6 +11,7 @@
 <link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <jsp:include page="../common/taglib.jsp"></jsp:include>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <style>
@@ -125,10 +126,18 @@ table th {
 		{
 			action = 'open';
 			actionDesc = '开启';
-		}
+		} 
 		var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
-		content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
+
+		if(row.id==7){
+			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
+			
+		}else{
+			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
+			
+		}
 		content += '<label class="blue" data-btn="btn" onclick="toggleStandard('+row.id+',\''+action+'\')">'+actionDesc+'</label>';
+		
 		return content;
 		
 	}
@@ -144,6 +153,7 @@ table th {
 	function PopR(event, status) {
 		var that = $(event);
 		var tr = that.closest("tr");
+		var uniqueid=tr.data("uniqueid");
 		$.getHtml({
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
@@ -153,12 +163,36 @@ table th {
 				if (status == "e") {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);
-					$(".edit textarea").val(text);
+					$("#Viewtext").show().val(text);
 				} else if (status == "s") {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
 					$(".see dd[name='text']").text(text);
+				}else if(status=="edit"){
+					$(".edit").show();
+					$(".edit dd[name='name']").text(name);
+					$("#viewNotes").show();
+					//ckeditor实例化
+					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 				}
+
+				$("#save_standard").click(function(){ 
+					var dataJson={
+							id:uniqueid,
+							standardDetails:$(".form_textarea textarea").val()
+					}
+					sendPostRequestByJsonObj(
+					platformUrl.saveStandard, 
+					dataJson,
+					function(data){ 
+						if(data.result.status=="OK"){
+							 layer.msg("保存成功")	  
+							$("#standard-table").bootstrapTable('refresh');
+							$("#popbg").remove();
+							$("#powindow").remove();
+						}
+					 })
+				})
 			}
 		})
 	}
