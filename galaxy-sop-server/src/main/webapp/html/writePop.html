@@ -35,10 +35,11 @@
 .save_button a{
 	background:#eef6fc;
 }
-label.error{
+dd label.error{
 	width: 100%;
 	background: none;
 	padding:0;
+	font-family:Miscrosoft Yahei !important;
 }
 </style>  
 <body>
@@ -57,7 +58,7 @@ label.error{
 						<dt>标准详情：</dt>
 						<dd name="text"> 
 							<textarea id="Viewtext" name="Viewtext" maxlength="50" data-rule-limit50=true required data-msg-required="<font color=red>*</font>标准详情不能为空"></textarea>
-							<textarea id="viewNotes" name="viewNotes" maxlength="50" required data-msg-required="<font color=red>*</font>标准详情不能为空"> </textarea> 
+							<textarea id="viewNotes" name="viewNotes"> </textarea> 
 	          				<span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
 						</dd>
 					</dl>

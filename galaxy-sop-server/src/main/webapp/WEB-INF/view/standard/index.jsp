@@ -219,6 +219,10 @@ table th {
 					var standardDetails=""; 
 					if($("#Viewtext").is(":hidden")){
 						standardDetails =$.trim(CKEDITOR.instances.viewNotes.getData());
+						if(!standardDetails){
+							 layer.msg("标准详情不能为空")	  
+							return;
+						}
 					}else{
 						standardDetails=$("#Viewtext").val();
 					}
