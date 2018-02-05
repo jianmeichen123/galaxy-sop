@@ -284,7 +284,7 @@ height:30px;
 padding-left:5px;
 box-sizing:border-box;
 }
-.close_selectpicker{
+.selectpickerGb{
 	position:absolute;
 	width:14px;
 	height:14px;
@@ -292,4 +292,8 @@ box-sizing:border-box;
 	top:50%;
 	right:14px;
 	transform:translateY(-50%);
+	z-index:9999;
+}
+ul.selectpicker{
+	overflow-x:hidden;
 }

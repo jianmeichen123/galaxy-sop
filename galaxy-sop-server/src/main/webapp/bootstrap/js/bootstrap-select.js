@@ -59,6 +59,7 @@
             this.$menu = this.$newElement.find('> .dropdown-menu');
             this.$button = this.$newElement.find('> button');
             this.$searchbox = this.$newElement.find('input');
+            this.$selectpickerGb = this.$newElement.find('.selectpickerGb');
 
             if (id !== undefined) {
                 this.$button.attr('data-id', id);
@@ -85,7 +86,7 @@
             var multiple = this.multiple ? ' show-tick' : '';
             var autofocus = this.autofocus ? ' autofocus' : '';
             var header = this.options.header ? '<div class="popover-title"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
-            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /><span class="close_selectpicker"></span></div>' : '';
+            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /><span class="selectpickerGb"></span></div>' : '';
             var drop =
                 '<div class="btn-group bootstrap-select' + multiple + '">' +
                     '<button type="button" class="btn dropdown-toggle selectpicker" data-toggle="dropdown"'+ autofocus +'>' +
@@ -559,11 +560,17 @@
             this.$menu.on('click', '.popover-title .close', function() {
                 that.$button.focus();
             });
-
+            
             this.$searchbox.on('click', function(e) {
                 e.stopPropagation();
             });
-
+            this.$selectpickerGb.on('click',function(e){   //添加关闭事件2018/02/05  lei
+            	 var that = this;
+            	 $(this).siblings('input').val('');
+            	 $('ul.selectpicker').find('li').show();
+            	e.stopPropagation();
+            })
+            
             this.$element.change(function() {
                 that.render(false);
             });
@@ -854,7 +861,7 @@
             return chain;
         }
     };
-
+    
     $.fn.selectpicker.defaults = {
         style: 'btn-default',
         size: 'auto',
