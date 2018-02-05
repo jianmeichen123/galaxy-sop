@@ -58,6 +58,7 @@
 $(function(){
 	//导航
 	createMenus(5);
+	$('#menus').find('li').removeClass('on');
 
 /* 导航切换 */
  $('.search-top ul li').click(function(){
