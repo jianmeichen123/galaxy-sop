@@ -319,7 +319,7 @@
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont" id='company-info-form'>
 					 <input type="hidden" name="id" value="${projectId }">
-					 <span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
+					 <span class="fr editTips legalPerson" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td>
@@ -674,6 +674,34 @@ createMenus(5);
 			$(".invest_institue").hide();
 		}
 	});
+	
+	  /* 提示信息  法人信息*/
+	  
+	  $('.legalPerson').mouseenter(function(){
+		  var url= platformUrl.fillStatus+'/4';
+		 $.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					var tips = data.entity.standardDetails;
+					$('.legalPerson').attr('title',tips)
+				 }
+			 }) 
+	  })
+	/*融资历史 提示  */
+	  $('.legalPerson').mouseenter(function(){
+		  var url= platformUrl.fillStatus+'/4';
+		 $.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					var tips = data.entity.standardDetails;
+					$('.legalPerson').attr('title',tips)
+				 }
+			 }) 
+	  })
 	
 	
 </script>
