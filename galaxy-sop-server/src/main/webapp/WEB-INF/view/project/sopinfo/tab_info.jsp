@@ -200,7 +200,7 @@
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划<em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
-						<span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
+						<span class="fr editTips finacePlan" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td class="million">
@@ -676,32 +676,33 @@ createMenus(5);
 	});
 	
 	  /* 提示信息  法人信息*/
+	  $('.legalPerson').mouseenter(function(){
+		  var url= platformUrl.fillStatus+'/4';
+		 $.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					var tips = data.entity.standardDetails;
+					$('.legalPerson').attr('title',tips)
+				 }
+			 }) 
+	  })
+
+	  /* 融资计划 */
+	  $('.finacePlan').mouseenter(function(){
+		  var url= platformUrl.fillStatus+'/2';
+		 $.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					var tips = data.entity.standardDetails;
+					$('.finacePlan').attr('title',tips)
+				 }
+			 }) 
+	  })
 	  
-	  $('.legalPerson').mouseenter(function(){
-		  var url= platformUrl.fillStatus+'/4';
-		 $.ajax({
-				 type:"get",
-				 url:url,
-				 dataType:'json',
-				 success:function(data){
-					var tips = data.entity.standardDetails;
-					$('.legalPerson').attr('title',tips)
-				 }
-			 }) 
-	  })
-	/*融资历史 提示  */
-	  $('.legalPerson').mouseenter(function(){
-		  var url= platformUrl.fillStatus+'/4';
-		 $.ajax({
-				 type:"get",
-				 url:url,
-				 dataType:'json',
-				 success:function(data){
-					var tips = data.entity.standardDetails;
-					$('.legalPerson').attr('title',tips)
-				 }
-			 }) 
-	  })
 	
 	
 </script>

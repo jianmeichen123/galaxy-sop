@@ -180,7 +180,7 @@ $(function(){
 	});
     
     
-    /* 提示信息 */
+    /* 提示信息  融资历史*/
     $('.finaceHistory').mouseenter(function(){
   	  var url= platformUrl.fillStatus+'/6';
   	 $.ajax({
