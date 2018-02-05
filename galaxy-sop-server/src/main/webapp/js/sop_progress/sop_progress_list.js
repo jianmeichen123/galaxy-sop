@@ -224,7 +224,6 @@
 						 }
 					 }) 
 			})
-			pleaseTips(8)
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
 			$(".tablink .icon").show();
