@@ -4617,3 +4617,9 @@ font-weight:bold;
 .dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
 	background:#e5f3ff;
 }  
+.h_edit input[type="text"].input-block-level{
+	margin:0;
+}
+.h_edit input[type="text"].input-block-level{
+	display:block;
+}
