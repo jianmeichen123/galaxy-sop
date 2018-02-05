@@ -201,7 +201,8 @@ table th {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
 					text = tr.find("td").eq(2).find("span").html();
-					$(".see dd[name='text']").html(text);
+					var str = "<blockquote class='intw_summary'>"+text+"</blockquote>"
+					$(".see dd[name='text']").html(str);
 				}else if(status=="edit"){
 					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'420px'});
 					$(".edit").show();
