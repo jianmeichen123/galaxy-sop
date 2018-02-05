@@ -252,7 +252,7 @@ $(function(){
 	 	 var data_list = data.entityList;
 	 	var res="";
 	 	 $.each(data_list,function(){	
-	 		 res+="<option value='"+this.id+"'>"+this.realName+'|'+this.departmentName+"</option>"
+	 		 res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
 		    } ); 
 				$("#selectRadio").html(res).show();
 
