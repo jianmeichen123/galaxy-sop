@@ -551,6 +551,7 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">	
+createMenus(5);
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
