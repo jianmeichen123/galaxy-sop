@@ -10,14 +10,14 @@
  	padding:20px 28px 20px 20px;
  }
 </style>
-<div class="bg">
-勝多負少
+<div class="bg" id="standard"> 
 </div>
 <script>
 var data ={
 		id:7
 }
-sendGetRequest(platformUrl.getStandardById,data, function(data){
-	debugger;
+sendGetRequest(platformUrl.getStandard+'/7',null, function(data){
+	var standHtml = data.entity.standardDetails;
+	$("#standard").html(standHtml);
 })
 </script>

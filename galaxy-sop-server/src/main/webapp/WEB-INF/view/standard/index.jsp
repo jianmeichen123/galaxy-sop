@@ -133,7 +133,7 @@ table th {
 			action = 'open';
 			actionDesc = '开启';
 		} 
-		if(row.id==7){
+		if(row.moduleCode==1){
 			var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'sE\')">查看</label>&nbsp;&nbsp;';
 			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
 			
