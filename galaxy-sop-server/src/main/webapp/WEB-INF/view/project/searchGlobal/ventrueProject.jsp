@@ -8,7 +8,7 @@
 
     <!--右中部内容-->
  		<div class='one pagination_common ventrueContent'>
-			<table id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" data-auth="isShow" class='createProject table table-hover' style="width:100%;">
+			<table data-striped='true' id='searchTable' data-url="<%=path %>/galaxy/infoDanao/queryXhtProjectPage" data-auth="isShow" class='createProject table table-hover' style="width:100%;">
 				<thead>
 					<th data-field="projectName" data-formatter="projectInfo">项目</th>
 					<th data-field="finance_status" data-formatter="financeStatusFormat">融资状态</th>
@@ -65,6 +65,7 @@ $(function(){
 		sortOrder : 'desc',
 		sortName : 'updated_time',
 		sidePagination:'server',
+		striped:true,
 		//queryParams:queryParams,
 		//返回附带参数功能代码
          queryParams : function(param){
