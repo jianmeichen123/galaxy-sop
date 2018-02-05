@@ -323,16 +323,18 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 * 获取项目承揽人下拉项
 	 * @version 2016-06-21
 	 */
-	 sendGetRequest(platformUrl.queryAllTitleValues+'NO1?reportType=4', null,CallBackE);
-function CallBackE(data){ 
-	var data_list = data.entity.childList[0].childList;
-	var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
-	var res="";
-	$.each(dataresu,function(){
-		res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
-	})
-	$("#selectRadio").html(res)
-	}
+	 sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+	 function CallBackE(data){ 
+		 console.log('9000000')
+		 console.log(data)
+	 	 var data_list = data.entityList;
+	 	//var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
+	 	var res="";
+	 	$.each(data_list,function(){
+	 		res+="<option value='"+this.id+"'>"+this.realName+'|'+this.departmentName+"</option>"
+	 	})
+	 	$("#selectRadio").html(res) 
+	 	}
 	 
 	 sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 	function CallBackB(data){ 
@@ -630,9 +632,9 @@ function CallBackE(data){
 							}
 							var num =data.pageList.total;
 							if(num==0||!num){
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+								//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 							}else{
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
+								//forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
 							} 
 						})
 						 } else {

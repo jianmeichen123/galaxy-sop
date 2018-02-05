@@ -232,7 +232,7 @@ $(function(){
 				});
 		    }
 		  //项目承揽人渲染器
-		    var dataresu =data.entity.childList.filter(function(val){return val.id=="7033"})[0];
+		    /*var dataresu =data.entity.childList.filter(function(val){return val.id=="7033"})[0];
 		    var res=""
 		    $.each(dataresu.valueList,function(){	
 		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
@@ -244,8 +244,26 @@ $(function(){
 	   			 dropupAuto:false
                });
 		    $("#selectRadio").css("display","block")
-		    selectRadio();
+		    selectRadio();*/
 		}
+	//项目承揽人下拉渲染
+	 sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+	 function CallBackE(data){ 
+	 	 var data_list = data.entityList;
+	 	var res="";
+	 	 $.each(data_list,function(){	
+	 		 res+="<option value='"+this.id+"'>"+this.realName+'|'+this.departmentName+"</option>"
+		    } ); 
+				$("#selectRadio").html(res).show();
+
+
+		    $('#selectRadio').selectpicker({
+	   			 dropupAuto:false
+            });
+		    $("#selectRadio").css("display","block")
+		    selectRadio();
+	 	}
+	 
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel").next('ul');
 		           _dom.html("");
