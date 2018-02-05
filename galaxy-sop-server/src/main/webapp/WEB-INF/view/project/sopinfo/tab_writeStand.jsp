@@ -14,5 +14,10 @@
 勝多負少
 </div>
 <script>
-
+var data ={
+		id:7
+}
+sendGetRequest(platformUrl.getStandardById,data, function(data){
+	debugger;
+})
 </script>

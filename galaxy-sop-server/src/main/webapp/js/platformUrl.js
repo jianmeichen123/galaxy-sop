@@ -1364,6 +1364,7 @@ var platformUrl = {
     searchProjectTansfer:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectTansfer",
     /**保存提示语标准**/
     saveStandard : Constants.sopEndpointURL + "/galaxy/standard/save",
+    getStandardById : Constants.sopEndpointURL + "/galaxy/standard/get", 
 }
 
 /**
