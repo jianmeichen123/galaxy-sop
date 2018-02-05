@@ -332,7 +332,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 		if(this.departmentName!=null){
 	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
 	 		}else{
-	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
 	 		}
 	 		
 	 	})

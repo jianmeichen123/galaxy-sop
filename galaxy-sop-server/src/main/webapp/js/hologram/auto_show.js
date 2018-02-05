@@ -550,7 +550,7 @@ function buildResultsDraft(sec,title,readonly)
 				 		if(this.departmentName!=null){
 				 			options+="<option value='"+this.id+"' data-title-id='1118' data-type='23'>"+this.realName+'|'+this.departmentName+"</option>"
 				 		}else{
-				 			options+="<option value='"+this.id+"' data-title-id='1118' data-type='23'>"+this.realName+"</option>"
+				 			options+="<option value='"+this.realName+"' data-title-id='1118' data-type='23'>"+this.realName+"</option>"
 				 		}
 				 		
 				 	})

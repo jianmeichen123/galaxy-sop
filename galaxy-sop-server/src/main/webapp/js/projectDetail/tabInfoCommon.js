@@ -133,11 +133,16 @@ $(function(){
 						
 						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("selected",true); 
 						$.each($("ul.selectpicker li"),function(){ 
-							var that2=$(this);							
-							var spanValue = that2.find("span").attr("data-value");							
+							var that2=$(this);	
+							var spanValue = that2.find("span").attr("data-value");	
 							if(that.contentChoose==spanValue){ 
 								var n=that2.find("span").text().indexOf('|');
-								valueL+=that2.find("span").text().substring(0,n)+"、";
+								if(n=='-1'){
+									valueL+=that2.find("span").text()+"、";
+								}else{
+									valueL+=that2.find("span").text().substring(0,n)+"、";
+								}
+								console.log(valueL)
 								//valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
 								if(that2.text()=="非投资线员工"){
@@ -262,7 +267,7 @@ $(function(){
 	 		if(this.departmentName!=null){
 	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
 	 		}else{
-	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
 	 		}
 	 		 
 		    } ); 

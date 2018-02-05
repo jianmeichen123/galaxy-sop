@@ -248,10 +248,16 @@
             this.$newElement.find('.filter-option').html(title);*/
             //项目承揽人去掉部门
             var _title=title.split('、');
+            console.log(_title)
             var arr=[];
             for(var i=0;i<_title.length;i++){
             	var n=_title[i].indexOf('|');
-            	arr.push(_title[i].substring(0,n));
+            	if(n=="-1"){
+            		arr.push(_title[i]);
+            	}else{
+            		arr.push(_title[i].substring(0,n));
+            	}
+            	
             }
           //项目承揽人去掉部门
             this.$button.attr('title', $.trim(arr.join('、')));
