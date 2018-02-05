@@ -8,6 +8,7 @@
  .bg{
  	background:#fff;
  	padding:20px 28px 20px 20px;
+ 	min-height:200px;
  }
 </style>
 <div class="bg" id="standard"> 
