@@ -13,3 +13,6 @@
 <div class="bg">
 勝多負少
 </div>
+<script>
+
+</script>

@@ -11,7 +11,6 @@
 <link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <jsp:include page="../common/taglib.jsp"></jsp:include>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <style>
@@ -44,6 +43,7 @@
 table {
 	width: 100%;
 	margin-top: 20px;
+	table-layout: fixed;
 }
 
 table td, table th {
@@ -56,6 +56,11 @@ table th {
 	font-size: 14px;
 	color: #5a626d;
 	font-weight: bold;
+} 
+.table_new_style td{
+	overflow:hidden;
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
 }
 </style>
 </head>
@@ -87,8 +92,10 @@ table th {
 <jsp:include page="../common/uploadwin.jsp"></jsp:include>
 
 </html>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script>
 	createMenus(5);
+	
 	$table = $("#standard-table").bootstrapTable({
 		queryParamsType : 'size|page',
 		pageSize : 10,
@@ -108,10 +115,9 @@ table th {
 	function detailFormatter(value, row, index)
 	{
 		if(value)
-		{
-			if(value.length>40)
-			{
-				return '<span title="'+value+'">'+value.substring(0,40)+'...</span>';
+		{ 
+			if(row.id==7){
+				value="<span style=\"display:none;\">"+value+"</span>"+value.replace(/<[^>]+>/g,""); 
 			}
 			return value;
 		}
@@ -127,12 +133,12 @@ table th {
 			action = 'open';
 			actionDesc = '开启';
 		} 
-		var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
-
 		if(row.id==7){
+			var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'sE\')">查看</label>&nbsp;&nbsp;';
 			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
 			
 		}else{
+			var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
 			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
 			
 		}
@@ -160,6 +166,7 @@ table th {
 			okback : function() {
 				var name = tr.find("td:first").text();
 				var text = tr.find("td").eq(2).text();
+				var standardDetails="";
 				if (status == "e") {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);
@@ -168,18 +175,30 @@ table th {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
 					$(".see dd[name='text']").text(text);
+				}else if (status == "sE") {
+					$(".see").show();
+					$(".see dd[name='name']").text(name);
+					text = tr.find("td").eq(2).find("span").html();
+					$(".see dd[name='text']").html(text);
 				}else if(status=="edit"){
+					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'420px'});
 					$(".edit").show();
-					$(".edit dd[name='name']").text(name);
-					$("#viewNotes").show();
-					//ckeditor实例化
-					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
-				}
-
+					$(".edit dd[name='name']").text(name); 
+					text = tr.find("td").eq(2).find("span").html();
+					$("#viewNotes").html(text)
+					$("#viewNotes").show(); 
+					}
+				
 				$("#save_standard").click(function(){ 
+					var standardDetails=""; 
+					if($("#Viewtext").is(":hidden")){
+						standardDetails =$.trim(CKEDITOR.instances.viewNotes.getData());
+					}else{
+						standardDetails=$("#Viewtext").val();
+					}
 					var dataJson={
 							id:uniqueid,
-							standardDetails:$(".form_textarea textarea").val()
+							standardDetails:standardDetails 
 					}
 					sendPostRequestByJsonObj(
 					platformUrl.saveStandard, 
