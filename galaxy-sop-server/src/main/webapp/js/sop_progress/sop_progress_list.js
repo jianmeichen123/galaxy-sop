@@ -152,7 +152,21 @@
 		}
 	}
 	
-
+	function pleaseAjax(url){
+		 $.ajax({
+			 type:"get",
+			 url:url,
+			 dataType:'json',
+			 success:function(data){
+				 if(data.entity.status==1){
+						 var tips = data.entity.standardDetails;
+						$('.setlXH').attr('title',tips)
+				 }else{
+					 $('.setlXH').hide()
+				 }
+			 }
+		 }) 
+	}
 	
 	//阶段加载
 	function goToProgress(){		
@@ -178,20 +192,7 @@
 		}else if(i==4){
 			$('.setlXH').mouseenter(function(){
 				  var url= platformUrl.fillStatus+'/7';
-				  console.log(url)
-				 $.ajax({
-						 type:"get",
-						 url:url,
-						 dataType:'json',
-						 success:function(data){
-							 if(data.entity.status==1){
-									 var tips = data.entity.standardDetails;
-									$('.setlXH').attr('title',tips)
-							 }else{
-								 $('.setlXH').hide()
-							 }
-						 }
-					 }) 
+				  pleaseAjax(url)
 			})
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
@@ -209,20 +210,7 @@
 		}else if(i==6){
 			$('.setlXH').mouseenter(function(){
 				  var url= platformUrl.fillStatus+'/8';
-				  console.log(url)
-				 $.ajax({
-						 type:"get",
-						 url:url,
-						 dataType:'json',
-						 success:function(data){
-							 if(data.entity.status==1){
-									 var tips = data.entity.standardDetails;
-									$('.setlXH').attr('title',tips)
-							 }else{
-								 $('.setlXH').hide()
-							 }
-						 }
-					 }) 
+				  pleaseAjax(url)
 			})
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
@@ -232,20 +220,7 @@
 		}else if(i==7){
 			$('.setlXH').mouseenter(function(){
 				  var url= platformUrl.fillStatus+'/9';
-				  console.log(url)
-				 $.ajax({
-						 type:"get",
-						 url:url,
-						 dataType:'json',
-						 success:function(data){
-							 if(data.entity.status==1){
-									 var tips = data.entity.standardDetails;
-									$('.setlXH').attr('title',tips)
-							 }else{
-								 $('.setlXH').hide()
-							 }
-						 }
-					 }) 
+				  pleaseAjax(url) 
 			})
 			$(".tabtitle h3").text("尽职调查");
 			$(".tablink .icon").show();
@@ -262,20 +237,7 @@
 		}else if(i==9){
 			$('.setlXH').mouseenter(function(){
 				  var url= platformUrl.fillStatus+'/10';
-				  console.log(url)
-				 $.ajax({
-						 type:"get",
-						 url:url,
-						 dataType:'json',
-						 success:function(data){
-							 if(data.entity.status==1){
-									 var tips = data.entity.standardDetails;
-									$('.setlXH').attr('title',tips)
-							 }else{
-								 $('.setlXH').hide()
-							 }
-						 }
-					 }) 
+				  pleaseAjax(url) 
 			})
 			$(".tabtitle h3").text("投资协议");
 			$(".tablink .icon").show();
@@ -286,20 +248,7 @@
 		}else if(i==10){
 			$('.setlXH').mouseenter(function(){
 				  var url= platformUrl.fillStatus+'/11';
-				  console.log(url)
-				 $.ajax({
-						 type:"get",
-						 url:url,
-						 dataType:'json',
-						 success:function(data){
-							 if(data.entity.status==1){
-									 var tips = data.entity.standardDetails;
-									$('.setlXH').attr('title',tips)
-							 }else{
-								 $('.setlXH').hide()
-							 }
-						 }
-					 }) 
+				  pleaseAjax(url)
 			})
 			$(".tabtitle h3").text("股权交割");
 			$(".tablink .icon").show();
