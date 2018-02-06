@@ -941,7 +941,7 @@ function draftbox(sec){
 		if(_tochange=='true'){
 			auto_save(sec);
 		}
-	},3000) 
+	},60000) 
 	if($('.history_block .btn').is(':visible')){   //点击恢复
 		$('.history_block .btn').click(function(){
 			sec.showResultsDrafts(null,'result');
