@@ -1289,7 +1289,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				{
 					if(dict != null )
 					{
-						item.setValueName(dict.get(Long.parseLong(item.getContentChoose())));
+						if(NumberUtils.isNumber(item.getContentChoose())){
+							if(("1118").equals(item.getTitleId())) //项目承揽人
+							{
+								item.setValueId(Long.parseLong(item.getContentChoose()));
+								item.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getContentChoose(), "realName"));
+							}else{
+								item.setValueId(Long.parseLong(item.getContentChoose()));
+								item.setValueName(dict.get(item.getValueId()));
+							}
+						}else{
+							//isr.setValueId(aresult.getContentChoose());
+							item.setValueName(item.getContentChoose());
+						}
 					}
 				}
 				String titleId = item.getTitleId()+"";
