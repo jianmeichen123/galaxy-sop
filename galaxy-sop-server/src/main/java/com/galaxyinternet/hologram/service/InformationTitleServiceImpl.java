@@ -407,14 +407,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
 
-				if(aresult.getContentChoose() != null && NumberUtils.isNumber(aresult.getContentChoose()) ){
-					if(("1118").equals(aresult.getTitleId())) //项目承揽人
-					{
-						isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-						isr.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+aresult.getContentChoose(), "realName"));
+				if(aresult.getContentChoose() != null){
+					if(NumberUtils.isNumber(aresult.getContentChoose())){
+						if(("1118").equals(aresult.getTitleId())) //项目承揽人
+						{
+							isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+							isr.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+aresult.getContentChoose(), "realName"));
+						}else{
+							isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+							isr.setValueName(dict.get(isr.getValueId()));
+						}
 					}else{
-						isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-						isr.setValueName(dict.get(isr.getValueId()));
+						//isr.setValueId(aresult.getContentChoose());
+						isr.setValueName(aresult.getContentChoose());
 					}
 				}
 
