@@ -25,7 +25,6 @@ import com.galaxyinternet.mongodb.model.InformationModelMG;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
 import com.galaxyinternet.mongodb.model.TableModelMG;
 import com.galaxyinternet.platform.constant.PlatformConst;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -81,8 +80,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity = new InformationResultMG();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			//项目融资状态（阶段）可以为文本(尚未获投/不明确)
-			if (!StringEx.isNullOrEmpty(model.getValue()) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))) {
+			//项目融资状态（阶段）可以为文本(尚未获投/不明确) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))
+			if (!StringEx.isNullOrEmpty(model.getValue()) ) {
 				entity.setContentChoose(model.getValue());
 			}
 			if (!StringEx.isNullOrEmpty(model.getRemark1())) {
