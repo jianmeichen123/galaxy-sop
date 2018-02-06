@@ -4622,5 +4622,5 @@ font-weight:bold;
 	margin:0;
 }
 .h_edit input[type="text"].input-block-level{
-	display:block;
+	display:block !important;
 }
