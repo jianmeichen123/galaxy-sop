@@ -4616,6 +4616,7 @@ font-weight:bold;
 .img_content_new{display:none;min-height:390px;}
 .dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
 	background:#e5f3ff;
+	border-bottom:1px solid #fff;
 }  
 .h_edit input[type="text"].input-block-level{
 	margin:0;

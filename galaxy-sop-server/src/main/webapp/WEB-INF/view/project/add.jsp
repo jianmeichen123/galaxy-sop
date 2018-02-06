@@ -330,7 +330,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 	var res="";
 	 	$.each(data_list,function(){
 	 		if(this.departmentName!=null){
-	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
 	 		}else{
 	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
 	 		}
@@ -338,7 +338,11 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 	})
 	 	$("#selectRadio").html(res) 
 	 	}
-	 
+	 $('.dropdown-menu').delegate('li','click',function(){
+		 alert('0000')
+	 })
+
+
 	 sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 	function CallBackB(data){ 
 	    var _dom=$("select[name='financeStatus']");

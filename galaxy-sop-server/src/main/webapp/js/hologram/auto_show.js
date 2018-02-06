@@ -548,7 +548,7 @@ function buildResultsDraft(sec,title,readonly)
 				 var data_list = data.entityList;
 				 	$.each(data_list,function(){
 				 		if(this.departmentName!=null){
-				 			options+="<option value='"+this.id+"' data-title-id='1118' data-type='23'>"+this.realName+'|'+this.departmentName+"</option>"
+				 			options+="<option value='"+this.id+"' data-title-id='1118' data-type='23'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
 				 		}else{
 				 			options+="<option value='"+this.realName+"' data-title-id='1118' data-type='23'>"+this.realName+"</option>"
 				 		}
@@ -941,7 +941,7 @@ function draftbox(sec){
 		if(_tochange=='true'){
 			auto_save(sec);
 		}
-	},60000) 
+	},3000) 
 	if($('.history_block .btn').is(':visible')){   //点击恢复
 		$('.history_block .btn').click(function(){
 			sec.showResultsDrafts(null,'result');

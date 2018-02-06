@@ -406,20 +406,16 @@ function one_select_edit(title,inputtype,type){
 				$.each(data_list,function(i,o){
 					var _id=o.id;
 					if(_id!=null){
-						if(_id!=null && idArr.indexOf(_id.toString())>-1){
-							if(o.departmentName!=null){
-								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'|'+o.departmentName+"</option>"
-							}else{
-								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+"</option>"
-							}
-							
+						if(idArr.indexOf(_id.toString())>-1){
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
 						}else{
-							if(o.departmentName!=null){
-								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'|'+o.departmentName+"</option>"
-							}else{
-								li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+"</option>"
-							}
-							
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
+						}
+					}else{
+						if(idArr.indexOf('非投资线员工')>-1){
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.realName+"' selected=\"selected\">"+o.realName+"</option>"
+						}else{
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.realName+"'>"+o.realName+"</option>"
 						}
 					}
 			 	})

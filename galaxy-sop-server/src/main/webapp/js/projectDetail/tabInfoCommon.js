@@ -130,11 +130,12 @@ $(function(){
 					var valueL="";
 					$.each(projectInfoDetail.listInfoTitle.resultList,function(){ 
 						var that=$(this)[0];
-						
+						console.log(projectInfoDetail.listInfoTitle.resultList);
 						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("selected",true); 
 						$.each($("ul.selectpicker li"),function(){ 
 							var that2=$(this);	
 							var spanValue = that2.find("span").attr("data-value");	
+							
 							if(that.contentChoose==spanValue){ 
 								var n=that2.find("span").text().indexOf('|');
 								if(n=='-1'){
@@ -265,7 +266,7 @@ $(function(){
 	 	var res="";
 	 	 $.each(data_list,function(){	
 	 		if(this.departmentName!=null){
-	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'|'+this.departmentName+"</option>"
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
 	 		}else{
 	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
 	 		}
