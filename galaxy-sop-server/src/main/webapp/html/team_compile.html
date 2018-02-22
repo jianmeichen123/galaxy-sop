@@ -106,7 +106,7 @@
     }, "手机格式不对");
     //验证手机号
     jQuery.validator.addMethod("wechat", function (value, element) {
-      var wechat = /^[a-zA-Z0-9_-]{0,20}$/;
+      var wechat = /^[a-z|A-Z|0-9|_|-]{0,20}$/;
    	return this.optional(element) || (wechat.test(value));
     }, "允许输入字母、数字、下划线和减号");
   //职位选择其他
