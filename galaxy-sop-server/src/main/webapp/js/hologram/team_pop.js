@@ -45,10 +45,12 @@ function showMemberRow(ele){
     					ele.text(map_sex[row.data(name)]);
                     }else if(name=="field4"){
                     	$("#phone").css("display","block")
-                    	ele.text("手机号:"+row.data(name)==undefined?"":row.data(name));
+                    	 var val=row.data(name)==undefined?"":row.data(name);
+                    	ele.text("手机号:"+val);
                     }else if(name=="field6"){
                     	$("#wechat").css("display","block")
-                    	ele.text("微信号:"+row.data(name)==undefined?"":row.data(name));
+                    	 var val=row.data(name)==undefined?"":row.data(name);
+                    	ele.text("微信号:"+val);
                     }else{
                     	ele.text(row.data(name));
                     }
