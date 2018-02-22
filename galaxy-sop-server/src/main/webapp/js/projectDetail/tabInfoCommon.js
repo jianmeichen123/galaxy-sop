@@ -116,11 +116,10 @@ $(function(){
 				//数据互通加的resultID
 				var reportly = reportResult[0].childList.filter(function(val){return val.titleId=="1120"})[0].resultId; 
 				$("input[data-title-id=1120]").attr("data-result-id",reportly);
-				var reportSelect = reportResult[0].childList.filter(function (val){return val.titleId=="1118"});
+				/*var reportSelect = reportResult[0].childList.filter(function (val){return val.titleId=="1118"});
 				$.each(reportSelect,function(){
-					 
 					$("select#selectRadio").find("option[value="+$(this).value+"]").attr("data-result-id",$(this).resultId)
-				})
+				})*/
 				
 				//项目承揽人 
 				var clPerson=projectInfoDetail.listInfoTitle; 
@@ -130,8 +129,8 @@ $(function(){
 					var valueL="";
 					$.each(projectInfoDetail.listInfoTitle.resultList,function(){ 
 						var that=$(this)[0];
-						console.log(projectInfoDetail.listInfoTitle.resultList);
 						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("selected",true); 
+						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("data-result-id",that.id);
 						$.each($("ul.selectpicker li"),function(){ 
 							var that2=$(this);	
 							var spanValue = that2.find("span").attr("data-value");	
