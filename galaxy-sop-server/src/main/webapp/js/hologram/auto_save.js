@@ -306,7 +306,6 @@ setInterval(function(){    //定时保存
 								value : valu
 							};
 						if(remark==true){
-							debugger;
 							infoMode.remark1=rvalue;
 						}
 					infoModeList.push(infoMode);
