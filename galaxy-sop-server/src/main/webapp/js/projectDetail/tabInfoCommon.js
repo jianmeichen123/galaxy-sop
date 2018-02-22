@@ -116,11 +116,10 @@ $(function(){
 				//数据互通加的resultID
 				var reportly = reportResult[0].childList.filter(function(val){return val.titleId=="1120"})[0].resultId; 
 				$("input[data-title-id=1120]").attr("data-result-id",reportly);
-				var reportSelect = reportResult[0].childList.filter(function (val){return val.titleId=="1118"});
+				/*var reportSelect = reportResult[0].childList.filter(function (val){return val.titleId=="1118"});
 				$.each(reportSelect,function(){
-					 
 					$("select#selectRadio").find("option[value="+$(this).value+"]").attr("data-result-id",$(this).resultId)
-				})
+				})*/
 				
 				//项目承揽人 
 				var clPerson=projectInfoDetail.listInfoTitle; 
@@ -130,13 +129,21 @@ $(function(){
 					var valueL="";
 					$.each(projectInfoDetail.listInfoTitle.resultList,function(){ 
 						var that=$(this)[0];
-						
 						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("selected",true); 
+						$("#selectRadio").find("option[value="+that.contentChoose+"]").attr("data-result-id",that.id);
 						$.each($("ul.selectpicker li"),function(){ 
-							var that2=$(this);							
-							var spanValue = that2.find("span").attr("data-value");							
+							var that2=$(this);	
+							var spanValue = that2.find("span").attr("data-value");	
+							
 							if(that.contentChoose==spanValue){ 
-								valueL+=that2.find("span").text()+"、";
+								var n=that2.find("span").text().indexOf('|');
+								if(n=='-1'){
+									valueL+=that2.find("span").text()+"、";
+								}else{
+									valueL+=that2.find("span").text().substring(0,n)+"、";
+								}
+								console.log(valueL)
+								//valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
 								if(that2.text()=="非投资线员工"){
 									$(".addpro-input").show().val(that.contentDescribe1).attr("ovalue",that2.find("span").data("value"));
@@ -146,6 +153,11 @@ $(function(){
 						}) 
 					}) 
 					valueL=valueL.substring(0,valueL.length-1);
+					/*var _title=title.split('、');
+		            for(var i=0;i<_title.length;i++){
+		            	var n=_title[i].indexOf('|');
+		            	arr.push(_title[i].substring(0,n));
+		            }*/
 					$("button.selectpicker ").attr("title",valueL);
 					$("button.selectpicker span").text(valueL)
 					$('#selectRadio').selectpicker({
@@ -232,7 +244,7 @@ $(function(){
 				});
 		    }
 		  //项目承揽人渲染器
-		    var dataresu =data.entity.childList.filter(function(val){return val.id=="7033"})[0];
+		    /*var dataresu =data.entity.childList.filter(function(val){return val.id=="7033"})[0];
 		    var res=""
 		    $.each(dataresu.valueList,function(){	
 		    	res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
@@ -244,8 +256,31 @@ $(function(){
 	   			 dropupAuto:false
                });
 		    $("#selectRadio").css("display","block")
-		    selectRadio();
+		    selectRadio();*/
 		}
+	//项目承揽人下拉渲染
+	 sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+	 function CallBackE(data){ 
+	 	 var data_list = data.entityList;
+	 	var res="";
+	 	 $.each(data_list,function(){	
+	 		if(this.departmentName!=null){
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+	 		}else{
+	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+	 		}
+	 		 
+		    } ); 
+				$("#selectRadio").html(res).show();
+
+
+		    $('#selectRadio').selectpicker({
+	   			 dropupAuto:false
+            });
+		    $("#selectRadio").css("display","block")
+		    selectRadio();
+	 	}
+	 
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel").next('ul');
 		           _dom.html("");

@@ -7,8 +7,7 @@
     padding-left: 20px;
     width: 45%;
 }
- </style>
-<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
+ </style> 
 <div class="ritmin bigPop DN_list">
 	<div class="infoTop infoTopS clearfix">
 	<!--1是页面  0是弹窗  -->

@@ -43,6 +43,7 @@
 table {
 	width: 100%;
 	margin-top: 20px;
+	table-layout: fixed;
 }
 
 table td, table th {
@@ -55,6 +56,11 @@ table th {
 	font-size: 14px;
 	color: #5a626d;
 	font-weight: bold;
+} 
+.table_new_style td{
+	overflow:hidden;
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
 }
 </style>
 </head>
@@ -86,8 +92,12 @@ table th {
 <jsp:include page="../common/uploadwin.jsp"></jsp:include>
 
 </html>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script>
 	createMenus(5);
+	
 	$table = $("#standard-table").bootstrapTable({
 		queryParamsType : 'size|page',
 		pageSize : 10,
@@ -107,10 +117,9 @@ table th {
 	function detailFormatter(value, row, index)
 	{
 		if(value)
-		{
-			if(value.length>40)
-			{
-				return '<span title="'+value+'">'+value.substring(0,40)+'...</span>';
+		{ 
+			if(row.id==7){
+				value="<span style=\"display:none;\">"+value+"</span>"+value.replace(/<[^>]+>/g,""); 
 			}
 			return value;
 		}
@@ -125,42 +134,115 @@ table th {
 		{
 			action = 'open';
 			actionDesc = '开启';
+		} 
+		if(row.moduleCode==1){
+			var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'sE\')">查看</label>&nbsp;&nbsp;';
+			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
+			
+		}else{
+			var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
+			content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
+			
 		}
-		var content = '<label class="blue" data-btn="btn" onclick="showDetail('+row.id+',\'view\')">查看</label>&nbsp;&nbsp;';
-		content += '<label class="blue" data-btn="btn" onclick="showDetail('+row.id+',\'edit\')">编辑</label>&nbsp;&nbsp;';
 		content += '<label class="blue" data-btn="btn" onclick="toggleStandard('+row.id+',\''+action+'\')">'+actionDesc+'</label>';
+		
 		return content;
 		
 	}
-	function showDetail(index, opt)
+	/* function showDetail(index, opt)
 	{
-		var row = $table.bootstrapTable('getRowByUniqueId',index);
-		console.log(row);
+		var row = $table.bootstrapTable('getRowByUniqueId',index); 
 	}
-	function toggleStandard(id,opt)
-	{
-		var row = $("#standard-table").bootstrapTable('getRowByUniqueId',index);
-		console.log(row);
-	}
+	*/function toggleStandard(id,opt)
+	{  
+		var statusCode=1;
+		var msg="开启成功"
+		if(opt=="close"){
+			statusCode=0;
+			msg="关闭成功"
+		}
+		var dataJson={
+				id:id,
+				status:statusCode 
+		}
+		sendPostRequestByJsonObj(
+		platformUrl.toggleStandard, 
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){ 
+				 layer.msg(msg)	  
+				$("#standard-table").bootstrapTable('refresh');
+				$("#popbg").remove();
+				$("#powindow").remove();
+			}
+		 })
+	} 
 	
 	function PopR(event, status) {
 		var that = $(event);
 		var tr = that.closest("tr");
+		var uniqueid=tr.data("uniqueid");
 		$.getHtml({
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
 			okback : function() {
-				var name = tr.find("td[name='filed1']").text();
-				var text = tr.find("td[name='filed3']").text();
+				var name = tr.find("td:first").text();
+				var text = tr.find("td").eq(2).text();
+				var standardDetails="";
 				if (status == "e") {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);
-					$(".edit textarea").val(text);
+					$("#Viewtext").show().val(text);
 				} else if (status == "s") {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
 					$(".see dd[name='text']").text(text);
-				}
+				}else if (status == "sE") {
+					$(".see").show();
+					$(".see dd[name='name']").text(name);
+					text = tr.find("td").eq(2).find("span").html();
+					var str = "<blockquote class='intw_summary'>"+text+"</blockquote>"
+					$(".see dd[name='text']").html(str);
+				}else if(status=="edit"){
+					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'420px'});
+					$(".edit").show();
+					$(".edit dd[name='name']").text(name); 
+					text = tr.find("td").eq(2).find("span").html();
+					$("#viewNotes").html(text)
+					$("#viewNotes").show(); 
+					}
+				
+				$("#save_standard").click(function(){  
+					 var validate =$("#detail-form").validate().form();
+					if(!validate){
+						return;
+					}
+					var standardDetails=""; 
+					if($("#Viewtext").is(":hidden")){
+						standardDetails =$.trim(CKEDITOR.instances.viewNotes.getData());
+						if(!standardDetails){
+							 layer.msg("标准详情不能为空")	  
+							return;
+						}
+					}else{
+						standardDetails=$("#Viewtext").val();
+					}
+					var dataJson={
+							id:uniqueid,
+							standardDetails:standardDetails 
+					}
+					sendPostRequestByJsonObj(
+					platformUrl.saveStandard, 
+					dataJson,
+					function(data){ 
+						if(data.result.status=="OK"){
+							 layer.msg("保存成功")	  
+							$("#standard-table").bootstrapTable('refresh');
+							$("#popbg").remove();
+							$("#powindow").remove();
+						}
+					 })
+				})
 			}
 		})
 	}

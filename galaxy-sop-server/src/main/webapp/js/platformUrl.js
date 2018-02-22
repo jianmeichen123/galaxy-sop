@@ -1302,7 +1302,11 @@ var platformUrl = {
 		 *全局搜索
 		 */
 	 toVentrueProject: Constants.sopEndpointURL + "/galaxy/project/toVentrueProject/",  
-
+	 
+	 /**
+		 *项目承揽人下拉
+		 */
+	 searchCLR: Constants.platformEndpointURL + "/galaxy/user/searchCLR",  
 
 	/**
 	 * 高管报表----拜访管理
@@ -1357,8 +1361,13 @@ var platformUrl = {
     saveDanaoProInfo : Constants.sopEndpointURL + "/galaxy/infoDanao/saveConstat",
     toAssignProject:   Constants.sopEndpointURL + "/galaxy/project/toAssignProject",
     searchProjectAssigin:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectAssigin",
-    searchProjectTansfer:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectTansfer"
-   
+    searchProjectTansfer:   Constants.sopEndpointURL + "/galaxy/projectTransfer/searchProjectTansfer",
+    /**保存提示语标准**/
+    saveStandard : Constants.sopEndpointURL + "/galaxy/standard/save",
+    getStandard: Constants.sopEndpointURL + "/galaxy/standard/get", 
+    toggleStandard: Constants.sopEndpointURL + "/galaxy/standard/toggle",
+    /**提示语信息**/
+    fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode"
 }
 
 /**

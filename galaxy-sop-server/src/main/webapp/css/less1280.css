@@ -96,4 +96,4 @@ li[data-type="feedback"] span .sj{
   top:24px;
   left:25px;
   }
-.pagebox .lft li[data-type="feedback"]:hover span{display:block}
+.pagebox .lft li[data-type="feedback"] img:hover + span{display:block}

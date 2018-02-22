@@ -323,17 +323,26 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	 * 获取项目承揽人下拉项
 	 * @version 2016-06-21
 	 */
-	 sendGetRequest(platformUrl.queryAllTitleValues+'NO1?reportType=4', null,CallBackE);
-function CallBackE(data){ 
-	var data_list = data.entity.childList[0].childList;
-	var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
-	var res="";
-	$.each(dataresu,function(){
-		res+="<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>"
-	})
-	$("#selectRadio").html(res)
-	}
-	 
+	 sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+	 function CallBackE(data){ 
+	 	 var data_list = data.entityList;
+	 	//var dataresu =data_list.filter(function(val){return val.id=="1118"})[0].valueList;
+	 	var res="";
+	 	$.each(data_list,function(){
+	 		if(this.departmentName!=null){
+	 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+	 		}else{
+	 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+	 		}
+	 		
+	 	})
+	 	$("#selectRadio").html(res) 
+	 	}
+	 $('.dropdown-menu').delegate('li','click',function(){
+		 alert('0000')
+	 })
+
+
 	 sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 	function CallBackB(data){ 
 	    var _dom=$("select[name='financeStatus']");

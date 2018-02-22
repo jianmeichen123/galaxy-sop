@@ -1,21 +1,5 @@
 package com.galaxyinternet.mongodb.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
@@ -40,6 +24,22 @@ import com.galaxyinternet.mongodb.model.InformationListdataMG;
 import com.galaxyinternet.mongodb.model.InformationModelMG;
 import com.galaxyinternet.mongodb.model.InformationResultMG;
 import com.galaxyinternet.mongodb.model.TableModelMG;
+import com.galaxyinternet.platform.constant.PlatformConst;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service("com.galaxyinternet.mongodb.service.InformationMGService")
 public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>implements InformationMGService {
@@ -80,8 +80,8 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 			entity = new InformationResultMG();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			//项目融资状态（阶段）可以为文本(尚未获投/不明确)
-			if (!StringEx.isNullOrEmpty(model.getValue()) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))) {
+			//项目融资状态（阶段）可以为文本(尚未获投/不明确) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))
+			if (!StringEx.isNullOrEmpty(model.getValue()) ) {
 				entity.setContentChoose(model.getValue());
 			}
 			if (!StringEx.isNullOrEmpty(model.getRemark1())) {
@@ -366,7 +366,16 @@ public class InformationMGServiceImpl extends BaseServiceImpl<InformationDataMG>
 				{
 					if(dict != null)
 					{
-						item.setValueName(dict.get(Long.valueOf(item.getContentChoose())));
+
+						if( NumberUtils.isNumber(item.getContentChoose()) ){
+							if(("1118").equals(item.getTitleId())) //项目承揽人
+							{
+								item.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getContentChoose(), "realName"));
+							}else{
+								item.setValueName(dict.get(Long.valueOf(item.getContentChoose())));
+							}
+						}else
+							item.setValueName(item.getContentChoose());
 					}
 				}
 				title = titleMap.get(item.getTitleId());

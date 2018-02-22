@@ -64,7 +64,7 @@ public class TestController{
 	}
 	@RequestMapping(value = "/writePage")
 	public String platformTest12(HttpServletRequest request) {
-		return "write/writePage";
+		return "standard/index";
 	}
 	
 /*

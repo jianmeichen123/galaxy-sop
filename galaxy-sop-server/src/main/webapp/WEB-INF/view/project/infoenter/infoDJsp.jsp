@@ -25,7 +25,6 @@ background: url('<%=path %>/img/seven_report/myBlue.png') no-repeat -86px -5px;
 border: none;
 } 
 </style>
-<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <div class="ritmin bigPop DN_info">
 	<div class="infoTop clearfix">
 		<h5 style="background:none;">已选择项目“<span id="projectName"></span>”进行引用</h5>

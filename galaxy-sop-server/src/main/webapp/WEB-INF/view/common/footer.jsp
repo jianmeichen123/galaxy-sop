@@ -84,7 +84,7 @@ function createMenus(current){
 	   	 //星眸链接
 	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	//意见反馈
-	 	html += '<li data-type="feedback"><span>意见反馈<i class="sj"></i></span><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/></li>' 
+	 	html += '<li data-type="feedback"><img src="<%=request.getContextPath()%>/img/feedback.png" onclick="feedback();"/><span>意见反馈<i class="sj"></i></span></li>' 
 	  $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
@@ -95,7 +95,7 @@ function createMenus(current){
 
 //吐槽
 var _nickname=$('.man_info .name').text();
-var _src=window.location.host+'/sop/img/avatarTC.png';
+var _src='https://fxapp.galaxyinternet.com/appFiles/head_image/touxiang@3x.png';
 var data = {
 	      "nickname": _nickname,    //发帖人名称
 	      "avatar": _src,

@@ -288,7 +288,7 @@ setInterval(function(){    //定时保存
 		                }else{
 		                	valu=field.find('span').attr('data-value');
 		                }
-						var inpu=field.closest('.resource_branch_01').find('input');
+						var inpu=field.closest('.resource_branch_01').find('input.input_21');
 						var rvalue = inpu.val();
 						var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');
 						if(valu==last_id){

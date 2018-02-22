@@ -168,7 +168,7 @@
             </tr>
              <tr>
               <td>净利润：</td>
-              <td><input type="text" name="formatProfitCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.profitCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,9}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatProfitCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.profitCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^((-[1-9](?:\d{0,9}\.\d{0,2}))|(-[0](?:\d{0}\.\d{0,2}))|(-[1-9](\d{0,9}))|([1-9](?:\d{0,9}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>-9999999999.99到9999999999.99之间的两位小数">元</td>
               <td>当月进账金额减所有应支付金额</td>
             </tr>
              <tr>

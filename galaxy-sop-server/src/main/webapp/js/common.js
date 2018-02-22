@@ -2066,6 +2066,14 @@ function initTable(url,data,status,code) {
             	$("#dataTable").show();
     			$(".infoTopS").show();
     			$("#powindow").show();
+    			var block_w =$("#powindow").width(),
+				block_h =$("#powindow").height(), 
+				trans_x = -Math.round(block_w/2),
+				trans_y = -Math.round(block_h/2); 
+    			$("#powindow").css({
+					"margin-left":trans_x,
+					"margin-top":trans_y,
+				})
     			return false;
         	}
         	

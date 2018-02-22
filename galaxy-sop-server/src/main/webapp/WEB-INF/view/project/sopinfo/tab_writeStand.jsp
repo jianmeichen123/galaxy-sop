@@ -8,8 +8,17 @@
  .bg{
  	background:#fff;
  	padding:20px 28px 20px 20px;
+ 	min-height:200px;
+ }
+ .intw_summary li,.intw_summary p,.intw_summary span,.intw_summary i,.intw_summary em{
+ line-height:30px;
  }
 </style>
-<div class="bg">
-勝多負少
+<div class="bg intw_summary" id="standard"> 
 </div>
+<script> 
+sendGetRequest(platformUrl.getStandard+'/7',null, function(data){
+	var standHtml = data.entity.standardDetails;
+	$("#standard").html(standHtml);
+})
+</script>

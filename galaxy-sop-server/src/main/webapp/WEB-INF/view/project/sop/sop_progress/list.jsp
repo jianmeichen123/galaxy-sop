@@ -17,7 +17,7 @@
           <ul class="tablink">
           	<li class="tab_1 on">会议访谈</li>
           	<li class="tab_2">文档</li>
-          	<span class="icon"  title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="<%=path%>/img/sop_progress/remind__icon.png"><font class="red">文件大小及格式提示</font></span>
+          	<span class="icon setlXH"  title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="<%=path%>/img/sop_progress/remind__icon.png"><font class="red">文件大小及格式提示</font></span>
           </ul>
           <div class="tabcon">
           
@@ -192,5 +192,8 @@ function reject()
 	}
 	
 }
+
+
+
 </script>
 

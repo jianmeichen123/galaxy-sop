@@ -17,7 +17,7 @@
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
     <div class="qualifications_all">
-    	<span class="fr editTips" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
+    	<span class="fr editTips finaceHistory" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
         <div class="conference_all">
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
@@ -178,6 +178,30 @@ $(function(){
 			$("input[name='field5']").val(valuations.toFixed(4));
 		}
 	});
+    
+    
+    /* 提示信息  融资历史*/
+    $('.finaceHistory').mouseenter(function(){
+  	  var url= platformUrl.fillStatus+'/6';
+  	 $.ajax({
+  			 type:"get",
+  			 url:url,
+  			 dataType:'json',
+  			 success:function(data){
+  				 if(data.entity.status==1){
+  					$('.finaceHistory').show()
+  					var tips = data.entity.standardDetails;
+  	  				$('.finaceHistory').attr('title',tips)
+  				 }else{
+  					$('.finaceHistory').hide()
+  				 }
+  				
+  			 }
+  		 }) 
+    })
+    
+    
+    
 })
 
 //selectContext();

@@ -163,7 +163,8 @@ $(function() {
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){
 								if(o.id){
-									$('.selectpicker').find('option[value="'+o.valueId+'"]').attr('data-result-id',o.id)
+									$('.selectpicker').find('option[value="'+o.valueId+'"]').attr('data-result-id',o.id);  //历史数据
+									$('.selectpicker').find('option[value="'+o.contentChoose+'"]').attr('data-result-id',o.id);
 								}
 							})
 						}
@@ -318,7 +319,7 @@ $(function() {
 			if(_tochange && _tochange == 'true'){
 	                var infoMode = null;
 					valu=field.find('span').attr('data-value');
-					var inpu=field.closest('.resource_branch_01').find('input');
+					var inpu=field.closest('.resource_branch_01').find('.input_21');
 					var rvalue = inpu.val();
 					var last_id=field.closest(".resource_branch_01").find('select').find('option:last').attr('value');
 					if(valu==last_id){
