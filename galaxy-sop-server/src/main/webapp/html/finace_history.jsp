@@ -181,26 +181,7 @@ $(function(){
     
     
     /* 提示信息  融资历史*/
-    $('.finaceHistory').mouseenter(function(){
-  	  var url= platformUrl.fillStatus+'/6';
-  	 $.ajax({
-  			 type:"get",
-  			 url:url,
-  			 dataType:'json',
-  			 success:function(data){
-  				 if(data.entity.status==1){
-  					$('.finaceHistory').show()
-  					var tips = data.entity.standardDetails;
-  	  				$('.finaceHistory').attr('title',tips)
-  				 }else{
-  					$('.finaceHistory').hide()
-  				 }
-  				
-  			 }
-  		 }) 
-    })
-    
-    
+    editTipsShow('6','.finaceHistory');
     
 })
 

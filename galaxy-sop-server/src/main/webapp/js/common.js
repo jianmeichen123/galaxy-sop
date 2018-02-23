@@ -66,6 +66,27 @@ function textarea_show(contentDescribe){
 	return len;
 }
 /**
+ * 填写标准提示
+ */
+function editTipsShow(code,dom){
+	   var url= platformUrl.fillStatus+'/'+code;
+		$.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					 if(data.entity.status==1){
+						 $(dom).show()
+						 	var tips = data.entity.standardDetails;
+							$(dom).attr('title',tips)
+					 }else{
+						 $(dom).hide()
+					 }
+					
+				 }
+			 }) 
+}
+/**
  * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */
 function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
