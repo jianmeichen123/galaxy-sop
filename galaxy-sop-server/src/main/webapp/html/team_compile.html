@@ -7,7 +7,7 @@
     <div class="qualifications_all">
     	<div class="team_tit clearfix">
     		<span class="fl"><span class="team_ico team_ico_jb"></span>基本信息</span>
-    		<span class="fr editTips team" title="111仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
+    		<span class="fr editTips team" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
     	</div>
 		<form id = "detail-form" >
     	<ul class="team_compile_ul">
@@ -106,7 +106,7 @@
     }, "手机格式不对");
     //验证手机号
     jQuery.validator.addMethod("wechat", function (value, element) {
-      var wechat = /^[a-zA-Z0-9_-]{0,20}$/;
+      var wechat = /^[a-z|A-Z|0-9|_|-]{0,20}$/;
    	return this.optional(element) || (wechat.test(value));
     }, "允许输入字母、数字、下划线和减号");
   //职位选择其他
