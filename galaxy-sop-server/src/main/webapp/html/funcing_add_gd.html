@@ -89,25 +89,8 @@
         });
         
         /* 提示信息 */
-        $('.shareHolder').mouseenter(function(){
-      	  var url= platformUrl.fillStatus+'/5';
-      	 $.ajax({
-      			 type:"get",
-      			 url:url,
-      			 dataType:'json',
-      			 success:function(data){
-      				 if(data.entity.status==1){
-      					$('.shareHolder').show()
-      					var tips = data.entity.standardDetails;
-          				$('.shareHolder').attr('title',tips)
-      				 }else{
-      					$('.shareHolder').hide()
-      				 }
-      				
-      			 }
-      		 }) 
-        })
-        
+        editTipsShow('5','.shareHolder');
+                
         
     })
     

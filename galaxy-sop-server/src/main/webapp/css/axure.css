@@ -2547,7 +2547,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_ico_work {width:23px; height:19px;background-position:-77px 0px;  display:block; float:left;}
 .team_ico_carve{width:23px; height:19px;background-position:-99px 0px;  display:block; float:left;}
 .team_compile .team_tit{ border-bottom:1px solid #f6f6f6; height:25px; margin-right:10px;}
-.team_compile_ul{overflow:hidden;}
+/* .team_compile_ul{overflow:hidden;} */
 .team_compile_ul li span{color:#999;}
 .team_compile_ul li span.error{color:#ff0000;}
 span.error,label.error,span.error_span{color:#ff0000 !important;}
@@ -4568,7 +4568,7 @@ font-weight:bold;
 }
 /*--------------------- v1.12 ---------------------*/
  .editTips img{display:inline-block;margin:-2px 10px 0 0;vertical-align:middle;}
- .basic_message_cont .editTips{margin-top:-20px;margin-bottom:10px;}
+ .basic_message_cont .editTips{margin-top:-20px;margin-bottom:10px;margin-right:6px;}
   .editTips font.red{font-size:12px;}
   .new_poptxt .tablink .icon{width:138px;}
   .qualificationstc .editTips{margin-right:10px;}
@@ -4614,10 +4614,15 @@ font-weight:bold;
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
 .img_content_new{display:none;min-height:390px;}
-.dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
+.dropdown-menu.selectpicker li:hover{
 	background:#e5f3ff;
 	border-bottom:1px solid #fff;
 }  
+.h_edit .bootstrap-select.btn-group .dropdown-menu.selectpicker li > a:hover{
+	background:#e5f3ff;
+	border-bottom:1px solid #fff;
+	color:#333;
+}
 .h_edit input[type="text"].input-block-level{
 	margin:0;
 }

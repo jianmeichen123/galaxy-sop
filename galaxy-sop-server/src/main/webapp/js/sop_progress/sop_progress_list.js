@@ -152,22 +152,6 @@
 		}
 	}
 	
-	function pleaseAjax(url){
-		 $.ajax({
-			 type:"get",
-			 url:url,
-			 dataType:'json',
-			 success:function(data){
-				 if(data.entity.status==1){
-						 var tips = data.entity.standardDetails;
-						$('.setlXH').attr('title',tips)
-				 }else{
-					 $('.setlXH').hide()
-				 }
-			 }
-		 }) 
-	}
-	
 	//阶段加载
 	function goToProgress(){		
 		progressBtnToggle();
@@ -190,10 +174,7 @@
 			tab_show(1);
 			hideCurrent('projectProgress:3');
 		}else if(i==4){
-			$('.setlXH').mouseenter(function(){
-				  var url= platformUrl.fillStatus+'/7';
-				  pleaseAjax(url)
-			})
+			editTipsShow('7','.setlXH'); //填写标准提示语
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
 			$(".tablink .icon").show();
@@ -208,20 +189,14 @@
 			meetList("meetingType:5");
 			hideCurrent('projectProgress:11');
 		}else if(i==6){
-			$('.setlXH').mouseenter(function(){
-				  var url= platformUrl.fillStatus+'/8';
-				  pleaseAjax(url)
-			})
+			editTipsShow('8','.setlXH'); //填写标准提示语
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
 			$(".tablink .icon").show();
 			tab_show(2);
 			hideCurrent('projectProgress:5');
 		}else if(i==7){
-			$('.setlXH').mouseenter(function(){
-				  var url= platformUrl.fillStatus+'/9';
-				  pleaseAjax(url) 
-			})
+			editTipsShow('9','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("尽职调查");
 			$(".tablink .icon").show();
 			toobarfile("尽职调查",7);
@@ -235,10 +210,7 @@
 			tab_show(1);
 			hideCurrent('projectProgress:7');
 		}else if(i==9){
-			$('.setlXH').mouseenter(function(){
-				  var url= platformUrl.fillStatus+'/10';
-				  pleaseAjax(url) 
-			})
+			editTipsShow('10','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("投资协议");
 			$(".tablink .icon").show();
 			toobarfile("投资协议",9);
@@ -246,10 +218,7 @@
 			hideCurrent('projectProgress:8');
 			//投资协议  上传附件
 		}else if(i==10){
-			$('.setlXH').mouseenter(function(){
-				  var url= platformUrl.fillStatus+'/11';
-				  pleaseAjax(url)
-			})
+			editTipsShow('11','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("股权交割");
 			$(".tablink .icon").show();
 			toobarfile("股权交割",10);

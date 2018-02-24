@@ -675,45 +675,8 @@ createMenus(5);
 		}
 	});
 	
-	  /* 提示信息  法人信息*/
-	  $('.legalPerson').mouseenter(function(){
-		  var url= platformUrl.fillStatus+'/4';
-		 $.ajax({
-				 type:"get",
-				 url:url,
-				 dataType:'json',
-				 success:function(data){
-					 if(data.entity.status==1){
-						 	$('.legalPerson').show();
-						 	var tips = data.entity.standardDetails;
-							$('.legalPerson').attr('title',tips)
-					 }else{
-						 $('.legalPerson').hide();
-					 }
-					
-				 }
-			 }) 
-	  })
-
-	  /* 融资计划 */
-	  $('.finacePlan').mouseenter(function(){
-		  var url= platformUrl.fillStatus+'/2';
-		 $.ajax({
-				 type:"get",
-				 url:url,
-				 dataType:'json',
-				 success:function(data){
-					 if(data.entity.status==1){
-						 $('.finacePlan').show()
-						 	var tips = data.entity.standardDetails;
-							$('.finacePlan').attr('title',tips)
-					 }else{
-						 $('.finacePlan').hide()
-					 }
-					
-				 }
-			 }) 
-	  })
+	editTipsShow('2','.finacePlan');   //融资计划 填写标准
+	editTipsShow('4','.legalPerson');   //法人信息填写标准
 	  
 	
 	

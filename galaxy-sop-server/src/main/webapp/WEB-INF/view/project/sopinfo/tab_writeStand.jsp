@@ -18,7 +18,12 @@
 </div>
 <script> 
 sendGetRequest(platformUrl.getStandard+'/7',null, function(data){
-	var standHtml = data.entity.standardDetails;
-	$("#standard").html(standHtml);
+	if(data.entity.status==1){
+		var standHtml = data.entity.standardDetails;
+		$("#standard").html(standHtml);
+	}else{
+		var div='<div class="no_con" style="display: block;">暂无数据</div>';
+		$("#standard").html(div);
+	}
 })
 </script>

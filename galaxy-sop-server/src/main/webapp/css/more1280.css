@@ -39,6 +39,7 @@
 .nav186{background-position: 0 -1141px;}
 .nav192{background-position: 0 -1092px;}
 .nav223{background-position: 0 -1273px;}
+.nav224{background-position: 0 -1323px;}
 .xingmou{background-position: -37px -1230px;position: absolute;}
 .lft li:hover .nav160,.lft li.on .nav160{background-position: -40px 0;}
 .lft li:hover .nav168,.lft li.on .nav168{background-position: -40px -72px;}
@@ -67,6 +68,7 @@
 .lft li:hover .nav186,.lft li.on .nav186{background-position: -40px -1141px;}
 .lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
 .lft li:hover .nav223,.lft li.on .nav223{background-position: -40px -1273px;}
+.lft li:hover .nav224,.lft li.on .nav224{background-position: -40px -1323px;}
 .lft li:hover .xingmou,.lft li.on .xingmou{background-position: -40px -1230px;}
 .lft .toggle_li ul{background-color: #1f222d !important;}
 .lft .toggle_li li a,.pagebox .lft li ul a{color:#eee !important;}

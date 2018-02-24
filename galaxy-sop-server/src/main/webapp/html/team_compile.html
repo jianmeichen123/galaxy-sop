@@ -9,8 +9,8 @@
     		<span class="fl"><span class="team_ico team_ico_jb"></span>基本信息</span>
     		<span class="fr editTips team" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
     	</div>
-		<form id = "detail-form" >
-    	<ul class="team_compile_ul">
+		<form id = "detail-form" style="overflow:visible">
+    	<ul class="team_compile_ul clearfix">
 			<input name="id" type="text" style="display:none">
 			<input name="index" type="text" style="display:none">
 			<input name="code"  type="text" style="display:none">
@@ -19,7 +19,7 @@
 			<input name="subCode" type="hidden"  value="">
    			<li>
    				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;姓名</span>
-	            <input name="field1" type="text" class="txt " maxlength="50" required data-msg-required="<font color=red>*</font>请输入姓名" >
+	            <input name="field1" type="text" class="txt " maxlength="50" required data-msg-required="<font color=red>*</font>请输入姓名" data-rule-name="true"  data-msg-name="<font color=red>*</font>请输入姓名" >
    			</li>
    			<li>
    				
@@ -65,7 +65,7 @@
 					<option value="EC专家顾问">EC专家顾问</option>
 					<option value="Other其他">Other其他</option> -->
 				</select>
-				<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"/>
+				<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位" style="margin-top:5px;margin-left:70px;"/>
    			</li>
    			<li>
    				<span class="team_compile_ul_l">&nbsp;微信号</span>
@@ -109,6 +109,11 @@
       var wechat = /^[a-z|A-Z|0-9|_|-]{0,20}$/;
    	return this.optional(element) || (wechat.test(value));
     }, "允许输入字母、数字、下划线和减号");
+    //验证姓名
+     jQuery.validator.addMethod("name", function (value, element) {
+      var name = /^(?!.{51}|^\s*$)/;
+   	return this.optional(element) || (name.test(value));
+    }, "请输入姓名");
   //职位选择其他
   $("select[name='field2']").change(function(){
 	  var val=$(this).find("option:selected").attr("value");
@@ -124,26 +129,8 @@
 	  }
   })
   /* 提示信息 */
-  $('.team').mouseenter(function(){
-	  var url= platformUrl.fillStatus+'/3';
-	 $.ajax({
-			 type:"get",
-			 url:url,
-			 dataType:'json',
-			 success:function(data){
-				 if(data.entity.status==1){
-					 	$('.team').show()
-					 	var tips = data.entity.standardDetails;
-						$('.team').attr('title',tips)
-				 }else{
-					 $('.team').hide()
-				 }
-				
-			 }
-		 }) 
-  })
-  
-  	 			
+  editTipsShow('3','.team');
+		
   
   
   
