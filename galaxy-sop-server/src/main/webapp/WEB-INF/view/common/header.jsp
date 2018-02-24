@@ -126,7 +126,6 @@
 					 data:data,
 					 dataType:'json',
 					 success:function(data){
-						 consle.log(data)
 					 }
 				 }) 
 		 
