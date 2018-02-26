@@ -49,7 +49,9 @@ public class StandardController
 		ResponseData<Standard> data = new ResponseData<>();
 		try
 		{
-			Page<Standard> page = service.queryPageList(new Standard(), pageable);
+			Standard query = new Standard();
+			query.setStatus(null);
+			Page<Standard> page = service.queryPageList(query, pageable);
 			List<Standard> list = page.getContent();
 			if(list != null && list.size()>0)
 			{
