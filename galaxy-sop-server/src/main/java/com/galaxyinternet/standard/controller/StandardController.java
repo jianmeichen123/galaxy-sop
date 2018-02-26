@@ -136,6 +136,7 @@ public class StandardController
 			entity.setStandardDetails(vo.getStandardDetails());
 			entity.setUpdatedId(WebUtils.getUserFromSession().getId());
 			entity.setUpdatedTime(System.currentTimeMillis());
+			entity.setStatus(null);
 			service.updateById(entity);
 		} catch (Exception e)
 		{
