@@ -177,7 +177,7 @@
 			editTipsShow('7','.setlXH'); //填写标准提示语
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
-			$(".tablink .icon").show();
+			$(".tablink .icon").hide();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');
