@@ -420,7 +420,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 							picData(projectInfo.id);
 							if(id_code=="PNO1_1"){
 								var val=$("input[type='hidden'].money").val();
-								$("dd[data-title-id=\"3012\"]").text(val);
+								$("dd[data-title-id=\"3012\"]").text(_parsefloat(val));
 								$("dd[data-title-id=\"3012\"]").next("dd").show();
 								if(resultVal!="未填写" && childrenVal=="未填写"){
 									if(parentVal!="未填写" && tz_moneyNew==""){
@@ -430,7 +430,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}else if(parentVal==tz_moneyNew){
-										$("dd[data-title-id=\"3012\"]").text(resultVal);
+										$("dd[data-title-id=\"3012\"]").text(_parsefloat(resultVal));
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}else if(parentVal!=tz_moneyNew){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
@@ -450,10 +450,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}else if(parentVal=="未填写" && tz_moneyNew!=""){
-										$("dd[data-title-id=\"3012\"]").text(val);
+										$("dd[data-title-id=\"3012\"]").text(_parsefloat(val));
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}else if(parentVal==tz_moneyNew && resultVal!="未填写"){
-										$("dd[data-title-id=\"3012\"]").text(resultVal);
+										$("dd[data-title-id=\"3012\"]").text(_parsefloat(resultVal));
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}else if(parentVal!="未填写" && tz_moneyNew==""){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
