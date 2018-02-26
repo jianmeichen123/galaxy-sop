@@ -261,7 +261,13 @@ $(".tab_2").click(function(event) {
 	$(".new_poptxt .bootstrap-table").next().hide();
 	$(".new_poptxt .bootstrap-table").hide();
 	$(".add_list").hide();
-	$(".tablink .icon").show();
+	if(status==0){
+		$(".tablink .icon").hide();
+	}else{
+		$(".tablink .icon").show();
+	}
+	
+	
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');
