@@ -69,6 +69,12 @@ function appr_check_table_tr(table){
 	}
 };
 function  assembleHtml(grantTotal,i){
+	var grantMoney=grantTotal.grantMoney;
+	if(typeof(grantMoney)=='number' && grantMoney==0){
+		grantMoney=''
+	}else{
+		grantMoney=_parsefloat(grantTotal.grantMoney)
+	}
 	
 	var html=
 		'<div class="agreement">'
@@ -76,7 +82,7 @@ function  assembleHtml(grantTotal,i){
 		  +'<div class="b_agreement_l fl">'
 		     /*+'<h3>'+grantTotal.grantName+'</h3>'*/
 	        /* +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'*/
-		     +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+_parsefloat(grantTotal.grantMoney)+'</dd></dl>'
+		     +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+grantMoney+'</dd></dl>'
             /* +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'*/
           +'</div>'    
