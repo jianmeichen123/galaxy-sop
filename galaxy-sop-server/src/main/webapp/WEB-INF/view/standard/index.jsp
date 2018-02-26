@@ -182,6 +182,12 @@ table th {
 		var that = $(event);
 		var tr = that.closest("tr");
 		var uniqueid=tr.data("uniqueid");
+		var statusC = that.next().text();
+		if(statusC=="开启"){
+			statusC=0;
+		}else{
+			statusC=1;
+		}
 		$.getHtml({
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
@@ -218,6 +224,7 @@ table th {
 					}
 				
 				$("#save_standard").click(function(){  
+					//statusCode
 					 var validate =$("#detail-form").validate().form();
 					if(!validate){
 						return;
@@ -234,7 +241,8 @@ table th {
 					}
 					var dataJson={
 							id:uniqueid,
-							standardDetails:standardDetails 
+							standardDetails:standardDetails ,
+							status:statusC,
 					}
 					sendPostRequestByJsonObj(
 					platformUrl.saveStandard, 
