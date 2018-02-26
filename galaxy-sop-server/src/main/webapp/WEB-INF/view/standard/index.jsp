@@ -106,7 +106,7 @@ table th {
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'created_time',
-		pagination : true,
+		pagination : false,
 		search : false,
 	    queryParams: function(params){
 	    	params.page = params.pageNum;
