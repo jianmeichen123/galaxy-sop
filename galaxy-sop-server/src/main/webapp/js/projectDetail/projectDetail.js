@@ -17,7 +17,7 @@ $(function(){
 	}
 	$('.projectDetail').tabLazyChange({
 		defaultnum:defaultnum,
-		onchangeSuccess:function(index){	
+		onchangeSuccess:function(index){
 			switch(index){
 				case 0: initTabInfo(projectId);  break;  //标签0:基本信息
 				case 1: initTabProjectTeam(); break;  //标签1:团队成员
