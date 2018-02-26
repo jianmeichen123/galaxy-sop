@@ -560,7 +560,7 @@ function buildResults(sec,title,readonly)
 							_val="未填写"
 						}else{
 							var res = change_number(_val);
-							_val = Number(_parsefloat(res[0])).toFixed(4)*10000/10000;   //数据互通调整
+							_val = _parsefloat(Number(res[0]).toFixed(4));   //数据互通调整
 							var moneyT = res[1]+"元";
 						}
 					}
