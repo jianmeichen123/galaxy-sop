@@ -69,16 +69,16 @@ table th {
 	<div class="pagebox">
 		<div class="conbox">
 			<h2 class="h2">填写标准</h2>
-			<table class='no-radius table_new_style'
+			<table class='no-radius table_new_style standard'
 				width="100%" cellspacing="0" cellpadding="0" id="standard-table"
 				data-url="<%=request.getContextPath()%>/galaxy/standard/search"
 				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
 				<thead>
 					<tr>
-						<th data-field="moduleName">涉及模块</th>
-						<th data-field="statusDesc">状态</th>
-						<th data-field="standardDetails" data-width="50%" data-formatter="detailFormatter">标准详情</th>
-						<th data-field="opt" data-formatter="optFormatter" class="edit">操作</th>
+						<th data-field="moduleName" data-width="180px">涉及模块</th>
+						<th data-field="statusDesc" data-width="180px">状态</th>
+						<th data-field="standardDetails"  data-formatter="detailFormatter">标准详情</th>
+						<th data-field="opt" data-width="180px" data-formatter="optFormatter" class="edit">操作</th>
 					</tr>
 				</thead>
 			</table>

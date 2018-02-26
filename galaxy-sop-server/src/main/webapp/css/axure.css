@@ -4006,7 +4006,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
 .task-detail-table tr td:nth-child(1){text-align:left;}
-.table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
+.fixed-table-container .standard thead th .th-inner
 .pagebox .table_new_checkbox thead tr th:nth-child(1){padding-left:8px !important; width:20px !important;}
 .pagebox .table_new_checkbox tbody tr td:nth-child(1){padding:9px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
@@ -4058,7 +4058,8 @@ input::input-placeholder{color:red !important;}
 .table_new_style td{border-bottom: 1px solid #f0f0f0;}
 .table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
 .fixed-table-container .table_new_style thead th .th-inner{padding:8px;}
-.fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
+.fixed-table-container .standard thead th .th-inner{padding:8px 10px;} 
+.fixed-table-container .standard tbody td{padding-left:20px;padding-right:20px;}
 .task-pagebox .fixed-table-body{border-radius:0;	}
 .outerContent .fixed-table-body{border-radius:0;}
 
