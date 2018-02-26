@@ -21,6 +21,7 @@
 .popBlock{
 	display: none;
 }
+#detail-form .form_textarea #Viewtext{width:97%;}
 #save_standard,.save_button a{
 	border:0px;
 	background:#3ca6ff;
@@ -66,9 +67,10 @@ margin:0;
 					<dl class="fmdl clearfix form_textarea" style="">
 						<dt>标准详情：</dt>
 						<dd name="text"> 
-							<textarea id="Viewtext" name="Viewtext" maxlength="50" data-rule-limit50=true required data-msg-required="<font color=red>*</font>标准详情不能为空"></textarea>
+							<textarea id="Viewtext" oninput="CheckNum(this)" name="Viewtext" maxlength="50" data-rule-limit50=true required data-msg-required="<font color=red>*</font>标准详情不能为空"></textarea>
 							<textarea id="viewNotes" name="viewNotes"> </textarea> 
-	          				<span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
+							<p class="num_tj"> <i id="Number">50</i>/50</p>	
+	          				<span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过50字</span>
 						</dd>
 					</dl>
 				</div> 
@@ -105,5 +107,10 @@ jQuery.validator.addMethod("limit50", function (value, element) {
 	var limit50 =  /^(?!.{51}|^\s*$)/;
 	return this.optional(element) || (limit50.test(value));
 }, "*不能超过50字且不能全为空格");
+function CheckNum(dom){
+	var inputNum = $(dom).val().length;
+	var valNUm = 50-inputNum;
+	$("#Number").text(valNUm);
+}  
 </script>
 </html>

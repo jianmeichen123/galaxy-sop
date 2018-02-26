@@ -2638,6 +2638,7 @@ dt[data-type='19']+dd .error{display:block;}
 .textarea_h{color:#666;width: 100%;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:hidden;font-size:12px; font-family:Microsoft YaHei;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;}
+.num_tj i{font-style:normal;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #ff956b;padding-left:26px;line-height: 20px;font-size: 16px;color:#000;position:absolute;top:30px;left:0;}

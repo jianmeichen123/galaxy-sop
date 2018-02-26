@@ -194,6 +194,9 @@ table th {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);
 					$("#Viewtext").show().val(text);
+					var inputNum = $("#Viewtext").val().length;
+					var valNUm = 50-inputNum; 
+					$("#Number").text(valNUm);
 				} else if (status == "s") {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
@@ -205,6 +208,7 @@ table th {
 					var str = "<blockquote class='intw_summary'>"+text+"</blockquote>"
 					$(".see dd[name='text']").html(str);
 				}else if(status=="edit"){
+					$(".num_tj").remove();
 					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'420px'});
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name); 
