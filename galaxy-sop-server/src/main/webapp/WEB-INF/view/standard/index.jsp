@@ -186,6 +186,7 @@ table th {
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
 			okback : function() {
+				$('.close').addClass('tast-close')//添加关闭按钮 
 				var name = tr.find("td:first").text();
 				var text = tr.find("td").eq(2).text();
 				var standardDetails="";
