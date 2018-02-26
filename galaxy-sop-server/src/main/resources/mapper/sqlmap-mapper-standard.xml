@@ -27,6 +27,7 @@
 			<trim prefixOverrides="and">
 			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 			      <if test="moduleCode != null"> and module_code = #{moduleCode,jdbcType=VARCHAR} </if>
+			      <if test="status != null"> and status = #{status,jdbcType=TINYINT} </if>
 			      <if test="isValid != null"> and is_valid = #{isValid,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
