@@ -114,6 +114,7 @@ $(function(){
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
 				} 
+				$(".inves_add").show();
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();
 				//内部弹窗根据条件显示
@@ -573,7 +574,7 @@ function jointDeliveryEdit(list){
 		$(".inves_add").hide()
 	}else{
 		$(".inves_add").show()
-	}
+	} 
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
