@@ -113,8 +113,7 @@ $(function(){
 					$('.investTogether_current .agency_radius span').text('跟投机构')
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
-				}
-				
+				} 
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();
 				//内部弹窗根据条件显示
@@ -567,10 +566,14 @@ function jointDeliveryEdit(list){
 	        +'<span class="input_box"><input placeholder="占股比例(%)"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
 	          +'<em class="inves_delete"></em>'
 	          +'</div>';
-		$(".inputsForm").append(inputsRow);
+		$(".inputsForm").append(inputsRow); 
 		 name_opt.push(list[i].deliveryCurrency);
 	};
-	
+	if(list.length>=10){
+		$(".inves_add").hide()
+	}else{
+		$(".inves_add").show()
+	}
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
