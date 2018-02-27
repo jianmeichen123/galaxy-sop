@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){
+        $("[data-on='data-open']").click(function (){ 
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -589,7 +589,7 @@ function buildShareResult(reportType,relateId){
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK')
-				{
+				{ 
 					var entityList = data.entityList;
 					if(entityList && entityList.length >0)
 					{
