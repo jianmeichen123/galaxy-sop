@@ -338,8 +338,8 @@
                     } else {
                         minHeight = 0;
                     }
-                    menu.css({'max-height' : menuHeight + 'px', 'overflow' : 'hidden', 'min-height' : minHeight + 'px'});
-                    menuInner.css({'max-height' : menuHeight - headerHeight - searchHeight- menuPadding + 'px', 'overflow-y' : 'auto', 'min-height' : minHeight - menuPadding + 'px'});
+                    menu.css({'max-height' : menuHeight-25 + 'px', 'overflow' : 'hidden', 'min-height' : minHeight + 'px'});
+                    menuInner.css({'max-height' : menuHeight - headerHeight - searchHeight- menuPadding-25 + 'px', 'overflow-y' : 'auto', 'min-height' : minHeight - menuPadding + 'px'});
                 };
                 getSize();
                 $(window).resize(getSize);
