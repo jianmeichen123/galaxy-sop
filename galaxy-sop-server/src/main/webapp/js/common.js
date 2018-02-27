@@ -75,10 +75,12 @@ function editTipsShow(code,dom){
 				 url:url,
 				 dataType:'json',
 				 success:function(data){
+					 console.log(data)
 					 if(data.entity&&data.entity.status==1){
 						 $(dom).show()
 						 var tips = data.entity.standardDetails;
 						$(dom).attr('title',tips)
+						return status =2;
 					 }else{
 						 $(dom).hide();
 						 return status = 0;

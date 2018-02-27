@@ -255,6 +255,7 @@
 
 //tab点击事件
 $(".tab_2").click(function(event) {
+	
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
 	$('.file_list').show();
@@ -263,7 +264,7 @@ $(".tab_2").click(function(event) {
 	$(".add_list").hide();
 	if(status==0){
 		$(".tablink .icon").hide();
-	}else{
+	}else if(status==2){
 		$(".tablink .icon").show();
 	}
 	
