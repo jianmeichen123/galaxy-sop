@@ -58,7 +58,15 @@ public class TestController{
 		return "project/search";
 	}
 	
-	
+	@RequestMapping(value = "/writeStand")
+	public String platformTest123(HttpServletRequest request) {
+		return "project/sopinfo/tab_writeStand";
+	}
+/*	@RequestMapping(value = "/writePage")
+	public String platformTest12(HttpServletRequest request) {
+		return "standard/index";
+	}
+	*/
 /*
 
 	@Value("${sop.oss.tempfile.path}")

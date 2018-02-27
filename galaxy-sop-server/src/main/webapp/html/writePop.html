@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+ <style>
+ .conference{
+ 	margin-top: 60px;
+ }
+.conference dd{
+	word-break: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "Microsoft YaHei";
+	width: 75%;
+}
+.conference dt{
+	width: 100px;
+}
+.popBlock{
+	display: none;
+}
+#detail-form .form_textarea #Viewtext{width:97%;}
+#save_standard,.save_button a{
+	border:0px;
+	background:#3ca6ff;
+	border-radius:2px;
+	width:92px;
+	height:32px;
+	line-height:32px;
+	display:inline-block;
+	font-family:Miscrosoft Yahei;
+	cursor:pointer;
+}
+#detail-form .form_textarea textarea{ font-family:Miscrosoft Yahei!important; display:none;color:#666;font-size: 14px;}
+.save_button a{
+	background:#eef6fc;
+}
+#save_standard:hover{background: #0084f5;}
+.save_button a:hover{background: #d9e3ea;}
+dd label.error{
+	width: 100%;
+	background: none;
+	padding:0;
+	font-family:Miscrosoft Yahei !important;
+} 
+.intw_summary {
+margin:0;
+ height: auto;
+ max-height: 150px!important;
+ overflow-y: auto!important;
+}
+</style>  
+<body>
+<div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
+	<div class="edit popBlock">		
+		<div class="title_bj abandon-title" >编辑填写标准</div>	
+		<div class="conference">			
+			<form action=""  id="detail-form">
+				<div class="info clearfix">
+					<dl class="fmdl clearfix">
+		                <dt>涉及模块：</dt>
+		                <dd name="name">  
+		                </dd>
+		            </dl>
+					<dl class="fmdl clearfix form_textarea" style="">
+						<dt>标准详情：</dt>
+						<dd name="text"> 
+							<textarea id="Viewtext" oninput="CheckNum(this)" name="Viewtext" maxlength="50" data-rule-limit50=true required data-msg-required="<font color=red>*</font>标准详情不能为空"></textarea>
+							<textarea id="viewNotes" name="viewNotes"> </textarea> 
+							<p class="num_tj"> <i id="Number">50</i>/50</p>	
+	          				<span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过50字</span>
+						</dd>
+					</dl>
+				</div> 
+			</form> 
+			<div class="save_button layui-layer-btn">
+            	<button type="button" class="layui-layer-btn0" id="save_standard">保存</button>
+                <a href="javascript:;" data-close="close" style="padding:0;">取消</a>
+            </div>
+		</div>
+	</div>
+	<div class="see popBlock">
+		<div class="title_bj abandon-title" >查看填写标准</div>
+		<div class="conference">
+		<dl class="fmdl clearfix">
+			<dt>涉及模块：</dt>
+			<dd  name="name"></dd>
+		</dl>
+		<dl class="fmdl clearfix">
+			<dt>标准详情：</dt>
+			<dd  name="text"></dd>
+		</dl> 
+		</div>
+	</div>
+</div>
+</body>
+<script>
+$('#detail-form').validate({
+	rules :{Viewtext :{ 
+		limit50 : true
+	},}
+})
+ 
+jQuery.validator.addMethod("limit50", function (value, element) {
+	var limit50 =  /^(?!.{51}|^\s*$)/;
+	return this.optional(element) || (limit50.test(value));
+}, "*不能超过50字且不能全为空格");
+function CheckNum(dom){
+	var inputNum = $(dom).val().length;
+	var valNUm = 50-inputNum;
+	$("#Number").text(valNUm);
+}  
+</script>
+</html>

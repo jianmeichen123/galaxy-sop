@@ -6,7 +6,6 @@ import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.MeetingRecord;
 
 public interface InterviewRecordDao extends BaseDao<InterviewRecord, Long> {
 	

@@ -66,6 +66,28 @@ function textarea_show(contentDescribe){
 	return len;
 }
 /**
+ * 填写标准提示
+ */
+function editTipsShow(code,dom){
+	   var url= platformUrl.fillStatus+'/'+code;
+		$.ajax({
+				 type:"get",
+				 url:url,
+				 dataType:'json',
+				 success:function(data){
+					 if(data.entity&&data.entity.status==1){
+						 $(dom).show()
+						 var tips = data.entity.standardDetails;
+						$(dom).attr('title',tips)
+					 }else{
+						 $(dom).hide();
+						 return status = 0;
+					 }
+					
+				 }
+			 }) 
+}
+/**
  * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */
 function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
@@ -2066,6 +2088,14 @@ function initTable(url,data,status,code) {
             	$("#dataTable").show();
     			$(".infoTopS").show();
     			$("#powindow").show();
+    			var block_w =$("#powindow").width(),
+				block_h =$("#powindow").height(), 
+				trans_x = -Math.round(block_w/2),
+				trans_y = -Math.round(block_h/2); 
+    			$("#powindow").css({
+					"margin-left":trans_x,
+					"margin-top":trans_y,
+				})
     			return false;
         	}
         	
@@ -2092,16 +2122,3 @@ function getHrefParamter(name){
           }
       }
 }
-//封装自用方法
-
-(function(){
-
-	jQuery.fn.extend( {
-	    newCheck:function(){
-	         var that =this;
-	         var res = that+"aaaaa";
-	         return res
-	    },
-	      
-	}) 
-})

@@ -37,6 +37,8 @@
    
  
 %>
+
+<link href="<%=path %>/css/infoEnter.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
 <div class="header clearfix">
 
@@ -107,30 +109,43 @@
 
 /* 页面跳转,通过url传递参数 ,保存搜索历史传给后台*/
 	 $('.input-search span').click(function(){
-		
+		 var _href=window.location.href;
 		 /* 获取搜索的关键字 */
-			var keyword = $('.globleSearchInput').val().trim();
+		 var keyword = $('.globleSearchInput').val().trim();
 		 if(keyword == ''){
 			 return false
+		 }else{
+			 var _url="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
+			 if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
+					var result=$(".pagebox").attr("data-result");
+					 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
+					if(result=="true"){
+						beforeSave(_url);
+					}else{
+					 	//调用保存搜索历史方法
+					 	 var url= "<%=path %>/galaxy/infoDanao/saveSearchHistory"
+							 var data = {
+									 keyword:keyword
+							 }
+							 $.ajax({
+								 type:"POST",
+								 url:url,
+								 data:data,
+								 dataType:'json',
+								 success:function(data){
+								 }
+							 }) 
+					 
+					 
+					 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
+					$('.globleSearchInput').val(keyword)
+						
+					}
+				}
 		 }
-		 	//调用保存搜索历史方法
-		 	 var url= "<%=path %>/galaxy/infoDanao/saveSearchHistory"
-				 var data = {
-						 keyword:keyword
-				 }
-				 $.ajax({
-					 type:"POST",
-					 url:url,
-					 data:data,
-					 dataType:'json',
-					 success:function(data){
-						 consle.log(data)
-					 }
-				 }) 
 		 
+		
 		 
-		 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
-		$('.globleSearchInput').val(keyword)
 		
 	 })
 	 
@@ -165,7 +180,18 @@
 					/* 点击li跳转页面进行搜索 */
 					 $(".seach_li").click(function(){
 							var keyword = $(this).text();
-						  window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword
+							var _href=window.location.href;
+							var _url="<%=path %>/galaxy/test/searchResult?keyword="+keyword;
+							if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
+								var result=$(".pagebox").attr("data-result");
+								 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
+								if(result=="true"){
+									beforeSave(_url);
+								}else{
+									window.location.href=_url;							
+								}
+							}
+						  
 						 
 					 })
 					 

@@ -56,7 +56,7 @@ function buildMemberTable(title){
     			var tr="<tr>";
     			for(var key in header)
     			{   //过滤掉电话字段
-                    if(key.indexOf('field')>-1 && key != "field4")
+                    if(key.indexOf('field')>-1 && key != "field4"&& key != "field6")
                     {
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
@@ -169,6 +169,14 @@ function showMemberRow(ele){
                         ele.text(map_pos[row.data(name)]);
                     }else if(name=="field3"){
     					ele.text(map_sex[row.data(name)]);
+                    }else if(name=="field4"){
+                    	$("#phone").css("display","block")
+                          var val=row.data(name)==undefined?"":row.data(name);
+                    	ele.text("手机号:"+val);
+                    }else if(name=="field6"){
+                    	$("#wechat").css("display","block")
+                    	 var val=row.data(name)==undefined?"":row.data(name);
+                    	ele.text("微信号:"+val);
                     }else{
                     	ele.text(row.data(name));
                     }

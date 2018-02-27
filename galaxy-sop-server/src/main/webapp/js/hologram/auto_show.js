@@ -544,14 +544,16 @@ function buildResultsDraft(sec,title,readonly)
 			var inputText=$('dt[data-tid="'+titleId+'"]').closest('.mb_24').find('input');
 			//下拉渲染
 			var options='';
-			sendGetRequest(platformUrl.editProjectAreaInfo + projectInfo.id +'/'+title.id, null, function(data) {   
-			var result = data.result.status;
-			if (result == 'OK') {
-			    var entitys = data.entity.valueList;
-			    $.each(entitys,function(i,o){
-				    options+="<option value='"+o.id+ "' data-title-id='"+o.id+"' data-type='"+title.type+"' >"  + o.name + "</option>"
-				   });
-			  }
+			sendGetRequest(platformUrl.searchCLR, null,function(data){
+				 var data_list = data.entityList;
+				 	$.each(data_list,function(){
+				 		if(this.departmentName!=null){
+				 			options+="<option value='"+this.id+"' data-title-id='1118' data-type='23'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+				 		}else{
+				 			options+="<option value='"+this.realName+"' data-title-id='1118' data-type='23'>"+this.realName+"</option>"
+				 		}
+				 		
+				 	})
 			});
 			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').html('');
 			$('dt[data-tid="'+title.id+'"]').next('dd').find('select[name="'+title.id+'"]').append(options);

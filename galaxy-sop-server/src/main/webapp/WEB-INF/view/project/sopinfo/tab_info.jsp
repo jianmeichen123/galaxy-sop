@@ -200,6 +200,7 @@
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划<em class="agency_close" data-on="close" data-name="basic"></em></div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
+						<span class="fr editTips finacePlan" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td class="million">
@@ -318,6 +319,7 @@
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont" id='company-info-form'>
 					 <input type="hidden" name="id" value="${projectId }">
+					 <span class="fr editTips legalPerson" title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="/sop/img/sop_progress/remind__icon.png"><font class="red">填写标准</font></span>
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td>
@@ -549,6 +551,7 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">	
+createMenus(5);
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
@@ -671,6 +674,10 @@
 			$(".invest_institue").hide();
 		}
 	});
+	
+	editTipsShow('2','.finacePlan');   //融资计划 填写标准
+	editTipsShow('4','.legalPerson');   //法人信息填写标准
+	  
 	
 	
 </script>

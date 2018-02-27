@@ -414,6 +414,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	public String upgrade(){
 		return "/errors/upgrade";
 	}
-
+	@RequestMapping(value = "/writePage")
+	public String writePage(HttpServletRequest request) {
+		return "standard/index";
+	}
+	
 	
 }

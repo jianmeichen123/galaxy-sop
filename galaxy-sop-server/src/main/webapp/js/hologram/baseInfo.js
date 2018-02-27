@@ -392,20 +392,42 @@ function one_select_edit(title,inputtype,type){
 		}
 		
 	}else{
-		/*if(title.id=='1108'){
-			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' class='none'>请选择</option>";
-		}else{
-			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
-		}*/
 		if(title.type!='23'){
 			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
 		}
-    	$.each(values,function(i,o){
-			if(this.checked){
-				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\">"  + this.name + "</option>";
-			}else{
-				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";}
-		});
+		if(title.type=='23'){
+			var _resultList=title.resultList;
+			sendGetRequest(platformUrl.searchCLR, null,function(data){
+				var data_list = data.entityList;
+				var idArr=[];
+				$.each(_resultList,function(){
+					idArr.push(this.contentChoose);					
+				})
+				$.each(data_list,function(i,o){
+					var _id=o.id;
+					if(_id!=null){
+						if(idArr.indexOf(_id.toString())>-1){
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
+						}else{
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
+						}
+					}else{
+						if(idArr.indexOf('非投资线员工')>-1){
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.realName+"' selected=\"selected\">"+o.realName+"</option>"
+						}else{
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.realName+"'>"+o.realName+"</option>"
+						}
+					}
+			 	})
+			});
+		}else{
+			$.each(values,function(i,o){
+				if(this.checked){
+					li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\">"  + this.name + "</option>";
+				}else{
+					li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";}
+			});
+		}
     	if(title.resultList!=undefined){
     		if(title.isMust=='0'){
     			if(title.type=='23'){
@@ -467,6 +489,7 @@ function one_select_edit(title,inputtype,type){
 	
 	return eresult;
 }
+
 // 2:单选
 function type_2_html(title,mark){
 	

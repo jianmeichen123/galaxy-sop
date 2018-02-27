@@ -119,7 +119,7 @@ var searchPartMoney;
 						okback:function(){
 							$(".before_save_tc").addClass("stag_plan")
 							$(".before_save_btn").remove();
-							$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:总注资计划中的星河投资方主体、计划总注资金额、股权占比、加速服务费占比、项目估值</span>");
+							$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:总注资计划中的星河投资方主体、计划总注资金额、股权占比、项目估值</span>");
 						}//模版反回成功执行	
 					});
 				  return false;

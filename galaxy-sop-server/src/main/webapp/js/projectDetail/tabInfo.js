@@ -74,7 +74,7 @@ $(function(){
 			})
 			
 			//report信息
-		    updataReport(projectInfoList);	    
+			updateReportMoney();
 			if(roleId==4){   //投资经理a看投资经理B的项目，团队，法人，股权，融资隐藏
 				var roleProject=$('#createUname').text();
 				var roleLogin=$('.man_info .name').text();
@@ -596,7 +596,6 @@ function buildShareResult(reportType,relateId){
 						$.each(entityList,function(){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
-							
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
 								//这个是公共的 所以需要判断ID
@@ -611,6 +610,12 @@ function buildShareResult(reportType,relateId){
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
+								}else if(title.id =="1814" || title.id =="1815" || title.id =="1816"){   //APP端删除数据修复
+									if(_val==""){
+										_val="—"
+									}else{
+										_val=_val
+									}
 								}else{
 									var I_val=_val;
 								}

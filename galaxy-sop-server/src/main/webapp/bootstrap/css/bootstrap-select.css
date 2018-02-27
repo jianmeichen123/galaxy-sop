@@ -136,6 +136,7 @@
 
 .bootstrap-select.btn-group .dropdown-menu li {
     position: relative;
+    border-bottom:1px solid #fff;
 }
 
 .bootstrap-select.btn-group .dropdown-menu li > a.opt {
@@ -272,8 +273,28 @@
 
 .bootstrap-select-searchbox {
     padding: 4px 8px;
+    position:relative;
 }
 
-.bootstrap-select-searchbox input {
+.bootstrap-select .dropdown-menu .bootstrap-select-searchbox input {
     margin-bottom: 0;
+    border:1px solid #d8d8d8;
+border-radius:2px;
+width:100%;
+height:30px;
+padding-left:5px;
+box-sizing:border-box;
+}
+.selectpickerGb{
+	position:absolute;
+	width:14px;
+	height:14px;
+	background:url(../../img/close_selectpicker.png);
+	top:50%;
+	right:14px;
+	transform:translateY(-50%);
+	z-index:9999;
+}
+ul.selectpicker{
+	overflow-x:hidden;
 }

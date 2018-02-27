@@ -1,28 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
@@ -50,9 +27,32 @@ import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -401,15 +401,28 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			
 			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
 				isr = new InformationResult();
-				
+
 				isr.setId(aresult.getId());
-				if(aresult.getContentChoose() != null){
-					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-					isr.setValueName(dict.get(isr.getValueId()));
-				}
+				isr.setContentChoose(aresult.getContentChoose());
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
-				
+
+				if(aresult.getContentChoose() != null){
+					if(NumberUtils.isNumber(aresult.getContentChoose())){
+						if(("1118").equals(aresult.getTitleId())) //项目承揽人
+						{
+							isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+							isr.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+aresult.getContentChoose(), "realName"));
+						}else{
+							isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+							isr.setValueName(dict.get(isr.getValueId()));
+						}
+					}else{
+						//isr.setValueId(aresult.getContentChoose());
+						isr.setValueName(aresult.getContentChoose());
+					}
+				}
+
 				//对应的结果放入 title ResultList 中
 				List<InformationResult> isv = atitle.getResultList();
 				if(isv == null){
@@ -1276,7 +1289,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				{
 					if(dict != null )
 					{
-						item.setValueName(dict.get(Long.parseLong(item.getContentChoose())));
+						if(NumberUtils.isNumber(item.getContentChoose())){
+							if(("1118").equals(item.getTitleId())) //项目承揽人
+							{
+								item.setValueId(Long.parseLong(item.getContentChoose()));
+								item.setValueName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getContentChoose(), "realName"));
+							}else{
+								item.setValueId(Long.parseLong(item.getContentChoose()));
+								item.setValueName(dict.get(item.getValueId()));
+							}
+						}else{
+							//isr.setValueId(aresult.getContentChoose());
+							item.setValueName(item.getContentChoose());
+						}
 					}
 				}
 				String titleId = item.getTitleId()+"";

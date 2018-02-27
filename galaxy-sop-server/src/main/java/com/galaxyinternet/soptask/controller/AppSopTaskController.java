@@ -1,6 +1,7 @@
 package com.galaxyinternet.soptask.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,6 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 
 @Controller

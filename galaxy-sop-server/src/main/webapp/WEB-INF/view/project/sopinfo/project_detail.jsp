@@ -98,6 +98,7 @@ function getProjectInfo(dtd)
         
 	<div class="new_left">
        	<div class="tabtable assessment label_static1"  data-id='tab-block'>
+ 
 		</div>
 	</div>
     <!--右边-->

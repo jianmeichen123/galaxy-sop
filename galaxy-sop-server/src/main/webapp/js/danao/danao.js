@@ -20,7 +20,7 @@ function pagePop(codes){
 			$("#powindow .close").addClass("outClose")
 			var danaoProjCode= projectInfo.danaoProjCode; 
 			$(".DN_list h5").text("参考信息").css("background","none");  
-			if(!danaoProjCode||danaoProjCode==null){
+			if(danaoProjCode==undefined||danaoProjCode==null){
 				$(".DN_list p:first").text("系统检测您还未从创投大脑选择项目进行引用").css("color","#FF5124");
 			}else{
 				$(".DN_list p:first").hide();
@@ -65,7 +65,7 @@ function infoDPop(even,status){
 				 projectInfo.danaoProjCode=projCode;
 				 $("a[dncode]").attr("onclick","infoDPop(this)"); 
 				 $("a[dncode]").attr("urlcode"," /galaxy/infoDanao/infoDJsp/");  
-				getpopHTML(code,event,danaoName);
+				getpopHTML(code,event,danaoName); 
 			 }
 		 }) 
 	}else{ 	
@@ -131,7 +131,16 @@ function getpopHTML(code,even,danaoName){
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
-					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
+					 debugger;
+					 var block_w =$("#powindow").width(),
+						block_h =$("#powindow").height(), 
+						trans_x = -Math.round(block_w/2),
+						trans_y = -Math.round(block_h/2); 
+		    			$("#powindow").css({
+							"margin-left":trans_x,
+							"margin-top":trans_y,
+						})
 					 $(".DN_info").addClass("noPad");
 				 } 
 		}
@@ -182,8 +191,8 @@ function buildDNinfo(_url,jsonObj){
 		if(isEmpty(data.userData)){
 			$(".tableBox.infoBox ").hide();
 			$(".fixedbottom").hide();
-			$(".emptyInfo").show().css({"margin-bottom":0});
-			 $(".DN_info").addClass("noPad");
+			$(".emptyInfo").show().css({"margin-bottom":0}); 
+			$(".DN_info").addClass("noPad");
 			return false;
 		}
 		 var legal=data.userData.legalInfo;

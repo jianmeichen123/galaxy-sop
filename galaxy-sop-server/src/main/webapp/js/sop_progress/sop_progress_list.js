@@ -151,6 +151,7 @@
 			$(".operation_warning").show();
 		}
 	}
+	
 	//阶段加载
 	function goToProgress(){		
 		progressBtnToggle();
@@ -173,6 +174,7 @@
 			tab_show(1);
 			hideCurrent('projectProgress:3');
 		}else if(i==4){
+			editTipsShow('7','.setlXH'); //填写标准提示语
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
 			$(".tablink .icon").hide();
@@ -187,12 +189,14 @@
 			meetList("meetingType:5");
 			hideCurrent('projectProgress:11');
 		}else if(i==6){
+			editTipsShow('8','.setlXH'); //填写标准提示语
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
 			$(".tablink .icon").show();
 			tab_show(2);
 			hideCurrent('projectProgress:5');
 		}else if(i==7){
+			editTipsShow('9','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("尽职调查");
 			$(".tablink .icon").show();
 			toobarfile("尽职调查",7);
@@ -206,6 +210,7 @@
 			tab_show(1);
 			hideCurrent('projectProgress:7');
 		}else if(i==9){
+			editTipsShow('10','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("投资协议");
 			$(".tablink .icon").show();
 			toobarfile("投资协议",9);
@@ -213,6 +218,7 @@
 			hideCurrent('projectProgress:8');
 			//投资协议  上传附件
 		}else if(i==10){
+			editTipsShow('11','.setlXH');//填写标准提示语
 			$(".tabtitle h3").text("股权交割");
 			$(".tablink .icon").show();
 			toobarfile("股权交割",10);
@@ -255,7 +261,13 @@ $(".tab_2").click(function(event) {
 	$(".new_poptxt .bootstrap-table").next().hide();
 	$(".new_poptxt .bootstrap-table").hide();
 	$(".add_list").hide();
-	$(".tablink .icon").show();
+	if(status==0){
+		$(".tablink .icon").hide();
+	}else{
+		$(".tablink .icon").show();
+	}
+	
+	
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');

@@ -101,8 +101,12 @@
 					ht = parseInt($(_this.id).outerHeight(true));
 				var win_w = $(window).width(),
 					win_h = $(window).height(),
+					block_w =$(_this.id).width();
+					block_h =$(_this.id).height();
 					win_x = "50%",
-					win_y = "50%";
+					win_y =  "50%";
+					trans_x = -Math.round(block_w/2),
+					trans_y = -Math.round(block_h/2);
 				//背景设置高度+显示
 				$("#popbg,#popbg iframe").css({"height":win_h});
 				$("#popbg01").css({"height":win_h});
@@ -117,6 +121,10 @@
 					x:win_x,
 					y:win_y
 				});
+				$(_this.id).css({
+					"margin-left":trans_x,
+					"margin-top":trans_y,
+				})
 				$(_this.id).animate({
 					opacity:1
 				},400);
@@ -706,7 +714,7 @@
 						$(_this.id).find(".poptxt").html(html);
 						opts.okback(_this);
 						//重新定位
-						_this.postionEve();
+						_this.postionEve(); 
 						$("body").css("overflow-y","hidden");
 						//浏览器大小改变，弹窗重新定位
 						$(window).resize(function(){  

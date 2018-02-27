@@ -59,6 +59,7 @@
             this.$menu = this.$newElement.find('> .dropdown-menu');
             this.$button = this.$newElement.find('> button');
             this.$searchbox = this.$newElement.find('input');
+            this.$selectpickerGb = this.$newElement.find('.selectpickerGb');
 
             if (id !== undefined) {
                 this.$button.attr('data-id', id);
@@ -85,7 +86,7 @@
             var multiple = this.multiple ? ' show-tick' : '';
             var autofocus = this.autofocus ? ' autofocus' : '';
             var header = this.options.header ? '<div class="popover-title"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
-            //var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /></div>' : '';
+            var searchbox = this.options.liveSearch ? '<div class="bootstrap-select-searchbox"><input type="text" class="input-block-level form-control" /><span class="selectpickerGb"></span></div>' : '';
             var drop =
                 '<div class="btn-group bootstrap-select' + multiple + '">' +
                     '<button type="button" class="btn dropdown-toggle selectpicker" data-toggle="dropdown"'+ autofocus +'>' +
@@ -94,7 +95,7 @@
                     '</button>' +
                     '<div class="dropdown-menu open">' +
                         header +
-//                        searchbox +
+                       searchbox +
                         '<ul class="dropdown-menu inner selectpicker" role="menu">' +
                         '</ul>' +
                     '</div>' +
@@ -244,9 +245,23 @@
             if (!title) {
                 title = this.options.title !== undefined ? this.options.title : this.options.noneSelectedText;
             }
-
-            this.$button.attr('title', $.trim(title));
-            this.$newElement.find('.filter-option').html(title);
+            /*this.$button.attr('title', $.trim(title));
+            this.$newElement.find('.filter-option').html(title);*/
+            //项目承揽人去掉部门
+            var _title=title.split('、');
+            var arr=[];
+            for(var i=0;i<_title.length;i++){
+            	var n=_title[i].indexOf('|');
+            	if(n=="-1"){
+            		arr.push(_title[i]);
+            	}else{
+            		arr.push(_title[i].substring(0,n));
+            	}
+            	
+            }
+          //项目承揽人去掉部门
+            this.$button.attr('title', $.trim(arr.join('、')));
+            this.$newElement.find('.filter-option').html(arr.join('、'));
         },
 
         setStyle: function(style, status) {
@@ -544,11 +559,17 @@
             this.$menu.on('click', '.popover-title .close', function() {
                 that.$button.focus();
             });
-
+            
             this.$searchbox.on('click', function(e) {
                 e.stopPropagation();
             });
-
+            this.$selectpickerGb.on('click',function(e){   //添加关闭事件2018/02/05  lei
+            	 var that = this;
+            	 $(this).siblings('input').val('');
+            	 $('ul.selectpicker').find('li').show();
+            	e.stopPropagation();
+            })
+            
             this.$element.change(function() {
                 that.render(false);
             });
@@ -839,14 +860,14 @@
             return chain;
         }
     };
-
+    
     $.fn.selectpicker.defaults = {
         style: 'btn-default',
         size: 'auto',
         title: null,
         selectedTextFormat : 'values',
         noneSelectedText : '请选择',
-        noneResultsText : 'No results match',
+        noneResultsText : '没有找到匹配的',
         countSelectedText: '{0} of {1} selected',
         width: false,
         container: false,
