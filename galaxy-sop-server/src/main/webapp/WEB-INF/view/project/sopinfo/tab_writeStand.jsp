@@ -16,7 +16,8 @@
 </style>
 <div class="bg intw_summary" id="standard"> 
 </div>
-<script> 
+<script>  
+$("html, body").scrollTop(0)
 sendGetRequest(platformUrl.getStandard+'/7',null, function(data){
 	if(data.entity.status==1){
 		var standHtml = data.entity.standardDetails;
