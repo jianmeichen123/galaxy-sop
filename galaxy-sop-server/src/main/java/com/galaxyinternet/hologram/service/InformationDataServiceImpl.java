@@ -71,8 +71,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		User user = WebUtils.getUserFromSession();
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
-		String investment = "";
-		String resulId="";
 		if (projectId == null || ((list == null || list.size() == 0)
 				&& (data.getDeletedResultTids() == null || data.getDeletedResultTids().size() == 0))) {
 			return;
@@ -96,15 +94,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				modelList.add(model);
 				continue;
-			}
-			// 判断是否为决策报告里面，处理投资金额字段
-			if (null != model.getReportType() && model.getReportType() == 3 && model.getType().equals("19")) {
-				if (model.getTitleId().equals("3004")) {
-					if(null!=model.getResultId()){
-						resulId=model.getResultId();
-					}
-					investment = model.getRemark1();
-				}
 			}
 			if (model.getType() != null
 					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13")|| model.getType().equals("23"))) {
@@ -187,74 +176,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		//type == 22,结果评分项
 		saveOtherResult(modelList, projectId, user);
-		InformationResult resultUpdate = new InformationResult();
-		// 决策报告编辑估值安排时候计算项目投资额
-		InformationResult resultQuery = new InformationResult();
-		Set<String> ids = new HashSet<String>(2);
-		ids.add("3004");
-		ids.add("3010");
-		resultQuery.setTitleIds(ids);
-		resultQuery.setIsValid("0");
-		resultQuery.setProjectId(projectId);
-		List<InformationResult> resultList = resultDao.selectList(resultQuery);
-		//是否计算估值-注资金额和占比信息不完整时不进行计算
-		boolean calc = true;
-		if(resultList != null && resultList.size() == 2 )
-		{
-			for(InformationResult item : resultList)
-			{
-				if(StringUtils.isEmpty(item.getContentChoose()) && StringUtils.isEmpty(item.getContentDescribe1()))
-				{
-					calc = false;
-					break;
-				}
-			}
-		}
-		else
-		{
-			calc = false;
-		}
-		
-		if (calc && ((null != investment && !"".equals(investment))||(!"".equals(resulId)&&"".equals(investment)))) {
-			InformationResult result = new InformationResult();
-			result.setProjectId(projectId);
-			Set<String> titleids = new HashSet<String>();
-			titleids.add("3012");
-			titleids.add("3010");
-			result.setTitleIds(titleids);
-			result.setIsValid("0");
-			Long userId = user != null ? user.getId() : null;
-			Long now = new Date().getTime();
-			List<InformationResult> selectList = resultDao.selectList(result);
-			Double v = null;
-			int count=0;
-			for (int i = 0; i < selectList.size(); i++) {
-					InformationResult resultNew = selectList.get(i);
-					if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
-						if(!"".equals(investment)){
-							v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
-						}
-					}else if (null != v&&resultNew.getTitleId().equals("3012")||(null!=resulId&&v==null)) {
-						count=count+1;
-						resultUpdate=resultNew;
-				}
-			}
-			if(null!=v||(null==v&&!"".equals(resulId))){
-				if(count>0){
-					result = resultUpdate;
-					result.setContentDescribe1(v==null?"":v.toString());
-					result.setUpdatedTime(now);
-					result.setUpdateId(userId.toString());
-					resultDao.updateById(result);
-				}else {
-					result.setContentDescribe1(v==null?"":v.toString());
-					result.setCreatedTime(now);
-					result.setCreateId(userId.toString());
-					resultDao.insert(result);
-				}
-			}
-			
-		}
 	}	
 	/**
 	 * type == 22时特殊处理

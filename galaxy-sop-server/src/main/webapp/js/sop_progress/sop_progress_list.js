@@ -177,7 +177,7 @@
 			editTipsShow('7','.setlXH'); //填写标准提示语
 			meetList("meetingType:3");
 			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
-			$(".tablink .icon").show();
+			$(".tablink .icon").hide();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');
@@ -261,7 +261,13 @@ $(".tab_2").click(function(event) {
 	$(".new_poptxt .bootstrap-table").next().hide();
 	$(".new_poptxt .bootstrap-table").hide();
 	$(".add_list").hide();
-	$(".tablink .icon").show();
+	if(status==0){
+		$(".tablink .icon").hide();
+	}else{
+		$(".tablink .icon").show();
+	}
+	
+	
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');

@@ -75,12 +75,13 @@ function editTipsShow(code,dom){
 				 url:url,
 				 dataType:'json',
 				 success:function(data){
-					 if(data.entity.status==1){
+					 if(data.entity&&data.entity.status==1){
 						 $(dom).show()
-						 	var tips = data.entity.standardDetails;
-							$(dom).attr('title',tips)
+						 var tips = data.entity.standardDetails;
+						$(dom).attr('title',tips)
 					 }else{
-						 $(dom).hide()
+						 $(dom).hide();
+						 return status = 0;
 					 }
 					
 				 }

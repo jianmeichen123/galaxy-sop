@@ -185,12 +185,20 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+				if(title.id=='1814' || title.id=='1815'){
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				}else{
+					$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+				}
 			}
 			else
 			{	
-				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
+				var result_id = title.resultList[0].id;		
+				if(title.id=='1814' || title.id=='1815'){
+					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1).attr("resultId",result_id);		
+				}else{
+					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);		
+				}
 			}
 		}
 		if(title.type == 2)
@@ -560,7 +568,7 @@ function buildResults(sec,title,readonly)
 							_val="未填写"
 						}else{
 							var res = change_number(_val);
-							_val = _parsefloat(res[0]);
+							_val = _parsefloat(Number(res[0]).toFixed(4));   //数据互通调整
 							var moneyT = res[1]+"元";
 						}
 					}

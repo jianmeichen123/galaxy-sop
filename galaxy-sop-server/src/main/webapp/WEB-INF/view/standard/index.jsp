@@ -69,16 +69,16 @@ table th {
 	<div class="pagebox">
 		<div class="conbox">
 			<h2 class="h2">填写标准</h2>
-			<table class='no-radius table_new_style'
+			<table class='no-radius table_new_style standard'
 				width="100%" cellspacing="0" cellpadding="0" id="standard-table"
 				data-url="<%=request.getContextPath()%>/galaxy/standard/search"
 				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
 				<thead>
 					<tr>
-						<th data-field="moduleName">涉及模块</th>
-						<th data-field="statusDesc">状态</th>
-						<th data-field="standardDetails" data-width="50%" data-formatter="detailFormatter">标准详情</th>
-						<th data-field="opt" data-formatter="optFormatter" class="edit">操作</th>
+						<th data-field="moduleName" data-width="180px">涉及模块</th>
+						<th data-field="statusDesc" data-width="180px">状态</th>
+						<th data-field="standardDetails"  data-formatter="detailFormatter">标准详情</th>
+						<th data-field="opt" data-width="180px" data-formatter="optFormatter" class="edit">操作</th>
 					</tr>
 				</thead>
 			</table>
@@ -106,7 +106,7 @@ table th {
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'created_time',
-		pagination : true,
+		pagination : false,
 		search : false,
 	    queryParams: function(params){
 	    	params.page = params.pageNum;
@@ -182,10 +182,17 @@ table th {
 		var that = $(event);
 		var tr = that.closest("tr");
 		var uniqueid=tr.data("uniqueid");
+		var statusC = that.next().text();
+		if(statusC=="开启"){
+			statusC=0;
+		}else{
+			statusC=1;
+		}
 		$.getHtml({
 			url : "/sop/html/writePop.html",//模版请求地址 
 			data : "",//传递参数
 			okback : function() {
+				$('.close').addClass('tast-close')//添加关闭按钮 
 				var name = tr.find("td:first").text();
 				var text = tr.find("td").eq(2).text();
 				var standardDetails="";
@@ -193,6 +200,9 @@ table th {
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name);
 					$("#Viewtext").show().val(text);
+					var inputNum = $("#Viewtext").val().length;
+					var valNUm = 50-inputNum; 
+					$("#Number").text(valNUm);
 				} else if (status == "s") {
 					$(".see").show();
 					$(".see dd[name='name']").text(name);
@@ -204,6 +214,7 @@ table th {
 					var str = "<blockquote class='intw_summary'>"+text+"</blockquote>"
 					$(".see dd[name='text']").html(str);
 				}else if(status=="edit"){
+					$(".num_tj").remove();
 					var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'420px'});
 					$(".edit").show();
 					$(".edit dd[name='name']").text(name); 
@@ -213,6 +224,7 @@ table th {
 					}
 				
 				$("#save_standard").click(function(){  
+					//statusCode
 					 var validate =$("#detail-form").validate().form();
 					if(!validate){
 						return;
@@ -229,7 +241,8 @@ table th {
 					}
 					var dataJson={
 							id:uniqueid,
-							standardDetails:standardDetails 
+							standardDetails:standardDetails ,
+							status:statusC,
 					}
 					sendPostRequestByJsonObj(
 					platformUrl.saveStandard, 
