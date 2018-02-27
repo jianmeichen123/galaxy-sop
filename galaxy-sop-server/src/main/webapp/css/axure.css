@@ -4631,3 +4631,6 @@ font-weight:bold;
 .h_edit input[type="text"].input-block-level{
 	display:block !important;
 }
+.tableSearch .searchTerm{
+	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #e4e4e4;
+}

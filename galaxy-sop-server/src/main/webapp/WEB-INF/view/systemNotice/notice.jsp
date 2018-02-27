@@ -19,7 +19,35 @@
 	<div class="pagebox clearfix">
 		<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 		<div class="ritmin">
-			<h2>系统通知</h2>		
+			<h2>系统通知</h2>	
+			<div class="tableSearch">
+				<div class="searchTerm">
+					<label>发送时间：</label>
+					<input />
+					<span>至</span>					
+					<input /> 
+					<label>状态：</label>
+				</div>
+				<table   class='assingTable table-hover' id="noticeTable">
+					<thead>
+					    <tr> 
+				        	<th data-field="projectName"  data-width="14%" data-align="left">通知内容</th>
+				        	<th data-field="projectName"  data-width="14%" data-align="left">创建人</th>
+				        	<th data-field="projectName"  data-width="14%" data-align="left">创建时间</th>
+				        	<th data-field="projectName"  data-width="20%" data-align="left">推送通知时间</th>
+				        	<th data-field="projectName"  data-width="10%" data-align="left">状态</th>
+				        	<th data-field="projectName"  data-width="14%" data-align="left">发送平台</th>
+				        	<th data-field="projectName"  data-width="14%" data-align="left">操作</th>
+	 					</tr>	
+	 				</thead>
+	 				<tbody>
+	 				
+	 				</tbody>
+				</table> 
+			
+			
+			
+			</div>	
 		</div>
 	</div>
 </body>
