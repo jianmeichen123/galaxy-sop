@@ -56,11 +56,10 @@ public class TestController{
 	@RequestMapping(value = "/searchResult")
 	public String platformTest4(HttpServletRequest request) {
 		return "project/search";
-	}
-	
-	@RequestMapping(value = "/writeStand")
+	} 
+	@RequestMapping(value = "/systemNotice")
 	public String platformTest123(HttpServletRequest request) {
-		return "project/sopinfo/tab_writeStand";
+		return "systemNotice/notice";
 	}
 /*	@RequestMapping(value = "/writePage")
 	public String platformTest12(HttpServletRequest request) {
