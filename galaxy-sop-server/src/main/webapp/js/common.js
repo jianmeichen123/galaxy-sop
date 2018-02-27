@@ -77,7 +77,7 @@ function editTipsShow(code,dom){
 				 success:function(data){
 					 console.log(data)
 					 if(data.entity&&data.entity.status==1){
-						 $(dom).show()
+						// $(dom).show()
 						 var tips = data.entity.standardDetails;
 						$(dom).attr('title',tips)
 						return status =2;
