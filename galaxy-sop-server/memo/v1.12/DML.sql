@@ -13,3 +13,6 @@ update fx_db.information_result set content_choose = '非投资线员工' where 
 
 INSERT INTO `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`)
  VALUES('1601','0','standard','填写标准','1','sop/galaxy/writePage/','3900','menu展示项，由此进入填写标准页面','0','0','0',NULL,NULL,NULL,NULL,'1','224');
+ 
+ 
+ UPDATE `fx_db`.`information_title` SET `name`='成立日期' WHERE `id`='1816';
