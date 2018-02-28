@@ -254,6 +254,7 @@
 	})
 
 //tab点击事件
+var status;
 $(".tab_2").click(function(event) {
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
