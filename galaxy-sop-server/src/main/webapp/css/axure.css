@@ -3946,6 +3946,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_institue{position: relative; display:none;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;cursor:pointer;}
+ .agency_close:hover{background:url('../img/base_info/xclose.png') no-repeat center;cursor:pointer;}
+
  .pagebox .tabtable .agency_institute  table{border: 1px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
  .agency_institute table th,.agency_institute table td{text-align:center; border-bottom:1px solid #e4e4e4;}
  .agency_institute table th{padding:3px 0;}
@@ -4051,7 +4053,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 }
 .task-department{margin-left:10px;}
 input::input-placeholder{color:red !important;}
- .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
+.pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
+.pop .tast-close:hover{background:url('../img/base_info/xclose.png') no-repeat center}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 .table_new_style th,.table_new_style td{height:40px;font-size:14px;font-family:Microsoft YaHei;color:#5a626d;}
 .table_new_style th{font-weight:bold; border-bottom: 1px solid #f0f0f0;}
