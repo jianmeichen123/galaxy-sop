@@ -3978,7 +3978,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;font-family:Microsoft YaHei;}
 .pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;float:right;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
-.pagebox .ritmin .task-searchbox{width:465px;margin-top:-49px;}
+.pagebox .ritmin .task-searchbox{width:465px;margin-top:-62px;}
 .task-cx{height:28px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 4px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
