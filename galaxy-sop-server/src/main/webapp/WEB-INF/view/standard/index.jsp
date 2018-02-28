@@ -20,6 +20,7 @@
 	box-sizing: border-box;
 }
 
+.fixed-table-container .table_new_style thead th .th-inner {padding: 8px 0;}
 @media ( min-width : 1359px) {
 	.pagebox {
 		padding-top: 50px;
