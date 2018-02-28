@@ -29,7 +29,7 @@ var eym = year + '-12';
 
 
 					<!-- 投资事业线目标完成对比  -->
-					<div class="center top clearfix">
+					<div class="centerx top clearfix">
 						<h2 class="chart_name">投资事业线目标完成对比</h2>
 						<div id="chartBrief3"  style="min-width:800px;"></div>
 					</div>
