@@ -847,10 +847,10 @@ pre{white-space:pre-wrap;margin:0;}
 .ritmin .tabtable .tabtable_con .chartbox .chartbox_li{position: relative;}
 .ritmin .tabtable .statistic{font-size: 12px;position: absolute;right: 0;top: 5px;width: 500px}
 .ritmin .tabtable .statistic ul li{overflow: hidden;text-align: right;color:#536379; font-family: "宋体";line-height: 20px;}
-.ritmin .tabtable .center .center_l{width: 38%;}
-.ritmin .tabtable .center{border-top:2px solid #edeff5;border-bottom:2px solid #edeff5;}
-.ritmin .tabtable .center .center_l,.ritmin .tabtable .center .center_r{padding:20px 0 0;}
-.ritmin .tabtable .tabtable_con .chartbox .center{margin:0 0 20px;}
+.ritmin .tabtable .centerx .center_l{width: 38%;}
+.ritmin .tabtable .centerx{border-top:2px solid #edeff5;border-bottom:2px solid #edeff5;}
+.ritmin .tabtable .centerx .center_l,.ritmin .tabtable .centerx .center_r{padding:20px 0 0;}
+.ritmin .tabtable .tabtable_con .chartbox .centerx{margin:0 0 20px;}
 .chart_m{margin-top: 20px;}
 .table_m{margin-bottom: 50px !important;}
 .middle{margin: 10px 0 30px 0;}

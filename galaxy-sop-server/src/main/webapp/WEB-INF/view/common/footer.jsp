@@ -101,7 +101,7 @@ var data = {
 	      "avatar": _src,
 	      "openid": userId,    //用户ID
 	  },
-	  productId = 21398;
+	  productId = 22486;
 function feedback(){   //跳转吐个槽
 	Tucao.request(productId, data);
 } 
