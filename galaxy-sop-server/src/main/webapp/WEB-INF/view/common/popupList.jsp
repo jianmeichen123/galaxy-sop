@@ -2,7 +2,7 @@
 <div class="xmstjtc margin_45">
 	<div class="title_bj">访谈日志</div>
 	<div id="custom-toolbasr-ajax-popup"></div>
-	<table width="883" cellspacing="0" cellpadding="0" style="position:absolute;top:75px;z-index:9;" id="fixed-table">
+	<table width="900" cellspacing="0" cellpadding="0" style="position:absolute;top:55px;z-index:9;" id="fixed-table">
 		<thead>
 			<tr>
 				<th style="width:119px;padding:0 8px">项目名称</th>
