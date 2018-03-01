@@ -919,7 +919,7 @@ function type_10_html(title,mark){
 		//编辑   
 		console.log(title)
 		var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
-		var tableBox = "<table data-title-id="+title.id+" data-code=\"czr_pop\"><thead>"
+		var tableBox = "<table data-title-id="+title.id+" class=\"editable\" data-code="+tableHeader.code+"><thead>"
 		var ddBox="<dd class=\"fl_none\"></dd>"
 		var th = "<tr>"; 
 		if(title.code == 'NO1_1_2'){   //综合竞争比较
@@ -928,7 +928,7 @@ function type_10_html(title,mark){
 		} 
 		for(var i = 0 ; i < filed_sort.length; i++){
 			var filed  = filed_sort[i];
-			th +='<th>'+tableHeader[filed]+'</th>';
+			th +='<th data-field-name='+filed+'>'+tableHeader[filed]+'</th>';
 		}
 		th +='<th>操作</th>';
 		tableBox+= th +  "</tr></thead></tbody></table>";

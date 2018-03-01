@@ -2104,8 +2104,7 @@ function addRow(ele)
 	            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
 	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
 	            selectContext("detail-form");
-	            $("#save-detail-btn").click(function(){
-	            	debugger;
+	            $("#save-detail-btn").click(function(){ 
 	                saveForm($("#detail-form"));
 	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
@@ -2164,8 +2163,7 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{
-	debugger;
+{ 
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
@@ -2189,7 +2187,7 @@ function saveRow(data)
 	}
 	var titleId = data.titleId;
 	var titleCode;
-	var index = data.index;
+	var index = data.index;  
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);

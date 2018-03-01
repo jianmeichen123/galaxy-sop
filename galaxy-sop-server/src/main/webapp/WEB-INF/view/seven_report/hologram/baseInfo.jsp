@@ -105,7 +105,7 @@ createMenus(5);
 var isEditable = "${isEditable}";
 function getDetailUrl(code)
 {
-	if(code == 'czr_pop')
+	if(code == 'team-person')
 	{
 		return '<%=path%>/html/czr_pop.html';
 	}
