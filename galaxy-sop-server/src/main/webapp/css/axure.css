@@ -847,10 +847,10 @@ pre{white-space:pre-wrap;margin:0;}
 .ritmin .tabtable .tabtable_con .chartbox .chartbox_li{position: relative;}
 .ritmin .tabtable .statistic{font-size: 12px;position: absolute;right: 0;top: 5px;width: 500px}
 .ritmin .tabtable .statistic ul li{overflow: hidden;text-align: right;color:#536379; font-family: "宋体";line-height: 20px;}
-.ritmin .tabtable .center .center_l{width: 38%;}
-.ritmin .tabtable .center{border-top:2px solid #edeff5;border-bottom:2px solid #edeff5;}
-.ritmin .tabtable .center .center_l,.ritmin .tabtable .center .center_r{padding:20px 0 0;}
-.ritmin .tabtable .tabtable_con .chartbox .center{margin:0 0 20px;}
+.ritmin .tabtable .centerx .center_l{width: 38%;}
+.ritmin .tabtable .centerx{border-top:2px solid #edeff5;border-bottom:2px solid #edeff5;}
+.ritmin .tabtable .centerx .center_l,.ritmin .tabtable .centerx .center_r{padding:20px 0 0;}
+.ritmin .tabtable .tabtable_con .chartbox .centerx{margin:0 0 20px;}
 .chart_m{margin-top: 20px;}
 .table_m{margin-bottom: 50px !important;}
 .middle{margin: 10px 0 30px 0;}
@@ -2547,11 +2547,11 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_ico_work {width:23px; height:19px;background-position:-77px 0px;  display:block; float:left;}
 .team_ico_carve{width:23px; height:19px;background-position:-99px 0px;  display:block; float:left;}
 .team_compile .team_tit{ border-bottom:1px solid #f6f6f6; height:25px; margin-right:10px;}
-/* .team_compile_ul{overflow:hidden;} */
+.team_compile_ul{overflow:hidden;}
 .team_compile_ul li span{color:#999;}
 .team_compile_ul li span.error{color:#ff0000;}
 span.error,label.error,span.error_span{color:#ff0000 !important;}
-.team_compile_ul li{ width:48%; float:left; padding-left:1%; margin-top:10px; height: 33px;}
+.team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; height: 33px;}
 .team_compile_ul li.wid_li{width:100%;}
 .team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
     font-size: 12px; color: #525662; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
@@ -2638,7 +2638,6 @@ dt[data-type='19']+dd .error{display:block;}
 .textarea_h{color:#666;width: 100%;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:hidden;font-size:12px; font-family:Microsoft YaHei;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;}
-.num_tj i{font-style:normal;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #ff956b;padding-left:26px;line-height: 20px;font-size: 16px;color:#000;position:absolute;top:30px;left:0;}
@@ -3947,6 +3946,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_institue{position: relative; display:none;}
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;cursor:pointer;}
+ .agency_close:hover{background:url('../img/base_info/xclose.png') no-repeat center;cursor:pointer;}
+
  .pagebox .tabtable .agency_institute  table{border: 1px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
  .agency_institute table th,.agency_institute table td{text-align:center; border-bottom:1px solid #e4e4e4;}
  .agency_institute table th{padding:3px 0;}
@@ -3979,16 +3980,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .bottom_none:hover{border-bottom:none !important;}
 .task_tipslink li a{color:#33363e;font-size:14px;font-family:Microsoft YaHei;}
 .pagebox .ritmin .task-searchbox .task_input{border:1px solid #d8d8d8 !important;float:right;width:228px;height:30px;padding:0 0 0 10px;color:#333333;font-size:12px;font-family:Microsoft YaHei;}
-.pagebox .ritmin .task-searchbox{width:465px;margin-top:-49px;}
+.pagebox .ritmin .task-searchbox{width:465px;margin-top:-62px;}
 .task-cx{height:28px;line-height:28px;padding:1px 17px 0px 49px;border-radius:2px;background:#3ca6ff url(../img/search_task.png) no-repeat 21px 4px;margin-left:10px;margin-right:12px;font-size:12px;font-family:Microsoft YaHei;}
 .task_tipslink .task-searchbox .task-cx{font-size:13px;}
 .no-radius{border-radius:0px !important;}
 .one-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
 .more-task{width:88px;height:32px;line-height:32px;background:#3ca6ff;display:inline-block;text-align:center;color:#fff;font-size:12px;border-radius:2px;cursor:pointer;margin-right:12px;margin-left:8px;}
-.task-toggle{display:none;position:absolute;right:11px;top:-10px;z-index:10;width:88px;height:auto;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
+.task-toggle{display:none;position:absolute;right:11px;top:-20px;z-index:10;width:88px;height:auto;box-shadow:0 1px 4px 1px rgba(60,166,255,0.20);border-radius:2px;background:#fff;text-align:center;}
 .task-toggle li{cursor:pointer;height:32px;line-height:32px;}
 .task-toggle li:hover{background:#e5f3ff;}
-.pagebox .task-ritmin{margin:0px 0 0 150px;padding-left:20px;}
+.pagebox .task-ritmin{margin:20px 0 0 150px;padding-left:20px;}
 .pagebox .taskDetail-ritmin{margin:0px;padding-left:10px;}
 .taskDetail-mesage{margin-top:20px;width:100%;}
 .taskDetail-mesage-top{height:170px;background:#fff; }
@@ -4007,7 +4008,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-detail-table th:nth-child(1){text-align:left;padding-left:20px;}
 .task-detail-table tr td{text-align:center;color:#5a626d;}
 .task-detail-table tr td:nth-child(1){text-align:left;}
-.fixed-table-container .standard thead th .th-inner
+.table_new_style th:nth-child(1),.pagebox .table_new_style tbody tr td:nth-child(1){padding-left:20px !important;}
 .pagebox .table_new_checkbox thead tr th:nth-child(1){padding-left:8px !important; width:20px !important;}
 .pagebox .table_new_checkbox tbody tr td:nth-child(1){padding:9px !important;}
 .task-operation span{color:#45aaff;margin-left:16px;cursor:pointer;}
@@ -4052,15 +4053,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 }
 .task-department{margin-left:10px;}
 input::input-placeholder{color:red !important;}
- .pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
+.pop .tast-close{background:url('../img/base_info/close.png') no-repeat center}
+.pop .tast-close:hover{background:url('../img/base_info/xclose.png') no-repeat center}
 .toggle-ul{box-shadow:0px 3px 6px -1px rgba(0,0,0,0.15)}
 .table_new_style th,.table_new_style td{height:40px;font-size:14px;font-family:Microsoft YaHei;color:#5a626d;}
 .table_new_style th{font-weight:bold; border-bottom: 1px solid #f0f0f0;}
 .table_new_style td{border-bottom: 1px solid #f0f0f0;}
 .table_new_style td a{font-size:14px;font-family:Microsoft YaHei;color:#45aaff;}
 .fixed-table-container .table_new_style thead th .th-inner{padding:8px;}
-.fixed-table-container .standard thead th .th-inner{padding:8px 10px;} 
-.fixed-table-container .standard tbody td{padding-left:20px;padding-right:20px;}
+.fixed-table-container .table_new_style thead th:nth-child(1) .th-inner{padding-left:0}
 .task-pagebox .fixed-table-body{border-radius:0;	}
 .outerContent .fixed-table-body{border-radius:0;}
 
@@ -4570,7 +4571,7 @@ font-weight:bold;
 }
 /*--------------------- v1.12 ---------------------*/
  .editTips img{display:inline-block;margin:-2px 10px 0 0;vertical-align:middle;}
- .basic_message_cont .editTips{margin-top:-20px;margin-bottom:10px;margin-right:6px;}
+ .basic_message_cont .editTips{margin-top:-20px;margin-bottom:10px;}
   .editTips font.red{font-size:12px;}
   .new_poptxt .tablink .icon{width:138px;}
   .qualificationstc .editTips{margin-right:10px;}
@@ -4616,15 +4617,10 @@ font-weight:bold;
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
 .img_content_new{display:none;min-height:390px;}
-.dropdown-menu.selectpicker li:hover{
+.dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
 	background:#e5f3ff;
 	border-bottom:1px solid #fff;
 }  
-.h_edit .bootstrap-select.btn-group .dropdown-menu.selectpicker li > a:hover{
-	background:#e5f3ff;
-	border-bottom:1px solid #fff;
-	color:#333;
-}
 .h_edit input[type="text"].input-block-level{
 	margin:0;
 }

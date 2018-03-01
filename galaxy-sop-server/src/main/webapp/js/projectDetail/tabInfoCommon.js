@@ -141,8 +141,7 @@ $(function(){
 									valueL+=that2.find("span").text()+"、";
 								}else{
 									valueL+=that2.find("span").text().substring(0,n)+"、";
-								}
-								console.log(valueL)
+								} 
 								//valueL+=that2.find("span").text()+"、";
 								that2.addClass("selected");
 								if(that2.text()=="非投资线员工"){

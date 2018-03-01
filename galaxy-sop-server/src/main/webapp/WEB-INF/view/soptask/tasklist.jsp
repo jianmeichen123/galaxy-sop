@@ -53,7 +53,7 @@
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <a href="javascript:;" class="bluebtn ico cx task-cx bluebtn_new"  action="querySearch" id="search-task-btn">搜索</a>
-            <input  name="keyword" type="hidden" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
+            <input  name="keyword" type="text" placeholder="请输入项目名称或发起人名称" class="txt task_input"/>
           </div> 
           
         </div>

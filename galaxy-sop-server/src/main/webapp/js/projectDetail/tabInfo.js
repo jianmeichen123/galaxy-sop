@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){
+        $("[data-on='data-open']").click(function (){ 
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -113,8 +113,8 @@ $(function(){
 					$('.investTogether_current .agency_radius span').text('跟投机构')
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
-				}
-				
+				} 
+				$(".inves_add").show();
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();
 				//内部弹窗根据条件显示
@@ -567,10 +567,14 @@ function jointDeliveryEdit(list){
 	        +'<span class="input_box"><input placeholder="占股比例(%)"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
 	          +'<em class="inves_delete"></em>'
 	          +'</div>';
-		$(".inputsForm").append(inputsRow);
+		$(".inputsForm").append(inputsRow); 
 		 name_opt.push(list[i].deliveryCurrency);
 	};
-	
+	if(list.length>=10){
+		$(".inves_add").hide()
+	}else{
+		$(".inves_add").show()
+	} 
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
@@ -589,7 +593,7 @@ function buildShareResult(reportType,relateId){
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK')
-				{
+				{ 
 					var entityList = data.entityList;
 					if(entityList && entityList.length >0)
 					{
@@ -616,6 +620,7 @@ function buildShareResult(reportType,relateId){
 									}else{
 										_val=_val
 									}
+									var I_val=_val;
 								}else{
 									var I_val=_val;
 								}
@@ -628,7 +633,6 @@ function buildShareResult(reportType,relateId){
 										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
 									}
 								}
-								
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
