@@ -456,13 +456,37 @@ $(function() {
 				}
 			}
 		});
-		data.deletedResultTids = deletedResultTids;
-		
-		
+		data.deletedResultTids = deletedResultTids; 
 		//表格
-		var talbes = $("#b_"+id_code).find("[data-type='10']");
-		if(talbes){
-			var infoTableModelList = new Array();
+		var infoTableModelList = new Array();
+		var talbes = $("#a_"+id_code).find("[data-type='10']"); 
+		if(talbes){ 
+			debugger
+			$.each(talbes,function(){
+				$.each($(this).next().find('tr:gt(0)'),function(){
+					debugger;
+					var row = $(this).data();
+					if(row.id=="")
+					{
+						row.id=null;
+					}
+					infoTableModelList.push($(this).data());
+				});
+			}); 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/* var infoTableModelList = new Array();
 			var deletedRowIds = new Array();
 			
 			for(var i=0; i<talbes.length; i++){
@@ -491,10 +515,10 @@ $(function() {
 					}
 					table_delComArr[tid] = [];
 				}
-			}
+			} */
 			
 			data.infoTableModelList = infoTableModelList;
-			data.deletedRowIds = deletedRowIds;
+			data.deletedRowIds = deletedRowIds; 
 		}
 		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('.filter-option').text();
 		if(txtOption=='请选择'){

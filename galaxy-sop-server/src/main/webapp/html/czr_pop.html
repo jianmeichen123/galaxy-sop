@@ -90,4 +90,11 @@ $(function(){
  			manager = data.userData.manager; 
      })
  }   
+$("#save-detail-btn").click(function(){  
+    saveForm($("#detail-form"));
+    $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性
+    selectContext("detail-form");
+    check_table();
+    check_table_tr_edit();
+});
 </script>

@@ -294,6 +294,7 @@ var deleteJSON={};
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
 			$.each($(this).find('tr:gt(0)'),function(){
+				debugger;
 				var row = $(this).data();
 				if(row.id=="")
 				{
