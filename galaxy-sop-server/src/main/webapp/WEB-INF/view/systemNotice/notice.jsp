@@ -9,6 +9,7 @@
 	<title>星河投</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 	<link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
+	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<jsp:include page="../common/taglib.jsp"></jsp:include>
 	<script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -19,14 +20,21 @@
 	<div class="pagebox clearfix">
 		<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 		<div class="ritmin">
-			<h2>系统通知</h2>	
+			<h2 class='system_inform'>系统通知</h2>	
 			<div class="tableSearch">
 				<div class="searchTerm">
 					<label>发送时间：</label>
-					<input />
-					<span>至</span>					
-					<input /> 
-					<label>状态：</label>
+					<input class='' readonly='readonly' type='text' name="formationStart"/>
+					<span class='system_arrive'>至</span>					
+					<input  class='' readonly='readonly' type='text' name="formationEnd"/> 
+					<label class='system_status'>状态：</label>
+					<select>
+						<option>1</option>
+						<option>1</option>
+						<option>1</option>
+						<option>1</option>
+					</select>
+					<span class='system_querySearch'>查询</span>
 				</div>
 				<table   class='assingTable table-hover' id="noticeTable">
 					<thead>
@@ -59,6 +67,39 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
 	createMenus(5);
+	//日期选择
+	$('.searchTerm input[name="formationStart"]').datepicker({
+	    format: 'yyyy-mm-dd',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now'
+	});
+	$('.searchTerm input[name="formationEnd"]').datepicker({
+	    format: 'yyyy-mm-dd',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now'
+	});
+	
+	
+	
 </script>

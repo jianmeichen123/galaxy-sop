@@ -4632,3 +4632,11 @@ font-weight:bold;
 .tableSearch .searchTerm{
 	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #e4e4e4;
 }
+/* 系统通知 */
+.pagebox .ritmin h2.system_inform{font-size:16px;color:#202533;font-family:Microsoft YaHei;}
+.tableSearch .searchTerm input{width:130px;height:32px;padding-left:10px;border:1px solid #d8d8d8;background:url('../img/base_info/pop_icon_datepick.png') no-repeat right -8px;}
+.searchTerm .system_arrive{padding:0px 10px;}
+.searchTerm .system_status{margin-left:40px;}
+.tableSearch .searchTerm select{width:140px;heigth:32px;}
+.tableSearch .system_querySearch{display:inline-block;background:#45aaff;border-radius:2px;width:96px;height:32px;line-height:32px;font-size:14px;
+color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cursor:pointer;}
