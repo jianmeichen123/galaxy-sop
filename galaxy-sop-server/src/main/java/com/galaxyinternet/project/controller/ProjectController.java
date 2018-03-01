@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -97,6 +98,7 @@ import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.platform.constant.PlatformConst;
+import com.galaxyinternet.project.event.ProjectCreatedEvent;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -128,11 +130,12 @@ import io.swagger.annotations.ApiResponses;
 
 @Controller
 @RequestMapping("/galaxy/project")
-public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
+public class ProjectController extends BaseControllerImpl<Project, ProjectBo> 
 {
 
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
-
+	@Autowired
+	ApplicationContext applicationcontext;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -376,7 +379,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				final long id = projectService.newProject(project, file);
 				if (id > 0)
 				{
-
+					applicationcontext.publishEvent(new ProjectCreatedEvent(id));
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
 					if (file != null)
