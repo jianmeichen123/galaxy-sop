@@ -1201,7 +1201,15 @@ var platformUrl = {
 	 */
 	getDirectory : Constants.sopEndpointURL + "/galaxy/infoProject/getDirectory/",
 	
+	/**
+	 *  承做人事业部
+	 */
+	getCareer: Constants.sopEndpointURL + "/galaxy/infoProject/getDirectory/",
 	
+	/**
+	 *  承做人事业部下面的承做人 
+	 */
+	getCareerTeam: Constants.sopEndpointURL + "/galaxy/project/dep/",
 	
 	/**
 	 * 传入题 id ， 返回 题对应的 value 信息

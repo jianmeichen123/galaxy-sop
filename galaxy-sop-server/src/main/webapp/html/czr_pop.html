@@ -13,7 +13,7 @@
             <dl class="fmdl clearfix ">
                 <dt>承做人事业部：</dt>
                 <dd>
-                    <select name="field3"  id="field3">
+                    <select name="field3"  id="field3" onchange="getUser(this)">
 
                     </select>
                 </dd>
@@ -53,16 +53,37 @@
     </div>
 </div>
 <script>
-     $(function(){
-        $("#detail-form").validate({});
-        $.validator.setDefaults({
-        	errorElement:'span'
-        });
-        
-        /* 提示信息 */
-        editTipsShow('5','.shareHolder');
-                
-        
-    })
-    
+var manager="";
+var nullD = "<option data-name=\"请选择\">请选择</option>"
+$(function(){
+     $("#detail-form").validate({});
+     $.validator.setDefaults({
+     	errorElement:'span'
+     });
+     
+     /* 提示信息 */
+     editTipsShow('5','.shareHolder');           
+     //获取承做人事业部
+    /*  sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
+function(data) {
+     	
+     	
+     }) */
+     $("select[ name='field3']").html("<option value=\"123\" name=\"field3\" data-name=\"123\">123</option><option value=\"1234\" name=\"field3\" data-name=\"123\">1234</option>")
+})
+ function getUser(dom){ 
+ 	var that =$(dom); 
+ 	var careerId='13'; 
+ 	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
+		function(data) {
+ 			var list = data.entityList;
+ 			var res="";
+ 			$.each(list,function(){ 
+ 				res+="<option value="+this.id+" name=\"field3\" data-name="+this.realName+">"+this.realName+"</option>";
+ 			})
+ 			$("select[name='field1']").append(nullD);
+ 			$("select[name='field1']").append(res);
+ 			manager = data.userData.manager; 
+     })
+ }   
 </script>
