@@ -5,12 +5,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.systemMessage.SystemMessageBo;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.systemMessage.SystemMessage;
 import com.galaxyinternet.service.SystemMessageService;
@@ -37,22 +45,34 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 	 */
 	@RequestMapping(value = "/tabSystemMessage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String platform(HttpServletRequest request) {
-		return "seven_report/hologram/tabInfomation";
+		return "standard/index";
 	}
-     /**
-	 *全息图-基本信息模块
+	/**
+	 * @date 2018-3-1
+	 * @author chenjianmei
 	 * @param request
-	 * @param request
+	 * @param systemMessage
 	 * @return
 	 */
-	@RequestMapping(value = "/toBaseInfo", method = RequestMethod.GET)
-	public String message(HttpServletRequest request) {
-		return "seven_report/hologram/baseInfo";
+	@ResponseBody
+	@RequestMapping(value = "/searchSystemMessage", method = RequestMethod.GET)
+	public ResponseData<SystemMessage> searchMessage(HttpServletRequest request, 
+			@RequestBody SystemMessage systemMessage)
+	   {
+		ResponseData<SystemMessage> data = new ResponseData<SystemMessage>();
+		Direction direction = Direction.DESC;
+		String property = "updated_time";
+		try {
+			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
+					systemMessage.getPageSize(), direction, property));
+			data.setPageList(queryPageList);
+			data.setResult(new Result(Status.OK, ""));
+			return data;
+		} catch (Exception e) {
+			logger.error("查询系统消息失败", e);
+			data.getResult().addError("查询系统消息失败");
+		}
+		return data;
 	}
-	
-	
-	
-	
-	
-	
+
 }
