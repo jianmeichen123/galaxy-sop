@@ -2020,6 +2020,7 @@ function type_change(){
  * 数据字典加载请求
  */
 function selectDirect(tittleId,subCode,filed){
+	debugger;
 	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
@@ -2055,7 +2056,7 @@ function selectDirect(tittleId,subCode,filed){
  */
 
 function selectContext(formId){
-
+	debugger;
 	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
 	 $.each($fileds,function(){
 		var field = $(this);
@@ -2080,7 +2081,7 @@ function selectContext(formId){
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');
-	var formBox=$(ele).closest('form');
+ 
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		addRowCompete(ele,id_code);
@@ -2166,7 +2167,7 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{ 
+{  
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
@@ -2381,8 +2382,7 @@ function editRow(ele)
 						if(row.data(name)==selectId){
 							ele.text(selectVal);
 						}
-					});
-					
+					}); 
 				})
 				//分拨剩余金额显示
 				$(".remainMoney span").text($("#formatRemainMoney").text());
@@ -2417,8 +2417,7 @@ function editRow(ele)
 					var len=$(this).val().length;
 					var initNum=$(this).siblings('.num_tj').find("span").text();
 					$(this).siblings('.num_tj').find("span").text(initNum-len);
-				});
-				
+				}); 
 				//竞争对手的展示;
 				var myRow = $(ele).closest('tr');
 				var oppoPerson = myRow.find('td:eq(0)').text();
@@ -2441,7 +2440,7 @@ function editRow(ele)
 				$('.finicial-time').text(dangerRation);
 				
 				$("#detail-form input[name='index']").val(row.index());
-				$("#save-detail-btn").click(function(){
+				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
 				});
