@@ -1,0 +1,87 @@
+<div class="qualificationstc errortc">
+	<div class="title_bj" id="pop-title-share">添加项目承作人</div>
+	
+	
+    <div class="qualifications_all see_share_block" id="learning">
+    
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+		<input name="subCode" type="hidden"  value="">
+        <div class="info clearfix">              
+            <dl class="fmdl clearfix ">
+                <dt>承做人事业部：</dt>
+                <dd>
+                    <select name="field3"  id="field3">
+
+                    </select>
+                </dd>
+            </dl>
+            <dl class="fmdl clearfix ">
+                <dt>承做人 ：</dt>
+                <dd>
+                    <select name="field1"  id="field1">
+
+                    </select>
+                </dd>
+            </dl>
+            <dl class="fmdl clearfix ">
+                <dt>分配承做比例：</dt>
+                <dd>
+                    <input type="number"   name="field2" id="field2"/> 
+                </dd>
+            </dl>
+        </div>
+        </form>
+        <!-- 查看 -->
+        <div class="see_block clearfix">
+        	<div class="conference_all">
+        		<dl class="fmdl clearfix wid_2">
+	                <dt>股东名称：</dt>
+	                <dd name="field1"></dd>
+	                  
+	            </dl>
+	            <dl class="fmdl clearfix wid_2">
+	                <dt>占股比例：</dt>
+	                <dd name="field2" class='percent'></dd>
+	                  
+	            </dl>
+	            <dl class="fmdl clearfix wid_2">
+	                <dt>股东类型：</dt>
+	                <dd name="field3"></dd>
+	                  
+	            </dl>
+	             <dl class="fmdl clearfix wid_2">
+	                <dt>股东性质：</dt>
+	                <dd name="field4"></dd>
+	                  
+	            </dl>
+	             <dl class="fmdl clearfix see_textarea wid_1">
+	                <dt>备注：</dt>
+	                <dd name="field5"></dd>
+	                  
+	            </dl>
+        	</div>
+        </div>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn" >确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        $.validator.setDefaults({
+        	errorElement:'span'
+        });
+        
+        /* 提示信息 */
+        editTipsShow('5','.shareHolder');
+                
+        
+    })
+    
+</script>

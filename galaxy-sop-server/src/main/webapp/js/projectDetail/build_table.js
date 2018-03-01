@@ -298,6 +298,9 @@ function getDetailUrl(code)
 	if(code == 'equity-structure')
 	{
 		return'../../../html/funcing_add_gd.html';
+	}else if(code == 'czr_pop')
+	{
+		return '../../../html/czr_pop.html';
 	}
 	else if(code == 'investor-situation')
 	{

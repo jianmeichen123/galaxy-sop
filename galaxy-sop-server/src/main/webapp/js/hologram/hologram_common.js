@@ -1,8 +1,5 @@
 function editOpen(){
-	$(".h_edit_btn").click(function(){
-		/*var part=$(this).parent().parent(".h_look").parent(".radius").attr("id").split('_');
-		var edit_id='h_edit_'+part[1];
-		$(this).attr("id",edit_id)*/
+	$(".h_edit_btn").click(function(){ 
 	    $(this).parent().parent(".h_look").hide();
 	    $(this).parent().parent(".h_look").siblings(".h_edit").show();
 	    $(this).parent().parent().parent(".h").css("background","#fbfbfb")
@@ -2108,6 +2105,7 @@ function addRow(ele)
 	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
 	            selectContext("detail-form");
 	            $("#save-detail-btn").click(function(){
+	            	debugger;
 	                saveForm($("#detail-form"));
 	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
@@ -2167,6 +2165,7 @@ function addRowCompete(ele,id_code){
 //提交表单处理
 function saveForm(form)
 {
+	debugger;
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();

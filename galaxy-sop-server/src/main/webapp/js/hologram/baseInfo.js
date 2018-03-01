@@ -186,7 +186,7 @@ function toShowTitleHtml(title,html){
 	return s_div;
 }
 
-function toEditTitleHtml(title,html){
+function toEditTitleHtml(title,html){ 
 	var titleDiv = "" ;
 	if(title.name){
 		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
@@ -210,13 +210,12 @@ function toEditTitleHtml(title,html){
 	return s_div;
 }
 
-function toGetHtmlByMark(title,mark){
+function toGetHtmlByMark(title,mark){ 
 	var html = "";
 	if(title.type){
 		html += switchTypeByMark(title,mark);
-	}
-	
-	var tilelist = title.childList;
+	} 
+	var tilelist = title.childList; 
 	$.each(tilelist,function(i,o){
 		if(this.sign  && this.sign == 3){
 			html += "<div class=\"mb_24 clearfix sign_title\">" + this.name + "</div>";
@@ -234,7 +233,7 @@ function toGetHtmlByMark(title,mark){
 	return html;
 }
 //title_指每一个题
-function switchTypeByMark(entity,title,mark){
+function switchTypeByMark(entity,title,mark){ 
 	var html = "";
 	switch (title.type) {
         case 1:  
@@ -874,18 +873,17 @@ function type_8_html(title,mark){
 
 
 //10:表格
-function type_10_html(title,mark){
+function type_10_html(title,mark){ 
 	table_delComArr[title.id] = [];
 	table_toedit_Value[title.id] = {};
-	table_tosave_Value[title.id] = {};
-	
+	table_tosave_Value[title.id] = {}; 
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	 
 	var tableHeader = title.tableHeader;
-	var dataList = title.dataList;
+	var dataList = title.valueList;
 	
 	if(mark == 's'){
-		
+		//展示
 		var filed_sort = [];
 		if(title.code == 'NO5_7_1'){   //综合竞争比较
 			filed_sort = ['field1','field2','field3','field4','field5'];
@@ -918,43 +916,69 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
-		
-		var filed_sort = table_filed[title.id];
-		
-		var eresult = "<dd class=\"fl_none\"><table><thead>";
-		
-		var th = "<tr>";
+		//编辑   
+		console.log(title)
+		var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
+		var tableBox = "<table data-title-id="+title.id+" data-code=\"czr_pop\"><thead>"
+		var ddBox="<dd class=\"fl_none\"></dd>"
+		var th = "<tr>"; 
+		if(title.code == 'NO1_1_2'){   //综合竞争比较
+			var filed_sort = ['field1','field2','field3','field4','field5'];
+			//var table_filed [title.id] = filed_sort;
+		} 
 		for(var i = 0 ; i < filed_sort.length; i++){
 			var filed  = filed_sort[i];
 			th +='<th>'+tableHeader[filed]+'</th>';
 		}
 		th +='<th>操作</th>';
+		tableBox+= th +  "</tr></thead></tbody></table>";
 		
-		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
+		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>"; 
+		return divBox
 		
-		if(dataList != null && dataList.length != 0){
-			if(dataList.length >= 10){
-				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
-			}
-			var tr = "";
-			$.each(dataList,function(i,o){
-				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
-				for(var i = 0 ; i < filed_sort.length; i++){
-					tr +='<td>'+o[filed_sort[i]]+'</td>';
-				}
-				
-				var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >编辑</a>";
-				var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >删除</a>";
-				tr += ('<td>' + edit + del + '</td>');
-				
-				tr += "</tr>";
-			});
-			eresult += tr ;
-		}
 		
-		eresult += "</tbody></table></dd>";
-		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
+		
+		
+		
+		
+		
+//		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
+//		
+//		var filed_sort = table_filed[title.id];
+//		
+//		var eresult = "<dd class=\"fl_none\"><table><thead>";
+//		
+//		var th = "<tr>";
+//		for(var i = 0 ; i < filed_sort.length; i++){
+//			var filed  = filed_sort[i];
+//			th +='<th>'+tableHeader[filed]+'</th>';
+//		}
+//		th +='<th>操作</th>';
+//		
+//		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
+//		
+//		if(dataList != null && dataList.length != 0){
+//			if(dataList.length >= 10){
+//				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
+//			}
+//			var tr = "";
+//			$.each(dataList,function(i,o){
+//				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
+//				for(var i = 0 ; i < filed_sort.length; i++){
+//					tr +='<td>'+o[filed_sort[i]]+'</td>';
+//				}
+//				
+//				var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >编辑</a>";
+//				var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >删除</a>";
+//				tr += ('<td>' + edit + del + '</td>');
+//				
+//				tr += "</tr>";
+//			});
+//			eresult += tr ;
+//		}
+//		
+//		eresult += "</tbody></table></dd>";
+//		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
 	}
 }
 
