@@ -878,7 +878,6 @@ function type_10_html(title,mark){
 	table_toedit_Value[title.id] = {};
 	table_tosave_Value[title.id] = {}; 
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
-	 
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;
 	
@@ -888,18 +887,21 @@ function type_10_html(title,mark){
 		if(title.code == 'NO5_7_1'){   //综合竞争比较
 			filed_sort = ['field1','field2','field3','field4','field5'];
 			table_filed[title.id] = filed_sort;
-		}
-		
+		}else if(title.code == 'NO1_1_2'){
+			var filed_sort = ['field1','field2','field3','field4','field5'];
+		} 
 		var hresult = "<dd>未填写</dd>";
 		if(dataList != null && dataList.length != 0){
-			
-			table_value(title.id,dataList);
-			
+			table_value(title.id,dataList); 
 			hresult = "<dd class=\"fl_none\"><table data-talbe-tid='"+title.id+"' ><thead><tr>"
 			
 			var th = "";
 			for(var i = 0 ; i < filed_sort.length; i++){
-				th +='<th>'+tableHeader[filed_sort[i]]+'</th>';
+				if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
+					
+				}else{
+					th +='<th>'+tableHeader[filed_sort[i]]+'</th>';
+				}
 			}
 			
 			hresult += th + "</tr></thead><tbody>";
@@ -908,7 +910,11 @@ function type_10_html(title,mark){
 			$.each(dataList,function(){
 				tr += '<tr>';
 				for(var i = 0 ; i < filed_sort.length; i++){
-					tr +='<td>'+this[filed_sort[i]]+'</td>';
+					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
+						
+					}else{
+						tr +='<td>'+this[filed_sort[i]]+'</td>';
+					}
 				}
 				tr += "</tr>";
 			});
@@ -923,12 +929,16 @@ function type_10_html(title,mark){
 		var ddBox="<dd class=\"fl_none\"></dd>"
 		var th = "<tr>"; 
 		if(title.code == 'NO1_1_2'){   //综合竞争比较
-			var filed_sort = ['field1','field2','field3','field4','field5'];
-			//var table_filed [title.id] = filed_sort;
+			var filed_sort = ['field1','field2','field3','field4','field5']; 
 		} 
 		for(var i = 0 ; i < filed_sort.length; i++){
 			var filed  = filed_sort[i];
-			th +='<th data-field-name='+filed+'>'+tableHeader[filed]+'</th>';
+			//项目承做人特殊处理field5 代表是主承作人
+			if(tableHeader.code=="team-person"&&filed=="field5"){
+			 
+			}else{
+				th +='<th data-field-name='+filed+'>'+tableHeader[filed]+'</th>';
+			}
 		}
 		th +='<th>操作</th>';
 		var show=false;
@@ -938,7 +948,15 @@ function type_10_html(title,mark){
 			$.each(dataList,function(){
 				body_tr += '<tr>';
 				for(var i = 0 ; i < filed_sort.length; i++){
-					body_tr +='<td>'+this[filed_sort[i]]+'</td>';
+					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
+						if(this[filed_sort[i]]){
+							body_tr +='<td>--</td>';
+						}else{
+							body_tr +="<td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
+						}
+					}else{
+						body_tr +='<td>'+this[filed_sort[i]]+'</td>';
+					}
 				}
 				body_tr += "</tr>";
 			}); 
