@@ -125,7 +125,7 @@
 	{
 		if(code =='add_notice')
 		{	
-			return '<%=path%>/html/assign_project.html';
+			return '<%=path%>/html/add_notice.html';
 		}	
 		return "";
 	}

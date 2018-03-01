@@ -1,14 +1,46 @@
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
-	<div class="title_bj abandon-title" >移交项目</div>
+	<div class="title_bj abandon-title" >新建通知</div>
 	<form action="" id="detail-form">
 	
     <div  class="qualifications_all task-todeal assign_project">
         <ul>
-        	<li id="numCheck">已选择<span id="projectNum"></span>个项目</li>
-        		<input type="hidden" name="projectIds" value="">
-        		<input type="hidden" id="actionStyle" name="operateType" value="">
+        	<li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>通知内容：</div>
+        		<textarea placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+        	</li>
+        	<li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>目标平台：</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox highlighCheckbox_checked ">
+	        			<input type="checkbox" name="isCheck" value="1751">
+	        		</label>
+	        		<span>Web</span>
+        		</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox ">
+	        			<input type="checkbox" name="isCheck" value="1751">
+	        		</label>
+	        		<span>ios</span>
+        		</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox ">
+	        			<input type="checkbox" name="isCheck" value="1751">
+	        		</label>
+	        		<span>Android</span>
+        		</div>
         		
-                
+        	</li>
+            <li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>推送时间：</div>
+        		<label class="radio_cont" data-name="">
+				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
+					立即
+				</label>
+				<label class="radio_cont" data-name="">
+				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
+					定时
+				</label>
+        	</li>   
         	<li class='select-simulate'>
         		<em>接收部门 ：</em>
         		 <input type='text' placeholder='请选择' readonly  name="afterDepartmentIdTxt" required data-msg-required="<font color=red>*</font>接收部门不能为空">
@@ -30,10 +62,7 @@
                          </select>  --> 
                
         	</li>
-        	<li class='task-todeal-textarea'>
-        		<em class='task-reason'>移交原因：</em>
-        		<textarea placeholder='请输入移交原因'  class="role_toolTip_area" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
-        	</li>
+        	
         </ul>
       	
     
