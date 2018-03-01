@@ -293,6 +293,19 @@
 						</if>
 					)
 				</if>
+				<!-- 是否主承做人 -->
+				<if test="primary != null">
+				AND EXISTS
+				(
+					SELECT 1 FROM information_listdata ld
+					INNER JOIN power.user u ON ld.field_6 = u.id AND ld.field_5 = #{primary}
+					INNER JOIN power.rel_dep_user du ON du.user_id = u.id
+					WHERE ld.project_id = sop_project.id
+					AND ld.title_id = 1103
+					<if test="createUid != null" > AND u.id = #{createUid,jdbcType=BIGINT} </if>
+					<if test="projectDepartid != null" > AND du.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
+				)
+				</if>
 				
 			</trim>
 		</where>

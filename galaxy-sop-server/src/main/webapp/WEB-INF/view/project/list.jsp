@@ -73,6 +73,7 @@
           </ul>-->
         <!-- 搜索条件 -->
 		<div class="top clearfix" id="custom-toolbar">
+			<input type="hidden" name="primary" value="0">
           <div class="searchall_prj clearfix">
             <div class="searchall_top" data-btn="box">
                 <dl class="fmdl fml fmdll clearfix">
