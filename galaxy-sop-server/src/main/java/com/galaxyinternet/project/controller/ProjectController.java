@@ -3914,6 +3914,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 
 		return responseBody;
 	}
+	@ApiOperation("获取事业线列表")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线列表", response = ResponseData.class) })
+	@RequestMapping(value = "/lines", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<Department> getLists()
+	{
+		ResponseData<Department> data = new ResponseData<Department>();
+		List<Department> list = baseInfoCache.getLines();
+		data.setEntityList(list);
+		return data;
+	}
 	@ApiOperation("获取事业线人员信息")
 	@ApiImplicitParam(name = "id", value = "事业线/部门ID", required = true, paramType = "path")
 	@ApiResponses(value = {

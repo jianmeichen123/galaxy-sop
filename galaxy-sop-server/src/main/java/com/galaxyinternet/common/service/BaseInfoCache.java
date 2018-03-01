@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.CacheHelper;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 
@@ -62,6 +63,52 @@ public class BaseInfoCache
 			}
 		}
 		return map;
+	}
+	
+	public List<Department> getLines()
+	{
+		List<Department> deps = new ArrayList<>();
+		Department dep = null;
+		ShardedJedis jedis = null;
+		try
+		{
+			jedis = cache.getJedis();
+			Set<String> depIds = jedis.smembers(PlatformConst.CACHE_DEP_IDS);
+			if(depIds == null || depIds.size() == 0)
+			{
+				return deps;
+			}
+			ShardedJedisPipeline pip = jedis.pipelined();
+			List<Response<Map<byte[], byte[]>>> respList = new ArrayList<>();
+			for(String depId : depIds)
+			{
+				respList.add(pip.hgetAll(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_DEP+depId)));
+			}
+			pip.sync();
+			CacheHelper helper = new CacheHelper();
+			for(Response<Map<byte[], byte[]>> resp : respList)
+			{
+				Map<byte[], byte[]> map = resp.get();
+				Object id = helper.bytesToObject(map.get(SafeEncoder.encode("id")))+"";
+				Object name = helper.bytesToObject(map.get(SafeEncoder.encode("name")))+"";
+				Object type = helper.bytesToObject(map.get(SafeEncoder.encode("type")))+"";
+				if(Integer.valueOf(type+"") == 1)
+				{
+					dep = new Department();
+					dep.setId(Long.parseLong(id+""));
+					dep.setName(name+"");
+					deps.add(dep);
+				}
+			}
+		} 
+		finally
+		{
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
+		}
+		return deps;
 	}
 	
 	public List<User> getDepUserFromCache(Long depId)
