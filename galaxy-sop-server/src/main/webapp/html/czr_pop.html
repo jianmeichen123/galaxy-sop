@@ -81,7 +81,7 @@ function(data) {
  			$.each(list,function(){ 
  				res+="<option value="+this.id+" name=\"field3\" data-name="+this.realName+">"+this.realName+"</option>";
  			})
- 			$("select[name='field1']")..(nullD);
+ 			$("select[name='field1']").append(nullD);
  			$("select[name='field1']").append(res);
  			manager = data.userData.manager; 
      })
