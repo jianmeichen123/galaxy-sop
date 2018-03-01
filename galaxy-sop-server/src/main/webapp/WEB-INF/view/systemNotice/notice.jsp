@@ -20,7 +20,7 @@
 	<div class="pagebox clearfix">
 		<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 		<div class="ritmin">
-			<h2 class='system_inform'>系统通知<span class='fr add_pro_common add_system'>新建</span></h2>	
+			<h2 class='system_inform'>系统通知<span data-code="add_notice" class='fr add_pro_common add_system'>新建</span></h2>	
 			<div class="tableSearch">
 				<div class="searchTerm">
 					<label>发送时间：</label>
@@ -120,21 +120,26 @@
 		}
 		
 	})
+
+	function getDetailUrl(code)
+	{
+		if(code =='add_notice')
+		{	
+			return '<%=path%>/html/assign_project.html';
+		}	
+		return "";
+	}
 	
-/* 	$('#noticeTable').bootstrapTable({
-		method:'post',
-		url:'33',
-		columns:[
-			{
-				title:'标注编号',
-				field:'sss'
+	$('.add_system').click(function(){
+		var code = $(this).attr('data-code');
+		$.getHtml({
+			url:getDetailUrl(code),
+			okback:function(){
+				
 			}
 			
-		]
-		
-		
-	}) */
-	
+		});
+	})
 	
 	
 	
