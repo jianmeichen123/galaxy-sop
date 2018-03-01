@@ -252,7 +252,8 @@ $(function() {
 	});
 	
 	//通用保存
-	$('div').delegate(".h_save_btn", "click", function(event) {
+	$('div').delegate(".h_save_btn", "click", function(event) {		
+		var sec = $(this).closest('form');
 		var beroreCheck = false;
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
@@ -459,23 +460,25 @@ $(function() {
 		data.deletedResultTids = deletedResultTids; 
 		//表格
 		var infoTableModelList = new Array();
-		var talbes = $("#a_"+id_code).find("[data-type='10']"); 
-		if(talbes){ 
-			debugger
-			$.each(talbes,function(){
-				$.each($(this).next().find('tr:gt(0)'),function(){
-					debugger;
-					var row = $(this).data();
-					if(row.id=="")
-					{
-						row.id=null;
-					}
-					infoTableModelList.push($(this).data());
-				});
-			}); 
-			
-			
-			
+		
+		$.each(sec.find("table.editable"),function(){
+			var that =$(this);
+			//deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
+			$.each(that.find('tr:gt(0)'),function(){
+				debugger;
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				if(row.resultId){
+					row.id=row.resultId;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		}); 
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds; 
 			
 			
 			
@@ -517,9 +520,8 @@ $(function() {
 				}
 			} */
 			
-			data.infoTableModelList = infoTableModelList;
-			data.deletedRowIds = deletedRowIds; 
-		}
+			
+		 
 		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('.filter-option').text();
 		if(txtOption=='请选择'){
 			$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('span.error_span').removeClass('select_input');

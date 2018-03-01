@@ -360,6 +360,7 @@ var deleteJSON={};
 		$.each(sec.find("table.editable"),function(){
 			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
 			$.each($(this).find('tr:gt(0)'),function(){
+				debugger;
 				var row = $(this).data();
 				if(row.id=="")
 				{

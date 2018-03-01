@@ -913,7 +913,7 @@ function type_10_html(title,mark){
 					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
 						
 					}else{
-						tr +='<td>'+this[filed_sort[i]]+'</td>';
+						tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]]+'</td>';
 					}
 				}
 				tr += "</tr>";
@@ -946,7 +946,7 @@ function type_10_html(title,mark){
 			show=true;
 			var body_tr="";
 			$.each(dataList,function(){
-				body_tr += '<tr>';
+				body_tr += '<tr data-row-id='+this.id+'>';
 				for(var i = 0 ; i < filed_sort.length; i++){
 					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
 						if(this[filed_sort[i]]=="0"){
@@ -955,7 +955,7 @@ function type_10_html(title,mark){
 							body_tr +="<td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
 						}
 					}else{
-						body_tr +='<td>'+this[filed_sort[i]]+'</td>';
+						body_tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]]+'</td>';
 					}
 				}
 				body_tr += "</tr>";
