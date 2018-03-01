@@ -949,7 +949,7 @@ function type_10_html(title,mark){
 				body_tr += '<tr>';
 				for(var i = 0 ; i < filed_sort.length; i++){
 					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
-						if(this[filed_sort[i]]){
+						if(this[filed_sort[i]]=="0"){
 							body_tr +='<td>--</td>';
 						}else{
 							body_tr +="<td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
