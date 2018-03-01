@@ -1204,7 +1204,7 @@ var platformUrl = {
 	/**
 	 *  承做人事业部
 	 */
-	getCareer: Constants.sopEndpointURL + "/galaxy/infoProject/getDirectory/",
+	getCareer: Constants.sopEndpointURL + "/galaxy/project/lines",
 	
 	/**
 	 *  承做人事业部下面的承做人 
