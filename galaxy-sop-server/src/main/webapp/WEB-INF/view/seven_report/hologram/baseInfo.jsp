@@ -103,7 +103,14 @@ var path = '<%=path%>';
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
-
+function getDetailUrl(code)
+{
+	if(code == 'czr_pop')
+	{
+		return '<%=path%>/html/czr_pop.html';
+	}
+	return "";
+}
 
 
 table_Value = {};
@@ -141,7 +148,7 @@ $(function() {
 	});
 	
 	//通用编辑显示
-	$('div').delegate(".h_edit_btn", "click", function(event) {
+	$('div').delegate(".h_edit_btn", "click", function(event) {		
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
@@ -151,8 +158,8 @@ $(function() {
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				var entity = data.entity;
-				var html = toGetHtmlByMark(entity, 'e');				
+				var entity = data.entity; 
+				var html = toGetHtmlByMark(entity, 'e');	 
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
