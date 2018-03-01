@@ -160,9 +160,12 @@ $(function() {
 			if (result == 'OK') {
 				var entity = data.entity; 
 				var html = toGetHtmlByMark(entity, 'e');	 
-				var s_div = toEditTitleHtml(entity, html);
+				var s_div = toEditTitleHtml(entity, html);				
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				if($("table[data-code='team-person']").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show();
+				}
 				resouceShow('e');   //项目来源特殊处理
 				//下拉多选添加resultId
 				$.each(entity.childList,function(i,n){

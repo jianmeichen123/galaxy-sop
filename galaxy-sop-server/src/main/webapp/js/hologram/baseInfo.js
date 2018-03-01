@@ -880,7 +880,7 @@ function type_10_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	 
 	var tableHeader = title.tableHeader;
-	var dataList = title.valueList;
+	var dataList = title.dataList;
 	
 	if(mark == 's'){
 		//展示
@@ -931,16 +931,22 @@ function type_10_html(title,mark){
 			th +='<th data-field-name='+filed+'>'+tableHeader[filed]+'</th>';
 		}
 		th +='<th>操作</th>';
-		tableBox+= th +  "</tr></thead></tbody></table>";
+		var show=false;
+		if(dataList != null && dataList.length != 0){ 
+			show=true;
+			var body_tr="";
+			$.each(dataList,function(){
+				body_tr += '<tr>';
+				for(var i = 0 ; i < filed_sort.length; i++){
+					body_tr +='<td>'+this[filed_sort[i]]+'</td>';
+				}
+				body_tr += "</tr>";
+			}); 
+		} 
+		tableBox+= th +  "</tr></thead><tbody>"+body_tr+"</tbody></table>";
 		
-		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>"; 
-		return divBox
-		
-		
-		
-		
-		
-		
+		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
+		return divBox;
 		
 //		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
 //		
