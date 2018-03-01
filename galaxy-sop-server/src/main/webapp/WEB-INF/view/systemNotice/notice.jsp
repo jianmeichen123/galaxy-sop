@@ -20,7 +20,7 @@
 	<div class="pagebox clearfix">
 		<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 		<div class="ritmin">
-			<h2 class='system_inform'>系统通知</h2>	
+			<h2 class='system_inform'>系统通知<span class='fr add_pro_common add_system'>新建</span></h2>	
 			<div class="tableSearch">
 				<div class="searchTerm">
 					<label>发送时间：</label>
@@ -36,20 +36,33 @@
 					</select>
 					<span class='system_querySearch'>查询</span>
 				</div>
-				<table   class='assingTable table-hover' id="noticeTable">
+				<table   class='assingTable table-hover systemtTable' id="noticeTable" style='table-layout:fixed;'>
 					<thead>
 					    <tr> 
 				        	<th data-field="projectName"  data-width="14%" data-align="left">通知内容</th>
 				        	<th data-field="projectName"  data-width="14%" data-align="left">创建人</th>
 				        	<th data-field="projectName"  data-width="14%" data-align="left">创建时间</th>
-				        	<th data-field="projectName"  data-width="20%" data-align="left">推送通知时间</th>
-				        	<th data-field="projectName"  data-width="10%" data-align="left">状态</th>
+				        	<th data-field="projectName"  data-width="18%" data-align="left">推送通知时间</th>
+				        	<th data-field="projectName"  data-width="12%" data-align="left">状态</th>
 				        	<th data-field="projectName"  data-width="14%" data-align="left">发送平台</th>
 				        	<th data-field="projectName"  data-width="14%" data-align="left">操作</th>
 	 					</tr>	
 	 				</thead>
 	 				<tbody>
-	 				
+	 					<tr>
+	 						<td>2233333333333333333333</td>
+	 						<td>22</td>
+	 						<td>22</td>
+	 						<td>22</td>
+	 						<td>22</td>
+	 						<td>22</td>
+	 						<td>
+	 							<span class='system_close'>关闭</span>
+	 							<span class='system_delete'>编辑</span>
+	 							<span class='system_edit'>删除</span>
+	 						</td>
+	 						
+	 					</tr>
 	 				</tbody>
 				</table> 
 			
@@ -99,6 +112,29 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
+	$('.system_querySearch').click(function(){
+		var startTime = $('input[name="formationStart"]').val();
+		var endTime = $('input[name="formationEnd"]').val();
+		if(startTime>endTime){
+			layer.msg('开始时间不能大于结束时间')
+		}
+		
+	})
+	
+/* 	$('#noticeTable').bootstrapTable({
+		method:'post',
+		url:'33',
+		columns:[
+			{
+				title:'标注编号',
+				field:'sss'
+			}
+			
+		]
+		
+		
+	}) */
+	
 	
 	
 	

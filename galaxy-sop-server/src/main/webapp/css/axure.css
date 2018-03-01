@@ -4640,3 +4640,23 @@ font-weight:bold;
 .tableSearch .searchTerm select{width:140px;heigth:32px;}
 .tableSearch .system_querySearch{display:inline-block;background:#45aaff;border-radius:2px;width:96px;height:32px;line-height:32px;font-size:14px;
 color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cursor:pointer;}
+.system_querySearch:hover{background:#0084f5;}
+.add_pro_common{background: #45aaff url(../img/base_info/base_icon.png) -83px -4px no-repeat;
+    border-radius: 2px;
+    height: 32px;
+    line-height: 32px;
+    font-family: Microsoft YaHei;
+    color: #fff;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    padding: 0 32px 0 50px;
+    cursor:pointer;}
+.add_pro_common:hover{background-color:#0084f5;}
+.systemtTable thead tr th{text-align:left;}
+.systemtTable tbody tr td{text-align:left;}
+.system_close{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
+.system_delete{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
+.system_edit{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
+.systemtTable tbody tr td:nth-child(1){width:202px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
