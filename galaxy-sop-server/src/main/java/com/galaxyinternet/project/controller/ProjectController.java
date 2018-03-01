@@ -45,6 +45,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.UtilsService;
@@ -188,6 +189,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	
 	@Autowired
 	private InformationDictionaryService infoDictService;
+	
+	@Autowired
+	private BaseInfoCache baseInfoCache;
 
 	private String tempfilePath;
 
@@ -3910,5 +3914,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 
 		return responseBody;
 	}
-
+	@ApiOperation("获取事业线人员信息")
+	@ApiImplicitParam(name = "id", value = "事业线/部门ID", required = true, paramType = "path")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线人员信息（事业线总经理：userData.manager）", response = ResponseData.class) })
+	@RequestMapping(value = "/dep/{id}/users", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<User> getDepartmentUsers(@PathVariable("id") Long depId)
+	{
+		ResponseData<User> data = new ResponseData<User>();
+		
+		List<User> list = baseInfoCache.getDepUserFromCache(depId);
+		data.setEntityList(list);
+		Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId,"manager");
+		if(managerId != null)
+		{
+			Object managerName = cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName");
+			data.getUserData().put("manager", managerName);
+		}
+		return data;
+	}
 }
