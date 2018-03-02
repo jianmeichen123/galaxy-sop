@@ -10,6 +10,10 @@ function backFun(data){
 		mustData(projectInfo.id,0);
 		toggle_btn($('.anchor_btn span'),1);
 		resouceShow('s');
+		if($("table[data-code='team-person']").find("tbody tr").length>0){
+			$("table[data-code='team-person']").show();
+			resizetable($("table[data-code='team-person']"));
+		}  
 	}
 }
 function resouceShow(mark){
@@ -893,7 +897,7 @@ function type_10_html(title,mark){
 		var hresult = "<dd>未填写</dd>";
 		if(dataList != null && dataList.length != 0){
 			table_value(title.id,dataList); 
-			hresult = "<dd class=\"fl_none\"><table data-talbe-tid='"+title.id+"' data-code='"+title.code+"' ><thead><tr>"
+			hresult = "<dd class=\"fl_none\"><table data-title-id='"+title.id+"'  data-code='"+tableHeader.code+"' ><thead><tr>"
 			
 			var th = "";
 			for(var i = 0 ; i < filed_sort.length; i++){

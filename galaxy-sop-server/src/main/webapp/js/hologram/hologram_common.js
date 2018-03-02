@@ -2680,7 +2680,7 @@ function refreshSection(id)
 /**
  字典缓存
 */
-function dictCache(titleId,subCode,filed){
+function dictCache(titleId,subCode,filed){ 
     var map = {};
     map["undefined"] = ""
     map[""] = ""
@@ -2714,7 +2714,7 @@ function dictCache(titleId,subCode,filed){
 					sendGetRequest(platformUrl.getCareerTeam+ tdID+'/users',null,
 					function(data) {
 						var resList = data.entityList
-						var res = resList.filter(function(val){debugger; return val.idstr == parseInt(ids)})[0]; 
+						var res = resList.filter(function(val){return val.idstr == parseInt(ids)})[0]; 
 						resArr.push(res);
 					}); 
 				}
@@ -2739,9 +2739,8 @@ function dictCache(titleId,subCode,filed){
 					});
 				}
 			})
-	}
-    console.log(map)
-		return map;
+	} 
+	return map;
 }
 
 function tableDictColumn(code){
