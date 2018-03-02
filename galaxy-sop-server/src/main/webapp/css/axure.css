@@ -4660,5 +4660,8 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .system_edit{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
 .systemtTable tbody tr td:nth-child(1){width:202px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .task-reason em{color:red;}
-.task-todeal-textarea textarea.system_textarea{width:515px;margin-top:20px;}
-.task-todeal-textarea div.checkbox-div{margin-left:15px;}
+.task-todeal-textarea textarea.system_textarea{width:515px;margin-top:10px;}
+.task-todeal-textarea div.checkbox-div{margin-left:25px;margin-top:10px;}
+.system_radio_second{margin-top:10px;}
+
+

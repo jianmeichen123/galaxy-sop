@@ -1,3 +1,4 @@
+
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="title_bj abandon-title" >新建通知</div>
 	<form action="" id="detail-form">
@@ -35,11 +36,12 @@
         		<label class="radio_cont" data-name="">
 				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
 					立即
-				</label>
-				<label class="radio_cont" data-name="">
+				</label><br><br>
+				<label class="radio_cont system_radio_second" data-name="">
 				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
 					定时
 				</label>
+				<input  class='' readonly='readonly' type='text' name="formationEnd"/>
         	</li>   
         	<li class='select-simulate'>
         		<em>接收部门 ：</em>
@@ -51,17 +53,7 @@
                            <option value="">请选择</option>
                         </select>  -->  
         	</li>
-        	<li class='select-simulate'>
-        		<em class='task-recive-person'>接收人：</em>
-        		<input type='text' placeholder='请选择' readonly name="afterUidTxt" required data-msg-required="<font color=red>*</font>接收人不能为空">
-        		 <input type='hidden'  name="afterUid" />
-        		<ul class='toggle-ul' name='afterUid'></ul> 
-        		
-        		   <!--  <select name='afterUid' style="width:300px;">
-                           <option value="">请选择</option>
-                         </select>  --> 
-               
-        	</li>
+        	
         	
         </ul>
       	
@@ -81,6 +73,7 @@ span.error{
 	margin-left:75px;
 }
 </style>
+
 <script>
 
 $('.select-simulate input').click(function(event){

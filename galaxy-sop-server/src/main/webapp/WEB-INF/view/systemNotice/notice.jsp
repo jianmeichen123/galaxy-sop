@@ -80,6 +80,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<!--  时间插件-->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
@@ -125,7 +126,7 @@
 	{
 		if(code =='add_notice')
 		{	
-			return '<%=path%>/html/add_notice.html';
+			return '<%=path%>/html/add_notices.html';
 		}	
 		return "";
 	}
