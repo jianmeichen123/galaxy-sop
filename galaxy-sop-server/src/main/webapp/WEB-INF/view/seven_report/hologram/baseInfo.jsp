@@ -142,6 +142,10 @@ $(function() {
 			_this.siblings('.base_half').css('width','50%');
 		}
 		var code=_this.find("table").attr("data-code");  
+		if($("table[data-code='team-person']").find("tbody tr").length>0){
+			$("table[data-code='team-person']").show();
+			resizetable($("table[data-code='team-person']"));
+		} 
 	});
 	
 	//通用编辑显示

@@ -860,7 +860,7 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			tables.show();   //有数据表格显示
 			$.each(tables,function(){
-				var table = $(this);
+				var table = $(this); 
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
 				//增加显示字段限制，，市场同类公司估值参考
@@ -905,7 +905,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -965,8 +965,16 @@ function buildRow(row,showOpts,titleId)
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
+	
 	if(showOpts == true)
 	{
+		if(row.titleId==1103&&row.field5){
+			
+		}else{
+			td.text("--")
+			tr.append(td);
+			return tr;
+		}
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
