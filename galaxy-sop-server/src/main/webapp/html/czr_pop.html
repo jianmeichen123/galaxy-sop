@@ -135,8 +135,8 @@ $("#save-detail-btn").click(function(){
 	} 
     var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val()); 
     saveForm($("#detail-form")); 
-    $(".totleNum").find("td[data-field-name='field2']").text(totle);
-    $(".totleNum").find("td[data-field-name='field2']").data.filed2=totle;
+    $(".totleNum").find("td[data-field-name='field2']").text(totle); 
+    $(".totleNum").data().field2=totle;
     $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性 
 });
 </script>
