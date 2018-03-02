@@ -1,9 +1,7 @@
-<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="title_bj abandon-title" >新建通知</div>
@@ -13,7 +11,7 @@
         <ul>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>通知内容：</div>
-        		<textarea placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="transferReason" maxlength="100" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="transferReason" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
         	</li>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>目标平台：</div>
@@ -46,7 +44,7 @@
 					</label>
         		</div>
         		<div class='system_radio_second'>
-        			<label class="radio_cont system_radio_second" data-name="">
+        			<label class="radio_cont system_radio_second" data-name="setTime">
 					<input type="radio" name="investForm" value="financeMode:1" class="radioclass ">
 						定时
 					</label>
@@ -89,7 +87,15 @@ $(function(){
 	
 	$('.radio_cont').click(function(){
 		$('.radio_cont').removeClass('radio_checked');
-		$(this).addClass('radio_checked')
+		$(this).addClass('radio_checked');
+		var name = $(this).attr('data-name');
+		if(name=="setTime"){
+			$('.system_radio_second .setTime').show();
+		}else{
+			$('.system_radio_second .setTime').hide();
+		}
+		
+		
 	})
 	
 	$('.system_radio_second input[name="formationStart"]').datepicker({//定时
@@ -104,7 +110,10 @@ $(function(){
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now'
-	});
+	}).on('changeDate',function(e){ 
+		var startTime = e.date; 
+		$('.system_radio_second input[name="formationStart"]').datepicker('setStartDate',startTime); 
+		}); ;
 	$('.task-reason input[name="formationUpdate"]').datepicker({//系统升级
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
@@ -119,6 +128,7 @@ $(function(){
 	    currentText: 'Now'
 	});
 	
+
 	
 	
 })
