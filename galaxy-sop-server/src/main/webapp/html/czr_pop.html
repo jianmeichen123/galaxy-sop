@@ -9,6 +9,7 @@
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
 		<input name="subCode" type="hidden"  value="">
+		 <input type="hidden"   name="field4" id="managerName"/> 
         <div class="info clearfix">              
             <dl class="fmdl clearfix ">
                 <dt>承做人事业部：</dt>
@@ -84,17 +85,18 @@ $(function(){
  			var list = data.entityList;
  			var res="";
  			$.each(list,function(){ 
- 				res+="<option value="+this.id+" data-name="+this.realName+">"+this.realName+"</option>";
+ 				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
  			}) 
  			$("select[name='field1']").html("").append(nullD).append(res);
- 			manager = data.userData.manager; 
+ 			manager = data.userData.manager;
+ 			$("#managerName").val(manager);
      })
  }   
 $("#save-detail-btn").click(function(){  
     saveForm($("#detail-form"));
     $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性
-    selectContext("detail-form");
-    check_table();
-    check_table_tr_edit();
+    //selectContext("detail-form");
+    /* check_table();
+    check_table_tr_edit(); */
 });
 </script>
