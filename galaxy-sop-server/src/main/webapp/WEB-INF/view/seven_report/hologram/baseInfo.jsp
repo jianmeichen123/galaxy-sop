@@ -165,10 +165,12 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				if($("table[data-code='team-person']").find("tbody tr").length>0){
 					$("table[data-code='team-person']").show();
-				}
+				}  
 				resouceShow('e');   //项目来源特殊处理
 				//下拉多选添加resultId
 				$.each(entity.childList,function(i,n){
+					var title = this;
+					buildTable(sec,title); 
 					if(n.type=='23'){
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){
@@ -459,13 +461,11 @@ $(function() {
 		});
 		data.deletedResultTids = deletedResultTids; 
 		//表格
-		var infoTableModelList = new Array();
-		
+		var infoTableModelList = new Array(); 
 		$.each(sec.find("table.editable"),function(){
 			var that =$(this);
 			//deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
-			$.each(that.find('tr:gt(0)'),function(){
-				debugger;
+			$.each(that.find('tr:gt(0)'),function(){ 
 				var row = $(this).data();
 				if(row.id=="")
 				{

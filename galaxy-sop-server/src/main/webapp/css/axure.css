@@ -4660,5 +4660,21 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .system_edit{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
 .systemtTable tbody tr td:nth-child(1){width:202px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .task-reason em{color:red;}
-.task-todeal-textarea textarea.system_textarea{width:515px;margin-top:20px;}
-.task-todeal-textarea div.checkbox-div{margin-left:15px;}
+.task-todeal-textarea textarea.system_textarea{width:515px;margin-top:10px;}
+.task-todeal-textarea div.checkbox-div{margin-left:25px;margin-top:10px;}
+.system_radio_second{margin-top:10px;margin-left:28px;}
+.system-content{margin:60px 0 0 0px;}
+.system-content ul{margin-left:30px;}
+.datatimePicture{    width: 130px;
+    height: 32px;
+    padding-left: 10px;
+    border: 1px solid #d8d8d8;
+    background: url(../img/base_info/pop_icon_datepick.png) no-repeat right -8px;}
+.system_radio_second .setTime{margin-left:17px;}
+.system_send{
+	width: 92px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 2px;
+    border: 1px solid #eef6fc;
+    font-family: Microsoft YaHei;background:#d8d8d8;}
