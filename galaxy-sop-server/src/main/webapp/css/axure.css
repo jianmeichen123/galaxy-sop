@@ -4674,3 +4674,4 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .system_send{
 	width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#fff; background-color:#66b1f2;  margin-left:auto; margin-right:auto; display:block; margin-top:10px;background:#d8d8d8;
 	}
+.assign_project .system_notice li{text-align:center;}
