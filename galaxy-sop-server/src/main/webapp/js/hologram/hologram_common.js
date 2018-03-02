@@ -2180,7 +2180,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{ debugger;
+{
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
@@ -2210,8 +2210,7 @@ function saveRow(data)
 				}
 			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
-			{
-				debugger;
+			{ 
 				tr.data(key,data[key]);
 				var val_text = data[key];
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
@@ -2243,8 +2242,7 @@ function saveRow(data)
 				
 			}
 		}
-	}
-	debugger;
+	} 
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();  
 }
@@ -2686,7 +2684,49 @@ function dictCache(titleId,subCode,filed){
     var map = {};
     map["undefined"] = ""
     map[""] = ""
-	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
+    	//项目承做人区别其他
+	if(subCode=="team-person"){
+		//事业部
+		var tds = $("table[data-title-id="+titleId+"]").find("td[data-field-name="+filed+"]");
+		if(filed=="field3"){
+		  sendGetRequest(platformUrl.getCareer,null,
+			function(data) {
+			  var list = data.entityList;
+			  var resArr=[]; 
+			  $.each(tds, function(i, value){  
+				  var tdID= parseInt($(this).text()); 
+				  var res = list.filter(function(val){ return val.id ==tdID})[0]; 
+				  resArr.push(res);
+				}); 
+			  $.each(resArr, function(i, value){
+				  if(value!=undefined){
+					     map[value.id]=value.name;
+				  }
+				});
+		  })
+		}else if(filed=="field1"){ 
+			var tds3 = $("table[data-title-id="+titleId+"]").find("td[data-field-name='field3']");
+		    var resArr=[]; 
+			$.each(tds3, function(i, value){  
+				var tdID= parseInt($(this).text()); 
+				var ids = $(this).siblings("td[data-field-name='field1']").text(); 
+				if(!isNaN(tdID)&&ids){
+					sendGetRequest(platformUrl.getCareerTeam+ tdID+'/users',null,
+					function(data) {
+						var resList = data.entityList
+						var res = resList.filter(function(val){debugger; return val.idstr == parseInt(ids)})[0]; 
+						resArr.push(res);
+					}); 
+				}
+			}); 
+			 $.each(resArr, function(i, value){
+			  if(value!=undefined){
+				     map[value.idstr]=value.realName;
+			  }
+			});
+		}
+	}else{ 
+		sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK')
@@ -2699,7 +2739,9 @@ function dictCache(titleId,subCode,filed){
 					});
 				}
 			})
-			return map;
+	}
+    console.log(map)
+		return map;
 }
 
 function tableDictColumn(code){
@@ -2714,14 +2756,15 @@ function tableDictColumn(code){
 		return json={"equity-structure":["field3","field4"]};
 	}else if(code=="investor-situation"){
 		return json={"investor-situation":["field1","field6"]};
+	}else if(code=="team-person"){
+		return json={"team-person":["field1","field3"]};
 	}
 }
 
-function resizetable(table){ 
-	debugger;
+function resizetable(table){  
     var dict_map = {};
     var title_id = table.attr("data-title-id")
-    var  code = table.attr("data-code");
+    var  code = table.attr("data-code"); 
     var fields_json=tableDictColumn(code);
     if (fields_json && code in fields_json){
         var fields = fields_json[code]
@@ -2736,6 +2779,7 @@ function resizetable(table){
         }
     }
 }
+///人计算比例公共方法
 
 
 

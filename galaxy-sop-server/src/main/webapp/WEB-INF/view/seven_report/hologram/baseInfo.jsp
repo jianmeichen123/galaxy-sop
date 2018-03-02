@@ -171,6 +171,8 @@ $(function() {
 				$.each(entity.childList,function(i,n){
 					var title = this;
 					buildTable(sec,title); 
+					resizetable($("table[data-code='"+code+"']"));
+					//项目承做人计算比例
 					if(n.type=='23'){
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){
