@@ -828,6 +828,10 @@ function buildTable(sec,title)
 					if(header.code=='competitor_potential'&&(key != 'field1')){
 						continue;
 					}
+
+					if(header.code=="team-person"&&key=="field5"){ 
+						continue;
+					} 
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
@@ -2176,7 +2180,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{ 
+{ debugger;
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
@@ -2207,6 +2211,7 @@ function saveRow(data)
 			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
+				debugger;
 				tr.data(key,data[key]);
 				var val_text = data[key];
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
@@ -2239,6 +2244,7 @@ function saveRow(data)
 			}
 		}
 	}
+	debugger;
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();  
 }
@@ -2712,6 +2718,7 @@ function tableDictColumn(code){
 }
 
 function resizetable(table){ 
+	debugger;
     var dict_map = {};
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code");
