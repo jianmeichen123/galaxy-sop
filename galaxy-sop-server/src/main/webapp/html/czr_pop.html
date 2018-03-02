@@ -110,8 +110,7 @@ $(function(){
 			 return false;
 		 }else{
 			 that.siblings(".error").remove();
-			 $("#save").val("1");
-			 $("#totleNum").val(ruler);
+			 $("#save").val("1"); 
 		 }
 	 }else{
 		 if(value!=''){
@@ -133,10 +132,11 @@ $("#save-detail-btn").click(function(){
 	});   
 	if($("#save").val()!="1"){
 		return false;
-	}
-    saveForm($("#detail-form"));
-    alert($("#totleNum").val())
-    $(".totleNum").find("td[data-field-name='field2']").text( $("#totleNum").val())
+	} 
+    var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val()); 
+    saveForm($("#detail-form")); 
+    $(".totleNum").find("td[data-field-name='field2']").text(totle);
+    $(".totleNum").find("td[data-field-name='field2']").data.filed2=totle;
     $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性 
 });
 </script>
