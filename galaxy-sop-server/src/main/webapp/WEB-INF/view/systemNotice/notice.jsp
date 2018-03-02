@@ -28,7 +28,7 @@
 					<span class='system_arrive'>至</span>					
 					<input  class='' readonly='readonly' type='text' name="formationEnd"/> 
 					<label class='system_status'>状态：</label>
-					<select>
+					<select id="" name="projectContractor" class="selectpicker" >
 						<option>1</option>
 						<option>1</option>
 						<option>1</option>
