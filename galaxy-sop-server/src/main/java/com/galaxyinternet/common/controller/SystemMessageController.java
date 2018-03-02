@@ -133,7 +133,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 			int id = systemMessageService.updateById(sysMessage);
 			if (id != 1)
 			{
-				responseBody.setResult(new Result(Status.ERROR, null, "删除项目失败"));
+				responseBody.setResult(new Result(Status.ERROR, null, "删除消息失败"));
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
