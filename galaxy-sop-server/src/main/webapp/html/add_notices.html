@@ -12,20 +12,20 @@
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>目标平台：</div>
         		<div class='checkbox-div'>
-	        		<label class="highlighCheckbox highlighCheckbox_checked ">
-	        			<input type="checkbox" name="isCheck" value="1751">
+	        		<label class="highlighCheckbox">
+	        			<input type="checkbox" name="isCheck">
 	        		</label>
 	        		<span>Web</span>
         		</div>
         		<div class='checkbox-div'>
 	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="isCheck" value="1751">
+	        			<input type="checkbox" name="isCheck">
 	        		</label>
 	        		<span>ios</span>
         		</div>
         		<div class='checkbox-div'>
 	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="isCheck" value="1751">
+	        			<input type="checkbox" name="isCheck">
 	        		</label>
 	        		<span>Android</span>
         		</div>
@@ -34,7 +34,7 @@
             <li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>推送时间：</div>
         		<div class='system_radio_second' >
-        			<label class="radio_cont " data-name="">
+        			<label class="radio_cont radio_checked" data-name="">
 					<input type="radio" name="investForm " value="financeMode:1" class="radioclass">
 						立即
 					</label>
@@ -70,8 +70,27 @@ span.error{
 </style>
 <script>
 $(function(){
-	$('.qualificationstc ').css('max-height','600px')
+	$('.qualificationstc ').css('max-height','600px');
+	$('.highlighCheckbox').click(function(event){
+		if($(this).hasClass('highlighCheckbox_checked')){
+			$(this).removeClass('highlighCheckbox_checked')
+		}else{
+			$(this).addClass('highlighCheckbox_checked')
+		}
+		event.preventDefault(); 
+		
+	})
+	
+	$('.radio_cont').click(function(){
+		$('.radio_cont').removeClass('radio_checked');
+		$(this).addClass('radio_checked')
+	})
+	
+	
 })
+
+
+
 
 
 
