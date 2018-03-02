@@ -66,12 +66,13 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		Direction direction = Direction.DESC;
 		String property = "updated_time";
 		try {
-			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(query.getPageNum(),
-					query.getPageSize(), direction, property));
+			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
+					systemMessage.getPageSize(), direction, property));
 			data.setPageList(queryPageList);
 			data.setResult(new Result(Status.OK, ""));
 			return data;
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("查询系统消息失败", e);
 			data.getResult().addError("查询系统消息失败");
 		}

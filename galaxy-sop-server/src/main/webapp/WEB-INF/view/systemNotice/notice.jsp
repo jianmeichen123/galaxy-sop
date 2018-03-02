@@ -84,7 +84,7 @@
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'created_time',
-		pagination : false,
+		pagination : true,
 		search : false
 	});
 	//日期选择
