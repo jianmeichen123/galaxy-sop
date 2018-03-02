@@ -801,11 +801,11 @@ function buildMemberRow(headerList,row,showOpts)
 }
 function buildTable(sec,title)
 {
-	//列表Header 
+	//列表Header  
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
-		var tables = $("table[data-title-id='"+header.titleId+"']");
+		var tables = $("table[data-title-id='"+header.titleId+"']"); 
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
@@ -847,10 +847,10 @@ function buildTable(sec,title)
 			tr+="</tr>";
 			table.append(tr);
 		});
-	}
+	} 
 	//列表Row
 	if(title.dataList)
-	{ 
+	{  
 		$.each(title.dataList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
@@ -2019,8 +2019,7 @@ function type_change(){
 /**
  * 数据字典加载请求
  */
-function selectDirect(tittleId,subCode,filed){
-	debugger;
+function selectDirect(tittleId,subCode,filed){ 
 	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
@@ -2055,8 +2054,7 @@ function selectDirect(tittleId,subCode,filed){
  * 数据字典加载页面渲染
  */
 
-function selectContext(formId){
-	debugger;
+function selectContext(formId){ 
 	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
 	 $.each($fileds,function(){
 		var field = $(this);
@@ -2178,8 +2176,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
-
+{ 
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
@@ -2243,7 +2240,7 @@ function saveRow(data)
 		}
 	}
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
-	$("a[data-close='close']").click();
+	$("a[data-close='close']").click();  
 }
 function editRow(ele)	
 {

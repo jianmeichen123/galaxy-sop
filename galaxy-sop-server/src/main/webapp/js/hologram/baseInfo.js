@@ -922,9 +922,17 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + hresult + "</dl></div>";
 	}else{
-		//编辑   
-		console.log(title)
+		//编辑    
+
+		var tableBox = "<table data-title-id="+title.id+" class=\"editable\"></table>";
 		var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
+		
+		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
+		return divBox
+		
+		
+		
+		/*var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
 		var tableBox = "<table data-title-id="+title.id+" class=\"editable\" data-code="+tableHeader.code+"><thead>"
 		var ddBox="<dd class=\"fl_none\"></dd>"
 		var th = "<tr>"; 
@@ -964,8 +972,11 @@ function type_10_html(title,mark){
 		tableBox+= th +  "</tr></thead><tbody>"+body_tr+"</tbody></table>";
 		
 		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
-		return divBox;
+		return divBox;*/
 		
+		
+		
+		//最初版本
 //		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
 //		
 //		var filed_sort = table_filed[title.id];
