@@ -74,5 +74,74 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		}
 		return data;
 	}
+	
+	/**
+	 * 新建系统消息接口
+	 * 
+	 * @version 2018-03-02
+	 * @author chenjianmei
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> addProject(@RequestBody SystemMessage systemMessage, HttpServletRequest request)
+	{
+		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
+		if (systemMessage == null || systemMessage.getMessageContent() == null || "".equals(systemMessage.getMessageContent().trim())
+				|| systemMessage.getOsType()== null || "".equals(systemMessage.getOsType().trim())
+				|| systemMessage.getSendTime() == null )
+		{
+			responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
+			return responseBody;
+		}
+		try
+		{
+			Long insert = systemMessageService.insert(systemMessage);
+			if(insert>0){
+				responseBody.setResult(new Result(Status.OK,"新增成功"));
+			}
+		} catch (Exception e)
+		{
+			logger.error("异常信息:", e.getMessage());
+		}
+		return responseBody;
+	}
+	/**
+	 * 删除消息
+	 * 
+	 * @param id
+	 * @version 2018-03-02
+	 * @author chenjianmei
+	 *           消息id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteMessage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> deleteMessage(@RequestBody SystemMessage param, HttpServletRequest request)
+	{
+		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
 
+		try
+		{
+			SystemMessage sysMessage = new SystemMessage();
+			sysMessage = systemMessageService.queryById(param.getId());
+			if (sysMessage == null)
+			{
+				responseBody.setResult(new Result(Status.ERROR, null, "删除的消息不存在"));
+				return responseBody;
+			}
+			sysMessage.setIsDel((byte)1);
+			int id = systemMessageService.updateById(sysMessage);
+			if (id != 1)
+			{
+				responseBody.setResult(new Result(Status.ERROR, null, "删除项目失败"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			} catch (Exception e)
+		{
+			responseBody.setResult(new Result(Status.ERROR, null, "delete message faild"));
+			logger.error("delete message faild ", e);
+		}
+		return responseBody;
+	}
 }
