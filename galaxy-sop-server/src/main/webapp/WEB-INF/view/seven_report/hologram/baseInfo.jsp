@@ -169,9 +169,7 @@ $(function() {
 				//下拉多选添加resultId
 				$.each(entity.childList,function(i,n){
 					var title = this;
-					buildTable(sec,title);  
-					
-					//项目承做人计算比例
+					buildTable(sec,title);    
 					if(n.type=='23'){
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){

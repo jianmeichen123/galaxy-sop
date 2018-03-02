@@ -827,8 +827,7 @@ function buildTable(sec,title)
 					}
 					if(header.code=='competitor_potential'&&(key != 'field1')){
 						continue;
-					}
-
+					} 
 					if(header.code=="team-person"&&key=="field5"){ 
 						continue;
 					} 
@@ -968,11 +967,12 @@ function buildRow(row,showOpts,titleId)
 	
 	if(showOpts == true)
 	{
-		if(row.titleId==1103&&row.field5){
+		if(row.titleId==1103&&row.field5=="1"){
 			
 		}else{
 			td.text("--")
 			tr.append(td);
+			tr.addClass("totleNum");
 			return tr;
 		}
 		if(funFlg=="1"){
@@ -2090,8 +2090,10 @@ function selectContext(formId){
 //新增弹出页面渲染
 function addRow(ele)
 {
-	var code = $(ele).prev().data('code');
- 
+	var code = $(ele).prev().data('code');  
+	if(code=="team-person"){		
+		var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
+	}
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		addRowCompete(ele,id_code);
@@ -2114,7 +2116,8 @@ function addRow(ele)
 	            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 	            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
 	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
-	            if(code=="team-person"){
+	            if(code=="team-person"){  
+	            	$("#totleNum").val(totleNum);
 	            	return false;
 	            }
 	            selectContext("detail-form");
