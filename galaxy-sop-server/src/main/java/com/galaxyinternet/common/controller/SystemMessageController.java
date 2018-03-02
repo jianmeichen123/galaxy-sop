@@ -44,8 +44,8 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 	 * @return
 	 */
 	@RequestMapping(value = "/tabSystemMessage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String platform(HttpServletRequest request) {
-		return "standard/index";
+	public String tabSystemMessage(HttpServletRequest request) {
+		return "systemNotice/notice";
 	}
 	/**
 	 * @date 2018-3-1
