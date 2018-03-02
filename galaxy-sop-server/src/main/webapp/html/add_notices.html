@@ -3,7 +3,7 @@
 	<div class="title_bj abandon-title" >新建通知</div>
 	<form action="" id="detail-form">
 	
-    <div  class="qualifications_all task-todeal assign_project">
+    <div  class="qualifications_all task-todeal assign_project system-content">
         <ul>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>通知内容：</div>
@@ -33,34 +33,29 @@
         	</li>
             <li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>推送时间：</div>
-        		<label class="radio_cont" data-name="">
-				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
-					立即
-				</label><br><br>
-				<label class="radio_cont system_radio_second" data-name="">
-				<input type="radio" name="investForm" value="financeMode:1" class="radioclass">
-					定时
-				</label>
-				<input  class='' readonly='readonly' type='text' name="formationEnd"/>
+        		<div class='system_radio_second' >
+        			<label class="radio_cont " data-name="">
+					<input type="radio" name="investForm " value="financeMode:1" class="radioclass">
+						立即
+					</label>
+        		</div>
+        		<div class='system_radio_second'>
+        			<label class="radio_cont system_radio_second" data-name="">
+					<input type="radio" name="investForm" value="financeMode:1" class="radioclass ">
+						定时
+					</label>
+					<input  class='datatimePicture setTime' readonly='readonly' type='text' name="formationEnd"/>
+        		</div>
         	</li>   
-        	<li class='select-simulate'>
-        		<em>接收部门 ：</em>
-        		 <input type='text' placeholder='请选择' readonly  name="afterDepartmentIdTxt" required data-msg-required="<font color=red>*</font>接收部门不能为空">
-        		 <input type='hidden' name="afterDepartmentId" />
-        		<ul class='toggle-ul' name='afterDepartmentId'></ul>
+        	<li>
+        		<div class='task-reason'><em>*</em>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="formationStart"/></div>
         		
-        		<!--   <select name='afterDepartmentId' style="width:300px;" >
-                           <option value="">请选择</option>
-                        </select>  -->  
         	</li>
-        	
-        	
         </ul>
       	
     
   		<div class="button_affrim tast-btn">
-	        <a href="javascript:;"  class="register_all_affrim fl task-confirm" id="projectTransfer">确定</a>
-	        <a href="javascript:;"  class="register_all_input fr task-cancle"  data-close="close">取消</a>
+	        <a href="javascript:;"  class="register_all_affrim  task-confirm system_send">发送</a>
    		 </div>
 
 </div>
@@ -73,29 +68,11 @@ span.error{
 	margin-left:75px;
 }
 </style>
-
 <script>
+$(function(){
+	$('.qualificationstc ').css('max-height','600px')
+})
 
-$('.select-simulate input').click(function(event){
-	$(this).closest('.select-simulate').siblings('.select-simulate').find('input[type="text"]').removeClass('up');	
-	$(this).closest('.select-simulate').siblings('.select-simulate').find('.toggle-ul').slideUp("fast");
-	var ul =  $(this).parent().find('ul.toggle-ul');
-	var _this = $(this);	
-	_this.toggleClass("up");
-	ul.slideToggle("fast");
-	event.stopPropagation(); 
-	$(document).on("click", function(){
-		ul.slideUp("fast");
-		_this.removeClass('up');		
-	});
-});
 
-//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
-$.validator.setDefaults({
-	errorElement:'span'
-});
-jQuery.validator.addMethod("verify_100", function(value, element) {  
-	var verify_100 = /^(?!.{101}|^\s*$)/;
-	return this.optional(element) || (verify_100.test(value));
-}, "不能超过100字");
+
 </script>
