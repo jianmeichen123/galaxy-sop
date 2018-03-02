@@ -64,7 +64,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		query.setSendTime(systemMessage.getSendTime());
 		query.setSendStatus(systemMessage.getSendStatus());
 		Direction direction = Direction.DESC;
-		String property = "updated_time";
+		String property = "update_time";
 		try {
 			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
 					systemMessage.getPageSize(), direction, property));

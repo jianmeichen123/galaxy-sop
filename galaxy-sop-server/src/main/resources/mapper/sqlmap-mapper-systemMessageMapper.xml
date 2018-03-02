@@ -14,29 +14,67 @@
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="upgrade_time" property="upgradeTime" jdbcType="BIGINT" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.galaxyinternet.model.systemMessage.SystemMessage" extends="BaseResultMap" >
-    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
   <sql id="Base_Column_List" >
     id, os_type, is_now_send, send_time, send_status, is_del, create_id, create_time, 
     update_id, update_time, upgrade_time
   </sql>
-  <sql id="Blob_Column_List" >
-    message_content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from system_message
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from system_message
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
+ 
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+			      <if test="sendTime != null"> and send_time = #{sendTime,jdbcType=VARCHAR} </if>
+			      <if test="sendStatus != null"> and send_status = #{sendStatus,jdbcType=TINYINT} </if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	<!-- 根据ID查询-->
+	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_message
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from system_message 
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from system_message
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from system_message
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+		<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from system_message
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	
+	
+	
+	
+   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
     insert into system_message (id, os_type, is_now_send, 
       send_time, send_status, is_del, 
       create_id, create_time, update_id, 
@@ -48,151 +86,14 @@
       #{updateTime,jdbcType=BIGINT}, #{upgradeTime,jdbcType=BIGINT}, #{messageContent,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
-    insert into system_message
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="osType != null" >
-        os_type,
-      </if>
-      <if test="isNowSend != null" >
-        is_now_send,
-      </if>
-      <if test="sendTime != null" >
-        send_time,
-      </if>
-      <if test="sendStatus != null" >
-        send_status,
-      </if>
-      <if test="isDel != null" >
-        is_del,
-      </if>
-      <if test="createId != null" >
-        create_id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateId != null" >
-        update_id,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="upgradeTime != null" >
-        upgrade_time,
-      </if>
-      <if test="messageContent != null" >
-        message_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="osType != null" >
-        #{osType,jdbcType=VARCHAR},
-      </if>
-      <if test="isNowSend != null" >
-        #{isNowSend,jdbcType=TINYINT},
-      </if>
-      <if test="sendTime != null" >
-        #{sendTime,jdbcType=BIGINT},
-      </if>
-      <if test="sendStatus != null" >
-        #{sendStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="isDel != null" >
-        #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="createId != null" >
-        #{createId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateId != null" >
-        #{updateId,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="upgradeTime != null" >
-        #{upgradeTime,jdbcType=BIGINT},
-      </if>
-      <if test="messageContent != null" >
-        #{messageContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
-    update system_message
-    <set >
-      <if test="osType != null" >
-        os_type = #{osType,jdbcType=VARCHAR},
-      </if>
-      <if test="isNowSend != null" >
-        is_now_send = #{isNowSend,jdbcType=TINYINT},
-      </if>
-      <if test="sendTime != null" >
-        send_time = #{sendTime,jdbcType=BIGINT},
-      </if>
-      <if test="sendStatus != null" >
-        send_status = #{sendStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="isDel != null" >
-        is_del = #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="createId != null" >
-        create_id = #{createId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateId != null" >
-        update_id = #{updateId,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="upgradeTime != null" >
-        upgrade_time = #{upgradeTime,jdbcType=BIGINT},
-      </if>
-      <if test="messageContent != null" >
-        message_content = #{messageContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
-    update system_message
-    set os_type = #{osType,jdbcType=VARCHAR},
-      is_now_send = #{isNowSend,jdbcType=TINYINT},
-      send_time = #{sendTime,jdbcType=BIGINT},
-      send_status = #{sendStatus,jdbcType=VARCHAR},
-      is_del = #{isDel,jdbcType=TINYINT},
-      create_id = #{createId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_id = #{updateId,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      upgrade_time = #{upgradeTime,jdbcType=BIGINT},
-      message_content = #{messageContent,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage" >
-    update system_message
-    set os_type = #{osType,jdbcType=VARCHAR},
-      is_now_send = #{isNowSend,jdbcType=TINYINT},
-      send_time = #{sendTime,jdbcType=BIGINT},
-      send_status = #{sendStatus,jdbcType=VARCHAR},
-      is_del = #{isDel,jdbcType=TINYINT},
-      create_id = #{createId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_id = #{updateId,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      upgrade_time = #{upgradeTime,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+  <update id="updateById" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage">
+		update system_message
+		<set>
+	      <if test="standardDetails != null">  standard_details = #{standardDetails,jdbcType=VARCHAR}, </if>
+	      <if test="status != null"> status = #{status,jdbcType=TINYINT}, </if>
+	      <if test="isValid != null"> is_valid = #{isValid,jdbcType=TINYINT}, </if>
+	      <if test="updatedId != null">  updated_id = #{updatedId,jdbcType=BIGINT}, </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>
