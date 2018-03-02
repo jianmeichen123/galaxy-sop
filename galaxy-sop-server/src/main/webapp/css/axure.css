@@ -4672,8 +4672,10 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     background: url(../img/base_info/pop_icon_datepick.png) no-repeat right -8px;}
 .system_radio_second .setTime{margin-left:17px;display:none;}
 .system_send{
-	width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#fff; background-color:#66b1f2;  margin-left:auto; margin-right:auto; display:block; margin-top:10px;background:#d8d8d8;
-	}
+	width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#fff; background-color:#66b1f2;  margin-left:auto; margin-right:auto; display:block; margin-top:10px;
+}
+.system_disabled{background:#d8d8d8;}
 .assign_project .system_notice li{text-align:center;padding-top:40px;font-size: 14px;
-    color: #2d3342;}
+    color: #2d3342;
+}
 
