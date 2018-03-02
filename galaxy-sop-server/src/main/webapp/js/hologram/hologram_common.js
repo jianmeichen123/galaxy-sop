@@ -2697,21 +2697,23 @@ function dictCache(titleId,subCode,filed){
 		//事业部
 		var tds = $("table[data-title-id="+titleId+"]").find("td[data-field-name="+filed+"]");
 		if(filed=="field3"){
-		  sendGetRequest(platformUrl.getCareer,null,
+		var list=[];
+		sendGetRequest(platformUrl.getCareer,null,
 			function(data) {
-			  var list = data.entityList;
-			  var resArr=[]; 
-			  $.each(tds, function(i, value){  
-				  var tdID= parseInt($(this).text()); 
-				  var res = list.filter(function(val){ return val.id ==tdID})[0]; 
-				  resArr.push(res);
-				}); 
-			  $.each(resArr, function(i, value){
-				  if(value!=undefined){
-					     map[value.id]=value.name;
-				  }
-				});
-		  })
+			  list = data.entityList;
+			  
+		 })
+		  var resArr=[]; 
+		  $.each(tds, function(i, value){  
+			  var tdID= parseInt($(this).text()); 
+			  var res = list.filter(function(val){ return val.id ==tdID})[0]; 
+			  resArr.push(res);
+			}); 
+		  $.each(resArr, function(i, value){
+			  if(value!=undefined){
+				     map[value.id]=value.name;
+			  }
+			});
 		}else if(filed=="field1"){ 
 			var tds3 = $("table[data-title-id="+titleId+"]").find("td[data-field-name='field3']");
 		    var resArr=[]; 
@@ -2774,7 +2776,7 @@ function resizetable(table){
     var  code = table.attr("data-code"); 
     var fields_json=tableDictColumn(code);
     if (fields_json && code in fields_json){
-        var fields = fields_json[code]
+        var fields = fields_json[code] 
         for(var i=0;i<fields.length;i++){
             var v = fields[i]
             var dict = dictCache(title_id,code,v)

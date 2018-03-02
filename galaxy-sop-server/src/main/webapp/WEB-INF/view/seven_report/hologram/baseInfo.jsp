@@ -170,10 +170,7 @@ $(function() {
 				$.each(entity.childList,function(i,n){
 					var title = this;
 					buildTable(sec,title);  
-					if($("table[data-code='team-person'].editable").find("tbody tr").length>0){
-						$("table[data-code='team-person']").show();
-						resizetable($("table[data-code='team-person'].editable"));
-					}  
+					
 					//项目承做人计算比例
 					if(n.type=='23'){
 						if(n.resultList){
@@ -186,6 +183,10 @@ $(function() {
 						}
 					}
 				})
+				if($("table[data-code='team-person'].editable").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show(); 
+					resizetable($("table[data-code='team-person'].editable"));
+				}  
 				//项目承揽人多选
 				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
