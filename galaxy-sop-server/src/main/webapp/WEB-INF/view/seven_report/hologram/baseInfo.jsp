@@ -120,9 +120,8 @@ delComArr=[];
 table_toedit_Value = {};
 table_tosave_Value = {};
 var codeArr = ['NO1_1','NO1_2'];
-sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
-	
-
+//显示
+sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun); 
 $(function() {
 	right_anchor("NO1");
 	$(".exportReport").show();
@@ -142,9 +141,11 @@ $(function() {
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
 		}
-		var code=_this.find("table").attr("data-code");
-	    
-	    resizetable($("table[data-code='"+code+"']"));
+		var code=_this.find("table").attr("data-code");  
+		if($("table[data-code='team-person']").find("tbody tr").length>0){
+			$("table[data-code='team-person']").show();
+			resizetable($("table[data-code='team-person']"));
+		} 
 	});
 	
 	//通用编辑显示
@@ -163,14 +164,14 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);				
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
-				if($("table[data-code='team-person']").find("tbody tr").length>0){
-					$("table[data-code='team-person']").show();
-				}  
+				
 				resouceShow('e');   //项目来源特殊处理
 				//下拉多选添加resultId
 				$.each(entity.childList,function(i,n){
 					var title = this;
-					buildTable(sec,title); 
+					buildTable(sec,title);  
+					
+					//项目承做人计算比例
 					if(n.type=='23'){
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){
@@ -182,6 +183,10 @@ $(function() {
 						}
 					}
 				})
+				if($("table[data-code='team-person'].editable").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show(); 
+					resizetable($("table[data-code='team-person'].editable"));
+				}  
 				//项目承揽人多选
 				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
@@ -546,7 +551,11 @@ $(function() {
 				$(".h_look .ismust").hide();
 				$(".h#"+id_code).css("background","#fff");
 				 $('html,body').scrollTop(sTop);  //定位
-				 resouceShow('s');  //项目来源特殊处理
+				 resouceShow('s');  //项目来源特殊处理  
+				if($("table[data-code='team-person']").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show();
+					resizetable($("table[data-code='team-person']"));
+				} 
 			} else {
 				layer.msg('保存失败');
 			}

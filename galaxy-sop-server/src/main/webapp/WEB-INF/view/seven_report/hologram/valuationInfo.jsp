@@ -290,8 +290,7 @@ var deleteJSON={};
 		event.stopPropagation();
 		deletedRowIds = new Array();
 		toggle_btn($('.anchor_btn span'),0,_this);
-		var code=_this.find("table").attr("data-code");
-	    
+		var code=_this.find("table").attr("data-code");  
 	    resizetable($("table[data-code='"+code+"']"));
 	});
 	//通用保存
