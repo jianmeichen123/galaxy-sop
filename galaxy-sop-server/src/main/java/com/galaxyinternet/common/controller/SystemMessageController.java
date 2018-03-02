@@ -55,16 +55,19 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/searchSystemMessage", method = RequestMethod.GET)
-	public ResponseData<SystemMessage> searchMessage(HttpServletRequest request, 
+	@RequestMapping(value = "/searchSystemMessage", method = RequestMethod.POST)
+	public ResponseData<SystemMessage> searchSystemMessage(HttpServletRequest request, 
 			@RequestBody SystemMessage systemMessage)
 	   {
 		ResponseData<SystemMessage> data = new ResponseData<SystemMessage>();
+		SystemMessage query=new SystemMessage();
+		query.setSendTime(systemMessage.getSendTime());
+		query.setSendStatus(systemMessage.getSendStatus());
 		Direction direction = Direction.DESC;
 		String property = "updated_time";
 		try {
-			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
-					systemMessage.getPageSize(), direction, property));
+			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(query.getPageNum(),
+					query.getPageSize(), direction, property));
 			data.setPageList(queryPageList);
 			data.setResult(new Result(Status.OK, ""));
 			return data;
