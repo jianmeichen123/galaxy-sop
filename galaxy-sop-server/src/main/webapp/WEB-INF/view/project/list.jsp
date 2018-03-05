@@ -48,19 +48,19 @@
          <!--页眉-->
          <div class="top new_tit_b topBanner clearfix">
         	<!--按钮--> 
-        	<div class="commonTab">
-        		<div>负责的项目</div>
-        		<div>协作的项目</div>
+        	<div class="commonTab clearfix">
+        		<div class="xhtTab active" primary=0>负责的项目</div>
+        		<div class="xhtTab" primary=1>协作的项目</div>
         	</div>
         	<div class="btnbox_f btnbox_f1 handover_project">
-                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
+                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:20px;display:none" resource-mark="project_add">添加项目</a> 
             </div>
             <div class="handover_project">
             	<c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:10px;" >批量移交</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px;" >批量移交</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:10px;">批量指派</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px;">批量指派</a>
                 </c:if>
             </div>
            
@@ -166,7 +166,7 @@
             </div>
           </div>
         </div>
-		<div class="tab-pane active ctlist" id="view">	
+		<div class="tab-pane active ctlist" id="view" style="padding-top:55px;">	
 			<table id="project-table" data-url="project/search" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>

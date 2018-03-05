@@ -4698,3 +4698,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 @media screen and (min-width: 1380px) { 
 	.topBanner{left:9.375%;}
 }
+.commonTab{width:auto;}
+.new_tit_b .commonTab{float:left;}
+.commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;}
+.commonTab .xhtTab.active{border-bottom:4px solid #45aaff;}
