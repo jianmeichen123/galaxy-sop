@@ -2117,7 +2117,12 @@ function addRow(ele)
 	            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
 	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
 	            if(code=="team-person"){  
-	            	$("#totleNum").val(totleNum);
+	            	$("#totleNum").val(totleNum); 
+		            //带出来 承作人ID
+		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
+		            $.each(trs,function(i,value){
+		            	czr_dataArr.push($(value).data().field1); 
+		            })    
 	            	return false;
 	            }
 	            selectContext("detail-form");
@@ -2258,7 +2263,7 @@ function saveRow(data)
 	$("a[data-close='close']").click();  
 }
 function editRow(ele)	
-{
+{ 
 	var row = $(ele).closest('tr');
 	var code = $(ele).closest('table').data('code');
 	var formBox=$(ele).closest('form');
@@ -2286,33 +2291,45 @@ function editRow(ele)
 						$(".button_affrim").hide();
 						$('#detail-form_look_over').show();
 						$("#delivery_popup_name").text("查看交割事项");
-						 $('#grant_popup_name').html('查看分期注资计划');
-						 $('#finace_popup_name').html('查看融资历史');
-						 $("#complete_title").html('查看综合竞争比较');
-						 $("#pop-title-gs").text('查看同类公司');
-						 $("#pop-title-time").text('查看里程碑和时间节点');
-						 $("#pop-title").text('查看分期注资计划');
-						 $("#pop-title-yy").html('查看运营指标');
+						$('#grant_popup_name').html('查看分期注资计划');
+						$('#finace_popup_name').html('查看融资历史');
+						$("#complete_title").html('查看综合竞争比较');
+						$("#pop-title-gs").text('查看同类公司');
+						$("#pop-title-time").text('查看里程碑和时间节点');
+						$("#pop-title").text('查看分期注资计划');
+						$("#pop-title-yy").html('查看运营指标');
 						
 					}else{
 						$(".see_block").hide();
 						$('#detail-form_look_over').hide();
 						$("#delivery_popup_name").text("编辑交割事项");
-						 $('#grant_popup_name').html('编辑分期注资计划');
-						 $('#finace_popup_name').html('编辑融资历史');
-						 $("#complete_title").html('编辑综合竞争比较');
-						 $("#pop-title-tz").html('编辑投资人');
-						 $("#pop-title-share").html('编辑股东');
-						 $("#pop-title-yy").html('编辑运营指标');
-						 $("#pop-title-gs").text('编辑同类公司');
-						 $("#pop-title-time").text('编辑里程碑和时间节点');
-						 $("#pop-title").text('编辑分期注资计划');
+						$('#grant_popup_name').html('编辑分期注资计划');
+						$('#finace_popup_name').html('编辑融资历史');
+						$("#complete_title").html('编辑综合竞争比较');
+						$("#pop-title-tz").html('编辑投资人');
+						$("#pop-title-share").html('编辑股东');
+						$("#pop-title-czr").html('编辑项目承作人');
+						$("#pop-title-yy").html('编辑运营指标');
+						$("#pop-title-gs").text('编辑同类公司');
+						$("#pop-title-time").text('编辑里程碑和时间节点');
+						$("#pop-title").text('编辑分期注资计划');
 					}
+				 var dataCode = $(ele).closest('table').attr('data-code'); 
+				 if(dataCode=="team-person"){  
+					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
+	            	$("#totleNum").val(totleNum);
+	            	//带出来 承作人ID
+		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
+		            $.each(trs,function(i,value){
+		            	czr_dataArr.push($(value).data().field1); 
+		            })    
+		             czr_Rdata = row.data(); 
+	            	return false;
+	            }
 				$("#detail-form input[name='subCode']").val(code);
 				$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 				selectContext("detail-form");
 				//增加显示字段限制
-				var dataCode = $(ele).closest('table').attr('data-code');
 				
 				$.each($("#detail-form").find("input, select, textarea"),function(){
 					var ele = $(this);
