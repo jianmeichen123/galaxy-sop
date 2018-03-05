@@ -41,29 +41,29 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all">
-    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div>
+    	<%-- <div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div> --%>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
          <%-- <c:if test="${fx:hasRole(4)}"> --%>
          <!--页眉-->
-         <div class="top clearfix">
-        	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
-                <%-- <a href="<%=path %>/galaxy/test/writePage" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">填写标准</a> 
-                --%>
-               	 
-               <%--   <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
-               --%>  <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
+         <div class="top new_tit_b topBanner clearfix">
+        	<!--按钮--> 
+        	<div class="commonTab">
+        		<div>负责的项目</div>
+        		<div>协作的项目</div>
+        	</div>
+        	<div class="btnbox_f btnbox_f1 handover_project">
+                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
             </div>
             <div class="handover_project">
             	<c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;" >批量移交</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:10px;" >批量移交</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;">批量指派</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:10px;">批量指派</a>
                 </c:if>
             </div>
+           
          </div>
          <%-- </c:if> --%>
          <!--tips连接
@@ -373,8 +373,7 @@
 		//返回附带参数功能代码
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
-			initPageSize = 10;
-			console.log(pageParams)
+			initPageSize = 10; 
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
 		}
@@ -394,7 +393,7 @@
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
 			method : 'post',
-			sortOrder : 'desc',
+			sortOrder : 'desc', 
 			sortName : 'updated_time',
 			pagination: true,
 	        search: false,

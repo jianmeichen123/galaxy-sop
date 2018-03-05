@@ -2720,16 +2720,15 @@ function dictCache(titleId,subCode,filed){
 		var list=[];
 		sendGetRequest(platformUrl.getCareer,null,
 			function(data) {
-			  list = data.entityList;
-			  
+			  list = data.entityList; 
 		 })
 		  var resArr=[]; 
-		  $.each(tds, function(i, value){  
+		  $.each(tds, function(i, value){ 
 			  var tdID= parseInt($(this).text()); 
 			  var res = list.filter(function(val){ return val.id ==tdID})[0]; 
 			  resArr.push(res);
-			}); 
-		  $.each(resArr, function(i, value){
+			});  
+		  $.each(resArr, function(i, value){ 
 			  if(value!=undefined){
 				     map[value.id]=value.name;
 			  }
