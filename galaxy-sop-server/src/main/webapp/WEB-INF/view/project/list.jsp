@@ -490,6 +490,7 @@
 		}  
 		 getProjectTable();
 		 $(".xhtTab").click(function(){ 
+			 
 			 var that=$(this);
 			 $(".xhtTab").removeClass("active");
 			 that.addClass("active");
