@@ -28,7 +28,7 @@
 					<span class='system_arrive'>至</span>					
 					<input  class='' readonly='readonly' type='text' id="endTime" name="endTime"/> 
 					<label class='system_status'>状态：</label>
-					<select id="" name="projectContractor" class="selectpicker" >
+					<select id="" name="sendStatus" class="selectpicker" >
 						<option>1</option>
 						<option>1</option>
 						<option>1</option>
@@ -40,8 +40,6 @@
 				width="100%" cellspacing="0" cellpadding="0" 
 				data-url="<%=request.getContextPath()%>/galaxy/systemMessage/searchSystemMessage"
 				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
-				
-				
 					<thead>
 					    <tr> 
 				        	<th data-field="messageContent"  data-width="14%" data-align="left">通知内容</th>
@@ -116,8 +114,8 @@
 	    currentText: 'Now'
 	});
 	$('.system_querySearch').click(function(){
-		var startTime = $('input[name="formationStart"]').val();
-		var endTime = $('input[name="formationEnd"]').val();
+		var startTime = $('input[name="startTime"]').val();
+		var endTime = $('input[name="endTime"]').val();
 		if(startTime>endTime){
 			layer.msg('开始时间不能大于结束时间')
 		}
