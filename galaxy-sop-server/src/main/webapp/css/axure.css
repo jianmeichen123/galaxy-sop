@@ -786,6 +786,7 @@ pre{white-space:pre-wrap;margin:0;}
 /* 档案管理 */
 #template-table{margin-top:10px;}
 .min_document_da{margin:10px 0;}
+.ritmin .top .btnbox_f1 .addico{background:#3CA6FF url(../img/btnico2.png) 0 0 no-repeat;}
 .ritmin .top .btnbox_f1 .ico{background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;border:1px solid #539be2;}
 .ritmin .top .btnbox_f .c1{background-position: 15px 0;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c2{background-position: 15px -30px;padding: 0 0 0 22px;}
@@ -3780,6 +3781,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .btnbox_f .add_pro{background:#45aaff url(../img/base_info/base_icon.png) -83px -4px no-repeat;border-radius:2px;height:32px;line-height:32px;font-family:Microsoft YaHei; color:#fff;font-size:14px;display:inline-block;text-align:center;padding:0 32px 0 50px;}
  .btnbox_f .add_pro.lightbg{background: #EEF6FC;color: #3CA6FF;padding-left:32px;}
  .btnbox_f .add_pro.lightbg:hover{background:#d9e3ea;}
+ .ritmin .new_blueBtn.lightbg{background: #EEF6FC;color: #3CA6FF!important;border-color:#EEF6FC;}
+ .ritmin .new_blueBtn.lightbg:hover{background:#d9e3ea;border-color:#EEF6FC;}
  .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -5px;}
  .tabinfo_con .role_table{margin:0;}
  .tabinfo_con .role_table span{margin:0;}
@@ -4680,3 +4683,18 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 }
 .system-tips{color:#ffffff;background:rgba(254,85,47,0.7);width:100%;position:fixed;height:30px;line-height:30px;text-align:center;font-family:Microsoft YaHei;font-size:12px;top:50px;}
 .system-tips-close{float:right;margin-right:15px;cursor:pointer;}
+/* topBanner */
+.topBanner{
+	background: #fff;
+    padding-left: 39px;
+    position: fixed;
+    height:auto;
+    width:auto;
+    right:0;
+    left:60px;
+    top:50px;
+    z-index:10;
+}
+@media screen and (min-width: 1380px) { 
+	.topBanner{left:9.375%;}
+}
