@@ -95,6 +95,7 @@
         <a href="http://ctdn.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou ctdn"></span>创投大脑</a>
       </div>
     </div>
+    <div class='system-tips'>为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！<span class='system-tips-close'>X</span></div>
 </div>
 
 <script type="text/javascript">
@@ -430,7 +431,9 @@ $(window).resize(function(){
  
  
   })		
-  
+  $('.system-tips-close').click(function(){
+	  $(this).parent().hide();
+  })
 
  
 </script>
