@@ -53,6 +53,7 @@
 				        	<th data-field="projectName"  data-width="14%" data-align="left">操作</th>
 	 					</tr>	
 	 				</thead>
+
 				</table> 
 			
 			
@@ -147,7 +148,7 @@
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 	})
-	$('.system_close,.system_delete').click(function(){
+	$('.system_close,.system_delete').click(function(){//关闭和删除事件
 		var code = $(this).attr('data-code');
 		$.getHtml({
 			url:getDetailUrl(code),
@@ -159,6 +160,17 @@
 		
 	})
 	
+	//编辑按钮
+	$('.system_edit').click(function(){
+		var code = $(this).attr('data-code');
+		$.getHtml({
+			url:getDetailUrl(code),
+			okback:function(){
+				
+			}
+		})
+		$('.close').addClass('tast-close')//添加关闭按钮
+	})
 	
 	
 </script>

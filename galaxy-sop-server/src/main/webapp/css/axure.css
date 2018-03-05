@@ -4678,4 +4678,5 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .assign_project .system_notice li{text-align:center;padding-top:40px;font-size: 14px;
     color: #2d3342;
 }
-
+.system-tips{color:#ffffff;background:rgba(254,85,47,0.7);width:100%;position:fixed;height:30px;line-height:30px;text-align:center;font-family:Microsoft YaHei;font-size:12px;top:50px;}
+.system-tips-close{float:right;margin-right:15px;cursor:pointer;}

@@ -8,11 +8,13 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.SopConstatnts;
 import com.google.gson.Gson;
 
@@ -260,4 +262,29 @@ public class FXFunctionTags
 		return "";
 	}
 
+	/**
+	 * 当前用户是否是协作人
+	 * @param recordType
+	 * @param id
+	 * @return
+	 */
+	public static boolean isCooperative(Long id)
+	{
+		User user = WebUtils.getUserFromSession();
+		if(user != null && id != null)
+		{
+			InformationListdataService service = WebUtils.getBean(InformationListdataService.class);
+			if(service != null)
+			{
+				InformationListdata query = new InformationListdata();
+				query.setProjectId(id);
+				query.setTitleId(1103L);
+				query.setField1(user.getId()+"");
+				query.setField5("1");
+				long count = service.queryCount(query);
+				return count > 0L;
+			}
+		}
+		return false;
+	}
 }
