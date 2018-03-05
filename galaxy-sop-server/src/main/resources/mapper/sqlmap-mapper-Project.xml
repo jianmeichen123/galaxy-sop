@@ -298,7 +298,7 @@
 				AND EXISTS
 				(
 					SELECT 1 FROM information_listdata ld
-					INNER JOIN power.user u ON ld.field_6 = u.id AND ld.field_5 = #{primary}
+					INNER JOIN power.user u ON ld.field_1 = u.id AND ld.field_5 = #{primary}
 					INNER JOIN power.rel_dep_user du ON du.user_id = u.id
 					WHERE ld.project_id = sop_project.id
 					AND ld.title_id = 1103
