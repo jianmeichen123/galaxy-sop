@@ -110,11 +110,8 @@ $(function(){
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now',
-	    minDate:0
-	}).on('changeDate',function(e){ 
-		var startTime = e.date; 
-		$('.system_radio_second input[name="formationStart"]').datepicker('setStartDate',startTime); 
-		});
+	    startDate:new Date
+	})
 	$('.task-reason input[name="formationUpdate"]').datepicker({//系统升级
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
@@ -127,11 +124,8 @@ $(function(){
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now',
-	    minDate:0
-	}).on('changeDate',function(e){ 
-		var startTimeUpate = e.date; 
-		$('.task-reason input[name="formationUpdate"]').datepicker('setStartDate',startTimeUpate); 
-		});
+	    startDate:new Date
+	})
 	
 	/* 刚加载页面的时候就要开始判断 */
 	var textArealen = $('.system_textarea').val().length;

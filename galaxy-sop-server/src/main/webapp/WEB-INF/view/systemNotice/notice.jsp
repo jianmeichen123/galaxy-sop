@@ -168,8 +168,6 @@
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
-		
-		
 	})
 	
 	
