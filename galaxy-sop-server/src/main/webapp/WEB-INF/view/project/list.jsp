@@ -386,107 +386,120 @@
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
-		$('#project-table').bootstrapTable({
-			queryParamsType: 'size|page',
-			pageSize:initPageSize,
-			showRefresh : false,
-			url : $('#project-table').attr("data-url"),
-			sidePagination: 'server',
-			method : 'post',
-			sortOrder : 'desc', 
-			sortName : 'updated_time',
-			pagination: true,
-	        search: false,
-	        //返回附带参数功能代码
-	        queryParams : function(param){
-	        	if(getCookieValue("backProjectList")!=''){
-	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-	        		deleteCookie("backProjectList","/");
-	        	}else{
-	        		initParams=undefined;
-	        	}
-	        	if(typeof(initParams) !== 'undefined'){
-	    			param.pageNum = initParams.pageNum - 1;
-	        		param.pageSize = initParams.pageSize;
-	        		if(initParams.projectType != ''){
-	        			param.projectType = initParams.projectType;
-	        			$("select[name='projectType']").val(initParams.projectType);
-	        		}
-	        		if(initParams.financeStatus != ''){
-	        			param.financeStatus = initParams.financeStatus;
-	        			$("select[name='financeStatus']").val(initParams.financeStatus);
-	        		}
-	        		if(initParams.projectProgress != ''){
-	        			param.projectProgress = initParams.projectProgress;
-	        			$("select[name='projectProgress']").val(initParams.projectProgress);
-	        		}
-	        		if(initParams.faFlag != ''){
-	        			param.faFlag = initParams.faFlag;
-	        			$("select[name='faFlag']").val(initParams.faFlag);
-	        		}
-	        		if(initParams.financeStatus != ''){
-	        			param.financeStatus = initParams.financeStatus;
-	        			$("select[name='financeStatus']").val(initParams.financeStatus);
-	        		}
-	        		param.projectDepartid = initParams.projectDepartid;
-	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
-	        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
-	        		param.createUid = initParams.createUid;
-	        		$("select[name='createUid']").val(initParams.createUid);
-	        		if(initParams.nameCodeLike !=''){
-	        			 param.nameCodeLike = initParams.nameCodeLike;
-	 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
-	        		}
-	        		if(initParams.projectPerson !=''){
-	        			param.projectPerson = initParams.projectPerson;
-	        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-	        		}
-	        		var options = $("#data-table").bootstrapTable('getOptions');
-	 	        	options.pageNumber = initParams.pageNum - 1; 
-	    		}
-	        	return param;
-	        },
-	        onLoadSuccess: function (data) {
-	        	if($("#showResetBtn").val() == '1'){
-	    			$("#resetBtn").removeClass("none");
-	    		}
-	        	if($("select[name='faFlag']").val()=="projectSource:1"){
-	        		$("input[name='faName']").show();
-	        	}
-	        	
-	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-	    			if(initParams.pageNum==1){
-	    				return;
-	    			}else{
-	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< initParams.pageNum)
-	    				{
-	    					var len = $('.pagination .page-number').length;
-	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
-	    					var end = initParams.pageNum + Math.floor(len/2);
-	    					if(end>totalPages)
-    						{
-	    						end = totalPages;
-    						}
-	    					
-	    					for(var i=len-1; i>=0; i--)
-	    					{
-	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
-	    					}
-	    				}
+		 function getProjectTable(){
+			 $('#project-table').bootstrapTable({
+					queryParamsType: 'size|page',
+					pageSize:initPageSize,
+					showRefresh : false,
+					url : $('#project-table').attr("data-url"),
+					sidePagination: 'server',
+					method : 'post',
+					sortOrder : 'desc', 
+					sortName : 'updated_time',
+					pagination: true,
+			        search: false,
+			        //返回附带参数功能代码
+			        queryParams : function(param){
+			        	if(getCookieValue("backProjectList")!=''){
+			        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+			        		deleteCookie("backProjectList","/");
+			        	}else{
+			        		initParams=undefined;
+			        	}
+			        	if(typeof(initParams) !== 'undefined'){
+			    			param.pageNum = initParams.pageNum - 1;
+			        		param.pageSize = initParams.pageSize;
+			        		if(initParams.projectType != ''){
+			        			param.projectType = initParams.projectType;
+			        			$("select[name='projectType']").val(initParams.projectType);
+			        		}
+			        		if(initParams.financeStatus != ''){
+			        			param.financeStatus = initParams.financeStatus;
+			        			$("select[name='financeStatus']").val(initParams.financeStatus);
+			        		}
+			        		if(initParams.projectProgress != ''){
+			        			param.projectProgress = initParams.projectProgress;
+			        			$("select[name='projectProgress']").val(initParams.projectProgress);
+			        		}
+			        		if(initParams.faFlag != ''){
+			        			param.faFlag = initParams.faFlag;
+			        			$("select[name='faFlag']").val(initParams.faFlag);
+			        		}
+			        		if(initParams.financeStatus != ''){
+			        			param.financeStatus = initParams.financeStatus;
+			        			$("select[name='financeStatus']").val(initParams.financeStatus);
+			        		}
+			        		param.projectDepartid = initParams.projectDepartid;
+			        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+			        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
+			        		param.createUid = initParams.createUid;
+			        		$("select[name='createUid']").val(initParams.createUid);
+			        		if(initParams.nameCodeLike !=''){
+		        			 param.nameCodeLike = initParams.nameCodeLike;
+		 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
+		        		}
+		        		if(initParams.projectPerson !=''){
+		        			param.projectPerson = initParams.projectPerson;
+		        			$("input[name='projectPerson']").val(initParams.projectPerson); 
+		        		}
+		        		var options = $("#data-table").bootstrapTable('getOptions');
+		 	        	options.pageNumber = initParams.pageNum - 1; 
+		    		}
+		        	return param;
+		        },
+		        onLoadSuccess: function (data) {
+		        	if($("#showResetBtn").val() == '1'){
+		    			$("#resetBtn").removeClass("none");
+		    		}
+		        	if($("select[name='faFlag']").val()=="projectSource:1"){
+		        		$("input[name='faName']").show();
+		        	}
+		        	
+		        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+		    			if(initParams.pageNum==1){
+		    				return;
+		    			}else{
+		    				$('.pagination li').removeClass('active');
+		    				if($('.pagination .page-number').length< initParams.pageNum)
+		    				{
+		    					var len = $('.pagination .page-number').length;
+		    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+		    					var end = initParams.pageNum + Math.floor(len/2);
+		    					if(end>totalPages)
+	    						{
+		    						end = totalPages;
+	    						}
+		    					
+		    					for(var i=len-1; i>=0; i--)
+		    					{
+		    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
+		    					}
+		    				}
 
-	    				$('.pagination li').each(function(){
-	    	    			if($(this).text()==initParams.pageNum){
-	    	    				$(this).click();
-	    	    				 return false;
-	    	    				//$(this).addClass('active')
-	    	    			}
-	    				});
-	    			}
-	    		}
-	        	initPageSize=10;
-	        }
-		});
+		    				$('.pagination li').each(function(){
+		    	    			if($(this).text()==initParams.pageNum){
+		    	    				$(this).click();
+		    	    				 return false;
+		    	    				//$(this).addClass('active')
+		    	    			}
+		    				});
+		    			}
+		    		}
+		        	initPageSize=10;
+		        }
+			});
+		}
+		 getProjectTable();
+		 $(".xhtTab").click(function(){
+			 var that=$(this);
+			 $(".xhtTab").removeClass("active");
+			 that.addClass("active");
+			 var primary=$(this).attr("primary");
+			 $("input[name='primary']").val(primary);
+			 $(".searchall_prj .show_more").remove();
+			 $(".searchall_prj .fml").remove(); 
+			 $("button[action='querySearch']").click();
+		 })
 		/**
 		 * 改变事业线时获取该事业线下的投资经理
 		 * @version 2016-06-21
@@ -510,12 +523,6 @@
 			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
-			//set selected status
-// 			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 			$("select[name='projectType']").val("");
 			$("select[name='financeStatus']").val("");
 			$("select[name='projectProgress']").val("");
