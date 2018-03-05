@@ -177,8 +177,8 @@
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
-			        	<th data-field="projectCareerline"  class="data-input" data-width="12%">事业部</th>
-			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="projectCareerline"  class="data-input" data-class="delete_syb" data-width="12%">事业部</th>
+			        	<th data-field="createUname"  class="data-input" data-class="delete_tzjl"  data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
 			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">
@@ -379,8 +379,7 @@
 		}
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
-			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-			console.log(initParams)
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"}); 
 		});
 		/**
 		 * 初始化项目列表
@@ -485,20 +484,33 @@
 		    				});
 		    			}
 		    		}
-		        	initPageSize=10;
+		        	initPageSize=10; 
 		        }
 			});
-		}
+		}  
 		 getProjectTable();
-		 $(".xhtTab").click(function(){
+		 $(".xhtTab").click(function(){ 
 			 var that=$(this);
 			 $(".xhtTab").removeClass("active");
 			 that.addClass("active");
 			 var primary=$(this).attr("primary");
 			 $("input[name='primary']").val(primary);
-			 $(".searchall_prj .show_more").remove();
-			 $(".searchall_prj .fml").remove(); 
-			 $("button[action='querySearch']").click();
+			 if(primary=='1'){
+				 $(".searchall_prj .show_more").hide();
+				 $(".searchall_prj .fml").hide(); 
+				 $("th[data-field='projectCareerline']").hide();
+				 $("th[data-field='createUname']").hide();
+				 $("td.delete_syb").hide();  
+				 $("#project-table").addClass("project-table_delete");
+			 }else{ 
+				 $(".searchall_prj .show_more").show();
+				 $(".searchall_prj .fml").show(); 
+				 $("th[data-field='projectCareerline']").show();
+				 $("th[data-field='createUname']").show();
+				 $("td.delete_syb").show();  
+				 $("#project-table").removeClass("project-table_delete");
+			 }
+			 $("button[action='querySearch']").click(); 
 		 })
 		/**
 		 * 改变事业线时获取该事业线下的投资经理
