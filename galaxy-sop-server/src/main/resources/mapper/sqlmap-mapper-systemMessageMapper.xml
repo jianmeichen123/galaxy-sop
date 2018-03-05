@@ -23,8 +23,9 @@
 		<where>
 			<trim prefixOverrides="and">
 			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
-			      <if test="sendTime != null"> and send_time = #{sendTime,jdbcType=VARCHAR} </if>
-			      <if test="sendStatus != null"> and send_status = #{sendStatus,jdbcType=TINYINT} </if>
+			      <if test="sendStatus != null"> and send_status = #{sendStatus,jdbcType=VARCHAR} </if>
+			      <if test="startTime != null"> <![CDATA[  and UNIX_TIMESTAMP(send_time)>= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			      <if test="endTime != null"> <![CDATA[ and UNIX_TIMESTAMP(send_time) <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

@@ -24,9 +24,9 @@
 			<div class="tableSearch">
 				<div class="searchTerm">
 					<label>发送时间：</label>
-					<input class='' readonly='readonly' type='text' name="formationStart"/>
+					<input class='' readonly='readonly' type='text' id="startTime" name="startTime"/>
 					<span class='system_arrive'>至</span>					
-					<input  class='' readonly='readonly' type='text' name="formationEnd"/> 
+					<input  class='' readonly='readonly' type='text' id="endTime" name="endTime"/> 
 					<label class='system_status'>状态：</label>
 					<select id="" name="projectContractor" class="selectpicker" >
 						<option>1</option>
@@ -36,34 +36,23 @@
 					</select>
 					<span class='system_querySearch'>查询</span>
 				</div>
-				<table   class='assingTable table-hover systemtTable' id="noticeTable" style='table-layout:fixed;'>
+				<table   class='assingTable table-hover systemtTable' id="noticeTable" style='table-layout:fixed;'
+				width="100%" cellspacing="0" cellpadding="0" 
+				data-url="<%=request.getContextPath()%>/galaxy/systemMessage/searchSystemMessage"
+				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
+				
+				
 					<thead>
 					    <tr> 
-				        	<th data-field="projectName"  data-width="14%" data-align="left">通知内容</th>
-				        	<th data-field="projectName"  data-width="14%" data-align="left">创建人</th>
-				        	<th data-field="projectName"  data-width="14%" data-align="left">创建时间</th>
-				        	<th data-field="projectName"  data-width="18%" data-align="left">推送通知时间</th>
-				        	<th data-field="projectName"  data-width="12%" data-align="left">状态</th>
-				        	<th data-field="projectName"  data-width="14%" data-align="left">发送平台</th>
+				        	<th data-field="messageContent"  data-width="14%" data-align="left">通知内容</th>
+				        	<th data-field="createId"  data-width="14%" data-align="left">创建人</th>
+				        	<th data-field="createTime"  data-width="14%" data-align="left">创建时间</th>
+				        	<th data-field="sendTime"  data-width="18%" data-align="left">推送通知时间</th>
+				        	<th data-field="sendStatus"  data-width="12%" data-align="left">状态</th>
+				        	<th data-field="osType"  data-width="14%" data-align="left">发送平台</th>
 				        	<th data-field="projectName"  data-width="14%" data-align="left">操作</th>
 	 					</tr>	
 	 				</thead>
-	 				<tbody>
-	 					<tr>
-	 						<td>2233333333333333333333</td>
-	 						<td>22</td>
-	 						<td>22</td>
-	 						<td>22</td>
-	 						<td>22</td>
-	 						<td>22</td>
-	 						<td>
-	 							<span data-code='system_close' class='system_close'>关闭</span>
-	 							<span data-code='system_edit' class='system_edit'>编辑</span>
-	 							<span data-code='system_delete' class='system_delete'>删除</span>
-	 						</td>
-	 						
-	 					</tr>
-	 				</tbody>
 				</table> 
 			
 			
@@ -86,6 +75,18 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
 	createMenus(5);
+	 $("#noticeTable").bootstrapTable({
+		queryParamsType : 'size|page',
+		pageSize : 10,
+		pageNum:1,
+		showRefresh : false,
+		sidePagination : 'server',
+		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'created_time',
+		pagination : true,
+		search : false
+	});
 	//日期选择
 	$('.searchTerm input[name="formationStart"]').datepicker({
 	    format: 'yyyy-mm-dd',
