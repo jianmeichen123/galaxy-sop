@@ -12,8 +12,7 @@
 	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<jsp:include page="../common/taglib.jsp"></jsp:include>
-	<script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+	
 </head>
 
 <body> 
@@ -21,25 +20,34 @@
 		<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 		<div class="ritmin">
 			<h2 class='system_inform'>系统通知<span data-code="add_notice" class='fr add_pro_common add_system'>新建</span></h2>	
-			<div class="tableSearch">
+			<div class="tableSearch" id="custom-toolbar">
 				<div class="searchTerm">
 					<label>发送时间：</label>
 					<input class='' readonly='readonly' type='text' id="startTime" name="startTime"/>
 					<span class='system_arrive'>至</span>					
 					<input  class='' readonly='readonly' type='text' id="endTime" name="endTime"/> 
 					<label class='system_status'>状态：</label>
-					<select id="" name="sendStatus" class="selectpicker" >
-						<option>1</option>
-						<option>1</option>
-						<option>1</option>
-						<option>1</option>
+					<select id="sendStatus" name="sendStatus" class="selectpicker" >
 					</select>
-					<span class='system_querySearch'>查询</span>
+					<a href="javascript:;" class='system_querySearch' action="querySearch">搜索</a>
+					<!--<span class='system_querySearch'>查询</span>  -->
 				</div>
-				<table   class='assingTable table-hover systemtTable' id="noticeTable" style='table-layout:fixed;'
+				
+			</div>	
+				<div class="tab-pane active" id="view">
+				<table   class='assingTable table-hover systemtTable' 
+				id="noticeTable" 
+				style='table-layout:fixed;'
 				width="100%" cellspacing="0" cellpadding="0" 
 				data-url="<%=request.getContextPath()%>/galaxy/systemMessage/searchSystemMessage"
-				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
+			    data-method="post" 
+			    data-side-pagination="server"
+			    data-toolbar="#custom-toolbar"
+				data-pagination="true" 
+				data-page-list="[10, 20, 30]" 
+				data-show-refresh="false"
+				data-id-field="id" 
+				 data-unique-id="id">
 					<thead>
 					    <tr> 
 				        	<th data-field="messageContent"  data-width="14%" data-align="left">通知内容</th>
@@ -53,10 +61,9 @@
 	 				</thead>
 
 				</table> 
+			</div>
 			
 			
-			
-			</div>	
 		</div>
 	</div>
 </body>
@@ -65,6 +72,10 @@
 <jsp:include page="../common/uploadwin.jsp"></jsp:include>
 
 </html>
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
@@ -83,6 +94,7 @@
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'created_time',
+		clickToSelect: true,
 		pagination : true,
 		search : false
 	});
@@ -113,7 +125,7 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
-	$('.system_querySearch').click(function(){
+	$("a[action='querySearch']").click(function(){
 		var startTime = $('input[name="startTime"]').val();
 		var endTime = $('input[name="endTime"]').val();
 		if(startTime>endTime){
@@ -169,6 +181,24 @@
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 	})
-	
+	selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
+    //系统消息状态
+	 function selectMessageStatus(url, name, mark,selectIndex){
+			sendGetRequest(url,null, function(data){
+				var options = [];
+				if(mark == 1){
+					options.push('<option value="">全部</option>');
+				}
+				$.each(data.entityList, function(i, value){
+					if(selectIndex && i == selectIndex){
+						options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+					}else{
+						options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+					}
+				});
+				//$('select[name="'+name+'"]').append(options.join(''));
+				$("#sendStatus").html(options) 
+			});
+		}
 	
 </script>
