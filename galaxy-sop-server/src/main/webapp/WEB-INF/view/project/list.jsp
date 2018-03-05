@@ -41,29 +41,29 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all">
-    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div>
+    	<%-- <div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div> --%>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
          <%-- <c:if test="${fx:hasRole(4)}"> --%>
          <!--页眉-->
-         <div class="top clearfix">
-        	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a> 
-                <%-- <a href="<%=path %>/galaxy/test/writePage" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">填写标准</a> 
-                --%>
-               	 
-               <%--   <a href="<%=path %>/galaxy/upgrade" class="pubbtn bluebtn ico c4" style="margin-top:10px;">服务器更新测试</a>
-               --%>  <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
+         <div class="top new_tit_b topBanner clearfix">
+        	<!--按钮--> 
+        	<div class="commonTab clearfix">
+        		<div class="xhtTab active" primary=0>负责的项目</div>
+        		<div class="xhtTab" primary=1>协作的项目</div>
+        	</div>
+        	<div class="btnbox_f btnbox_f1 handover_project">
+                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:20px;display:none" resource-mark="project_add">添加项目</a> 
             </div>
             <div class="handover_project">
             	<c:if test="${fx:hasPremission('project_batch_transfer')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;" >批量移交</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px;" >批量移交</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn new_blueBtn" style="margin-top:10px;">批量指派</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px;">批量指派</a>
                 </c:if>
             </div>
+           
          </div>
          <%-- </c:if> --%>
          <!--tips连接
@@ -166,7 +166,7 @@
             </div>
           </div>
         </div>
-		<div class="tab-pane active ctlist" id="view">	
+		<div class="tab-pane active ctlist" id="view" style="padding-top:55px;">	
 			<table id="project-table" data-url="project/search" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
@@ -177,8 +177,8 @@
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
-			        	<th data-field="projectCareerline"  class="data-input" data-width="12%">事业部</th>
-			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="projectCareerline"  class="data-input" data-class="delete_syb" data-width="12%">事业部</th>
+			        	<th data-field="createUname"  class="data-input" data-class="delete_tzjl"  data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
 			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">
@@ -373,121 +373,146 @@
 		//返回附带参数功能代码
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
-			initPageSize = 10;
-			console.log(pageParams)
+			initPageSize = 10; 
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
 		}
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
-			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-			console.log(initParams)
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"}); 
 		});
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
-		$('#project-table').bootstrapTable({
-			queryParamsType: 'size|page',
-			pageSize:initPageSize,
-			showRefresh : false,
-			url : $('#project-table').attr("data-url"),
-			sidePagination: 'server',
-			method : 'post',
-			sortOrder : 'desc',
-			sortName : 'updated_time',
-			pagination: true,
-	        search: false,
-	        //返回附带参数功能代码
-	        queryParams : function(param){
-	        	if(getCookieValue("backProjectList")!=''){
-	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-	        		deleteCookie("backProjectList","/");
-	        	}else{
-	        		initParams=undefined;
-	        	}
-	        	if(typeof(initParams) !== 'undefined'){
-	    			param.pageNum = initParams.pageNum - 1;
-	        		param.pageSize = initParams.pageSize;
-	        		if(initParams.projectType != ''){
-	        			param.projectType = initParams.projectType;
-	        			$("select[name='projectType']").val(initParams.projectType);
-	        		}
-	        		if(initParams.financeStatus != ''){
-	        			param.financeStatus = initParams.financeStatus;
-	        			$("select[name='financeStatus']").val(initParams.financeStatus);
-	        		}
-	        		if(initParams.projectProgress != ''){
-	        			param.projectProgress = initParams.projectProgress;
-	        			$("select[name='projectProgress']").val(initParams.projectProgress);
-	        		}
-	        		if(initParams.faFlag != ''){
-	        			param.faFlag = initParams.faFlag;
-	        			$("select[name='faFlag']").val(initParams.faFlag);
-	        		}
-	        		if(initParams.financeStatus != ''){
-	        			param.financeStatus = initParams.financeStatus;
-	        			$("select[name='financeStatus']").val(initParams.financeStatus);
-	        		}
-	        		param.projectDepartid = initParams.projectDepartid;
-	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
-	        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
-	        		param.createUid = initParams.createUid;
-	        		$("select[name='createUid']").val(initParams.createUid);
-	        		if(initParams.nameCodeLike !=''){
-	        			 param.nameCodeLike = initParams.nameCodeLike;
-	 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
-	        		}
-	        		if(initParams.projectPerson !=''){
-	        			param.projectPerson = initParams.projectPerson;
-	        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-	        		}
-	        		var options = $("#data-table").bootstrapTable('getOptions');
-	 	        	options.pageNumber = initParams.pageNum - 1; 
-	    		}
-	        	return param;
-	        },
-	        onLoadSuccess: function (data) {
-	        	if($("#showResetBtn").val() == '1'){
-	    			$("#resetBtn").removeClass("none");
-	    		}
-	        	if($("select[name='faFlag']").val()=="projectSource:1"){
-	        		$("input[name='faName']").show();
-	        	}
-	        	
-	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-	    			if(initParams.pageNum==1){
-	    				return;
-	    			}else{
-	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< initParams.pageNum)
-	    				{
-	    					var len = $('.pagination .page-number').length;
-	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
-	    					var end = initParams.pageNum + Math.floor(len/2);
-	    					if(end>totalPages)
-    						{
-	    						end = totalPages;
-    						}
-	    					
-	    					for(var i=len-1; i>=0; i--)
-	    					{
-	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
-	    					}
-	    				}
+		 function getProjectTable(){
+			 $('#project-table').bootstrapTable({
+					queryParamsType: 'size|page',
+					pageSize:initPageSize,
+					showRefresh : false,
+					url : $('#project-table').attr("data-url"),
+					sidePagination: 'server',
+					method : 'post',
+					sortOrder : 'desc', 
+					sortName : 'updated_time',
+					pagination: true,
+			        search: false,
+			        //返回附带参数功能代码
+			        queryParams : function(param){
+			        	if(getCookieValue("backProjectList")!=''){
+			        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+			        		deleteCookie("backProjectList","/");
+			        	}else{
+			        		initParams=undefined;
+			        	}
+			        	if(typeof(initParams) !== 'undefined'){
+			    			param.pageNum = initParams.pageNum - 1;
+			        		param.pageSize = initParams.pageSize;
+			        		if(initParams.projectType != ''){
+			        			param.projectType = initParams.projectType;
+			        			$("select[name='projectType']").val(initParams.projectType);
+			        		}
+			        		if(initParams.financeStatus != ''){
+			        			param.financeStatus = initParams.financeStatus;
+			        			$("select[name='financeStatus']").val(initParams.financeStatus);
+			        		}
+			        		if(initParams.projectProgress != ''){
+			        			param.projectProgress = initParams.projectProgress;
+			        			$("select[name='projectProgress']").val(initParams.projectProgress);
+			        		}
+			        		if(initParams.faFlag != ''){
+			        			param.faFlag = initParams.faFlag;
+			        			$("select[name='faFlag']").val(initParams.faFlag);
+			        		}
+			        		if(initParams.financeStatus != ''){
+			        			param.financeStatus = initParams.financeStatus;
+			        			$("select[name='financeStatus']").val(initParams.financeStatus);
+			        		}
+			        		param.projectDepartid = initParams.projectDepartid;
+			        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+			        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
+			        		param.createUid = initParams.createUid;
+			        		$("select[name='createUid']").val(initParams.createUid);
+			        		if(initParams.nameCodeLike !=''){
+		        			 param.nameCodeLike = initParams.nameCodeLike;
+		 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
+		        		}
+		        		if(initParams.projectPerson !=''){
+		        			param.projectPerson = initParams.projectPerson;
+		        			$("input[name='projectPerson']").val(initParams.projectPerson); 
+		        		}
+		        		var options = $("#data-table").bootstrapTable('getOptions');
+		 	        	options.pageNumber = initParams.pageNum - 1; 
+		    		}
+		        	return param;
+		        },
+		        onLoadSuccess: function (data) {
+		        	if($("#showResetBtn").val() == '1'){
+		    			$("#resetBtn").removeClass("none");
+		    		}
+		        	if($("select[name='faFlag']").val()=="projectSource:1"){
+		        		$("input[name='faName']").show();
+		        	}
+		        	
+		        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+		    			if(initParams.pageNum==1){
+		    				return;
+		    			}else{
+		    				$('.pagination li').removeClass('active');
+		    				if($('.pagination .page-number').length< initParams.pageNum)
+		    				{
+		    					var len = $('.pagination .page-number').length;
+		    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+		    					var end = initParams.pageNum + Math.floor(len/2);
+		    					if(end>totalPages)
+	    						{
+		    						end = totalPages;
+	    						}
+		    					
+		    					for(var i=len-1; i>=0; i--)
+		    					{
+		    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
+		    					}
+		    				}
 
-	    				$('.pagination li').each(function(){
-	    	    			if($(this).text()==initParams.pageNum){
-	    	    				$(this).click();
-	    	    				 return false;
-	    	    				//$(this).addClass('active')
-	    	    			}
-	    				});
-	    			}
-	    		}
-	        	initPageSize=10;
-	        }
-		});
+		    				$('.pagination li').each(function(){
+		    	    			if($(this).text()==initParams.pageNum){
+		    	    				$(this).click();
+		    	    				 return false;
+		    	    				//$(this).addClass('active')
+		    	    			}
+		    				});
+		    			}
+		    		}
+		        	initPageSize=10; 
+		        }
+			});
+		}  
+		 getProjectTable();
+		 $(".xhtTab").click(function(){ 
+			 
+			 var that=$(this);
+			 $(".xhtTab").removeClass("active");
+			 that.addClass("active");
+			 var primary=$(this).attr("primary");
+			 $("input[name='primary']").val(primary);
+			 if(primary=='1'){
+				 $(".searchall_prj .show_more").hide();
+				 $(".searchall_prj .fml").hide(); 
+				 $("th[data-field='projectCareerline']").hide();
+				 $("th[data-field='createUname']").hide();
+				 $("td.delete_syb").hide();  
+				 $("#project-table").addClass("project-table_delete");
+			 }else{ 
+				 $(".searchall_prj .show_more").show();
+				 $(".searchall_prj .fml").show(); 
+				 $("th[data-field='projectCareerline']").show();
+				 $("th[data-field='createUname']").show();
+				 $("td.delete_syb").show();  
+				 $("#project-table").removeClass("project-table_delete");
+			 }
+			 $("button[action='querySearch']").click(); 
+		 })
 		/**
 		 * 改变事业线时获取该事业线下的投资经理
 		 * @version 2016-06-21
@@ -511,12 +536,6 @@
 			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
-			//set selected status
-// 			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
-// 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 			$("select[name='projectType']").val("");
 			$("select[name='financeStatus']").val("");
 			$("select[name='projectProgress']").val("");

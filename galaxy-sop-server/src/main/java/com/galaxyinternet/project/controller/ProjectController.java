@@ -52,6 +52,7 @@ import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.UtilsService;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.CacheHelper;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -127,6 +128,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import redis.clients.jedis.Response;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPipeline;
+import redis.clients.util.SafeEncoder;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -3947,6 +3952,129 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			Object managerName = cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName");
 			data.getUserData().put("manager", managerName);
 		}
+		return data;
+	}
+	
+	@ApiOperation("获取投资经理信息")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线人员信息", response = ResponseData.class) })
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<User> getUsers()
+	{
+		ResponseData<User> data = new ResponseData<User>();
+		List<User> users = new ArrayList<>();
+		ShardedJedis jedis = null;
+		
+		try
+		{
+			jedis = cache.getJedis();
+			Set<String> depIds = jedis.smembers(PlatformConst.CACHE_DEP_IDS);
+			if(depIds == null || depIds.size() == 0)
+			{
+				return data;
+			}
+			
+			ShardedJedisPipeline pip = jedis.pipelined();
+			List<Response<Map<byte[],byte[]>>> depRespList = new ArrayList<>();;
+			for(String depId : depIds)
+			{
+				depRespList.add(pip.hgetAll(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_DEP+depId)));
+			}
+			pip.sync();
+			
+			if(depRespList == null || depRespList.size() == 0)
+			{
+				return data;
+			}
+			//所有事业线信息
+			CacheHelper helper = new CacheHelper();
+			Map<String, Map<String, String>> depMap = new HashMap<>();
+			for(Response<Map<byte[],byte[]>> resp : depRespList)
+			{
+				Map<byte[],byte[]> map = resp.get();
+				String type = helper.bytesToObject(map.get(SafeEncoder.encode("type")))+"";
+				if(!"1".equals(type))
+				{
+					continue;
+				}
+				String id = helper.bytesToObject(map.get(SafeEncoder.encode("id")))+"";
+				String name = helper.bytesToObject(map.get(SafeEncoder.encode("name")))+"";
+				String manager = helper.bytesToObject(map.get(SafeEncoder.encode("manager")))+"";
+				Map<String,String> dep = new HashMap<>();
+				dep.put("id", id);
+				dep.put("name", name);
+				dep.put("manager", manager);
+				depMap.put(id, dep);
+			}
+			
+			depIds = depMap.keySet();
+			pip = jedis.pipelined();
+			Map<String, Response<Set<String>>> depUsers = new HashMap<>();
+			for(String depId : depIds)
+			{
+				Response<Set<String>> resp = pip.smembers(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
+				depUsers.put(depId, resp);
+			}
+			pip.sync();
+			
+			//用户-部门关系
+			Map<String,String> userDepMap = new HashMap<>();
+			//用户姓名
+			Map<String, Response<byte[]>> userMap = new HashMap<>();
+			pip = jedis.pipelined();
+			for(String depId : depIds)
+			{
+				Set<String> userIds = depUsers.get(depId).get();
+				for(String userId : userIds)
+				{
+					Response<byte[]> resp = pip.hget(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_USER+userId), SafeEncoder.encode("realName"));
+					userMap.put(userId, resp);
+					userDepMap.put(userId, depId);
+				}
+			}
+			pip.sync();
+			
+			Set<String> userIds = userMap.keySet();
+			
+			User user = null;
+			for(String userId : userIds)
+			{
+				user = new User();
+				user.setId(Long.parseLong(userId));
+				user.setRealName(helper.bytesToObject(userMap.get(userId).get())+"");
+				String depId = userDepMap.get(userId);
+				
+				if(depId != null)
+				{
+					user.setDepartmentId(Long.parseLong(depId));
+					Map<String,String> dep = depMap.get(depId);
+					if(dep != null);
+					{
+						user.setDepartmentName(dep.get("name"));
+						String managerId = dep.get("manager");
+						if(managerId != null && userMap.containsKey(managerId))
+						{
+							user.setManagerName(helper.bytesToObject(userMap.get(managerId).get())+"");
+						}
+					}
+				}
+				users.add(user);		
+			}
+			data.setEntityList(users);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
+		}
+		
 		return data;
 	}
 }
