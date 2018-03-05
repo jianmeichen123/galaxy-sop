@@ -98,8 +98,11 @@
 				</div>
 				<!--表格内容-->
 				<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
-				<table id="grid_overview" width="100%" cellspacing="0"
-					cellpadding="0"></table>
+				<div style="display:none;">
+					<table id="grid_overview" width="100%" cellspacing="0" cellpadding="0">
+						
+					</table>
+				</div>
 			</div>
 			
 			
