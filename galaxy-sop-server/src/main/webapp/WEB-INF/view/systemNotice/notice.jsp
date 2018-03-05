@@ -89,7 +89,7 @@
 		search : false
 	});
 	//日期选择
-	$('.searchTerm input[name="formationStart"]').datepicker({
+	$('.searchTerm input[name="startTime"]').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -102,7 +102,7 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
-	$('.searchTerm input[name="formationEnd"]').datepicker({
+	$('.searchTerm input[name="endTime"]').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
