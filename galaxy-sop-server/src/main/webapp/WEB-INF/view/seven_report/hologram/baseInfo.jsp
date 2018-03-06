@@ -119,9 +119,14 @@ table_filed = {};
 delComArr=[];
 table_toedit_Value = {};
 table_tosave_Value = {};
+userInfo=[];
+
 var codeArr = ['NO1_1','NO1_2'];
 //显示
-sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun); 
+sendGetRequest(platformUrl.getUsersInfo, null, function(data){
+	userInfo=data.entityList; 
+}); 
+sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);   
 $(function() {
 	right_anchor("NO1");
 	$(".exportReport").show();
@@ -143,8 +148,7 @@ $(function() {
 		}
 		var code=_this.find("table").attr("data-code");  
 		if($("table[data-code='team-person']").find("tbody tr").length>0){
-			$("table[data-code='team-person']").show();
-			resizetable($("table[data-code='team-person']"));
+			$("table[data-code='team-person']").show(); 
 		} 
 	});
 	
@@ -183,7 +187,6 @@ $(function() {
 				})
 				if($("table[data-code='team-person'].editable").find("tbody tr").length>0){
 					$("table[data-code='team-person']").show(); 
-					resizetable($("table[data-code='team-person'].editable"));
 				}  
 				//项目承揽人多选
 				$('.selectpicker').selectpicker(); 
@@ -467,17 +470,29 @@ $(function() {
 		var infoTableModelList = new Array(); 
 		$.each(sec.find("table.editable"),function(){
 			var that =$(this);
-			//deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
+			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
 			$.each(that.find('tr:gt(0)'),function(){ 
 				var row = $(this).data();
+				debugger; 
 				if(row.id=="")
 				{
 					row.id=null;
-				}
+				}				
 				if(row.resultId){
 					row.id=row.resultId;
 				}
-				infoTableModelList.push($(this).data());
+				if(row.titleId=="1103"){
+					delete row.field1Str;  
+					delete row.field2Str; 
+					delete row.field3; 
+					delete row.field3Str; 
+					delete row.field4; 
+					delete row.field4Str;  
+					delete row.field3Id;   
+					infoTableModelList.push($(this).data());
+				}else{
+					infoTableModelList.push($(this).data());
+				}
 			});
 		}); 
 		data.infoTableModelList = infoTableModelList;
@@ -551,8 +566,7 @@ $(function() {
 				 $('html,body').scrollTop(sTop);  //定位
 				 resouceShow('s');  //项目来源特殊处理  
 				if($("table[data-code='team-person']").find("tbody tr").length>0){
-					$("table[data-code='team-person']").show();
-					resizetable($("table[data-code='team-person']"));
+					$("table[data-code='team-person']").show(); 
 				} 
 			} else {
 				layer.msg('保存失败');

@@ -853,7 +853,18 @@ function buildTable(sec,title)
 	} 
 	//列表Row
 	if(title.dataList)
-	{  
+	{   
+		if(header.code=="team-person"){
+			$.each(title.dataList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+				this.field1Str = res.realName;
+				this.field2Str =this.field2;
+				this.field3Str = res.departmentName;
+				this.field3Id = res.departmentId;
+				this.field4Str = res.managerName;  
+			})
+		}
 		$.each(title.dataList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
@@ -904,7 +915,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{ 
+{  
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -937,10 +948,18 @@ function buildRow(row,showOpts,titleId)
 					if(k=="field3"||k=="field4"||k=="field5")
 					row[k] = _parsefloat(row[k]);
 				}
-				
-				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');			
+				}			
 			}else{
-				tr.append('<td data-field-name="'+k+'"></td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'"></td>');					
+				}
+				
 			}
 			
 			//新增的时候添加title
@@ -2188,7 +2207,7 @@ function saveForm(form)
 {  
 	if($(form).validate().form())
 	{
-		var data = $(form).serializeObject();
+		var data = $(form).serializeObject(); 
 		saveRow(data);
 	}
 }
@@ -2198,6 +2217,16 @@ function saveForm(form)
 function saveRow(data)
 {
 	data = JSON.parse(data);
+	if(data.subCode=="team-person"){ 
+		var tdid =data.field1;
+		var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+		data.field1Str = res.realName;
+		data.field2Str =data.field2;
+		data.field3Str = res.departmentName;
+		data.field3Id = res.departmentId;
+		data.field4Str = res.managerName;   
+	
+} 
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
 			if(key.indexOf('field')>-1 && key!="field1"){
@@ -2258,14 +2287,15 @@ function saveRow(data)
 				
 			}
 		}
-	} 
+	}  
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();  
 }
 function editRow(ele)	
 { 
-	var row = $(ele).closest('tr');
+	var row = $(ele).closest('tr');    
 	var code = $(ele).closest('table').data('code');
+	if(code=="team-person"){czr_Rdata = row.data(); }
 	var formBox=$(ele).closest('form');
 	var txt=$(ele).text();
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
@@ -2313,17 +2343,15 @@ function editRow(ele)
 						$("#pop-title-gs").text('编辑同类公司');
 						$("#pop-title-time").text('编辑里程碑和时间节点');
 						$("#pop-title").text('编辑分期注资计划');
-					}
-				 var dataCode = $(ele).closest('table').attr('data-code'); 
-				 if(dataCode=="team-person"){  
+					} 
+				 if(code=="team-person"){  
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
 	            	//带出来 承作人ID
 		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
 		            $.each(trs,function(i,value){
 		            	czr_dataArr.push($(value).data().field1); 
-		            })    
-		             czr_Rdata = row.data(); 
+		            })     
 	            	return false;
 	            }
 				$("#detail-form input[name='subCode']").val(code);
@@ -2711,64 +2739,20 @@ function refreshSection(id)
 function dictCache(titleId,subCode,filed){ 
     var map = {};
     map["undefined"] = ""
-    map[""] = ""
-    	//项目承做人区别其他
-	if(subCode=="team-person"){
-		//事业部
-		var tds = $("table[data-title-id="+titleId+"]").find("td[data-field-name="+filed+"]");
-		if(filed=="field3"){
-		var list=[];
-		sendGetRequest(platformUrl.getCareer,null,
-			function(data) {
-			  list = data.entityList; 
-		 })
-		  var resArr=[]; 
-		  $.each(tds, function(i, value){ 
-			  var tdID= parseInt($(this).text()); 
-			  var res = list.filter(function(val){ return val.id ==tdID})[0]; 
-			  resArr.push(res);
-			});  
-		  $.each(resArr, function(i, value){ 
-			  if(value!=undefined){
+    map[""] = "" 
+	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK')
+			{
+				var dataMap = data.userData;
+			    var list=dataMap[filed];
+			    var name=""
+				$.each(list, function(i, value){
 				     map[value.id]=value.name;
-			  }
-			});
-		}else if(filed=="field1"){ 
-			var tds3 = $("table[data-title-id="+titleId+"]").find("td[data-field-name='field3']");
-		    var resArr=[]; 
-			$.each(tds3, function(i, value){  
-				var tdID= parseInt($(this).text()); 
-				var ids = $(this).siblings("td[data-field-name='field1']").text(); 
-				if(!isNaN(tdID)&&ids){
-					sendGetRequest(platformUrl.getCareerTeam+ tdID+'/users',null,
-					function(data) {
-						var resList = data.entityList
-						var res = resList.filter(function(val){return val.idstr == parseInt(ids)})[0]; 
-						resArr.push(res);
-					}); 
-				}
-			}); 
-			 $.each(resArr, function(i, value){
-			  if(value!=undefined){
-				     map[value.idstr]=value.realName;
-			  }
-			});
-		}
-	}else{ 
-		sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK')
-				{
-					var dataMap = data.userData;
-				    var list=dataMap[filed];
-				    var name=""
-					$.each(list, function(i, value){
-					     map[value.id]=value.name;
-					});
-				}
-			})
-	} 
+				});
+			}
+		}) 
 	return map;
 }
 

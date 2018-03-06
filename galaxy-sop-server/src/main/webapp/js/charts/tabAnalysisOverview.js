@@ -309,7 +309,7 @@ var projectGrid = {
 		research : false
 }
 var chartOverviewUtils = {
-		chartOverviewOptions : {
+		/*chartOverviewOptions : {
 			chart: {
 				renderTo :'chart_overview',
 		        type: 'column',
@@ -352,11 +352,11 @@ var chartOverviewUtils = {
 		        //categories: ['<a href="http://wwww.baidu.com" target="_blank">Jan</a>','朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
 		    	labels: {
 		    		useHTML:true,
-		    		/*formatter:function(){
+		    		formatter:function(){
 		    			var temp = new Array();
 		    			temp = this.value.split('-');
 		    			return '<a href="javascript:;" onclick="showDetails("'+temp[1]+'");">' + temp[0] + '</a>';
-		    		},*/
+		    		},
 		            rotation: 0,
 		            align: 'center',
 		            style: {
@@ -410,7 +410,7 @@ var chartOverviewUtils = {
 					},
 		        }
 		    }]
-		},
+		},*/
 		/*
 		 * 项目总览图表初始化
 		 * params formdata 当前无用 后期会加入 图表的响应配置及位置(domid)
@@ -491,3 +491,131 @@ var chartOverviewUtils = {
 		}
 }
 
+$('#chart_overview').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '水果消费总量'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        }
+    },
+    legend: {
+        align: 'right',
+        x: -90,
+        verticalAlign: 'top',
+        y: 1,
+        floating: true,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+        borderColor: '#CCC',
+        borderWidth: 0,
+        shadow: false
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.x + '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                '总量: ' + this.point.stackTotal;
+        }
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true,
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                style: {
+                    textShadow: '0 0 3px black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: '负责项目数',
+        data: [5, 3, 4, 7, 2],
+        color:'#5a7ede'
+    }, {
+        name: '协作项目数',
+        data: [3, 4, 4, 2, 5],
+        color: '#008000'
+    }]
+});
+
+//项目统计数
+$('#chart_project_number').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '水果消费总量'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        }
+    },
+    legend: {
+        align: 'right',
+        x: -90,
+        verticalAlign: 'top',
+        y: 1,
+        floating: true,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+        borderColor: '#CCC',
+        borderWidth: 0,
+        shadow: false
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.x + '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                '总量: ' + this.point.stackTotal;
+        }
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true,
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                style: {
+                    textShadow: '0 0 3px black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: '负责项目数',
+        data: [5, 3, 4, 7, 2],
+        color:'#5a7ede'
+    }, {
+        name: '协作项目数',
+        data: [3, 4, 4, 2, 5],
+        color: '#008000'
+    }]
+});

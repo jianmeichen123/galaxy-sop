@@ -2395,7 +2395,7 @@ margin: 45px auto 30px;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ritmin-index .fixed-table-container thead th .th-inner {padding:5px 0;}
 /* 下拉修改密码 */
-.man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
+.man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;z-index:999;}
 .man_info ul li{height:54px;line-height: 54px;}
 .header .usermsg .man_info ul a{color:#666;text-align: center;display: block;width: 100%;line-height: 50px;}
 .header .usermsg .man_info ul a:hover{color:#529be2;text-decoration: none;}
@@ -4703,3 +4703,5 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;}
 .commonTab .xhtTab.active{border-bottom:4px solid #45aaff;}
 .project-table_delete .delete_syb,.project-table_delete .delete_tzjl{display:none;}
+#grid_overview{display:none;}
+.project_total_top10{margin-top:40px;}

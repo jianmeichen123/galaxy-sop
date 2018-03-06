@@ -2,7 +2,7 @@
 function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
-		var entity = data.entity;
+		var entity = data.entity; 
 		var html = toGetHtmlByMark(entity,'s');
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
@@ -886,7 +886,7 @@ function type_10_html(title,mark){
 	var dataList = title.dataList;
 	
 	if(mark == 's'){
-		//展示
+		//展示 
 		var filed_sort = [];
 		if(title.code == 'NO5_7_1'){   //综合竞争比较
 			filed_sort = ['field1','field2','field3','field4','field5'];
@@ -895,6 +895,17 @@ function type_10_html(title,mark){
 			var filed_sort = ['field1','field2','field3','field4','field5'];
 		} 
 		var hresult = "<dd>未填写</dd>";
+		if(tableHeader.code=="team-person"){
+			$.each(dataList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+				this.field1Str = res.realName;
+				this.field2Str =this.field2;
+				this.field3Str = res.departmentName;
+				this.field3Id = res.departmentId;
+				this.field4Str = res.managerName;  
+			})
+		} 
 		if(dataList != null && dataList.length != 0){
 			table_value(title.id,dataList); 
 			hresult = "<dd class=\"fl_none\"><table data-title-id='"+title.id+"'  data-code='"+tableHeader.code+"' ><thead><tr>"
@@ -917,7 +928,7 @@ function type_10_html(title,mark){
 					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
 						
 					}else{
-						tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]]+'</td>';
+						tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]+'Str']+'</td>';
 					}
 				}
 				tr += "</tr>";
@@ -932,92 +943,7 @@ function type_10_html(title,mark){
 		var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
 		
 		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
-		return divBox
-		
-		
-		
-		/*var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
-		var tableBox = "<table data-title-id="+title.id+" class=\"editable\" data-code="+tableHeader.code+"><thead>"
-		var ddBox="<dd class=\"fl_none\"></dd>"
-		var th = "<tr>"; 
-		if(title.code == 'NO1_1_2'){   //综合竞争比较
-			var filed_sort = ['field1','field2','field3','field4','field5']; 
-		} 
-		for(var i = 0 ; i < filed_sort.length; i++){
-			var filed  = filed_sort[i];
-			//项目承做人特殊处理field5 代表是主承作人
-			if(tableHeader.code=="team-person"&&filed=="field5"){
-			 
-			}else{
-				th +='<th data-field-name='+filed+'>'+tableHeader[filed]+'</th>';
-			}
-		}
-		th +='<th>操作</th>';
-		var show=false;
-		if(dataList != null && dataList.length != 0){ 
-			show=true;
-			var body_tr="";
-			$.each(dataList,function(){
-				body_tr += '<tr data-row-id='+this.id+'>';
-				for(var i = 0 ; i < filed_sort.length; i++){
-					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
-						if(this[filed_sort[i]]=="0"){
-							body_tr +='<td>--</td>';
-						}else{
-							body_tr +="<td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
-						}
-					}else{
-						body_tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]]+'</td>';
-					}
-				}
-				body_tr += "</tr>";
-			}); 
-		} 
-		tableBox+= th +  "</tr></thead><tbody>"+body_tr+"</tbody></table>";
-		
-		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
-		return divBox;*/
-		
-		
-		
-		//最初版本
-//		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
-//		
-//		var filed_sort = table_filed[title.id];
-//		
-//		var eresult = "<dd class=\"fl_none\"><table><thead>";
-//		
-//		var th = "<tr>";
-//		for(var i = 0 ; i < filed_sort.length; i++){
-//			var filed  = filed_sort[i];
-//			th +='<th>'+tableHeader[filed]+'</th>';
-//		}
-//		th +='<th>操作</th>';
-//		
-//		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
-//		
-//		if(dataList != null && dataList.length != 0){
-//			if(dataList.length >= 10){
-//				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
-//			}
-//			var tr = "";
-//			$.each(dataList,function(i,o){
-//				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
-//				for(var i = 0 ; i < filed_sort.length; i++){
-//					tr +='<td>'+o[filed_sort[i]]+'</td>';
-//				}
-//				
-//				var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >编辑</a>";
-//				var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >删除</a>";
-//				tr += ('<td>' + edit + del + '</td>');
-//				
-//				tr += "</tr>";
-//			});
-//			eresult += tr ;
-//		}
-//		
-//		eresult += "</tbody></table></dd>";
-//		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
+		return divBox;
 	}
 }
 

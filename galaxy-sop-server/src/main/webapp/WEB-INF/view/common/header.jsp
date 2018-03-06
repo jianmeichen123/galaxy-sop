@@ -139,7 +139,7 @@
 					 
 					 
 					 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
-					$('.globleSearchInput').val(keyword)
+						$('.globleSearchInput').val(keyword)
 						
 					}
 				}
@@ -432,7 +432,7 @@ $(window).resize(function(){
  
   })		
   $('.system-tips-close').click(function(){
-	  $(this).parent().hide();
+	  $(this).parent().remove();
   })
 
  

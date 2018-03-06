@@ -54,25 +54,30 @@ $(function(){
      /* 提示信息 */
      editTipsShow('5','.shareHolder');           
      //获取承做人事业部  
-     $("select[name='field1']").append(nullD)
+     $("select[name='field1']").append(nullD);
+
+     console.log("ddddd")
+      console.log(czr_Rdata)
     sendGetRequest(platformUrl.getCareer,null,
 	function(data) {
 		var list = data.entityList;
-    	var res="";
-    	debugger;
+    	var res=""; 
     	$.each(list,function(){ 
 			res+="<option value="+this.id+"  data-name="+this.name+">"+this.name+"</option>";
 		})		  
-   		$("select[ name='field3']").html("").append(nullD).append(res)
-	     	
-   	}) 
+   		$("select[ name='field3']").html("").append(nullD).append(res) 	
+   	})  
+     
 })
  function getUser(dom){ 
  	var that =$(dom); 
  	var careerId=that.val(); 
  	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
-		function(data) {
+		function(data) { 
  			var list = data.entityList;
+ 			$.each(czr_dataArr,function(i,value){ 
+ 				list = list.filter(function(val){  return val.idstr != parseInt(value)}); 
+ 			}) 
  			var res="";
  			$.each(list,function(){ 
  				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
