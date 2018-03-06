@@ -2293,8 +2293,9 @@ function saveRow(data)
 }
 function editRow(ele)	
 { 
-	var row = $(ele).closest('tr');
+	var row = $(ele).closest('tr');    
 	var code = $(ele).closest('table').data('code');
+	if(code=="team-person"){czr_Rdata = row.data(); }
 	var formBox=$(ele).closest('form');
 	var txt=$(ele).text();
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
@@ -2342,17 +2343,15 @@ function editRow(ele)
 						$("#pop-title-gs").text('编辑同类公司');
 						$("#pop-title-time").text('编辑里程碑和时间节点');
 						$("#pop-title").text('编辑分期注资计划');
-					}
-				 var dataCode = $(ele).closest('table').attr('data-code'); 
-				 if(dataCode=="team-person"){  
+					} 
+				 if(code=="team-person"){  
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
 	            	//带出来 承作人ID
 		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
 		            $.each(trs,function(i,value){
 		            	czr_dataArr.push($(value).data().field1); 
-		            })    
-		             czr_Rdata = row.data(); 
+		            })     
 	            	return false;
 	            }
 				$("#detail-form input[name='subCode']").val(code);
