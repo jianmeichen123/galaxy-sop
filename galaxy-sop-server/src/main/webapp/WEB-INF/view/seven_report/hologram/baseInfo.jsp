@@ -470,17 +470,29 @@ $(function() {
 		var infoTableModelList = new Array(); 
 		$.each(sec.find("table.editable"),function(){
 			var that =$(this);
-			//deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
+			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
 			$.each(that.find('tr:gt(0)'),function(){ 
 				var row = $(this).data();
+				debugger; 
 				if(row.id=="")
 				{
 					row.id=null;
-				}
+				}				
 				if(row.resultId){
 					row.id=row.resultId;
 				}
-				infoTableModelList.push($(this).data());
+				if(row.titleId=="1103"){
+					delete row.field1Str;  
+					delete row.field2Str; 
+					delete row.field3; 
+					delete row.field3Str; 
+					delete row.field4; 
+					delete row.field4Str;  
+					delete row.field3Id;   
+					infoTableModelList.push($(this).data());
+				}else{
+					infoTableModelList.push($(this).data());
+				}
 			});
 		}); 
 		data.infoTableModelList = infoTableModelList;

@@ -58,14 +58,15 @@ $(function(){
     sendGetRequest(platformUrl.getCareer,null,
 	function(data) {
 		var list = data.entityList;
-    	var res="";
-    	debugger;
+    	var res=""; 
     	$.each(list,function(){ 
 			res+="<option value="+this.id+"  data-name="+this.name+">"+this.name+"</option>";
 		})		  
-   		$("select[ name='field3']").html("").append(nullD).append(res)
-	     	
+   		$("select[ name='field3']").html("").append(nullD).append(res) 	
    	}) 
+   	debugger;
+     console.log(czr_Rdata)
+     
 })
  function getUser(dom){ 
  	var that =$(dom); 
@@ -75,8 +76,7 @@ $(function(){
  			var list = data.entityList;
  			$.each(czr_dataArr,function(i,value){ 
  				list = list.filter(function(val){  return val.idstr != parseInt(value)}); 
- 			})
- 			debugger;
+ 			}) 
  			var res="";
  			$.each(list,function(){ 
  				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
