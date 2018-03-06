@@ -96,6 +96,13 @@
 					</div>
 					<div id="chart_overview"></div>
 				</div>
+				<div class="chartbox project_total_top10">
+					<div>
+						<h2 class="chart_name">项目统计数TOP10</h2>
+					</div>
+					<div id="chart_project_number"></div>
+				</div>
+				
 				<!--表格内容-->
 				<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
 				<div style="display:none;">

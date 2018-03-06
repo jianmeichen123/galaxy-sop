@@ -518,7 +518,72 @@ $('#chart_overview').highcharts({
         align: 'right',
         x: -90,
         verticalAlign: 'top',
-        y: 25,
+        y: 1,
+        floating: true,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+        borderColor: '#CCC',
+        borderWidth: 0,
+        shadow: false
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.x + '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                '总量: ' + this.point.stackTotal;
+        }
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true,
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                style: {
+                    textShadow: '0 0 3px black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: '负责项目数',
+        data: [5, 3, 4, 7, 2],
+        color:'#5a7ede'
+    }, {
+        name: '协作项目数',
+        data: [3, 4, 4, 2, 5],
+        color: '#008000'
+    }]
+});
+
+//项目统计数
+$('#chart_project_number').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '水果消费总量'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        }
+    },
+    legend: {
+        align: 'right',
+        x: -90,
+        verticalAlign: 'top',
+        y: 1,
         floating: true,
         backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
         borderColor: '#CCC',
