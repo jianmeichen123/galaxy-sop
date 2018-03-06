@@ -83,7 +83,7 @@ public interface ProjectService extends BaseService<Project> {
 	/**
 	 * 项目分析 - 项目总览
 	 */
-    List<Project> queryProjOverViewForComp(ChartKpiQuery query);
-	List<Project> queryProjOverViewForDept(ChartKpiQuery query);
+    Map<String,Object> queryProjOverViewForComp(ChartKpiQuery query);
+	Map<String,Object> queryProjOverViewForDept(ChartKpiQuery query);
 
 }

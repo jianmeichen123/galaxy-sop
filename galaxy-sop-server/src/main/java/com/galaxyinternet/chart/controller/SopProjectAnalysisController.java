@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -62,15 +63,6 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 	/**
 	 * 项目分析 - 项目总览 - 项目进度分布图
 	 * 项目分析 - 项目总览 - 项目数统计top10
-	 *
-	 *
-	 * select - dict - parentCode : projectProgress 、 order by : dictSort
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
 	 * @param query
 	 * @return
 	 */
@@ -108,8 +100,14 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			query.setStartTime(startTime);
 			query.setEndTime(endTime);
 
-			List<Project> overViewList = projectService.queryProjOverViewForComp(query);
-			responseBody.setEntityList(overViewList);
+			Map<String,Object> overViewData = null;
+			if(query.getDeptid()==null){
+				overViewData = projectService.queryProjOverViewForComp(query);
+			}else{
+				overViewData = projectService.queryProjOverViewForDept(query);
+			}
+
+			responseBody.setUserData(overViewData);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setQueryParamsJsonStr(GSONUtil.toJson(query));
 		} catch (Exception e) {

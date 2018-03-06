@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -229,14 +230,16 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	 */
 	public List<Project> searchProjOverViewByProject(Project query){
 		try {
-			return sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByProject"), BeanUtils.toMap(query));
+			List<Project> relust = sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByProject"), BeanUtils.toMap(query));
+			return relust == null ? new ArrayList<Project>() : relust;
 		} catch (Exception e) {
 			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName("searchProjOverViewByProject")), e);
 		}
 	}
 	public List<Project> searchProjOverViewByListdata(Project query){
 		try {
-			return sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByListdata"), BeanUtils.toMap(query));
+			List<Project> relust =sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByListdata"), BeanUtils.toMap(query));
+			return relust == null ? new ArrayList<Project>() : relust;
 		} catch (Exception e) {
 			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName("searchProjOverViewByListdata")), e);
 		}

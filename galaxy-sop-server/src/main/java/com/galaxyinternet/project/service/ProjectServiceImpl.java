@@ -709,7 +709,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	 * @param query
 	 * @return
 	 */
-	public List<Project> queryProjOverViewForComp(ChartKpiQuery query){
+	public Map<String,Object> queryProjOverViewForComp(ChartKpiQuery query){
 		Map<String, Object> result = new HashMap<>();
 
 		String progressMark = "projectProgress";
@@ -750,15 +750,17 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			List<Integer> values = new ArrayList<>();
 			for(Dict temp : dictList){
 				xValues.add(temp.getName());
-				values.add(progressTotle.get(temp.getCode()));
+				values.add(progressTotle.get(temp.getCode())==null?0:progressTotle.get(temp.getCode()));
 			}
 
+			List<Map<String, Object>> valueData = new ArrayList<>();
 			Map<String, Object> valuesMap = new HashMap<>();
 			valuesMap.put("name",  "项目数");
 			valuesMap.put("data",  values);
+			valueData.add(valuesMap);
 
 			data1.put("xValue",xValues);
-			data1.put("dataValue",valuesMap);
+			data1.put("dataValue",valueData);
 
 			result.put("data1", data1);
 
@@ -791,23 +793,23 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
 				topValues.add( tmpEntry.getValue());
 			}
-
+			List<Map<String, Object>> topvalueData = new ArrayList<>();
 			Map<String, Object> topvaluesMap = new HashMap<>();
 			topvaluesMap.put("name",  "项目数");
 			topvaluesMap.put("data",  topValues);
+			topvalueData.add(topvaluesMap);
 
 			data2.put("xValue",xTopValues);
-			data2.put("dataValue",topvaluesMap);
+			data2.put("dataValue",topvalueData);
 
 			result.put("data2", data2);
 		}
-
-
-
-		return null;
+		return result;
 	}
-	public List<Project> queryProjOverViewForDept(ChartKpiQuery query){
+	public Map<String,Object> queryProjOverViewForDept(ChartKpiQuery query){
 		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> data1 = new HashMap<>();
+		Map<String, Object> data2 = new HashMap<>();
 
 		String progressMark = "projectProgress";
 		List<Project> proListTable = null;
@@ -816,7 +818,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ProjectBo proQuery = new ProjectBo();
 		//过滤已否决
 		proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
-
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
@@ -825,85 +826,128 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
 
 
-		Map<String, Object> data1 = new HashMap<>();
-		Map<String, Object> data2 = new HashMap<>();
-		// for progress—totle
-		//1、获取字典 各阶段并排序  projectProgress:4
-		if(query.getDeptid() == null){
-
-			List<Dict> dictList = dictService.selectByParentCode(progressMark);
-
-			Map<String, Integer> progressTotle = new HashMap<>();
-			for(Project temp:proListTable){
-				if(progressTotle.containsKey(temp.getProjectProgress())){
-					progressTotle.put(temp.getProjectProgress(), progressTotle.get(temp.getProjectProgress())+temp.getCompleted());
-				}else{
-					progressTotle.put(temp.getProjectProgress(), temp.getCompleted());
-				}
+		Map<String, Integer> progressProTotle = new HashMap<>();
+		for(Project temp:proListTable){
+			if(progressProTotle.containsKey(temp.getProjectProgress())){
+				progressProTotle.put(temp.getProjectProgress(), progressProTotle.get(temp.getProjectProgress())+temp.getCompleted());
+			}else{
+				progressProTotle.put(temp.getProjectProgress(), temp.getCompleted());
 			}
-
-			//Map<String, Integer> progressTotleSort = new LinkedHashMap<>();
-			List<String> xValues = new ArrayList<>();
-			List<Integer> values = new ArrayList<>();
-			for(Dict temp : dictList){
-				xValues.add(temp.getName());
-				values.add(progressTotle.get(temp.getCode()));
+		}
+		Map<String, Integer> progressListTotle = new HashMap<>();
+		for(Project temp:proListListdata){
+			if(progressListTotle.containsKey(temp.getProjectProgress())){
+				progressListTotle.put(temp.getProjectProgress(), progressListTotle.get(temp.getProjectProgress())+temp.getCompleted());
+			}else{
+				progressListTotle.put(temp.getProjectProgress(), temp.getCompleted());
 			}
-
-			Map<String, Object> valuesMap = new HashMap<>();
-			valuesMap.put("name",  "项目数");
-			valuesMap.put("data",  values);
-
-			data1.put("xValue",xValues);
-			data1.put("dataValue",valuesMap);
-
-			result.put("data1", data1);
-
-
-			// top 10
-			Map<Long, Integer> topData = new HashMap<>();
-
-			for(Project temp:proListTable)
-			{
-				if(topData.containsKey(temp.getProjectDepartid())){
-					topData.put(temp.getProjectDepartid(), topData.get(temp.getProjectDepartid())+temp.getCompleted());
-				}else{
-					topData.put(temp.getProjectDepartid(), temp.getCompleted());
-				}
-			}
-
-			//Map<Long, Integer> topDataSort = new LinkedHashMap<>();
-			List<Map.Entry<Long, Integer>> entryList = new ArrayList<Map.Entry<Long, Integer>>(topData.entrySet());
-			Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
-				public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
-					return me2.getValue() - me1.getValue();
-				}
-			});
-
-			Iterator<Map.Entry<Long, Integer>> iter = entryList.iterator();
-			Map.Entry<Long, Integer> tmpEntry = null;
-			List<String> xTopValues = new ArrayList<>();
-			List<Integer> topValues = new ArrayList<>();
-			while (iter.hasNext()) {
-				tmpEntry = iter.next();
-				//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
-				xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
-				topValues.add( tmpEntry.getValue());
-			}
-
-			Map<String, Object> topvaluesMap = new HashMap<>();
-			topvaluesMap.put("name",  "项目数");
-			topvaluesMap.put("data",  topValues);
-
-			data2.put("xValue",xTopValues);
-			data2.put("dataValue",topvaluesMap);
-
-			result.put("data2", data2);
 		}
 
+		List<Dict> dictList = dictService.selectByParentCode(progressMark);
+		List<String> xValues = new ArrayList<>();
+		List<Integer> provalues = new ArrayList<>();
+		List<Integer> listvalues = new ArrayList<>();
+		for(Dict temp : dictList){
+			xValues.add(temp.getName());
+			provalues.add(progressProTotle.get(temp.getCode())==null?0:progressProTotle.get(temp.getCode()));
+			listvalues.add(progressListTotle.get(temp.getCode())==null?0:progressListTotle.get(temp.getCode()));
+		}
+
+		List<Map<String, Object>> valueData = new ArrayList<>();
+		Map<String, Object> valuesMap1 = new HashMap<>();
+		valuesMap1.put("name",  "负责项目数");
+		valuesMap1.put("data",  provalues);
+		Map<String, Object> valuesMap2 = new HashMap<>();
+		valuesMap2.put("name",  "协作项目数");
+		valuesMap2.put("data",  listvalues);
+		valueData.add(valuesMap1);
+		valueData.add(valuesMap2);
+
+		data1.put("xValue",xValues);
+		data1.put("dataValue",valueData);
+
+		result.put("data1", data1);
 
 
-		return null;
+		// top 10
+		Map<Long, Integer> usertotalAll = new HashMap<>();
+		Map<Long, Map<String, Integer>> userTypeTotle = new HashMap<>();
+
+
+		for(Project temp:proListTable)
+		{
+			if(userTypeTotle.containsKey(temp.getCreateUid())){
+				userTypeTotle.get(temp.getCreateUid()).put("pro",userTypeTotle.get(temp.getCreateUid()).get("pro") + temp.getCompleted());
+			}else{
+				Map<String, Integer> protopData = new HashMap<>();
+				protopData.put("pro",temp.getCompleted());
+				userTypeTotle.put(temp.getCreateUid(),protopData);
+			}
+		}
+		for(Project temp:proListListdata)
+		{
+			if(userTypeTotle.containsKey(temp.getCreateUid())){
+				if(userTypeTotle.get(temp.getCreateUid()).containsKey("list")){
+					userTypeTotle.get(temp.getCreateUid()).put("list",userTypeTotle.get(temp.getCreateUid()).get("list") + temp.getCompleted());
+				}else{
+					userTypeTotle.get(temp.getCreateUid()).put("list", temp.getCompleted());
+				}
+			}else{
+				Map<String, Integer> protopData = new HashMap<>();
+				protopData.put("list",temp.getCompleted());
+				userTypeTotle.put(temp.getCreateUid(),protopData);
+			}
+		}
+		int valueT = 0;
+		for(Map.Entry<Long, Map<String, Integer>> temp : userTypeTotle.entrySet()){
+			valueT = 0;
+			if(temp.getValue().containsKey("pro")){
+				valueT += temp.getValue().get("pro");
+			}
+			if(temp.getValue().containsKey("list")){
+				valueT += temp.getValue().get("list");
+			}
+			usertotalAll.put(temp.getKey(), valueT);
+		}
+
+		List<Map.Entry<Long, Integer>> entryList = new ArrayList<Map.Entry<Long, Integer>>(usertotalAll.entrySet());
+		Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+			public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+				return me2.getValue() - me1.getValue();
+			}
+		});
+
+
+		Iterator<Map.Entry<Long, Integer>> iter = entryList.iterator();
+		Map.Entry<Long, Integer> tmpEntry = null;
+		List<String> xTopValues = new ArrayList<>();
+		List<Integer> protopValues = new ArrayList<>();
+		List<Integer> listtopValues = new ArrayList<>();
+		while (iter.hasNext()) {
+			tmpEntry = iter.next();
+			//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
+			xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+			protopValues.add(userTypeTotle.get(tmpEntry.getKey()).get("pro")==null?0:userTypeTotle.get(tmpEntry.getKey()).get("pro"));
+			listtopValues.add(userTypeTotle.get(tmpEntry.getKey()).get("list")==null?0:userTypeTotle.get(tmpEntry.getKey()).get("list"));
+		}
+
+		List<Map<String, Object>> topvalueData = new ArrayList<>();
+		Map<String, Object> topvaluesMap1 = new HashMap<>();
+		topvaluesMap1.put("name",  "负责项目数");
+		topvaluesMap1.put("data",  protopValues);
+		Map<String, Object> topvaluesMap2 = new HashMap<>();
+		topvaluesMap2.put("name",  "协作项目数");
+		topvaluesMap2.put("data",  listtopValues);
+		topvalueData.add(topvaluesMap1);
+		topvalueData.add(topvaluesMap2);
+
+		data2.put("xValue",xTopValues);
+		data2.put("dataValue",topvalueData);
+
+		result.put("data2", data2);
+
+
+		return result;
 	}
 
 
