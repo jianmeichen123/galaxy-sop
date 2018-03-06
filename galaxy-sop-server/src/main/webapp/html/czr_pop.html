@@ -71,8 +71,12 @@ $(function(){
  	var that =$(dom); 
  	var careerId=that.val(); 
  	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
-		function(data) {
+		function(data) { 
  			var list = data.entityList;
+ 			$.each(czr_dataArr,function(i,value){ 
+ 				list = list.filter(function(val){  return val.idstr != parseInt(value)}); 
+ 			})
+ 			debugger;
  			var res="";
  			$.each(list,function(){ 
  				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
