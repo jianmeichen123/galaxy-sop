@@ -472,8 +472,7 @@ $(function() {
 			var that =$(this);
 			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
 			$.each(that.find('tr:gt(0)'),function(){ 
-				var row = $(this).data();
-				debugger; 
+				var row = $(this).data(); 
 				if(row.id=="")
 				{
 					row.id=null;

@@ -2110,6 +2110,7 @@ function selectContext(formId){
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');  
+	czr_Rdata=false; 
 	if(code=="team-person"){		
 		var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	}
@@ -2138,10 +2139,6 @@ function addRow(ele)
 	            if(code=="team-person"){  
 	            	$("#totleNum").val(totleNum); 
 		            //带出来 承作人ID
-		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
-		            $.each(trs,function(i,value){
-		            	czr_dataArr.push($(value).data().field1); 
-		            })    
 	            	return false;
 	            }
 	            selectContext("detail-form");
@@ -2349,9 +2346,11 @@ function editRow(ele)
 	            	$("#totleNum").val(totleNum);
 	            	//带出来 承作人ID
 		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
+		            var arrs=[];
 		            $.each(trs,function(i,value){
-		            	czr_dataArr.push($(value).data().field1); 
+		            	arrs.push($(value).data().field1); 
 		            })     
+		            czr_dataArr=arrs;
 	            	return false;
 	            }
 				$("#detail-form input[name='subCode']").val(code);
@@ -2692,6 +2691,12 @@ function delRow(ele)
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
 		var ch_opration =$(ele).closest('.h_team_look');
 		var form=$(ele).closest('.radius').find('form');
+		var code = $(ele).closest('table').data("code");
+		if(code=="team-person"){
+			var num = tr.find("td[data-field-name='field2']").text();
+			var field2=$(ele).closest('table').find(".totleNum td[data-field-name='field2']");
+			field2.text(parseInt(field2.text())+parseInt(num));
+		}
         if(typeof id != 'undefined')
         {
             //股权合理性
