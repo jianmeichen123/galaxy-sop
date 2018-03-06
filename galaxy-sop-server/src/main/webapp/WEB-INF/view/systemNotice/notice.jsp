@@ -52,7 +52,7 @@
 					    <tr> 
 				        	<th data-field="messageContent"  data-width="14%" data-align="left">通知内容</th>
 				        	<th data-field="createId"  data-width="14%" data-align="left">创建人</th>
-				        	<th data-field="createTime"  data-width="14%" data-align="left">创建时间</th>
+				        	<th data-field="createdTime"  data-width="14%" data-align="left">创建时间</th>
 				        	<th data-field="sendTime"  data-width="18%" data-align="left">推送通知时间</th>
 				        	<th data-field="sendStatus"  data-width="12%" data-align="left">状态</th>
 				        	<th data-field="osType"  data-width="14%" data-align="left">发送平台</th>

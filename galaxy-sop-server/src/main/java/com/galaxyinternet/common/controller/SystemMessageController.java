@@ -1,5 +1,7 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -14,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.systemMessage.SystemMessageBo;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.systemMessage.SystemMessage;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SystemMessageService;
 
 
@@ -83,25 +88,40 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 	 * @author chenjianmei
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SystemMessage> addProject(@RequestBody SystemMessage systemMessage, HttpServletRequest request)
+	@RequestMapping(value = "/am", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> addMessage(@RequestBody SystemMessage systemMessage, HttpServletRequest request)
 	{
 		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
 		if (systemMessage == null || systemMessage.getMessageContent() == null || "".equals(systemMessage.getMessageContent().trim())
-				|| systemMessage.getOsType()== null || "".equals(systemMessage.getOsType().trim())
-				|| systemMessage.getSendTime() == null )
+				|| systemMessage.getOsType()== null ||"".equals(systemMessage.getOsType().trim()))
 		{
 			responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
 			return responseBody;
 		}
 		try
 		{
-			Long insert = systemMessageService.insert(systemMessage);
-			if(insert>0){
-				responseBody.setResult(new Result(Status.OK,"新增成功"));
+			String [] osTypeArr = null;
+			if(null!=systemMessage.getOsType()&&!"".equals(systemMessage.getOsType())){
+				osTypeArr=systemMessage.getOsType().split(",");
 			}
+			systemMessage.setSendStatus("messageStatus:1");
+			//systemMessage.setSendTime(DateUtil.stringToLong(systemMessage.getSendTime().toString(), "yyyy-MM-dd HH:mm:ss").toString());
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
+			systemMessage.setCreatedTime(now);
+			systemMessage.setCreateId(userId);
+			if(osTypeArr.length>0){
+				for(int i=0;i<osTypeArr.length;i++){
+					systemMessage.setId(null);
+					systemMessage.setOsType(osTypeArr[i]);
+					 systemMessageService.insert(systemMessage);
+				}
+			}
+			responseBody.setResult(new Result(Status.OK,"新增成功"));
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			logger.error("异常信息:", e.getMessage());
 		}
 		return responseBody;

@@ -11,25 +11,25 @@
         <ul>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>通知内容：</div>
-        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="transferReason" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="messageContent" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
         	</li>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>目标平台：</div>
         		<div class='checkbox-div'>
 	        		<label class="highlighCheckbox">
-	        			<input type="checkbox" name="isCheck">
+	        			<input type="checkbox" name="osType" value="Web">
 	        		</label>
 	        		<span>Web</span>
         		</div>
         		<div class='checkbox-div'>
 	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="isCheck">
+	        			<input type="checkbox" name="osType" value="ios">
 	        		</label>
 	        		<span>ios</span>
         		</div>
         		<div class='checkbox-div'>
 	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="isCheck">
+	        			<input type="checkbox" name="osType" value="Android">
 	        		</label>
 	        		<span>Android</span>
         		</div>
@@ -39,20 +39,20 @@
         		<div class='task-reason'><em>*</em>推送时间：</div>
         		<div class='system_radio_second' >
         			<label class="radio_cont radio_checked" data-name="">
-					<input type="radio" name="investForm " value="financeMode:1" class="radioclass">
+					<input type="radio" name="isNowSend " value="0" class="radioclass">
 						立即
 					</label>
         		</div>
         		<div class='system_radio_second'>
         			<label class="radio_cont system_radio_second" data-name="setTime">
-					<input type="radio" name="investForm" value="financeMode:1" class="radioclass ">
+					<input type="radio" name="isNowSend" value="1" class="radioclass ">
 						定时
 					</label>
-					<input  class='datatimePicture setTime' readonly='readonly' type='text' name="formationStart"/>
+					<input  class='datatimePicture setTime' readonly='readonly' type='text' name="sendTime"/>
         		</div>
         	</li>   
         	<li>
-        		<div class='task-reason'><em>*</em>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="formationUpdate"/></div>
+        		<div class='task-reason'><em>*</em>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime"/></div>
         		
         	</li>
         </ul>
@@ -98,7 +98,7 @@ $(function(){
 		
 	})
 	
-	$('.system_radio_second input[name="formationStart"]').datepicker({//定时
+	$('.system_radio_second input[name="sendTime"]').datepicker({//定时
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -112,7 +112,7 @@ $(function(){
 	    currentText: 'Now',
 	    startDate:new Date
 	})
-	$('.task-reason input[name="formationUpdate"]').datepicker({//系统升级
+	$('.task-reason input[name="upgradeTime"]').datepicker({//系统升级
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -153,23 +153,44 @@ $(function(){
 		
 		event.preventDefault(); 
 	})
-	$('.system_send ').click(function(){
-		if($(this).hasClass('system_disabled')){
-			return false
-		}else{
-			
-		}
+	
+	$('.system_send ').click(function() {
+			if ($(this).hasClass('system_disabled')) {
+				return false
+			} else {
+				var url = platformUrl.addMessage;
+				var data = {
+				};
+				data.messageContent=$("textarea[name=messageContent]").val();
+				data.upgradeTime=Date.parse($("input[name=upgradeTime]").val());
+				data.isNowSend=$("input[name=isNowSend]").val();
+				if($("input[name=sendTime]").val()==""){
+					data.sendTime=Date.parse(new Date());
+				}else{
+					data.sendTime=Date.parse($("input[name=sendTime]").val());
+				}
+				var osTypeval="";
+				$(".highlighCheckbox_checked").each(function (i) {
+				    osTypeval=osTypeval+$(this).find("input:first-child").val()+","
+				})
+				data.osType=osTypeval;
+				console.log(data);
+				sendPostRequestByJsonObj(url, data, function(data) {
+					var result = data.result.status;
+					if (result == "ERROR") { //OK, ERROR
+						layer.msg(data.result.message);
+						return;
+					} else {
+						layer.msg("保存成功", {
+							time : 500
+						});
+						$("#close-btn").click();
+						$.locksCreenOpen();
+						$('#noticeTable').bootstrapTable('refresh');
+					}
+				});
+			}
+		})
+
 	})
-	
-	
-	
-	
-	
-})
-
-
-
-
-
-
 </script>
