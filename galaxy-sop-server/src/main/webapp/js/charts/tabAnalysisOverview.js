@@ -516,13 +516,13 @@ $('#chart_overview').highcharts({
     },
     legend: {
         align: 'right',
-        x: -30,
+        x: -90,
         verticalAlign: 'top',
         y: 25,
         floating: true,
         backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
         borderColor: '#CCC',
-        borderWidth: 1,
+        borderWidth: 0,
         shadow: false
     },
     tooltip: {
@@ -547,10 +547,10 @@ $('#chart_overview').highcharts({
     series: [{
         name: '负责项目数',
         data: [5, 3, 4, 7, 2],
-        color:'#587edd'
+        color:'#5a7ede'
     }, {
         name: '协作项目数',
         data: [3, 4, 4, 2, 5],
-        color: '#6b799f'
+        color: '#008000'
     }]
 });
