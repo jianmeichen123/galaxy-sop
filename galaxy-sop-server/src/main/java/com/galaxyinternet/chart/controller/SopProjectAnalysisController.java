@@ -108,7 +108,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			query.setStartTime(startTime);
 			query.setEndTime(endTime);
 
-			List<Project> overViewList = projectService.queryProjOverView(query);
+			List<Project> overViewList = projectService.queryProjOverViewForComp(query);
 			responseBody.setEntityList(overViewList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setQueryParamsJsonStr(GSONUtil.toJson(query));
