@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.systemMessage;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class SystemMessage extends PagableEntity  {
     /**
@@ -35,6 +36,12 @@ public class SystemMessage extends PagableEntity  {
     private String startTime;
     
 	private String endTime;
+	
+	private String userStr;
+	
+	private String sendTimeStr;
+	
+	private String createTimeStr;
 
     public Long getId() {
         return id;
@@ -66,6 +73,9 @@ public class SystemMessage extends PagableEntity  {
 
     public void setSendTime(Long sendTime) {
         this.sendTime = sendTime;
+        	if(sendTime != null){
+	    		this.sendTimeStr = DateUtil.longToString(sendTime);
+	    	}
     }
 
     public String getSendStatus() {
@@ -132,7 +142,38 @@ public class SystemMessage extends PagableEntity  {
         this.messageContent = messageContent == null ? null : messageContent.trim();
     }
     
-    public String getStartTime() {
+    public String getUserStr() {
+		return userStr;
+	}
+
+	public void setUserStr(String userStr) {
+		this.userStr = userStr;
+	}
+
+	public String getSendTimeStr() {
+		return sendTimeStr;
+	}
+
+	public void setSendTimeStr(String sendTimeStr) {
+		this.sendTimeStr = sendTimeStr;
+	}
+
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+
+	 @Override
+	    public void setCreatedTime(Long createdTime) {
+	    	this.createdTime = createdTime;
+	    	if(createdTime != null){
+	    		this.createTimeStr = DateUtil.longToString(createdTime);
+	    	}
+	    }
+	public String getStartTime() {
 		if (startTime != null && startTime.length() == 10) {
 			startTime = startTime + " 00:00:00";
 		}

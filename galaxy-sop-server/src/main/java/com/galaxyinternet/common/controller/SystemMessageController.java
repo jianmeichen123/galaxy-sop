@@ -23,7 +23,6 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.systemMessage.SystemMessage;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SystemMessageService;
