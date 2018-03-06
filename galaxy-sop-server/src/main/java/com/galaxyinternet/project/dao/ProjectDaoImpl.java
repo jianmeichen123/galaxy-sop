@@ -1,12 +1,5 @@
 package com.galaxyinternet.project.dao;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
-
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -16,6 +9,12 @@ import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.project.Project;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 
 @Repository("projectDao")
@@ -222,6 +221,34 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("projectTotalTimeCount")), e);
 			}
 		}
-		
-		
+
+
+
+	/**
+	 * 项目分析 - 项目总览
+	 */
+	public List<Project> searchProjOverViewByProject(Project query){
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByProject"), BeanUtils.toMap(query));
+		} catch (Exception e) {
+			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName("searchProjOverViewByProject")), e);
+		}
 	}
+	public List<Project> searchProjOverViewByListdata(Project query){
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("searchProjOverViewByListdata"), BeanUtils.toMap(query));
+		} catch (Exception e) {
+			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName("searchProjOverViewByListdata")), e);
+		}
+	}
+
+
+
+
+
+
+
+
+		
+		
+}

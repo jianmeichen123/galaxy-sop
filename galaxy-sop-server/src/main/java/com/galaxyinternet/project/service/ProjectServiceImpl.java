@@ -1,22 +1,9 @@
 package com.galaxyinternet.project.service;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.query.ChartKpiQuery;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.JointDeliveryDao;
@@ -26,6 +13,7 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -33,6 +21,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -45,19 +34,42 @@ import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 @Service("com.galaxyinternet.service.ProjectService")
 public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService,ApplicationEventPublisherAware  {
 
+	@Autowired
+	private Cache cache;
+	@Autowired
+	private DictService dictService;
 	@Autowired
 	private ProjectDao projectDao;
 	@Autowired
@@ -685,6 +697,217 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	{
 		return projectDao.selectIds(project);
 	}
-	
+
+
+
+	/**
+	 * 项目分析 - 项目总览 - 项目进度分布图
+	 * 项目分析 - 项目总览 - 项目数统计top10
+	 *
+	 * select - dict - parentCode : projectProgress 、 order by : dictSort
+	 *
+	 * @param query
+	 * @return
+	 */
+	public List<Project> queryProjOverViewForComp(ChartKpiQuery query){
+		Map<String, Object> result = new HashMap<>();
+
+		String progressMark = "projectProgress";
+		List<Project> proListTable = null;
+		List<Project> proListListdata =null;
+
+		ProjectBo proQuery = new ProjectBo();
+		//过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
+
+		proQuery.setStartTime(query.getStartTime());
+		proQuery.setEndTime(query.getEndTime());
+		//proQuery.setProjectDepartid(query.getDeptid());
+
+		proListTable = projectDao.searchProjOverViewByProject(proQuery);
+		//if(query.getDeptid() != null) proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
+
+
+		Map<String, Object> data1 = new HashMap<>();
+		Map<String, Object> data2 = new HashMap<>();
+		// for progress—totle
+		//1、获取字典 各阶段并排序  projectProgress:4
+		if(proListTable != null && !proListTable.isEmpty())
+		{
+			List<Dict> dictList = dictService.selectByParentCode(progressMark);
+
+			Map<String, Integer> progressTotle = new HashMap<>();
+			for(Project temp:proListTable){
+				if(progressTotle.containsKey(temp.getProjectProgress())){
+					progressTotle.put(temp.getProjectProgress(), progressTotle.get(temp.getProjectProgress())+temp.getCompleted());
+				}else{
+					progressTotle.put(temp.getProjectProgress(), temp.getCompleted());
+				}
+			}
+
+			//Map<String, Integer> progressTotleSort = new LinkedHashMap<>();
+			List<String> xValues = new ArrayList<>();
+			List<Integer> values = new ArrayList<>();
+			for(Dict temp : dictList){
+				xValues.add(temp.getName());
+				values.add(progressTotle.get(temp.getCode()));
+			}
+
+			Map<String, Object> valuesMap = new HashMap<>();
+			valuesMap.put("name",  "项目数");
+			valuesMap.put("data",  values);
+
+			data1.put("xValue",xValues);
+			data1.put("dataValue",valuesMap);
+
+			result.put("data1", data1);
+
+
+			// top 10
+			Map<Long, Integer> topData = new HashMap<>();
+
+			for(Project temp:proListTable)
+			{
+				if(topData.containsKey(temp.getProjectDepartid())){
+					topData.put(temp.getProjectDepartid(), topData.get(temp.getProjectDepartid())+temp.getCompleted());
+				}else{
+					topData.put(temp.getProjectDepartid(), temp.getCompleted());
+				}
+			}
+
+			List<Map.Entry<Long, Integer>> entryList = new ArrayList<Map.Entry<Long, Integer>>(topData.entrySet());
+			Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+				public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+					return me2.getValue() - me1.getValue();
+				}
+			});
+
+			Iterator<Map.Entry<Long, Integer>> iter = entryList.iterator();
+			Map.Entry<Long, Integer> tmpEntry = null;
+			List<String> xTopValues = new ArrayList<>();
+			List<Integer> topValues = new ArrayList<>();
+			while (iter.hasNext()) {
+				tmpEntry = iter.next();
+				xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
+				topValues.add( tmpEntry.getValue());
+			}
+
+			Map<String, Object> topvaluesMap = new HashMap<>();
+			topvaluesMap.put("name",  "项目数");
+			topvaluesMap.put("data",  topValues);
+
+			data2.put("xValue",xTopValues);
+			data2.put("dataValue",topvaluesMap);
+
+			result.put("data2", data2);
+		}
+
+
+
+		return null;
+	}
+	public List<Project> queryProjOverViewForDept(ChartKpiQuery query){
+		Map<String, Object> result = new HashMap<>();
+
+		String progressMark = "projectProgress";
+		List<Project> proListTable = null;
+		List<Project> proListListdata =null;
+
+		ProjectBo proQuery = new ProjectBo();
+		//过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
+
+		proQuery.setStartTime(query.getStartTime());
+		proQuery.setEndTime(query.getEndTime());
+		proQuery.setProjectDepartid(query.getDeptid());
+
+		proListTable = projectDao.searchProjOverViewByProject(proQuery);
+		proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
+
+
+		Map<String, Object> data1 = new HashMap<>();
+		Map<String, Object> data2 = new HashMap<>();
+		// for progress—totle
+		//1、获取字典 各阶段并排序  projectProgress:4
+		if(query.getDeptid() == null){
+
+			List<Dict> dictList = dictService.selectByParentCode(progressMark);
+
+			Map<String, Integer> progressTotle = new HashMap<>();
+			for(Project temp:proListTable){
+				if(progressTotle.containsKey(temp.getProjectProgress())){
+					progressTotle.put(temp.getProjectProgress(), progressTotle.get(temp.getProjectProgress())+temp.getCompleted());
+				}else{
+					progressTotle.put(temp.getProjectProgress(), temp.getCompleted());
+				}
+			}
+
+			//Map<String, Integer> progressTotleSort = new LinkedHashMap<>();
+			List<String> xValues = new ArrayList<>();
+			List<Integer> values = new ArrayList<>();
+			for(Dict temp : dictList){
+				xValues.add(temp.getName());
+				values.add(progressTotle.get(temp.getCode()));
+			}
+
+			Map<String, Object> valuesMap = new HashMap<>();
+			valuesMap.put("name",  "项目数");
+			valuesMap.put("data",  values);
+
+			data1.put("xValue",xValues);
+			data1.put("dataValue",valuesMap);
+
+			result.put("data1", data1);
+
+
+			// top 10
+			Map<Long, Integer> topData = new HashMap<>();
+
+			for(Project temp:proListTable)
+			{
+				if(topData.containsKey(temp.getProjectDepartid())){
+					topData.put(temp.getProjectDepartid(), topData.get(temp.getProjectDepartid())+temp.getCompleted());
+				}else{
+					topData.put(temp.getProjectDepartid(), temp.getCompleted());
+				}
+			}
+
+			//Map<Long, Integer> topDataSort = new LinkedHashMap<>();
+			List<Map.Entry<Long, Integer>> entryList = new ArrayList<Map.Entry<Long, Integer>>(topData.entrySet());
+			Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+				public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+					return me2.getValue() - me1.getValue();
+				}
+			});
+
+			Iterator<Map.Entry<Long, Integer>> iter = entryList.iterator();
+			Map.Entry<Long, Integer> tmpEntry = null;
+			List<String> xTopValues = new ArrayList<>();
+			List<Integer> topValues = new ArrayList<>();
+			while (iter.hasNext()) {
+				tmpEntry = iter.next();
+				//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
+				xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
+				topValues.add( tmpEntry.getValue());
+			}
+
+			Map<String, Object> topvaluesMap = new HashMap<>();
+			topvaluesMap.put("name",  "项目数");
+			topvaluesMap.put("data",  topValues);
+
+			data2.put("xValue",xTopValues);
+			data2.put("dataValue",topvaluesMap);
+
+			result.put("data2", data2);
+		}
+
+
+
+		return null;
+	}
+
+
+
+
 
 }
