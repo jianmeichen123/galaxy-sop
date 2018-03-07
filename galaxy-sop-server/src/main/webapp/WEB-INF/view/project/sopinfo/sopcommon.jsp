@@ -444,10 +444,9 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 			$.getHtml({
 				url:"/sop/html/czr_pop.html",//模版请求地址
 				data:"",//传递参数
-				okback:function(){
-					$("#pop-title-czr").text("项目承作人");
-					$("#learning").remove();
-					$("#czrTableInfo").show();  
+				okback:function(){  
+					$(".qualificationstc").remove();
+					$("#infoCZR").show(); 
 					buildTable(czrData);
 				} 
 			}) 

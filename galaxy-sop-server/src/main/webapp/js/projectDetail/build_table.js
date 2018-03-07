@@ -49,9 +49,8 @@ function buildTable(title)
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
 				}
-			}
-
-			if(header.code=="team-person"){ return;}
+			} 
+			if(header.code=="team-person"){table.append(tr); return;}
 			if(header.titleId =='1810'||header.titleId =='1811')
 			{
 				tr +='<th data-field-name="updateUserName">编辑人</th>';
@@ -130,8 +129,9 @@ function buildRow(row,showOpts,titleId)
 		}
 		
 	});
-	if(header.code=="team-person"){ return;}
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
+
+	if(titleId=='1103'){ return tr;}
 	var td = $('<td data-field-name="opt"></td>');
 	td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
 
