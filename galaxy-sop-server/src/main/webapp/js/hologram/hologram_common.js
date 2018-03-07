@@ -2215,8 +2215,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
-	debugger;
+{ 
 	data = JSON.parse(data);
 	if(data.subCode=="team-person"){ 
 		var tdid =data.field1;
@@ -2239,6 +2238,7 @@ function saveRow(data)
 	var titleId = data.titleId;
 	var titleCode;
 	var index = data.index;  
+	debugger;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
@@ -2347,16 +2347,12 @@ function editRow(ele)
 					} 
 				 $("#detail-form input[name='subCode']").val(code);
 				 $("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+				 $("#detail-form input[name='index']").val(row.index());
 				 if(code=="team-person"){  
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
-	            	//带出来 承作人ID
-		            var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
-		            var arrs=[];
-		            $.each(trs,function(i,value){
-		            	arrs.push($(value).data().field1); 
-		            })     
-		            czr_dataArr=arrs;
+	            	$("#detail-form input[name='index']").val(row.index());
+	            	//带出来 承作人ID 
 	            	return false;
 	            }
 				selectContext("detail-form");
@@ -2497,9 +2493,7 @@ function editRow(ele)
 				//融资的里程碑和时间点
 				$('.finicial-number').text(oppoPerson);
 				$('.milestone').text(degress);
-				$('.finicial-time').text(dangerRation);
-				
-				$("#detail-form input[name='index']").val(row.index());
+				$('.finicial-time').text(dangerRation); 
 				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
