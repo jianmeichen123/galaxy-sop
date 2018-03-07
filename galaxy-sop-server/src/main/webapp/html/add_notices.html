@@ -164,8 +164,9 @@ $(function(){
 				var data = {
 				};
 				var id=$("#messageId").val();
-				if(null==id){
+				if(null==id||""==id){
 					var url = platformUrl.addMessage;
+					data.id=null;
 				}else{
 					var url = platformUrl.updateMessage;
 					data.id=id;
