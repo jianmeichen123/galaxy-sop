@@ -489,8 +489,7 @@
 			});
 		}  
 		 getProjectTable();
-		 $(".xhtTab").click(function(){ 
-			 
+		 $(".xhtTab").click(function(){  
 			 var that=$(this);
 			 $(".xhtTab").removeClass("active");
 			 that.addClass("active");
@@ -511,6 +510,8 @@
 				 $("td.delete_syb").show();  
 				 $("#project-table").removeClass("project-table_delete");
 			 }
+
+			 $("#resetBtn").click(); 
 			 $("button[action='querySearch']").click(); 
 		 })
 		/**
