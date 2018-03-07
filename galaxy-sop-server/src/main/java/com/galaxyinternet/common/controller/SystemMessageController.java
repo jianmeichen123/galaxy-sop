@@ -72,6 +72,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		Direction direction = Direction.DESC;
 		String property = "update_time";
 		try {
+			systemMessage.setIsDel(0);
 			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
 					systemMessage.getPageSize(), direction, property));
 			List<SystemMessage> list=new ArrayList<SystemMessage>();
@@ -226,6 +227,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		{
 			SystemMessage query=new SystemMessage();
 			query.setId(systemMessage.getId());
+			query.setIsDel(0);
 			 SystemMessage queryOne = systemMessageService.queryOne(query);
 			 responseBody.setEntity(queryOne);
 			responseBody.setResult(new Result(Status.OK,"查询成功"));

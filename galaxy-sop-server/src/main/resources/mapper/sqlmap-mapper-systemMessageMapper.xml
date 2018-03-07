@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.systemMessage.SystemMessage" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="os_type" property="osType" jdbcType="VARCHAR" />
-    <result column="is_now_send" property="isNowSend" jdbcType="TINYINT" />
+    <result column="is_now_send" property="isNowSend" jdbcType="INTEGER" />
     <result column="send_time" property="sendTime" jdbcType="BIGINT" />
     <result column="send_status" property="sendStatus" jdbcType="VARCHAR" />
     <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
-    <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
     <result column="create_id" property="createId" jdbcType="BIGINT" />
     <result column="create_time" property="createdTime" jdbcType="BIGINT" />
     <result column="update_id" property="updatedUid" jdbcType="BIGINT" />
@@ -27,6 +27,8 @@
 			      <if test="sendStatus != null"> and send_status = #{sendStatus,jdbcType=VARCHAR} </if>
 			      <if test="startTime != null"> <![CDATA[  and FROM_UNIXTIME(send_time/1000,'%Y-%m-%d %H:%i:%s')>= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			      <if test="endTime != null"> <![CDATA[ and FROM_UNIXTIME(send_time/1000,'%Y-%m-%d %H:%i:%s') <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			      <if test="isDel != null"> and is_del = #{id,jdbcType=INTEGER} </if>
+			      
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -82,8 +84,8 @@
       create_id, create_time, update_id, 
       update_time, upgrade_time, message_content
       )
-    values (#{id,jdbcType=BIGINT}, #{osType,jdbcType=VARCHAR}, #{isNowSend,jdbcType=TINYINT}, 
-      #{sendTime,jdbcType=BIGINT}, #{sendStatus,jdbcType=VARCHAR}, #{isDel,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=BIGINT}, #{osType,jdbcType=VARCHAR}, #{isNowSend,jdbcType=INTEGER}, 
+      #{sendTime,jdbcType=BIGINT}, #{sendStatus,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
       #{createId,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, 
       #{updatedTime,jdbcType=BIGINT}, #{upgradeTime,jdbcType=BIGINT}, #{messageContent,jdbcType=LONGVARCHAR}
       )
@@ -91,7 +93,7 @@
   <update id="updateById" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage">
 		update system_message
 		<set>
-	      <if test="isNowSend != null">  is_now_send = #{isNowSend,jdbcType=TINYINT}, </if>
+	      <if test="isNowSend != null">  is_now_send = #{isNowSend,jdbcType=INTEGER}, </if>
 	      <if test="osType != null">  os_type = #{osType,jdbcType=VARCHAR}, </if>
 	      <if test="sendTime != null"> send_time = #{sendTime,jdbcType=BIGINT}, </if>
 	      <if test="sendStatus != null"> send_status = #{sendStatus,jdbcType=VARCHAR}, </if>

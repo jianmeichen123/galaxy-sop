@@ -1382,7 +1382,10 @@ var platformUrl = {
     fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode",
     addMessage : Constants.sopEndpointURL+"galaxy/systemMessage/am",
     updateMessage : Constants.sopEndpointURL+"galaxy/systemMessage/updateMessage",
-    queryMessage : Constants.sopEndpointURL+"galaxy/systemMessage/sml"
+    queryMessage : Constants.sopEndpointURL+"galaxy/systemMessage/sml",
+    deleteMessage : Constants.sopEndpointURL+"galaxy/systemMessage/deleteMessage"
+    
+    
     
 }
 

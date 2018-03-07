@@ -185,8 +185,22 @@
 		$.getHtml({
 			url:getDetailUrl('system_delete'),
 			okback:function(){
-				alert(id);
+				var dataJson={
+						id:id
+				}
+				sendPostRequestByJsonObj(
+				platformUrl.deleteMessage, 
+				dataJson,
+				function(data){ 
+					if(data.result.status=="OK"){ 
+						 layer.msg("删除成功")	  
+						$("#noticeTable").bootstrapTable('refresh');
+						$("#popbg").remove();
+						$("#powindow").remove();
+					}
+				 })
 			}
+			
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 

@@ -22,7 +22,7 @@ public class SystemMessage extends PagableEntity {
 
 	private String sendStatus;
 
-	private Byte isDel;
+	private int isDel;
 
 	private Long createId;
 
@@ -104,11 +104,13 @@ public class SystemMessage extends PagableEntity {
 		}
 	}
 
-	public Byte getIsDel() {
+
+
+	public int getIsDel() {
 		return isDel;
 	}
 
-	public void setIsDel(Byte isDel) {
+	public void setIsDel(int isDel) {
 		this.isDel = isDel;
 	}
 

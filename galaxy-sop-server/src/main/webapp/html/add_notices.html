@@ -172,7 +172,7 @@ $(function(){
 				}
 				data.messageContent=$("textarea[name=messageContent]").val();
 				data.upgradeTime=Date.parse($("input[name=upgradeTime]").val());
-				data.isNowSend=$("input[name=isNowSend]").val();
+				data.isNowSend=$('.radio_checked').find("input:first-child").val();
 				if($("input[name=sendTime]").val()==""){
 					data.sendTime=Date.parse(new Date());
 				}else{
