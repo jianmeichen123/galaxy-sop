@@ -487,7 +487,7 @@ $(function() {
 					delete row.field3Str; 
 					delete row.field4; 
 					delete row.field4Str;  
-					delete row.field3Id;   
+					delete row.field3Id;    
 					infoTableModelList.push($(this).data());
 				}else{
 					infoTableModelList.push($(this).data());

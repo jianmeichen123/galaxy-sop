@@ -50,10 +50,11 @@ var manager="";
 var nullD = "<option value=\"\">请选择</option>";
 //获取已有
 var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
+var otherNum=0;
 var arrs=[];
 $.each(trs,function(i,value){
 	arrs.push($(value).data().field1); 
-})  
+})   
 $(function(){ 
      /* 提示信息 */
      editTipsShow('5','.shareHolder');           
@@ -68,13 +69,14 @@ $(function(){
 		})		  
    		$("select[ name='field3']").html("").append(nullD).append(res) 	
    	})    
-   	if(typeof czr_Rdata != "undefined"){    
+   	if(typeof czr_Rdata != "undefined"){ 
    		if(czr_Rdata){
-   	   	   	$("#field3").val(czr_Rdata.field3Id); 
+   	   	   	$("#field3").val(czr_Rdata.field3Id);  
+   	   	   	$("#field2").val(czr_Rdata.field2); 
+   	   		otherNum = parseInt(czr_Rdata.field2);
    	   	    getUser($("#field3"),czr_Rdata.field1); 			
    		}
-   	}
-     
+   	} 
 })
  function getUser(dom,managerName){  
  	var that =$(dom); 
@@ -97,14 +99,15 @@ $(function(){
  			$("select[name='field1']").html("").append(nullD).append(res); 
 	 		if(managerName){ 
 	 			$("#field1").val(managerName);
-	 		}
+	 		}  
      })
  }   
  function checkNum(){
 	 var that =$("#field2");
 	 var r1= /^[0-9]*[1-9][0-9]*$/; 
 	 var value = that.val();
-	 var totleNum =$("#totleNum").val();  
+	 var totleNum =parseInt($("#totleNum").val())+otherNum;   
+	 $("#totleNum").val(totleNum)
 	 var val=r1.test(value);   
 	 if(val){ 
 		 var ruler = parseInt(totleNum)-parseInt(value);
@@ -138,9 +141,8 @@ $("#save-detail-btn").click(function(){
 	if($("#save").val()!="1"){
 		return false;
 	} 
-    var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val()); 
-    debugger;
-    saveForm($("#detail-form")); 
+    var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val());  
+    saveForm($("#detail-form"));  
     $(".totleNum").find("td[data-field-name='field2']").text(totle); 
     $(".totleNum").data().field2=totle;
     $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性 
