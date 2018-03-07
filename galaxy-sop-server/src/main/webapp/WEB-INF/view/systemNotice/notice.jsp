@@ -185,20 +185,24 @@
 		$.getHtml({
 			url:getDetailUrl('system_delete'),
 			okback:function(){
-				var dataJson={
-						id:id
-				}
-				sendPostRequestByJsonObj(
-				platformUrl.deleteMessage, 
-				dataJson,
-				function(data){ 
-					if(data.result.status=="OK"){ 
-						 layer.msg("删除成功")	  
-						$("#noticeTable").bootstrapTable('refresh');
-						$("#popbg").remove();
-						$("#powindow").remove();
+				$("#confirmDelete").click(function(){
+					var dataJson={
+							id:id
 					}
-				 })
+					sendPostRequestByJsonObj(
+					platformUrl.deleteMessage, 
+					dataJson,
+					function(data){ 
+						if(data.result.status=="OK"){ 
+							 layer.msg("删除成功")	  
+							$("#noticeTable").bootstrapTable('refresh');
+							$("#popbg").remove();
+							$("#powindow").remove();
+						}
+					 }) 
+					
+					
+				})
 			}
 			
 		})

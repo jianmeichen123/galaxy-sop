@@ -27,7 +27,7 @@
 			      <if test="sendStatus != null"> and send_status = #{sendStatus,jdbcType=VARCHAR} </if>
 			      <if test="startTime != null"> <![CDATA[  and FROM_UNIXTIME(send_time/1000,'%Y-%m-%d %H:%i:%s')>= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			      <if test="endTime != null"> <![CDATA[ and FROM_UNIXTIME(send_time/1000,'%Y-%m-%d %H:%i:%s') <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			      <if test="isDel != null"> and is_del = #{id,jdbcType=INTEGER} </if>
+			      <if test="isDel != null"> and is_del = #{isDel,jdbcType=INTEGER} </if>
 			      
 			</trim>
 		</where>
