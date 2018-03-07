@@ -37,7 +37,7 @@ public class ProjectCreatedHandler implements ApplicationListener<ProjectCreated
 		
 		InformationListdata query = new InformationListdata();
 		query.setProjectId(projectId);
-		query.setTime(1103L);
+		query.setTitleId(1103L);
 		query.setField1(userId+"");
 		Long count = listdataService.queryCount(query);
 		if(count >0)

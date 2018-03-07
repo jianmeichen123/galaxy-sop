@@ -101,5 +101,23 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		//iF.setUpdateId(createId);
 		iF.setTitleId(1810l);
 		informationFileDao.updateCreateUid(iF);
+		
+		//更新主承做人
+		ild = new InformationListdata();
+		ild.setTitleId(1103L);
+		ild.setProjectId(projectId);
+		ild.setField1(projectTransfer.getBeforeUid()+"");
+		ild.setField5("0");
+		
+		ild = informationListdataDao.selectOne(ild);
+		
+		if(ild != null)
+		{
+			InformationListdata entity = new InformationListdata();
+			entity.setId(ild.getId());
+			entity.setField1(createId+"");
+			informationListdataDao.updateById(entity);
+		}
+		
 	}
 }
