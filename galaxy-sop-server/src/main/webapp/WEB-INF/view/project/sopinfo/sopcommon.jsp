@@ -447,7 +447,9 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 				okback:function(){  
 					$(".qualificationstc").remove();
 					$("#infoCZR").show(); 
+					$("a[data-close='close']").remove();
 					buildTable(czrData);
+					$(".agency_close").click(function(){$("#powindow").remove();$("#popbg").remove()})
 				} 
 			}) 
 		})
