@@ -337,7 +337,7 @@ var chartOverviewUtils = {
 		        lineColor: "#e9ebf2",
 		        tickWidth: 0,
 		        allowDecimals:false, //不显示小数
-		        //categories: ['<a href="http://wwww.baidu.com" target="_blank">Jan</a>','朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
+		        //categories: [],
 		    },
 		    yAxis: {
 		        gridLineColor: '#e9ebf2',
@@ -410,7 +410,7 @@ var chartOverviewUtils = {
 		        lineColor: "#e9ebf2",
 		        tickWidth: 0,
 		        allowDecimals:false, //不显示小数
-		        //categories: ['<a href="http://wwww.baidu.com" target="_blank">Jan</a>','朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
+		        //categories: [],
 		    },
 		    yAxis: {
 		        gridLineColor: '#e9ebf2',
@@ -464,7 +464,7 @@ var chartOverviewUtils = {
 		init : function(formdata){
 			//departmentId,projectType,startTime,endTime
 			var form = queryOverviewUtils.getQuery();
-			
+			console.log(form)
 			function getTime(t){
 				var _time = new Date(t);
 				var year = _time.getFullYear();
@@ -489,18 +489,51 @@ var chartOverviewUtils = {
 					//查询前有初始化参数，在调用出需要做此步骤操作
 						var projectProgressArr = new Array();
 						var projectCountArr = new Array();
+						var lineProjectArr = new Array();
 						$.each(data.userData,function(){
 							projectCountArr.push(this.dataValue[0].data);
 							projectProgressArr.push(this.xValue)
+							lineProjectArr.push(this.dataValue)
 						});
-						console.log(projectProgressArr[0])
+						console.log(lineProjectArr)
 						//项目进度分布图
 						chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 						chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
 						//项目统计数top10
 						chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
 						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
-						//chartOverviewUtils.chartOverviewOptions.xAxis.labels.useHTML = true;
+						
+						if(form.departmentId!=undefined){
+							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
+								enabled: true,
+					            style: {
+					                fontWeight: 'bold',
+					                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+					            }
+							}
+							chartOverviewUtils.chartOverviewOptions.yAxis.legend = {
+									align: 'right',
+							        x: -90,
+							        verticalAlign: 'top',
+							        y: 1,
+							        floating: true,
+							        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+							        borderColor: '#CCC',
+							        borderWidth: 0,
+							        shadow: false
+							}
+							/*chartOverviewUtils.chartOverviewOptions.yAxis.tooltip.formatter = function() {
+							            return '<b>' + this.x + '</b><br/>' +
+							                this.series.name + ': ' + this.y + '<br/>' +
+							                '总量: ' + this.point.stackTotal;
+							        
+							}*/
+							//chartOverviewUtils.chartOverviewOptions.series[0] = lineProjectArr[0];//点击事业线的时候
+							
+							console.log(chartOverviewUtils.chartOverviewOptions.series[0])
+						}
+						
+						
 						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
 						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
 					/*	chartOverviewUtils.chartOverviewOptions.xAxis.labels.formatter = function(){
