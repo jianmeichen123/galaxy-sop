@@ -1,6 +1,8 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.systemMessage.SystemMessageBo;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -25,6 +28,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.systemMessage.SystemMessage;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.SystemMessageService;
 
 
@@ -35,7 +39,9 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 
 	@Autowired
 	private SystemMessageService systemMessageService;
-	
+
+	@Autowired
+	com.galaxyinternet.framework.cache.Cache cache;
 
 	@Override
 	protected BaseService<SystemMessage> getBaseService() {
@@ -69,6 +75,15 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		try {
 			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
 					systemMessage.getPageSize(), direction, property));
+			List<SystemMessage> list=new ArrayList<SystemMessage>();
+			list=queryPageList.getContent();
+			for(int i=0;i<list.size();i++){
+				SystemMessage m=list.get(i);
+				Object realname = cache.hget(PlatformConst.CACHE_PREFIX_USER+m.getCreateId(), "realName");
+				if(null!=realname){
+					  m.setUserStr((String)realname);	
+				}
+			}
 			data.setPageList(queryPageList);
 			data.setResult(new Result(Status.OK, ""));
 			return data;
@@ -104,7 +119,6 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 				osTypeArr=systemMessage.getOsType().split(",");
 			}
 			systemMessage.setSendStatus("messageStatus:1");
-			//systemMessage.setSendTime(DateUtil.stringToLong(systemMessage.getSendTime().toString(), "yyyy-MM-dd HH:mm:ss").toString());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();

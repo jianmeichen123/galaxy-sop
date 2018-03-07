@@ -51,12 +51,12 @@
 					<thead>
 					    <tr> 
 				        	<th data-field="messageContent"  data-width="14%" data-align="left">通知内容</th>
-				        	<th data-field="createId"  data-width="14%" data-align="left">创建人</th>
-				        	<th data-field="createdTime"  data-width="14%" data-align="left">创建时间</th>
-				        	<th data-field="sendTime"  data-width="18%" data-align="left">推送通知时间</th>
-				        	<th data-field="sendStatus"  data-width="12%" data-align="left">状态</th>
+				        	<th data-field="userStr"  data-width="14%" data-align="left">创建人</th>
+				        	<th data-field="createTimeStr"  data-width="14%" data-align="left">创建时间</th>
+				        	<th data-field="sendTimeStr"  data-width="18%" data-align="left">推送通知时间</th>
+				        	<th data-field="messageStatusStr"  data-width="12%" data-align="left">状态</th>
 				        	<th data-field="osType"  data-width="14%" data-align="left">发送平台</th>
-				        	<th data-field="projectName"  data-width="14%" data-align="left">操作</th>
+				        	<th data-field="projectName"  data-width="14%" data-align="left" data-formatter="optFormatter">操作</th>
 	 					</tr>	
 	 				</thead>
 
@@ -200,5 +200,27 @@
 				$("#sendStatus").html(options) 
 			});
 		}
-	
+	 function optFormatter(value, row, index)
+		{
+			var status = row.status;
+			var action = 'close';
+			var actionDesc = '关闭';
+			if(status == 0)
+			{
+				action = 'open';
+				actionDesc = '开启';
+			} 
+			if(row.moduleCode==1){
+				var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'sE\')">查看</label>&nbsp;&nbsp;';
+				content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
+				
+			}else{
+				var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
+				content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
+			}
+			content += '<label class="blue" data-btn="btn" onclick="toggleStandard('+row.id+',\''+action+'\')">'+actionDesc+'</label>';
+			
+			return content;
+			
+		}
 </script>
