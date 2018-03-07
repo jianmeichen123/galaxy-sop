@@ -1,11 +1,11 @@
 
 	//1.8新加数据开始
 	//不同表格公共方法
-function info_table(code,name,table){  
+function info_table(code,name,table){ 
 	var pid=table.attr("parentid");
 	table.attr("data-name",name);
     table.attr("data-url-code",code);			
-	sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
+	sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){ 
         var result = data.result.status;
 		var header=data.entityList;
 		if(result=="OK"){  
@@ -23,7 +23,7 @@ function info_table(code,name,table){
 //1.8新加数据结束
 function buildTable(title)
 {
-	//列表Header
+	//列表Header 
 	if(title.tableHeader)
 	{	var header = title.tableHeader;
 		var tables = $("table[data-title-id='"+header.titleId+"']");
@@ -42,12 +42,16 @@ function buildTable(title)
 					}
 					if(header.code=='finance-history'&&(key == 'field8'||key == 'field9'||key == 'field10')){
 						continue;
-					}
+					}if(header.code=="team-person"&&key=="field5"){ 
+						continue;
+					}   
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
 				}
 			}
+
+			if(header.code=="team-person"){ return;}
 			if(header.titleId =='1810'||header.titleId =='1811')
 			{
 				tr +='<th data-field-name="updateUserName">编辑人</th>';
@@ -67,6 +71,17 @@ function buildTable(title)
 	//列表Row
 	if(title.dataList)
 	{
+		if(header.code=="team-person"){ 
+			$.each(title.dataList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+				this.field1Str = res.realName;
+				this.field2Str =this.field2;
+				this.field3Str = res.departmentName;
+				this.field3Id = res.departmentId;
+				this.field4Str = res.managerName;  
+			})
+		} 
 		$("#location").hide();
 		$.each(title.dataList,function(){
 			var row = this;
@@ -106,14 +121,20 @@ function buildRow(row,showOpts,titleId)
 			if(titleId=="1903"){
 				if(k=="field3"||k=="field4"||k=="field5")
 				row[k] = _parsefloat(row[k])
-			}
-			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+			} 
+			if(titleId=='1103'){ 
+				tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+			}else{
+				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');			
+			}	 
 		}
 		
 	});
+	if(header.code=="team-person"){ return;}
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
 	td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
+
 	if(isTransferings=="false" && isCreatedByUser=='true'){
 		td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">编辑</label>');
 		td.append('<label class="blue" data-btn="btn" onclick="delRow(this)">删除</label>');

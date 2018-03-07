@@ -71,12 +71,13 @@ position: absolute;
         </div>
         <div class='middle'>
         	<span class='m_one'>
-        		<span>投资经理：</span>
-				<span id="createUname"></span><span>(</span><span id="projectCareerline"></span><span>)</span>
-        	</span>
-        	<span class='m_one'>
         		<span>创建时间：</span>
 				<span id="create_date"></span>
+        	</span>
+        	<span class='m_one'>
+        		<span>承作人：</span>
+				<span id="createUname"></span><span>(</span><span id="projectCareerline"></span><span>)&nbsp;</span>
+				<span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="点击查看全部" id="undeLine_sop">等&nbsp;&nbsp;共<span id="czrNum"></span>人</span>
         	</span>
         </div>
         <!-- tab标签 -->
@@ -397,15 +398,14 @@ $('#project_name_edit').blur(function(){
 	
 	
 	
-})
+}) 
 //查询 FAtitke 
-function showFaname(){
-
+function showFaname(){ 
 sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,showName);
-	function showName(data){
+	function showName(data){ 
 		var code = $("#faName").attr("data"); 
 		code="1120,"+code;
-		var valList =data.entity.childList ; 
+		var valList =data.entity.childList ;  
 		if(valList.filter(function(val){return val.valRuleFormula==code})[0]==undefined||valList.filter(function(val){return val.valRuleFormula==code})[0].resultList==undefined){
 
 		}else{
@@ -427,8 +427,31 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 				$("#faName").attr('data-original-title',Str);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}
-		}
-		
+		} 
+		//承作人
+		var czrData = data.entity.childList.filter(function(val){return val.id==1103})[0];
+		var czrList = czrData.dataList;
+		if(czrList.length>1){ 
+			$("#czrNum").text(czrList.length)
+		}else{ 
+			$("#undeLine_sop").hide()
+		} 
+		sendGetRequest(platformUrl.getUsersInfo, null, function(data){
+			userInfo=data.entityList; 
+		});
+		$("#undeLine_sop").click(function(){ 
+			//czrList
+			$.getHtml({
+				url:"/sop/html/czr_pop.html",//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+					$("#pop-title-czr").text("项目承作人");
+					$("#learning").remove();
+					$("#czrTableInfo").show();  
+					buildTable(czrData);
+				} 
+			}) 
+		})
 	}
 }
 
