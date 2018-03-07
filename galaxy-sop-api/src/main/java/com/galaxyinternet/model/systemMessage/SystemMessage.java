@@ -178,28 +178,28 @@ public class SystemMessage extends PagableEntity {
 
 	public String getSendTimeStr() {
 		if (sendTimeStr == null && sendTime != null) {
-			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", sendTime);
+			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", sendTime);
 		}
 		return sendTimeStr;
 	}
 
 	public void setSendTimeStr(String sendTimeStr) {
 		if (sendTimeStr == null && sendTime != null) {
-			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", sendTime);
+			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", sendTime);
 		}
 		this.sendTimeStr = sendTimeStr;
 	}
 
 	public String getCreateTimeStr() {
 		if (createTimeStr == null && createdTime != null) {
-			createTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", createdTime);
+			createTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", createdTime);
 		}
 		return createTimeStr;
 	}
 
 	public void setCreateTimeStr(String sendTimeStr) {
 		if (sendTimeStr == null && createdTime != null) {
-			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", createdTime);
+			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", createdTime);
 		}
 		this.sendTimeStr = sendTimeStr;
 	}
@@ -225,7 +225,7 @@ public class SystemMessage extends PagableEntity {
     public void setCreatedTime(Long createdTime) {
     	this.createdTime = createdTime;
     	if(createdTime != null){
-    		this.createTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", createdTime); 
+    		this.createTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", createdTime); 
     	}
     }
 

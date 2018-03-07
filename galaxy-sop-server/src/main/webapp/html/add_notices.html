@@ -99,7 +99,7 @@ $(function(){
 	})
 	
 	$('.system_radio_second input[name="sendTime"]').datepicker({//定时
-	    format: 'yyyy-mm-dd',
+	    format: 'yyyy-MM-dd',
 	    language: "zh-CN",
 	    autoclose: true,
 	    todayHighlight: false,
@@ -110,6 +110,7 @@ $(function(){
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now',
+	    minDate:new Date(),
 	    startDate:new Date
 	})
 	$('.task-reason input[name="upgradeTime"]').datepicker({//系统升级
@@ -124,6 +125,7 @@ $(function(){
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now',
+	    minDate:new Date(),
 	    startDate:new Date
 	})
 	
@@ -144,7 +146,7 @@ $(function(){
 		var textArealen = $('.system_textarea').val().length;
 		var checkboxLen = $('.highlighCheckbox_checked').length;
 		var radioLen = $('.radio_checked').length;
-		var updateTime = $('input[name="formationUpdate"]').val()
+		var updateTime = $('input[name="upgradeTime"]').val()
 		if(textArealen==0||checkboxLen==0||updateTime==''){
 			$('.system_send').addClass('system_disabled')
 		}else{
