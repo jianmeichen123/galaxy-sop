@@ -2667,6 +2667,7 @@ table td[data-field-name='opt']{overflow:visible;padding:0px;};
 .h_imgs_add{cursor:pointer;background:url(../img/qxt/h_imgs_add.png) 0 0 no-repeat;font-size: 0;display: inline-block;}
 .h_imgs input[type='file']{width:148px;height:118px;opacity: 0;}
 .h_look img{width:60%;margin-top: 10px;margin-right: 1000px;}
+.h_look .alertImg{width:auto;}
 dd.border_dd{border:1px solid #ff966b;border-radius:100px;color:#ff966b; text-align:center; padding:0 18px;line-height:27px;height:26px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:5px}
 .base_tab-content .base_half{display:inline-block;width:50%;}
