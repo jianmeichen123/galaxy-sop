@@ -282,7 +282,6 @@
 		{
 		 var content="";
 		 if(row.sendStatus!="messageStatus:3"){
-			 alert(row.sendStatus)
 			 content += "<span data-code='system_close' class='system_close' onclick='system_close("+row.id+",/"+row.sendStatus+"/)'>关闭</span>&nbsp;&nbsp;";
 			 content += "<span data-code='add_notice' class='system_edit' onclick='system_edit("+row.id+",/"+row.sendStatus+"/)'   >编辑</span>&nbsp;&nbsp;";
 			   
