@@ -158,29 +158,35 @@
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 	})
-	$('.system_close,.system_delete').click(function(){//关闭和删除事件
-		var code = $(this).attr('data-code');
+	function system_close(){
 		$.getHtml({
-			url:getDetailUrl(code),
+			url:getDetailUrl("system_close"),
 			okback:function(){
-				
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
-		
-	})
+
+	}
+	function system_delete(){
+		$.getHtml({
+			url:getDetailUrl('system_delete'),
+			okback:function(){
+			}
+		})
+		$('.close').addClass('tast-close')//添加关闭按钮
+
+	}
+	function system_edit(){
+		$.getHtml({
+			url:getDetailUrl("add_notice"),
+			okback:function(){
+			}
+		})
+		$('.close').addClass('tast-close')//添加关闭按钮
+
+	}
 	
-	//编辑按钮
-	$('.system_edit').click(function(){
-		var code = $(this).attr('data-code');
-		$.getHtml({
-			url:getDetailUrl(code),
-			okback:function(){
-				
-			}
-		})
-		$('.close').addClass('tast-close')//添加关闭按钮
-	})
+
 	selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
     //系统消息状态
 	 function selectMessageStatus(url, name, mark,selectIndex){
@@ -202,23 +208,9 @@
 		}
 	 function optFormatter(value, row, index)
 		{
-			var status = row.status;
-			var action = 'close';
-			var actionDesc = '关闭';
-			if(status == 0)
-			{
-				action = 'open';
-				actionDesc = '开启';
-			} 
-			if(row.moduleCode==1){
-				var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'sE\')">查看</label>&nbsp;&nbsp;';
-				content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'edit\')">编辑</label>&nbsp;&nbsp;';
-				
-			}else{
-				var content = '<label class="blue" data-btn="btn" onclick="PopR(this,\'s\')">查看</label>&nbsp;&nbsp;';
-				content += '<label class="blue" data-btn="btn" onclick="PopR(this,\'e\')">编辑</label>&nbsp;&nbsp;';
-			}
-			content += '<label class="blue" data-btn="btn" onclick="toggleStandard('+row.id+',\''+action+'\')">'+actionDesc+'</label>';
+			var content = "<span data-code='system_close' class='system_close' onclick='system_close()'>关闭</span>&nbsp;&nbsp;";
+				content += "<span data-code='add_notice' class='system_edit' onclick='system_edit()'   >编辑</span>&nbsp;&nbsp;";
+			    content += "<span data-code='system_delete' class='system_delete' onclick='system_delete()' >删除</span>";
 			
 			return content;
 			

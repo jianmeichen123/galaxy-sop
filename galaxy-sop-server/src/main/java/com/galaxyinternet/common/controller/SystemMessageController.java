@@ -114,23 +114,13 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		}
 		try
 		{
-			String [] osTypeArr = null;
-			if(null!=systemMessage.getOsType()&&!"".equals(systemMessage.getOsType())){
-				osTypeArr=systemMessage.getOsType().split(",");
-			}
 			systemMessage.setSendStatus("messageStatus:1");
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
 			systemMessage.setCreatedTime(now);
 			systemMessage.setCreateId(userId);
-			if(osTypeArr.length>0){
-				for(int i=0;i<osTypeArr.length;i++){
-					systemMessage.setId(null);
-					systemMessage.setOsType(osTypeArr[i]);
-					 systemMessageService.insert(systemMessage);
-				}
-			}
+			 systemMessageService.insert(systemMessage);
 			responseBody.setResult(new Result(Status.OK,"新增成功"));
 		} catch (Exception e)
 		{
