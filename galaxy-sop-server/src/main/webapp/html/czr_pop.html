@@ -68,35 +68,36 @@ $(function(){
 		})		  
    		$("select[ name='field3']").html("").append(nullD).append(res) 	
    	})    
-   	if(typeof czr_Rdata != "undefined"){   
-   		console.log(czr_Rdata)
+   	if(typeof czr_Rdata != "undefined"){    
    		if(czr_Rdata){
-   	   	   	$("#field3").val(czr_Rdata.field3Id);
-   	   	    getUser($("#field3"))   			
+   	   	   	$("#field3").val(czr_Rdata.field3Id); 
+   	   	    getUser($("#field3"),czr_Rdata.field1); 			
    		}
    	}
      
 })
- function getUser(dom){  
+ function getUser(dom,managerName){  
  	var that =$(dom); 
  	var careerId=that.val(); 
  	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
 		function(data) { 
  			var list = data.entityList;  
  			if(arrs.length>=0){  
-	 			$.each(arrs,function(i,value){ 
+	 			$.each(arrs,function(i,value){  
+	 		 		if(managerName==value){ 
+	 		 			return;
+	 		 		}
 	 				list = list.filter(function(val){  return val.idstr != parseInt(value)}); 
 	 			}) 
  		   	}
- 			/* debugger; */ 
- 			console.log(list);
  			var res="";
  			$.each(list,function(){ 
  				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
  			})  
  			$("select[name='field1']").html("").append(nullD).append(res); 
- 			manager = data.userData.manager;
- 			$("#managerName").val(manager);
+	 		if(managerName){ 
+	 			$("#field1").val(managerName);
+	 		}
      })
  }   
  function checkNum(){

@@ -861,7 +861,7 @@ function buildTable(sec,title)
 				this.field1Str = res.realName;
 				this.field2Str =this.field2;
 				this.field3Str = res.departmentName;
-				this.field3Id = res.departmentId;
+				this.field3Id = res.departmentId; 
 				this.field4Str = res.managerName;  
 			})
 		}
@@ -986,14 +986,16 @@ function buildRow(row,showOpts,titleId)
 	
 	if(showOpts == true)
 	{
-		if(row.titleId==1103&&row.field5=="1"){
-			
-		}else{
-			td.text("--")
-			tr.append(td);
-			tr.addClass("totleNum");
-			return tr;
-		}
+		if(row.titleId==1103){
+			if(row.field5=="1"){
+				
+			}else{
+				td.text("--")
+				tr.append(td);
+				tr.addClass("totleNum");
+				return tr;
+			}
+		} 
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
@@ -2109,7 +2111,8 @@ function selectContext(formId){
 //新增弹出页面渲染
 function addRow(ele)
 {
-	var code = $(ele).prev().data('code');  
+	var code = $(ele).prev().data('code'); 
+	var formBox=$(ele).closest('form');
 	czr_Rdata=false; 
 	if(code=="team-person"){		
 		var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
@@ -2213,6 +2216,7 @@ function saveForm(form)
  */
 function saveRow(data)
 {
+	debugger;
 	data = JSON.parse(data);
 	if(data.subCode=="team-person"){ 
 		var tdid =data.field1;
@@ -2341,6 +2345,8 @@ function editRow(ele)
 						$("#pop-title-time").text('编辑里程碑和时间节点');
 						$("#pop-title").text('编辑分期注资计划');
 					} 
+				 $("#detail-form input[name='subCode']").val(code);
+				 $("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 				 if(code=="team-person"){  
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
@@ -2353,8 +2359,6 @@ function editRow(ele)
 		            czr_dataArr=arrs;
 	            	return false;
 	            }
-				$("#detail-form input[name='subCode']").val(code);
-				$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 				selectContext("detail-form");
 				//增加显示字段限制
 				
