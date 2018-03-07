@@ -884,7 +884,9 @@ function type_10_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;
-	
+	if(tableHeader.code=="team-person"){
+		htitle+="<img title=\"· 主承做人可根据项目的参与情况，添加多个副承做人&#10· 添加多个承做人时，必须给各承做人分配承做比例 &#10· 各承做人承做比例只能是正整数，比例总和=100% &#10· 副承做人可删除，主承做人不可删除 \" src=\"/sop/img/sop_progress/remind__icon.png\" class=\"alertImg\" title=\"\">"
+	}
 	if(mark == 's'){
 		//展示 
 		var filed_sort = [];

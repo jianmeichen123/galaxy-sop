@@ -2237,8 +2237,7 @@ function saveRow(data)
 	}
 	var titleId = data.titleId;
 	var titleCode;
-	var index = data.index;  
-	debugger;
+	var index = data.index;   
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);

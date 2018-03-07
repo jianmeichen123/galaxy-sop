@@ -2667,6 +2667,7 @@ table td[data-field-name='opt']{overflow:visible;padding:0px;};
 .h_imgs_add{cursor:pointer;background:url(../img/qxt/h_imgs_add.png) 0 0 no-repeat;font-size: 0;display: inline-block;}
 .h_imgs input[type='file']{width:148px;height:118px;opacity: 0;}
 .h_look img{width:60%;margin-top: 10px;margin-right: 1000px;}
+.h_look .alertImg{width:auto;}
 dd.border_dd{border:1px solid #ff966b;border-radius:100px;color:#ff966b; text-align:center; padding:0 18px;line-height:27px;height:26px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:5px}
 .base_tab-content .base_half{display:inline-block;width:50%;}
@@ -3952,14 +3953,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .mt_50{margin-top: 50px;} 
  .agency_close{display:inline-block;position: absolute; right:9px;top:9px;width:18px;height:18px; background:url('../img/base_info/close.png') no-repeat center;cursor:pointer;}
  .agency_close:hover{background:url('../img/base_info/xclose.png') no-repeat center;cursor:pointer;}
-
- .pagebox .tabtable .agency_institute  table{border: 1px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
- .agency_institute table th,.agency_institute table td{text-align:center; border-bottom:1px solid #e4e4e4;}
- .agency_institute table th{padding:3px 0;}
- .pagebox .tabtable .agency_institute  table tr:last-child td{border-bottom:none;}
+ .pagebox .tabtable .agency_institute  table,.newpopTable{border: 1px solid #d8d8d8; padding:0; border-radius: 2px!important;table-layout: fixed;margin-top:30px;margin-bottom:23px;}
+ .agency_institute table th,.agency_institute table td,.newpopTable td,.newpopTable th{text-align:center; border-bottom:1px solid #e4e4e4;}
+ .agency_institute table th,.newpopTable th{padding:3px 0;}
+ .pagebox .tabtable .agency_institute  table tr:last-child td,.newpopTable tr:last-child td{border-bottom:none;}
  .agency_institute .invest_max_height{width: auto; padding: 0 24px;}
  #add_meet_dialog dd #meetingType{width:225px;}
- .member table.team_info .on td{ background:none;}
+ .member table.team_info .on td,.newpopTable .on td{ background:none!important;}
  .basic_message_cont span.error{margin-left:118px; color: #ff0000;}
  .basic_message_cont #pickeother-error{margin-left: 4px;margin-top: 36px;}
   .basic_message_cont #finance_status_sel-error.error{margin-left:0;}
@@ -4706,3 +4706,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 #grid_overview{display:none;}
 .project_total_top10{margin-top:40px;}
 .searchall_prj.primary1{display:none;}
+#undeLine_sop{border-bottom:1px dashed #939baf;cursor:pointer;}
+#infoCZR{width:600px;max-height:500px;overflow-y:auto;}
+#czrTableInfo{margin-top:60px;width: 100%;}
+.newPopTop{position:absolute; top:0;right:0;left:0; background-size: cover;}
