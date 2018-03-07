@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.systemMessage.SystemMessageBo;
-import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -165,6 +164,75 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		{
 			responseBody.setResult(new Result(Status.ERROR, null, "delete message faild"));
 			logger.error("delete message faild ", e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 删除消息
+	 * 
+	 * @param id
+	 * @version 2018-03-02
+	 * @author chenjianmei
+	 *           消息id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateMessage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> updateMessage(@RequestBody SystemMessage param, HttpServletRequest request)
+	{
+		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
+
+		try
+		{
+			SystemMessage sysMessage = new SystemMessage();
+			sysMessage = systemMessageService.queryById(param.getId());
+			if (sysMessage == null)
+			{
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑的消息不存在"));
+				return responseBody;
+			}
+			int id = systemMessageService.updateById(param);
+			if (id != 1)
+			{
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑消息失败"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			} catch (Exception e)
+		{
+				e.printStackTrace();
+			responseBody.setResult(new Result(Status.ERROR, null, "edit message faild"));
+			logger.error("edit message faild ", e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 根绝id查询接口
+	 * 
+	 * @version 2018-03-07
+	 * @author chenjianmei
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sml", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> sml(@RequestBody SystemMessage systemMessage, HttpServletRequest request)
+	{
+		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
+		if (systemMessage == null || systemMessage.getId() == null || "".equals(systemMessage.getId()))
+		{
+			responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
+			return responseBody;
+		}
+		try
+		{
+			SystemMessage query=new SystemMessage();
+			query.setId(systemMessage.getId());
+			 SystemMessage queryOne = systemMessageService.queryOne(query);
+			 responseBody.setEntity(queryOne);
+			responseBody.setResult(new Result(Status.OK,"查询成功"));
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			logger.error("异常信息:", e.getMessage());
 		}
 		return responseBody;
 	}

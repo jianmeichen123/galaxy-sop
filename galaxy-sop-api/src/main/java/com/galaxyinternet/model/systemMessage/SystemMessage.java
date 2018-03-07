@@ -47,6 +47,8 @@ public class SystemMessage extends PagableEntity {
 	private String createTimeStr;
 
 	private String messageStatusStr;
+	
+	private String upgradeTimeStr;
 
 	public Long getId() {
 		return id;
@@ -79,7 +81,7 @@ public class SystemMessage extends PagableEntity {
 	public void setSendTime(Long sendTime) {
 		this.sendTime = sendTime;
 		if ( sendTime != null) {
-			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd", sendTime);
+			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", sendTime);
 		}
 		
 	}
@@ -154,6 +156,11 @@ public class SystemMessage extends PagableEntity {
 
 	public void setUpgradeTime(Long upgradeTime) {
 		this.upgradeTime = upgradeTime;
+		if ( upgradeTime != null) {
+			upgradeTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", upgradeTime);
+		}
+		
+		
 	}
 
 	public String getMessageContent() {
@@ -202,6 +209,16 @@ public class SystemMessage extends PagableEntity {
 			sendTimeStr = DateUtil.transferLongToDate("yyyy-MM-dd HH:mm", createdTime);
 		}
 		this.sendTimeStr = sendTimeStr;
+	}
+	
+	
+
+	public String getUpgradeTimeStr() {
+		return upgradeTimeStr;
+	}
+
+	public void setUpgradeTimeStr(String upgradeTimeStr) {
+		this.upgradeTimeStr = upgradeTimeStr;
 	}
 
 	public String getMessageStatusStr() {

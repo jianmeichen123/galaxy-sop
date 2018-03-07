@@ -91,12 +91,15 @@
   <update id="updateById" parameterType="com.galaxyinternet.model.systemMessage.SystemMessage">
 		update system_message
 		<set>
-	      <if test="standardDetails != null">  standard_details = #{standardDetails,jdbcType=VARCHAR}, </if>
-	      <if test="status != null"> status = #{status,jdbcType=TINYINT}, </if>
-	      <if test="isValid != null"> is_valid = #{isValid,jdbcType=TINYINT}, </if>
-	      <if test="updatedId != null">  updated_id = #{updatedId,jdbcType=BIGINT}, </if>
-	      <if test="updateId != null">  updated_id = #{updateId,jdbcType=BIGINT}, </if>
+	      <if test="isNowSend != null">  is_now_send = #{isNowSend,jdbcType=TINYINT}, </if>
+	      <if test="osType != null">  os_type = #{osType,jdbcType=VARCHAR}, </if>
+	      <if test="sendTime != null"> send_time = #{sendTime,jdbcType=BIGINT}, </if>
+	      <if test="sendStatus != null"> send_status = #{sendStatus,jdbcType=VARCHAR}, </if>
+	      <if test="messageContent != null">  message_content = #{messageContent,jdbcType=VARCHAR}, </if>
+	      <if test="isDel != null">  is_del = #{isDel,jdbcType=BIGINT}, </if>
+	      <if test="updateId != null">  update_id = #{updateId,jdbcType=BIGINT}, </if>
 	      <if test="updatedTime != null">  update_time = #{updatedTime,jdbcType=BIGINT}, </if>
+	      <if test="upgradeTime != null">  upgrade_time = #{upgradeTime,jdbcType=BIGINT}</if>
 		</set>
 		
 		where id = #{id,jdbcType=BIGINT}

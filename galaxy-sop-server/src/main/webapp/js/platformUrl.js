@@ -1380,7 +1380,9 @@ var platformUrl = {
     toggleStandard: Constants.sopEndpointURL + "/galaxy/standard/toggle",
     /**提示语信息**/
     fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode",
-    addMessage : Constants.sopEndpointURL+"galaxy/systemMessage/am"
+    addMessage : Constants.sopEndpointURL+"galaxy/systemMessage/am",
+    updateMessage : Constants.sopEndpointURL+"galaxy/systemMessage/updateMessage",
+    queryMessage : Constants.sopEndpointURL+"galaxy/systemMessage/sml"
     
 }
 

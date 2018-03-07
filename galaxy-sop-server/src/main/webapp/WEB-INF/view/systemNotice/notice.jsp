@@ -154,39 +154,94 @@
 			okback:function(){
 				
 			}
-			
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
 	})
-	function system_close(){
+	function system_close(id){
 		$.getHtml({
 			url:getDetailUrl("system_close"),
 			okback:function(){
+				var dataJson={
+						id:id,
+						sendStatus:"messageStatus:3" 
+				}
+				sendPostRequestByJsonObj(
+				platformUrl.updateMessage, 
+				dataJson,
+				function(data){ 
+					if(data.result.status=="OK"){ 
+						 layer.msg("关闭成功")	  
+						$("#noticeTable").bootstrapTable('refresh');
+						$("#popbg").remove();
+						$("#powindow").remove();
+					}
+				 })
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 
 	}
-	function system_delete(){
+	function system_delete(id){
 		$.getHtml({
 			url:getDetailUrl('system_delete'),
 			okback:function(){
+				alert(id);
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 
 	}
-	function system_edit(){
+	function system_edit(id){
 		$.getHtml({
 			url:getDetailUrl("add_notice"),
 			okback:function(){
+				queryMessage(id);
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 
 	}
-	
-
+	function queryMessage(id){
+		var dataJson={
+				id:id
+		}
+		sendPostRequestByJsonObj(
+		platformUrl.queryMessage, 
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){ 
+				message=data.entity;
+				$("#messageId").val(message.id);
+				$("textarea[name=messageContent]").val(message.messageContent);
+				$("input[name=upgradeTime]").val(message.upgradeTimeStr);
+				$('.radio_cont').removeClass('radio_checked');
+				 $(".radio_cont").each(function (i) {
+					var value=$(this).find("input:first-child").val();
+					if(value==message.isNowSend){
+						$(this).addClass("radio_checked");
+						var name = $(this).attr('data-name');
+						if(name=="setTime"){
+							$('.system_radio_second .setTime').show();
+						}else{
+							$('.system_radio_second .setTime').hide();
+						}
+					}
+				})
+				$("input[name=sendTime]").val(message.sendTimeStr);
+			     var arr=message.osType.split("/");
+				 $(".highlighCheckbox").each(function (i) {
+					 var value=$(this).find("input:first-child").val();
+					 for(var i=0;i<arr.length;i++){
+						 if(value==arr[i]){
+							 $(this).addClass('highlighCheckbox_checked');
+						 }
+					 }
+				})
+			}
+		 })
+		
+		
+	}
 	selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
     //系统消息状态
 	 function selectMessageStatus(url, name, mark,selectIndex){
@@ -202,17 +257,30 @@
 						options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 					}
 				});
-				//$('select[name="'+name+'"]').append(options.join(''));
 				$("#sendStatus").html(options) 
 			});
 		}
 	 function optFormatter(value, row, index)
 		{
-			var content = "<span data-code='system_close' class='system_close' onclick='system_close()'>关闭</span>&nbsp;&nbsp;";
-				content += "<span data-code='add_notice' class='system_edit' onclick='system_edit()'   >编辑</span>&nbsp;&nbsp;";
-			    content += "<span data-code='system_delete' class='system_delete' onclick='system_delete()' >删除</span>";
-			
+			var content = "<span data-code='system_close' class='system_close' onclick='system_close("+row.id+")'>关闭</span>&nbsp;&nbsp;";
+				content += "<span data-code='add_notice' class='system_edit' onclick='system_edit("+row.id+")'   >编辑</span>&nbsp;&nbsp;";
+			    content += "<span data-code='system_delete' class='system_delete' onclick='system_delete("+row.id+")' >删除</span>";
 			return content;
 			
 		}
+	 function formatDateTime(inputTime) {    
+		    var date = new Date(inputTime);  
+		    var y = date.getFullYear();    
+		    var m = date.getMonth() + 1;    
+		    m = m < 10 ? ('0' + m) : m;    
+		    var d = date.getDate();    
+		    d = d < 10 ? ('0' + d) : d;    
+		    var h = date.getHours();  
+		    h = h < 10 ? ('0' + h) : h;  
+		    var minute = date.getMinutes();  
+		    var second = date.getSeconds();  
+		    minute = minute < 10 ? ('0' + minute) : minute;    
+		    second = second < 10 ? ('0' + second) : second;   
+		    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
+		};  
 </script>
