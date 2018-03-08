@@ -613,8 +613,6 @@ var chartOverviewUtils = {
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
 						}else{
-							alert('cc')
-							console.log(projectCountArr[0])
 							chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 							chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
 							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
