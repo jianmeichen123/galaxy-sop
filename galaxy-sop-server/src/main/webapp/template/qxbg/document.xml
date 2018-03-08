@@ -120,16 +120,7 @@
                                                                                     <w:sz w:val="24"/>
                                                                                     <w:szCs w:val="24"/>
                                                                                 </w:rPr>
-                                                                                <w:t>项目</w:t>
-                                                                            </w:r>
-                                                                            <w:r>
-                                                                                <w:rPr>
-                                                                                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                                                                    <w:color w:val="171717" w:themeColor="background2" w:themeShade="1A"/>
-                                                                                    <w:sz w:val="24"/>
-                                                                                    <w:szCs w:val="24"/>
-                                                                                </w:rPr>
-                                                                                <w:t xml:space="preserve">名称： </w:t>
+                                                                                <w:t>项目名称：</w:t>
                                                                             </w:r>
                                                                         </w:p>
                                                                     </w:tc>
@@ -184,16 +175,7 @@
                                                                                     <w:sz w:val="24"/>
                                                                                     <w:szCs w:val="24"/>
                                                                                 </w:rPr>
-                                                                                <w:t>项目承做</w:t>
-                                                                            </w:r>
-                                                                            <w:r>
-                                                                                <w:rPr>
-                                                                                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                                                                    <w:color w:val="171717" w:themeColor="background2" w:themeShade="1A"/>
-                                                                                    <w:sz w:val="24"/>
-                                                                                    <w:szCs w:val="24"/>
-                                                                                </w:rPr>
-                                                                                <w:t xml:space="preserve">人： </w:t>
+                                                                                <w:t>项目承做人：</w:t>
                                                                             </w:r>
                                                                         </w:p>
                                                                     </w:tc>
@@ -218,7 +200,7 @@
                                                                                     <w:sz w:val="24"/>
                                                                                     <w:szCs w:val="24"/>
                                                                                 </w:rPr>
-                                                                                <w:t>${NO1_1_2!"-"}</w:t>
+                                                                                <w:t>${NO1_1_2_z!"-"}</w:t>
                                                                             </w:r>
                                                                         </w:p>
                                                                     </w:tc>
@@ -248,16 +230,7 @@
                                                                                     <w:sz w:val="24"/>
                                                                                     <w:szCs w:val="24"/>
                                                                                 </w:rPr>
-                                                                                <w:t>隶属</w:t>
-                                                                            </w:r>
-                                                                            <w:r>
-                                                                                <w:rPr>
-                                                                                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                                                                    <w:color w:val="171717" w:themeColor="background2" w:themeShade="1A"/>
-                                                                                    <w:sz w:val="24"/>
-                                                                                    <w:szCs w:val="24"/>
-                                                                                </w:rPr>
-                                                                                <w:t xml:space="preserve">事业部： </w:t>
+                                                                                <w:t>隶属事业部：</w:t>
                                                                             </w:r>
                                                                         </w:p>
                                                                     </w:tc>
@@ -312,16 +285,7 @@
                                                                                     <w:sz w:val="24"/>
                                                                                     <w:szCs w:val="24"/>
                                                                                 </w:rPr>
-                                                                                <w:t>事业部</w:t>
-                                                                            </w:r>
-                                                                            <w:r>
-                                                                                <w:rPr>
-                                                                                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                                                                    <w:color w:val="171717" w:themeColor="background2" w:themeShade="1A"/>
-                                                                                    <w:sz w:val="24"/>
-                                                                                    <w:szCs w:val="24"/>
-                                                                                </w:rPr>
-                                                                                <w:t xml:space="preserve">总经理： </w:t>
+                                                                                <w:t>事业部总经理： </w:t>
                                                                             </w:r>
                                                                         </w:p>
                                                                     </w:tc>
@@ -606,7 +570,7 @@
                                                                         <w:sz w:val="24"/>
                                                                         <w:szCs w:val="24"/>
                                                                     </w:rPr>
-                                                                    <w:t>${NO1_1_2!"-"}</w:t>
+                                                                    <w:t>${NO1_1_2_z!"-"}</w:t>
                                                                 </w:r>
                                                             </w:p>
                                                         </w:tc>
@@ -1846,6 +1810,8 @@
                 <w:gridCol w:w="3119"/>
                 <w:gridCol w:w="3964"/>
             </w:tblGrid>
+
+            <#--
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -1974,7 +1940,42 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+            -->
 
+
+            <w:tr w:rsidR="00EF76AC">
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="7083" w:type="dxa"/>
+                        <w:gridSpan w:val="2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72" w:rsidP="00465934">
+                        <w:pPr>
+                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:jc w:val="left"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>项目名称：</w:t>
+                        </w:r>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                            <w:t>${NO1_1_1_n!"-"}</w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
 
 
             <w:tr w:rsidR="00EF76AC">
@@ -2048,72 +2049,7 @@
             </w:tr>
         </#if>
 
-            <#-- <w:tr w:rsidR="00EF76AC">
-                <w:tc>
-                    <w:tcPr>
-                        <w:tcW w:w="3119" w:type="dxa"/>
-                        <w:vAlign w:val="center"/>
-                    </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72" w:rsidP="00465934">
-                        <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
-                            <w:jc w:val="left"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                <w:b/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>项目承揽人：</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>${NO1_1_10!"-"}</w:t>
-                        </w:r>
-                    </w:p>
-                </w:tc>
-                <w:tc>
-                    <w:tcPr>
-                        <w:tcW w:w="3964" w:type="dxa"/>
-                        <w:vAlign w:val="center"/>
-                    </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72" w:rsidP="00465934">
-                        <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
-                            <w:jc w:val="left"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                <w:b/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>项目来源：</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
-                                <w:sz w:val="22"/>
-                            </w:rPr>
-                            <w:t>${NO1_flag!"-"}</w:t>
-                        </w:r>
-                    </w:p>
-                </w:tc>
-            </w:tr> -->
+
             <w:tr w:rsidR="00EF76AC">
                 <w:tc>
                     <w:tcPr>
@@ -2557,62 +2493,379 @@
                 </w:tc>
             </w:tr>
         </w:tbl>
+
+
         <w:tbl>
             <w:tblPr>
-                <w:tblStyle w:val="aa"/>
-                <w:tblpPr w:leftFromText="180" w:rightFromText="180" w:vertAnchor="text" w:horzAnchor="page" w:tblpX="9228" w:tblpY="67"/>
+                <w:tblpPr w:leftFromText="180" w:rightFromText="180" w:vertAnchor="text" w:horzAnchor="page" w:tblpX="9505" w:tblpY="182"/>
                 <w:tblOverlap w:val="never"/>
-                <w:tblW w:w="7083" w:type="dxa"/>
-                <w:tblBorders>
-                    <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                    <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                    <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                    <w:insideH w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                    <w:insideV w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                </w:tblBorders>
+                <w:tblW w:w="6575" w:type="dxa"/>
                 <w:tblLayout w:type="fixed"/>
+                <w:tblCellMar>
+                    <w:top w:w="15" w:type="dxa"/>
+                    <w:left w:w="15" w:type="dxa"/>
+                    <w:bottom w:w="15" w:type="dxa"/>
+                    <w:right w:w="15" w:type="dxa"/>
+                </w:tblCellMar>
                 <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
             </w:tblPr>
             <w:tblGrid>
-                <w:gridCol w:w="1853"/>
-                <w:gridCol w:w="1239"/>
-                <w:gridCol w:w="1858"/>
-                <w:gridCol w:w="2133"/>
+                <w:gridCol w:w="2225"/>
+                <w:gridCol w:w="2415"/>
+                <w:gridCol w:w="1935"/>
             </w:tblGrid>
-            <w:tr w:rsidR="00EF76AC">
+            <w:tr w:rsidR="003329B5">
                 <w:trPr>
-                    <w:trHeight w:val="297"/>
+                    <w:trHeight w:val="360"/>
                 </w:trPr>
                 <w:tc>
                     <w:tcPr>
-                        <w:tcW w:w="7083" w:type="dxa"/>
-                        <w:gridSpan w:val="4"/>
+                        <w:tcW w:w="6575" w:type="dxa"/>
+                        <w:gridSpan w:val="3"/>
                         <w:tcBorders>
-                            <#if !team_members?? >
-                            <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                            <#else>
-                            <w:bottom w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                            </#if>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
                         </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
                         <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
-                            <w:jc w:val="left"/>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="top"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑"/>
                                 <w:b/>
+                                <w:color w:val="000000"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
                             </w:rPr>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑" w:hint="eastAsia"/>
                                 <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>项目承做人</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+            <w:tr w:rsidR="003329B5">
+                <w:trPr>
+                    <w:trHeight w:val="330"/>
+                </w:trPr>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="2225" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>姓名（承做比例）</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="2415" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>事业部</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="1935" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>事业部总经理</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+
+
+            <#list NO1_1_2 as czr>
+            <w:tr w:rsidR="003329B5">
+                <w:trPr>
+                    <w:trHeight w:val="990"/>
+                </w:trPr>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="2225" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>${czr.field1!"-"}</w:t>
+                        </w:r>
+
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:br/>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="2415" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>${czr.field2!"-"}</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="1935" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="center"/>
+                            <w:textAlignment w:val="center"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
+                            </w:rPr>
+                            <w:t>${czr.field3!"-"}</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+            </#list>
+        </w:tbl>
+
+        <w:p w:rsidR="003329B5" w:rsidRDefault="003329B5">
+        <w:pPr>
+            <w:spacing w:line="360" w:lineRule="exact"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                <w:b/>
+                <w:sz w:val="22"/>
+            </w:rPr>
+        </w:pPr>
+        </w:p>
+
+
+        <w:tbl>
+            <w:tblPr>
+                <w:tblW w:w="6632" w:type="dxa"/>
+                <w:tblLayout w:type="fixed"/>
+                <w:tblCellMar>
+                    <w:top w:w="15" w:type="dxa"/>
+                    <w:left w:w="15" w:type="dxa"/>
+                    <w:bottom w:w="15" w:type="dxa"/>
+                    <w:right w:w="15" w:type="dxa"/>
+                </w:tblCellMar>
+                <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
+            </w:tblPr>
+            <w:tblGrid>
+                <w:gridCol w:w="1667"/>
+                <w:gridCol w:w="1605"/>
+                <w:gridCol w:w="1530"/>
+                <w:gridCol w:w="1830"/>
+            </w:tblGrid>
+            <w:tr w:rsidR="003329B5">
+                <w:trPr>
+                    <w:trHeight w:val="300"/>
+                </w:trPr>
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="6632" w:type="dxa"/>
+                        <w:gridSpan w:val="4"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                        <w:pPr>
+                            <w:widowControl/>
+                            <w:jc w:val="left"/>
+                            <w:textAlignment w:val="top"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:sz w:val="22"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:cs="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
+                                <w:sz w:val="22"/>
+                                <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>核心创始团队成员名单：（只展示3人其余在详情中显示）</w:t>
                         </w:r>
@@ -2622,36 +2875,39 @@
 
             <#if team_members?? && (team_members?size > 0) >
             <#list team_members as tm>
-            <w:tr w:rsidR="00EF76AC">
+            <w:tr w:rsidR="003329B5">
                 <w:trPr>
-                    <w:trHeight w:val="350"/>
+                    <w:trHeight w:val="330"/>
                 </w:trPr>
                 <w:tc>
                     <w:tcPr>
-                        <w:tcW w:w="1853" w:type="dxa"/>
+                        <w:tcW w:w="1667" w:type="dxa"/>
                         <w:tcBorders>
-                            <#if tm_index = 0 >
-                            <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                            </#if>
-                            <w:right w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
                         </w:tcBorders>
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
                         <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:widowControl/>
                             <w:jc w:val="left"/>
+                            <w:textAlignment w:val="top"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
                             </w:rPr>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
+                                <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>${tm.field1!"-"}</w:t>
                         </w:r>
@@ -2659,30 +2915,33 @@
                 </w:tc>
                 <w:tc>
                     <w:tcPr>
-                        <w:tcW w:w="1239" w:type="dxa"/>
+                        <w:tcW w:w="1605" w:type="dxa"/>
                         <w:tcBorders>
-                            <#if tm_index = 0 >
-                            <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                        </#if>
-                            <w:left w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
                         </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
                         <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:widowControl/>
                             <w:jc w:val="center"/>
+                            <w:textAlignment w:val="top"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
                             </w:rPr>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
+                                <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>${tm.field3!"-"}</w:t>
                         </w:r>
@@ -2690,30 +2949,33 @@
                 </w:tc>
                 <w:tc>
                     <w:tcPr>
-                        <w:tcW w:w="1858" w:type="dxa"/>
+                        <w:tcW w:w="1530" w:type="dxa"/>
                         <w:tcBorders>
-                            <#if tm_index = 0 >
-                            <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                        </#if>
-                            <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
                         </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
                         <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:widowControl/>
                             <w:jc w:val="center"/>
+                            <w:textAlignment w:val="top"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
                             </w:rPr>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
+                                <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>${tm.field2!"-"}</w:t>
                         </w:r>
@@ -2721,29 +2983,33 @@
                 </w:tc>
                 <w:tc>
                     <w:tcPr>
-                        <w:tcW w:w="2133" w:type="dxa"/>
+                        <w:tcW w:w="1830" w:type="dxa"/>
                         <w:tcBorders>
-                            <#if tm_index = 0 >
-                            <w:top w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
-                        </#if>
-                            <w:left w:val="dotted" w:sz="4" w:space="0" w:color="auto"/>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
                         </w:tcBorders>
+                        <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                     </w:tcPr>
-                    <w:p w:rsidR="00EF76AC" w:rsidRDefault="00893B72">
+                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
                         <w:pPr>
-                            <w:spacing w:line="440" w:lineRule="exact"/>
+                            <w:widowControl/>
                             <w:jc w:val="center"/>
+                            <w:textAlignment w:val="top"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体"/>
+                                <w:color w:val="000000"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
                             </w:rPr>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
+                                <w:color w:val="000000"/>
+                                <w:kern w:val="0"/>
                                 <w:sz w:val="22"/>
-                                <w:szCs w:val="20"/>
+                                <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>${tm.field5!"-"}</w:t>
                         </w:r>
@@ -2753,11 +3019,22 @@
             <#if tm_index == 2 >
                 <#break>
             </#if>
-        </#list>
-        </#if>
-
+            </#list>
+            </#if>
         </w:tbl>
 
+
+        <w:p w:rsidR="003329B5" w:rsidRDefault="003329B5">
+        <w:pPr>
+            <w:spacing w:line="360" w:lineRule="exact"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                    <w:b/>
+                    <w:sz w:val="22"/>
+                </w:rPr>
+            </w:pPr>
+        </w:p>
 
         <w:p w:rsidR="00515BC5" w:rsidRDefault="00515BC5" w:rsidP="00515BC5">
             <w:pPr>

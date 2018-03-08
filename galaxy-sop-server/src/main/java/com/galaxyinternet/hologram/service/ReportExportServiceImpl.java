@@ -4,7 +4,6 @@ package com.galaxyinternet.hologram.service;
 import com.aliyun.oss.ServiceException;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
@@ -255,6 +254,49 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
             }
 
+            //项目承做人 1103 NO1_1_2   field_1:uid   field_3:deptId   field_5:标识主副
+            //NO1_1_2_s
+            Map<String, Object> query = new HashMap<>();
+            query.put("projectId", projectId);
+            List<InformationListdata> queryCZRList = listDataDao.searchFor1103(query);
+
+            List<InformationListdata> copyCZRList = new ArrayList<>(queryCZRList);
+
+            List<Map<String, Object>> resultC = new ArrayList<>();
+            Set<String> checkHasDept = new HashSet<>();
+            Map<String,Object> datac = null;
+            for(InformationListdata temp : queryCZRList)
+            {
+                if(checkHasDept.contains(temp.getProperty())){
+                    continue;
+                }else{
+                    checkHasDept.add(temp.getProperty());
+                }
+
+                datac = new HashMap<>();
+                datac.put("filed1", (cache.hget(PlatformConst.CACHE_PREFIX_USER+temp.getField1(), "realName")).toString()+"（"+ temp.getField2() +"）");
+                datac.put("filed2", cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(), "name"));
+
+                Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(),"manager");
+                if(managerId != null){
+                    datac.put("filed3", cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName"));
+                }
+
+                for(InformationListdata tempC : copyCZRList){
+                    if(tempC.getId().longValue() == temp.getId().longValue()){
+                        continue;
+                    }else if(tempC.getProperty().equals(temp.getProperty())){
+                        datac.put("filed1", datac.get("filed1")+"<w:br />"+
+                                (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempC.getField1(), "realName")).toString()+"（"+ tempC.getField2() +"）");
+                    }
+                }
+                resultC.add(datac);
+            }
+            map.put("NO1_1_2", resultC);
+            if(queryCZRList.size() > 1) map.put("NO1_1_2_s", true);
+
+
+
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
             map.put("NO1_1_1_n", textConversion(project.getProjectName()));
@@ -269,8 +311,8 @@ public class ReportExportServiceImpl implements ReportExportService {
             }*/
 
             User createUser = userService.queryById(project.getCreateUid());
-            //project.setCreateUname(createUser.getRealName());
-            map.put("NO1_1_2", createUser.getRealName());
+            project.setCreateUname(createUser.getRealName());
+            map.put("NO1_1_2_z", createUser.getRealName());
 
             Department department = departmentService.queryById(project.getProjectDepartid());
             //project.setProjectCareerline(department.getName());
@@ -566,11 +608,12 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(ids == null || ids.isEmpty()){
             return map;
         }
-
+        ids.remove(1103l);  //项目承做人 移到必选特殊处理  title_tableids.add("1103");
         Set<String> title_tableids = new TreeSet<>();
         for(Long temp : ids){
             title_tableids.add(temp+"");
         }
+
 
         //查询表格
         InformationListdata listdataQuery = new InformationListdata();
@@ -594,12 +637,14 @@ public class ReportExportServiceImpl implements ReportExportService {
         {
             toAddd = false;
             listDataResult = null;
+
             if(StringUtils.isNotBlank(item.getCode())){
                 remarkCode = item.getCode();
             }else{
                 remarkCode = CacheOperationServiceImpl.table_tid_remarkCode.get(item.getTitleId()+"");
             }
-            if(StringUtils.isNotBlank(remarkCode)) codeReplace = remarkCode.replace("-","_");
+            if(StringUtils.isNotBlank(remarkCode))
+                codeReplace = remarkCode.replace("-","_");
 
             if(item.getUpdateId() != null){
                 item.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getUpdateId(), "realName"));
@@ -618,6 +663,18 @@ public class ReportExportServiceImpl implements ReportExportService {
                     System.out.println();
                 }
             }
+
+            /*if("1103".equals(item.getTitleId())){ //team_person  项目承做人 ,必选, 特殊处理
+                if(map.containsKey(codeReplace)){
+                    ((List<InformationListdata>)  map.get(codeReplace)).add(item);
+                    //map.put(codeReplace,listDataResult);
+                }else{
+                    listDataResult = new ArrayList<>();
+                    listDataResult.add(item);
+                    map.put(codeReplace,listDataResult);
+                }
+                continue;
+            }*/
 
             for(int i=1; i<17;i++){
                 try {
@@ -731,6 +788,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         map.remove("work_experience");
         map.remove("entrepreneurial_experience");
         // == end 嵌套
+
 
         return map;
     }

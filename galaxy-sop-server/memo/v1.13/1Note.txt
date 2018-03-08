@@ -50,3 +50,90 @@ json ： data.userData
 	}
 }
 
+
+
+
+SELECT * FROM v_rel_dep_user;
+
+SELECT * FROM information_listdata WHERE title_id = 1103;
+
+SELECT
+	pro.id, pro.project_departId, pro.project_progress,
+	listdata.id, listdata.field_1, listdata.field_3,listdata.field_5,
+	deptUser.dep_id
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103;
+
+
+
+
+#-- field_1:uid   field_3:deptId   field_5:标识主副
+# 查看投资经理 for 合伙人  部门id
+#主
+SELECT
+	project_progress, create_uid, project_departId, COUNT(id) completed
+FROM
+	sop_project
+WHERE
+	project_departId = 13
+	AND project_status != 'projectStatus:2'
+	AND created_time >= 1514736000000
+
+GROUP BY
+	project_progress,create_uid;
+#副
+SELECT
+	pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(listdata.id) completed
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103
+
+	AND deptUser.dep_id = 13
+	AND listdata.field_5 = 0
+	AND pro.project_status != 'projectStatus:2'
+	AND pro.created_time >= 1514736000000
+GROUP BY
+	pro.project_progress, listdata.field_1;
+
+
+
+
+# 查看部门 for 高管
+# 主
+SELECT
+	project_progress, create_uid, project_departId, COUNT(id) completed
+FROM
+	sop_project
+WHERE
+	project_status != 'projectStatus:2'
+	AND created_time >= 1514736000000
+
+GROUP BY
+	project_progress,project_departId;
+
+
+#副
+SELECT
+	pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(listdata.id) completed
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103
+
+	AND listdata.field_5 = 0
+	AND deptUser.dep_id != pro.project_departId
+	AND pro.project_status != 'projectStatus:2'
+	AND pro.created_time >= 1514736000000
+GROUP BY
+	pro.project_progress, deptUser.dep_id;
+
+
