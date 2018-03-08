@@ -536,9 +536,10 @@ var chartOverviewUtils = {
 							}
 							chartOverviewUtils.chartOverviewOptions.plotOptions = {
 									column: {
-							            stacking: 'normal',
+										pointWidth:20,
+										stacking: 'normal',
 							            dataLabels: {
-							                enabled: true,
+							                enabled: false,
 							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
 							                style: {
 							                    textShadow: '0 0 3px black'
@@ -587,9 +588,10 @@ var chartOverviewUtils = {
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.plotOptions = {
 										column: {
-								            stacking: 'normal',
+											pointWidth:20,
+											stacking: 'normal',
 								            dataLabels: {
-								                enabled: true,
+								                enabled: false,
 								                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
 								                style: {
 								                    textShadow: '0 0 3px black'
@@ -610,50 +612,100 @@ var chartOverviewUtils = {
 								        color: '#008000'
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
+						}else{
+							alert('cc')
+							console.log(projectCountArr[0])
+							chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
+							chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
+							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
+								var temp = this.x.split('-');
+					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
+					        
+								}
+							chartOverviewUtils.chartOverviewOptionsSecond.tooltip.formatter = function() {
+								var temp = this.x.split('-');
+					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
+					        
+								}
+							chartOverviewUtils.chartOverviewOptions.plotOptions = {
+									column: {
+										pointWidth:20,
+							            dataLabels: {
+							                enabled: true,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.plotOptions = {
+									column: {
+										pointWidth:20,
+							            dataLabels: {
+							                enabled: true,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptions.series.length=1;
+							chartOverviewUtils.chartOverviewOptions.series[0] = {
+									name: 'Population',
+							        color:'#587edd',
+							        data: projectCountArr[0],
+							        dataLabels: {
+							            enabled: true,
+							            rotation: 0,
+							            color: '#6b799f',
+							            align: 'center',
+							            x: 0,
+							            y: 0,
+							            style: {
+							            	fontSize: '12px',
+							                fontFamily: 'Verdana, sans-serif',
+							                textShadow: '0 0 0px #fff',
+							                fontWeight:'normal',
+							            },
+							            formatter:function(){
+							     			return this.point.y;
+										},
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.series.length=1;
+							chartOverviewUtils.chartOverviewOptionsSecond.series[0] = {
+									name: 'Population',
+							        color:'#587edd',
+							        data: projectCountArr[1],
+							        dataLabels: {
+							            enabled: true,
+							            rotation: 0,
+							            color: '#6b799f',
+							            align: 'center',
+							            x: 0,
+							            y: 0,
+							            style: {
+							            	fontSize: '12px',
+							                fontFamily: 'Verdana, sans-serif',
+							                textShadow: '0 0 0px #fff',
+							                fontWeight:'normal',
+							            },
+							            formatter:function(){
+							     			return this.point.y;
+										},
+							        }
+							}
+							
+							
+							
 						}
 						
 						
-						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
-						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
-					/*	chartOverviewUtils.chartOverviewOptions.xAxis.labels.formatter = function(){
-							var temp = new Array();
-							temp = this.value.split('-');
-							switch(temp[1]){
-								case "projectProgress:1": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(1);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:2": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(2);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:3": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(3);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:4": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(4);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:5": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(5);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:6": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(6);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:7": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(7);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:8": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(8);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:9": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(9);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:10": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(10);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:11": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(11);' class='blue'>" + temp[0] + "</a>";
-									break;
-							}
-						};*/
+						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+				
 				}else{
 					layer.msg(data.result.errorCode);
 				}
