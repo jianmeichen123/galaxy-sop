@@ -494,9 +494,12 @@ var chartOverviewUtils = {
 							projectCountArr.push(this.dataValue[0].data);
 							projectProgressArr.push(this.xValue);
 							chargeProjectArr.push(this.dataValue[0].data)
-							console.log(this)
+							
 							if(this.dataValue.length>1){
 								cooprationProjectArr.push(this.dataValue[1].data)
+								var name1 = this.dataValue[0].name;
+								var name2 = this.dataValue[1].name;
+								console.log(name2)
 							}
 							
 						});
@@ -517,7 +520,7 @@ var chartOverviewUtils = {
 					                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
 					            }
 							}
-							chartOverviewUtils.chartOverviewOptions.yAxis.legend = {
+							chartOverviewUtils.chartOverviewOptions.legend = {
 									align: 'right',
 							        x: -90,
 							        verticalAlign: 'top',
@@ -569,7 +572,7 @@ var chartOverviewUtils = {
 						                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
 						            }
 								}
-								chartOverviewUtils.chartOverviewOptionsSecond.yAxis.legend = {
+								chartOverviewUtils.chartOverviewOptionsSecond.legend = {
 										align: 'right',
 								        x: -90,
 								        verticalAlign: 'top',
@@ -618,7 +621,6 @@ var chartOverviewUtils = {
 							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
 								var temp = this.x.split('-');
 					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
-					        
 								}
 							chartOverviewUtils.chartOverviewOptionsSecond.tooltip.formatter = function() {
 								var temp = this.x.split('-');
@@ -696,11 +698,7 @@ var chartOverviewUtils = {
 							        }
 							}
 							
-							
-							
 						}
-						
-						
 						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
 						var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
 				
