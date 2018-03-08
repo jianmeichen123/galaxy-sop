@@ -255,7 +255,6 @@ var projectGrid = {
 			    });
 		},
 		queryParams : function(params){
-			console.log(params)
 			if(projectGrid.research){
 				params.pageNum = 0;
 				projectGrid.research = false;
@@ -464,7 +463,6 @@ var chartOverviewUtils = {
 		init : function(formdata){
 			//departmentId,projectType,startTime,endTime
 			var form = queryOverviewUtils.getQuery();
-			console.log(form)
 			function getTime(t){
 				var _time = new Date(t);
 				var year = _time.getFullYear();
@@ -489,13 +487,20 @@ var chartOverviewUtils = {
 					//查询前有初始化参数，在调用出需要做此步骤操作
 						var projectProgressArr = new Array();
 						var projectCountArr = new Array();
-						var lineProjectArr = new Array();
+						var chargeProjectArr = new Array();//负责的项目数
+						var cooprationProjectArr = new Array();//协作的项目数
+						
 						$.each(data.userData,function(){
 							projectCountArr.push(this.dataValue[0].data);
-							projectProgressArr.push(this.xValue)
-							lineProjectArr.push(this.dataValue)
+							projectProgressArr.push(this.xValue);
+							chargeProjectArr.push(this.dataValue[0].data)
+							console.log(this)
+							if(this.dataValue.length>1){
+								cooprationProjectArr.push(this.dataValue[1].data)
+							}
+							
 						});
-						console.log(lineProjectArr)
+						console.log(cooprationProjectArr)
 						//项目进度分布图
 						chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 						chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
@@ -504,6 +509,7 @@ var chartOverviewUtils = {
 						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
 						
 						if(form.departmentId!=undefined){
+							//项目进度分布图
 							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
 								enabled: true,
 					            style: {
@@ -522,15 +528,88 @@ var chartOverviewUtils = {
 							        borderWidth: 0,
 							        shadow: false
 							}
-							/*chartOverviewUtils.chartOverviewOptions.yAxis.tooltip.formatter = function() {
+							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
 							            return '<b>' + this.x + '</b><br/>' +
 							                this.series.name + ': ' + this.y + '<br/>' +
 							                '总量: ' + this.point.stackTotal;
 							        
-							}*/
-							//chartOverviewUtils.chartOverviewOptions.series[0] = lineProjectArr[0];//点击事业线的时候
+							}
+							chartOverviewUtils.chartOverviewOptions.plotOptions = {
+									column: {
+							            stacking: 'normal',
+							            dataLabels: {
+							                enabled: true,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
 							
-							console.log(chartOverviewUtils.chartOverviewOptions.series[0])
+							
+							chartOverviewUtils.chartOverviewOptions.series[0] = {
+								        name: '负责项目数',
+								        data: chargeProjectArr[0],
+								        color:'#5a7ede'
+							}
+							chartOverviewUtils.chartOverviewOptions.series[1] = {
+									name: '协作项目数',
+							        data: cooprationProjectArr[0],
+							        color: '#008000'
+							}
+							chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
+							
+							//项目统计数Top10
+							chartOverviewUtils.chartOverviewOptionsSecond.yAxis.stackLabels = {
+									enabled: true,
+						            style: {
+						                fontWeight: 'bold',
+						                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+						            }
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.yAxis.legend = {
+										align: 'right',
+								        x: -90,
+								        verticalAlign: 'top',
+								        y: 1,
+								        floating: true,
+								        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+								        borderColor: '#CCC',
+								        borderWidth: 0,
+								        shadow: false
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.tooltip.formatter = function() {
+								            return '<b>' + this.x + '</b><br/>' +
+								                this.series.name + ': ' + this.y + '<br/>' +
+								                '总量: ' + this.point.stackTotal;
+								        
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.plotOptions = {
+										column: {
+								            stacking: 'normal',
+								            dataLabels: {
+								                enabled: true,
+								                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+								                style: {
+								                    textShadow: '0 0 3px black'
+								                }
+								            }
+								        }
+								}
+								
+								
+								chartOverviewUtils.chartOverviewOptionsSecond.series[0] = {
+									        name: '负责项目数',
+									        data: chargeProjectArr[1],
+									        color:'#5a7ede'
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.series[1] = {
+										name: '协作项目数',
+								        data: cooprationProjectArr[1],
+								        color: '#008000'
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
 						}
 						
 						
@@ -588,7 +667,7 @@ var chartOverviewUtils = {
 
 
 //项目统计数
-$('#chart_project_number').highcharts({
+/*$('#chart_project_number').highcharts({
     chart: {
         type: 'column'
     },
@@ -650,4 +729,4 @@ $('#chart_project_number').highcharts({
         data: [3, 4, 4, 2, 5],
         color: '#008000'
     }]
-});
+});*/
