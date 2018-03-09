@@ -883,7 +883,7 @@ function type_10_html(title,mark){
 	table_tosave_Value[title.id] = {}; 
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	var tableHeader = title.tableHeader;
-	var dataList = title.dataList;
+	var dataList = title.dataList; 
 	if(tableHeader.code=="team-person"){
 		htitle+="<img title=\"· 主承做人可根据项目的参与情况，添加多个副承做人&#10· 添加多个承做人时，必须给各承做人分配承做比例 &#10· 各承做人承做比例只能是正整数，比例总和=100% &#10· 副承做人可删除，主承做人不可删除 \" src=\"/sop/img/sop_progress/remind__icon.png\" class=\"alertImg\" title=\"\">"
 	}
@@ -897,15 +897,17 @@ function type_10_html(title,mark){
 			var filed_sort = ['field1','field2','field3','field4','field5'];
 		} 
 		var hresult = "<dd>未填写</dd>";
-		if(tableHeader.code=="team-person"){
+		if(tableHeader.code=="team-person"){ 
 			$.each(dataList,function(){
 				var tdid =this.field1;
-				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
-				this.field1Str = res.realName;
-				this.field2Str =this.field2;
-				this.field3Str = res.departmentName;
-				this.field3Id = res.departmentId;
-				this.field4Str = res.managerName;  
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0]; 
+				if(res!=undefined){
+					this.field1Str = res.realName?res.realName:"--";
+					this.field2Str =this.field2;
+					this.field3Str = res.departmentName?res.departmentName:"--";
+					this.field3Id = res.departmentId?res.departmentId:"--";
+					this.field4Str = res.managerName?res.managerName:"--";  
+				}
 			})
 		} 
 		if(dataList != null && dataList.length != 0){

@@ -4640,7 +4640,27 @@ font-weight:bold;
 .tableSearch .searchTerm input{width:130px;height:32px;padding-left:10px;border:1px solid #d8d8d8;background:url('../img/base_info/pop_icon_datepick.png') no-repeat right -8px;}
 .searchTerm .system_arrive{padding:0px 10px;}
 .searchTerm .system_status{margin-left:40px;}
-.tableSearch .searchTerm select{width:140px;heigth:32px;}
+.tableSearch .searchTerm .select_container{width:140px;heigth:32px;display:inline-block;}
+.tableSearch .searchTerm  select{width:100%;appearance: none}
+.tableSearch .searchTerm .select_container .bootstrap-select{width:100%;}
+.tableSearch .searchTerm .select_container .bootstrap-select .btn-default{border: 1px solid #d8d8d8;
+    border-radius: 2px;
+    font-family: Microsoft YaHei;
+    font-size: 14px;
+    color: #333333;
+    padding-left: 10px !important;
+    outline: none;
+    height: 32px;
+    background:#fff;
+    /* background: url(../img/base_info/down.png) no-repeat right 7px center; */
+    }
+.tableSearch .searchTerm .select_container .open>.dropdown-menu{background: #fff;
+    right: 0;
+    border-radius: 1px;}
+.select_container .dropdown-menu.selectpicker li.selected,.select_container .dropdown-menu.selectpicker li:hover{
+	background:#e5f3ff;
+	border-bottom:1px solid #fff;
+}
 .tableSearch .system_querySearch{display:inline-block;background:#45aaff;border-radius:2px;width:96px;height:32px;line-height:32px;font-size:14px;
 color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cursor:pointer;}
 .system_querySearch:hover{background:#0084f5;}
@@ -4655,6 +4675,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     text-align: center;
     padding: 0 32px 0 50px;
     cursor:pointer;}
+.select_container .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;height:30px;line-height:30px}
 .add_pro_common:hover{background-color:#0084f5;}
 .systemtTable thead tr th{text-align:left;}
 .systemtTable tbody tr td{text-align:left;}

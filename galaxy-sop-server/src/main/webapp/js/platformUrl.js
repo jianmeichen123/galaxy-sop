@@ -773,6 +773,10 @@ var platformUrl = {
 	 */
 	searchOverView : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchOverView",
 	/**
+	 * 项目总览v1.13版本接口
+	 */
+	searchProjOverView : Constants.sopEndpointURL+ "/galaxy/charts/analysis/searchProjOverView",
+	/**
 	 * 项目查询（图表用）
 	 */
 	searchProjectByCharts : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchProjectByCharts",

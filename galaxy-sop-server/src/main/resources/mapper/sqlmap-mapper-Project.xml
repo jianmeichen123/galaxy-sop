@@ -107,7 +107,7 @@
 					AND id !=  #{idFilter,jdbcType=BIGINT}
 				</if>
 				
-			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+			   <if test="primary == null and createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 			    <if test="createtUids != null">
 					AND create_uid IN
 					<foreach collection="createtUids" index="item" item="item" open="("

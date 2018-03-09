@@ -60,7 +60,7 @@
 							<select name="departmentId" id="search_department_id"></select>
 						</dd>
 					</dl>
-					<dl class="fmdl fmmr clearfix">
+					<!-- <dl class="fmdl fmmr clearfix">
 						<dt>项目类型：</dt>
 						<dd>
 							<select name="projectType" id="search_project_type">
@@ -69,7 +69,7 @@
 								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
-					</dl>
+					</dl> -->
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目创建日期：</dt>
 						<dd>

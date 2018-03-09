@@ -255,7 +255,6 @@ var projectGrid = {
 			    });
 		},
 		queryParams : function(params){
-			console.log(params)
 			if(projectGrid.research){
 				params.pageNum = 0;
 				projectGrid.research = false;
@@ -309,7 +308,7 @@ var projectGrid = {
 		research : false
 }
 var chartOverviewUtils = {
-		/*chartOverviewOptions : {
+		chartOverviewOptions : {//项目进度
 			chart: {
 				renderTo :'chart_overview',
 		        type: 'column',
@@ -330,40 +329,14 @@ var chartOverviewUtils = {
 		    	 column: {
 		             pointWidth:20//设置柱状图宽度
 		         },
-		        series: {
-		            cursor: 'pointer',
-		            events: {
-		                click: function (event) {
-		                    console.log(event.point.category);
-		                    var temp = event.point.category.split('-');
-		                    if(temp!=null && temp!='' && temp!='undefind'){
-		                    	var dict_code = temp[1].split(':');
-		                    	queryOverviewUtils.queryGrid(dict_code[1]);                   	
-		                    }
-		                }
-		            }
-		        }
+		        
 		    },
 		    xAxis: {
 		    	lineWidth: 1,
 		        lineColor: "#e9ebf2",
 		        tickWidth: 0,
 		        allowDecimals:false, //不显示小数
-		        //categories: ['<a href="http://wwww.baidu.com" target="_blank">Jan</a>','朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
-		    	labels: {
-		    		useHTML:true,
-		    		formatter:function(){
-		    			var temp = new Array();
-		    			temp = this.value.split('-');
-		    			return '<a href="javascript:;" onclick="showDetails("'+temp[1]+'");">' + temp[0] + '</a>';
-		    		},
-		            rotation: 0,
-		            align: 'center',
-		            style: {
-		                fontSize: '13px',
-		                fontFamily: '宋体'
-		            },
-		        }
+		        //categories: [],
 		    },
 		    yAxis: {
 		        gridLineColor: '#e9ebf2',
@@ -397,9 +370,6 @@ var chartOverviewUtils = {
 		            x: 0,
 		            y: 0,
 		            style: {
-//		                fontSize: '13px',
-//		                fontFamily: '宋体',
-//		                textShadow: '0 0 3px black'
 		            	fontSize: '12px',
 		                fontFamily: 'Verdana, sans-serif',
 		                textShadow: '0 0 0px #fff',
@@ -410,7 +380,80 @@ var chartOverviewUtils = {
 					},
 		        }
 		    }]
-		},*/
+		},
+		chartOverviewOptionsSecond : {//top10
+			chart: {
+				renderTo :'chart_project_number',
+		        type: 'column',
+		        margin: [ 50, 50, 100, 80]
+		    },
+		    title: {
+		        text: ''
+		    },
+		    //去除版权
+		    credits: {
+		        enabled:false
+		    },
+		    //去除右上角导出图标
+		    exporting: {
+		    	enabled:false
+		    },
+		    plotOptions: {
+		    	 column: {
+		             pointWidth:20//设置柱状图宽度
+		         },
+		        
+		    },
+		    xAxis: {
+		    	lineWidth: 1,
+		        lineColor: "#e9ebf2",
+		        tickWidth: 0,
+		        allowDecimals:false, //不显示小数
+		        //categories: [],
+		    },
+		    yAxis: {
+		        gridLineColor: '#e9ebf2',
+		        gridLineWidth: 1,
+		        min: 0,
+		        allowDecimals:false, //不显示小数
+		        title: {
+		            //text: '项目数 (个)'
+		            text:''
+		        }
+		    },
+		    legend: {
+		        enabled: false
+		    },
+		    tooltip: {
+		    	useHTML: true,
+		    	formatter: function(){
+		    		var temp = this.x.split('-');
+		    		return temp[0] +'<br/>项目数:'+ this.y +'个';
+		    	}
+		    },
+		    series: [{
+		        name: 'Population',
+		        color:'#587edd',
+		        //data: [9,8,5,4,3,3,2,2,2,2],
+		        dataLabels: {
+		            enabled: true,
+		            rotation: 0,
+		            color: '#6b799f',
+		            align: 'center',
+		            x: 0,
+		            y: 0,
+		            style: {
+		            	fontSize: '12px',
+		                fontFamily: 'Verdana, sans-serif',
+		                textShadow: '0 0 0px #fff',
+		                fontWeight:'normal',
+		            },
+		            formatter:function(){
+		     			return this.point.y;
+					},
+		        }
+		    }]
+		},
 		/*
 		 * 项目总览图表初始化
 		 * params formdata 当前无用 后期会加入 图表的响应配置及位置(domid)
@@ -420,67 +463,245 @@ var chartOverviewUtils = {
 		init : function(formdata){
 			//departmentId,projectType,startTime,endTime
 			var form = queryOverviewUtils.getQuery();
-			form.projectProgress = undefined;
+			function getTime(t){
+				var _time = new Date(t);
+				var year = _time.getFullYear();
+				var month = _time.getMonth()+1;
+				var date = _time.getDate();
+				if(month<10){
+					month = "0"+month;
+				}
+				if(date<10){
+					date = "0"+date;
+				}
+				return  year+"-"+month+"-"+date
+			}
+			var data = {
+					"sdate":getTime(form.startTime),
+					 "edate":getTime(form.endTime),
+					 "deptid":form.departmentId
+			}
 			//获取数据
-			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
+			sendPostRequestByJsonObj(platformUrl.searchProjOverView,data,function(data){
 				if(data.result.status=='OK'){
-					console.log("项目总览");
 					//查询前有初始化参数，在调用出需要做此步骤操作
-					if(data.entityList){
 						var projectProgressArr = new Array();
 						var projectCountArr = new Array();
-						$.each(data.entityList,function(){
-							projectProgressArr.push(this.projectProgressName + "-" + this.projectProgress);
-							projectCountArr.push(this.projectCount);
-						});
-						//console.log(categories);
+						var chargeProjectArr = new Array();//负责的项目数
+						var cooprationProjectArr = new Array();//协作的项目数
 						
-						chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr;
-						chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr;
-						chartOverviewUtils.chartOverviewOptions.xAxis.labels.useHTML = true;
-						chartOverviewUtils.chartOverviewOptions.xAxis.labels.formatter = function(){
-							var temp = new Array();
-							temp = this.value.split('-');
-							switch(temp[1]){
-								case "projectProgress:1": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(1);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:2": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(2);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:3": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(3);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:4": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(4);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:5": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(5);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:6": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(6);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:7": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(7);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:8": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(8);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:9": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(9);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:10": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(10);' class='blue'>" + temp[0] + "</a>";
-									break;
-								case "projectProgress:11": 
-									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(11);' class='blue'>" + temp[0] + "</a>";
-									break;
+						$.each(data.userData,function(){
+							projectCountArr.push(this.dataValue[0].data);
+							projectProgressArr.push(this.xValue);
+							chargeProjectArr.push(this.dataValue[0].data)
+							
+							if(this.dataValue.length>1){
+								cooprationProjectArr.push(this.dataValue[1].data)
+								var name1 = this.dataValue[0].name;
+								var name2 = this.dataValue[1].name;
+								console.log(name2)
 							}
-						};
-						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
-					}else{
-						layer.msg("后端获取数据为空");
-					}
+							
+						});
+						console.log(cooprationProjectArr)
+						//项目进度分布图
+						chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
+						chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
+						//项目统计数top10
+						chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
+						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
+						
+						if(form.departmentId!=undefined){
+							//项目进度分布图
+							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
+								enabled: true,
+					            style: {
+					                fontWeight: 'bold',
+					                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+					            }
+							}
+							chartOverviewUtils.chartOverviewOptions.legend = {
+									align: 'right',
+							        x: -90,
+							        verticalAlign: 'top',
+							        y: 1,
+							        floating: true,
+							        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+							        borderColor: '#CCC',
+							        borderWidth: 0,
+							        shadow: false
+							}
+							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
+							            return '<b>' + this.x + '</b><br/>' +
+							                this.series.name + ': ' + this.y + '<br/>' +
+							                '总量: ' + this.point.stackTotal;
+							        
+							}
+							chartOverviewUtils.chartOverviewOptions.plotOptions = {
+									column: {
+										pointWidth:20,
+										stacking: 'normal',
+							            dataLabels: {
+							                enabled: false,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
+							
+							
+							chartOverviewUtils.chartOverviewOptions.series[0] = {
+								        name: '负责项目数',
+								        data: chargeProjectArr[0],
+								        color:'#5a7ede'
+							}
+							chartOverviewUtils.chartOverviewOptions.series[1] = {
+									name: '协作项目数',
+							        data: cooprationProjectArr[0],
+							        color: '#008000'
+							}
+							chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
+							
+							//项目统计数Top10
+							chartOverviewUtils.chartOverviewOptionsSecond.yAxis.stackLabels = {
+									enabled: true,
+						            style: {
+						                fontWeight: 'bold',
+						                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+						            }
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.legend = {
+										align: 'right',
+								        x: -90,
+								        verticalAlign: 'top',
+								        y: 1,
+								        floating: true,
+								        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+								        borderColor: '#CCC',
+								        borderWidth: 0,
+								        shadow: false
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.tooltip.formatter = function() {
+								            return '<b>' + this.x + '</b><br/>' +
+								                this.series.name + ': ' + this.y + '<br/>' +
+								                '总量: ' + this.point.stackTotal;
+								        
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.plotOptions = {
+										column: {
+											pointWidth:20,
+											stacking: 'normal',
+								            dataLabels: {
+								                enabled: false,
+								                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+								                style: {
+								                    textShadow: '0 0 3px black'
+								                }
+								            }
+								        }
+								}
+								
+								
+								chartOverviewUtils.chartOverviewOptionsSecond.series[0] = {
+									        name: '负责项目数',
+									        data: chargeProjectArr[1],
+									        color:'#5a7ede'
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.series[1] = {
+										name: '协作项目数',
+								        data: cooprationProjectArr[1],
+								        color: '#008000'
+								}
+								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
+						}else{
+							chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
+							chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
+							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
+								var temp = this.x.split('-');
+					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
+								}
+							chartOverviewUtils.chartOverviewOptionsSecond.tooltip.formatter = function() {
+								var temp = this.x.split('-');
+					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
+					        
+								}
+							chartOverviewUtils.chartOverviewOptions.plotOptions = {
+									column: {
+										pointWidth:20,
+							            dataLabels: {
+							                enabled: true,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.plotOptions = {
+									column: {
+										pointWidth:20,
+							            dataLabels: {
+							                enabled: true,
+							                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+							                style: {
+							                    textShadow: '0 0 3px black'
+							                }
+							            }
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptions.series.length=1;
+							chartOverviewUtils.chartOverviewOptions.series[0] = {
+									name: 'Population',
+							        color:'#587edd',
+							        data: projectCountArr[0],
+							        dataLabels: {
+							            enabled: true,
+							            rotation: 0,
+							            color: '#6b799f',
+							            align: 'center',
+							            x: 0,
+							            y: 0,
+							            style: {
+							            	fontSize: '12px',
+							                fontFamily: 'Verdana, sans-serif',
+							                textShadow: '0 0 0px #fff',
+							                fontWeight:'normal',
+							            },
+							            formatter:function(){
+							     			return this.point.y;
+										},
+							        }
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.series.length=1;
+							chartOverviewUtils.chartOverviewOptionsSecond.series[0] = {
+									name: 'Population',
+							        color:'#587edd',
+							        data: projectCountArr[1],
+							        dataLabels: {
+							            enabled: true,
+							            rotation: 0,
+							            color: '#6b799f',
+							            align: 'center',
+							            x: 0,
+							            y: 0,
+							            style: {
+							            	fontSize: '12px',
+							                fontFamily: 'Verdana, sans-serif',
+							                textShadow: '0 0 0px #fff',
+							                fontWeight:'normal',
+							            },
+							            formatter:function(){
+							     			return this.point.y;
+										},
+							        }
+							}
+							
+						}
+						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+				
 				}else{
 					layer.msg(data.result.errorCode);
 				}
@@ -491,72 +712,10 @@ var chartOverviewUtils = {
 		}
 }
 
-$('#chart_overview').highcharts({
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: '水果消费总量'
-        },
-        stackLabels: {
-            enabled: true,
-            style: {
-                fontWeight: 'bold',
-                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-            }
-        }
-    },
-    legend: {
-        align: 'right',
-        x: -90,
-        verticalAlign: 'top',
-        y: 1,
-        floating: true,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-        borderColor: '#CCC',
-        borderWidth: 0,
-        shadow: false
-    },
-    tooltip: {
-        formatter: function () {
-            return '<b>' + this.x + '</b><br/>' +
-                this.series.name + ': ' + this.y + '<br/>' +
-                '总量: ' + this.point.stackTotal;
-        }
-    },
-    plotOptions: {
-        column: {
-            stacking: 'normal',
-            dataLabels: {
-                enabled: true,
-                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                style: {
-                    textShadow: '0 0 3px black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: '负责项目数',
-        data: [5, 3, 4, 7, 2],
-        color:'#5a7ede'
-    }, {
-        name: '协作项目数',
-        data: [3, 4, 4, 2, 5],
-        color: '#008000'
-    }]
-});
+
 
 //项目统计数
-$('#chart_project_number').highcharts({
+/*$('#chart_project_number').highcharts({
     chart: {
         type: 'column'
     },
@@ -618,4 +777,4 @@ $('#chart_project_number').highcharts({
         data: [3, 4, 4, 2, 5],
         color: '#008000'
     }]
-});
+});*/

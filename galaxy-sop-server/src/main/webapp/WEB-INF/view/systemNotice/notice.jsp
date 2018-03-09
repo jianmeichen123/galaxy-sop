@@ -11,6 +11,7 @@
 	<link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
 	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+	<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 	<jsp:include page="../common/taglib.jsp"></jsp:include>
 	
 </head>
@@ -27,8 +28,10 @@
 					<span class='system_arrive'>至</span>					
 					<input  class='' readonly='readonly' type='text' id="endTime" name="endTime"/> 
 					<label class='system_status'>状态：</label>
-					<select id="sendStatus" name="sendStatus" class="selectpicker" >
-					</select>
+					<div class='select_container'>
+						<select id="sendStatus" name="sendStatus" class="selectpicker" >
+						</select>
+					</div>
 					<a href="javascript:;" class='system_querySearch' action="querySearch">搜索</a>
 					<!--<span class='system_querySearch'>查询</span>  -->
 				</div>
@@ -72,10 +75,11 @@
 <jsp:include page="../common/uploadwin.jsp"></jsp:include>
 
 </html>
+
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
@@ -305,4 +309,7 @@
 		    second = second < 10 ? ('0' + second) : second;   
 		    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
 		};  
+		 $(".selectpicker").selectpicker({  
+            noneSelectedText : '请选择'//默认显示内容  
+        });  
 </script>
