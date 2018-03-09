@@ -116,7 +116,7 @@
 				<div class="correlation">水晶球报告</div> 
 				<ul class="sev_report clearfix">
 				<c:choose>
-				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
+				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) ||(fx:isCooperative(projectId)) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
 					<li class="seven_link1 seven_link_qx" onclick="seven_link(1);">
 						<span class='qx report_entrance'></span>
 						<span>全息报告</span>
