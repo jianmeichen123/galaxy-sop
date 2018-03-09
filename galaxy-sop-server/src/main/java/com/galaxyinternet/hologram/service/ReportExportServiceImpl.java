@@ -254,47 +254,6 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
             }
 
-            //项目承做人 1103 NO1_1_2   field_1:uid   field_3:deptId   field_5:标识主副
-            //NO1_1_2_s
-            Map<String, Object> query = new HashMap<>();
-            query.put("projectId", projectId);
-            List<InformationListdata> queryCZRList = listDataDao.searchFor1103(query);
-
-            List<InformationListdata> copyCZRList = new ArrayList<>(queryCZRList);
-
-            List<Map<String, Object>> resultC = new ArrayList<>();
-            Set<String> checkHasDept = new HashSet<>();
-            Map<String,Object> datac = null;
-            for(InformationListdata temp : queryCZRList)
-            {
-                if(checkHasDept.contains(temp.getProperty())){
-                    continue;
-                }else{
-                    checkHasDept.add(temp.getProperty());
-                }
-
-                datac = new HashMap<>();
-                datac.put("filed1", (cache.hget(PlatformConst.CACHE_PREFIX_USER+temp.getField1(), "realName")).toString()+"（"+ temp.getField2() +"）");
-                datac.put("filed2", cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(), "name"));
-
-                Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(),"manager");
-                if(managerId != null){
-                    datac.put("filed3", cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName"));
-                }
-
-                for(InformationListdata tempC : copyCZRList){
-                    if(tempC.getId().longValue() == temp.getId().longValue()){
-                        continue;
-                    }else if(tempC.getProperty().equals(temp.getProperty())){
-                        datac.put("filed1", datac.get("filed1")+"<w:br />"+
-                                (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempC.getField1(), "realName")).toString()+"（"+ tempC.getField2() +"）");
-                    }
-                }
-                resultC.add(datac);
-            }
-            map.put("NO1_1_2", resultC);
-            if(queryCZRList.size() > 1) map.put("NO1_1_2_s", true);
-
 
 
             Project project = projectDao.selectById(projectId);
@@ -324,6 +283,59 @@ public class ReportExportServiceImpl implements ReportExportService {
                 //project.setHhrName(managerUser.getRealName());
                 if(managerUser!=null) map.put("NO1_1_3", managerUser.getRealName());
             }
+
+
+            //项目承做人 1103 NO1_1_2   field_1:uid   field_3:deptId   field_5:标识主副
+            //NO1_1_2_s
+            Map<String, Object> query = new HashMap<>();
+            query.put("projectId", projectId);
+            List<InformationListdata> queryCZRList = listDataDao.searchFor1103(query);
+
+
+            List<Map<String, Object>> resultC = new ArrayList<>();
+            Set<String> checkHasDept = new HashSet<>();
+            Map<String,Object> datac = null;
+
+            if(queryCZRList == null || queryCZRList.size()<2){
+                datac = new HashMap<>();
+                datac.put("field1", map.get("NO1_1_2_z") +"（100%）");
+                datac.put("field2", map.get("NO1_1_4") );
+                datac.put("field3", map.get("NO1_1_3")  );
+                resultC.add(datac);
+            }else{
+                map.put("NO1_1_2_s", true);
+
+                List<InformationListdata> copyCZRList = new ArrayList<>(queryCZRList);
+                for(InformationListdata temp : queryCZRList)
+                {
+                    if(checkHasDept.contains(temp.getProperty())){
+                        continue;
+                    }else{
+                        checkHasDept.add(temp.getProperty());
+                    }
+
+                    datac = new HashMap<>();
+                    datac.put("field1", (cache.hget(PlatformConst.CACHE_PREFIX_USER+temp.getField1(), "realName")).toString()+"（"+ temp.getField2() +"）");
+                    datac.put("field2", cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(), "name"));
+
+                    Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(),"manager");
+                    if(managerId != null){
+                        datac.put("field3", cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName"));
+                    }
+
+                    for(InformationListdata tempC : copyCZRList){
+                        if(tempC.getId().longValue() == temp.getId().longValue()){
+                            continue;
+                        }else if(tempC.getProperty().equals(temp.getProperty())){
+                            datac.put("field1", datac.get("field1")+"<w:br />"+
+                                    (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempC.getField1(), "realName")).toString()+"（"+ tempC.getField2() +"）");
+                        }
+                    }
+                    resultC.add(datac);
+                }
+            }
+            map.put("NO1_1_2", resultC);
+
         }catch (Exception e){
             logger.error("projectTitleResult ",e);
             //throw new RuntimeException("ReportDataConversion projectTitleResult 项目基础信息查询失败",e);

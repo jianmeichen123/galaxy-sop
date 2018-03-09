@@ -442,6 +442,12 @@
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -471,6 +477,12 @@
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -500,6 +512,12 @@
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -535,6 +553,12 @@
                     <w:tcPr>
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -556,31 +580,17 @@
                             <w:t>${czr.field1!"-"}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
-                        <w:pPr>
-                            <w:tabs>
-                                <w:tab w:val="center" w:pos="4666"/>
-                                <w:tab w:val="right" w:pos="9332"/>
-                            </w:tabs>
-                            <w:jc w:val="center"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                <w:szCs w:val="21"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                                <w:szCs w:val="21"/>
-                            </w:rPr>
-                            <w:t>李斯（</w:t>
-                        </w:r>
-                    </w:p>
                 </w:tc>
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -607,6 +617,12 @@
                     <w:tcPr>
                         <w:tcW w:w="3277" w:type="dxa"/>
                         <w:vAlign w:val="center"/>
+                        <w:tcBorders>
+                            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+                        </w:tcBorders>
                     </w:tcPr>
                     <w:p w:rsidR="00862FE1" w:rsidRDefault="007E19AA">
                         <w:pPr>
@@ -626,13 +642,6 @@
                                 <w:szCs w:val="21"/>
                             </w:rPr>
                             <w:t>${czr.field3!"-"}</w:t>
-                        </w:r>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
-                                <w:szCs w:val="21"/>
-                            </w:rPr>
-                            <w:t>1</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>

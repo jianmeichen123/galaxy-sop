@@ -1792,9 +1792,8 @@
         </w:p>
         <w:tbl>
             <w:tblPr>
-                <w:tblStyle w:val="aa"/>
-                <w:tblW w:w="7083" w:type="dxa"/>
-                <w:tblInd w:w="-284" w:type="dxa"/>
+
+                <w:tblW w:w="6632" w:type="dxa"/>
                 <w:tblBorders>
                     <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
                     <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
@@ -1807,8 +1806,8 @@
                 <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
             </w:tblPr>
             <w:tblGrid>
-                <w:gridCol w:w="3119"/>
-                <w:gridCol w:w="3964"/>
+                <w:gridCol w:w="3052"/>
+                <w:gridCol w:w="3580"/>
             </w:tblGrid>
 
             <#--
@@ -1972,7 +1971,8 @@
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
                                 <w:sz w:val="22"/>
                             </w:rPr>
-                            <w:t>${NO1_1_1_n!"-"}</w:r>
+                            <w:t>${NO1_1_1_n!"-"}</w:t>
+                        </w:r>
                     </w:p>
                 </w:tc>
             </w:tr>
@@ -2493,12 +2493,20 @@
                 </w:tc>
             </w:tr>
         </w:tbl>
-
+<w:p w:rsidR="00415083" w:rsidRDefault="00415083">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="exact"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+        <w:b/>
+        <w:sz w:val="22"/>
+    </w:rPr>
+</w:pPr>
+</w:p>
 
         <w:tbl>
             <w:tblPr>
-                <w:tblpPr w:leftFromText="180" w:rightFromText="180" w:vertAnchor="text" w:horzAnchor="page" w:tblpX="9505" w:tblpY="182"/>
-                <w:tblOverlap w:val="never"/>
                 <w:tblW w:w="6575" w:type="dxa"/>
                 <w:tblLayout w:type="fixed"/>
                 <w:tblCellMar>
@@ -2514,7 +2522,7 @@
                 <w:gridCol w:w="2415"/>
                 <w:gridCol w:w="1935"/>
             </w:tblGrid>
-            <w:tr w:rsidR="003329B5">
+            <w:tr w:rsidR="00686193" w:rsidTr="00686193">
                 <w:trPr>
                     <w:trHeight w:val="360"/>
                 </w:trPr>
@@ -2530,7 +2538,7 @@
                         </w:tcBorders>
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                     </w:tcPr>
-                    <w:p w:rsidR="003329B5" w:rsidRDefault="00A97C53">
+                    <w:p w:rsidR="00686193" w:rsidRDefault="00686193" w:rsidP="00686193">
                         <w:pPr>
                             <w:widowControl/>
                             <w:jc w:val="center"/>
@@ -2556,7 +2564,7 @@
                     </w:p>
                 </w:tc>
             </w:tr>
-            <w:tr w:rsidR="003329B5">
+            <w:tr w:rsidR="00686193" w:rsidTr="00686193">
                 <w:trPr>
                     <w:trHeight w:val="330"/>
                 </w:trPr>
@@ -2673,11 +2681,12 @@
                 </w:tc>
             </w:tr>
 
-
             <#list NO1_1_2 as czr>
             <w:tr w:rsidR="003329B5">
                 <w:trPr>
-                    <w:trHeight w:val="990"/>
+                    <w:gridAfter w:val="1"/>
+                    <w:wAfter w:w="57" w:type="dxa"/>
+                    <w:trHeight w:val="330"/>
                 </w:trPr>
                 <w:tc>
                     <w:tcPr>
@@ -2711,17 +2720,6 @@
                                 <w:lang w:bidi="ar"/>
                             </w:rPr>
                             <w:t>${czr.field1!"-"}</w:t>
-                        </w:r>
-
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:cs="华文楷体" w:hint="eastAsia"/>
-                                <w:color w:val="000000"/>
-                                <w:kern w:val="0"/>
-                                <w:sz w:val="22"/>
-                                <w:lang w:bidi="ar"/>
-                            </w:rPr>
-                            <w:br/>
                         </w:r>
                     </w:p>
                 </w:tc>
