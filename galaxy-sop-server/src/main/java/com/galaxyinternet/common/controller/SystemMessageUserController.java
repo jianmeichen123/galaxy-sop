@@ -49,7 +49,7 @@ public class SystemMessageUserController extends BaseControllerImpl<SystemMessag
 	 * @author chenjianmei
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/am", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/amu", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SystemMessageUser> addMessage(@RequestBody SystemMessageUser systemMessageUser, HttpServletRequest request)
 	{
 		ResponseData<SystemMessageUser> responseBody = new ResponseData<SystemMessageUser>();
