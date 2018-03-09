@@ -6,8 +6,8 @@
     <result column="message_id" property="messageId" jdbcType="BIGINT" />
     <result column="message_os" property="messageOs" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="is_read" property="isRead" jdbcType="TINYINT" />
-    <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    <result column="is_read" property="isRead" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="BIGINT" />
     <result column="create_id" property="createId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="update_id" property="updateId" jdbcType="BIGINT" />
@@ -17,12 +17,24 @@
     id, message_id, message_os, user_id, is_read, is_del, create_id, create_time, update_id, 
     update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from system_message_user
     where id = #{id,jdbcType=BIGINT}
   </select>
+  	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from system_message_user 
+		<include refid="Base_Where_Clause" />
+	</select>
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from system_message_user
+		<include refid="Base_Where_Clause" />
+	</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from system_message_user
     where id = #{id,jdbcType=BIGINT}
@@ -33,7 +45,7 @@
       create_id, create_time, update_id, 
       update_time)
     values (#{id,jdbcType=BIGINT}, #{messageId,jdbcType=BIGINT}, #{messageOs,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=BIGINT}, #{isRead,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, 
+      #{userId,jdbcType=BIGINT}, #{isRead,jdbcType=BIGINT}, #{isDel,jdbcType=BIGINT}, 
       #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT})
   </insert>
@@ -85,10 +97,10 @@
         #{userId,jdbcType=BIGINT},
       </if>
       <if test="isRead != null" >
-        #{isRead,jdbcType=TINYINT},
+        #{isRead,jdbcType=BIGINT},
       </if>
       <if test="isDel != null" >
-        #{isDel,jdbcType=TINYINT},
+        #{isDel,jdbcType=BIGINT},
       </if>
       <if test="createId != null" >
         #{createId,jdbcType=BIGINT},
@@ -117,10 +129,10 @@
         user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="isRead != null" >
-        is_read = #{isRead,jdbcType=TINYINT},
+        is_read = #{isRead,jdbcType=BIGINT},
       </if>
       <if test="isDel != null" >
-        is_del = #{isDel,jdbcType=TINYINT},
+        is_del = #{isDel,jdbcType=BIGINT},
       </if>
       <if test="createId != null" >
         create_id = #{createId,jdbcType=BIGINT},
@@ -137,13 +149,13 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.galaxyinternet.model.systemMessage.SystemMessageUser" >
+  <update id="updateById" parameterType="com.galaxyinternet.model.systemMessage.SystemMessageUser" >
     update system_message_user
     set message_id = #{messageId,jdbcType=BIGINT},
       message_os = #{messageOs,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
-      is_read = #{isRead,jdbcType=TINYINT},
-      is_del = #{isDel,jdbcType=TINYINT},
+      is_read = #{isRead,jdbcType=BIGINT},
+      is_del = #{isDel,jdbcType=BIGINT},
       create_id = #{createId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=BIGINT},
       update_id = #{updateId,jdbcType=BIGINT},

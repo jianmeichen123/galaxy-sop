@@ -1,7 +1,14 @@
 package com.galaxyinternet.model.systemMessage;
 
-public class SystemMessageUser {
-    private Long id;
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
+public class SystemMessageUser extends PagableEntity {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private Long messageId;
 
@@ -9,9 +16,9 @@ public class SystemMessageUser {
 
     private Long userId;
 
-    private Byte isRead;
+    private int isRead;
 
-    private Byte isDel;
+    private int isDel;
 
     private Long createId;
 
@@ -53,23 +60,23 @@ public class SystemMessageUser {
         this.userId = userId;
     }
 
-    public Byte getIsRead() {
-        return isRead;
-    }
+    public int getIsRead() {
+		return isRead;
+	}
 
-    public void setIsRead(Byte isRead) {
-        this.isRead = isRead;
-    }
+	public void setIsRead(int isRead) {
+		this.isRead = isRead;
+	}
 
-    public Byte getIsDel() {
-        return isDel;
-    }
+	public int getIsDel() {
+		return isDel;
+	}
 
-    public void setIsDel(Byte isDel) {
-        this.isDel = isDel;
-    }
+	public void setIsDel(int isDel) {
+		this.isDel = isDel;
+	}
 
-    public Long getCreateId() {
+	public Long getCreateId() {
         return createId;
     }
 
