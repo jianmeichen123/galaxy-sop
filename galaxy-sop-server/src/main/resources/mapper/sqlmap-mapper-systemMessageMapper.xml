@@ -106,4 +106,14 @@
 		
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	
+	
+		<!-- 根据用户id查询改用户是否显示消息提醒-->
+	<select id="selectByIdUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT m.`id` ,m.message_content,m.os_type, m.is_now_send, m.send_time, m.send_status, m.is_del
+		FROM `system_message` m LEFT JOIN `system_message_user` mu 
+        ON m.`id`=mu.`message_id` AND (mu.`message_id` IS NULL OR mu.`is_del`=1)
+        WHERE m.`send_status` ='messageStatus:2' AND m.`is_del`=0
+	</select>
+	
 </mapper>

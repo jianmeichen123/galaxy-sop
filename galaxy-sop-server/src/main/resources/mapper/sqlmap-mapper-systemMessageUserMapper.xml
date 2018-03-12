@@ -23,6 +23,22 @@
     from system_message_user
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+			      <if test="messageOs != null"> and message_os = #{messageOs,jdbcType=VARCHAR} </if>
+			      <if test="userId != null"> and user_id = #{userId,jdbcType=BIGINT} </if>
+			      <if test="messageId != null">and message_os = #{messageId,jdbcType=BIGINT}  </if>
+			      <if test="isDel != null"> and is_del = #{isDel,jdbcType=INTEGER} </if>
+			      
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
   	<!-- 查询 -->
 	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
