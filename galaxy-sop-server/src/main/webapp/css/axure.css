@@ -4042,7 +4042,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .task-cancle{background:#eef6fc;color:#3ca6ff;}
 .task-todeal{margin:80px 0 0 40px;font-size:14px;color:#666666;}
 .task-todeal em{font-size:14px;}
-.task-todeal ul li{margin-top:22px;text-align:justify;}
+.task-todeal ul li{margin-top:15px;text-align:justify;}
 .task-todeal-textarea em.task-reason{vertical-align:top;}
 .task-todeal-textarea textarea{width:444px;height:124px;padding:4px 0 0 8px;margin-left:4px;border:1px solid #d8d8d8;font-size:14px;}
 .select-simulate input{width:434px;height:32px;border:1px solid #d8d8d8;font-family:Microsoft YaHei;font-size:12px;border-radius:2px;padding-left:8px;background:url(../img/base_info/down.png) no-repeat right 7px center}
@@ -4675,7 +4675,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     text-align: center;
     padding: 0 32px 0 50px;
     cursor:pointer;}
-.select_container .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;height:30px;line-height:30px}
+.select_container .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;height:30px;line-height:30px;padding-left: 10px;cursor:pointer;}
 .add_pro_common:hover{background-color:#0084f5;}
 .systemtTable thead tr th{text-align:left;}
 .systemtTable tbody tr td{text-align:left;}
@@ -4731,3 +4731,6 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 #infoCZR{width:600px;max-height:500px;overflow-y:auto;}
 #czrTableInfo{margin-top:60px;width: 100%;}
 .newPopTop{position:absolute; top:0;right:0;left:0; background-size: cover;}
+.noticeLi .noticeStatus{margin-left:28px;}
+.task-reason .system_tips{display:inline-block;width:16px;height:16px;vertical-align: text-bottom;background:url(../img/tips_system.png) no-repeat center center;cursor:pointer;margin-left:10px;}
+

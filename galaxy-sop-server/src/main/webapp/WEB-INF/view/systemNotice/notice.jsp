@@ -279,9 +279,20 @@
 						options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 					}
 				});
-				$("#sendStatus").html(options) 
+				$(".selectpicker").html(options) 
 			});
 		}
+	 /*  $(".selectpicker").selectpicker({  
+         noneSelectedText : '请选择'//默认显示内容  
+     }); */
+    
+	 $(window).on('load', function() { 
+		 	$('.selectpicker').selectpicker('val', '');  
+	        $('.selectpicker').selectpicker('refresh');  
+	    }); 
+	 
+	 
+    
 	 function optFormatter(value, row, index)
 		{
 		 var content="";
@@ -309,7 +320,5 @@
 		    second = second < 10 ? ('0' + second) : second;   
 		    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
 		};  
-		 $(".selectpicker").selectpicker({  
-            noneSelectedText : '请选择'//默认显示内容  
-        });  
+		   
 </script>
