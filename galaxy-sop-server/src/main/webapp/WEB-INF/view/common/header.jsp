@@ -95,7 +95,7 @@
         <a href="http://ctdn.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou ctdn"></span>创投大脑</a>
       </div>
     </div>
-    <div class='system-tips'>为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！<span class='system-tips-close'>X</span></div>
+    <div class='system-tips' style="display:none">为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！<span class='system-tips-close'>X</span></div>
 </div>
 
 <script type="text/javascript">
@@ -297,6 +297,9 @@ if(isContainResourceByMark("task_into_view")){
 
  
 $(function(){
+	queryExitMessage();
+	
+	//$("")
 	  /*展开/收起按钮定位*/
     var w_h=$(window).height();
         s_h=$(".sico").height();
@@ -430,10 +433,67 @@ $(window).resize(function(){
  })
  
  
-  })		
-  $('.system-tips-close').click(function(){
-	  $(this).parent().remove();
   })
+  
+  
+  
+  $('.system-tips-close').click(function(){
+	 // $(this).parent().remove();
+	  $(this).parent().remove();
+	  var data = {
+		};
+		var url = "<%=path %>/galaxy/systemMessageUser/amu";
+		data.messageOs="web";
+		data.messageId=36;
+		sendPostRequestByJsonObj(url, data, function(data) {
+			var result = data.result.status;
+			if (result == "ERROR") { //OK, ERROR
+				layer.msg(data.result.message);
+				return;
+			} else {
+				/* layer.msg("保存成功", {
+					time : 500
+				}); */
+			}
+		});
+  })
+function queryExitMessage(){
+	  var url = "<%=path %>/galaxy/systemMessage/sml";
+		var dataJson={
+				"osType":"web",
+				"sendStatus":"messageStatus:2",
+				"endTime":new Date().format('yyyy-MM-dd')
+		}
+		sendPostRequestByJsonObj(
+			 url,
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				if(null!=data.entity){
+					var messageId=data.entity.id;
+					queryExitUserMessage(messageId);
+				}
+			}
+		 })
+	}
 
+function queryExitUserMessage(messageId){
+	  var url = "<%=path %>/galaxy/systemMessageUser/suml";
+		var dataJson={
+				"messageOs":"web",
+				"messageId":messageId
+		}
+		sendPostRequestByJsonObj(
+			 url,
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				var message;
+				if(null!=data.entityList&&data.entityList.length==0){
+					$(".system-tips").css("display","block")
+				}
+			}
+		 })
+	}
  
 </script>

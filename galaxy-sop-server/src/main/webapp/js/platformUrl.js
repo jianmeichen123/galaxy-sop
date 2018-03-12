@@ -1387,7 +1387,8 @@ var platformUrl = {
     addMessage : Constants.sopEndpointURL+"galaxy/systemMessage/am",
     updateMessage : Constants.sopEndpointURL+"galaxy/systemMessage/updateMessage",
     queryMessage : Constants.sopEndpointURL+"galaxy/systemMessage/sml",
-    deleteMessage : Constants.sopEndpointURL+"galaxy/systemMessage/deleteMessage"
+    deleteMessage : Constants.sopEndpointURL+"galaxy/systemMessage/deleteMessage",
+    addUserMessage : Constants.sopEndpointURL+"galaxy/systemMessageUser/amu"
     
     
     

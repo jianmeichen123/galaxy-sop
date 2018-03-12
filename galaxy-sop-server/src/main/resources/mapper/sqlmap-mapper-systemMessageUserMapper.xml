@@ -29,7 +29,7 @@
 			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 			      <if test="messageOs != null"> and message_os = #{messageOs,jdbcType=VARCHAR} </if>
 			      <if test="userId != null"> and user_id = #{userId,jdbcType=BIGINT} </if>
-			      <if test="messageId != null">and message_os = #{messageId,jdbcType=BIGINT}  </if>
+			      <if test="messageId != null">and message_id = #{messageId,jdbcType=BIGINT}  </if>
 			      <if test="isDel != null"> and is_del = #{isDel,jdbcType=INTEGER} </if>
 			      
 			</trim>
