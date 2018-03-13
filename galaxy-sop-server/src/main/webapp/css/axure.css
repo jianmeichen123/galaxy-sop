@@ -4687,7 +4687,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .task-todeal-textarea textarea.system_textarea{width:515px;margin-top:10px;}
 .task-todeal-textarea div.checkbox-div{margin-left:25px;margin-top:10px;}
 .system_radio_second{margin-top:10px;margin-left:28px;}
-.system-content{margin:60px 0 0 0px;}
+.system-content{margin:60px 0 0 0px;overflow:auto;}
 .system-content ul{margin-left:30px;}
 .datatimePicture{    width: 130px;
     height: 32px;
@@ -4731,6 +4731,31 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 #infoCZR{width:600px;max-height:500px;overflow-y:auto;}
 #czrTableInfo{margin-top:60px;width: 100%;}
 .newPopTop{position:absolute; top:0;right:0;left:0; background-size: cover;}
-.noticeLi .noticeStatus{margin-left:28px;}
+.noticeLi .noticeStatus{margin-left:18px;}
 .task-reason .system_tips{display:inline-block;width:16px;height:16px;vertical-align: text-bottom;background:url(../img/tips_system.png) no-repeat center center;cursor:pointer;margin-left:10px;}
-
+.noticeStatus .bootstrap-select {width:140px;height:32px;background:#fff;}
+.noticeStatus .bootstrap-select .btn-default{
+	border: 1px solid #d8d8d8;
+    border-radius: 2px;
+    font-family: Microsoft YaHei;
+    font-size: 14px;
+    color: #333333;
+    padding-left: 10px !important;
+    outline: none;
+    height: 32px;
+    background: #fff;
+    /* background: url(../img/base_info/down.png) no-repeat right 7px center; */}
+.noticeStatus .bootstrap-select.btn-group .dropdown-menu{background:#fff;}
+.noticeStatus .bootstrap-select.btn-group .dropdown-menu li{ 
+	padding-right: 0px !important;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    cursor: pointer;
+    margin-top:0px;
+    background:#fff;}
+.noticeStatus  .dropdown-menu.selectpicker li.selected,.noticeStatus .dropdown-menu.selectpicker li:hover{
+	background:#e5f3ff;
+	border-bottom:1px solid #fff;
+}
+.system_tips_content  textarea{height:90px;}
