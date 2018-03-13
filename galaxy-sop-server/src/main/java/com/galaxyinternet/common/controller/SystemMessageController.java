@@ -114,7 +114,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 		}
 		try
 		{
-			systemMessage.setSendStatus("messageStatus:1");
+			//systemMessage.setSendStatus("messageStatus:1");
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();

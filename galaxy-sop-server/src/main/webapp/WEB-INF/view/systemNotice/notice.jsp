@@ -249,7 +249,8 @@
 						}
 					}
 				})
-				$("input[name=sendTime]").val(message.sendTimeStr);
+				 $("input[name=sendTime]").val(message.sendTimeStr);
+				 $("#editSendStatus").val(message.sendStatus);
 			     var arr=message.osType.split("/");
 				 $(".highlighCheckbox").each(function (i) {
 					 var value=$(this).find("input:first-child").val();

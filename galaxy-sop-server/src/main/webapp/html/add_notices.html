@@ -2,7 +2,7 @@
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<link href="../bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="/sop/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 	<div class="title_bj abandon-title" >新建通知</div>
 	<form action="" id="detail-form">
@@ -57,11 +57,7 @@
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus'><em>*</em>通知状态：
-        		<select>
-        			<option>请选择</option>
-        			<option>未发送</option>
-        			<option>已发送</option>
-        			<option>已关闭</option>
+        		<select id="editSendStatus" name="sendStatus">
         		</select></div>
         	</li>
         </ul>
@@ -195,6 +191,7 @@ $(function(){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
 				data.osType=osTypeval;
+				data.sendStatus=$("#editSendStatus").val();
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
 					if (result == "ERROR") { //OK, ERROR
@@ -214,4 +211,22 @@ $(function(){
 		})
 
 	})
+	selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
+    //系统消息状态
+	 function selectMessageStatus(url, name, mark,selectIndex){
+			sendGetRequest(url,null, function(data){
+				var options = [];
+				if(mark == 1){
+					options.push('<option value="">全部</option>');
+				}
+				$.each(data.entityList, function(i, value){
+					if(selectIndex && i == selectIndex){
+						options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+					}else{
+						options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+					}
+				});
+				$("#editSendStatus").html(options) 
+			});
+		}
 </script>
