@@ -59,12 +59,13 @@
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus'><em>*</em>通知状态：
-        		<select id="slpk" name='tipsStatus' class='selectpicker'>
-        			<option>请选择</option>
-        			<option>未发送</option>
-        			<option>已发送</option>
-        			<option>已关闭</option>
-        		</select></div>
+	        		<select id="slpk" name='tipsStatus' class='selectpicker'>
+	        			<!-- <option>请选择</option>
+	        			<option>未发送</option>
+	        			<option>已发送</option>
+	        			<option>已关闭</option> -->
+	        		</select>
+        		</div>
         	</li>
         </ul>
       	
@@ -89,12 +90,28 @@ $(function(){
 			
 		})
 		
-		 $('#slpk').selectpicker('refresh');  
+		
+		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
+		function selectMessageStatus(url, name, mark,selectIndex){
+				sendGetRequest(url,null, function(data){
+					var options = [];
+					if(mark == 1){
+						options.push('<option value="">全部</option>');
+					}
+					$.each(data.entityList, function(i, value){
+						if(selectIndex && i == selectIndex){
+							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+						}else{
+							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+						}
+					});
+					$("#slpk").html(options) 
+				});
+			}
+		 	$('#slpk').selectpicker('refresh');  
+		
 	
-	
-	
-	
-	$('.qualificationstc ').css('max-height','600px');
+	$('.qualificationstc').css('max-height','600px');
 	$('.highlighCheckbox').click(function(event){
 		if($(this).hasClass('highlighCheckbox_checked')){
 			$(this).removeClass('highlighCheckbox_checked')
