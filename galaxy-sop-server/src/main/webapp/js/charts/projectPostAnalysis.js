@@ -143,7 +143,7 @@ var chartPostAnalysisUtils = {
                              show: false,
                          }
                      }
-                 },
+                 }
 		        }
 		        /*,
 		        {
@@ -196,15 +196,27 @@ var chartPostAnalysisUtils = {
                     xArray.push(data.userData.data2.xValue);
                     var dataNum = xArray.length;
 
-                    debugger;
 
 					if(dataNum && dataNum>0){
-                        chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = xArray;
+                        chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = data.userData.data2.xValue;
 
                         var chargeProjectArr = new Array(); //负责的项目数
                         chargeProjectArr.push(data.userData.data2.dataValue[0].data);
-                        chartPostAnalysisUtils.postAnalysisOptions.series[0].data = chargeProjectArr;
+                        chartPostAnalysisUtils.postAnalysisOptions.series[0].data = data.userData.data2.dataValue[0].data;
 
+                        switch (belongType) {
+                            case 1:
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "项目总数";
+                                break;
+                            case 2 :
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "负责项目";
+                                break;
+                            case 3 :
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "协作项目";
+                                break;
+                            default:
+                                break;
+                        }
 					}else{
                         //无数据显示
                         if(sum_nb==0 && sum_wb==0){
