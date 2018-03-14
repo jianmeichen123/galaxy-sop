@@ -91,7 +91,7 @@ $(function(){
 		})
 		
 		
-		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
+		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
 		function selectMessageStatus(url, name, mark,selectIndex){
 				sendGetRequest(url,null, function(data){
 					var options = [];
