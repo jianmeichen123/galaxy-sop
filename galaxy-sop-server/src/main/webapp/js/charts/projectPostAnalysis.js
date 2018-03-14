@@ -195,7 +195,6 @@ var chartPostAnalysisUtils = {
                     var xArray =data.userData.data2.xValue;
                     var dataNum = xArray.length;
 
-                    debugger;
 					if(dataNum && dataNum>0){
                         chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = data.userData.data2.xValue;
 

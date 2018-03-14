@@ -23,7 +23,7 @@ String path = request.getContextPath();
 </dl>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
 <<script type="text/javascript">
-if(roleId==3){
+/*if(roleId==3){
 	$(".ytxm_tab").hide();
-}
+}*/
 </script>
