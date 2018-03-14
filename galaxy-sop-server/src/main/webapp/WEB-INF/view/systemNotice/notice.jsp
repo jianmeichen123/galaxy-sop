@@ -217,6 +217,7 @@
 
 	}
 	function system_edit(id,status){
+		sessionStorage.setItem('editStatus',status)
 		$.getHtml({
 			url:getDetailUrl("add_notice"),
 			okback:function(){
@@ -230,7 +231,6 @@
 		var dataJson={
 				id:id
 		}
-		alert(status)
 		sendPostRequestByJsonObj(
 		platformUrl.queryMessage, 
 		dataJson,

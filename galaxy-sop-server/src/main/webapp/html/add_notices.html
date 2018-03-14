@@ -6,9 +6,9 @@
 <script src="/sop/bootstrap/js/bootstrap-select.js"></script>
 <link href="/sop/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
+<div class="noSend_status">
 	<div class="title_bj abandon-title" >新建通知</div>
 	<form action="" id="detail-form">
-	
     <div  class="qualifications_all task-todeal assign_project system-content">
     <input type="hidden" id="messageId">
         <ul>
@@ -77,6 +77,82 @@
 </div>
 </form>
 </div>
+<div class="sended_status">
+	<div class="title_bj abandon-title" >编辑通知</div>
+	<form action="" id="detail-form">
+    <div  class="qualifications_all task-todeal assign_project system-content">
+    <input type="hidden" id="messageId">
+        <ul>
+        	<li class='task-todeal-textarea system_tips_content'>
+        		<div class='task-reason'><em>*</em>通知内容：</div>
+        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea sended_message" name="messageContent" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+        	</li>
+        	<li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>目标平台：</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox">
+	        			<input type="checkbox" name="osType" value="Web">
+	        		</label>
+	        		<span>Web</span>
+        		</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox ">
+	        			<input type="checkbox" name="osType" value="ios">
+	        		</label>
+	        		<span>ios</span>
+        		</div>
+        		<div class='checkbox-div'>
+	        		<label class="highlighCheckbox ">
+	        			<input type="checkbox" name="osType" value="Android">
+	        		</label>
+	        		<span>Android</span>
+        		</div>
+        		
+        	</li>
+            <li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>推送时间：</div>
+        		<div class='system_radio_second' >
+        			<label class="radio_cont radio_checked" data-name="">
+					<input type="radio" name="isNowSend " value="0" class="radioclass">
+						立即
+					</label>
+        		</div>
+        		<div class='system_radio_second'>
+        			<label class="radio_cont system_radio_second" data-name="setTime">
+					<input type="radio" name="isNowSend" value="1" class="radioclass ">
+						定时
+					</label>
+					<input  class='datatimePicture setTime' readonly='readonly' type='text' name="sendTime"/>
+        		</div>
+        	</li>   
+        	<li>
+        		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
+        	</li>
+        	<li class='noticeLi'>
+        		<div class='task-reason noticeStatus'><em>*</em>通知状态：
+	        		<select id="slpk" name='tipsStatus' class='selectpicker'>
+	        			<!-- <option>请选择</option>
+	        			<option>未发送</option>
+	        			<option>已发送</option>
+	        			<option>已关闭</option> -->
+	        		</select>
+        		</div>
+        	</li>
+        </ul>
+      	
+    
+  		<div class="button_affrim tast-btn">
+	        <a href="javascript:;"  class="system_send">发送</a>
+   		 </div>
+
+</div>
+</form>
+</div>
+
+
+
+
+</div>
 </div>
 <style>
 span.error{
@@ -86,9 +162,14 @@ span.error{
 </style>
 <script>
 $(function(){
-		$('select[name="tipsStatus"]').change(function(){
-			
-		})
+		var eidtStatus = sessionStorage.getItem('editStatus');
+		if(eidtStatus =='/messageStatus:1/' ){
+			$('.noSend_status').show();
+			$('.sended_status').hide()
+		}else if(eidtStatus =='/messageStatus:2/'){
+			$('.noSend_status').hide();
+			$('.sended_status').show();
+		}
 		
 		
 		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
