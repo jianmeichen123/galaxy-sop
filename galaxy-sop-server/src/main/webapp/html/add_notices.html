@@ -222,6 +222,7 @@ $(function(){
 				if(""!=osTypeval){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
+				data.sendStatus=$("#slpk").val();
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;

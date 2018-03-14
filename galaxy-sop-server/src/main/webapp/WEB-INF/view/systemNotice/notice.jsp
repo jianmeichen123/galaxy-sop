@@ -253,7 +253,9 @@
 					}
 				})
 				 $("input[name=sendTime]").val(message.sendTimeStr);
-				 $("#editSendStatus").val(message.sendStatus);
+				// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
+				$('#slpk').selectpicker('val', message.sendStatus);
+				$('#slpk').selectpicker('refresh');
 			     var arr=message.osType.split("/");
 				 $(".highlighCheckbox").each(function (i) {
 					 var value=$(this).find("input:first-child").val();
