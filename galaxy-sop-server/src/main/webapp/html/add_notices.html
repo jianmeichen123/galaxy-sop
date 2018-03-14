@@ -41,7 +41,7 @@
             <li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>推送时间：</div>
         		<div class='system_radio_second' >
-        			<label class="radio_cont radio_checked" data-name="">
+        			<label class="radio_cont" data-name="">
 					<input type="radio" name="isNowSend " value="0" class="radioclass">
 						立即
 					</label>
@@ -108,7 +108,7 @@
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus'><em>*</em>通知状态：
-	        		<select id="slpk" name='tipsStatus' class='selectpicker'>
+	        		<select id="slpk_two" name='tipsStatus' class='selectpicker'>
 	        			<!-- <option>请选择</option>
 	        			<option>未发送</option>
 	        			<option>已发送</option>
@@ -165,12 +165,20 @@ $(function(){
 							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 						}
 					});
-					$("#slpk").html(options) 
+					$("#slpk").html(options)
+					if(eidtStatus =='/messageStatus:2/'){
+						var options = options.slice(1,3);
+						$("#slpk_two").html(options) 
+					}
+					
 				});
 			}
 		 	$('#slpk').selectpicker('refresh');  
-		
+		 	$('#slpk_two').selectpicker('refresh');  
 	
+		 	
+		 	
+		 	
 	$('.qualificationstc').css('max-height','600px');
 	$('.highlighCheckbox').click(function(event){
 		if($(this).hasClass('highlighCheckbox_checked')){
@@ -239,13 +247,13 @@ $(function(){
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 	var updateTime = $('input[name="sendTime"]').val();
 	if($('.system_radio_second label input').val()==0){
-		if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
 		}
 	}else{
-		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
@@ -265,13 +273,13 @@ $(function(){
 		var updateTime = $('input[name="sendTime"]').val().trim();
 		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 		if($('.system_radio_second label input').val()==0){
-			if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
 				$('.system_send').addClass('system_disabled')
 			}else{
 				$('.system_send').removeClass('system_disabled')
 			}
 		}else{
-			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
 				$('.system_send').addClass('system_disabled')
 			}else{
 				$('.system_send').removeClass('system_disabled')
