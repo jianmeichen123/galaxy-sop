@@ -89,23 +89,10 @@
         	</li>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>目标平台：</div>
-        		<div class='checkbox-div'>
-	        		<label class="highlighCheckbox">
-	        			<input type="checkbox" name="osType" value="Web">
-	        		</label>
-	        		<span>Web</span>
-        		</div>
-        		<div class='checkbox-div'>
-	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="osType" value="ios">
-	        		</label>
-	        		<span>ios</span>
-        		</div>
-        		<div class='checkbox-div'>
-	        		<label class="highlighCheckbox ">
-	        			<input type="checkbox" name="osType" value="Android">
-	        		</label>
-	        		<span>Android</span>
+        		<div class='sys_platform'>
+        			<span></span>
+        			<span></span>
+        			<span></span>
         		</div>
         		
         	</li>
@@ -258,6 +245,7 @@ $(function(){
 	var checkboxLen = $('.highlighCheckbox_checked').length;
 	var radioLen = $('.radio_checked').length;
 	var updateTime = $('input[name="sendTime"]').val();
+	
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 	if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
 		$('.system_send').addClass('system_disabled')

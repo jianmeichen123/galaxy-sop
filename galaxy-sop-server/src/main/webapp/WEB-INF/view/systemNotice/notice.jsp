@@ -258,6 +258,26 @@
 				$('#slpk').selectpicker('val', message.sendStatus);
 				$('#slpk').selectpicker('refresh');
 			     var arr=message.osType.split("/");
+			     if(status=='/messageStatus:2/'){
+			    	var arr=message.osType.split("/");
+			    	var spanArr =  $('.sys_platform span');
+			    	 for(var i=0;i<arr.length;i++){
+			    		 if(arr.length==1){
+			    			 $('.sys_platform span:eq(0)').html(arr[0])
+			    		 }
+			    		 if(arr.length==2){
+			    			 $('.sys_platform span:eq(0)').html(arr[0]+'、')
+				    		 $('.sys_platform span:eq(1)').html(arr[1])
+			    		 }
+			    		 if(arr.length==3){
+			    			 $('.sys_platform span:eq(0)').html(arr[0]+'、')
+			    			 $('.sys_platform span:eq(1)').html(arr[0]+'、')
+				    		 $('.sys_platform span:eq(2)').html(arr[1])
+			    		 }
+			    	 }
+			     }
+			     
+			     
 				 $(".highlighCheckbox").each(function (i) {
 					 var value=$(this).find("input:first-child").val();
 					 for(var i=0;i<arr.length;i++){
