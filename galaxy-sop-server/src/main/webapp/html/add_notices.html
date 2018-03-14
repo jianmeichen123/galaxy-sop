@@ -155,8 +155,6 @@ $(function(){
 			
 			
 		}
-		
-		
 		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
 		function selectMessageStatus(url, name, mark,selectIndex){
 				sendGetRequest(url,null, function(data){
@@ -204,7 +202,6 @@ $(function(){
 		if(name=="setTime"){
 			$('.system_radio_second .setTime').show();
 			$('.noticeStatus .btn-default .filter-option').html('请选择');
-			alert('ccc')
 			$('#slpk').attr('disabled',false)
 		}else{
 			$('.system_radio_second .setTime').hide();
