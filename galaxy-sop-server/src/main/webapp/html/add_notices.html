@@ -135,7 +135,7 @@ $(function(){
 		}else{
 			$('.system_radio_second .setTime').hide();
 			$('.noticeStatus .btn-default .filter-option').html('已发送')
-			$('#slpk').attr('disabled',true)
+			$('#slpk').attr('disabled',true);
 		}
 		
 		
@@ -176,8 +176,9 @@ $(function(){
 	var textArealen = $('.system_textarea').val().length;
 	var checkboxLen = $('.highlighCheckbox_checked').length;
 	var radioLen = $('.radio_checked').length;
-	var updateTime = $('input[name="formationUpdate"]').val()
-	if(textArealen==0||checkboxLen==0||updateTime==''){
+	//var updateTime = $('input[name="formationUpdate"]').val();
+	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
+	if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
 		$('.system_send').addClass('system_disabled')
 	}else{
 		$('.system_send').removeClass('system_disabled')
@@ -189,8 +190,8 @@ $(function(){
 		var textArealen = $('.system_textarea').val().length;
 		var checkboxLen = $('.highlighCheckbox_checked').length;
 		var radioLen = $('.radio_checked').length;
-		//var updateTime = $('input[name="upgradeTime"]').val()
-		if(textArealen==0||checkboxLen==0){
+		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
