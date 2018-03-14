@@ -192,11 +192,10 @@ var chartPostAnalysisUtils = {
                 if(data.result.status=='OK') {
                     var belongType = form.belongType;
 
-                    var xArray = new Array();
-                    xArray.push(data.userData.data2.xValue);
+                    var xArray =data.userData.data2.xValue;
                     var dataNum = xArray.length;
 
-
+                    debugger;
 					if(dataNum && dataNum>0){
                         chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = data.userData.data2.xValue;
 
@@ -217,15 +216,14 @@ var chartPostAnalysisUtils = {
                             default:
                                 break;
                         }
+
+                        window.onresize = myChart.resize;
+                        myChart.setOption(chartPostAnalysisUtils.postAnalysisOptions);
 					}else{
                         //无数据显示
-                        if(sum_nb==0 && sum_wb==0){
-                            $('#' + formdata.domid).html('<div  class="no_info_div"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
-                        }
+                        $('#' + formdata.domid).html('<div  class="no_info_div"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
 					}
 
-                    window.onresize = myChart.resize;
-                    myChart.setOption(chartPostAnalysisUtils.postAnalysisOptions);
                 }else{
                     layer.msg(data.result.errorCode);
                 }

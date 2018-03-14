@@ -1211,13 +1211,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				break;
 		}
 
-
-
-
-
-
-
-
 		return result;
 	}
 
