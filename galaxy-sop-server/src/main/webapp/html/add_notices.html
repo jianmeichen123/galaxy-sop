@@ -140,14 +140,20 @@ span.error{
 </style>
 <script>
 $(function(){
-		var eidtStatus = /messageStatus:1/;
 		var eidtStatus = sessionStorage.getItem('editStatus');
 		if(eidtStatus =='/messageStatus:1/' ){
 			$('.noSend_status').show();
-			$('.sended_status').hide()
+			$('.sended_status').hide();
+			if($('.system_radio_second .radio_checked  input').val()==0){
+				$('#slpk').attr('disabled',true);
+			}else{
+				$('#slpk').attr('disabled',false);
+			}
 		}else if(eidtStatus =='/messageStatus:2/'){
 			$('.noSend_status').hide();
 			$('.sended_status').show();
+			
+			
 		}
 		
 		
@@ -178,7 +184,7 @@ $(function(){
 	
 		 	
 		 	
-		 	
+		 	//复选框
 	$('.qualificationstc').css('max-height','600px');
 	$('.highlighCheckbox').click(function(event){
 		if($(this).hasClass('highlighCheckbox_checked')){
@@ -189,7 +195,7 @@ $(function(){
 		event.preventDefault(); 
 		
 	})
-	
+	//单选框点击事件
 	$('.noticeStatus .btn-default .filter-option').html('请选择')
 	$('.radio_cont').click(function(){
 		$('.radio_cont').removeClass('radio_checked');
@@ -198,6 +204,7 @@ $(function(){
 		if(name=="setTime"){
 			$('.system_radio_second .setTime').show();
 			$('.noticeStatus .btn-default .filter-option').html('请选择');
+			alert('ccc')
 			$('#slpk').attr('disabled',false)
 		}else{
 			$('.system_radio_second .setTime').hide();
@@ -263,7 +270,7 @@ $(function(){
 	
 	
 	
-	/* 点击时候的判断 */
+	/* 点击时候的判断必选项 */
 	$('.system-content').click(function(event){
 		/* 必填项判断 */
 		var textArealen = $('.system_textarea').val().length;
@@ -318,6 +325,7 @@ $(function(){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
 				data.sendStatus=$("#slpk").val();
+				alert($("#slpk").val())
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
