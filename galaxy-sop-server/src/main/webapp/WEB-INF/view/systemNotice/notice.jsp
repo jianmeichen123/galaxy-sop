@@ -153,6 +153,7 @@
 	
 	$('.add_system').click(function(){//新建
 		var code = $(this).attr('data-code');
+		sessionStorage.setItem('editStatus','/messageStatus:1/')
 		$.getHtml({
 			url:getDetailUrl(code),
 			okback:function(){
