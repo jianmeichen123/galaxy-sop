@@ -101,7 +101,10 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			query.setEndTime(endTime);
 
 			Map<String,Object> overViewData = null;
-			if(query.getDeptid()==null){
+
+			if(query.getBelongType() != null){
+				overViewData = projectService.queryProjOverViewForXMFX(query);
+			}else if(query.getDeptid()==null){
 				overViewData = projectService.queryProjOverViewForComp(query);
 			}else{
 				overViewData = projectService.queryProjOverViewForDept(query);

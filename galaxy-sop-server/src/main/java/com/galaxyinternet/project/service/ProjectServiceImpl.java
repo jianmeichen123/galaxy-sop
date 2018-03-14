@@ -950,6 +950,277 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return result;
 	}
 
+	//index - 已投项目分析
+	public Map<String,Object> queryProjOverViewForXMFX(ChartKpiQuery query){
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> data1 = new HashMap<>();
+		Map<String, Object> data2 = new HashMap<>();
+
+		List<Project> proListTable = null;
+		List<Project> proListListdata =null;
+
+		ProjectBo proQuery = new ProjectBo();
+		//过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
+		proQuery.setStartTime(query.getStartTime());
+		proQuery.setEndTime(query.getEndTime());
+		proQuery.setProjectDepartid(query.getDeptid());
+
+
+		Map<Long, Integer> usertotalAll = new HashMap<>();
+		Map<Long, Map<String, Integer>> userTypeTotle = new HashMap<Long, Map<String, Integer>>();
+
+		List<Map.Entry<Long, Integer>> entryList = null;
+		Iterator<Map.Entry<Long, Integer>> iter = null;
+		Map.Entry<Long, Integer> tmpEntry = null;
+		List<String> xTopValues = new ArrayList<>();
+		List<Integer> protopValues = new ArrayList<>();
+
+		List<Map<String, Object>> topvalueData = new ArrayList<>();
+		Map<String, Object> topvaluesMap1 = new HashMap<>();
+		/*topvaluesMap1.put("name",  "项目数");
+		topvaluesMap1.put("data",  protopValues);
+		topvalueData.add(topvaluesMap1);*/
+
+		switch(query.getBelongType())
+		{
+			case 1:
+				proListTable = projectDao.searchProjOverViewByProject(proQuery);
+				proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
+
+				// top 10
+
+				if(query.getDeptid() != null)
+				{
+					for(Project temp:proListTable)
+					{
+						if(userTypeTotle.containsKey(temp.getCreateUid())){
+							userTypeTotle.get(temp.getCreateUid()).put("pro",userTypeTotle.get(temp.getCreateUid()).get("pro") + temp.getCompleted());
+						}else{
+							Map<String, Integer> protopData = new HashMap<>();
+							protopData.put("pro",temp.getCompleted());
+							userTypeTotle.put(temp.getCreateUid(),protopData);
+						}
+					}
+					for(Project temp:proListListdata)
+					{
+						if(userTypeTotle.containsKey(temp.getCreateUid())){
+							if(userTypeTotle.get(temp.getCreateUid()).containsKey("list")){
+								userTypeTotle.get(temp.getCreateUid()).put("list",userTypeTotle.get(temp.getCreateUid()).get("list") + temp.getCompleted());
+							}else{
+								userTypeTotle.get(temp.getCreateUid()).put("list", temp.getCompleted());
+							}
+						}else{
+							Map<String, Integer> protopData = new HashMap<>();
+							protopData.put("list",temp.getCompleted());
+							userTypeTotle.put(temp.getCreateUid(),protopData);
+						}
+					}
+				}else{
+					for(Project temp:proListTable)
+					{
+						if(userTypeTotle.containsKey(temp.getProjectDepartid())){
+							userTypeTotle.get(temp.getProjectDepartid()).put("pro",userTypeTotle.get(temp.getProjectDepartid()).get("pro") + temp.getCompleted());
+						}else{
+							Map<String, Integer> protopData = new HashMap<>();
+							protopData.put("pro",temp.getCompleted());
+							userTypeTotle.put(temp.getProjectDepartid(),protopData);
+						}
+					}
+					for(Project temp:proListListdata)
+					{
+						if(userTypeTotle.containsKey(temp.getProjectDepartid())){
+							if(userTypeTotle.get(temp.getProjectDepartid()).containsKey("list")){
+								userTypeTotle.get(temp.getProjectDepartid()).put("list",userTypeTotle.get(temp.getProjectDepartid()).get("list") + temp.getCompleted());
+							}else{
+								userTypeTotle.get(temp.getProjectDepartid()).put("list", temp.getCompleted());
+							}
+						}else{
+							Map<String, Integer> protopData = new HashMap<>();
+							protopData.put("list",temp.getCompleted());
+							userTypeTotle.put(temp.getProjectDepartid(),protopData);
+						}
+					}
+				}
+
+				int valueT = 0;
+				for(Map.Entry<Long, Map<String, Integer>> temp : userTypeTotle.entrySet()){
+					valueT = 0;
+					if(temp.getValue().containsKey("pro")){
+						valueT += temp.getValue().get("pro");
+					}
+					if(temp.getValue().containsKey("list")){
+						valueT += temp.getValue().get("list");
+					}
+					usertotalAll.put(temp.getKey(), valueT);
+				}
+
+				entryList = new ArrayList<Map.Entry<Long, Integer>>(usertotalAll.entrySet());
+				Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+					public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+						return me2.getValue() - me1.getValue();
+					}
+				});
+
+				iter = entryList.iterator();
+				while (iter.hasNext())
+				{
+					tmpEntry = iter.next();
+					//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
+
+					if(query.getDeptid() != null)
+					{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+					}else{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
+					}
+
+					protopValues.add(tmpEntry.getValue());
+				}
+
+				topvaluesMap1.put("name",  "项目数");
+				topvaluesMap1.put("data",  protopValues);
+				topvalueData.add(topvaluesMap1);
+
+				data2.put("xValue",xTopValues);
+				data2.put("dataValue",topvalueData);
+
+				result.put("data2", data2);
+
+				break;
+			case 2:  //负责的项目 pro
+				proListTable = projectDao.searchProjOverViewByProject(proQuery);
+
+				// top 10
+
+				if(query.getDeptid() != null)
+				{
+					for(Project temp:proListTable)
+					{
+						if(usertotalAll.containsKey(temp.getCreateUid())){
+							usertotalAll.put(temp.getCreateUid(), usertotalAll.get(temp.getCreateUid())+temp.getCompleted());
+						}else{
+							usertotalAll.put(temp.getCreateUid(), temp.getCompleted());
+						}
+					}
+				}else{
+					for(Project temp:proListTable)
+					{
+						if(usertotalAll.containsKey(temp.getProjectDepartid())){
+							usertotalAll.put(temp.getProjectDepartid(), usertotalAll.get(temp.getProjectDepartid())+temp.getCompleted());
+						}else{
+							usertotalAll.put(temp.getProjectDepartid(), temp.getCompleted());
+						}
+					}
+				}
+
+
+				entryList = new ArrayList<Map.Entry<Long, Integer>>(usertotalAll.entrySet());
+				Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+					public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+						return me2.getValue() - me1.getValue();
+					}
+				});
+
+				iter = entryList.iterator();
+				while (iter.hasNext())
+				{
+					tmpEntry = iter.next();
+					//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
+
+					if(query.getDeptid() != null)
+					{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
+					}else{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+					}
+
+					protopValues.add(tmpEntry.getValue());
+				}
+
+				topvaluesMap1.put("name",  "项目数");
+				topvaluesMap1.put("data",  protopValues);
+				topvalueData.add(topvaluesMap1);
+
+				data2.put("xValue",xTopValues);
+				data2.put("dataValue",topvalueData);
+
+				result.put("data2", data2);
+
+				break;
+			case 3:  //协作的项目，listdata - table
+				proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
+
+				// top 10
+
+				if(query.getDeptid() != null)
+				{
+					for(Project temp:proListListdata)
+					{
+						if(usertotalAll.containsKey(temp.getCreateUid())){
+							usertotalAll.put(temp.getCreateUid(), usertotalAll.get(temp.getCreateUid())+temp.getCompleted());
+						}else{
+							usertotalAll.put(temp.getCreateUid(), temp.getCompleted());
+						}
+					}
+				}else{
+					for(Project temp:proListListdata)
+					{
+						if(usertotalAll.containsKey(temp.getProjectDepartid())){
+							usertotalAll.put(temp.getProjectDepartid(), usertotalAll.get(temp.getProjectDepartid())+temp.getCompleted());
+						}else{
+							usertotalAll.put(temp.getProjectDepartid(), temp.getCompleted());
+						}
+					}
+				}
+
+				entryList = new ArrayList<Map.Entry<Long, Integer>>(usertotalAll.entrySet());
+				Collections.sort(entryList, new Comparator<Map.Entry<Long, Integer>>() {
+					public int compare(Map.Entry<Long, Integer> me1, Map.Entry<Long, Integer> me2) {
+						return me2.getValue() - me1.getValue();
+					}
+				});
+
+				iter = entryList.iterator();
+				while (iter.hasNext())
+				{
+					tmpEntry = iter.next();
+					//topDataSort.put(tmpEntry.getKey(), tmpEntry.getValue());
+
+					if(query.getDeptid() != null)
+					{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
+					}else{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+					}
+
+					protopValues.add(tmpEntry.getValue());
+				}
+
+				topvaluesMap1.put("name",  "项目数");
+				topvaluesMap1.put("data",  protopValues);
+				topvalueData.add(topvaluesMap1);
+
+				data2.put("xValue",xTopValues);
+				data2.put("dataValue",topvalueData);
+
+				result.put("data2", data2);
+
+				break;
+			default:
+				break;
+		}
+
+
+
+
+
+
+
+
+		return result;
+	}
+
 
 
 

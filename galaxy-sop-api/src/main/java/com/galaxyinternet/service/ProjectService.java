@@ -85,5 +85,6 @@ public interface ProjectService extends BaseService<Project> {
 	 */
     Map<String,Object> queryProjOverViewForComp(ChartKpiQuery query);
 	Map<String,Object> queryProjOverViewForDept(ChartKpiQuery query);
-
+	//index - 已投项目分析调用
+    Map<String,Object> queryProjOverViewForXMFX(ChartKpiQuery query);
 }
