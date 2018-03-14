@@ -437,26 +437,7 @@ $(window).resize(function(){
   
   
   
-  $('.system-tips-close').click(function(){
-	 // $(this).parent().remove();
-	  $(this).parent().remove();
-	  var data = {
-		};
-		var url = "<%=path %>/galaxy/systemMessageUser/amu";
-		data.messageOs="web";
-		data.messageId=36;
-		sendPostRequestByJsonObj(url, data, function(data) {
-			var result = data.result.status;
-			if (result == "ERROR") { //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			} else {
-				/* layer.msg("保存成功", {
-					time : 500
-				}); */
-			}
-		});
-  })
+ var messageId;
 function queryExitMessage(){
 	  var url = "<%=path %>/galaxy/systemMessage/sml";
 		var dataJson={
@@ -470,13 +451,12 @@ function queryExitMessage(){
 		function(data){ 
 			if(data.result.status=="OK"){
 				if(null!=data.entity){
-					var messageId=data.entity.id;
+					messageId=data.entity.id;
 					queryExitUserMessage(messageId);
 				}
 			}
 		 })
 	}
-
 function queryExitUserMessage(messageId){
 	  var url = "<%=path %>/galaxy/systemMessageUser/suml";
 		var dataJson={
@@ -495,5 +475,25 @@ function queryExitUserMessage(messageId){
 			}
 		 })
 	}
+$('.system-tips-close').click(function(){
+	 // $(this).parent().remove();
+	  $(this).parent().remove();
+	  var data = {
+		};
+		var url = "<%=path %>/galaxy/systemMessageUser/amu";
+		data.messageOs="web";
+		data.messageId=messageId;
+		sendPostRequestByJsonObj(url, data, function(data) {
+			var result = data.result.status;
+			if (result == "ERROR") { //OK, ERROR
+				layer.msg(data.result.message);
+				return;
+			} else {
+				/* layer.msg("保存成功", {
+					time : 500
+				}); */
+			}
+		});
+ })
  
 </script>
