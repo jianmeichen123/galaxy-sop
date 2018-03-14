@@ -275,7 +275,13 @@
 				    		 $('.sys_platform span:eq(2)').html(arr[1])
 			    		 }
 			    	 }
+			    	 $('.sended_update_time').html(message.upgradeTimeStr)
+			    	 
+			    	 
 			     }
+			     //推送通知时间
+			     
+			     
 			     
 			     
 				 $(".highlighCheckbox").each(function (i) {

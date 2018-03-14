@@ -98,19 +98,10 @@
         	</li>
             <li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>推送时间：</div>
-        		<div class='system_radio_second' >
-        			<label class="radio_cont radio_checked" data-name="">
-					<input type="radio" name="isNowSend " value="0" class="radioclass">
-						立即
-					</label>
+        		<div class='sended_update_time' >
+        			
         		</div>
-        		<div class='system_radio_second'>
-        			<label class="radio_cont system_radio_second" data-name="setTime">
-					<input type="radio" name="isNowSend" value="1" class="radioclass ">
-						定时
-					</label>
-					<input  class='datatimePicture setTime' readonly='readonly' type='text' name="sendTime"/>
-        		</div>
+        		
         	</li>   
         	<li>
         		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
@@ -149,6 +140,7 @@ span.error{
 </style>
 <script>
 $(function(){
+		var eidtStatus = /messageStatus:1/;
 		var eidtStatus = sessionStorage.getItem('editStatus');
 		if(eidtStatus =='/messageStatus:1/' ){
 			$('.noSend_status').show();
@@ -247,7 +239,6 @@ $(function(){
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 	var updateTime = $('input[name="sendTime"]').val();
 	if($('.system_radio_second label input').val()==0){
-		alert('44')
 		if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
 			$('.system_send').addClass('system_disabled')
 		}else{

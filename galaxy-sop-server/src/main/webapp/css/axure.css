@@ -4760,3 +4760,12 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 }
 .system_tips_content  textarea{height:90px;}
 #detail-form .system_tips_content .sended_message{border:none;height:auto;}
+.task-todeal-textarea .sys_platform span:nth-child(1){
+	margin-left:5px;
+}
+.sended_update_time{
+	margin-top:15px;
+}
+.task-todeal-textarea .sys_platform{
+	margin-top:15px;
+}
