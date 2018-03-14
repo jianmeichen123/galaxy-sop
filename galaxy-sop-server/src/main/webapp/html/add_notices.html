@@ -244,14 +244,26 @@ $(function(){
 	var textArealen = $('.system_textarea').val().length;
 	var checkboxLen = $('.highlighCheckbox_checked').length;
 	var radioLen = $('.radio_checked').length;
-	var updateTime = $('input[name="sendTime"]').val();
-	
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
-	if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
-		$('.system_send').addClass('system_disabled')
+	var updateTime = $('input[name="sendTime"]').val();
+	if($('.system_radio_second label input').val()==0){
+		alert('44')
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
+			$('.system_send').addClass('system_disabled')
+		}else{
+			$('.system_send').removeClass('system_disabled')
+		}
 	}else{
-		$('.system_send').removeClass('system_disabled')
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
+			$('.system_send').addClass('system_disabled')
+		}else{
+			$('.system_send').removeClass('system_disabled')
+		}
 	}
+	
+	
+	
+	
 	
 	/* 点击时候的判断 */
 	$('.system-content').click(function(event){
@@ -261,12 +273,20 @@ $(function(){
 		var radioLen = $('.radio_checked').length;
 		var updateTime = $('input[name="sendTime"]').val().trim();
 		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
-		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
-			$('.system_send').addClass('system_disabled')
+		if($('.system_radio_second label input').val()==0){
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
+				$('.system_send').addClass('system_disabled')
+			}else{
+				$('.system_send').removeClass('system_disabled')
+			}
 		}else{
-			$('.system_send').removeClass('system_disabled')
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""){
+				$('.system_send').addClass('system_disabled')
+			}else{
+				$('.system_send').removeClass('system_disabled')
+			}
+			
 		}
-		
 		event.preventDefault(); 
 	})
 	
