@@ -216,20 +216,21 @@
 		$('.close').addClass('tast-close')//添加关闭按钮
 
 	}
-	function system_edit(id){
+	function system_edit(id,status){
 		$.getHtml({
 			url:getDetailUrl("add_notice"),
 			okback:function(){
-				queryMessage(id);
+				queryMessage(id,status);
 			}
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 
 	}
-	function queryMessage(id){
+	function queryMessage(id,status){
 		var dataJson={
 				id:id
 		}
+		alert(status)
 		sendPostRequestByJsonObj(
 		platformUrl.queryMessage, 
 		dataJson,

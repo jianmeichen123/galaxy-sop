@@ -91,13 +91,13 @@ $(function(){
 		})
 		
 		
-		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",1);
+		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
 		function selectMessageStatus(url, name, mark,selectIndex){
 				sendGetRequest(url,null, function(data){
 					var options = [];
-					/* if(mark == 1){
-						options.push('<option value="">请选择</option>');
-					} */
+					if(mark == 1){
+						options.push('<option value="">全部</option>');
+					}
 					$.each(data.entityList, function(i, value){
 						if(selectIndex && i == selectIndex){
 							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
@@ -121,22 +121,15 @@ $(function(){
 		event.preventDefault(); 
 		
 	})
-	$('.noticeStatus .btn-default .filter-option').html('已发送')
-	/* $('.noticeStatus .bootstrap-select').unbind('click') */
-	$('#slpk').attr('disabled',true)
+	
 	$('.radio_cont').click(function(){
 		$('.radio_cont').removeClass('radio_checked');
 		$(this).addClass('radio_checked');
 		var name = $(this).attr('data-name');
 		if(name=="setTime"){
 			$('.system_radio_second .setTime').show();
-			$('.noticeStatus .btn-default .filter-option').html('请选择');
-			$('#slpk').attr('disabled',false)
 		}else{
 			$('.system_radio_second .setTime').hide();
-			$('.noticeStatus .btn-default .filter-option').html('已发送')
-			$('#slpk').attr('disabled',true)
-			
 		}
 		
 		
@@ -177,8 +170,8 @@ $(function(){
 	var textArealen = $('.system_textarea').val().length;
 	var checkboxLen = $('.highlighCheckbox_checked').length;
 	var radioLen = $('.radio_checked').length;
-	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
-	if(textArealen==0||checkboxLen==0||updateTime==''||selectVal=="请选择"){
+	var updateTime = $('input[name="formationUpdate"]').val()
+	if(textArealen==0||checkboxLen==0||updateTime==''){
 		$('.system_send').addClass('system_disabled')
 	}else{
 		$('.system_send').removeClass('system_disabled')
@@ -190,8 +183,8 @@ $(function(){
 		var textArealen = $('.system_textarea').val().length;
 		var checkboxLen = $('.highlighCheckbox_checked').length;
 		var radioLen = $('.radio_checked').length;
-		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
-		if(textArealen==0||checkboxLen==0||selectVal=="请选择"){
+		//var updateTime = $('input[name="upgradeTime"]').val()
+		if(textArealen==0||checkboxLen==0){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
@@ -229,6 +222,7 @@ $(function(){
 				if(""!=osTypeval){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
+				data.sendStatus=$("#slpk").val();
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
