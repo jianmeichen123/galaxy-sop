@@ -165,6 +165,7 @@
 		$.getHtml({
 			url:getDetailUrl("system_close"),
 			okback:function(){
+		$("#confirmClose").click(function(){
 				var dataJson={
 						id:id,
 						sendStatus:"messageStatus:3" 
@@ -180,7 +181,9 @@
 						$("#powindow").remove();
 					}
 				 })
+		})
 			}
+	
 		})
 		$('.close').addClass('tast-close')//添加关闭按钮
 
