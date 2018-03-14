@@ -144,7 +144,7 @@
                     </select>
                   </dd>
                 </dl>
-                 <dl class="fmdl fml fmdll clearfix">
+                 <dl class="fmdl fml fmdll special clearfix">
                   <dt>项目进度：</dt>
                   <dd>
                     <select name="projectProgress">
@@ -499,9 +499,10 @@
 			 if(primary=='1'){
 				 $(".searchall_prj .show_more").hide();
 				 $(".searchall_prj .fml").hide(); 
+				 $(".searchall_prj .fml.special").show(); 
 				 $("th[data-field='projectCareerline']").hide();
 				 $("th[data-field='createUname']").hide();
-				 $("td.delete_syb").hide();  
+				 $("td.delete_syb").hide();  				 
 				 $("#project-table").addClass("project-table_delete");
 			 }else{ 
 				 $(".searchall_prj .show_more").show();
