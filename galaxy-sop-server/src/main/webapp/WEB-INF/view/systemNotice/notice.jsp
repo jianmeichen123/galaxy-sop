@@ -147,6 +147,8 @@
 			return '<%=path%>/html/close_system.html';
 		}else if(code=='system_delete')	{
 			return '<%=path%>/html/delete_system.html';
+			}else if(code=="edit_notice"){
+				return '<%=path%>/html/edit_notices.html';
 			}
 		return "";
 	}
@@ -218,9 +220,14 @@
 
 	}
 	function system_edit(id,status){
+		var code="add_notice";
+		//该判断只是消息状态为“已发送”情况下弹出edit_notice.html，其他时候编辑页面为add_notice.html
+		if(status=="/messageStatus:2/"){
+			code="edit_notice";
+		}
 		sessionStorage.setItem('editStatus',status)
 		$.getHtml({
-			url:getDetailUrl("add_notice"),
+			url:getDetailUrl(code),
 			okback:function(){
 				queryMessage(id,status);
 			}
