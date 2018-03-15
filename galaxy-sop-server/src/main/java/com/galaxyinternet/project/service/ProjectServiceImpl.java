@@ -766,7 +766,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 				if(totalPro != 0){
 					b2 = new BigDecimal(Integer.toString(tempNum));
-					rate.add( b1.divide(b2,mc).toString()+"%");
+					rate.add( b2.divide(b1,mc).toString()+"%");
 				}else{
 					rate.add("0%");
 				}
@@ -905,19 +905,19 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 			if(totalPro_0 != 0){
 				b2 = new BigDecimal(Integer.toString(int0));
-				rate0.add(all1_b0.divide(b2,mc).toString()+"%");
+				rate0.add(b2.divide(all1_b0,mc).toString()+"%");
 			}else{
 				rate0.add("0%");
 			}
 			if(totalPro_1 != 0){
 				b2 = new BigDecimal(Integer.toString(int1));
-				rate1.add(all1_b1.divide(b2,mc).toString()+"%");
+				rate1.add(b2.divide(all1_b1,mc).toString()+"%");
 			}else{
 				rate1.add("0%");
 			}
 			if(totalPro_2 != 0){
 				b2 = new BigDecimal(Integer.toString(int2));
-				rate2.add(all1_b2.divide(b2,mc).toString()+"%");
+				rate2.add(b2.divide(all1_b2,mc).toString()+"%");
 			}else{
 				rate2.add("0%");
 			}
