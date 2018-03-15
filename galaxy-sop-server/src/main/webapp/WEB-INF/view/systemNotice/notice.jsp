@@ -222,9 +222,9 @@
 	function system_edit(id,status){
 		var code="add_notice";
 		//该判断只是消息状态为“已发送”情况下弹出edit_notice.html，其他时候编辑页面为add_notice.html
-		if(status=="/messageStatus:2/"){
+	/* 	if(status=="/messageStatus:2/"){
 			code="edit_notice";
-		}
+		} */
 		sessionStorage.setItem('editStatus',status)
 		$.getHtml({
 			url:getDetailUrl(code),
@@ -245,32 +245,17 @@
 		function(data){ 
 			if(data.result.status=="OK"){ 
 				if(null!=data.entityList&&data.entityList.length>0){
-					message=data.entityList[0];
-					$("#messageId").val(message.id);
-					$("textarea[name=messageContent]").val(message.messageContent);
-					$("input[name=upgradeTime]").val(message.upgradeTimeStr);
-					$('.radio_cont').removeClass('radio_checked');
-					 $(".radio_cont").each(function (i) {
-						var value=$(this).find("input:first-child").val();
-						if(value==message.isNowSend){
-							$(this).addClass("radio_checked");
-							var name = $(this).attr('data-name');
-							if(name=="setTime"){
-								$('.system_radio_second .setTime').show();
-							}else{
-								$('.system_radio_second .setTime').hide();
-							}
-						}
-					})
-					 $("input[name=sendTime]").val(message.sendTimeStr);
-					// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
-					$('#slpk').selectpicker('val', message.sendStatus);
-					$('#slpk').selectpicker('refresh');
-				     var arr=message.osType.split("/");
+					  message=data.entityList[0];
+					  console.log(message);
 				     if(status=='/messageStatus:2/'){
-				    	var arr=message.osType.split("/");
+				      $('#slpk_two').selectpicker('val', message.sendStatus);
+					  $('#slpk_two').selectpicker('refresh');
+					  $("input[name=upgradeTime_two]").val(message.upgradeTimeStr);
+				    	//var arr=message.osType.split("/");
+				    	var str="/";
+				    	var arr=message.osType.replace(new RegExp(str, 'g'),"、");
 				    	var spanArr =  $('.sys_platform span');
-				    	 for(var i=0;i<arr.length;i++){
+				    	 /* for(var i=0;i<arr.length;i++){
 				    		 if(arr.length==1){
 				    			 $('.sys_platform span:eq(0)').html(arr[0])
 				    		 }
@@ -283,10 +268,34 @@
 				    			 $('.sys_platform span:eq(1)').html(arr[0]+'、')
 					    		 $('.sys_platform span:eq(2)').html(arr[1])
 				    		 }
-				    	 }
+				    	 } */
+				    	 $('.sys_platform').html(arr);
 				    	 $('.sended_update_time').html(message.upgradeTimeStr)
 				    	 
 				    	 
+				     }else{
+				    	
+				    		$("#messageId").val(message.id);
+							$("textarea[name=messageContent]").val(message.messageContent);
+							$("input[name=upgradeTime]").val(message.upgradeTimeStr);
+							$('.radio_cont').removeClass('radio_checked');
+							 $(".radio_cont").each(function (i) {
+								var value=$(this).find("input:first-child").val();
+								if(value==message.isNowSend){
+									$(this).addClass("radio_checked");
+									var name = $(this).attr('data-name');
+									if(name=="setTime"){
+										$('.system_radio_second .setTime').show();
+									}else{
+										$('.system_radio_second .setTime').hide();
+									}
+								}
+							})
+							 $("input[name=sendTime]").val(message.sendTimeStr);
+							// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
+							$('#slpk').selectpicker('val', message.sendStatus);
+							$('#slpk').selectpicker('refresh');
+						     var arr=message.osType.split("/");
 				     }
 				     //推送通知时间
 				     

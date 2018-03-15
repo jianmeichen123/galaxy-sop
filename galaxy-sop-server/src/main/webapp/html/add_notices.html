@@ -19,8 +19,8 @@
         <ul>
         	<li class='task-todeal-textarea system_tips_content'>
         		<div class='task-reason'><em>*</em>通知内容：</div>
-        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="messageContent" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
-        	</li>
+        		<!-- <textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea" name="messageContent" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+         -->	</li>
         	<li class='task-todeal-textarea'>
         		<div class='task-reason'><em>*</em>目标平台：</div>
         		<div class='checkbox-div'>
@@ -125,7 +125,7 @@
       	
     
   		<div class="button_affrim tast-btn">
-	        <a href="javascript:;"  class="system_send">发送</a>
+	        <a href="javascript:;"  class="system_send" id="system_send_edit">发送</a>
    		 </div>
 
 </div>
@@ -303,7 +303,7 @@ $(function(){
 		var textArealen = $('.system_textarea').val().length;
 		var checkboxLen = $('.highlighCheckbox_checked').length;
 		var radioLen = $('.radio_checked').length;
-		var updateTime = $('input[name="sendTime"]').val().trim();
+		var updateTime = $('input[name="sendTime"]').val();
 		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 		if($('.system_radio_second label input').val()==0){
 			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
@@ -328,12 +328,12 @@ $(function(){
 			} else {
 				var id=$("#messageId").val();
 				//判断是否存在已发送的消息
-				if(isExitMessage(id)==false){
+				/* if(isExitMessage(id)==false){
 					layer.msg("已存在一条已发送消息", {
 						time : 500
 					});
 					return false;
-				}
+				} */
 				var data = {
 				};
 			
@@ -345,7 +345,7 @@ $(function(){
 					data.id=id;
 				}
 				data.messageContent=$("textarea[name=messageContent]").val();
-			
+				data.upgradeTime=Date.parse($("input[name=upgradeTime]").val());
 				data.isNowSend=$('.radio_checked').find("input:first-child").val();
 				if($("input[name=sendTime]").val()==""){
 					data.sendTime=Date.parse(new Date());
@@ -378,6 +378,16 @@ $(function(){
 				});
 			}
 		})
+	})
+	
+	$('#system_send_edit ').click(function() {
+		if ($(this).hasClass('system_disabled')) {
+			return false
+		} else {
+			var url = platformUrl.updateMessage;
+			data.sendStatus=$("#slpk").val();
+		}
+		
 	})
 	
 	function isExitMessage(id){
