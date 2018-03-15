@@ -900,6 +900,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			int0 = int1 + int2;
 
 			xValues.add(temp.getName());
+
+            allvalues.add(int0);
 			provalues.add(int1);
 			listvalues.add(int2);
 
@@ -931,13 +933,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 		Map<String, Object> valuesMap1 = new HashMap<>();
 		valuesMap1.put("name",  "负责项目数");
-		valuesMap1.put("rate",  provalues);
-		valuesMap0.put("rate",  rate1);
+		valuesMap1.put("data",  provalues);
+		valuesMap1.put("rate",  rate1);
 
 		Map<String, Object> valuesMap2 = new HashMap<>();
 		valuesMap2.put("name",  "协作项目数");
-		valuesMap2.put("rate",  listvalues);
-		valuesMap0.put("rate",  rate2);
+		valuesMap2.put("data",  listvalues);
+		valuesMap2.put("rate",  rate2);
 
 
 		valueData.add(valuesMap0);
