@@ -384,8 +384,26 @@ $(function(){
 		if ($(this).hasClass('system_disabled')) {
 			return false
 		} else {
+			var id=$("#messageId").val();
 			var url = platformUrl.updateMessage;
-			data.sendStatus=$("#slpk").val();
+			data.sendStatus=$("#slpk_two").val();
+			data.id=id;
+			data.upgradeTime=Date.parse($("input[name=upgradeTime_two]").val());
+			sendPostRequestByJsonObj(url, data, function(data) {
+				var result = data.result.status;
+				if (result == "ERROR") { //OK, ERROR
+					layer.msg(data.result.message);
+					return;
+				} else {
+					layer.msg("保存成功", {
+						time : 500
+					});
+					$("#popbg").remove();
+					$("#powindow").remove();
+					$.locksCreenOpen();
+					$('#noticeTable').bootstrapTable('refresh');
+				}
+			});
 		}
 		
 	})
