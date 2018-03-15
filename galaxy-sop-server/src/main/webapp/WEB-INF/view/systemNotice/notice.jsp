@@ -269,10 +269,9 @@
 					    		 $('.sys_platform span:eq(2)').html(arr[1])
 				    		 }
 				    	 } */
+				    	 $(".messageContent").html(message.messageContent);
 				    	 $('.sys_platform').html(arr);
 				    	 $('.sended_update_time').html(message.upgradeTimeStr)
-				    	 
-				    	 
 				     }else{
 				    	
 				    		$("#messageId").val(message.id);
