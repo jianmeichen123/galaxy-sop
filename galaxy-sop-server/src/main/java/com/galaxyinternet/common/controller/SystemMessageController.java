@@ -231,8 +231,43 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 			query.setOsType(systemMessage.getOsType());
 			query.setSendStatus(systemMessage.getSendStatus());
 			query.setEndTime(systemMessage.getEndTime());
-			 SystemMessage queryOne = systemMessageService.queryOne(query);
-			 responseBody.setEntity(queryOne);
+			 List<SystemMessage> queryList = systemMessageService.queryList(query);
+			 responseBody.setEntityList(queryList);
+			responseBody.setResult(new Result(Status.OK,"查询成功"));
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			logger.error("异常信息:", e.getMessage());
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 根绝id查询接口
+	 * 
+	 * @version 2018-03-12
+	 * @author chenjianmei
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/isExit", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SystemMessage> isExit(@RequestBody SystemMessage systemMessage, HttpServletRequest request)
+	{
+		ResponseData<SystemMessage> responseBody = new ResponseData<SystemMessage>();
+		/*if (systemMessage == null || systemMessage.getId() == null || "".equals(systemMessage.getId()))
+		{
+			responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
+			return responseBody;
+		}*/
+		try
+		{
+			SystemMessage query=new SystemMessage();
+			//query.setId(systemMessage.getId());
+			query.setIsDel(0);
+			query.setOsType(systemMessage.getOsType());
+			query.setSendStatus(systemMessage.getSendStatus());
+			//query.setEndTime(systemMessage.getEndTime());
+            List<SystemMessage> queryList = systemMessageService.queryList(query);
+			 responseBody.setEntityList(queryList);
 			responseBody.setResult(new Result(Status.OK,"查询成功"));
 		} catch (Exception e)
 		{

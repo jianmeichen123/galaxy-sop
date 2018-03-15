@@ -449,8 +449,8 @@ function queryExitMessage(){
 		dataJson,
 		function(data){ 
 			if(data.result.status=="OK"){
-				if(null!=data.entity){
-					messageId=data.entity.id;
+				if(null!=data.entityList&&data.entityList.length>0){
+					messageId=data.entityList[0].id;
 					queryExitUserMessage(messageId);
 				}
 			}
