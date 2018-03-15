@@ -22,6 +22,13 @@
 
 
 <script src="<%=path %>/js/charts/projectProgress.js"></script>
+<script>
+if(departmentId==2){
+	$('.project_tab').hide()
+}else{
+	$('.project_tab').show()
+}
 
+</script>
 
 

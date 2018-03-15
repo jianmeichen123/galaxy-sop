@@ -215,19 +215,41 @@ var chartProjectProgressUtils = {
 			if(formdata.domid){
 				chartProjectProgressUtils.chartProjectProgressOptions.chart.renderTo = formdata.domid;
 			}
-			var form = {
-					startTime : DateUtils.getTime(DateUtils.getYearFirstDay())
+			function getTime(t){
+				var _time = new Date(t);
+				var year = _time.getFullYear();
+				var month = _time.getMonth()+1;
+				var date = _time.getDate();
+				if(month<10){
+					month = "0"+month;
+				}
+				if(date<10){
+					date = "0"+date;
+				}
+				return  year+"-"+month+"-"+date
 			}
-			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
+			
+			if(departmentId == 2){
+				var form = {
+						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
+				}
+			}else{
+				var form = {
+						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
+						depid :departmentId
+				}
+			}
+			
+			sendPostRequestByJsonObj(platformUrl.searchProjOverView,form,function(data){
 				if(data.result.status=='OK'){
-					if(data.entityList){
-						
+					if(data.userData){
 			    		var color=['#587edd','#49ceff','#00bdf4','#88dfd8','#4490d2','#bee6d5','#6ebdea','#ff9c89','#62d1b0','#a3e394'];
-
 			    		var seriesArr = new Array();
 			    		var totalCount = 0;
 			    		var i = 0;
-			    		$.each(data.entityList,function(){
+			    		$.each(data.userData,function(){
+			    			console.log(this)
+			    			
 			    			//这里的颜色可配置在数据库中啊
 			    			var temp = {
 			    					name : this.projectProgressName,
@@ -235,7 +257,7 @@ var chartProjectProgressUtils = {
 			    					y : this.projectCount,
 			    					rate : parseFloat(this.projectRate)
 			    			}
-			    			seriesArr.push(temp);
+			    			seriesArr.push(temp);//数组中追加多个对象
 			    			totalCount = this.totalCount;
 			    			i++;
 			    		});
