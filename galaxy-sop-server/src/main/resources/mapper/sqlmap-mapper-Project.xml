@@ -1373,7 +1373,7 @@
 				listdata.project_id = pro.id
 				AND listdata.field_1 = deptUser.user_id
 				AND listdata.title_id = 1103
-				AND listdata.field_5 = 0
+				AND listdata.field_5 != 0
 
 				<if test="projectDepartid == null"> AND deptUser.dep_id != pro.project_departId </if>
 				<if test="projectDepartid != null"> and deptUser.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
@@ -1392,7 +1392,7 @@
 				pro.project_progress, listdata.field_1
 			</when>
 			<otherwise>
-				project_progress,project_departId
+				pro.project_progress, deptUser.dep_id
 			</otherwise>
 		</choose>
 		<!--

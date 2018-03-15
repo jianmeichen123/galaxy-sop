@@ -1130,9 +1130,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 					if(query.getDeptid() != null)
 					{
-						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
-					}else{
 						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+					}else{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
 					}
 
 					protopValues.add(tmpEntry.getValue());
@@ -1189,9 +1189,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 					if(query.getDeptid() != null)
 					{
-						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
-					}else{
 						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+tmpEntry.getKey(), "realName"));
+					}else{
+						xTopValues.add((String)cache.hget(PlatformConst.CACHE_PREFIX_DEP+tmpEntry.getKey(), "name"));
 					}
 
 					protopValues.add(tmpEntry.getValue());
