@@ -109,7 +109,7 @@
         		
         	</li>   
         	<li>
-        		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
+        		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime_two"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus'><em>*</em>通知状态：
@@ -253,6 +253,25 @@ $(function(){
 	    minView : 0,
 	    minuteStep:1
 	})
+	$('.task-reason input[name="upgradeTime_two"]').datetimepicker({//系统升级
+	    format: 'yyyy-mm-dd hh:ii',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minDate:new Date(),
+	    startDate:new Date,
+	    minView : 0,
+	    minuteStep:1
+	})
+	
+	
 	
 	/* 刚加载页面的时候就要开始判断 */
 	var textArealen = $('.system_textarea').val().length;
@@ -326,7 +345,7 @@ $(function(){
 					data.id=id;
 				}
 				data.messageContent=$("textarea[name=messageContent]").val();
-				data.upgradeTime=Date.parse($("input[name=upgradeTime]").val());
+			
 				data.isNowSend=$('.radio_checked').find("input:first-child").val();
 				if($("input[name=sendTime]").val()==""){
 					data.sendTime=Date.parse(new Date());
@@ -340,11 +359,7 @@ $(function(){
 				if(""!=osTypeval){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
-				if(null==id||""==id){
-					data.sendStatus=$("#slpk").val();
-				}else{
-					data.sendStatus=$("#slpk_two").val();
-				}
+				data.sendStatus=$("#slpk").val();
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
