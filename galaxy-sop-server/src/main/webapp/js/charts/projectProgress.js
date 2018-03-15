@@ -264,7 +264,7 @@ var chartProjectProgressUtils = {
 			        					}
 			        			);
 			    			}
-			    			chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress',totalCount);
+			    		chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress',totalCount);
 			    		};
 			    		chartProjectProgressUtils.chartProjectProgressOptions.plotOptions.pie.point.events.legendItemClick = function(e){
 			    			
@@ -300,7 +300,7 @@ var chartProjectProgressUtils = {
 			    		
 			    		
 			    		//项目进度图表默认加载链接
-			    		$("#container_progress .highcharts-title tspan").click(function(){
+			    	/*	$("#container_progress .highcharts-title tspan").click(function(){
 			    			var url = platformUrl.projectAnalysis;
 			    			if(chartProjectProgressUtils.forwardParam.progressParam){
 			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
@@ -314,7 +314,7 @@ var chartProjectProgressUtils = {
 			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
 			    			}
 			    			forwardWithHeader(url);
-			    		});
+			    		});*/
 			    		//more 链接
 			    		if(roleId!=1 && roleId!=2 && roleId!=3){
 			    			$("#more_progress").hide();
@@ -367,7 +367,7 @@ var chartProjectProgressUtils = {
 				}
 			}
 			
-			if(flag=='progress'){
+			/*if(flag=='progress'){
 				chartProjectProgressUtils.forwardParam.progressParam = param;
 				$("#container_progress .highcharts-title tspan").click(function(){
 					
@@ -395,7 +395,7 @@ var chartProjectProgressUtils = {
 						forwardWithHeader(url);
 					}
 				})
-			}		
+			}*/		
 		}
 }
 //项目进度
@@ -406,10 +406,10 @@ chartProjectProgressUtils.init(progressFormdata);
 noDataProGressDiv();
 
 //项目进度图表默认加载链接
-$("#container_progress .highcharts-title tspan").click(function(){
+/*$("#container_progress .highcharts-title tspan").click(function(){
 	var url = platformUrl.projectAnalysis;
 	if(forwardParam.progressParam){
 		url += "?forwardProgress=" + forwardParam.progressParam ;
 	}
 	forwardWithHeader(url);
-});
+});*/
