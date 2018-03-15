@@ -2254,7 +2254,7 @@ function saveRow(data)
 				}
 			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
-			{ 
+			{  
 				tr.data(key,data[key]);
 				var val_text = data[key];
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
@@ -2272,7 +2272,11 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-				tr.find('td[data-field-name="'+key+'"]').text(val_text);
+				if(titleId=='1103'){  
+					 val_text = data[key+'Str']; 
+				} 
+				tr.find('td[data-field-name="'+key+'"]').text(val_text);	
+				
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
