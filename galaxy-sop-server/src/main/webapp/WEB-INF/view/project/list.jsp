@@ -273,7 +273,7 @@
 	function proInfo(id){
 		//项目详情页返回地址
 		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
-		//返回附带参数功能代码
+		//返回附带参数功能代码 
 		var options = $("#project-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
@@ -286,7 +286,7 @@
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectPerson = $("input[name='projectPerson']").val();
 		var faFlag = $("select[name='faFlag']").val();
-		
+		var primary= $("input[name='primary']").val();
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -302,7 +302,9 @@
 	        		createUid : createUid,
 	        		nameCodeLike : nameCodeLike,
 	        		projectPerson:projectPerson,
-	        		faFlag:faFlag
+	        		faFlag:faFlag,
+	        		primary:primary
+	        		
 				}
 		}
 		var href_url=window.location;
@@ -376,12 +378,19 @@
 	 */
 	 //createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
 	$(function(){
-		//返回附带参数功能代码
+		//返回附带参数功能代码 
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 			initPageSize = 10; 
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
+			debugger;
+			if(pageParams.primary=='0'){
+				$(".xhtTab[primary='0']").click();
+			}else{
+				$(".xhtTab[primary='1']").click();
+				
+			}
 		}
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
@@ -495,32 +504,7 @@
 			});
 		}  
 		 getProjectTable();
-		 $(".xhtTab").click(function(){  
-			 var that=$(this);
-			 $(".xhtTab").removeClass("active");
-			 that.addClass("active");
-			 var primary=$(this).attr("primary");
-			 $("input[name='primary']").val(primary);
-			 if(primary=='1'){
-				 $(".searchall_prj .show_more").hide();
-				 $(".searchall_prj .fml").hide(); 
-				 $(".searchall_prj .fml.special").show(); 
-				 $("th[data-field='projectCareerline']").hide();
-				 $("th[data-field='createUname']").hide();
-				 $("td.delete_syb").hide();  				 
-				 $("#project-table").addClass("project-table_delete");
-			 }else{ 
-				 $(".searchall_prj .show_more").show();
-				 $(".searchall_prj .fml").show(); 
-				 $("th[data-field='projectCareerline']").show();
-				 $("th[data-field='createUname']").show();
-				 $("td.delete_syb").show();  
-				 $("#project-table").removeClass("project-table_delete");
-			 }
-
-			 $("#resetBtn").click(); 
-			 $("button[action='querySearch']").click(); 
-		 })
+	 
 		/**
 		 * 改变事业线时获取该事业线下的投资经理
 		 * @version 2016-06-21
@@ -658,5 +642,31 @@
 		}
 		
 	}
+	 $(".xhtTab").click(function(){  
+		 var that=$(this);
+		 $(".xhtTab").removeClass("active");
+		 that.addClass("active");
+		 var primary=$(this).attr("primary");
+		 $("input[name='primary']").val(primary);
+		 if(primary=='1'){
+			 $(".searchall_prj .show_more").hide();
+			 $(".searchall_prj .fml").hide(); 
+			 $(".searchall_prj .fml.special").show(); 
+			 $("th[data-field='projectCareerline']").hide();
+			 $("th[data-field='createUname']").hide();
+			 $("td.delete_syb").hide();  				 
+			 $("#project-table").addClass("project-table_delete");
+		 }else{ 
+			 $(".searchall_prj .show_more").show();
+			 $(".searchall_prj .fml").show(); 
+			 $("th[data-field='projectCareerline']").show();
+			 $("th[data-field='createUname']").show();
+			 $("td.delete_syb").show();  
+			 $("#project-table").removeClass("project-table_delete");
+		 }
+
+		 $("#resetBtn").click(); 
+		 $("button[action='querySearch']").click(); 
+	 })
 </script>
 </html>
