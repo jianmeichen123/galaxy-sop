@@ -786,7 +786,7 @@ function buildTableDraft(sec,title,deleteRowIdsNewArray)
 				this.field2Str =this.field2;
 				this.field3Str = res.departmentName;
 				this.field3Id = res.departmentId; 
-				this.field4Str = res.managerName==undefined?"--":res.managerName;    
+				this.field4Str = res.managerName==undefined?"--":res.managerName;  
 			})
 		} 
 		$.each(title.dataMGList,function(){

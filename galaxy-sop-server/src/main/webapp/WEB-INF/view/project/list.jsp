@@ -48,14 +48,14 @@
          <!--页眉-->
          <div class="top new_tit_b topBanner clearfix">
         	<!--按钮--> 
-        	<c:if test="${fx:hasRole(4)}">
+        	<c:if test="${fx:hasRole(3)}||${fx:hasRole(4)}">
 	        	<div class="commonTab clearfix">
 	        		<div class="xhtTab active" primary=0>负责的项目</div>
 	        		<div class="xhtTab" primary=1>协作的项目</div>
 	        	</div>
         	</c:if>
         	
-        	<c:if test="${fx:hasRole(4)}">
+        	<c:if test="${fx:hasRole(3)}||${fx:hasRole(4)}">
 	        	<div class="btnbox_f btnbox_f1 handover_project" style="margin-right: 20px;">
 	                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:20px;display:none;" resource-mark="project_add">添加项目</a> 
 	            </div>

@@ -2204,7 +2204,7 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{  
+{   
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject(); 
@@ -2216,8 +2216,7 @@ function saveForm(form)
  */
 function saveRow(data)
 { 
-	data = JSON.parse(data);
-	debugger;
+	data = JSON.parse(data); 
 	if(data.subCode=="team-person"){ 
 		var tdid =data.field1;
 		var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
@@ -2237,7 +2236,7 @@ function saveRow(data)
 	}
 	var titleId = data.titleId;
 	var titleCode;
-	var index = data.index;   
+	var index = data.index;    
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
@@ -2255,7 +2254,7 @@ function saveRow(data)
 				}
 			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
-			{ 
+			{  
 				tr.data(key,data[key]);
 				var val_text = data[key];
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
@@ -2273,7 +2272,11 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-				tr.find('td[data-field-name="'+key+'"]').text(val_text);
+				if(titleId=='1103'){  
+					 val_text = data[key+'Str']; 
+				} 
+				tr.find('td[data-field-name="'+key+'"]').text(val_text);	
+				
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
