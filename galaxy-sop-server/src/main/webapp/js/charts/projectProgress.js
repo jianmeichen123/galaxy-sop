@@ -247,20 +247,27 @@ var chartProjectProgressUtils = {
 			    		var seriesArr = new Array();
 			    		var totalCount = 0;
 			    		var i = 0;
-			    		$.each(data.userData,function(){
-			    			console.log(this)
-			    			
-			    			//这里的颜色可配置在数据库中啊
+			    		var nameArr = data.userData.data1.xValue;
+			    		var projectCount = data.userData.data1.dataValue[0].data;
+			    		var totalCount = 0;
+			    		function getSum(array){
+			    			for(var i=0;i<array.length;i++){
+				    			 totalCount += array[i];
+				    		}
+			    			return totalCount;
+			    		}
+			    		getSum(projectCount)
+			    		var totalCount = totalCount;
+			    		for(var i=0;i<nameArr.length;i++){
 			    			var temp = {
-			    					name : this.projectProgressName,
+			    					name : nameArr[i],
 			    					color : color[i],
-			    					y : this.projectCount,
-			    					rate : parseFloat(this.projectRate)
+			    					y : projectCount[i],
+			    					/*rate : parseFloat(this.projectRate)*/
 			    			}
 			    			seriesArr.push(temp);//数组中追加多个对象
-			    			totalCount = this.totalCount;
-			    			i++;
-			    		});
+			    		}
+			    		
 			    		chartProjectProgressUtils.chartProjectProgressOptions.series[0].data = seriesArr;
 			    		chartProjectProgressUtils.chartProjectProgressOptions.title.text = "<span style='color:#4490d2'>"+ totalCount +"个</span>"+"<br/>";
 			    		chartProjectProgressUtils.chartProjectProgressOptions.plotOptions.pie.events.click = function(e){

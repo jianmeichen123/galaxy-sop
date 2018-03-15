@@ -485,22 +485,24 @@ var chartOverviewUtils = {
 			sendPostRequestByJsonObj(platformUrl.searchProjOverView,data,function(data){
 				if(data.result.status=='OK'){
 					//查询前有初始化参数，在调用出需要做此步骤操作
-						var projectProgressArr = new Array();
-						var projectCountArr = new Array();
+						var projectProgressArr = new Array();//项目进度
+						var projectCountArr = new Array();//项目总数
 						var chargeProjectArr = new Array();//负责的项目数
 						var cooprationProjectArr = new Array();//协作的项目数
 						
 						$.each(data.userData,function(){
-							projectCountArr.push(this.dataValue[0].data);
-							projectProgressArr.push(this.xValue);
-							chargeProjectArr.push(this.dataValue[0].data)
-							
-							if(this.dataValue.length>1){
-								cooprationProjectArr.push(this.dataValue[1].data)
+							projectCountArr.push(this.dataValue[0].data);//项目总数
+							projectProgressArr.push(this.xValue);//项目进度
+							chargeProjectArr.push(this.dataValue[1].data)//负责的项目数
+							console.log(this.dataValue[1].data)
+							//cooprationProjectArr.push(this.dataValue[2].data)//协作项目数
+							//console.log(this.dataValue[2].data)
+							/*if(this.dataValue.length>1){
+								cooprationProjectArr.push(this.dataValue[1].data)//协作项目数
 								var name1 = this.dataValue[0].name;
 								var name2 = this.dataValue[1].name;
 								console.log(name2)
-							}
+							}*/
 							
 						});
 						console.log(cooprationProjectArr)
@@ -512,7 +514,7 @@ var chartOverviewUtils = {
 						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
 						
 						if(form.departmentId!=undefined){
-							//项目进度分布图
+							//项目进度分布图  选择了事业部
 							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
 								enabled: true,
 					            style: {
