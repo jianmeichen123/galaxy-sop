@@ -51,6 +51,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -706,6 +708,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	 *
 	 * select - dict - parentCode : projectProgress 、 order by : dictSort
 	 *
+	 * 真实的项目数，没有协作混淆
 	 * @param query
 	 * @return
 	 */
@@ -727,7 +730,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		proListTable = projectDao.searchProjOverViewByProject(proQuery);
 		//if(query.getDeptid() != null) proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
 
-
+		int totalPro = 0;
 		Map<String, Object> data1 = new HashMap<>();
 		Map<String, Object> data2 = new HashMap<>();
 		// for progress—totle
@@ -738,6 +741,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 			Map<String, Integer> progressTotle = new HashMap<>();
 			for(Project temp:proListTable){
+				totalPro += temp.getCompleted();
 				if(progressTotle.containsKey(temp.getProjectProgress())){
 					progressTotle.put(temp.getProjectProgress(), progressTotle.get(temp.getProjectProgress())+temp.getCompleted());
 				}else{
@@ -745,18 +749,34 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 			}
 
+
+			MathContext mc = new MathContext(1);
+			BigDecimal b1 = new BigDecimal(totalPro + "");
+			BigDecimal b2 = null;
+
 			//Map<String, Integer> progressTotleSort = new LinkedHashMap<>();
 			List<String> xValues = new ArrayList<>();
 			List<Integer> values = new ArrayList<>();
+			List<String> rate = new ArrayList<>();
+			Integer tempNum = null;
 			for(Dict temp : dictList){
+				tempNum = progressTotle.get(temp.getCode())==null?0:progressTotle.get(temp.getCode());
 				xValues.add(temp.getName());
-				values.add(progressTotle.get(temp.getCode())==null?0:progressTotle.get(temp.getCode()));
+				values.add(tempNum);
+
+				if(totalPro != 0){
+					b2 = new BigDecimal(Integer.toString(tempNum));
+					rate.add( b1.divide(b2,mc).toString()+"%");
+				}else{
+					rate.add("0%");
+				}
 			}
 
 			List<Map<String, Object>> valueData = new ArrayList<>();
 			Map<String, Object> valuesMap = new HashMap<>();
 			valuesMap.put("name",  "项目数");
 			valuesMap.put("data",  values);
+			valuesMap.put("rate",  rate);
 			valueData.add(valuesMap);
 
 			data1.put("xValue",xValues);
@@ -825,9 +845,14 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		proListTable = projectDao.searchProjOverViewByProject(proQuery);
 		proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
 
-
+		int totalPro_0 = 0;
+		int totalPro_1 = 0;
+		int totalPro_2 = 0;
 		Map<String, Integer> progressProTotle = new HashMap<>();
-		for(Project temp:proListTable){
+		for(Project temp:proListTable)
+		{
+			totalPro_1 += temp.getCompleted();
+
 			if(progressProTotle.containsKey(temp.getProjectProgress())){
 				progressProTotle.put(temp.getProjectProgress(), progressProTotle.get(temp.getProjectProgress())+temp.getCompleted());
 			}else{
@@ -835,7 +860,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			}
 		}
 		Map<String, Integer> progressListTotle = new HashMap<>();
-		for(Project temp:proListListdata){
+		for(Project temp:proListListdata)
+		{
+			totalPro_2 += temp.getCompleted();
+
 			if(progressListTotle.containsKey(temp.getProjectProgress())){
 				progressListTotle.put(temp.getProjectProgress(), progressListTotle.get(temp.getProjectProgress())+temp.getCompleted());
 			}else{
@@ -843,23 +871,76 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			}
 		}
 
-		List<Dict> dictList = dictService.selectByParentCode(progressMark);
+		totalPro_0 = totalPro_1 + totalPro_2;
+
 		List<String> xValues = new ArrayList<>();
+		List<Integer> allvalues = new ArrayList<>();
 		List<Integer> provalues = new ArrayList<>();
 		List<Integer> listvalues = new ArrayList<>();
-		for(Dict temp : dictList){
+
+		List<String> rate0 = new ArrayList<>();
+		List<String> rate1 = new ArrayList<>();
+		List<String> rate2 = new ArrayList<>();
+
+		MathContext mc = new MathContext(1);
+		BigDecimal all1_b0 = new BigDecimal(totalPro_0 + "");
+		BigDecimal all1_b1 = new BigDecimal(totalPro_1 + "");
+		BigDecimal all1_b2 = new BigDecimal(totalPro_2 + "");
+		BigDecimal b2 = null;
+
+
+		List<Dict> dictList = dictService.selectByParentCode(progressMark);
+		Integer int0 = null;
+		Integer int1 = null;
+		Integer int2 = null;
+		for(Dict temp : dictList)
+		{
+			int1 = progressProTotle.get(temp.getCode())==null?0:progressProTotle.get(temp.getCode());
+			int2 = progressListTotle.get(temp.getCode())==null?0:progressListTotle.get(temp.getCode());
+			int0 = int1 + int2;
+
 			xValues.add(temp.getName());
-			provalues.add(progressProTotle.get(temp.getCode())==null?0:progressProTotle.get(temp.getCode()));
-			listvalues.add(progressListTotle.get(temp.getCode())==null?0:progressListTotle.get(temp.getCode()));
+			provalues.add(int1);
+			listvalues.add(int2);
+
+			if(totalPro_0 != 0){
+				b2 = new BigDecimal(Integer.toString(int0));
+				rate0.add(all1_b0.divide(b2,mc).toString()+"%");
+			}else{
+				rate0.add("0%");
+			}
+			if(totalPro_1 != 0){
+				b2 = new BigDecimal(Integer.toString(int1));
+				rate1.add(all1_b1.divide(b2,mc).toString()+"%");
+			}else{
+				rate1.add("0%");
+			}
+			if(totalPro_2 != 0){
+				b2 = new BigDecimal(Integer.toString(int2));
+				rate2.add(all1_b2.divide(b2,mc).toString()+"%");
+			}else{
+				rate2.add("0%");
+			}
 		}
 
 		List<Map<String, Object>> valueData = new ArrayList<>();
+		Map<String, Object> valuesMap0 = new HashMap<>();
+		valuesMap0.put("name",  "项目总数");
+		valuesMap0.put("data",  allvalues);
+		valuesMap0.put("rate",  rate0);
+
 		Map<String, Object> valuesMap1 = new HashMap<>();
 		valuesMap1.put("name",  "负责项目数");
-		valuesMap1.put("data",  provalues);
+		valuesMap1.put("rate",  provalues);
+		valuesMap0.put("rate",  rate1);
+
 		Map<String, Object> valuesMap2 = new HashMap<>();
 		valuesMap2.put("name",  "协作项目数");
-		valuesMap2.put("data",  listvalues);
+		valuesMap2.put("rate",  listvalues);
+		valuesMap0.put("rate",  rate2);
+
+
+		valueData.add(valuesMap0);
 		valueData.add(valuesMap1);
 		valueData.add(valuesMap2);
 
