@@ -257,10 +257,12 @@
 					})
 					 $("input[name=sendTime]").val(message.sendTimeStr);
 					// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
-					$('#slpk').selectpicker('val', message.sendStatus);
+					/* $('#slpk').selectpicker('val', message.sendStatus);
 					$('#slpk').selectpicker('refresh');
-				     var arr=message.osType.split("/");
+				   */   var arr=message.osType.split("/");
 				     if(status=='/messageStatus:2/'){
+				       $('#slpk_two').selectpicker('val', message.sendStatus);
+						$('#slpk_two').selectpicker('refresh');
 				    	var arr=message.osType.split("/");
 				    	var spanArr =  $('.sys_platform span');
 				    	 for(var i=0;i<arr.length;i++){
@@ -280,6 +282,9 @@
 				    	 $('.sended_update_time').html(message.upgradeTimeStr)
 				    	 
 				    	 
+				     }else{
+				    		$('#slpk').selectpicker('val', message.sendStatus);
+							$('#slpk').selectpicker('refresh');
 				     }
 				     //推送通知时间
 				     

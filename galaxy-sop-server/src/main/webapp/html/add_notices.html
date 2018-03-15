@@ -340,7 +340,11 @@ $(function(){
 				if(""!=osTypeval){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
-				data.sendStatus=$("#slpk").val();
+				if(null==id||""==id){
+					data.sendStatus=$("#slpk").val();
+				}else{
+					data.sendStatus=$("#slpk_two").val();
+				}
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
