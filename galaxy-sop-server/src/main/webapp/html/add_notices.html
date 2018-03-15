@@ -1,7 +1,12 @@
+
+<!-- 时间插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 下拉框 -->
 <script src="/sop/bootstrap/js/bootstrap.min.js"></script>
 <script src="/sop/bootstrap/js/bootstrap-select.js"></script>
 <link href="/sop/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
@@ -47,7 +52,7 @@
 					</label>
         		</div>
         		<div class='system_radio_second'>
-        			<label class="radio_cont system_radio_second" data-name="setTime">
+        			<label class="radio_cont " data-name="setTime">
 					<input type="radio" name="isNowSend" value="1" class="radioclass ">
 						定时
 					</label>
@@ -141,15 +146,16 @@ span.error{
 <script>
 $(function(){
 		var eidtStatus = sessionStorage.getItem('editStatus');
-		if(eidtStatus =='/messageStatus:1/' ){
+		if(eidtStatus =='/messageStatus:1/' ){//未发送
 			$('.noSend_status').show();
 			$('.sended_status').hide();
+			console.log($('.radio_checked'))
 			if($('.system_radio_second .radio_checked  input').val()==0){
 				$('#slpk').attr('disabled',true);
 			}else{
 				$('#slpk').attr('disabled',false);
 			}
-		}else if(eidtStatus =='/messageStatus:2/'){
+		}else if(eidtStatus =='/messageStatus:2/'){//已发送
 			$('.noSend_status').hide();
 			$('.sended_status').show();
 			
@@ -213,8 +219,8 @@ $(function(){
 		
 	})
 	
-	$('.system_radio_second input[name="sendTime"]').datepicker({//定时
-	    format: 'yyyy-mm-dd',
+	$('.system_radio_second input[name="sendTime"]').datetimepicker({//定时
+	    format: 'yyyy-mm-dd hh:ii',
 	    language: "zh-CN",
 	    autoclose: true,
 	    todayHighlight: false,
@@ -226,10 +232,12 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minDate:new Date(),
+	    minView : 0,
+	    minuteStep:1
 	    /* startDate:new Date */
 	})
-	$('.task-reason input[name="upgradeTime"]').datepicker({//系统升级
-	    format: 'yyyy-mm-dd',
+	$('.task-reason input[name="upgradeTime"]').datetimepicker({//系统升级
+	    format: 'yyyy-mm-dd hh:ii',
 	    language: "zh-CN",
 	    autoclose: true,
 	    todayHighlight: false,
@@ -241,7 +249,9 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minDate:new Date(),
-	    startDate:new Date
+	    startDate:new Date,
+	    minView : 0,
+	    minuteStep:1
 	})
 	
 	/* 刚加载页面的时候就要开始判断 */
