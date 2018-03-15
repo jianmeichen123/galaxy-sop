@@ -862,7 +862,7 @@ function buildTable(sec,title)
 				this.field2Str =this.field2;
 				this.field3Str = res.departmentName;
 				this.field3Id = res.departmentId; 
-				this.field4Str = res.managerName;  
+				this.field4Str = res.managerName==undefined?"--":res.managerName;  
 			})
 		}
 		$.each(title.dataList,function(){
@@ -2217,6 +2217,7 @@ function saveForm(form)
 function saveRow(data)
 { 
 	data = JSON.parse(data);
+	debugger;
 	if(data.subCode=="team-person"){ 
 		var tdid =data.field1;
 		var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
@@ -2224,9 +2225,8 @@ function saveRow(data)
 		data.field2Str =data.field2;
 		data.field3Str = res.departmentName;
 		data.field3Id = res.departmentId;
-		data.field4Str = res.managerName;   
-	
-} 
+		data.field4Str = res.managerName==undefined?"--":res.managerName;    
+	} 
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
 			if(key.indexOf('field')>-1 && key!="field1"){

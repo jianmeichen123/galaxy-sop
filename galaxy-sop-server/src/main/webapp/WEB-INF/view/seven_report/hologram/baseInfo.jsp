@@ -496,48 +496,6 @@ $(function() {
 		}); 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds; 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/* var infoTableModelList = new Array();
-			var deletedRowIds = new Array();
-			
-			for(var i=0; i<talbes.length; i++){
-				var tid = $(talbes[0]).data("tid");
-				
-				var toAdds = table_tosave_Value[tid];
-				if(toAdds){
-					for(var key2 in toAdds){
-						if(toAdds[key2]!=null) infoTableModelList.push(toAdds[key2]);
-					}
-					table_tosave_Value[tid] = {};
-				}
-				
-				var toEdits = table_toedit_Value[tid];
-				if(toEdits){
-					for(var key2 in toEdits){
-						if(toEdits[key2]!=null) infoTableModelList.push(toEdits[key2]);
-					}
-					table_toedit_Value[tid] = {};
-				}
-				
-				var todels = table_delComArr[tid];
-				if(todels && todels.length>0){
-					for(var j=0; j<todels.length; j++){
-						deletedRowIds.push(todels[j]);
-					}
-					table_delComArr[tid] = [];
-				}
-			} */
-			
-			
 		 
 		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('.filter-option').text();
 		if(txtOption=='请选择'){
