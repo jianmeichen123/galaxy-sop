@@ -43,7 +43,6 @@
 <div class="header clearfix">
 
   <a href="javascript:;" class="logo null">星河投</a>    
-	<a href="<%=path %>/galaxy/test/systemNotice" >系统通知</a> 
      <c:if test="${fx:hasPremission('project_search_overall')}">
     <div class='fl input-search'>
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
