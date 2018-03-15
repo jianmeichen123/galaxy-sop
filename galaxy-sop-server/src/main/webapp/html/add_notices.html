@@ -1,10 +1,13 @@
-<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<script src="/sop/bootstrap/js/bootstrap.min.js"></script>
 <script src="/sop/bootstrap/js/bootstrap-select.js"></script>
 <link href="/sop/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<!-时间插件  -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 <div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
 <div class="noSend_status">
 	<div class="title_bj abandon-title" >新建通知</div>
@@ -213,8 +216,8 @@ $(function(){
 		
 	})
 	
-	$('.system_radio_second input[name="sendTime"]').datepicker({//定时
-	    format: 'yyyy-mm-dd',
+	$('.system_radio_second input[name="sendTime"]').datetimepicker({//定时
+	    format: 'yyyy-mm-dd hh:ii:ss',
 	    language: "zh-CN",
 	    autoclose: true,
 	    todayHighlight: false,
@@ -226,10 +229,12 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minDate:new Date(),
+	    minView : 0,
+	    minuteStep:1
 	    /* startDate:new Date */
 	})
-	$('.task-reason input[name="upgradeTime"]').datepicker({//系统升级
-	    format: 'yyyy-mm-dd',
+	$('.task-reason input[name="upgradeTime"]').datetimepicker({//系统升级
+	    format: 'yyyy-mm-dd hh:ii:ss',
 	    language: "zh-CN",
 	    autoclose: true,
 	    todayHighlight: false,
@@ -241,7 +246,9 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minDate:new Date(),
-	    startDate:new Date
+	    startDate:new Date,
+	    minView : 0,
+	    minuteStep:1
 	})
 	
 	/* 刚加载页面的时候就要开始判断 */
