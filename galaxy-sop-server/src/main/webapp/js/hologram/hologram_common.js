@@ -2204,7 +2204,7 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{  
+{   
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject(); 
@@ -2216,8 +2216,7 @@ function saveForm(form)
  */
 function saveRow(data)
 { 
-	data = JSON.parse(data);
-	debugger;
+	data = JSON.parse(data); 
 	if(data.subCode=="team-person"){ 
 		var tdid =data.field1;
 		var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
@@ -2237,7 +2236,7 @@ function saveRow(data)
 	}
 	var titleId = data.titleId;
 	var titleCode;
-	var index = data.index;   
+	var index = data.index;    
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
