@@ -296,6 +296,8 @@ $(function(){
 			if ($(this).hasClass('system_disabled')) {
 				return false
 			} else {
+				
+				//判断是否存在已发送的消息
 				var data = {
 				};
 				var id=$("#messageId").val();
@@ -322,7 +324,6 @@ $(function(){
 					osTypeval=osTypeval.substring(0,osTypeval.length-1);
 				}
 				data.sendStatus=$("#slpk").val();
-				alert($("#slpk").val())
 				data.osType=osTypeval;
 				sendPostRequestByJsonObj(url, data, function(data) {
 					var result = data.result.status;
@@ -341,11 +342,5 @@ $(function(){
 				});
 			}
 		})
-
-		
-		
-		
-		
-		
 	})
 </script>
