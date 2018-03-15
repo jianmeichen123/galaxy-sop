@@ -381,7 +381,19 @@ setInterval(function(){    //定时保存
     				if(row.resultId && row.resultId.length==24){
     					row.id=null;
     				}
-					infoTableModelList.push($(this).data());
+    				if(row.titleId=="1103"){
+    					delete row.field1Str;  
+    					delete row.field2Str; 
+    					delete row.field3; 
+    					delete row.field3Str; 
+    					delete row.field4; 
+    					delete row.field4Str;  
+    					delete row.field3Id;    
+    					infoTableModelList.push($(this).data());
+    				}else{
+    					infoTableModelList.push($(this).data());
+    				}
+					
 				});
 			});
 			data.infoModeList = infoModeList;
