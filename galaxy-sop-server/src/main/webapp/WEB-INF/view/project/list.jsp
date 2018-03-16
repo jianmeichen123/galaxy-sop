@@ -43,8 +43,7 @@
  	<div class="ritmin prj_all">
     	<%-- <div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div> --%>
     	 <input type="hidden" id="project_id" value=""/>
-    	 <input type="hidden" id="uid" value=""/>
-         <%-- <c:if test="${fx:hasRole(4)}"> --%>
+    	 <input type="hidden" id="uid" value=""/> 
          <!--页眉-->
          <div class="top new_tit_b topBanner clearfix">
         	<!--按钮--> 
@@ -69,8 +68,7 @@
                 </c:if>
             </div>
            
-         </div>
-         <%-- </c:if> --%>
+         </div> 
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
