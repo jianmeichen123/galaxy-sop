@@ -33,7 +33,7 @@ $(function(){
 				  break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);  buryPoint("105"); break;  //标签8:项目文档
 				case 9: initTabOperLog(); buryPoint("107");  break;  //标签9:操作日志
-				case 10: debugger;writeStand(); break;//填写标准 
+				case 10:writeStand(); break;//填写标准 
 				default: return false;
 			}
 			
@@ -121,6 +121,7 @@ function initTabPostMeeting(){
 }
 //填写标准
 function writeStand(){ 
+	debugger;
 	$.getTabHtml({
 		url : platformUrl.writeStand 
 	});

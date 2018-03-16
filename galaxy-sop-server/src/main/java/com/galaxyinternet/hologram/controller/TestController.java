@@ -34,8 +34,8 @@ public class TestController{
 	}
 //勿删
 	@RequestMapping(value = "/writeStand")
-	public String platformTest(HttpServletRequest request) {
-		return "project\sopinfo\tab_writeStand.jsp";
+	public String writeStand(HttpServletRequest request) {
+		return "project/sopinfo/tab_writeStand";
 	}
 	 // /galaxy/test/jtym1
 	@RequestMapping(value = "/jtym1")
