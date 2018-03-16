@@ -118,6 +118,7 @@ $(function(){
 	 var that =$("#field2");
 	 var r1= /^[1-9]*[1-9][0-9]*$/; 
 	 var value = that.val();
+	 //debugger;
 	 var totleNum =parseInt($("#totleNum").val())+otherNum;   
 	 $("#totleNum").val(totleNum)
 	 var val=r1.test(value);    
@@ -143,18 +144,22 @@ $(function(){
 		 return false;
 	 }
  }
-$("#save-detail-btn").click(function(){	 
-	otherNum=0;
-	checkNum();
+$("#save-detail-btn").click(function(){	  
+	 if($(".error").is(":visible")){
+		 $("#save").val('0')
+	 }else{
+		 $("#save").val('1')
+	 }
+	 if($("#save").val()!="1"){
+			return false;
+		} 
    if(!$("#detail-form").validate().form()){
 		return false;
    }
 	$.validator.setDefaults({
 		errorElement:'span'
 	});   
-	if($("#save").val()!="1"){
-		return false;
-	} 
+	
     var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val());   
     saveForm($("#detail-form"));  
     $(".totleNum").find("td[data-field-name='field2']").text(totle); 
