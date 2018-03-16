@@ -43,8 +43,7 @@
  	<div class="ritmin prj_all">
     	<%-- <div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</div> --%>
     	 <input type="hidden" id="project_id" value=""/>
-    	 <input type="hidden" id="uid" value=""/>
-         <%-- <c:if test="${fx:hasRole(4)}"> --%>
+    	 <input type="hidden" id="uid" value=""/> 
          <!--页眉-->
          <div class="top new_tit_b topBanner clearfix">
         	<!--按钮--> 
@@ -54,8 +53,7 @@
 	        		<div class="xhtTab" primary=1>协作的项目</div>
 	        	</div>
         	</c:if>
-        	
-        	<c:if test="${fx:hasRole(4)}">
+        	 <c:if test="${fx:hasRole(4)}">
 	        	<div class="btnbox_f btnbox_f1 handover_project" style="margin-right: 20px;">
 	                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:20px;display:none;" resource-mark="project_add">添加项目</a> 
 	            </div>
@@ -66,12 +64,11 @@
                       <a href="<%=path %>/galaxy/project/toAssignProject?from=transfer" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px; margin-bottom: 12px;" >批量移交</a>
                 </c:if>
                  <c:if test="${fx:hasPremission('project_batch_assign')}">	
-                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px; margin-top: 12px;">批量指派</a>
+                      <a href="<%=path %>/galaxy/project/toAssignProject?from=assign" class="pubbtn bluebtn lightbg new_blueBtn" style="margin-top:20px; margin-bottom: 12px;">批量指派</a>
                 </c:if>
             </div>
            
-         </div>
-         <%-- </c:if> --%>
+         </div> 
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
