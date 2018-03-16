@@ -5,11 +5,12 @@
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <% 
 	String path = request.getContextPath(); 
+Long projectId = (Long)request.getAttribute("projectId");
 %>
           
 
 <div class="tabtable_con">
-	<c:if test="${aclViewProject==true or isThyy}">
+	<c:if test="${aclViewProject==true or isThyy or fx:isCooperative(projectid)==false}">
 	<div id="custom-toolbar" class='none'>
 		<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 	</div>

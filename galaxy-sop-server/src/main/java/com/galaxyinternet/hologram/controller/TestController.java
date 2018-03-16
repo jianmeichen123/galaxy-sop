@@ -32,8 +32,11 @@ public class TestController{
 	public String platform(HttpServletRequest request) {
 		return "seven_report/hologram/test/laoban_test";
 	}
-
-	
+//勿删
+	@RequestMapping(value = "/writeStand")
+	public String platformTest(HttpServletRequest request) {
+		return "project\sopinfo\tab_writeStand.jsp";
+	}
 	 // /galaxy/test/jtym1
 	@RequestMapping(value = "/jtym1")
 	public String platformTest(HttpServletRequest request) {

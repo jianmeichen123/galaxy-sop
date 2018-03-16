@@ -9,7 +9,7 @@
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
 		  <!-- 档案库信息 -->
           <div id="file_repository">
-          	<c:if test="${aclViewProject==true or isThyy}">
+          	<c:if test="${aclViewProject==true or isThyy or fx:isCooperative(projectid)==false}">
           	<form id = 'file_repository_search_form'>
           	<div class="member document">
           	 <c:if test="${fx:isCreatedByUser('project',projectId) }">
