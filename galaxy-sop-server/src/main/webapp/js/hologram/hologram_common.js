@@ -2686,6 +2686,7 @@ function delRow(ele)
 		title:'提示'
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
+		var tableRow = $(ele).closest('table');
 		var id = tr.data('id');
 		var resultId=tr.data('resultId')
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
@@ -2694,7 +2695,8 @@ function delRow(ele)
 		var code = $(ele).closest('table').data("code");
 		if(code=="team-person"){
 			var num = tr.find("td[data-field-name='field2']").text();
-			var field2=$(ele).closest('table').find(".totleNum td[data-field-name='field2']");
+			var field2=$(ele).closest('table').find(".totleNum td[data-field-name='field2']");  
+			tableRow.find(".totleNum").data().field2=parseInt(field2.text())+parseInt(num) 
 			field2.text(parseInt(field2.text())+parseInt(num));
 		}
         if(typeof id != 'undefined')

@@ -481,6 +481,7 @@ $(function() {
 					row.id=row.resultId;
 				}
 				if(row.titleId=="1103"){
+					debugger;
 					delete row.field1Str;  
 					delete row.field2Str; 
 					delete row.field3; 
