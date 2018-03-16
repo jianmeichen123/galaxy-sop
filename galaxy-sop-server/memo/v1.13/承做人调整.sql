@@ -11,3 +11,6 @@ INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `typ
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `type`, `sign`, `index_no`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('1128', '1103', 'NO1_1_2_2', '承做比例', '1', '2', '104.200', 'f', '0', '承做占比（正整数）', '0', '3', '3,0');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `content`, `is_show`, `is_valid`) VALUES ('1129', '1103', 'NO1_1_2_5', '承做人类别', '104.5', '11', '2', '0:主承做人，1：副承做人', 'f', '0');
 
+-- 历史数据处理 
+INSERT INTO `fx_db`.`information_listdata` (`project_id`, `title_id`, `field_1`, `field_2`, `field_5`, `is_valid`, `created_time`, `create_id`, `updated_time`, `update_id`) 
+select id, '1103', create_uid, 100, 0, 0, project_time, create_uid, project_time, create_uid from sop_project where id not in (SELECT project_id FROM fx_db.information_listdata where title_id = 1103)

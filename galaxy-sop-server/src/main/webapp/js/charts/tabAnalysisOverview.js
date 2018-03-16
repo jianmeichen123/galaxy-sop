@@ -487,25 +487,28 @@ var chartOverviewUtils = {
 					//查询前有初始化参数，在调用出需要做此步骤操作
 						var projectProgressArr = new Array();//项目进度
 						var projectCountArr = new Array();//项目总数
-						var chargeProjectArr = new Array();//负责的项目数
-						var cooprationProjectArr = new Array();//协作的项目数
+						var chargeProjectArr = new Array();//项目进度-负责的项目数
+						var cooprationProjectArr = new Array();//项目进度-协作的项目数
+						
+						var chargeProjectArr2 = new Array();//top10-负责的项目数
+						var cooprationProjectArr2 = new Array();//top-10协作的项目数
 						
 						$.each(data.userData,function(){
 							projectCountArr.push(this.dataValue[0].data);//项目总数
 							projectProgressArr.push(this.xValue);//项目进度
-							chargeProjectArr.push(this.dataValue[1].data)//负责的项目数
-							console.log(this.dataValue[1].data)
-							//cooprationProjectArr.push(this.dataValue[2].data)//协作项目数
-							//console.log(this.dataValue[2].data)
-							/*if(this.dataValue.length>1){
-								cooprationProjectArr.push(this.dataValue[1].data)//协作项目数
-								var name1 = this.dataValue[0].name;
-								var name2 = this.dataValue[1].name;
-								console.log(name2)
-							}*/
+							if(data.userData.data1.dataValue.length==3){//项目进度
+								chargeProjectArr.push(data.userData.data1.dataValue[1].data);
+								cooprationProjectArr.push(data.userData.data1.dataValue[2].data)
+						}
+							if(data.userData.data2.dataValue.length==2){//top10
+								chargeProjectArr2.push(data.userData.data2.dataValue[0].data)//top10  负责项目数
+								cooprationProjectArr2.push(data.userData.data2.dataValue[1].data)//top10  协作项目数
+								console.log(chargeProjectArr2)
+								console.log(cooprationProjectArr2)
+							}	
 							
 						});
-						console.log(cooprationProjectArr)
+						
 						//项目进度分布图
 						chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 						chartOverviewUtils.chartOverviewOptions.xAxis.categories = projectProgressArr[0];
@@ -608,12 +611,12 @@ var chartOverviewUtils = {
 								
 								chartOverviewUtils.chartOverviewOptionsSecond.series[0] = {
 									        name: '负责项目数',
-									        data: chargeProjectArr[1],
+									        data: chargeProjectArr2[0],
 									        color:'#5a7ede'
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.series[1] = {
 										name: '协作项目数',
-								        data: cooprationProjectArr[1],
+								        data: cooprationProjectArr2[0],
 								        color: '#008000'
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]

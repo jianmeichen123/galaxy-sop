@@ -121,6 +121,7 @@ function initTabPostMeeting(){
 }
 //填写标准
 function writeStand(){ 
+	debugger;
 	$.getTabHtml({
 		url : platformUrl.writeStand 
 	});

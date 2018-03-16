@@ -4,8 +4,7 @@
 <% 
 	String path = request.getContextPath(); 
 	Long projectId = (Long)request.getAttribute("projectId");
-%>
-
+%> 
 	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
   <c:set var="aclViewProject"
 	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
@@ -430,7 +429,7 @@
 	</div>
 </div>
 
-<!--团队成员 -->
+<!--团队成员 --> 
 	<c:choose>
 		<c:when  test="${fx:isCooperative(projectId)}">
 			<div class="tabtable_con_on tabinfo_con team_infoC ">

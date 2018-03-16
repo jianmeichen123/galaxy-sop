@@ -52,7 +52,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -750,7 +749,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			}
 
 
-			MathContext mc = new MathContext(1);
+			//MathContext mc = new MathContext(1);
+			int mc = 1;
 			BigDecimal b1 = new BigDecimal(totalPro + "");
 			BigDecimal b2 = null;
 
@@ -765,8 +765,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				values.add(tempNum);
 
 				if(totalPro != 0){
-					b2 = new BigDecimal(Integer.toString(tempNum));
-					rate.add( b2.divide(b1,mc).toString()+"%");
+					b2 = new BigDecimal(Integer.toString(tempNum*100));
+					rate.add( b2.divide(b1,mc,java.math.RoundingMode.HALF_EVEN).toString()+"%");
 				}else{
 					rate.add("0%");
 				}
@@ -882,7 +882,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		List<String> rate1 = new ArrayList<>();
 		List<String> rate2 = new ArrayList<>();
 
-		MathContext mc = new MathContext(1);
+		//MathContext mc = new MathContext(1);
+		int mc = 1;
 		BigDecimal all1_b0 = new BigDecimal(totalPro_0 + "");
 		BigDecimal all1_b1 = new BigDecimal(totalPro_1 + "");
 		BigDecimal all1_b2 = new BigDecimal(totalPro_2 + "");
@@ -906,20 +907,20 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			listvalues.add(int2);
 
 			if(totalPro_0 != 0){
-				b2 = new BigDecimal(Integer.toString(int0));
-				rate0.add(b2.divide(all1_b0,mc).toString()+"%");
+				b2 = new BigDecimal(Integer.toString(int0*100));
+				rate0.add(b2.divide(all1_b0,mc,java.math.RoundingMode.HALF_UP).toString()+"%");
 			}else{
 				rate0.add("0%");
 			}
 			if(totalPro_1 != 0){
-				b2 = new BigDecimal(Integer.toString(int1));
-				rate1.add(b2.divide(all1_b1,mc).toString()+"%");
+				b2 = new BigDecimal(Integer.toString(int1*100));
+				rate1.add(b2.divide(all1_b1,mc,java.math.RoundingMode.HALF_UP).toString()+"%");
 			}else{
 				rate1.add("0%");
 			}
 			if(totalPro_2 != 0){
-				b2 = new BigDecimal(Integer.toString(int2));
-				rate2.add(b2.divide(all1_b2,mc).toString()+"%");
+				b2 = new BigDecimal(Integer.toString(int2*100));
+				rate2.add(b2.divide(all1_b2,mc,java.math.RoundingMode.HALF_UP).toString()+"%");
 			}else{
 				rate2.add("0%");
 			}

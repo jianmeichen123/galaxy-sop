@@ -50,6 +50,11 @@ public class ProjectCreatedHandler implements ApplicationListener<ProjectCreated
 		entity.setField1(userId+"");
 		entity.setField2("100");
 		entity.setField5("0");
+		entity.setIsValid(0);
+		entity.setCreateId(project.getCreateUid());
+		entity.setUpdateId(project.getCreateUid());
+		entity.setCreatedTime(project.getCreatedTime());
+		entity.setUpdateTime(project.getCreatedTime());
 		listdataService.insert(entity);
 	}
 }
