@@ -263,7 +263,6 @@ var chartProjectProgressUtils = {
 			    			}else if(num==1){
 			    				 projectCount = data.userData.data1.dataValue[1].data;//负责项目数
 					    		 projectRate0 = data.userData.data1.dataValue[1].rate;//负责项目的rate
-					    		 console.log(projectCount)
 			    			}else if(num==2){
 			    				projectCount = data.userData.data1.dataValue[2].data;//负责项目数
 					    		 projectRate0 = data.userData.data1.dataValue[2].rate;//负责项目的rate
@@ -462,22 +461,9 @@ noDataProGressDiv();
 $('.project_tab li').click(function(){
 var _this = $(this);
 var index = _this.index();
+$('.project_tab li').removeClass('on');
+$(this).addClass('on')
 chartProjectProgressUtils.init(progressFormdata,index)
-/*if(index==0){
-	alert('000')
-	 projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
-	 projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
-}else if(index==1){
-	alert('111')
-	 projectCount = data.userData.data1.dataValue[1].data;//负责项目数
-	 projectRate0 = data.userData.data1.dataValue[1].rate;//负责项目的rate
-	 console.log(projectCount)
-}else if(index==2){
-	alert('2222')
-	projectCount = data.userData.data1.dataValue[2].data;//负责项目数
-	 projectRate0 = data.userData.data1.dataValue[2].rate;//负责项目的rate
-}
-*/
 })
 //项目进度图表默认加载链接
 /*$("#container_progress .highcharts-title tspan").click(function(){
