@@ -4775,3 +4775,5 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 	margin-top:15px;
 }
 .project_tab{width:188px;}
+table[data-code='team-person']{margin-top: 10px;}
+table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
