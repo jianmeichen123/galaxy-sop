@@ -5,7 +5,7 @@
 <%-- 	<li data-index="0"><a href="javascript:;" onClick="showTabs(${projectId},0)">基本信息</a></li> --%>
 		<li data-tab="nav">基本信息</li>
 	<c:choose>
-		<c:when test="${isThyy }">
+		<c:when test="${isThyy}||${fx:isCooperative(projectid)}">
 				<!-- <li data-tab="nav" class="no" disabled="disabled">团队成员</li>
 				<li data-tab="nav" class="no" disabled="disabled">股权结构</li> -->
 				<li data-tab="nav" class="no" disabled="disabled">访谈记录</li>
