@@ -503,8 +503,6 @@ var chartOverviewUtils = {
 							if(data.userData.data2.dataValue.length==2){//top10
 								chargeProjectArr2.push(data.userData.data2.dataValue[0].data)//top10  负责项目数
 								cooprationProjectArr2.push(data.userData.data2.dataValue[1].data)//top10  协作项目数
-								console.log(chargeProjectArr2)
-								console.log(cooprationProjectArr2)
 							}	
 							
 						});

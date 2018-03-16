@@ -211,7 +211,7 @@ var chartProjectProgressUtils = {
 		        }
 		    }]
 		},
-		init : function(formdata){
+		init : function(formdata,num){
 			if(formdata.domid){
 				chartProjectProgressUtils.chartProjectProgressOptions.chart.renderTo = formdata.domid;
 			}
@@ -229,16 +229,17 @@ var chartProjectProgressUtils = {
 				return  year+"-"+month+"-"+date
 			}
 			
-			if(departmentId == 2){
+			if(departmentId == 2){//ceo
 				var form = {
 						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
 				}
-			}else{
+			}else{//合伙人
 				var form = {
 						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
 						depid :departmentId
 				}
 			}
+			
 			
 			sendPostRequestByJsonObj(platformUrl.searchProjOverView,form,function(data){
 				if(data.result.status=='OK'){
@@ -249,13 +250,28 @@ var chartProjectProgressUtils = {
 			    		var i = 0;
 			    		var nameArr = data.userData.data1.xValue;//项目进度
 			    		var projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+		    			var projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+		    			
 			    		var chargeCount = data.userData.data1.dataValue[1].data;//负责项目数
-			    		var operationCount = data.userData.data1.dataValue[2].data;//协作项目数
-			    		var projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
 			    		var projectRate1 = data.userData.data1.dataValue[1].rate;//负责项目的rate
-			    		var projectRate2 = data.userData.data1.dataValue[2].rate;//协作项目的rate
 			    		
-			    		console.log(operationCount)
+			    		var operationCount = data.userData.data1.dataValue[2].data;//协作项目数
+			    		var projectRate2 = data.userData.data1.dataValue[2].rate;//协作项目的rate
+			    			if(num==0){
+			    				 projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+			    				 projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+			    			}else if(num==1){
+			    				 projectCount = data.userData.data1.dataValue[1].data;//负责项目数
+					    		 projectRate0 = data.userData.data1.dataValue[1].rate;//负责项目的rate
+					    		 console.log(projectCount)
+			    			}else if(num==2){
+			    				projectCount = data.userData.data1.dataValue[2].data;//负责项目数
+					    		 projectRate0 = data.userData.data1.dataValue[2].rate;//负责项目的rate
+			    			}
+			    			
+			    		
+			    		
+			    		
 			    		var totalCount = 0;//总数
 			    		function getSum(array){
 			    			for(var i=0;i<array.length;i++){
@@ -441,6 +457,28 @@ var progressFormdata = {
 chartProjectProgressUtils.init(progressFormdata);
 noDataProGressDiv();
 
+
+
+$('.project_tab li').click(function(){
+var _this = $(this);
+var index = _this.index();
+chartProjectProgressUtils.init(progressFormdata,index)
+/*if(index==0){
+	alert('000')
+	 projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+	 projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+}else if(index==1){
+	alert('111')
+	 projectCount = data.userData.data1.dataValue[1].data;//负责项目数
+	 projectRate0 = data.userData.data1.dataValue[1].rate;//负责项目的rate
+	 console.log(projectCount)
+}else if(index==2){
+	alert('2222')
+	projectCount = data.userData.data1.dataValue[2].data;//负责项目数
+	 projectRate0 = data.userData.data1.dataValue[2].rate;//负责项目的rate
+}
+*/
+})
 //项目进度图表默认加载链接
 /*$("#container_progress .highcharts-title tspan").click(function(){
 	var url = platformUrl.projectAnalysis;
