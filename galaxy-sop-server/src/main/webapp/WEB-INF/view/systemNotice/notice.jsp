@@ -246,7 +246,7 @@
 			if(data.result.status=="OK"){ 
 				if(null!=data.entityList&&data.entityList.length>0){
 					  message=data.entityList[0];
-					  console.log(message);
+					$("#messageId").val(message.id);
 				     if(status=='/messageStatus:2/'){
 				      $('#slpk_two').selectpicker('val', message.sendStatus);
 					  $('#slpk_two').selectpicker('refresh');
@@ -273,8 +273,6 @@
 				    	 $('.sys_platform').html(arr);
 				    	 $('.sended_update_time').html(message.upgradeTimeStr)
 				     }else{
-				    	
-				    		$("#messageId").val(message.id);
 							$("textarea[name=messageContent]").val(message.messageContent);
 							$("input[name=upgradeTime]").val(message.upgradeTimeStr);
 							$('.radio_cont').removeClass('radio_checked');
