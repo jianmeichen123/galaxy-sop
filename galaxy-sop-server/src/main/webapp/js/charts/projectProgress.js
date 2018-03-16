@@ -252,11 +252,12 @@ var chartProjectProgressUtils = {
 			    		var projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
 		    			var projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
 		    			
-			    		var chargeCount = data.userData.data1.dataValue[1].data;//负责项目数
+			    		/*var chargeCount = data.userData.data1.dataValue[1].data;//负责项目数
 			    		var projectRate1 = data.userData.data1.dataValue[1].rate;//负责项目的rate
 			    		
 			    		var operationCount = data.userData.data1.dataValue[2].data;//协作项目数
 			    		var projectRate2 = data.userData.data1.dataValue[2].rate;//协作项目的rate
+*/			    		
 			    			if(num==0){
 			    				 projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
 			    				 projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
