@@ -33,60 +33,60 @@
         	<c:if test="${aclViewProject or isThyy}">
         	
         	<div id="thyy_div" style="display:none;">
-        					<div class="correlation">投后运营</div>
-        					<div class="new_correlation_cen status">
-        						<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
-        						<div class="delivery">
-        							<div class="title">交割前确认事项</div>
-        							<ul class="clearfix">
-        								<li class="fl">已完成：<span class="delivery_complete">3</span></li>
-        								<li class="fr">总计：<span class="delivery_total">16</span></li>
-        							</ul>
-        							<div class="progressBar">
-        								<div id="bar"></div>
-        							</div>
-        						</div>
-        						 注资进度
-        	              <div class="money">
-        	                <div class="title">注资进度</div>
-        	                <input type="hidden" id="planMoney">
-        	                <ul class="clearfix">
-        	                  <li class="fl">已注资：<span class="money_complete"></span>万</li>
-        	                  <li class="fr">计划注资：<span class="money_total"></span>万</li>
-        	                </ul>
-        	                <div class="progressBar"><div id="bar_m"></div></div>
-        	              </div>
-        	              
-      					</div> 
-						<div class="new_right_flow new_right_flow_after clearfix">
-		            	<div class="new_right_flow_line">
-		                	<ul class="line_ul_p" id="lct_ul">
-		                    	<li><span class="gray_dot"></span><label>接触访谈</label></li>
-		                        <li><span class="gray_dot"></span><label>内部评审</label></li>
-		                        <li><span class="gray_dot"></span><label>C<br/>E<br/>O评审</label></li>
-		                        <li><span class="gray_dot"></span><label>立项会</label></li>
-		                        <li><span class="gray_dot"></span><label>会后商务谈判</label></li>
-		                        <li><span class="gray_dot"></span><label>投资意向书</label></li>
-		                        <li><span class="gray_dot"></span><label>尽职调查</label></li>
-		                        <li><span class="gray_dot"></span><label>投资决策会</label></li>
-		                        <li><span class="gray_dot"></span><label>投资协议</label></li>
-		                        <li><span class="gray_dot"></span><label>股权交割</label></li>
-		                        <li><span class="gray_dot on"></span><label>投后运营</label></li>
-		                    </ul>
-		                </div>
-		                 <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
-		            </div>
-				
-            	
-				<!-- <div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
-				</div>
-				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
-					<div class="no_con">
-					            		暂无会议纪要
-					            	</div>
-				</div> -->
-			</div>
-			</c:if>
+					<div class="correlation">投后运营</div>
+					<div class="new_correlation_cen status">
+						<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
+  						<div class="delivery">
+  							<div class="title">交割前确认事项</div>
+  							<ul class="clearfix">
+  								<li class="fl">已完成：<span class="delivery_complete">3</span></li>
+  								<li class="fr">总计：<span class="delivery_total">16</span></li>
+  							</ul>
+  							<div class="progressBar">
+  								<div id="bar"></div>
+  							</div>
+  						</div>
+  						 注资进度
+  	              <div class="money">
+  	                <div class="title">注资进度</div>
+  	                <input type="hidden" id="planMoney">
+  	                <ul class="clearfix">
+  	                  <li class="fl">已注资：<span class="money_complete"></span>万</li>
+  	                  <li class="fr">计划注资：<span class="money_total"></span>万</li>
+  	                </ul>
+  	                <div class="progressBar"><div id="bar_m"></div></div>
+  	              </div>
+  	              
+					</div> 
+			<div class="new_right_flow new_right_flow_after clearfix">
+        	<div class="new_right_flow_line">
+            	<ul class="line_ul_p" id="lct_ul">
+                	<li><span class="gray_dot"></span><label>接触访谈</label></li>
+                    <li><span class="gray_dot"></span><label>内部评审</label></li>
+                    <li><span class="gray_dot"></span><label>C<br/>E<br/>O评审</label></li>
+                    <li><span class="gray_dot"></span><label>立项会</label></li>
+                    <li><span class="gray_dot"></span><label>会后商务谈判</label></li>
+                    <li><span class="gray_dot"></span><label>投资意向书</label></li>
+                    <li><span class="gray_dot"></span><label>尽职调查</label></li>
+                    <li><span class="gray_dot"></span><label>投资决策会</label></li>
+                    <li><span class="gray_dot"></span><label>投资协议</label></li>
+                    <li><span class="gray_dot"></span><label>股权交割</label></li>
+                    <li><span class="gray_dot on"></span><label>投后运营</label></li>
+                </ul>
+            </div>
+             <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
+        </div>
+
+      	
+<!-- <div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
+</div>
+<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
+	<div class="no_con">
+	            		暂无会议纪要
+	            	</div>
+</div> -->
+</div>
+</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div class="tq_div clearfix" style="display:none;">
@@ -106,7 +106,7 @@
                         <li><span class="gray_dot"></span><label>投后运营</label></li>
                     </ul>
                 </div>
-                 <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
+                 
             </div>
             <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
             </div>
@@ -324,33 +324,8 @@ var proid = pid;
 var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
 var prostatus = pRigthInfo.projectStatusDs
-$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
- /* if('${fx:isTransfering(pid)}' == 'true')
-{	$('.fjxm_but').addClass("disabled");
-	$(".yjxm_btn").attr("style","display:none;");
-	  $(".tzlc_btn").addClass("disabled");
-	if(isCreatedByUser == "true"){
-	  $(".cxxm_btn").attr("style","display:block;");
-	}else{
-	  $(".cxxm_btn").attr("style","display:block;");
-	  $(".cxxm_btn").addClass("disabled");
-	  $(".cxxm_btn").removeAttr("onclick");
-	}
-		
-}else{
-	$('.fjxm_but').removeClass('disabled');
-	if(isCreatedByUser == "true"){
-	  $(".yjxm_btn").attr("style","display:block;");
-	}else{
-	  $(".yjxm_btn").attr("style","display:block;");
-	  $(".yjxm_btn").addClass("disabled");
-	  $(".yjxm_btn").removeAttr("onclick");
-	  $(".tzlc_btn").remove();
-	}
-	$("#cxxm_btn").attr("style","display:none;");
-} 
-  */
-  if(isCreatedByUser == "true"){
+$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')"); 
+  if(isCreatedByUser == "true"|| ${fx:isCooperative(projectId)}){
 	/*   $(".yjxm_btn").attr("style","display:block;"); */
 	}else{
 	  $(".tzlc_btn").remove();
@@ -572,15 +547,15 @@ function initMoreLine(){
  //prograss_name
 function init_lct(){
 	var ul_li = $(".line_ul_p").children("li");
-	$(ul_li).each(function(i){
-		if(index!=0 && i!=0){
+	$(ul_li).each(function(i){ 
+		//if(index!=0 && i!=0){
 			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
 				$(this).prevAll().addClass("green_dot");
 				$(this).addClass('green_dot_color');
 				$(this).prepend("<span class='green_dot_on'></span>");
 			}
-		}
+		//}
 	});
 }
 
