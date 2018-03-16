@@ -148,7 +148,7 @@ var chartProjectProgressUtils = {
 			            rotation: -90,
 			            enabled: true,
 			            formatter:function(){
-			                return this.point.percentage.toFixed(1)+"%";
+			               // return this.point.percentage.toFixed(1)+"%";
 			            },
 			            connectorWidth:0,
 			            connectorPadding:0,
@@ -247,9 +247,16 @@ var chartProjectProgressUtils = {
 			    		var seriesArr = new Array();
 			    		var totalCount = 0;
 			    		var i = 0;
-			    		var nameArr = data.userData.data1.xValue;
-			    		var projectCount = data.userData.data1.dataValue[0].data;
-			    		var totalCount = 0;
+			    		var nameArr = data.userData.data1.xValue;//项目进度
+			    		var projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+			    		var chargeCount = data.userData.data1.dataValue[1].data;//负责项目数
+			    		var operationCount = data.userData.data1.dataValue[2].data;//协作项目数
+			    		var projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+			    		var projectRate1 = data.userData.data1.dataValue[1].rate;//负责项目的rate
+			    		var projectRate2 = data.userData.data1.dataValue[2].rate;//协作项目的rate
+			    		
+			    		console.log(operationCount)
+			    		var totalCount = 0;//总数
 			    		function getSum(array){
 			    			for(var i=0;i<array.length;i++){
 				    			 totalCount += array[i];
@@ -263,7 +270,7 @@ var chartProjectProgressUtils = {
 			    					name : nameArr[i],
 			    					color : color[i],
 			    					y : projectCount[i],
-			    					/*rate : parseFloat(this.projectRate)*/
+			    					rate : parseFloat(projectRate0[i])
 			    			}
 			    			seriesArr.push(temp);//数组中追加多个对象
 			    		}
