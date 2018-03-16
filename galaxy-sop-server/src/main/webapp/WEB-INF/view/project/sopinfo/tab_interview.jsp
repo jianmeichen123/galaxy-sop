@@ -40,7 +40,7 @@ Long projectId = (Long)request.getAttribute("projectId");
 				<div data-tab="con" >
   -->
 					<div class="member interview"> 
-						<c:if test="${aclViewProject==true||fx:isCooperative(projectid)==false}"> 
+						<c:if test="${aclViewProject==true||fx:isCooperative(projectId)==true}"> 
 						<!--按钮-->
 						<c:if test="${isEditable }">
 						<!-- <div class="top clearfix">

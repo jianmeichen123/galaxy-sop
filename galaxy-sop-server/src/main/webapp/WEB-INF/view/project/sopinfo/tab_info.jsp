@@ -429,7 +429,7 @@
 	</div>
 </div>
 
-<!--团队成员 -->
+<!--团队成员 --> 
 	<c:choose>
 		<c:when  test="${fx:isCooperative(projectId)}">
 			<div class="tabtable_con_on tabinfo_con team_infoC ">

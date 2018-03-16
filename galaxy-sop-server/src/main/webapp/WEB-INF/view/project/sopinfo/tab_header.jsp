@@ -23,7 +23,7 @@ Long projectId = (Long)request.getAttribute("projectId");
 				<li data-tab="nav">填写标准</li>
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
-		<c:when test="${aclViewProject==true or fx:isCooperative(projectid)==false}">
+		<c:when test="${aclViewProject==true or fx:isCooperative(projectId)==true}">
 				<li class="to-hide" data-tab="nav">团队成员</li>
 				<li class="to-hide" data-tab="nav">股权结构</li>
 				<li data-tab="nav">访谈记录</li>
