@@ -94,7 +94,7 @@
         <a href="http://ctdn.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou ctdn"></span>创投大脑</a>
       </div>
     </div>
-    <div class='system-tips' style="display:none">为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！<span class='system-tips-close'>X</span></div>
+    <div class='system-tips' style="display:none"><span id="content">为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！</span><span class='system-tips-close'>X</span></div>
 </div>
 
 <script type="text/javascript">
@@ -451,6 +451,7 @@ function queryExitMessage(){
 			if(data.result.status=="OK"){
 				if(null!=data.entityList&&data.entityList.length>0){
 					messageId=data.entityList[0].id;
+					$("#content").html(data.entityList[0].messageContent);
 					queryExitUserMessage(messageId);
 				}
 			}
