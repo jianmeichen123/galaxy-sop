@@ -428,14 +428,17 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}
 		} 
-		//承作人
+		//承作人 
 		var czrData = data.entity.childList.filter(function(val){return val.id==1103})[0];
 		var czrList = czrData.dataList;
-		if(czrList.length>1){ 
-			$("#czrNum").text(czrList.length)
-		}else{ 
-			$("#undeLine_sop").hide()
-		} 
+		if(czrData.dataList){
+			if(czrList.length>1){ 
+				$("#czrNum").text(czrList.length)
+			}else{ 
+				$("#undeLine_sop").hide()
+			} 
+		}
+		
 		sendGetRequest(platformUrl.getUsersInfo, null, function(data){
 			userInfo=data.entityList; 
 		});
