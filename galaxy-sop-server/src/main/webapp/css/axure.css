@@ -4622,7 +4622,7 @@ font-weight:bold;
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
 .img_content_new{display:none;min-height:390px;}
-.dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
+.dropdown-menu.selectpicker li.selected a,.dropdown-menu.selectpicker li:hover a{
 	background:#e5f3ff;
 	border-bottom:1px solid #fff;
 }  
@@ -4784,3 +4784,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .fmdl dd .txtI{width: 233px;}
 #chart_project_number{text-align:center;font-size:16px;}
 #chart_overview{text-align:center;font-size:16px;}
+.select_container .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
+.select_container .bootstrap-select.btn-group .dropdown-menu li>a:hover{background:#e5f3ff;}
+.noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
+
