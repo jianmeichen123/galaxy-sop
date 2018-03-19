@@ -618,7 +618,7 @@ var chartOverviewUtils = {
 								        color: '#008000'
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
-						}else{
+						}else{//当再次点击全部的时候调用的方法
 							chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 							chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
 							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
