@@ -111,10 +111,10 @@
    	return this.optional(element) || (wechat.test(value));
     }, "允许输入字母、数字、下划线和减号");
     //验证姓名
-     jQuery.validator.addMethod("name", function (value, element) {
+     /* jQuery.validator.addMethod("name", function (value, element) {
       var name = /^(?!.{51}|^\s*$)/;
    	return this.optional(element) || (name.test(value));
-    }, "请输入姓名");
+    }, "请输入姓名"); */
   //职位选择其他
   $("select[name='field2']").change(function(){
 	  var val=$(this).find("option:selected").attr("value");
