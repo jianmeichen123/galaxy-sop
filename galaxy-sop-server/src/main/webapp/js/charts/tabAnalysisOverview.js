@@ -515,7 +515,7 @@ var chartOverviewUtils = {
 						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
 						
 						if(form.departmentId!=undefined){
-							//项目进度分布图    选择了事业部
+							//项目进度分布图  选择了事业部
 							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
 								enabled: true,
 					            style: {
@@ -618,7 +618,7 @@ var chartOverviewUtils = {
 								        color: '#008000'
 								}
 								chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1]
-						}else{//当再次点击全部的时候调用的方法
+						}else{
 							chartOverviewUtils.chartOverviewOptions.series[0].data = projectCountArr[0];
 							chartOverviewUtils.chartOverviewOptionsSecond.series[0].data = projectCountArr[1];
 							chartOverviewUtils.chartOverviewOptions.tooltip.formatter = function() {
