@@ -359,7 +359,7 @@ var chartOverviewUtils = {
 		    	}
 		    },
 		    series: [{
-		        name: 'Population',
+		        /*name: 'Population',*/
 		        color:'#587edd',
 		        //data: [9,8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
@@ -432,7 +432,7 @@ var chartOverviewUtils = {
 		    	}
 		    },
 		    series: [{
-		        name: 'Population',
+		        /*name: 'Population',*/
 		        color:'#587edd',
 		        //data: [9,8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
@@ -630,6 +630,12 @@ var chartOverviewUtils = {
 					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
 					        
 								}
+							chartOverviewUtils.chartOverviewOptions.legend = {
+									enabled: false
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.legend = {
+									enabled: false
+							}
 							chartOverviewUtils.chartOverviewOptions.plotOptions = {
 									column: {
 										pointWidth:20,
