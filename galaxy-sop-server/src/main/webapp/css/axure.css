@@ -4720,7 +4720,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     top:50px;
     z-index:10;
 }
-@media screen and (min-width: 1380px) { 
+@media screen and (min-width: 1360px) { 
 	.topBanner{left:9.375%;}
 }
 .commonTab{width:auto;}
