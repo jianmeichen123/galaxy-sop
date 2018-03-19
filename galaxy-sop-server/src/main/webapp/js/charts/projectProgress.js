@@ -148,7 +148,7 @@ var chartProjectProgressUtils = {
 			            rotation: -90,
 			            enabled: true,
 			            formatter:function(){
-			                return this.point.percentage.toFixed(1)+"%";
+			               // return this.point.percentage.toFixed(1)+"%";
 			            },
 			            connectorWidth:0,
 			            connectorPadding:0,
@@ -211,34 +211,86 @@ var chartProjectProgressUtils = {
 		        }
 		    }]
 		},
-		init : function(formdata){
+		init : function(formdata,num){
 			if(formdata.domid){
 				chartProjectProgressUtils.chartProjectProgressOptions.chart.renderTo = formdata.domid;
 			}
-			var form = {
-					startTime : DateUtils.getTime(DateUtils.getYearFirstDay())
+			function getTime(t){
+				var _time = new Date(t);
+				var year = _time.getFullYear();
+				var month = _time.getMonth()+1;
+				var date = _time.getDate();
+				if(month<10){
+					month = "0"+month;
+				}
+				if(date<10){
+					date = "0"+date;
+				}
+				return  year+"-"+month+"-"+date
 			}
-			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
+			
+			if(departmentId == 2){//ceo
+				var form = {
+						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
+				}
+			}else{//合伙人
+				var form = {
+						sdate :getTime(DateUtils.getTime(DateUtils.getYearFirstDay())),
+						depid :departmentId
+				}
+			}
+			
+			
+			sendPostRequestByJsonObj(platformUrl.searchProjOverView,form,function(data){
 				if(data.result.status=='OK'){
-					if(data.entityList){
-						
+					if(data.userData){
 			    		var color=['#587edd','#49ceff','#00bdf4','#88dfd8','#4490d2','#bee6d5','#6ebdea','#ff9c89','#62d1b0','#a3e394'];
-
 			    		var seriesArr = new Array();
 			    		var totalCount = 0;
 			    		var i = 0;
-			    		$.each(data.entityList,function(){
-			    			//这里的颜色可配置在数据库中啊
-			    			var temp = {
-			    					name : this.projectProgressName,
-			    					color : color[i],
-			    					y : this.projectCount,
-			    					rate : parseFloat(this.projectRate)
+			    		var nameArr = data.userData.data1.xValue;//项目进度
+			    		var projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+		    			var projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+		    			
+			    		/*var chargeCount = data.userData.data1.dataValue[1].data;//负责项目数
+			    		var projectRate1 = data.userData.data1.dataValue[1].rate;//负责项目的rate
+			    		
+			    		var operationCount = data.userData.data1.dataValue[2].data;//协作项目数
+			    		var projectRate2 = data.userData.data1.dataValue[2].rate;//协作项目的rate
+*/			    		
+			    			if(num==0){
+			    				 projectCount = data.userData.data1.dataValue[0].data;//项目总数数量
+			    				 projectRate0 = data.userData.data1.dataValue[0].rate;//项目总量的rate
+			    			}else if(num==1){
+			    				 projectCount = data.userData.data1.dataValue[1].data;//负责项目数
+					    		 projectRate0 = data.userData.data1.dataValue[1].rate;//负责项目的rate
+			    			}else if(num==2){
+			    				projectCount = data.userData.data1.dataValue[2].data;//负责项目数
+					    		 projectRate0 = data.userData.data1.dataValue[2].rate;//负责项目的rate
 			    			}
-			    			seriesArr.push(temp);
-			    			totalCount = this.totalCount;
-			    			i++;
-			    		});
+			    			
+			    		
+			    		
+			    		
+			    		var totalCount = 0;//总数
+			    		function getSum(array){
+			    			for(var i=0;i<array.length;i++){
+				    			 totalCount += array[i];
+				    		}
+			    			return totalCount;
+			    		}
+			    		getSum(projectCount)
+			    		var totalCount = totalCount;
+			    		for(var i=0;i<nameArr.length;i++){
+			    			var temp = {
+			    					name : nameArr[i],
+			    					color : color[i],
+			    					y : projectCount[i],
+			    					rate : parseFloat(projectRate0[i])
+			    			}
+			    			seriesArr.push(temp);//数组中追加多个对象
+			    		}
+			    		
 			    		chartProjectProgressUtils.chartProjectProgressOptions.series[0].data = seriesArr;
 			    		chartProjectProgressUtils.chartProjectProgressOptions.title.text = "<span style='color:#4490d2'>"+ totalCount +"个</span>"+"<br/>";
 			    		chartProjectProgressUtils.chartProjectProgressOptions.plotOptions.pie.events.click = function(e){
@@ -264,7 +316,7 @@ var chartProjectProgressUtils = {
 			        					}
 			        			);
 			    			}
-			    			chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress',totalCount);
+			    		chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress',totalCount);
 			    		};
 			    		chartProjectProgressUtils.chartProjectProgressOptions.plotOptions.pie.point.events.legendItemClick = function(e){
 			    			
@@ -300,7 +352,7 @@ var chartProjectProgressUtils = {
 			    		
 			    		
 			    		//项目进度图表默认加载链接
-			    		$("#container_progress .highcharts-title tspan").click(function(){
+			    	/*	$("#container_progress .highcharts-title tspan").click(function(){
 			    			var url = platformUrl.projectAnalysis;
 			    			if(chartProjectProgressUtils.forwardParam.progressParam){
 			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
@@ -314,7 +366,7 @@ var chartProjectProgressUtils = {
 			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
 			    			}
 			    			forwardWithHeader(url);
-			    		});
+			    		});*/
 			    		//more 链接
 			    		if(roleId!=1 && roleId!=2 && roleId!=3){
 			    			$("#more_progress").hide();
@@ -367,7 +419,7 @@ var chartProjectProgressUtils = {
 				}
 			}
 			
-			if(flag=='progress'){
+			/*if(flag=='progress'){
 				chartProjectProgressUtils.forwardParam.progressParam = param;
 				$("#container_progress .highcharts-title tspan").click(function(){
 					
@@ -395,7 +447,7 @@ var chartProjectProgressUtils = {
 						forwardWithHeader(url);
 					}
 				})
-			}		
+			}*/		
 		}
 }
 //项目进度
@@ -405,11 +457,20 @@ var progressFormdata = {
 chartProjectProgressUtils.init(progressFormdata);
 noDataProGressDiv();
 
+
+
+$('.project_tab li').click(function(){
+var _this = $(this);
+var index = _this.index();
+$('.project_tab li').removeClass('on');
+$(this).addClass('on')
+chartProjectProgressUtils.init(progressFormdata,index)
+})
 //项目进度图表默认加载链接
-$("#container_progress .highcharts-title tspan").click(function(){
+/*$("#container_progress .highcharts-title tspan").click(function(){
 	var url = platformUrl.projectAnalysis;
 	if(forwardParam.progressParam){
 		url += "?forwardProgress=" + forwardParam.progressParam ;
 	}
 	forwardWithHeader(url);
-});
+});*/

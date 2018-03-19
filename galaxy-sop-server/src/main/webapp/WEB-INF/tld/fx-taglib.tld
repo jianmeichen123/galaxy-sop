@@ -66,6 +66,10 @@
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>java.lang.String reloadDepts(java.lang.String)</function-signature>
 	</function>
-	
+	<function>
+		<name>isCooperative</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean isCooperative(java.lang.Long)</function-signature>
+	</function>
 	
 </taglib>

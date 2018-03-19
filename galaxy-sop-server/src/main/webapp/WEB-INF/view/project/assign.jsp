@@ -36,12 +36,12 @@
 				<div class="form-group">
 			      <select name='projectDepartid' class="selectpicker">
 					  <option index="-1" value="0">全部事业部</option>
-					</select>
+				  </select>
 			  	</div>
 
 				<div class="form-group">
 			      <select name="createUid" class="selectpicker touziManager">
-					 <!--  <option>投资经理</option> -->
+					 <!-- <option>投资经理</option>-->
 					 <option index="-1">全部</option>
 					</select>
 			  	</div>

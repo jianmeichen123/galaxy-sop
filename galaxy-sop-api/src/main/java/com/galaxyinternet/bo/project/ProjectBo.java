@@ -48,6 +48,9 @@ public class ProjectBo extends Project {
 	//用于终止查询
 	private String stopSearch;
 	
+	//0:主承做人；1副承做人
+	private Integer primary = null;
+	
 	public String getProType() {
 		return proType;
 	}
@@ -206,6 +209,16 @@ public class ProjectBo extends Project {
 
 	public void setIdFilter(Long idFilter) {
 		this.idFilter = idFilter;
+	}
+
+	public Integer getPrimary()
+	{
+		return primary;
+	}
+
+	public void setPrimary(Integer primary)
+	{
+		this.primary = primary;
 	}
 	
 	

@@ -1,0 +1,324 @@
+
+<!-- 时间插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 下拉框 -->
+<script src="/sop/bootstrap/js/bootstrap.min.js"></script>
+<script src="/sop/bootstrap/js/bootstrap-select.js"></script>
+<link href="/sop/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<div class="qualificationstc errortc finace_history_tc task-abandon-content" style="overflow:hidden;">
+<div class="sended_status">
+	<div class="title_bj abandon-title" >编辑通知</div>
+	<form action="" id="detail-form">
+    <div  class="qualifications_all task-todeal assign_project system-content">
+    <input type="hidden" id="messageId">
+        <ul>
+        	<li class='task-todeal-textarea system_tips_content'>
+        		<div class='task-reason'><em>*</em>通知内容：</div>
+        		<textarea  placeholder='请输入通知内容'  class="role_toolTip_area system_textarea sended_message" name="messageContent" maxlength="30" required data-msg-required="<font color=red>*</font>移交原因不能为空" data-rule-verify_100="true" data-msg-verify_100="<font color=red>*</font>移交原因不能为空" ></textarea>
+        	</li>
+        	<li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>目标平台：</div>
+        		<div class='sys_platform'>
+        			<span></span>
+        			<span></span>
+        			<span></span>
+        		</div>
+        		
+        	</li>
+            <li class='task-todeal-textarea'>
+        		<div class='task-reason'><em>*</em>推送时间：</div>
+        		<div class='sended_update_time' >
+        			
+        		</div>
+        		
+        	</li>   
+        	<li>
+        		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime_two"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
+        	</li>
+        	<li class='noticeLi'>
+        		<div class='task-reason noticeStatus'><em>*</em>通知状态：
+	        		<select id="slpk_two" name='tipsStatus' class='selectpicker'>
+	        			<!-- <option>请选择</option>
+	        			<option>未发送</option>
+	        			<option>已发送</option>
+	        			<option>已关闭</option> -->
+	        		</select>
+        		</div>
+        	</li>
+        </ul>
+      	
+    
+  		<div class="button_affrim tast-btn">
+	        <a href="javascript:;"  class="system_send">发送</a>
+   		 </div>
+
+</div>
+</form>
+</div>
+
+
+
+
+</div>
+</div>
+<style>
+span.error{
+	display:block;
+	margin-left:75px;
+}
+</style>
+<script>
+$(function(){
+		var eidtStatus = sessionStorage.getItem('editStatus');
+		if(eidtStatus =='/messageStatus:1/' ){//未发送
+			$('.noSend_status').show();
+			$('.sended_status').hide();
+			console.log($('.radio_checked'))
+			if($('.system_radio_second .radio_checked  input').val()==0){
+				$('#slpk').attr('disabled',true);
+			}else{
+				$('#slpk').attr('disabled',false);
+			}
+		}else if(eidtStatus =='/messageStatus:2/'){//已发送
+			$('.noSend_status').hide();
+			$('.sended_status').show();
+			
+			
+		}
+		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
+		function selectMessageStatus(url, name, mark,selectIndex){
+				sendGetRequest(url,null, function(data){
+					var options = [];
+					/* if(mark == 1){
+						options.push('<option value="">全部</option>');
+					} */
+					$.each(data.entityList, function(i, value){
+						if(selectIndex && i == selectIndex){
+							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+						}else{
+							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+						}
+					});
+					$("#slpk").html(options)
+					if(eidtStatus =='/messageStatus:2/'){
+						var options = options.slice(1,3);
+						$("#slpk_two").html(options) 
+					}
+					
+				});
+			}
+		 	$('#slpk').selectpicker('refresh');  
+		 	$('#slpk_two').selectpicker('refresh');  
+	
+		 	
+		 	
+		 	//复选框
+	$('.qualificationstc').css('max-height','600px');
+	$('.highlighCheckbox').click(function(event){
+		if($(this).hasClass('highlighCheckbox_checked')){
+			$(this).removeClass('highlighCheckbox_checked')
+		}else{
+			$(this).addClass('highlighCheckbox_checked')
+		}
+		event.preventDefault(); 
+		
+	})
+	//单选框点击事件
+	$('.noticeStatus .btn-default .filter-option').html('请选择')
+	$('.radio_cont').click(function(){
+		$('.radio_cont').removeClass('radio_checked');
+		$(this).addClass('radio_checked');
+		var name = $(this).attr('data-name');
+		if(name=="setTime"){
+			$('.system_radio_second .setTime').show();
+			$('.noticeStatus .btn-default .filter-option').html('请选择');
+			$('#slpk').attr('disabled',false)
+		}else{
+			$('.system_radio_second .setTime').hide();
+			$('.noticeStatus .btn-default .filter-option').html('已发送')
+			$('#slpk').val('messageStatus:2')
+			$('#slpk').attr('disabled',true);
+		}
+		
+		
+	})
+	
+	$('.system_radio_second input[name="sendTime"]').datetimepicker({//定时
+	    format: 'yyyy-mm-dd hh:ii',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minDate:new Date(),
+	    minView : 0,
+	    minuteStep:1
+	    /* startDate:new Date */
+	})
+	$('.task-reason input[name="upgradeTime"]').datetimepicker({//系统升级
+	    format: 'yyyy-mm-dd hh:ii',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minDate:new Date(),
+	    startDate:new Date,
+	    minView : 0,
+	    minuteStep:1
+	})
+	/* 刚加载页面的时候就要开始判断 */
+	var textArealen = $('.system_textarea').val().length;
+	var checkboxLen = $('.highlighCheckbox_checked').length;
+	var radioLen = $('.radio_checked').length;
+	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
+	var updateTime = $('input[name="sendTime"]').val();
+	if($('.system_radio_second label input').val()==0){
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
+			$('.system_send').addClass('system_disabled')
+		}else{
+			$('.system_send').removeClass('system_disabled')
+		}
+	}else{
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
+			$('.system_send').addClass('system_disabled')
+		}else{
+			$('.system_send').removeClass('system_disabled')
+		}
+	}
+	
+	
+	
+	
+	
+	/* 点击时候的判断必选项 */
+	$('.system-content').click(function(event){
+		/* 必填项判断 */
+		var textArealen = $('.system_textarea').val().length;
+		var checkboxLen = $('.highlighCheckbox_checked').length;
+		var radioLen = $('.radio_checked').length;
+		var updateTime = $('input[name="sendTime"]').val().trim();
+		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
+		if($('.system_radio_second label input').val()==0){
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
+				$('.system_send').addClass('system_disabled')
+			}else{
+				$('.system_send').removeClass('system_disabled')
+			}
+		}else{
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
+				$('.system_send').addClass('system_disabled')
+			}else{
+				$('.system_send').removeClass('system_disabled')
+			}
+			
+		}
+		event.preventDefault(); 
+	})
+	
+	$('.system_send ').click(function() {
+			if ($(this).hasClass('system_disabled')) {
+				return false
+			} else {
+				var id=$("#messageId").val();
+				//判断是否存在已发送的消息
+				if(isExitMessage(id)==false){
+					layer.msg("已存在一条已发送消息", {
+						time : 500
+					});
+					return false;
+				}
+				var data = {
+				};
+			
+				if(null==id||""==id){
+					var url = platformUrl.addMessage;
+					data.id=null;
+				}else{
+					var url = platformUrl.updateMessage;
+					data.id=id;
+				}
+				data.messageContent=$("textarea[name=messageContent]").val();
+			
+				data.isNowSend=$('.radio_checked').find("input:first-child").val();
+				if($("input[name=sendTime]").val()==""){
+					data.sendTime=Date.parse(new Date());
+				}else{
+					data.sendTime=Date.parse($("input[name=sendTime]").val());
+				}
+				var osTypeval="";
+				$(".highlighCheckbox_checked").each(function (i) {
+				    osTypeval=osTypeval+$(this).find("input:first-child").val()+"/"
+				})
+				if(""!=osTypeval){
+					osTypeval=osTypeval.substring(0,osTypeval.length-1);
+				}
+				data.sendStatus=$("#slpk").val();
+				data.osType=osTypeval;
+				sendPostRequestByJsonObj(url, data, function(data) {
+					var result = data.result.status;
+					if (result == "ERROR") { //OK, ERROR
+						layer.msg(data.result.message);
+						return;
+					} else {
+						layer.msg("保存成功", {
+							time : 500
+						});
+						$("#popbg").remove();
+						$("#powindow").remove();
+						$.locksCreenOpen();
+						$('#noticeTable').bootstrapTable('refresh');
+					}
+				});
+			}
+		})
+	})
+	
+	function isExitMessage(id){
+	  var result=true;
+	  var url = platformUrl.isExit;
+	  var dataJson={
+				"osType":"web",
+				"sendStatus":"messageStatus:2",
+		}
+		  if(null!=id&&""!=id){
+			  dataJson.id=id; 
+		  }
+		sendPostRequestByJsonObj(
+			 url,
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				if(null!=data.entityList){
+					if(null!=id&&""!=id){
+						if(data.entityList.length>1){
+							result= false;
+						}
+					}else{
+						if(data.entityList.length>0){
+							result= false;
+						}
+					}
+				}else{
+					 result=true;
+				}
+			}
+		 })
+		 return result;
+	}
+</script>

@@ -42,8 +42,7 @@
 <link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
 <div class="header clearfix">
 
-  <a href="javascript:;" class="logo null">星河投</a>
-    
+  <a href="javascript:;" class="logo null">星河投</a>    
      <c:if test="${fx:hasPremission('project_search_overall')}">
     <div class='fl input-search'>
     	<input class="globleSearchInput" type="text" placeholder="请输入关键字进行搜索"/>
@@ -95,6 +94,7 @@
         <a href="http://ctdn.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou ctdn"></span>创投大脑</a>
       </div>
     </div>
+    <div class='system-tips' style="display:none"><span id="content">为了让您更好的使用星河投，我们将在今晚19:00后对系统进行升级，升级期间暂时无法访问，请提前保存好您的数据信息！</span><span class='system-tips-close'>X</span></div>
 </div>
 
 <script type="text/javascript">
@@ -138,7 +138,7 @@
 					 
 					 
 					 window.location.href="<%=path %>/galaxy/test/searchResult?keyword="+keyword; 
-					$('.globleSearchInput').val(keyword)
+						$('.globleSearchInput').val(keyword)
 						
 					}
 				}
@@ -296,6 +296,9 @@ if(isContainResourceByMark("task_into_view")){
 
  
 $(function(){
+	queryExitMessage();
+	
+	//$("")
 	  /*展开/收起按钮定位*/
     var w_h=$(window).height();
         s_h=$(".sico").height();
@@ -429,8 +432,68 @@ $(window).resize(function(){
  })
  
  
-  })		
+  })
   
-
+  
+  
+ var messageId;
+function queryExitMessage(){
+	  var url = "<%=path %>/galaxy/systemMessage/sml";
+		var dataJson={
+				"osType":"web",
+				"sendStatus":"messageStatus:2",
+				"endTime":new Date().format('yyyy-MM-dd')
+		}
+		sendPostRequestByJsonObj(
+			 url,
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				if(null!=data.entityList&&data.entityList.length>0){
+					messageId=data.entityList[0].id;
+					$("#content").html(data.entityList[0].messageContent);
+					queryExitUserMessage(messageId);
+				}
+			}
+		 })
+	}
+function queryExitUserMessage(messageId){
+	  var url = "<%=path %>/galaxy/systemMessageUser/suml";
+		var dataJson={
+				"messageOs":"web",
+				"messageId":messageId
+		}
+		sendPostRequestByJsonObj(
+			 url,
+		dataJson,
+		function(data){ 
+			if(data.result.status=="OK"){
+				var message;
+				if(null!=data.entityList&&data.entityList.length==0){
+					$(".system-tips").css("display","block")
+				}
+			}
+		 })
+	}
+$('.system-tips-close').click(function(){
+	 // $(this).parent().remove();
+	  $(this).parent().remove();
+	  var data = {
+		};
+		var url = "<%=path %>/galaxy/systemMessageUser/amu";
+		data.messageOs="web";
+		data.messageId=messageId;
+		sendPostRequestByJsonObj(url, data, function(data) {
+			var result = data.result.status;
+			if (result == "ERROR") { //OK, ERROR
+				layer.msg(data.result.message);
+				return;
+			} else {
+				/* layer.msg("保存成功", {
+					time : 500
+				}); */
+			}
+		});
+ })
  
 </script>

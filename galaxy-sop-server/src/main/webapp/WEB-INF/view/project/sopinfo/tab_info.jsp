@@ -4,8 +4,7 @@
 <% 
 	String path = request.getContextPath(); 
 	Long projectId = (Long)request.getAttribute("projectId");
-%>
-
+%> 
 	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
   <c:set var="aclViewProject"
 	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
@@ -430,8 +429,15 @@
 	</div>
 </div>
 
-<!--团队成员 -->
-	<div class="tabtable_con_on role_hide tabinfo_con team_infoC ">
+<!--团队成员 --> 
+	<c:choose>
+		<c:when  test="${fx:isCooperative(projectId)}">
+			<div class="tabtable_con_on tabinfo_con team_infoC ">
+		</c:when>
+		<c:otherwise>
+			<div class="tabtable_con_on role_hide tabinfo_con team_infoC ">
+	    </c:otherwise>
+    </c:choose> 
 	<div class="new_r_compile title_3">
 		<span class="new_color size16">团队成员</span>
 	</div>
@@ -458,8 +464,15 @@
 
 
 <!-- 法人信息 -->
+<c:choose>
+<c:when  test="${fx:isCooperative(projectId)}">
+<div class="tabtable_con_on tabinfo_con">
+		</c:when>
+<c:otherwise>
 <div class="tabtable_con_on role_hide tabinfo_con">
-<div class="legal">
+	    </c:otherwise>
+</c:choose> 
+	<div class="legal">
 	<div class="show">
 		<div class="title_3">
 	        <span class="new_color size16">法人信息</span>
@@ -492,7 +505,14 @@
 
 
 <!--股权结构 -->
+<c:choose>
+<c:when  test="${fx:isCooperative(projectId)}">
+<div class="tabtable_con_on member financeHistory tabinfo_con equity_infoC">
+		</c:when>
+<c:otherwise>
 <div class="tabtable_con_on member financeHistory role_hide tabinfo_con equity_infoC">
+   </c:otherwise>
+</c:choose> 
 	<div class='company_center'>
 		<div class="new_r_compile title_3">
 			<span class="new_color size16 title_3">股权结构 </span>
@@ -516,7 +536,14 @@
 	</div>	
 </div>
 <!-- 融资历史 -->
+<c:choose>
+<c:when  test="${fx:isCooperative(projectId)}">
+<div class="tabtable_con_on member financeHistory tabinfo_con fHistory_infoC">
+</c:when>
+<c:otherwise>
 <div class="tabtable_con_on member financeHistory role_hide tabinfo_con fHistory_infoC">
+   </c:otherwise>
+</c:choose> 
 	<div class='company_center'>
 		<div class="new_r_compile title_3">
 			<span class="new_color size16 title_3">融资历史</span>

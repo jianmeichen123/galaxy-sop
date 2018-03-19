@@ -773,6 +773,10 @@ var platformUrl = {
 	 */
 	searchOverView : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchOverView",
 	/**
+	 * 项目总览v1.13版本接口
+	 */
+	searchProjOverView : Constants.sopEndpointURL+ "/galaxy/charts/analysis/searchProjOverView",
+	/**
 	 * 项目查询（图表用）
 	 */
 	searchProjectByCharts : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchProjectByCharts",
@@ -1201,7 +1205,19 @@ var platformUrl = {
 	 */
 	getDirectory : Constants.sopEndpointURL + "/galaxy/infoProject/getDirectory/",
 	
+	/**
+	 *  承做人事业部
+	 */
+	getCareer: Constants.sopEndpointURL + "/galaxy/project/lines",
+	/**
+	 *  事业线人员信息
+	 */
+	getUsersInfo: Constants.sopEndpointURL + "/galaxy/project/users",
 	
+	/**
+	 *  承做人事业部下面的承做人 
+	 */
+	getCareerTeam: Constants.sopEndpointURL + "/galaxy/project/dep/",
 	
 	/**
 	 * 传入题 id ， 返回 题对应的 value 信息
@@ -1367,7 +1383,13 @@ var platformUrl = {
     getStandard: Constants.sopEndpointURL + "/galaxy/standard/get", 
     toggleStandard: Constants.sopEndpointURL + "/galaxy/standard/toggle",
     /**提示语信息**/
-    fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode"
+    fillStatus : Constants.sopEndpointURL+"galaxy/standard/getByCode",
+    addMessage : Constants.sopEndpointURL+"galaxy/systemMessage/am",
+    updateMessage : Constants.sopEndpointURL+"galaxy/systemMessage/updateMessage",
+    queryMessage : Constants.sopEndpointURL+"galaxy/systemMessage/sml",
+    deleteMessage : Constants.sopEndpointURL+"galaxy/systemMessage/deleteMessage",
+    addUserMessage : Constants.sopEndpointURL+"galaxy/systemMessageUser/amu",
+    isExit : Constants.sopEndpointURL+"galaxy/systemMessage/isExit"
 }
 
 /**

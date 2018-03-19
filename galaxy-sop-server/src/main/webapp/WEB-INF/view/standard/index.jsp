@@ -18,8 +18,12 @@
 	padding-top: 50px;
 	padding-left: 60px;
 	box-sizing: border-box;
+} 
+.fixed-table-container .table_new_style thead th .th-inner {padding: 8px 0;}
+table td{
+padding:0 20px!important;
 }
-
+.table_new_style th{    padding-left: 20px !important;}
 @media ( min-width : 1359px) {
 	.pagebox {
 		padding-top: 50px;
@@ -75,10 +79,10 @@ table th {
 				data-page-list="[10, 20, 30]" data-show-refresh="true" data-unique-id="id">
 				<thead>
 					<tr>
-						<th data-field="moduleName" data-width="180px">涉及模块</th>
-						<th data-field="statusDesc" data-width="180px">状态</th>
+						<th data-field="moduleName" data-width="140px">涉及模块</th>
+						<th data-field="statusDesc" data-width="140px">状态</th>
 						<th data-field="standardDetails"  data-formatter="detailFormatter">标准详情</th>
-						<th data-field="opt" data-width="180px" data-formatter="optFormatter" class="edit">操作</th>
+						<th data-field="opt" data-width="140px" data-formatter="optFormatter" class="edit">操作</th>
 					</tr>
 				</thead>
 			</table>

@@ -103,7 +103,14 @@ var path = '<%=path%>';
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
-
+function getDetailUrl(code)
+{
+	if(code == 'team-person')
+	{
+		return '<%=path%>/html/czr_pop.html';
+	}
+	return "";
+}
 
 
 table_Value = {};
@@ -112,10 +119,14 @@ table_filed = {};
 delComArr=[];
 table_toedit_Value = {};
 table_tosave_Value = {};
-var codeArr = ['NO1_1','NO1_2'];
-sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
-	
+userInfo=[];
 
+var codeArr = ['NO1_1','NO1_2'];
+//显示
+sendGetRequest(platformUrl.getUsersInfo, null, function(data){
+	userInfo=data.entityList; 
+}); 
+sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);   
 $(function() {
 	right_anchor("NO1");
 	$(".exportReport").show();
@@ -135,13 +146,14 @@ $(function() {
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
 		}
-		var code=_this.find("table").attr("data-code");
-	    
-	    resizetable($("table[data-code='"+code+"']"));
+		var code=_this.find("table").attr("data-code");  
+		if($("table[data-code='team-person']").find("tbody tr").length>0){
+			$("table[data-code='team-person']").show(); 
+		} 
 	});
 	
 	//通用编辑显示
-	$('div').delegate(".h_edit_btn", "click", function(event) {
+	$('div').delegate(".h_edit_btn", "click", function(event) {		
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
@@ -151,14 +163,17 @@ $(function() {
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				var entity = data.entity;
-				var html = toGetHtmlByMark(entity, 'e');				
-				var s_div = toEditTitleHtml(entity, html);
+				var entity = data.entity; 
+				var html = toGetHtmlByMark(entity, 'e');	 
+				var s_div = toEditTitleHtml(entity, html);				
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				
 				resouceShow('e');   //项目来源特殊处理
 				//下拉多选添加resultId
 				$.each(entity.childList,function(i,n){
+					var title = this;
+					buildTable(sec,title);    
 					if(n.type=='23'){
 						if(n.resultList){
 							$.each(n.resultList,function(i,o){
@@ -170,6 +185,9 @@ $(function() {
 						}
 					}
 				})
+				if($("table[data-code='team-person'].editable").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show(); 
+				}  
 				//项目承揽人多选
 				$('.selectpicker').selectpicker(); 
 				$(".h#"+id_code).css("background","#fafafa");
@@ -242,7 +260,8 @@ $(function() {
 	});
 	
 	//通用保存
-	$('div').delegate(".h_save_btn", "click", function(event) {
+	$('div').delegate(".h_save_btn", "click", function(event) {		
+		var sec = $(this).closest('form');
 		var beroreCheck = false;
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
@@ -446,46 +465,39 @@ $(function() {
 				}
 			}
 		});
-		data.deletedResultTids = deletedResultTids;
-		
-		
+		data.deletedResultTids = deletedResultTids; 
 		//表格
-		var talbes = $("#b_"+id_code).find("[data-type='10']");
-		if(talbes){
-			var infoTableModelList = new Array();
-			var deletedRowIds = new Array();
-			
-			for(var i=0; i<talbes.length; i++){
-				var tid = $(talbes[0]).data("tid");
-				
-				var toAdds = table_tosave_Value[tid];
-				if(toAdds){
-					for(var key2 in toAdds){
-						if(toAdds[key2]!=null) infoTableModelList.push(toAdds[key2]);
-					}
-					table_tosave_Value[tid] = {};
+		var infoTableModelList = new Array(); 
+		$.each(sec.find("table.editable"),function(){
+			var that =$(this);
+			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
+			$.each(that.find('tr:gt(0)'),function(){ 
+				var row = $(this).data(); 
+				if(row.id=="")
+				{
+					row.id=null;
+				}				
+				if(row.resultId){
+					row.id=row.resultId;
 				}
-				
-				var toEdits = table_toedit_Value[tid];
-				if(toEdits){
-					for(var key2 in toEdits){
-						if(toEdits[key2]!=null) infoTableModelList.push(toEdits[key2]);
-					}
-					table_toedit_Value[tid] = {};
+				if(row.titleId=="1103"){
+					debugger;
+					delete row.field1Str;  
+					delete row.field2Str; 
+					delete row.field3; 
+					delete row.field3Str; 
+					delete row.field4; 
+					delete row.field4Str;  
+					delete row.field3Id;    
+					infoTableModelList.push($(this).data());
+				}else{
+					infoTableModelList.push($(this).data());
 				}
-				
-				var todels = table_delComArr[tid];
-				if(todels && todels.length>0){
-					for(var j=0; j<todels.length; j++){
-						deletedRowIds.push(todels[j]);
-					}
-					table_delComArr[tid] = [];
-				}
-			}
-			
-			data.infoTableModelList = infoTableModelList;
-			data.deletedRowIds = deletedRowIds;
-		}
+			});
+		}); 
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds; 
+		 
 		var txtOption=$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('.filter-option').text();
 		if(txtOption=='请选择'){
 			$('dt[data-tid=\'1118\']').closest('.resource_branch_01').find('span.error_span').removeClass('select_input');
@@ -510,7 +522,10 @@ $(function() {
 				$(".h_look .ismust").hide();
 				$(".h#"+id_code).css("background","#fff");
 				 $('html,body').scrollTop(sTop);  //定位
-				 resouceShow('s');  //项目来源特殊处理
+				 resouceShow('s');  //项目来源特殊处理  
+				if($("table[data-code='team-person']").find("tbody tr").length>0){
+					$("table[data-code='team-person']").show(); 
+				} 
 			} else {
 				layer.msg('保存失败');
 			}

@@ -1,0 +1,169 @@
+<!-- <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+ -->
+<div class="qualificationstc errortc">
+	<div class="title_bj" id="pop-title-czr">添加项目承作人</div> 
+    <div class="qualifications_all see_share_block" id="learning">
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+		<input name="subCode" type="hidden"  value="">
+		<input type="hidden"   name="field4" id="managerName"/> 
+		<input type="hidden" value="1"  name="field5" id="field5"/> 
+		<input type="hidden" id="totleNum"/> 		
+		<input type="hidden" value="0" id="save"/> 
+        <div class="info clearfix">              
+            <dl class="fmdl clearfix ">
+                <dt>承做人事业部：</dt>
+                <dd>
+                    <select class="txtI" required name="field3" data-msg-required="<font color=red>*</font>承做人事业部不能为空"  id="field3" onchange="getUser(this)">
+
+                    </select>
+                </dd>
+            </dl>
+            <dl class="fmdl clearfix ">
+                <dt>承做人 ：</dt>
+                <dd>
+                    <select class="txtI" required data-msg-required="<font color=red>*</font>承做人 不能为空" name="field1"  id="field1">
+	
+                    </select>
+                </dd>
+            </dl>
+            <dl class="fmdl clearfix ">
+                <dt>分配承做比例：</dt>
+                <dd>
+                	<span class="fr">&nbsp;&nbsp;%</span>
+                    <input class="txt  fl" required data-msg-required="<font color=red>*</font>请分配承做比例" name="field2"  onblur="checkNum()" id="field2"/> 
+                </dd>
+            </dl>
+        </div>
+        </form> 
+    
+	    <div class="button_affrim">
+	        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn" >确定</a>
+	        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+	    </div>
+	</div>
+</div>
+<!-- 详情弹窗 -->
+<div  id="infoCZR" style="display:none;">
+	<div class="title_bj_tzjl newPopTop" >
+		项目承作人<em class="agency_close" data-on="close" class="close null" data-name="basic"></em>
+	</div>
+	<table cellspacing="0" data-title-id='1103' id="czrTableInfo" class="newpopTable" >
+	
+	</table>
+</div>
+	
+<script>
+var manager="";
+var nullD = "<option value=\"\">请选择</option>";
+//获取已有
+var trs = $(".editable[data-code='team-person']").find("tr:gt(0)"); 
+var otherNum=0;
+var arrs=[];
+$.each(trs,function(i,value){
+	arrs.push($(value).data().field1); 
+})   
+$(function(){ 
+     /* 提示信息 */
+     editTipsShow('5','.shareHolder');           
+     //获取承做人事业部  
+     $("select[name='field1']").append(nullD);  
+    sendGetRequest(platformUrl.getCareer,null,
+	function(data) {
+		var list = data.entityList;
+    	var res=""; 
+    	$.each(list,function(){ 
+			res+="<option value="+this.id+"  data-name="+this.name+">"+this.name+"</option>";
+		})		  
+   		$("select[ name='field3']").html("").append(nullD).append(res) 	
+   	})    
+   	if(typeof czr_Rdata != "undefined"){ 
+   		if(czr_Rdata){
+   	   	   	$("#field3").val(czr_Rdata.field3Id);  
+   	   	   	$("#field2").val(czr_Rdata.field2); 
+   	   		otherNum = parseInt(czr_Rdata.field2);
+   	   	    getUser($("#field3"),czr_Rdata.field1); 			
+   		}
+   	} 
+})
+ function getUser(dom,managerName){  
+ 	var that =$(dom); 
+ 	var careerId=that.val(); 
+ 	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
+		function(data) { 
+ 			var list = data.entityList;  
+ 			if(arrs.length>=0){  
+	 			$.each(arrs,function(i,value){  
+	 		 		if(managerName==value){ 
+	 		 			return;
+	 		 		}
+	 				list = list.filter(function(val){  return val.idstr != parseInt(value)}); 
+	 			}) 
+ 		   	}
+ 			var res="";
+ 			$.each(list,function(){ 
+ 				res+="<option value="+this.idstr+" data-name="+this.realName+">"+this.realName+"</option>";
+ 			})  
+ 			$("select[name='field1']").html("").append(nullD).append(res); 
+	 		if(managerName){ 
+	 			$("#field1").val(managerName);
+	 		}  
+     })
+ }   
+ function checkNum(){
+	 var that =$("#field2");
+	 var r1= /^[1-9]*[1-9][0-9]*$/; 
+	 var value = that.val();
+	 //debugger;
+	 var totleNum =parseInt($("#totleNum").val())+otherNum;   
+	 $("#totleNum").val(totleNum)
+	 var val=r1.test(value);    
+	 if(val){ 
+		 var ruler = parseInt(totleNum)-parseInt(value);
+		 if(ruler<1){
+			 that.siblings(".error").remove();
+			 that.after("<span class=\"error\"><font color=red>*</font>副承做人比例之和必须小于99% 请修改承做比例</span>");
+			 $("#save").val("0");
+			 return false;
+		 }else{
+			 that.siblings(".error").remove();
+			 $("#save").val("1"); 
+		 }
+	 }else{
+		 if(value!=''){
+			 that.siblings(".error").remove();
+			 that.after("<span class=\"error\"><font color=red>*</font>承做比例只能输入正整数</span>"); 
+			 $("#save").val("1");		 
+		 }else{ 
+			 $("#save").val("0");		 
+		 }
+		 return false;
+	 }
+ }
+$("#save-detail-btn").click(function(){	  
+	 if($(".error").is(":visible")){
+		 $("#save").val('0')
+	 }else{
+		 $("#save").val('1')
+	 }
+	 if($("#save").val()!="1"){
+			return false;
+		} 
+   if(!$("#detail-form").validate().form()){
+		return false;
+   }
+	$.validator.setDefaults({
+		errorElement:'span'
+	});   
+	
+    var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val());   
+    saveForm($("#detail-form"));  
+    $(".totleNum").find("td[data-field-name='field2']").text(totle); 
+    $(".totleNum").data().field2=totle;
+    $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性 
+});
+</script>

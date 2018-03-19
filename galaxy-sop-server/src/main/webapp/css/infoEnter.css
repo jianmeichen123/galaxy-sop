@@ -209,13 +209,13 @@ color: #3CA6FF;
 	padding-left:20px;
 	width:45%;
 }
-.infoList .threeLiFirst {
+.DN_list .infoList .threeLiFirst {
     padding-left: 20px!important; 
 }
-.fixed-table-container thead th .th-inner{
+.DN_list .fixed-table-container thead th .th-inner{
 	padding: 20px 0 10px 0;
 }
-.infoList .threeLiSecond{
+.DN_list .infoList .threeLiSecond{
 	width:45%;
 }
 .conInfo{    

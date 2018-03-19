@@ -114,6 +114,7 @@ $(function(){
 				}else{
 					$('.investTogether_current .agency_radius span').text('合投机构')
 				} 
+				$(".inves_add").show();
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();
 				//内部弹窗根据条件显示
@@ -573,7 +574,7 @@ function jointDeliveryEdit(list){
 		$(".inves_add").hide()
 	}else{
 		$(".inves_add").show()
-	}
+	} 
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
@@ -601,7 +602,6 @@ function buildShareResult(reportType,relateId){
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
-								debugger;
 								//这个是公共的 所以需要判断ID
 								if ((title.id =="3004"||title.id =="3010"||title.id =="3011"||title.id =="3012")&&_val) {
 									if(_val.indexOf('.')>-1){
@@ -620,6 +620,7 @@ function buildShareResult(reportType,relateId){
 									}else{
 										_val=_val
 									}
+									var I_val=_val;
 								}else{
 									var I_val=_val;
 								}
@@ -632,9 +633,8 @@ function buildShareResult(reportType,relateId){
 										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
 									}
 								}
-								
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
 									if(_val==undefined||_val=="—"){
 										_val=0;

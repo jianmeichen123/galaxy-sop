@@ -290,8 +290,7 @@ var deleteJSON={};
 		event.stopPropagation();
 		deletedRowIds = new Array();
 		toggle_btn($('.anchor_btn span'),0,_this);
-		var code=_this.find("table").attr("data-code");
-	    
+		var code=_this.find("table").attr("data-code");  
 	    resizetable($("table[data-code='"+code+"']"));
 	});
 	//通用保存
@@ -359,7 +358,7 @@ var deleteJSON={};
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
 			deletedRowIdsDraft($(this));   //删除tr保存数据库再保存
-			$.each($(this).find('tr:gt(0)'),function(){
+			$.each($(this).find('tr:gt(0)'),function(){ 
 				var row = $(this).data();
 				if(row.id=="")
 				{
