@@ -708,8 +708,22 @@ var chartOverviewUtils = {
 							}
 							
 						}
+						//highcharts实例
 						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
-						var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+						if(projectProgressArr[0].length==0){
+							var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+							$('#chart_overview').html('暂无数据...')
+						}else{
+							var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						}
+						
+						if(projectProgressArr[1].length==0){
+							var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+							$('#chart_project_number').html('暂无数据...')
+						}else{
+							var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+						}
+						
 				
 				}else{
 					layer.msg(data.result.errorCode);

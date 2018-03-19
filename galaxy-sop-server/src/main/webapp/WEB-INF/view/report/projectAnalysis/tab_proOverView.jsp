@@ -337,7 +337,7 @@
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
-<script src="<%=path %>/js/no-data-to-display.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/no-data-to-display.js" type="text/javascript"></script> --%>
 
 <script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 <script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>

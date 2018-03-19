@@ -4782,3 +4782,5 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 table[data-code='team-person']{margin-top: 10px;}
 table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .fmdl dd .txtI{width: 233px;}
+#chart_project_number{text-align:center;font-size:16px;}
+#chart_overview{text-align:center;font-size:16px;}
