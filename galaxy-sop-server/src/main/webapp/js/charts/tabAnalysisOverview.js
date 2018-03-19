@@ -308,7 +308,7 @@ var projectGrid = {
 		research : false
 }
 var chartOverviewUtils = {
-		chartOverviewOptions : {//项目进度
+		chartOverviewOptions : {//项目进度分布图
 			chart: {
 				renderTo :'chart_overview',
 		        type: 'column',
