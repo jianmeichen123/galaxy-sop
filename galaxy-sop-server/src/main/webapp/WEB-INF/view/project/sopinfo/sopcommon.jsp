@@ -452,7 +452,7 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 					$("#infoCZR").show(); 
 					$("a[data-close='close']").remove();
 					buildTable(czrData);
-					$(".agency_close").click(function(){$("#powindow").remove();$("#popbg").remove()})
+					$(".agency_close").click(function(){$("#powindow").remove();$("#popbg").remove();$("body").css("overflow-y","auto")})
 				} 
 			}) 
 		})
