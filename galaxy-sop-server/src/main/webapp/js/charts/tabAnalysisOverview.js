@@ -709,7 +709,7 @@ var chartOverviewUtils = {
 							
 						}
 						//highcharts实例
-						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						//var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
 						if(projectProgressArr[0].length==0){
 							var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
 							$('#chart_overview').html('暂无数据...')
