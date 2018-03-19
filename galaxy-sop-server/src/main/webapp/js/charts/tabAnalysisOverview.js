@@ -515,7 +515,7 @@ var chartOverviewUtils = {
 						chartOverviewUtils.chartOverviewOptionsSecond.xAxis.categories = projectProgressArr[1];
 						
 						if(form.departmentId!=undefined){
-							//项目进度分布图  选择了事业部
+							//项目进度分布图    选择了事业部
 							chartOverviewUtils.chartOverviewOptions.yAxis.stackLabels = {
 								enabled: true,
 					            style: {
