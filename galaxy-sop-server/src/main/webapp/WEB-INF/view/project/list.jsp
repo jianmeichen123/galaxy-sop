@@ -53,6 +53,11 @@
 	        		<div class="xhtTab" primary=1>协作的项目</div>
 	        	</div>
         	</c:if>
+        	<c:if test="${!fx:hasPremission('project_list_tabs')}">
+	        	<div class="commonTab clearfix"> 
+	        		<div class="xhtTabs">创投项目</div> 
+	        	</div>
+        	</c:if>
         	 <c:if test="${fx:hasRole(4)}">
 	        	<div class="btnbox_f btnbox_f1 handover_project" style="margin-right: 20px;">
 	                <a href="<%=path %>/galaxy/app" class="pubbtn new_blueBtn bluebtn addico c4" style="margin-top:20px;display:none;" resource-mark="project_add">添加项目</a> 
