@@ -191,7 +191,7 @@ $(function(){
 		 	
 		 	
 		 	//复选框
-	$('.qualificationstc').css('max-height','600px');
+	$('.qualificationstc').css({'max-height':'478px','overflow-y':'auto'});
 	$('.highlighCheckbox').click(function(event){
 		if($(this).hasClass('highlighCheckbox_checked')){
 			$(this).removeClass('highlighCheckbox_checked')
@@ -344,6 +344,12 @@ $(function(){
 	})
 	
 	$('.system_send ').click(function() {
+		if ($(".role_toolTip_area ").val().trim()=='') {
+			layer.msg("通知内容不能为空", {
+				time : 500
+			});
+			return false
+		} 
 			if ($(this).hasClass('system_disabled')) {
 				return false
 			} else {
