@@ -323,15 +323,18 @@ var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
-var prostatus = pRigthInfo.projectStatusDs
-$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')"); 
-  if(isCreatedByUser == "true"|| ${fx:isCooperative(projectId)}){
+var prostatus = pRigthInfo.projectStatusDs;
+var isCooperative = "${fx:isCooperative(projectId)}";
+$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");  
+  if(isCreatedByUser == "true"){
 	/*   $(".yjxm_btn").attr("style","display:block;"); */
 	}else{
 	  $(".tzlc_btn").remove();
-	}
-  
-
+	} 
+  if(isCreatedByUser!='true' && isCooperative=='true'){
+	  $(".tzlc_btn").remove();
+	  $(".new_right_flow").remove();
+  } 
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
