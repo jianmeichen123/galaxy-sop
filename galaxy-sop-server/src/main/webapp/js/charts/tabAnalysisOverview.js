@@ -496,6 +496,7 @@ var chartOverviewUtils = {
 						$.each(data.userData,function(){
 							projectCountArr.push(this.dataValue[0].data);//项目总数
 							projectProgressArr.push(this.xValue);//项目进度
+							console.log(this.xValue)
 							if(data.userData.data1.dataValue.length==3){//项目进度
 								chargeProjectArr.push(data.userData.data1.dataValue[1].data);
 								cooprationProjectArr.push(data.userData.data1.dataValue[2].data)
