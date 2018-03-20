@@ -462,7 +462,7 @@ noDataProGressDiv();
 $('.project_tab li').click(function(){
 var _this = $(this);
 var index = _this.index();
-$('.project_tab li').removeClass('on');
+$('.project_tab1 li').removeClass('on');
 $(this).addClass('on')
 chartProjectProgressUtils.init(progressFormdata,index)
 })

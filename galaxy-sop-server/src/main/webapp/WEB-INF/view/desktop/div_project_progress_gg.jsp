@@ -6,7 +6,7 @@
 	<dl resource-mark="div_project_progress_gg" >
 		<dt>
 			<h3 class="ico t8">项目进度</h3>
-			<ul class="ytxm_tab position_tab clearfix project_tab">
+			<ul class="ytxm_tab position_tab clearfix project_tab1">
 				<li data-tab="nav" class='on'>全部项目</li>
 				<li data-tab="nav">负责项目</li>
 				<li data-tab="nav">协作项目</li>
