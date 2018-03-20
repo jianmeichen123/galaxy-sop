@@ -288,7 +288,7 @@
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectPerson = $("input[name='projectPerson']").val();
 		var faFlag = $("select[name='faFlag']").val();
-		var primary= $("input[name='primary']").val();
+		var primary= $("input[name='primary']").val(); 
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -383,16 +383,9 @@
 		//返回附带参数功能代码 
 		var initParams,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
-			initPageSize = 10; 
+			initPageSize = 10;    
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
-			initPageSize = pageParams.pageSize;
-			debugger;
-			if(pageParams.primary=='0'){
-				$(".xhtTab[primary='0']").click();
-			}else{
-				$(".xhtTab[primary='1']").click();
-				
-			}
+			initPageSize = pageParams.pageSize; 
 		}
 		$("button[action='querySearch']").click(function(){
 			buryPoint("98");
@@ -453,13 +446,20 @@
 			        		if(initParams.nameCodeLike !=''){
 		        			 param.nameCodeLike = initParams.nameCodeLike;
 		 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
-		        		}
-		        		if(initParams.projectPerson !=''){
-		        			param.projectPerson = initParams.projectPerson;
-		        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-		        		}
-		        		var options = $("#data-table").bootstrapTable('getOptions');
-		 	        	options.pageNumber = initParams.pageNum - 1; 
+		        			}
+			        		if(initParams.projectPerson !=''){
+			        			param.projectPerson = initParams.projectPerson;
+			        			$("input[name='projectPerson']").val(initParams.projectPerson); 
+			        		}
+			        		var options = $("#data-table").bootstrapTable('getOptions');
+			 	        	options.pageNumber = initParams.pageNum - 1; 
+
+
+			    			if(pageParams.primary=='0'){
+			    				$(".xhtTab[primary='0']").click();
+			    			}else{
+			    				$(".xhtTab[primary='1']").click(); 
+			    			}
 		    		}
 		        	return param;
 		        },
