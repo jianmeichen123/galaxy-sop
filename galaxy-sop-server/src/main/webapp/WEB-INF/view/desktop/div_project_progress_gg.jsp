@@ -24,9 +24,9 @@
 <script src="<%=path %>/js/charts/projectProgress.js"></script>
 <script>
 if(departmentId==2){
-	$('.project_tab').hide()
+	$('.project_tab1').hide()
 }else{
-	$('.project_tab').show()
+	$('.project_tab1').show()
 }
 
 </script>
