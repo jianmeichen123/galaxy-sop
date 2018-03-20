@@ -308,7 +308,7 @@ var projectGrid = {
 		research : false
 }
 var chartOverviewUtils = {
-		chartOverviewOptions : {//项目进度
+		chartOverviewOptions : {//项目进度分布图
 			chart: {
 				renderTo :'chart_overview',
 		        type: 'column',
@@ -359,7 +359,7 @@ var chartOverviewUtils = {
 		    	}
 		    },
 		    series: [{
-		        name: 'Population',
+		        /*name: 'Population',*/
 		        color:'#587edd',
 		        //data: [9,8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
@@ -432,7 +432,7 @@ var chartOverviewUtils = {
 		    	}
 		    },
 		    series: [{
-		        name: 'Population',
+		        /*name: 'Population',*/
 		        color:'#587edd',
 		        //data: [9,8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
@@ -630,6 +630,12 @@ var chartOverviewUtils = {
 					    		return temp[0] +'<br/>项目数:'+ this.y +'个';
 					        
 								}
+							chartOverviewUtils.chartOverviewOptions.legend = {
+									enabled: false
+							}
+							chartOverviewUtils.chartOverviewOptionsSecond.legend = {
+									enabled: false
+							}
 							chartOverviewUtils.chartOverviewOptions.plotOptions = {
 									column: {
 										pointWidth:20,
@@ -702,8 +708,22 @@ var chartOverviewUtils = {
 							}
 							
 						}
-						var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
-						var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+						//highcharts实例
+						//var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						if(projectProgressArr[0].length==0){
+							var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+							$('#chart_overview').html('暂无数据...')
+						}else{
+							var chart1 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
+						}
+						
+						if(projectProgressArr[1].length==0){
+							var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+							$('#chart_project_number').html('暂无数据...')
+						}else{
+							var chart2 = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptionsSecond);
+						}
+						
 				
 				}else{
 					layer.msg(data.result.errorCode);
