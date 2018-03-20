@@ -4622,7 +4622,7 @@ font-weight:bold;
 .outerContent .fixed-table-body{overflow:hidden;}
 .assign_project .fixed-table-body{border-radius:0px;}
 .img_content_new{display:none;min-height:390px;}
-.dropdown-menu.selectpicker li.selected,.dropdown-menu.selectpicker li:hover{
+.dropdown-menu.selectpicker li.selected a,.dropdown-menu.selectpicker li:hover a{
 	background:#e5f3ff;
 	border-bottom:1px solid #fff;
 }  
@@ -4720,13 +4720,17 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     top:50px;
     z-index:10;
 }
-@media screen and (min-width: 1380px) { 
+@media screen and (min-width: 1360px) { 
 	.topBanner{left:9.375%;}
 }
 .commonTab{width:auto;}
 .new_tit_b .commonTab{float:left;}
 .commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;}
 .commonTab .xhtTab.active{border-bottom:4px solid #45aaff;}
+.commonTab .xhtTabs{line-height: 62px; 
+    font-size: 22px;
+    font-weight: normal;
+    color: #808e9b;margin-left:-30px;}
 .project-table_delete .delete_syb,.project-table_delete .delete_tzjl{display:none;}
 #grid_overview{display:none;}
 .project_total_top10{margin-top:40px;}
@@ -4778,3 +4782,9 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 table[data-code='team-person']{margin-top: 10px;}
 table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .fmdl dd .txtI{width: 233px;}
+#chart_project_number{text-align:center;font-size:16px;}
+#chart_overview{text-align:center;font-size:16px;}
+.select_container .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
+.select_container .bootstrap-select.btn-group .dropdown-menu li>a:hover{background:#e5f3ff;}
+.noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
+.datetimepicker>div{max-height:400px;overflow:auto;}

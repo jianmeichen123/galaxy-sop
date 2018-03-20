@@ -117,13 +117,11 @@ $(function(){
  function checkNum(){
 	 var that =$("#field2");
 	 var r1= /^[1-9]*[1-9][0-9]*$/; 
-	 var value = that.val();
-	 //debugger;
-	 var totleNum =parseInt($("#totleNum").val())+otherNum;   
-	 $("#totleNum").val(totleNum)
+	 var value = that.val(); 
+	 var totleNum =parseInt($("#totleNum").val())+otherNum;    
 	 var val=r1.test(value);    
 	 if(val){ 
-		 var ruler = parseInt(totleNum)-parseInt(value);
+		 var ruler = parseInt(totleNum)-parseInt(value); 
 		 if(ruler<1){
 			 that.siblings(".error").remove();
 			 that.after("<span class=\"error\"><font color=red>*</font>副承做人比例之和必须小于99% 请修改承做比例</span>");
@@ -132,6 +130,7 @@ $(function(){
 		 }else{
 			 that.siblings(".error").remove();
 			 $("#save").val("1"); 
+			 //$("#totleNum").val(totleNum)
 		 }
 	 }else{
 		 if(value!=''){
@@ -158,8 +157,9 @@ $("#save-detail-btn").click(function(){
    }
 	$.validator.setDefaults({
 		errorElement:'span'
-	});   
-	
+	});    
+	var totleNum =parseInt($("#totleNum").val())+otherNum; 
+	$("#totleNum").val(totleNum);
     var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val());   
     saveForm($("#detail-form"));  
     $(".totleNum").find("td[data-field-name='field2']").text(totle); 

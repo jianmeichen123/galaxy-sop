@@ -43,7 +43,7 @@
 			<!-- tab标签 -->
 			<ul class="tablink">
 				<li data-tab="nav"><a href="javascript:;">项目总览</a></li>
-				<li data-tab="nav"><a href="javascript:;">项目数统计</a></li>
+				<li data-tab="nav"><a href="javascript:;">项目通过数</a></li>
 				<li data-tab="nav"><a href="javascript:;">项目完成增长率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">过会率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">投决率统计</a></li>
@@ -337,6 +337,7 @@
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/no-data-to-display.js" type="text/javascript"></script> --%>
 
 <script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 <script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>

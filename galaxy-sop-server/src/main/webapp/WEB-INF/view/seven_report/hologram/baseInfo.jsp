@@ -480,8 +480,7 @@ $(function() {
 				if(row.resultId){
 					row.id=row.resultId;
 				}
-				if(row.titleId=="1103"){
-					debugger;
+				if(row.titleId=="1103"){ 
 					delete row.field1Str;  
 					delete row.field2Str; 
 					delete row.field3; 
