@@ -2670,7 +2670,7 @@ table td[data-field-name='opt']{overflow:visible;padding:0px;};
 .h_look .alertImg{width:auto;}
 dd.border_dd{border:1px solid #ff966b;border-radius:100px;color:#ff966b; text-align:center; padding:0 18px;line-height:27px;height:26px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:5px}
-.base_tab-content .base_half{display:inline-block;width:50%;}
+/* .base_tab-content .base_half{display:inline-block;width:50%;} */
 dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#666;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;}
 .pro_innovation{margin-top:-10px;}
 .select_box select{width:125px;margin-bottom:20px;}
@@ -4788,3 +4788,4 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .select_container .bootstrap-select.btn-group .dropdown-menu li>a:hover{background:#e5f3ff;}
 .noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
 .datetimepicker>div{max-height:400px;overflow:auto;}
+.project_tab1{width:188px;}
