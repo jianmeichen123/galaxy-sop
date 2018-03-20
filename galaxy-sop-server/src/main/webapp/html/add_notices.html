@@ -128,7 +128,7 @@
       	
     
   		<div class="button_affrim tast-btn">
-	        <a href="javascript:;"  class="system_send_edit" id="system_send_edit">发送</a>
+	        <a href="javascript:;"  class="system_send system_send_edit" id="system_send_edit">发送</a>
    		 </div>
 
 </div>
@@ -148,21 +148,7 @@ span.error{
 </style>
 <script>
 $(function(){
-		var eidtStatus = sessionStorage.getItem('editStatus');
-		if(eidtStatus =='/messageStatus:1/' ){//未发送
-			$('.noSend_status').show();
-			$('.sended_status').hide();
-			if($('.system_radio_second .radio_checked  input').val()==0){
-				$('#slpk').attr('disabled',true);
-			}else{
-				$('#slpk').attr('disabled',false);
-			}
-		}else if(eidtStatus =='/messageStatus:2/'){//已发送
-			$('.noSend_status').hide();
-			$('.sended_status').show();
-			
-			
-		}
+		
 		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
 		function selectMessageStatus(url, name, mark,selectIndex){
 				sendGetRequest(url,null, function(data){
@@ -467,4 +453,23 @@ $(function(){
 		 })
 		 return result;
 	}
+	
+	
+var eidtStatus = sessionStorage.getItem('editStatus');
+if(eidtStatus =='/messageStatus:1/' ){//未发送
+	$('.noSend_status').show();
+	$('.sended_status').hide();
+	$('.noSend_status .abandon-title').html('编辑通知');
+	$('.system_send').removeClass('system_disabled')
+	if($('.system_radio_second .radio_checked  input').val()==0){
+		$('#slpk').attr('disabled',true);
+	}else{
+		$('#slpk').attr('disabled',false);
+	}
+}else if(eidtStatus =='/messageStatus:2/'){//已发送
+	$('.noSend_status').hide();
+	$('.sended_status').show();
+	$('.system_send').removeClass('system_disabled')
+	
+}
 </script>
