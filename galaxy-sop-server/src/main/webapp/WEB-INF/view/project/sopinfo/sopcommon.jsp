@@ -75,7 +75,7 @@ position: absolute;
 				<span id="create_date"></span>
         	</span>
         	<span class='m_one'>
-        		<span>承作人：</span>
+        		<span>承做人：</span>
 				<span id="createUname"></span><span>(</span><span id="projectCareerline"></span><span>)&nbsp;</span>
 				<span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="点击查看全部" id="undeLine_sop">等&nbsp;&nbsp;共<span id="czrNum"></span>人</span>
         	</span>
