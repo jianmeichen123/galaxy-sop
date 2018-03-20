@@ -67,6 +67,7 @@ table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#
 .fixed_width td{width:16%;}
 table td a{ font-size:12px;  color:#536379; font-family:"Microsoft Yahei";}
 table .on td{ background:#f0f0f0}
+.datetimepicker table .on td{ background:none ;}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
 table .radio_sj{float: right;}
