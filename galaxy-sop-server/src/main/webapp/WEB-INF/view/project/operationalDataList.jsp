@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
+	Long projectId = (Long)request.getAttribute("projectId");
 %>
 <!doctype html>
 <html>
@@ -52,7 +53,7 @@
     	
         <!--页眉-->
         <div class="top clearfix">
-          <c:if test="${fx:hasRole(4)}">
+          <c:if test="${fx:isCreatedByUser('project',projectId)}">
             <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
@@ -90,7 +91,9 @@
 				    	<th data-field="operationIntervalDate"  data-formatter="dataRange" class="data-input">运营数据统计区间</th>
 			        	<th data-field="updateDate"  class="data-input">编辑时间</th>
 			        	<th data-field="updateUserName"  class="data-input">编辑人</th>
+			        	<c:if test="${fx:isCreatedByUser('project',projectId)}">
 			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
+			        	</c:if>
  					</tr>	
  				</thead>
 			</table>
