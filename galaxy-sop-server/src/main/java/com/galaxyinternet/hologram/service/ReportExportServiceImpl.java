@@ -315,7 +315,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                     }
 
                     datac = new HashMap<>();
-                    datac.put("field1", (cache.hget(PlatformConst.CACHE_PREFIX_USER+temp.getField1(), "realName")).toString()+"（"+ temp.getField2() +"）");
+                    datac.put("field1", (cache.hget(PlatformConst.CACHE_PREFIX_USER+temp.getField1(), "realName")).toString()+"（"+ temp.getField2() +"%）");
                     datac.put("field2", cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(), "name"));
 
                     Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+temp.getProperty(),"manager");

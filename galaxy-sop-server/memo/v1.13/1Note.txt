@@ -88,6 +88,7 @@ FROM
 	sop_project
 WHERE
 	project_departId = 13
+	AND is_delete = 0
 	AND project_status != 'projectStatus:2'
 	AND created_time >= 1514736000000
 
@@ -106,6 +107,7 @@ WHERE
 	AND deptUser.dep_id = 13
 	AND listdata.field_5 = 0
 	AND pro.project_status != 'projectStatus:2'
+	AND pro.is_delete = 0
 	AND pro.created_time >= 1514736000000
 GROUP BY
 	pro.project_progress, listdata.field_1;
@@ -121,6 +123,7 @@ FROM
 	sop_project
 WHERE
 	project_status != 'projectStatus:2'
+	AND is_delete = 0
 	AND created_time >= 1514736000000
 
 GROUP BY
@@ -140,6 +143,7 @@ WHERE
 	AND listdata.field_5 != 0
 	AND deptUser.dep_id != pro.project_departId
 	AND pro.project_status != 'projectStatus:2'
+	AND pro.is_delete = 0
 	AND pro.created_time >= 1514736000000
 GROUP BY
 	pro.project_progress, deptUser.dep_id;
