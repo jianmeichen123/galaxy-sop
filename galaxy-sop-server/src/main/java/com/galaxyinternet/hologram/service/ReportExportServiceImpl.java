@@ -328,7 +328,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                             continue;
                         }else if(tempC.getProperty().equals(temp.getProperty())){
                             datac.put("field1", datac.get("field1")+"<w:br />"+
-                                    (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempC.getField1(), "realName")).toString()+"（"+ tempC.getField2() +"）");
+                                    (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempC.getField1(), "realName")).toString()+"（"+ tempC.getField2() +"%）");
                         }
                     }
                     resultC.add(datac);
