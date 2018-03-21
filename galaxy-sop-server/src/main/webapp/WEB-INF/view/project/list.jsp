@@ -657,7 +657,7 @@
 			 $("th[data-field='projectCareerline']").hide();
 			 $("th[data-field='createUname']").hide();
 			 $("td.delete_syb").hide();  				 
-			 $("#project-table").addClass("project-table_delete");
+			 $("#project-table").addClass("project-table_delete"); 
 		 }else{ 
 			 $(".searchall_prj .show_more").show();
 			 $(".searchall_prj .fml").show(); 
@@ -665,10 +665,10 @@
 			 $("th[data-field='createUname']").show();
 			 $("td.delete_syb").show();  
 			 $("#project-table").removeClass("project-table_delete");
-		 }
-
-		 $("#resetBtn").click(); 
-		 $("button[action='querySearch']").click(); 
+		 }  
+		 $("#resetBtn").click();  
+		 $("#project-table").bootstrapTable('refresh');
+		 
 	 })
 </script>
 </html>
