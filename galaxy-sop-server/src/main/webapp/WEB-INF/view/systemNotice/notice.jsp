@@ -100,7 +100,10 @@
 		sortName : 'created_time',
 		clickToSelect: true,
 		pagination : true,
-		search : false
+		search : false,
+		onLoadSuccess:function(data){
+			debugger;
+		}
 	});
 	//日期选择
 	$('.searchTerm input[name="startTime"]').datepicker({

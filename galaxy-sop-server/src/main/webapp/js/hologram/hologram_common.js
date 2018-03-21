@@ -2718,12 +2718,16 @@ function delRow(ele)
             }
         }
 		tr.remove();
-		check_table();
-		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//表格删除添加tochange属性，用于草稿箱保存
 		form.attr('tochange',true);
 		//$(".layui-layer-btn1").click();
+ 
+		if(code=="team-person"){
+			return false;
+		}
+		check_table();
+		check_table_tr_edit();
 	}, function(index) {
 	});
 	
