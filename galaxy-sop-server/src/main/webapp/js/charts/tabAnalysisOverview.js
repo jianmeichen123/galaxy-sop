@@ -491,8 +491,8 @@ var chartOverviewUtils = {
 						var cooprationProjectArr = new Array();//项目进度-协作的项目数
 						
 						var chargeProjectArr2 = new Array();//top10-负责的项目数
-						var cooprationProjectArr2 = new Array();//top-10协作的项目数
-						
+						var cooprationProjectArr2 = new Array();//top-10协作的项目数 
+
 						$.each(data.userData,function(){
 							projectCountArr.push(this.dataValue[0].data);//项目总数
 							projectProgressArr.push(this.xValue);//项目进度
@@ -500,7 +500,7 @@ var chartOverviewUtils = {
 							if(data.userData.data1.dataValue.length==3){//项目进度
 								chargeProjectArr.push(data.userData.data1.dataValue[1].data);
 								cooprationProjectArr.push(data.userData.data1.dataValue[2].data)
-						}
+							}
 							if(data.userData.data2.dataValue.length==2){//top10
 								chargeProjectArr2.push(data.userData.data2.dataValue[0].data)//top10  负责项目数
 								cooprationProjectArr2.push(data.userData.data2.dataValue[1].data)//top10  协作项目数

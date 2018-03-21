@@ -332,8 +332,7 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 	  $(".tzlc_btn").remove();
 	} 
   if(isCreatedByUser!='true' && isCooperative=='true'){
-	  $(".tzlc_btn").remove();
-	  $(".new_right_flow").remove();
+	  $(".tzlc_btn").remove(); 
   } 
 if(!prograss){
 	prograss = 'projectProgress:0';
