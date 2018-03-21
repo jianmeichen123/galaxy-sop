@@ -221,7 +221,7 @@ $(function(){
 	    currentText: 'Now',
 	   // minDate:new Date(),
 	    minView : 0,
-	    minuteStep:1,
+	    minuteStep:5,
 	    pickerPosition:'top-right'
 	    /* startDate:new Date */
 	})
@@ -240,7 +240,7 @@ $(function(){
 	    minDate:new Date(),
 	    startDate:new Date,
 	    minView : 0,
-	    minuteStep:1,
+	    minuteStep:5,
 	    pickerPosition:'top-right'
 	})
 	$('.task-reason input[name="upgradeTime_two"]').datetimepicker({//系统升级
@@ -258,7 +258,7 @@ $(function(){
 	    minDate:new Date(),
 	    startDate:new Date,
 	    minView : 0,
-	    minuteStep:1,
+	    minuteStep:5,
 	    pickerPosition:'top-right'
 	})
 	
@@ -332,7 +332,7 @@ $(function(){
 	$('.system_send').click(function() {
 		if ($(".role_toolTip_area ").val().trim()=='') {
 			layer.msg("通知内容不能为空", {
-				time : 500
+				time : 2000
 			});
 			return false
 		} 

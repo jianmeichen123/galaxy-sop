@@ -4790,3 +4790,5 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
 .datetimepicker>div{max-height:400px;overflow:auto;}
 .project_tab1{width:188px;}
+#menus .nav225{background-position: 0 -1384px;}
+#menus li:hover .nav225,#menus  li.on .nav225{background-position: -40px -1384px;}

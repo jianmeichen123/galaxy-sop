@@ -111,7 +111,7 @@
                     </select>
                   </dd>
                 </dl>
-                  <dl class="fmdl fmdll clearfix">
+                  <dl class="fmdl fml fmdll clearfix">
                   <dt>团队成员：</dt>
                   <dd style="width:135px;">
                     <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" onkeyup="onkeyupall(this)" style="margin-left:0">

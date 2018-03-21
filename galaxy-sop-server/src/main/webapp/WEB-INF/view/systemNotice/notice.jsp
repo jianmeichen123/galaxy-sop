@@ -248,7 +248,6 @@
 					  message=data.entityList[0];
 					$("#messageId").val(message.id);
 				     if(status=='/messageStatus:2/'){//已发送
-				    	 alert(message.sendStatus)
 				      $('#slpk_two').selectpicker('val', message.sendStatus);
 					  $('#slpk_two').selectpicker('refresh');
 					  $("input[name=upgradeTime_two]").val(message.upgradeTimeStr);
@@ -256,20 +255,6 @@
 				    	var str="/";
 				    	var arr=message.osType.replace(new RegExp(str, 'g'),"、");
 				    	var spanArr =  $('.sys_platform span');
-				    	 /* for(var i=0;i<arr.length;i++){
-				    		 if(arr.length==1){
-				    			 $('.sys_platform span:eq(0)').html(arr[0])
-				    		 }
-				    		 if(arr.length==2){
-				    			 $('.sys_platform span:eq(0)').html(arr[0]+'、')
-					    		 $('.sys_platform span:eq(1)').html(arr[1])
-				    		 }
-				    		 if(arr.length==3){
-				    			 $('.sys_platform span:eq(0)').html(arr[0]+'、')
-				    			 $('.sys_platform span:eq(1)').html(arr[0]+'、')
-					    		 $('.sys_platform span:eq(2)').html(arr[1])
-				    		 }
-				    	 } */
 				    	 $(".messageContent").html(message.messageContent);
 				    	 $('.sys_platform').html(arr);
 				    	 $('.sended_update_time').html(message.upgradeTimeStr)
