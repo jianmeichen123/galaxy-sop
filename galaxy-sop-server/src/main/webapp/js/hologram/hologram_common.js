@@ -2341,7 +2341,7 @@ function editRow(ele)
 						$("#complete_title").html('编辑综合竞争比较');
 						$("#pop-title-tz").html('编辑投资人');
 						$("#pop-title-share").html('编辑股东');
-						$("#pop-title-czr").html('编辑项目承作人');
+						$("#pop-title-czr").html('编辑项目承做人');
 						$("#pop-title-yy").html('编辑运营指标');
 						$("#pop-title-gs").text('编辑同类公司');
 						$("#pop-title-time").text('编辑里程碑和时间节点');

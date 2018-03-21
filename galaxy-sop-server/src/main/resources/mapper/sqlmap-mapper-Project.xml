@@ -1340,6 +1340,7 @@
 				<if test="projectCareerline != null"> and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 
 				<if test="projectStatus != null"> and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
+				AND is_delete = 0
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
 
@@ -1381,6 +1382,7 @@
 				<if test="projectStatus != null"> and pro.project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null"> AND pro.project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+				AND pro.is_delete = 0
 
 				<if test="startTime != null"> <![CDATA[  and pro.created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
 				<if test="endTime != null"> <![CDATA[ and pro.created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>

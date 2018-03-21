@@ -43,7 +43,7 @@
 			<!-- tab标签 -->
 			<ul class="tablink">
 				<li data-tab="nav"><a href="javascript:;">项目总览</a></li>
-				<li data-tab="nav"><a href="javascript:;">项目通过数</a></li>
+				<li style="display:none;" data-tab="nav"><a href="javascript:;">项目通过数</a></li>
 				<li data-tab="nav"><a href="javascript:;">项目完成增长率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">过会率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">投决率统计</a></li>
