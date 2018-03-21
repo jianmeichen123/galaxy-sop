@@ -161,8 +161,7 @@
 		sessionStorage.setItem('editStatus','/messageStatus:1/')
 		$.getHtml({
 			url:getDetailUrl(code),
-			okback:function(){
-				
+			okback:function(){ 
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
