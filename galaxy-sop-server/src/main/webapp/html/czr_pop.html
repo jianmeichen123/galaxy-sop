@@ -26,7 +26,7 @@
             <dl class="fmdl clearfix ">
                 <dt>承做人 ：</dt>
                 <dd>
-                    <select class="txtI" required data-msg-required="<font color=red>*</font>承做人 不能为空" name="field1"  id="field1">
+                    <select class="txtI" required data-msg-required="<font color=red>*</font>承做人不能为空" name="field1"  id="field1">
 	
                     </select>
                 </dd>
@@ -124,7 +124,7 @@ $(function(){
 		 var ruler = parseInt(totleNum)-parseInt(value); 
 		 if(ruler<1){
 			 that.siblings(".error").remove();
-			 that.after("<span class=\"error\"><font color=red>*</font>副承做人比例之和必须小于99% 请修改承做比例</span>");
+			 that.after("<span class=\"error\"><font color=red>*</font>副承做人比例之和必须小于99%，请修改承做比例</span>");
 			 $("#save").val("0");
 			 return false;
 		 }else{
