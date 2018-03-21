@@ -3944,22 +3944,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<User> getDepartmentUsers(@PathVariable("id") Long depId)
 	{
 		ResponseData<User> data = new ResponseData<User>();
+		User query = new User();
+		query.setDepartmentId(depId);
+		query.setRole(UserConstant.TZJL+"");
 		
-		List<User> list = baseInfoCache.getDepUserFromCache(depId);
+		List<User> list = userService.selectView(query);
+		
 		Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId,"manager");
 		if(managerId != null)
 		{
 			Object managerName = cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName");
 			data.getUserData().put("manager", managerName);
-			//不显示合伙人
-			for(Iterator<User> it = list.iterator();it.hasNext();)
-			{
-				User item = it.next();
-				if(item.getId().equals(Long.valueOf(managerId+"")))
-				{
-					it.remove();
-				}
-			}
 		}
 		data.setEntityList(list);
 		return data;
