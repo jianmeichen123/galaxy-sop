@@ -120,7 +120,7 @@
 			   <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=BIGINT} </if>
 			 
 		      
-		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+		      <if test="primary == null and projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 			  <if test="deptIdList != null">
 					AND project_departId IN
 					<foreach collection="deptIdList" index="item" item="item" open="("
