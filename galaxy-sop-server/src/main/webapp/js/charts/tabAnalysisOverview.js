@@ -495,8 +495,14 @@ var chartOverviewUtils = {
 						
 						projectCountArr.push(data.userData.data1.dataValue[0].data);//项目总数
 						projectProgressArr.push(data.userData.data1.xValue);//项目进度
-						projectCountArr.push(data.userData.data2.dataValue[0].data);//项目总数
-						projectProgressArr.push(data.userData.data2.xValue);//项目进度
+						var dataLength=data.userData.data2.dataValue[0].data.length
+						if(dataLength>10){ 
+							projectCountArr.push(data.userData.data2.dataValue[0].data.slice(0, 11));//top10
+							projectProgressArr.push(data.userData.data2.xValue.slice(0, 11));//top10
+						}else{ 
+							projectCountArr.push(data.userData.data2.dataValue[0].data);//top10
+							projectProgressArr.push(data.userData.data2.xValue);//top10
+						}
 						if(data.userData.data1.dataValue.length==3){//项目进度
 							chargeProjectArr.push(data.userData.data1.dataValue[1].data);
 							cooprationProjectArr.push(data.userData.data1.dataValue[2].data)
