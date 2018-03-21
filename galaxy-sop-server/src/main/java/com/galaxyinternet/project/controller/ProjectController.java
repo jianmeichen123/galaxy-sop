@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -3945,13 +3946,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		ResponseData<User> data = new ResponseData<User>();
 		
 		List<User> list = baseInfoCache.getDepUserFromCache(depId);
-		data.setEntityList(list);
 		Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId,"manager");
 		if(managerId != null)
 		{
 			Object managerName = cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName");
 			data.getUserData().put("manager", managerName);
+			//不显示合伙人
+			for(Iterator<User> it = list.iterator();it.hasNext();)
+			{
+				User item = it.next();
+				if(item.getId().equals(Long.valueOf(managerId+"")))
+				{
+					it.remove();
+				}
+			}
 		}
+		data.setEntityList(list);
 		return data;
 	}
 	
