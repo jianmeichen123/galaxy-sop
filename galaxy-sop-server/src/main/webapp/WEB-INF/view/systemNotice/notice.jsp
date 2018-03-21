@@ -276,7 +276,6 @@
 							})
 							 $("input[name=sendTime]").val(message.sendTimeStr);
 							// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
-							 alert(message.sendStatus)
 							$('#slpk').selectpicker('val', message.sendStatus);
 							$('#slpk').selectpicker('refresh');
 						     var arr=message.osType.split("/");
