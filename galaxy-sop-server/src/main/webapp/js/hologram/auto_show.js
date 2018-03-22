@@ -1,11 +1,11 @@
 $.fn.showResultsDrafts = function(readonly,flag){
 		var sec = $(this);
-		var pid = $(this).data('sectionId'); 
+		var pid = $(this).data('sectionId');  
 		if(pid == 1302){
 		     sendGetRequest(platformUrl.queryRowsListMG+"/"+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
-                {
+                { 
                 	if(!$.isEmptyObject(data.userData)){
 						var creatTime=data.userData.informationCreateTimeMG.createTime;
 						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
@@ -35,6 +35,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
         			var result = data.result.status;
         			if (result == 'OK')
         			{
+        				debugger;
         				var entityList = data.entityList; 
         				if(!$.isEmptyObject(data.userData)){
     						var creatTime=data.userData.informationCreateTimeMG.createTime;
@@ -80,6 +81,7 @@ $.fn.showResultsDrafts = function(readonly,flag){
             						dtWidth();
         						}
         					});
+        					debugger;
         					if(sum-n>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
@@ -958,13 +960,7 @@ function buildfinxedTableDraft(sec,title,readonly){
 //草稿箱保存回显公共方法提取，便于tab页调用
 /*sec：模块code;*/
 function draftbox(sec){
-	sec.showResultsDrafts();   //提示历史数据信息
-	/*$('.h_title').click(function(){
-		var _tochange=sec.find('form').attr('tochange');
-		if(_tochange=='true'){
-			auto_save(sec);
-		}
-	})*/
+	sec.showResultsDrafts();   //提示历史数据信息 
 	setInterval(function(){    //定时保存
 		var _tochange=sec.find('form').attr('tochange');
 		if(_tochange=='true'){

@@ -455,7 +455,7 @@ var eidtStatus = sessionStorage.getItem('editStatus');
 if(eidtStatus =='/messageStatus:1/' ){//未发送
 	$('.noSend_status').show();
 	$('.sended_status').hide();
-	$('.noSend_status .abandon-title').html('编辑通知');
+	//$('.noSend_status .abandon-title').html('编辑通知');
 	$('.system_send').removeClass('system_disabled')
 	if($('.system_radio_second .radio_checked  input').val()==0){
 		$('#slpk').attr('disabled',true);
