@@ -293,8 +293,7 @@ var deleteJSON={};
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
-			$.each($(this).find('tr:gt(0)'),function(){
-				debugger;
+			$.each($(this).find('tr:gt(0)'),function(){ 
 				var row = $(this).data();
 				if(row.id=="")
 				{

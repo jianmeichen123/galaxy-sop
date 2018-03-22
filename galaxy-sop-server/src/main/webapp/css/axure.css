@@ -4789,6 +4789,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .select_container .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
 .select_container .bootstrap-select.btn-group .dropdown-menu li>a:hover{background:#e5f3ff;}
 .noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
+.noticeLi .bootstrap-select.btn-group .dropdown-menu.inner{max-height: 90px!important; }
 .datetimepicker>div{max-height:400px;overflow:auto;}
 .project_tab1{width:188px;}
 #menus .nav225{background-position: 0 -1384px;}

@@ -143,8 +143,8 @@ $(function(){
 		 return false;
 	 }
  }
-$("#save-detail-btn").click(function(){	  
-	 if($(".error").is(":visible")){
+$("#save-detail-btn").click(function(){ 
+	 if($(".qualificationstc .error").is(":visible")){
 		 $("#save").val('0')
 	 }else{
 		 $("#save").val('1')
@@ -154,7 +154,7 @@ $("#save-detail-btn").click(function(){
 		} 
    if(!$("#detail-form").validate().form()){
 		return false;
-   }
+   } 
 	$.validator.setDefaults({
 		errorElement:'span'
 	});    
@@ -163,7 +163,7 @@ $("#save-detail-btn").click(function(){
     var totle =  parseInt($("#totleNum").val())-parseInt($("#field2").val());   
     saveForm($("#detail-form"));  
     $(".totleNum").find("td[data-field-name='field2']").text(totle); 
-    $(".totleNum").data().field2=totle;
-    $("#detail-form").attr('tochange',true);    //表格内容变化时，添加tochange属性 
+    $(".totleNum").data().field2=totle;  
+    $(".totleNum").closest("form").attr('tochange',true);    //草稿箱
 });
 </script>
