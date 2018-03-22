@@ -101,8 +101,7 @@
 		clickToSelect: true,
 		pagination : true,
 		search : false,
-		onLoadSuccess:function(data){
-			debugger;
+		onLoadSuccess:function(data){ 
 		}
 	});
 	//日期选择
