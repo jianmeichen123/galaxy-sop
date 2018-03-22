@@ -100,7 +100,10 @@
 		sortName : 'created_time',
 		clickToSelect: true,
 		pagination : true,
-		search : false
+		search : false,
+		onLoadSuccess:function(data){
+			debugger;
+		}
 	});
 	//日期选择
 	$('.searchTerm input[name="startTime"]').datepicker({
@@ -158,8 +161,7 @@
 		sessionStorage.setItem('editStatus','/messageStatus:1/')
 		$.getHtml({
 			url:getDetailUrl(code),
-			okback:function(){
-				
+			okback:function(){ 
 			}
 		});
 		$('.close').addClass('tast-close')//添加关闭按钮
@@ -276,7 +278,6 @@
 							})
 							 $("input[name=sendTime]").val(message.sendTimeStr);
 							// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true);
-							 alert(message.sendStatus)
 							$('#slpk').selectpicker('val', message.sendStatus);
 							$('#slpk').selectpicker('refresh');
 						     var arr=message.osType.split("/");

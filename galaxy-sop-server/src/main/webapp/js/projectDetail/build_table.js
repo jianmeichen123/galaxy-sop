@@ -93,6 +93,9 @@ function buildTable(title)
 				table.append(tr);
 			});
 		});
+	} 
+	if(title.tableHeader.titleId=='1103'){
+		return false;
 	}
 	check_table_tr_edit(tables);
 }

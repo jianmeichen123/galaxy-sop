@@ -64,11 +64,7 @@
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus'><em>*</em>通知状态：
-	        		<select id="slpk" name='tipsStatus' class='selectpicker'>
-	        			<!-- <option>请选择</option>
-	        			<option>未发送</option>
-	        			<option>已发送</option>
-	        			<option>已关闭</option> -->
+	        		<select id="slpk" name='tipsStatus' class='selectpicker'> 
 	        		</select>
         		</div>
         	</li>
@@ -116,11 +112,7 @@
         	</li>
         	<li class='noticeLi'>
         		<div class='task-reason noticeStatus' id="noticeStatus_two"><em>*</em>通知状态：
-	        		<select id="slpk_two" name='tipsStatus' class='selectpicker'>
-	        			<!-- <option>请选择</option>
-	        			<option>未发送</option>
-	        			<option>已发送</option>
-	        			<option>已关闭</option> -->
+	        		<select id="slpk_two" name='tipsStatus' class='selectpicker'> 
 	        		</select>
         		</div>
         	</li>
@@ -152,27 +144,32 @@ $(function(){
 		selectMessageStatus(platformUrl.searchDictionaryChildrenItems+"messageStatus", "messageStatus",0);
 		function selectMessageStatus(url, name, mark,selectIndex){
 				sendGetRequest(url,null, function(data){
-					var options = [];
+					var options = '<option  selected="selected" value=" ">请选择</option>';
 					/* if(mark == 1){
 						options.push('<option value="">全部</option>');
 					} */
 					$.each(data.entityList, function(i, value){
+						debugger;
 						if(selectIndex && i == selectIndex){
-							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+							options+='<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>';
+							//options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
 						}else{
-							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+							options+='<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>';
+							//options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 						}
-					});
+					});  
 					$("#slpk").html(options)
+
 					if(eidtStatus =='/messageStatus:2/'){
+						debugger;
 						var options = options.slice(1,3);
 						$("#slpk_two").html(options) 
 					}
 					
+			 	$('#slpk').selectpicker('refresh');  
+			 	$('#slpk_two').selectpicker('refresh');  
 				});
 			}
-		 	$('#slpk').selectpicker('refresh');  
-		 	$('#slpk_two').selectpicker('refresh');  
 	
 		 	
 		 	
