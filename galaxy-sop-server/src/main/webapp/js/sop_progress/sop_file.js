@@ -85,7 +85,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			mime_types : [
 	           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
 	           { title : "PDF files", extensions : "pdf,PDF" },
-	           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+	           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"},
+	           { title : "Zip files", extensions : "zip,rar"}
 	        ],
 			max_file_size : '25mb',
 			prevent_duplicates : false //true 不允许选取重复文件
@@ -113,6 +114,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		paramsCondition.projectId  = projectId;
         paramsCondition.projectProgress = _project_.projectProgress;
 		uploader.settings.multipart_params = paramsCondition;
+		alert(paramsCondition)
 		var saveObj = $("#"+saveFileId);
 		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
