@@ -27,8 +27,7 @@ function deletedRowIdsDraft(obj){
 	} 
 }
 
-setInterval(function(){    //定时保存
-		
+setInterval(function(){    //定时保存 
 	},1000)
 	
 	//保存方法
