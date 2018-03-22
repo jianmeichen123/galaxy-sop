@@ -6,16 +6,22 @@ var searchOverviewPanel = {
 			$("#search_overview_form").find("#search_start_time").datepicker("setDate",DateUtils.getYearFirstDay());
 			//初始化投资事业线
 			sendGetRequest(platformUrl.getDepartMentDict + "/" + departmentId,null,function(data){
-				var _dom;
+				var _dom; 
 				_dom = $("#search_overview_form").find("#search_department_id");
 				utils.each(data,_dom,"all");
+				if(roleId=='3'){
+					$("#search_department_id").find('option[value=all]') .remove();
+				}
 				var forwardProgress = getProjectProgress();
 				if(forwardProgress){
 					$("#search_overview_form").find("#search_project_progress").val("projectProgress:" +　forwardProgress);
-				}else{
-					$("#search_overview_form").find("#search_project_progress").val("all");
+				}else{  
+					if(roleId=='3'){}else{
+
+						$("#search_overview_form").find("#search_project_progress").val("all");
+
+					} 
 				}
-				
 				
 				//项目总览表格
 				var formdata = {
@@ -102,6 +108,7 @@ var projectGrid = {
 			}
 			//返回页面加载
 			if(getCookieValue("backProjectList")!=''){
+				debugger;
 				$('#search_department_id').val(getCookieValue('search_department_id'))
 				$('#search_project_type').val(getCookieValue('search_project_type'));
 				$('#search_start_time').val(getCookieValue('search_start_time'));
