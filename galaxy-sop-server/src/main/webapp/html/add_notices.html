@@ -148,8 +148,7 @@ $(function(){
 					/* if(mark == 1){
 						options.push('<option value="">全部</option>');
 					} */
-					$.each(data.entityList, function(i, value){
-						debugger;
+					$.each(data.entityList, function(i, value){ 
 						if(selectIndex && i == selectIndex){
 							options+='<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>';
 							//options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
@@ -160,8 +159,7 @@ $(function(){
 					});  
 					$("#slpk").html(options)
 
-					if(eidtStatus =='/messageStatus:2/'){
-						debugger;
+					if(eidtStatus =='/messageStatus:2/'){ 
 						var options = options.slice(1,3);
 						$("#slpk_two").html(options) 
 					}
@@ -432,8 +430,7 @@ $(function(){
 			 url,
 		dataJson,
 		function(data){ 
-			if(data.result.status=="OK"){
-				debugger;
+			if(data.result.status=="OK"){ 
 				if(data.entityList.length>0){
 					$.each(data.entityList,function(index, el) {
 						if(index.id==id){
@@ -452,11 +449,12 @@ $(function(){
 	
 	
 var eidtStatus = sessionStorage.getItem('editStatus');
+debugger;
 if(eidtStatus =='/messageStatus:1/' ){//未发送
 	$('.noSend_status').show();
-	$('.sended_status').hide();
-	//$('.noSend_status .abandon-title').html('编辑通知');
-	$('.system_send').removeClass('system_disabled')
+	$('.sended_status').hide(); 
+	$('.system_send').removeClass('system_disabled'); 
+	$('.noSend_status .abandon-title').html('编辑通知');
 	if($('.system_radio_second .radio_checked  input').val()==0){
 		$('#slpk').attr('disabled',true);
 	}else{
@@ -466,6 +464,15 @@ if(eidtStatus =='/messageStatus:1/' ){//未发送
 	$('.noSend_status').hide();
 	$('.sended_status').show();
 	$('.system_send').removeClass('system_disabled')
+	
+}else if(eidtStatus ==''){//新建
+	$('.noSend_status').show();
+	$('.sended_status').hide();  
+	if($('.system_radio_second .radio_checked  input').val()==0){
+		$('#slpk').attr('disabled',true);
+	}else{
+		$('#slpk').attr('disabled',false);
+	}
 	
 }
 </script>
