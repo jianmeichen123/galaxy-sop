@@ -143,8 +143,8 @@ $(function(){
 		 return false;
 	 }
  }
-$("#save-detail-btn").click(function(){	  
-	 if($(".error").is(":visible")){
+$("#save-detail-btn").click(function(){ 
+	 if($(".qualificationstc .error").is(":visible")){
 		 $("#save").val('0')
 	 }else{
 		 $("#save").val('1')
@@ -154,7 +154,7 @@ $("#save-detail-btn").click(function(){
 		} 
    if(!$("#detail-form").validate().form()){
 		return false;
-   }
+   } 
 	$.validator.setDefaults({
 		errorElement:'span'
 	});    
