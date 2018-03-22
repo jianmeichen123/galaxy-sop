@@ -70,7 +70,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 	   {
 		ResponseData<SystemMessage> data = new ResponseData<SystemMessage>();
 		Direction direction = Direction.DESC;
-		String property = "update_time";
+		String property = "create_time";
 		try {
 			systemMessage.setIsDel(0);
 			Page<SystemMessage> queryPageList = systemMessageService.queryPageList(systemMessage, new PageRequest(systemMessage.getPageNum(),
