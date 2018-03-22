@@ -188,7 +188,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
-		/*$("#"+selectId).closest("li").hideLoading();*/
+		/*$("#"+selectId).closest("li").hideLoading();*/ 
 		tosaveToggle('toHide',selectId,"",fileType);
 		layer.msg(err.message);
 		uploader.splice(0, uploader.files.length);
@@ -226,11 +226,11 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		// to hide...;  for error
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
-		imgStr = getImageOrPdf(file);
-		console.log(beforeType);
+		imgStr = getImageOrPdf(file);  
+        beforeType=beforeType.toLowerCase()
 		if(beforeType=="pdf"){
 			imgStr=imgStr.replace("image.png","pdf.png");
-		}else if(beforeType == "xlsx"||beforeType == "xls"){
+		}else if(beforeType == "xlsx"||beforeType == "xls"||beforeType == "rar"||beforeType == "zip"){
 			imgStr=imgStr.replace("pdf.png","excel.png")
 		}else{
 			imgStr=imgStr.replace("pdf.png","image.png")
