@@ -433,18 +433,17 @@ $(function(){
 		dataJson,
 		function(data){ 
 			if(data.result.status=="OK"){
-				if(null!=data.entityList){
-					if(null!=id&&""!=id){
-						if(data.entityList.length>1){
-							result= false;
-						}
-					}else{
-						if(data.entityList.length>0){
-							result= false;
-						}
-					}
+				debugger;
+				if(data.entityList.length>0){
+					$.each(data.entityList,function(index, el) {
+						if(index.id==id){
+							 result=true;
+							}else{
+								result=false;
+							} 
+					}); 
 				}else{
-					 result=true;
+					 result=false;
 				}
 			}
 		 })
