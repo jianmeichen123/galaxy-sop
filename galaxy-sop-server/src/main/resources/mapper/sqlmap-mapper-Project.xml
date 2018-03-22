@@ -1339,6 +1339,7 @@
 				</if>
 				<if test="projectCareerline != null"> and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 
+				<if test="projectProgress != null"> AND project_progress != #{projectProgress,jdbcType=VARCHAR} </if>
 				<if test="projectStatus != null"> and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 				AND is_delete = 0
 				<!-- 过滤已关闭项目 -->
@@ -1379,6 +1380,7 @@
 				<if test="projectDepartid == null"> AND deptUser.dep_id != pro.project_departId </if>
 				<if test="projectDepartid != null"> and deptUser.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
 
+				<if test="projectProgress != null"> AND pro.project_progress != #{projectProgress,jdbcType=VARCHAR} </if>
 				<if test="projectStatus != null"> and pro.project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null"> AND pro.project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
