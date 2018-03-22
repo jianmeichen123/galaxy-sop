@@ -114,7 +114,6 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		paramsCondition.projectId  = projectId;
         paramsCondition.projectProgress = _project_.projectProgress;
 		uploader.settings.multipart_params = paramsCondition;
-		alert(paramsCondition)
 		var saveObj = $("#"+saveFileId);
 		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
