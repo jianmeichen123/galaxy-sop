@@ -335,8 +335,8 @@ $(function(){
 				return false
 			} else {
 				var id=$("#messageId").val();
-				//判断是否存在已发送的消息
-				if(isExitMessage(id)==false&&$("#slpk").val()=="messageStatus:2"){
+				//判断是否存在已发送的消息 
+				if(isExitMessage(id)==true){
 					layer.msg("已存在一条已发送消息", {
 						time : 500
 					});
@@ -430,15 +430,9 @@ $(function(){
 			 url,
 		dataJson,
 		function(data){ 
-			if(data.result.status=="OK"){ 
+			if(data.result.status=="OK"){  
 				if(data.entityList.length>0){
-					$.each(data.entityList,function(index, el) {
-						if(index.id==id){
-							 result=true;
-							}else{
-								result=false;
-							} 
-					}); 
+					result=true;
 				}else{
 					 result=false;
 				}
