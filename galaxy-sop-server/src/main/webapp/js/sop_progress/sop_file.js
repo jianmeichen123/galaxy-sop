@@ -188,7 +188,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
-		/*$("#"+selectId).closest("li").hideLoading();*/
+		/*$("#"+selectId).closest("li").hideLoading();*/ 
 		tosaveToggle('toHide',selectId,"",fileType);
 		layer.msg(err.message);
 		uploader.splice(0, uploader.files.length);
@@ -226,11 +226,11 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		// to hide...;  for error
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
-		imgStr = getImageOrPdf(file);
-		console.log(beforeType);
+		imgStr = getImageOrPdf(file);  
+        beforeType=beforeType.toLowerCase();
 		if(beforeType=="pdf"){
 			imgStr=imgStr.replace("image.png","pdf.png");
-		}else if(beforeType == "xlsx"||beforeType == "xls"){
+		}else if(beforeType == "xlsx"||beforeType == "xls"||beforeType == "rar"||beforeType == "zip"){
 			imgStr=imgStr.replace("pdf.png","excel.png")
 		}else{
 			imgStr=imgStr.replace("pdf.png","image.png")
@@ -241,6 +241,7 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 			liObj.find('.file_box').find('img').addClass("add_img");
 			liObj.find('.file_box').find('img').attr("src", Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png');
 		}else{
+			debugger;
 			liObj.find('.file_box').find('img').attr("src", imgStr);
 		}
 	}
@@ -284,6 +285,8 @@ function getImageOrPdf(file){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
 	}else if(fileType=="xls_type"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/excel.png"; //图片
+	}else if(fileType=="other_type"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png"; //图片
 	}
 	return imgstr;
 }
@@ -298,8 +301,12 @@ function getFileType(file){
 		var fileType = file.fileSuffix;
 	}
 
-	if (fileType=="xls"||fileType=="xlsx"||fileType=="XLS"||fileType=="XLSX"){
+	fileType=fileType.toLowerCase();
+	if (fileType=="xls"||fileType=="xlsx"){
 		return "xls_type";
+	}
+	if (fileType=="rar"||fileType=="zip"){
+		return "other_type";
 	}
 	if(typeof(file) == 'string'){
 		var fileType = getFileTypeByName(file);
@@ -375,11 +382,12 @@ function create_blank_area(file){
 function create_file_area(file){
 	//获取上传的文件类型，显示不同上传下载图表
 	var type=file.fileSuffix;
-	if(type=="jpg" || type=="jpeg" || type=="png" || type=="JPG" || type=="JPEG" || type=="PNG"){
+	type=type.toLowerCase();
+	if(type=="jpg" || type=="jpeg" || type=="png" ){
 		type="jpg"
 	}else if(type=="pdf"||type=="PDF"){
 		type=="pdf"
-	}else if(type == "xls" || type == "xlsx" || type == "XLS" || type == "XLSX"){
+	}else if(type == "xls" || type == "xlsx" || type == "rar" || type == "zip"){
 	   type=="excel"
 	}
 	var imgstr = getImageOrPdf(file);
