@@ -227,7 +227,7 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
 		imgStr = getImageOrPdf(file);  
-        beforeType=beforeType.toLowerCase()
+        beforeType=beforeType.toLowerCase();
 		if(beforeType=="pdf"){
 			imgStr=imgStr.replace("image.png","pdf.png");
 		}else if(beforeType == "xlsx"||beforeType == "xls"||beforeType == "rar"||beforeType == "zip"){
@@ -241,6 +241,7 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 			liObj.find('.file_box').find('img').addClass("add_img");
 			liObj.find('.file_box').find('img').attr("src", Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png');
 		}else{
+			debugger;
 			liObj.find('.file_box').find('img').attr("src", imgStr);
 		}
 	}
@@ -375,11 +376,12 @@ function create_blank_area(file){
 function create_file_area(file){
 	//获取上传的文件类型，显示不同上传下载图表
 	var type=file.fileSuffix;
-	if(type=="jpg" || type=="jpeg" || type=="png" || type=="JPG" || type=="JPEG" || type=="PNG"){
+	type=type.toLowerCase();
+	if(type=="jpg" || type=="jpeg" || type=="png" ){
 		type="jpg"
 	}else if(type=="pdf"||type=="PDF"){
 		type=="pdf"
-	}else if(type == "xls" || type == "xlsx" || type == "XLS" || type == "XLSX"){
+	}else if(type == "xls" || type == "xlsx" || type == "rar" || type == "zip"){
 	   type=="excel"
 	}
 	var imgstr = getImageOrPdf(file);
