@@ -285,6 +285,8 @@ function getImageOrPdf(file){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
 	}else if(fileType=="xls_type"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/excel.png"; //图片
+	}else if(fileType=="other_type"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png"; //图片
 	}
 	return imgstr;
 }
@@ -299,8 +301,12 @@ function getFileType(file){
 		var fileType = file.fileSuffix;
 	}
 
-	if (fileType=="xls"||fileType=="xlsx"||fileType=="XLS"||fileType=="XLSX"){
+	fileType=fileType.toLowerCase();
+	if (fileType=="xls"||fileType=="xlsx"){
 		return "xls_type";
+	}
+	if (fileType=="rar"||fileType=="zip"){
+		return "other_type";
 	}
 	if(typeof(file) == 'string'){
 		var fileType = getFileTypeByName(file);
