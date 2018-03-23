@@ -311,7 +311,9 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		String fileType = DictEnum.fileType.图片.getCode();
 		if(fileSuffix.contains("PDF") || fileSuffix.contains("pdf")
 				|| fileSuffix.contains("xls") || fileSuffix.contains("xlsx") 
-				|| fileSuffix.contains("XLS") || fileSuffix.contains("XLSX")){
+				|| fileSuffix.contains("XLS") || fileSuffix.contains("XLSX")
+				|| fileSuffix.contains("RAR") || fileSuffix.contains("ZIP")
+				|| fileSuffix.contains("rar") || fileSuffix.contains("zip")){
 			fileType = DictEnum.fileType.文档.getCode();
 		}
 		return fileType;
