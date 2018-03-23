@@ -35,7 +35,7 @@
                 <dt>分配承做比例：</dt>
                 <dd>
                 	<span class="fr">&nbsp;&nbsp;%</span>
-                    <input class="txt  fl" placeholder="承做占比（正整数）" required data-msg-required="<font color=red>*</font>请分配承做比例" name="field2"  onblur="checkNum()" id="field2"/> 
+                    <input class="txt  fl" placeholder="承做占比（正整数）"  name="field2"  onblur="checkNum()" id="field2"/> 
                 </dd>
             </dl>
         </div>
@@ -124,6 +124,11 @@ $(function(){
 	 var value = that.val(); 
 	 var totleNum =parseInt($("#totleNum").val())+otherNum;    
 	 var val=r1.test(value);    
+	 if(value==''){
+		 that.siblings(".error").remove();
+		 that.after("<span class=\"error\"><font color=red>*</font>请分配承做比例</span>"); 
+		 $("#save").val("0");
+	 }
 	 if(val){ 
 		 var ruler = parseInt(totleNum)-parseInt(value); 
 		 if(ruler<1){
@@ -141,22 +146,30 @@ $(function(){
 			 that.siblings(".error").remove();
 			 that.after("<span class=\"error\"><font color=red>*</font>承做比例只能输入正整数</span>"); 
 			 $("#save").val("1");		 
-		 }else{ 
-			 $("#save").val("0");		 
+		 }else{ 		
+			
+			 $("#save").val("0");
 		 }
 		 return false;
 	 }
  }
-$("#save-detail-btn").click(function(){ 
+$("#save-detail-btn").click(function(){  
+	if($("#field2").val()==''){
+		$("#field2").siblings(".error").remove();
+		$("#field2").after("<span class=\"error\"><font color=red>*</font>请分配承做比例</span>");
+		 $("#save").val('0');
+		 return false;
+	}
 	 if($(".qualificationstc .error").is(":visible")){
-		 $("#save").val('0')
+		 $("#save").val('0');
+		 return false;
 	 }else{
 		 $("#save").val('1')
 	 }
 	 if($("#save").val()!="1"){
 			return false;
 		} 
-   if(!$("#detail-form").validate().form()){
+   if(!$("#detail-form").validate().form()){ 
 		return false;
    } 
 	$.validator.setDefaults({
