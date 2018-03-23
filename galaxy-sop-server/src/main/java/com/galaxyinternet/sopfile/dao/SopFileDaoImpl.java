@@ -1,24 +1,46 @@
 package com.galaxyinternet.sopfile.dao;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
-
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.sopfile.SopFile;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Repository("sopFileDao")
 public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFileDao  {
 
-	
+
+	@Override
+	public Long insert(SopFile entity) {
+		Assert.notNull(entity);
+		try {
+			/*ID id = entity.getId();
+			if (null == id) {
+				if (StringUtils.isBlank(stringId)) {
+					entity.setId((ID) generateId());
+				}
+			}*/
+			entity.setCreatedTime(new Date().getTime());
+			if(StringUtils.isBlank(entity.getFileType())) entity.setFileType("fileType:1");
+			sqlSessionTemplate.insert(getSqlName(SqlId.SQL_INSERT), entity);
+			return entity.getId();
+		} catch (Exception e) {
+			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName(SqlId.SQL_INSERT)), e);
+		}
+	}
+
 	@Override
 	public List<SopFile> queryByFileTypeList(SopFileBo sbo) {
 		
