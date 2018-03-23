@@ -180,7 +180,8 @@
 				mime_types : [
 					           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
 					           { title : "PDF files", extensions : "pdf,PDF" },
-					           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+					           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"},
+					           { title : "Zip files", extensions : "zip,rar,ZIP,RAR"}
 					        ]
 			},
 	

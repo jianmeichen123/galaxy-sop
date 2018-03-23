@@ -43,7 +43,7 @@
 			<!-- tab标签 -->
 			<ul class="tablink">
 				<li data-tab="nav"><a href="javascript:;">项目总览</a></li>
-				<li data-tab="nav"><a href="javascript:;">项目数统计</a></li>
+				<li style="display:none;" data-tab="nav"><a href="javascript:;">项目通过数</a></li>
 				<li data-tab="nav"><a href="javascript:;">项目完成增长率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">过会率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">投决率统计</a></li>
@@ -60,7 +60,7 @@
 							<select name="departmentId" id="search_department_id"></select>
 						</dd>
 					</dl>
-					<dl class="fmdl fmmr clearfix">
+					<!-- <dl class="fmdl fmmr clearfix">
 						<dt>项目类型：</dt>
 						<dd>
 							<select name="projectType" id="search_project_type">
@@ -69,7 +69,7 @@
 								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
-					</dl>
+					</dl> -->
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目创建日期：</dt>
 						<dd>
@@ -96,10 +96,20 @@
 					</div>
 					<div id="chart_overview"></div>
 				</div>
+				<div class="chartbox project_total_top10">
+					<div>
+						<h2 class="chart_name">项目统计数TOP10</h2>
+					</div>
+					<div id="chart_project_number"></div>
+				</div>
+				
 				<!--表格内容-->
 				<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
-				<table id="grid_overview" width="100%" cellspacing="0"
-					cellpadding="0"></table>
+				<div style="display:none;">
+					<table id="grid_overview" width="100%" cellspacing="0" cellpadding="0">
+						
+					</table>
+				</div>
 			</div>
 			
 			
@@ -327,6 +337,7 @@
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/no-data-to-display.js" type="text/javascript"></script> --%>
 
 <script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 <script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>

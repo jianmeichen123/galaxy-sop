@@ -107,7 +107,7 @@
 					AND id !=  #{idFilter,jdbcType=BIGINT}
 				</if>
 				
-			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+			   <if test="primary == null and createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 			    <if test="createtUids != null">
 					AND create_uid IN
 					<foreach collection="createtUids" index="item" item="item" open="("
@@ -120,7 +120,7 @@
 			   <if test="isdelete != null" > and is_delete = #{isdelete,jdbcType=BIGINT} </if>
 			 
 		      
-		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+		      <if test="primary == null and projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 			  <if test="deptIdList != null">
 					AND project_departId IN
 					<foreach collection="deptIdList" index="item" item="item" open="("
@@ -292,6 +292,19 @@
 							escape '/'
 						</if>
 					)
+				</if>
+				<!-- 是否主承做人 -->
+				<if test="primary != null">
+				AND EXISTS
+				(
+					SELECT 1 FROM information_listdata ld
+					INNER JOIN power.user u ON ld.field_1 = u.id AND ld.field_5 = #{primary}
+					INNER JOIN power.rel_dep_user du ON du.user_id = u.id
+					WHERE ld.project_id = sop_project.id
+					AND ld.title_id = 1103
+					<if test="createUid != null" > AND u.id = #{createUid,jdbcType=BIGINT} </if>
+					<if test="projectDepartid != null" > AND du.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
+				)
 				</if>
 				
 			</trim>
@@ -1296,4 +1309,102 @@
       ORDER BY a.created_time ASC) p ON s.id = p.project_id 
  
     </select>
+
+
+
+
+
+
+	<!-- * 项目分析 - 项目总览 - 项目进度分布图   * 项目分析 - 项目总览 - 项目数统计top10 -->
+	<select id="searchProjOverViewByProject" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		project_progress, create_uid, project_departId, COUNT(id) completed
+		FROM
+		sop_project
+		<where>
+			<trim prefixOverrides="and">
+				<if test="createtUids != null">
+					AND create_uid IN
+					<foreach collection="createtUids" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="projectDepartid != null"> and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+				<if test="deptIdList != null">
+					AND project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="projectCareerline != null"> and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
+
+				<if test="projectProgress != null"> AND project_progress != #{projectProgress,jdbcType=VARCHAR} </if>
+				<if test="projectStatus != null"> and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
+				AND is_delete = 0
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+
+				<if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			</trim>
+		</where>
+		GROUP BY
+		<choose>
+			<when test="projectDepartid != null">
+				project_progress,create_uid
+			</when>
+			<otherwise>
+				project_progress,project_departId
+			</otherwise>
+		</choose>
+		<!--
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		-->
+	</select>
+	<select id="searchProjOverViewByListdata" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		pro.project_progress, listdata.field_1 create_uid, deptUser.dep_id project_departId, COUNT(listdata.id) completed
+		FROM
+		information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+		<where>
+			<trim prefixOverrides="and">
+				listdata.project_id = pro.id
+				AND listdata.field_1 = deptUser.user_id
+				AND listdata.title_id = 1103
+				AND listdata.field_5 != 0
+
+				<if test="projectDepartid == null"> AND deptUser.dep_id != pro.project_departId </if>
+				<if test="projectDepartid != null"> and deptUser.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
+
+				<if test="projectProgress != null"> AND pro.project_progress != #{projectProgress,jdbcType=VARCHAR} </if>
+				<if test="projectStatus != null"> and pro.project_status = #{projectStatus,jdbcType=VARCHAR} </if>
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null"> AND pro.project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+				AND pro.is_delete = 0
+
+				<if test="startTime != null"> <![CDATA[  and pro.created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and pro.created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			</trim>
+		</where>
+		GROUP BY
+		<choose>
+			<when test="projectDepartid != null">
+				pro.project_progress, listdata.field_1
+			</when>
+			<otherwise>
+				pro.project_progress, deptUser.dep_id
+			</otherwise>
+		</choose>
+		<!--
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		-->
+	</select>
+
 </mapper>

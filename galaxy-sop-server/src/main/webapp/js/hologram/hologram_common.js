@@ -1,8 +1,5 @@
 function editOpen(){
-	$(".h_edit_btn").click(function(){
-		/*var part=$(this).parent().parent(".h_look").parent(".radius").attr("id").split('_');
-		var edit_id='h_edit_'+part[1];
-		$(this).attr("id",edit_id)*/
+	$(".h_edit_btn").click(function(){ 
 	    $(this).parent().parent(".h_look").hide();
 	    $(this).parent().parent(".h_look").siblings(".h_edit").show();
 	    $(this).parent().parent().parent(".h").css("background","#fbfbfb")
@@ -804,11 +801,11 @@ function buildMemberRow(headerList,row,showOpts)
 }
 function buildTable(sec,title)
 {
-	//列表Header 
+	//列表Header  
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
-		var tables = $("table[data-title-id='"+header.titleId+"']");
+		var tables = $("table[data-title-id='"+header.titleId+"']"); 
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
@@ -830,7 +827,10 @@ function buildTable(sec,title)
 					}
 					if(header.code=='competitor_potential'&&(key != 'field1')){
 						continue;
-					}
+					} 
+					if(header.code=="team-person"&&key=="field5"){ 
+						continue;
+					} 
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
@@ -850,16 +850,27 @@ function buildTable(sec,title)
 			tr+="</tr>";
 			table.append(tr);
 		});
-	}
+	} 
 	//列表Row
 	if(title.dataList)
-	{ 
+	{   
+		if(header.code=="team-person"){
+			$.each(title.dataList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+				this.field1Str = res.realName;
+				this.field2Str =this.field2;
+				this.field3Str = res.departmentName;
+				this.field3Id = res.departmentId; 
+				this.field4Str = res.managerName==undefined?"--":res.managerName;  
+			})
+		}
 		$.each(title.dataList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			tables.show();   //有数据表格显示
 			$.each(tables,function(){
-				var table = $(this);
+				var table = $(this); 
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
 				//增加显示字段限制，，市场同类公司估值参考
@@ -904,7 +915,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{
+{  
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -937,10 +948,18 @@ function buildRow(row,showOpts,titleId)
 					if(k=="field3"||k=="field4"||k=="field5")
 					row[k] = _parsefloat(row[k]);
 				}
-				
-				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');			
+				}			
 			}else{
-				tr.append('<td data-field-name="'+k+'"></td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'"></td>');					
+				}
+				
 			}
 			
 			//新增的时候添加title
@@ -964,8 +983,19 @@ function buildRow(row,showOpts,titleId)
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
+	
 	if(showOpts == true)
 	{
+		if(row.titleId==1103){
+			if(row.field5=="1"){
+				
+			}else{
+				td.text("--")
+				tr.append(td);
+				tr.addClass("totleNum");
+				return tr;
+			}
+		} 
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
@@ -2022,7 +2052,7 @@ function type_change(){
 /**
  * 数据字典加载请求
  */
-function selectDirect(tittleId,subCode,filed){
+function selectDirect(tittleId,subCode,filed){ 
 	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
@@ -2057,8 +2087,7 @@ function selectDirect(tittleId,subCode,filed){
  * 数据字典加载页面渲染
  */
 
-function selectContext(formId){
-
+function selectContext(formId){ 
 	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
 	 $.each($fileds,function(){
 		var field = $(this);
@@ -2082,8 +2111,12 @@ function selectContext(formId){
 //新增弹出页面渲染
 function addRow(ele)
 {
-	var code = $(ele).prev().data('code');
+	var code = $(ele).prev().data('code'); 
 	var formBox=$(ele).closest('form');
+	czr_Rdata=false; 
+	if(code=="team-person"){		
+		var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
+	}
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id');
 	if(id_code=='NO5_5' || id_code=='NO5_4'){   //显在竞争对手||潜在竞争对手表格特殊处理
 		addRowCompete(ele,id_code);
@@ -2099,15 +2132,20 @@ function addRow(ele)
 	            $('#qualifications_popup_name1').html('添加持股人');
 	            $('#finace_popup_name').html('添加融资历史');
 	            $('#finace_popup_name').html('添加融资历史');
-				 $("#complete_title").html('添加综合竞争比较');
-				 $("#delivery_popup_name").html("添加交割事项")
-				 $(".see_block").hide();
+				$("#complete_title").html('添加综合竞争比较');
+				$("#delivery_popup_name").html("添加交割事项")
+				$(".see_block").hide();
 	            $("#detail-form input[name='projectId']").val(projectInfo.id);
 	            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 	            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
 	            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
+	            if(code=="team-person"){  
+	            	$("#totleNum").val(totleNum); 
+		            //带出来 承作人ID
+	            	return false;
+	            }
 	            selectContext("detail-form");
-	            $("#save-detail-btn").click(function(){
+	            $("#save-detail-btn").click(function(){ 
 	                saveForm($("#detail-form"));
 	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
@@ -2166,10 +2204,10 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{
+{   
 	if($(form).validate().form())
 	{
-		var data = $(form).serializeObject();
+		var data = $(form).serializeObject(); 
 		saveRow(data);
 	}
 }
@@ -2177,9 +2215,17 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
-
-	data = JSON.parse(data);
+{ 
+	data = JSON.parse(data); 
+	if(data.subCode=="team-person"){ 
+		var tdid =data.field1;
+		var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+		data.field1Str = res.realName;
+		data.field2Str =data.field2;
+		data.field3Str = res.departmentName;
+		data.field3Id = res.departmentId;
+		data.field4Str = res.managerName==undefined?"--":res.managerName;    
+	} 
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
 			if(key.indexOf('field')>-1 && key!="field1"){
@@ -2190,7 +2236,7 @@ function saveRow(data)
 	}
 	var titleId = data.titleId;
 	var titleCode;
-	var index = data.index;
+	var index = data.index;    
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
@@ -2208,7 +2254,7 @@ function saveRow(data)
 				}
 			}
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
-			{
+			{  
 				tr.data(key,data[key]);
 				var val_text = data[key];
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
@@ -2226,7 +2272,11 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-				tr.find('td[data-field-name="'+key+'"]').text(val_text);
+				if(titleId=='1103'){  
+					 val_text = data[key+'Str']; 
+				} 
+				tr.find('td[data-field-name="'+key+'"]').text(val_text);	
+				
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
@@ -2240,14 +2290,15 @@ function saveRow(data)
 				
 			}
 		}
-	}
+	}  
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
-	$("a[data-close='close']").click();
+	$("a[data-close='close']").click();  
 }
 function editRow(ele)	
-{
-	var row = $(ele).closest('tr');
+{ 
+	var row = $(ele).closest('tr');    
 	var code = $(ele).closest('table').data('code');
+	if(code=="team-person"){czr_Rdata = row.data(); }
 	var formBox=$(ele).closest('form');
 	var txt=$(ele).text();
 	var id_code=$(ele).closest('form').siblings('.h_look').attr('id') || $(ele).closest('.h_look').attr('id');
@@ -2273,33 +2324,44 @@ function editRow(ele)
 						$(".button_affrim").hide();
 						$('#detail-form_look_over').show();
 						$("#delivery_popup_name").text("查看交割事项");
-						 $('#grant_popup_name').html('查看分期注资计划');
-						 $('#finace_popup_name').html('查看融资历史');
-						 $("#complete_title").html('查看综合竞争比较');
-						 $("#pop-title-gs").text('查看同类公司');
-						 $("#pop-title-time").text('查看里程碑和时间节点');
-						 $("#pop-title").text('查看分期注资计划');
-						 $("#pop-title-yy").html('查看运营指标');
+						$('#grant_popup_name').html('查看分期注资计划');
+						$('#finace_popup_name').html('查看融资历史');
+						$("#complete_title").html('查看综合竞争比较');
+						$("#pop-title-gs").text('查看同类公司');
+						$("#pop-title-time").text('查看里程碑和时间节点');
+						$("#pop-title").text('查看分期注资计划');
+						$("#pop-title-yy").html('查看运营指标');
 						
 					}else{
 						$(".see_block").hide();
 						$('#detail-form_look_over').hide();
 						$("#delivery_popup_name").text("编辑交割事项");
-						 $('#grant_popup_name').html('编辑分期注资计划');
-						 $('#finace_popup_name').html('编辑融资历史');
-						 $("#complete_title").html('编辑综合竞争比较');
-						 $("#pop-title-tz").html('编辑投资人');
-						 $("#pop-title-share").html('编辑股东');
-						 $("#pop-title-yy").html('编辑运营指标');
-						 $("#pop-title-gs").text('编辑同类公司');
-						 $("#pop-title-time").text('编辑里程碑和时间节点');
-						 $("#pop-title").text('编辑分期注资计划');
-					}
-				$("#detail-form input[name='subCode']").val(code);
-				$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+						$('#grant_popup_name').html('编辑分期注资计划');
+						$('#finace_popup_name').html('编辑融资历史');
+						$("#complete_title").html('编辑综合竞争比较');
+						$("#pop-title-tz").html('编辑投资人');
+						$("#pop-title-share").html('编辑股东');
+						$("#pop-title-czr").html('编辑项目承做人');
+						$("#pop-title-yy").html('编辑运营指标');
+						$("#pop-title-gs").text('编辑同类公司');
+						$("#pop-title-time").text('编辑里程碑和时间节点');
+						$("#pop-title").text('编辑分期注资计划');
+					} 
+				 $("#detail-form input[name='subCode']").val(code);
+				 $("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+				 $("#detail-form input[name='index']").val(row.index());
+				 if(code=="team-person"){   
+					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
+	            	$("#totleNum").val(totleNum);
+	            	$("#detail-form input[name='index']").val(row.index());
+	            	debugger;
+	            	$("#detail-form select[name=field1]").addClass('disabled');
+	            	$("#detail-form select[name=field3]").addClass('disabled');
+	            	//带出来 承作人ID 
+	            	return false;
+	            }
 				selectContext("detail-form");
 				//增加显示字段限制
-				var dataCode = $(ele).closest('table').attr('data-code');
 				
 				$.each($("#detail-form").find("input, select, textarea"),function(){
 					var ele = $(this);
@@ -2381,8 +2443,7 @@ function editRow(ele)
 						if(row.data(name)==selectId){
 							ele.text(selectVal);
 						}
-					});
-					
+					}); 
 				})
 				//分拨剩余金额显示
 				$(".remainMoney span").text($("#formatRemainMoney").text());
@@ -2417,8 +2478,7 @@ function editRow(ele)
 					var len=$(this).val().length;
 					var initNum=$(this).siblings('.num_tj').find("span").text();
 					$(this).siblings('.num_tj').find("span").text(initNum-len);
-				});
-				
+				}); 
 				//竞争对手的展示;
 				var myRow = $(ele).closest('tr');
 				var oppoPerson = myRow.find('td:eq(0)').text();
@@ -2438,10 +2498,8 @@ function editRow(ele)
 				//融资的里程碑和时间点
 				$('.finicial-number').text(oppoPerson);
 				$('.milestone').text(degress);
-				$('.finicial-time').text(dangerRation);
-				
-				$("#detail-form input[name='index']").val(row.index());
-				$("#save-detail-btn").click(function(){
+				$('.finicial-time').text(dangerRation); 
+				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
 				});
@@ -2631,11 +2689,19 @@ function delRow(ele)
 		title:'提示'
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
+		var tableRow = $(ele).closest('table');
 		var id = tr.data('id');
 		var resultId=tr.data('resultId')
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
 		var ch_opration =$(ele).closest('.h_team_look');
 		var form=$(ele).closest('.radius').find('form');
+		var code = $(ele).closest('table').data("code");
+		if(code=="team-person"){
+			var num = tr.find("td[data-field-name='field2']").text();
+			var field2=$(ele).closest('table').find(".totleNum td[data-field-name='field2']");  
+			tableRow.find(".totleNum").data().field2=parseInt(field2.text())+parseInt(num) 
+			field2.text(parseInt(field2.text())+parseInt(num));
+		}
         if(typeof id != 'undefined')
         {
             //股权合理性
@@ -2655,12 +2721,16 @@ function delRow(ele)
             }
         }
 		tr.remove();
-		check_table();
-		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//表格删除添加tochange属性，用于草稿箱保存
 		form.attr('tochange',true);
 		//$(".layui-layer-btn1").click();
+ 
+		if(code=="team-person"){
+			return false;
+		}
+		check_table();
+		check_table_tr_edit();
 	}, function(index) {
 	});
 	
@@ -2680,24 +2750,24 @@ function refreshSection(id)
 /**
  字典缓存
 */
-function dictCache(titleId,subCode,filed){
+function dictCache(titleId,subCode,filed){ 
     var map = {};
     map["undefined"] = ""
-    map[""] = ""
+    map[""] = "" 
 	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK')
-				{
-					var dataMap = data.userData;
-				    var list=dataMap[filed];
-				    var name=""
-					$.each(list, function(i, value){
-					     map[value.id]=value.name;
-					});
-				}
-			})
-			return map;
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK')
+			{
+				var dataMap = data.userData;
+			    var list=dataMap[filed];
+			    var name=""
+				$.each(list, function(i, value){
+				     map[value.id]=value.name;
+				});
+			}
+		}) 
+	return map;
 }
 
 function tableDictColumn(code){
@@ -2712,16 +2782,18 @@ function tableDictColumn(code){
 		return json={"equity-structure":["field3","field4"]};
 	}else if(code=="investor-situation"){
 		return json={"investor-situation":["field1","field6"]};
+	}else if(code=="team-person"){
+		return json={"team-person":["field1","field3"]};
 	}
 }
 
-function resizetable(table){ 
+function resizetable(table){  
     var dict_map = {};
     var title_id = table.attr("data-title-id")
-    var  code = table.attr("data-code");
+    var  code = table.attr("data-code"); 
     var fields_json=tableDictColumn(code);
     if (fields_json && code in fields_json){
-        var fields = fields_json[code]
+        var fields = fields_json[code] 
         for(var i=0;i<fields.length;i++){
             var v = fields[i]
             var dict = dictCache(title_id,code,v)
@@ -2733,6 +2805,7 @@ function resizetable(table){
         }
     }
 }
+///人计算比例公共方法
 
 
 

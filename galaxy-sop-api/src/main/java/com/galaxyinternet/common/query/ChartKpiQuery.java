@@ -20,7 +20,10 @@ public class ChartKpiQuery extends PagableEntity {
 	private Long sumScore; //总分数
 	
 	private String forPerOrDept;   //'per' or 'dept'
-	
+
+
+	//区分项目数统计是index，还是menue
+	private Integer belongType;
 	
 	public Long getSumScore() {
 		return sumScore;
@@ -94,9 +97,12 @@ public class ChartKpiQuery extends PagableEntity {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
-	
-	
-	
+
+	public Integer getBelongType() {
+		return belongType;
+	}
+
+	public void setBelongType(Integer belongType) {
+		this.belongType = belongType;
+	}
 }

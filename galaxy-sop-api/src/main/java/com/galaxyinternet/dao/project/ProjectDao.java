@@ -1,15 +1,14 @@
 package com.galaxyinternet.dao.project;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Pageable;
-
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.project.Project;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ProjectDao extends BaseDao<Project, Long> {
 	/**
@@ -80,4 +79,12 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	public Long deptProjectCount(Project query);
 	public Long projectTotalTimeCount(Project query);
 	public List<Project>  selectProjectForPushMessage();
+
+
+	/**
+	 * 项目分析 - 项目总览
+	 */
+    List<Project> searchProjOverViewByProject(Project query);
+	List<Project> searchProjOverViewByListdata(Project query);
+
 }

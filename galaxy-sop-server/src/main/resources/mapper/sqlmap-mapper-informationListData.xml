@@ -35,6 +35,7 @@
 		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" jdbcType="BIGINT" 	property="updateTime" />
 		<result column="update_id" 	jdbcType="BIGINT" 		property="updateId" />
+		<result column="property" 	jdbcType="VARCHAR" 		property="property" />
 	</resultMap>
 
 
@@ -298,5 +299,26 @@
 		delete from information_listdata
 		where id = #{id}
 	</delete>
+
+
+
+
+	<!--特别处理 1103 -->
+	<select id="searchFor1103" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			listdata.*, deptUser.dep_id property
+		FROM
+			information_listdata listdata, v_rel_dep_user deptUser
+		<where>
+			<trim prefixOverrides="and">
+				listdata.field_1 = deptUser.user_id
+				AND listdata.title_id = 1103
+				<if test="projectId != null"> and listdata.project_id = #{projectId,jdbcType=VARCHAR}</if>
+			</trim>
+		</where>
+	</select>
+
+
+
 </mapper>
 	

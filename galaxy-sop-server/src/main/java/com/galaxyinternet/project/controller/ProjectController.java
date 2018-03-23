@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -45,11 +47,13 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.service.BaseInfoCache;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.UtilsService;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.CacheHelper;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -96,6 +100,7 @@ import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.platform.constant.PlatformConst;
+import com.galaxyinternet.project.event.ProjectCreatedEvent;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -124,14 +129,19 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import redis.clients.jedis.Response;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPipeline;
+import redis.clients.util.SafeEncoder;
 
 @Controller
 @RequestMapping("/galaxy/project")
-public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
+public class ProjectController extends BaseControllerImpl<Project, ProjectBo> 
 {
 
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
-
+	@Autowired
+	ApplicationContext applicationcontext;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -188,6 +198,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	
 	@Autowired
 	private InformationDictionaryService infoDictService;
+	
+	@Autowired
+	private BaseInfoCache baseInfoCache;
 
 	private String tempfilePath;
 
@@ -372,7 +385,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				final long id = projectService.newProject(project, file);
 				if (id > 0)
 				{
-
+					applicationcontext.publishEvent(new ProjectCreatedEvent(id));
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
 					if (file != null)
@@ -3910,5 +3923,163 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 
 		return responseBody;
 	}
-
+	@ApiOperation("获取事业线列表")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线列表", response = ResponseData.class) })
+	@RequestMapping(value = "/lines", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<Department> getLists()
+	{
+		ResponseData<Department> data = new ResponseData<Department>();
+		List<Department> list = baseInfoCache.getLines();
+		data.setEntityList(list);
+		return data;
+	}
+	@ApiOperation("获取事业线人员信息")
+	@ApiImplicitParam(name = "id", value = "事业线/部门ID", required = true, paramType = "path")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线人员信息（事业线总经理：userData.manager）", response = ResponseData.class) })
+	@RequestMapping(value = "/dep/{id}/users", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<User> getDepartmentUsers(@PathVariable("id") Long depId)
+	{
+		ResponseData<User> data = new ResponseData<User>();
+		User query = new User();
+		query.setDepartmentId(depId);
+		query.setRole(UserConstant.TZJL+"");
+		
+		List<User> list = userService.selectView(query);
+		
+		Object managerId = cache.hget(PlatformConst.CACHE_PREFIX_DEP+depId,"manager");
+		if(managerId != null)
+		{
+			Object managerName = cache.hget(PlatformConst.CACHE_PREFIX_USER+managerId, "realName");
+			data.getUserData().put("manager", managerName);
+		}
+		data.setEntityList(list);
+		return data;
+	}
+	
+	@ApiOperation("获取投资经理信息")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "事业线人员信息", response = ResponseData.class) })
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<User> getUsers()
+	{
+		ResponseData<User> data = new ResponseData<User>();
+		List<User> users = new ArrayList<>();
+		ShardedJedis jedis = null;
+		
+		try
+		{
+			jedis = cache.getJedis();
+			Set<String> depIds = jedis.smembers(PlatformConst.CACHE_DEP_IDS);
+			if(depIds == null || depIds.size() == 0)
+			{
+				return data;
+			}
+			
+			ShardedJedisPipeline pip = jedis.pipelined();
+			List<Response<Map<byte[],byte[]>>> depRespList = new ArrayList<>();;
+			for(String depId : depIds)
+			{
+				depRespList.add(pip.hgetAll(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_DEP+depId)));
+			}
+			pip.sync();
+			
+			if(depRespList == null || depRespList.size() == 0)
+			{
+				return data;
+			}
+			//所有事业线信息
+			CacheHelper helper = new CacheHelper();
+			Map<String, Map<String, String>> depMap = new HashMap<>();
+			for(Response<Map<byte[],byte[]>> resp : depRespList)
+			{
+				Map<byte[],byte[]> map = resp.get();
+				String type = helper.bytesToObject(map.get(SafeEncoder.encode("type")))+"";
+				if(!"1".equals(type))
+				{
+					continue;
+				}
+				String id = helper.bytesToObject(map.get(SafeEncoder.encode("id")))+"";
+				String name = helper.bytesToObject(map.get(SafeEncoder.encode("name")))+"";
+				String manager = helper.bytesToObject(map.get(SafeEncoder.encode("manager")))+"";
+				Map<String,String> dep = new HashMap<>();
+				dep.put("id", id);
+				dep.put("name", name);
+				dep.put("manager", manager);
+				depMap.put(id, dep);
+			}
+			
+			depIds = depMap.keySet();
+			pip = jedis.pipelined();
+			Map<String, Response<Set<String>>> depUsers = new HashMap<>();
+			for(String depId : depIds)
+			{
+				Response<Set<String>> resp = pip.smembers(PlatformConst.CACHE_PREFIX_DEP_USERS+depId);
+				depUsers.put(depId, resp);
+			}
+			pip.sync();
+			
+			//用户-部门关系
+			Map<String,String> userDepMap = new HashMap<>();
+			//用户姓名
+			Map<String, Response<byte[]>> userMap = new HashMap<>();
+			pip = jedis.pipelined();
+			for(String depId : depIds)
+			{
+				Set<String> userIds = depUsers.get(depId).get();
+				for(String userId : userIds)
+				{
+					Response<byte[]> resp = pip.hget(SafeEncoder.encode(PlatformConst.CACHE_PREFIX_USER+userId), SafeEncoder.encode("realName"));
+					userMap.put(userId, resp);
+					userDepMap.put(userId, depId);
+				}
+			}
+			pip.sync();
+			
+			Set<String> userIds = userMap.keySet();
+			
+			User user = null;
+			for(String userId : userIds)
+			{
+				user = new User();
+				user.setId(Long.parseLong(userId));
+				user.setRealName(helper.bytesToObject(userMap.get(userId).get())+"");
+				String depId = userDepMap.get(userId);
+				
+				if(depId != null)
+				{
+					user.setDepartmentId(Long.parseLong(depId));
+					Map<String,String> dep = depMap.get(depId);
+					if(dep != null);
+					{
+						user.setDepartmentName(dep.get("name"));
+						String managerId = dep.get("manager");
+						if(managerId != null && userMap.containsKey(managerId))
+						{
+							user.setManagerName(helper.bytesToObject(userMap.get(managerId).get())+"");
+						}
+					}
+				}
+				users.add(user);		
+			}
+			data.setEntityList(users);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(jedis != null)
+			{
+				cache.returnJedis(jedis);
+			}
+		}
+		
+		return data;
+	}
 }

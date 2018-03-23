@@ -1,11 +1,12 @@
 $.fn.showResultsDrafts = function(readonly,flag){
 		var sec = $(this);
-		var pid = $(this).data('sectionId');
+		var pid = $(this).data('sectionId');  
+		
 		if(pid == 1302){
 		     sendGetRequest(platformUrl.queryRowsListMG+"/"+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
-                {
+                { 
                 	if(!$.isEmptyObject(data.userData)){
 						var creatTime=data.userData.informationCreateTimeMG.createTime;
 						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
@@ -35,7 +36,8 @@ $.fn.showResultsDrafts = function(readonly,flag){
         			var result = data.result.status;
         			if (result == 'OK')
         			{
-        				var entityList = data.entityList;
+        				
+        				var entityList = data.entityList; 
         				if(!$.isEmptyObject(data.userData)){
     						var creatTime=data.userData.informationCreateTimeMG.createTime;
     						creatTime=new Date(Number(creatTime)).format("yyyy/MM/dd hh:mm");
@@ -73,13 +75,14 @@ $.fn.showResultsDrafts = function(readonly,flag){
             							}
             						}
         						}
-        						if(flag=='result'){
+        						if(flag=='result'){ 
         							buildResultsDraft(sec,title,readonly);
             						buildTableDraft(sec,title,deleteRowIdsNewArray);
             						buildfinxedTableDraft(sec,title,readonly);
             						dtWidth();
         						}
         					});
+        					
         					if(sum-n>0){
         						$('.history_block').show();
         						$('.history_block').closest('.h_edit').addClass('history_block_edit');
@@ -613,7 +616,7 @@ function buildResultsDraft(sec,title,readonly)
 	}
 }
 function buildMemberTableDraft(sec,title){
-        //列表Header
+        //列表Header 
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -778,6 +781,17 @@ function buildTableDraft(sec,title,deleteRowIdsNewArray)
 	//列表Row
 	if(title.dataMGList)
 	{
+		if(header.code=="team-person"){
+			$.each(title.dataMGList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0];  
+				this.field1Str = res.realName;
+				this.field2Str =this.field2;
+				this.field3Str = res.departmentName;
+				this.field3Id = res.departmentId; 
+				this.field4Str = res.managerName==undefined?"--":res.managerName;  
+			})
+		} 
 		$.each(title.dataMGList,function(){
 			var row = this;
 			var tables = $("table.editable[data-title-id='"+row.titleId+"']");
@@ -861,10 +875,18 @@ function buildRowDraft(row,showOpts,titleId)
 					if(k=="field3"||k=="field4"||k=="field5")
 					row[k] = _parsefloat(row[k]);
 				}
-				
-				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');			
+				}	
+				 
 			}else{
-				tr.append('<td data-field-name="'+k+'"></td>');
+				if(titleId=='1103'){ 
+					tr.append('<td data-field-name="'+k+'">'+row[k+'Str']+'</td>');
+				}else{
+					tr.append('<td data-field-name="'+k+'"></td>');					
+				}
 			}
 			
 			//新增的时候添加title
@@ -890,6 +912,16 @@ function buildRowDraft(row,showOpts,titleId)
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
+		if(row.titleId==1103){
+			if(row.field5=="1"){
+				
+			}else{
+				td.text("--")
+				tr.append(td);
+				tr.addClass("totleNum");
+				return tr;
+			}
+		} 
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
@@ -929,22 +961,17 @@ function buildfinxedTableDraft(sec,title,readonly){
 //草稿箱保存回显公共方法提取，便于tab页调用
 /*sec：模块code;*/
 function draftbox(sec){
-	sec.showResultsDrafts();   //提示历史数据信息
-	/*$('.h_title').click(function(){
-		var _tochange=sec.find('form').attr('tochange');
-		if(_tochange=='true'){
-			auto_save(sec);
-		}
-	})*/
-	setInterval(function(){    //定时保存
+		sec.showResultsDrafts();   //提示历史数据信息 
+		setInterval(function(){    //定时保存
+			
 		var _tochange=sec.find('form').attr('tochange');
 		if(_tochange=='true'){
 			auto_save(sec);
 		}
 	},60000) 
 	if($('.history_block .btn').is(':visible')){   //点击恢复
-		$('.history_block .btn').click(function(){
-			sec.showResultsDrafts(null,'result');
+		$('.history_block .btn').click(function(){ 
+			sec.showResultsDrafts(null,'result'); 
 			//级联下拉渲染
 			showConstarct('select[name="1110"]','1110','4');   
 			//基础信息项目来源关联题目显示隐藏处理

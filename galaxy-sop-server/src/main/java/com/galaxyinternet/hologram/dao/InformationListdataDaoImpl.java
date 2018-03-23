@@ -1,6 +1,5 @@
 package com.galaxyinternet.hologram.dao;
 
-import java.util.Map;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -8,6 +7,9 @@ import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 @Repository("informationListdataDao")
 public class InformationListdataDaoImpl extends BaseDaoImpl<InformationListdata, Long> implements InformationListdataDao {
@@ -44,4 +46,13 @@ public class InformationListdataDaoImpl extends BaseDaoImpl<InformationListdata,
 			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName("updateCreateUid")), e);
 		}
 	}
+
+	public List<InformationListdata> searchFor1103(Map<String,Object> projId){
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("searchFor1103"), projId);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName("searchFor1103")), e);
+		}
+	}
+
 }
