@@ -2350,10 +2350,13 @@ function editRow(ele)
 				 $("#detail-form input[name='subCode']").val(code);
 				 $("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 				 $("#detail-form input[name='index']").val(row.index());
-				 if(code=="team-person"){  
+				 if(code=="team-person"){   
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
 	            	$("#detail-form input[name='index']").val(row.index());
+	            	debugger;
+	            	$("#detail-form select[name=field1]").attr('disabled','disabled');
+	            	$("#detail-form select[name=field3]").attr('disabled','disabled');
 	            	//带出来 承作人ID 
 	            	return false;
 	            }

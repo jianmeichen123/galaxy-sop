@@ -1049,6 +1049,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
+		proQuery.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 
 
 		Map<Long, Integer> usertotalAll = new HashMap<>();
