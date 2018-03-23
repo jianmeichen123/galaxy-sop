@@ -337,7 +337,7 @@ public class SopFile extends SopParentFile implements Serializable{
 
 
 	public void setFileType(String fileType) {
-		 this.fileType = StringUtils.isBlank(fileType)? "fileType:1" : fileType.trim();
+		 this.fileType = StringUtils.isBlank(fileType)? null : fileType.trim();
          if(fileType != null){
  			this.fType = DictEnum.fileType.getNameByCode(fileType);
          }
