@@ -86,7 +86,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
 	           { title : "PDF files", extensions : "pdf,PDF" },
 	           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"},
-	           { title : "Zip files", extensions : "zip,rar"}
+	           { title : "Zip files", extensions : "zip,rar,ZIP,RAR"}
 	        ],
 			max_file_size : '25mb',
 			prevent_duplicates : false //true 不允许选取重复文件
