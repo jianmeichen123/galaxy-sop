@@ -92,7 +92,11 @@ $(function(){
 })
  function getUser(dom,managerName){  
  	var that =$(dom); 
- 	var careerId=that.val(); 
+ 	var careerId=that.val();  
+ 	if(careerId ==''){
+ 		$("#field1").html("<option value=''>请选择</option>");
+ 		return false;
+ 	}
  	sendGetRequest(platformUrl.getCareerTeam+ careerId+'/users',null,
 		function(data) { 
  			var list = data.entityList;  
