@@ -2355,8 +2355,8 @@ function editRow(ele)
 	            	$("#totleNum").val(totleNum);
 	            	$("#detail-form input[name='index']").val(row.index());
 	            	debugger;
-	            	$("#detail-form select[name=field1]").attr('disabled','disabled');
-	            	$("#detail-form select[name=field3]").attr('disabled','disabled');
+	            	$("#detail-form select[name=field1]").addClass('disabled');
+	            	$("#detail-form select[name=field3]").addClass('disabled');
 	            	//带出来 承作人ID 
 	            	return false;
 	            }
