@@ -194,7 +194,11 @@ var chartPostAnalysisUtils = {
 
                     var xArray =data.userData.data2.xValue;
                     var dataNum = xArray.length;
-
+                    if(dataNum>5){
+	            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=4/dataNum*100;
+	            	}else{
+	            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=100;
+	            	}
 					if(dataNum && dataNum>0){
                         chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = data.userData.data2.xValue;
 
