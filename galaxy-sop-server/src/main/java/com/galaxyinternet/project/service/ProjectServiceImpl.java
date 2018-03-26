@@ -1047,7 +1047,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//过滤已否决
 		proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
 		proQuery.setStartTime(null); //query.getStartTime()
-		proQuery.setEndTime(query.getEndTime());
+		proQuery.setEndTime(null); //query.getEndTime()
 		proQuery.setProjectDepartid(query.getDeptid());
 		proQuery.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 
