@@ -4353,6 +4353,7 @@ table.assingTable td a{font-size:14px;}
 .assingTable tbody tr td:nth-child(1),.assingTable tbody tr td:nth-child(2){padding-left:20px;}
 .assingTable tbody tr td:nth-child(1) input{visibility:hidden;}
 .assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:38px;text-align:center;font-family:Microsoft YaHei;font-size: 14px;color: #5A626D;}
+.assingTable tbody tr td span{font-size:14px;}
 .highlighCheckbox input{display:none;}
 .highlighCheckbox_th input{display:none;}
 .highlighCheckbox{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
@@ -4628,9 +4629,13 @@ font-weight:bold;
 	background:#e5f3ff;
 	border-bottom:1px solid #fff;
 }  
+.NEWsearchCss .dropdown-menu.selectpicker li a,.NEWsearchCss .dropdown-menu.selectpicker li a:hover{background:none;}
 .h_edit input[type="text"].input-block-level{
 	margin:0;
 }
+.NEWsearchCss .select_container .bootstrap-select.btn-group .dropdown-menu li{padding-left:0; text-indent:10px; list-style: none;}
+.NEWsearchCss .select_container .bootstrap-select.btn-group .dropdown-menu li.selected{background:none;}
+.NEWsearchCss .select_container .bootstrap-select.btn-group .dropdown-menu li.selected:hover{background:#e5f3ff;}
 .h_edit input[type="text"].input-block-level{
 	display:block !important;
 }
@@ -4785,12 +4790,11 @@ table[data-code='team-person']{margin-top: 10px;}
 table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .fmdl dd .txtI{width: 233px;}
 #chart_project_number{text-align:center;font-size:16px;}
-#chart_overview{text-align:center;font-size:16px;}
-.select_container .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
-.select_container .bootstrap-select.btn-group .dropdown-menu li>a:hover{background:#e5f3ff;}
+#chart_overview{text-align:center;font-size:16px;} 
 .noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
 .noticeLi .bootstrap-select.btn-group .dropdown-menu.inner{max-height: 90px!important; }
 .datetimepicker>div{max-height:400px;overflow:auto;}
 .project_tab1{width:188px;}
 #menus .nav225{background-position: 0 -1384px;}
 #menus li:hover .nav225,#menus  li.on .nav225{background-position: -41px -1384px;}
+.system-content-two  .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
