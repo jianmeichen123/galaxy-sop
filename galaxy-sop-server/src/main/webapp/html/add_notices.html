@@ -336,7 +336,7 @@ $(function(){
 			} else {
 				var id=$("#messageId").val();
 				//判断是否存在已发送的消息 
-				if(isExitMessage(id)==true){
+				if(isExitMessage(id)==true&&$("#slpk").val()=='messageStatus:2'){
 					layer.msg("已存在一条已发送消息", {
 						time : 500
 					});
