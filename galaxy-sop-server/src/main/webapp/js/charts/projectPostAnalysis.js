@@ -194,8 +194,8 @@ var chartPostAnalysisUtils = {
                     var xArray =data.userData.data2.xValue;
                     var dataNum = xArray.length;
                     if(dataNum>5){
-	            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=parseInt(5/dataNum*100);
-	            	}else{
+                        chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end= Number((5/dataNum).toFixed(2))*100;
+                    }else{
 	            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=100;
 	            	}  
 					if(dataNum && dataNum>0){
