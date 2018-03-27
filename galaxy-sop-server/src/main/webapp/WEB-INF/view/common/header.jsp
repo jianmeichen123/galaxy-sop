@@ -442,7 +442,7 @@ function queryExitMessage(){
 		var dataJson={
 				"osType":"web",
 				"sendStatus":"messageStatus:2",
-				"endTime":new Date().format('yyyy-MM-dd')
+				"maxTime":new Date().format('yyyy-MM-dd hh:mm')
 		}
 		sendPostRequestByJsonObj(
 			 url,
