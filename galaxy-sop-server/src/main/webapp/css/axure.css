@@ -4641,8 +4641,9 @@ font-weight:bold;
 	display:block !important;
 }
 .tableSearch .searchTerm{
-	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #e4e4e4;
+	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #d8d8d8d8;
 }
+.tableSearch .NEWsearchCss{border-color:;}
 /* 系统通知 */
 .pagebox .ritmin h2.system_inform{font-size:16px;color:#202533;font-family:Microsoft YaHei;}
 .tableSearch .searchTerm input{width:130px;height:32px;padding-left:10px;border:1px solid #d8d8d8;background:url('../img/base_info/pop_icon_datepick.png') no-repeat right -8px;}
@@ -4801,4 +4802,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .project_tab1{width:188px;}
 #menus .nav225{background-position: 0 -1384px;}
 #menus li:hover .nav225,#menus  li.on .nav225{background-position: -41px -1384px;}
-.system-content-two  .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
+.system-content-two .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
+.system-content-two .task-reason{text-align:justify;   text-align-last:justify; width:100px;}
+#noticeStatus_two+.noticeStatus{display:inline-block; margin:0;}
+
