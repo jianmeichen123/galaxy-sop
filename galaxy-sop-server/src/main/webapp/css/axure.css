@@ -4353,6 +4353,7 @@ table.assingTable td a{font-size:14px;}
 .assingTable tbody tr td:nth-child(1),.assingTable tbody tr td:nth-child(2){padding-left:20px;}
 .assingTable tbody tr td:nth-child(1) input{visibility:hidden;}
 .assingTable tbody tr td{border-bottom:1px solid #d8d8d8;height:38px;text-align:center;font-family:Microsoft YaHei;font-size: 14px;color: #5A626D;}
+.systemtTable tbody tr td{border-color:#f0f0f0;}
 .assingTable tbody tr td span{font-size:14px;}
 .highlighCheckbox input{display:none;}
 .highlighCheckbox_th input{display:none;}
@@ -4640,11 +4641,13 @@ font-weight:bold;
 	display:block !important;
 }
 .tableSearch .searchTerm{
-	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #e4e4e4;
+	background:#fff;padding:25px 0 10px 17px;border-bottom:1px solid #d8d8d8d8;
 }
+.tableSearch .NEWsearchCss{border-color:;}
 /* 系统通知 */
 .pagebox .ritmin h2.system_inform{font-size:16px;color:#202533;font-family:Microsoft YaHei;}
 .tableSearch .searchTerm input{width:130px;height:32px;padding-left:10px;border:1px solid #d8d8d8;background:url('../img/base_info/pop_icon_datepick.png') no-repeat right -8px;}
+.tableSearch .searchTerm #startTime:hover,.tableSearch .searchTerm #endTime:hover{border-color:#45aaff;}
 .searchTerm .system_arrive{padding:0px 10px;}
 .searchTerm .system_status{margin-left:40px;}
 .tableSearch .searchTerm .select_container{width:140px;heigth:32px;display:inline-block;}
@@ -4684,6 +4687,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     cursor:pointer;}
 .select_container .bootstrap-select.btn-group .dropdown-menu li{padding-right:0px !important;height:30px;line-height:30px;padding-left: 10px;cursor:pointer;}
 .add_pro_common:hover{background-color:#0084f5;}
+.systemtTable {margin-bottom:10px;}
 .systemtTable thead tr th{text-align:left;}
 .systemtTable tbody tr td{text-align:left;}
 .system_close{font-family:Microsoft YaHei;font-size:12px;color:#45aaff;cursor:pointer;}
@@ -4748,7 +4752,8 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .newPopTop{position:absolute; top:0;right:0;left:0; background-size: cover;}
 .noticeLi .noticeStatus{margin-left:18px;}
 .task-reason .system_tips{display:inline-block;width:16px;height:16px;vertical-align: text-bottom;background:url(../img/tips_system.png) no-repeat center center;cursor:pointer;margin-left:10px;}
-.noticeStatus .bootstrap-select {width:184px;height:32px;background:#fff;}
+.noticeStatus .bootstrap-select {width:184px;height:32px;background:#fff;}\
+
 .noticeStatus .bootstrap-select .btn-default{
 	border: 1px solid #d8d8d8;
     border-radius: 2px;
@@ -4788,7 +4793,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 .project_tab{width:188px;}
 table[data-code='team-person']{margin-top: 10px;}
 table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
-.fmdl dd .txtI{width: 233px;}
+.fmdl dd .txtI{width: 233px;box-shadow: none;}
 #chart_project_number{text-align:center;font-size:16px;}
 #chart_overview{text-align:center;font-size:16px;} 
 .noticeLi .bootstrap-select.btn-group .dropdown-menu li>a{width:100%;display:inline-block;}
@@ -4797,4 +4802,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .project_tab1{width:188px;}
 #menus .nav225{background-position: 0 -1384px;}
 #menus li:hover .nav225,#menus  li.on .nav225{background-position: -41px -1384px;}
-.system-content-two  .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
+.system-content-two .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
+.system-content-two .task-reason{text-align:justify;   text-align-last:justify; width:100px;}
+#noticeStatus_two+.noticeStatus{display:inline-block; margin:0;}
+

@@ -257,9 +257,9 @@
 				    	var arr=message.osType.replace(new RegExp(str, 'g'),"、");
 				    	var spanArr =  $('.sys_platform span');
 				    	 $(".messageContent").html(message.messageContent);
-				    	 $('.sys_platform').html(arr);
-				    	 $('.sended_update_time').html(message.createTimeStr);
-				    	 $(".datatimePicture").val(message.sendTimeStr); 
+				    	 $('.sys_platform').html(arr); 
+				    	 $('.sended_update_time').html(message.sendTimeStr);
+				    	 $(".datatimePicture").val(message.upgradeTimeStr);  
 				    	 $("#slpk_two").html("<option selected='selected' value=' '>请选择</option><option index='1' value='messageStatus:2'>已发送</option><option index='2' value='messageStatus:3'>已关闭</option>")
 		    	 		 $("#slpk_two").selectpicker('val', message.sendStatus);
 						 $("#slpk_two").selectpicker('refresh');

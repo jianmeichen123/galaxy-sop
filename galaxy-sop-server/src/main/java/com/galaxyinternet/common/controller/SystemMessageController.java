@@ -230,7 +230,7 @@ public class SystemMessageController extends BaseControllerImpl<SystemMessage, S
 			query.setIsDel(0);
 			query.setOsType(systemMessage.getOsType());
 			query.setSendStatus(systemMessage.getSendStatus());
-			query.setEndTime(systemMessage.getEndTime());
+			query.setMaxTime(systemMessage.getMaxTime());
 			 List<SystemMessage> queryList = systemMessageService.queryList(query);
 			 responseBody.setEntityList(queryList);
 			responseBody.setResult(new Result(Status.OK,"查询成功"));
