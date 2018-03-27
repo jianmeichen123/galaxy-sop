@@ -248,19 +248,18 @@
 				if(null!=data.entityList&&data.entityList.length>0){ 
 					  message=data.entityList[0];
 					$("#messageId").val(message.id);
-				     if(status=='/messageStatus:2/'){//已发送
-				      $('#slpk_two').selectpicker('val', message.sendStatus);
-					  $('#slpk_two').selectpicker('refresh');
-					  $("input[name=upgradeTime_two]").val(message.upgradeTimeStr);
+					debugger;
+				     if(status=='/messageStatus:2/'){//已发送 
 				    	//var arr=message.osType.split("/");
 				    	var str="/";
 				    	var arr=message.osType.replace(new RegExp(str, 'g'),"、");
 				    	var spanArr =  $('.sys_platform span');
 				    	 $(".messageContent").html(message.messageContent);
 				    	 $('.sys_platform').html(arr); 
-				    	 $('.sended_update_time').html(message.sendTimeStr);
-				    	 $(".datatimePicture").val(message.upgradeTimeStr);  
-				    	 $("#slpk_two").html("<option selected='selected' value=' '>请选择</option><option index='1' value='messageStatus:2'>已发送</option><option index='2' value='messageStatus:3'>已关闭</option>")
+				    	 $('.sended_update_time').html(message.sendTimeStr); 
+				    	 $("#slpk_two").html("<option selected='selected' value=' '>请选择</option><option index='1' value='messageStatus:2'>已发送</option><option index='2' value='messageStatus:3'>已关闭</option>");
+
+					 	 $("input[name=upgradeTime_two]").val(message.upgradeTimeStr); 
 		    	 		 $("#slpk_two").selectpicker('val', message.sendStatus);
 						 $("#slpk_two").selectpicker('refresh');
 				     }else{
@@ -280,8 +279,7 @@
 								}
 							})
 							 $("input[name=sendTime]").val(message.sendTimeStr);
-							// $("#slpk").find("option[value='"+message.sendStatus+"']").attr("selected",true); 
-							$('#slpk').selectpicker('val', message.sendStatus);
+							 	$('#slpk').selectpicker('val', message.sendStatus);
 							$('#slpk').selectpicker('refresh');
 						     var arr=message.osType.split("/");
 				     }
