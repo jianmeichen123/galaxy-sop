@@ -4805,4 +4805,6 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .system-content-two .messageContent,.system-content-two .task-reason,.system-content-two .sys_platform,.system-content-two .sended_update_time{display:inline-block;}
 .system-content-two .task-reason{text-align:justify;   text-align-last:justify; width:100px;}
 #noticeStatus_two+.noticeStatus{display:inline-block; margin:0;}
-
+.noticeStatus .bootstrap-select .btn-default{
+	background:#fff;border-radius:1px; border: 1px solid #d8d8d8;
+}

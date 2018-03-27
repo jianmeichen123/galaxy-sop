@@ -138,7 +138,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 				} catch (Exception e)
 				{
 				}
-				entity.setField2(pect.doubleValue()+"");
+				entity.setField2(pect.intValue()+"");
 				informationListdataDao.deleteById(curr.getId());
 			}
 			informationListdataDao.updateById(entity);
