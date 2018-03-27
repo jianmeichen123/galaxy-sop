@@ -6,8 +6,7 @@ function noDataProGressDiv(){
 	//项目进度无数据样式
 	if(($("#container_progress .highcharts-title span").text()=="0个") || ($("#container_progress .highcharts-title tspan").text()=="0个")){
 		$(".mask_platform_progress").show();
-		$("#more_progress").hide();
-		debugger;
+		$("#more_progress").hide(); 
 		$('#container_progress').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -58,10 +57,9 @@ function noDataProGressDiv(){
             align: 'right',
             verticalAlign: 'middle',
             borderWidth: 0,
-            itemWidth:90,
-            width:200,
-            padding:-25,
-            minHeight:100,
+           itemWidth:110,
+		    width:220,
+		    padding:-35,
             itemStyle:{
                 fontWeight:'normal',
                 color:'#7a8798',
@@ -71,14 +69,15 @@ function noDataProGressDiv(){
 
             series: [{
                 type: 'pie',
-                size:'140%',
-                innerSize :'70%',
+                size:'160%',
+                innerSize :'50%',
                 name: '项目退出占比',
                 data: [
                     {name:'接触访谈',color:'#e9ebf2',y:8},
                     {name: '内部评审',color:'#e9ebf2',y: 10},
                     { name:'CEO评审',color:'#e9ebf2',y:16},
                     { name:'立项会',color:'#e9ebf2',y:20},
+		            {name:'会后商务谈判',color:'#e9ebf2',y:0},
                     { name:'投资意向书',color:'#e9ebf2',y: 30},
                     { name:'尽职调查',color:'#e9ebf2',y:40},
                     { name:'投决会',color:'#e9ebf2',y:50},
@@ -197,6 +196,7 @@ var chartProjectProgressUtils = {
 		            {name:'接触访谈',color:'#c5b33b',y:8},
 		            {name: '内部评审',color:'#cbc63a',y: 10},
 		            {name:'CEO评审',color:'#bac73b',y:16},
+		            
 		            {name:'立项会',color:'#a6cb2b',y:20},
 		            {name:'投资意向书',color:'#69bf56',y: 30},
 		            {name:'尽职调查',color:'#58b260',y:40},
@@ -462,9 +462,10 @@ $('.project_tab1 li').click(function(){
 var _this = $(this);
 var index = _this.index();
 $('.project_tab1 li').removeClass('on');
-$(this).addClass('on')
+$(this).addClass('on');
 chartProjectProgressUtils.init(progressFormdata,index);
 noDataProGressDiv();
+
 })
 //项目进度图表默认加载链接
 /*$("#container_progress .highcharts-title tspan").click(function(){
