@@ -7,6 +7,7 @@ function noDataProGressDiv(){
 	if(($("#container_progress .highcharts-title span").text()=="0个") || ($("#container_progress .highcharts-title tspan").text()=="0个")){
 		$(".mask_platform_progress").show();
 		$("#more_progress").hide();
+		debugger;
 		$('#container_progress').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -91,9 +92,7 @@ function noDataProGressDiv(){
             }]
         });
 	}
-};
-
-
+}; 
 var chartProjectProgressUtils = {
 		chartProjectProgressOptions : {
 		    chart: {
@@ -464,7 +463,8 @@ var _this = $(this);
 var index = _this.index();
 $('.project_tab1 li').removeClass('on');
 $(this).addClass('on')
-chartProjectProgressUtils.init(progressFormdata,index)
+chartProjectProgressUtils.init(progressFormdata,index);
+noDataProGressDiv();
 })
 //项目进度图表默认加载链接
 /*$("#container_progress .highcharts-title tspan").click(function(){
