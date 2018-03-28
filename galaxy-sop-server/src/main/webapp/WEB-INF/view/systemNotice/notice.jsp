@@ -247,8 +247,7 @@
 			if(data.result.status=="OK"){ 
 				if(null!=data.entityList&&data.entityList.length>0){ 
 					  message=data.entityList[0];
-					$("#messageId").val(message.id);
-					debugger;
+					$("#messageId").val(message.id); 
 				     if(status=='/messageStatus:2/'){//已发送 
 				    	//var arr=message.osType.split("/");
 				    	var str="/";

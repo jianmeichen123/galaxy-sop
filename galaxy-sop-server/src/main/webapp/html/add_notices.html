@@ -267,7 +267,7 @@ $(function(){
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 	var updateTime = $('input[name="sendTime"]').val();
 	var sendTime = $('input[name="sendTime"]').val();
-	var selectVal_two = $('#noticeStatus_two .btn-default .filter-option').html(); 
+	var selectVal_two = $('#noticeStatus_two .btn-default .filter-option').html();  
 	if($('.system_radio_second .radio_checked input')=='0'){
 		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
 			$('.system_send').addClass('system_disabled')
@@ -313,11 +313,9 @@ $(function(){
 		event.preventDefault(); 
 	})
 	/* 点击时候的判断必选项 */
-	$('.system-content-two').click(function(event){
-		/* 必填项判断 */
-		//var updateTime = $('input[name="sendTime"]').val();
-		var selectVal = $('#noticeStatus_two .btn-default .filter-option').html();
-			if(selectVal=="请选择"){
+	$('.system-content-two').click(function(event){  
+		var selectVal = $('#slpk_two').val().trim();
+			if(selectVal==""){
 				$('.system_send_edit').addClass('system_disabled')
 			}else{
 				$('.system_send_edit').removeClass('system_disabled')
@@ -326,6 +324,8 @@ $(function(){
 	})
 	
 	$('.system_send').click(function() {
+		if ($(this).hasClass('system_disabled')) {
+			return false}
 		if ($(".role_toolTip_area ").val().trim()=='') {
 			layer.msg("通知内容不能为空", {
 				time : 2000
@@ -390,6 +390,7 @@ $(function(){
 	})
 	
 	$('#system_send_edit ').click(function() {
+
 		if ($(this).hasClass('system_disabled')) {
 			return false
 		} else {
