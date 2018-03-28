@@ -1367,9 +1367,11 @@
 	</select>
 	<select id="searchProjOverViewByListdata" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
-		pro.project_progress, listdata.field_1 create_uid, deptUser.dep_id project_departId, COUNT(listdata.id) completed
+			pro.project_progress, listdata.field_1 create_uid, deptUser.dep_id project_departId,
+			<if test="forProgress != null"> COUNT(DISTINCT pro.id) completed </if>
+			<if test="forProgress == null"> COUNT(listdata.id) completed </if>
 		FROM
-		information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+			information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
 		<where>
 			<trim prefixOverrides="and">
 				listdata.project_id = pro.id
@@ -1394,7 +1396,8 @@
 		GROUP BY
 		<choose>
 			<when test="projectDepartid != null">
-				pro.project_progress, listdata.field_1
+				<if test="forProgress != null"> pro.id </if>
+				<if test="forProgress == null"> pro.project_progress, listdata.field_1 </if>
 			</when>
 			<otherwise>
 				pro.project_progress, deptUser.dep_id
