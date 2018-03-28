@@ -843,6 +843,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		proQuery.setProjectDepartid(query.getDeptid());
 
 		proListTable = projectDao.searchProjOverViewByProject(proQuery);
+		proQuery.setForProgress(true);
 		proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
 
 		int totalPro_0 = 0;
@@ -954,9 +955,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 
 		// top 10
+		proQuery.setForProgress(null);
+		proListListdata = projectDao.searchProjOverViewByListdata(proQuery);
 		Map<Long, Integer> usertotalAll = new HashMap<>();
 		Map<Long, Map<String, Integer>> userTypeTotle = new HashMap<>();
-
 
 		for(Project temp:proListTable)
 		{

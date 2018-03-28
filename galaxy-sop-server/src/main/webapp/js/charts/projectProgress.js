@@ -80,7 +80,7 @@ function noDataProGressDiv(){
 		            {name:'会后商务谈判',color:'#e9ebf2',y:0},
                     { name:'投资意向书',color:'#e9ebf2',y: 30},
                     { name:'尽职调查',color:'#e9ebf2',y:40},
-                    { name:'投决会',color:'#e9ebf2',y:50},
+                    { name:'投资决策会',color:'#e9ebf2',y:50},
                     { name:'投资协议',color:'#e9ebf2',y:55},
                     { name:'股权交割',color:'#e9ebf2',y:60},
                     { name:'投后运营',color:'#e9ebf2',y:90},

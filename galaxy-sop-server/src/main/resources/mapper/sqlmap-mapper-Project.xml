@@ -1318,9 +1318,9 @@
 	<!-- * 项目分析 - 项目总览 - 项目进度分布图   * 项目分析 - 项目总览 - 项目数统计top10 -->
 	<select id="searchProjOverViewByProject" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
-		project_progress, create_uid, project_departId, COUNT(id) completed
+			project_progress, create_uid, project_departId, COUNT(id) completed
 		FROM
-		sop_project
+			sop_project
 		<where>
 			<trim prefixOverrides="and">
 				<if test="createtUids != null">
@@ -1367,9 +1367,11 @@
 	</select>
 	<select id="searchProjOverViewByListdata" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
-		pro.project_progress, listdata.field_1 create_uid, deptUser.dep_id project_departId, COUNT(listdata.id) completed
+			pro.project_progress, listdata.field_1 create_uid, deptUser.dep_id project_departId,
+			<if test="forProgress != null"> COUNT(DISTINCT pro.id) completed </if>
+			<if test="forProgress == null"> COUNT(listdata.id) completed </if>
 		FROM
-		information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+			information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
 		<where>
 			<trim prefixOverrides="and">
 				listdata.project_id = pro.id
@@ -1378,6 +1380,7 @@
 				AND listdata.field_5 != 0
 
 				<if test="projectDepartid == null"> AND deptUser.dep_id != pro.project_departId </if>
+				<if test="forProgress != null"> AND deptUser.dep_id != pro.project_departId </if>
 				<if test="projectDepartid != null"> and deptUser.dep_id = #{projectDepartid,jdbcType=BIGINT} </if>
 
 				<if test="projectProgress != null"> AND pro.project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
@@ -1393,7 +1396,8 @@
 		GROUP BY
 		<choose>
 			<when test="projectDepartid != null">
-				pro.project_progress, listdata.field_1
+				<if test="forProgress != null"> pro.id </if>
+				<if test="forProgress == null"> pro.project_progress, listdata.field_1 </if>
 			</when>
 			<otherwise>
 				pro.project_progress, deptUser.dep_id

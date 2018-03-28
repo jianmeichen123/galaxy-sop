@@ -1,8 +1,8 @@
 package com.galaxyinternet.bo.project;
 
-import java.util.List;
-
 import com.galaxyinternet.model.project.Project;
+
+import java.util.List;
 
 public class ProjectBo extends Project {
 	
@@ -13,6 +13,7 @@ public class ProjectBo extends Project {
 	private String nameLike;//模糊查询条件匹配
 	private String resultCloseFilter;//过滤已关闭项目
 	private Long idFilter;//过滤项目id
+	private Boolean forProgress; //searchProjOverViewByListdata 查询标识
 	
 	private List<String>  ids;//业务扩展字段---项目ids
 	
@@ -220,6 +221,12 @@ public class ProjectBo extends Project {
 	{
 		this.primary = primary;
 	}
-	
-	
+
+	public Boolean getForProgress() {
+		return forProgress;
+	}
+
+	public void setForProgress(Boolean forProgress) {
+		this.forProgress = forProgress;
+	}
 }
