@@ -211,6 +211,8 @@ var chartProjectProgressUtils = {
 		    }]
 		},
 		init : function(formdata,num){
+			$(".mask_platform_progress").hide();
+			$("#more_progress").show();
 			if(formdata.domid){
 				chartProjectProgressUtils.chartProjectProgressOptions.chart.renderTo = formdata.domid;
 			}
