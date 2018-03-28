@@ -69,8 +69,8 @@ function noDataProGressDiv(){
 
             series: [{
                 type: 'pie',
-                size:'160%',
-                innerSize :'50%',
+                size:'140%',
+		        innerSize :'70%',
                 name: '项目退出占比',
                 data: [
                     {name:'接触访谈',color:'#e9ebf2',y:8},
@@ -211,6 +211,8 @@ var chartProjectProgressUtils = {
 		    }]
 		},
 		init : function(formdata,num){
+			$(".mask_platform_progress").hide();
+			$("#more_progress").show();
 			if(formdata.domid){
 				chartProjectProgressUtils.chartProjectProgressOptions.chart.renderTo = formdata.domid;
 			}

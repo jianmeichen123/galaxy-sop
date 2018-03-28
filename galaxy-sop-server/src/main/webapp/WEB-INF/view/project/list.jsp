@@ -395,7 +395,7 @@
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
-		 function getProjectTable(){
+		 function getProjectTable(){ 
 			 $('#project-table').bootstrapTable({
 					queryParamsType: 'size|page',
 					pageSize:initPageSize,
@@ -408,7 +408,7 @@
 					pagination: true,
 			        search: false,
 			        //返回附带参数功能代码
-			        queryParams : function(param){
+			        queryParams : function(param){ 
 			        	if(getCookieValue("backProjectList")!=''){
 			        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 			        		deleteCookie("backProjectList","/");
@@ -450,7 +450,7 @@
 			        		if(initParams.projectPerson !=''){
 			        			param.projectPerson = initParams.projectPerson;
 			        			$("input[name='projectPerson']").val(initParams.projectPerson); 
-			        		}
+			        		} 
 			        		var options = $("#data-table").bootstrapTable('getOptions');
 			 	        	options.pageNumber = initParams.pageNum - 1; 
 
@@ -463,7 +463,7 @@
 		    		}
 		        	return param;
 		        },
-		        onLoadSuccess: function (data) {
+		        onLoadSuccess: function (data) { 
 		        	if($("#showResetBtn").val() == '1'){
 		    			$("#resetBtn").removeClass("none");
 		    		}
@@ -644,7 +644,7 @@
 		}
 		
 	}
-	 $(".xhtTab").click(function(){  
+	 $(".xhtTab").click(function(){   
 		 var that=$(this);
 		 $(".xhtTab").removeClass("active");
 		 that.addClass("active");
@@ -667,6 +667,9 @@
 			 $("#project-table").removeClass("project-table_delete");
 		 }  
 		 $("#resetBtn").click();  
+		 if($('.page-first')){
+			 $('.page-first').click();
+		 }
 		 $("#project-table").bootstrapTable('refresh');
 		 
 	 })
