@@ -227,6 +227,6 @@ public class ProjectBo extends Project {
 	}
 
 	public void setForProgress(Boolean forProgress) {
-		forProgress = forProgress;
+		this.forProgress = forProgress;
 	}
 }
