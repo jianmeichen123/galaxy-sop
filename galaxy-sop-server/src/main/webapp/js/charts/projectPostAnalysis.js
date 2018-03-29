@@ -22,8 +22,7 @@ var chartPostAnalysisUtils = {
 		    dataZoom: {
 		        show: true,
 		        start : 0,
-		        end : 80,
-		       // handleSize:"5",
+		        end : 100,       
 		        handleColor:"#539be2",
 		        dataBackgroundColor:'#e9f3fb',
 		        fillerColor:'#e9f3fb',
@@ -34,7 +33,7 @@ var chartPostAnalysisUtils = {
 		        showDetail:false
 		    },
 		    calculable : true,
-		    legend:{
+		    /*legend:{
 		        show:true,
 		        y:-5,
 		        orient:'horizontal',
@@ -60,7 +59,7 @@ var chartPostAnalysisUtils = {
 		                icon:'stack'
 		            }
 		        ]
-		    },
+		    },*/
 		    grid: {
              borderWidth: 0,
              y : 20,
@@ -143,8 +142,9 @@ var chartPostAnalysisUtils = {
                              show: false,
                          }
                      }
-                 },
-		        },
+                 }
+		        }
+		        /*,
 		        {
 		            name:'投资',
 		            type:'bar',
@@ -156,21 +156,21 @@ var chartPostAnalysisUtils = {
                          color: '#51d7cc',
                          label: {  
                              show: false,
-                             /*position: 'top',
+                             /!*position: 'top',
                              formatter: function (params) {
                                  for (var i = 0, l =chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data.length; i < l; i++) {
                                      if (chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data[i] == params.name) {
                                          return chartPostAnalysisUtils.postAnalysisOptions.series[0].data[i] + params.value;
                                      }
                                  }
-                             },*/
+                             },*!/
                              textStyle: {
                                  color: '#999'
                              }
                          }
                      }
-                 },
-		        }
+                 	},
+		        }*/
 		    ]
 		},
 		/**
@@ -183,6 +183,57 @@ var chartPostAnalysisUtils = {
 			var form = {
 					belongType : formdata.belongType
 			}
+
+            sendPostRequestByJsonObj(platformUrl.searchProjOverView,form,function(data)
+			{
+                var myChart = echarts.init($('#' + formdata.domid)[0]);
+
+                if(data.result.status=='OK') {
+                    var belongType = form.belongType;
+
+                    var xArray =data.userData.data2.xValue;
+                    var dataNum = xArray.length;
+                    if(dataNum>5){
+                        chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end= 4/dataNum*100;
+                    }else{
+	            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=100;
+	            	}  
+					if(dataNum && dataNum>0){
+                        chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = data.userData.data2.xValue;
+
+                        var chargeProjectArr = new Array(); //负责的项目数
+                        chargeProjectArr.push(data.userData.data2.dataValue[0].data);
+                        chartPostAnalysisUtils.postAnalysisOptions.series[0].data = data.userData.data2.dataValue[0].data;
+
+                        switch (belongType) {
+                            case 1:
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "项目总数";
+                                break;
+                            case 2 :
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "负责项目";
+                                break;
+                            case 3 :
+                                chartPostAnalysisUtils.postAnalysisOptions.series[0].name = "协作项目";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        window.onresize = myChart.resize;
+                        myChart.setOption(chartPostAnalysisUtils.postAnalysisOptions);
+					}else{
+                        //无数据显示
+                        $('#' + formdata.domid).html('<div  class="no_info_div"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
+					}
+
+                }else{
+                    layer.msg(data.result.errorCode);
+                }
+            });
+
+
+/*
+
 			sendPostRequestByJsonObj(platformUrl.searchPostAnalysis,form,function(data){
 				if(data.result.status=="OK"){
 					
@@ -230,7 +281,7 @@ var chartPostAnalysisUtils = {
 				}else{
 					layer.msg(data.result.errorCode);
 				}
-			});
+			});*/
 		}
 }
 
@@ -274,8 +325,6 @@ function init(){
 			belongType : 1
 		};
 	chartPostAnalysisUtils.init(formdata);
-	
-	
 
 }
 

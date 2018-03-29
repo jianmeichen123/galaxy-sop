@@ -1,0 +1,151 @@
+
+项目分析 - 项目总览 - 项目进度分布图
+项目分析 - 项目总览 - 项目数统计top10
+url：
+ Constants.sopEndpointURL+ "/galaxy/charts/analysis/searchProjOverView"
+请求方式： post
+参数：
+{
+    "sdate":"2018-01-01",
+    "edate":"2018-03-06",
+    "deptid":13
+}
+
+返回
+json ： data.userData
+            data1 ：项目进度分布图
+                xValue : X轴数据
+                dataValue ： 图形数据
+            data2 ：项目数统计top10
+                xValue : X轴数据
+                dataValue ： 图形数据
+
+示例：
+{
+	"result": {
+		"status": "OK",
+		"errorCode": ""
+	},
+	"pageList": {},
+	"queryParamsJsonStr": "{\"sdate\":\"2018-01-01 00:00:00\",\"startTime\":1514736000000,\"edate\":\"2018-03-06 23:59:59\",\"endTime\":1520351999000,\"deptid\":13}",
+	"userData": {
+		"data1": {
+			"xValue": ["接触访谈", "内部评审", "CEO评审", "立项会", "会后商务谈判", "投资意向书", "尽职调查", "投资决策会", "投资协议 ", "股权交割", "投后运营"],
+			"dataValue": [{
+                "name": "项目总数",
+                "data": [218, 7, 7, 4, 0, 0, 10, 1, 1, 5, 3],
+                "rate":[20%,20%,20%,20%,20%,20%,20%,20%,20%]
+            }, {
+				"name": "负责项目数",
+				"data": [218, 7, 7, 4, 0, 0, 10, 1, 1, 5, 3]
+                "rate":[20%,20%,20%,20%,20%,20%,20%,20%,20%]
+			}, {
+				"name": "协作项目数",
+				"data": [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                "rate":[20%,20%,20%,20%,20%,20%,20%,20%,20%]
+			}]
+		},
+		"data2": {
+			"xValue": ["人工智能-投资经理one", "人工智能-投资经理two", "xingxingzhang", "小确幸"],
+			"dataValue": [{
+				"name": "负责项目数",
+				"data": [177, 74, 3, 2]
+			}, {
+				"name": "协作项目数",
+				"data": [3, 2, 0, 0]
+			}]
+		}
+	}
+}
+
+
+
+
+SELECT * FROM v_rel_dep_user;
+
+SELECT * FROM information_listdata WHERE title_id = 1103;
+
+SELECT
+	pro.id, pro.project_departId, pro.project_progress,
+	listdata.id, listdata.field_1, listdata.field_3,listdata.field_5,
+	deptUser.dep_id
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103;
+
+
+
+
+#-- field_1:uid   field_3:deptId   field_5:标识主副
+# 查看投资经理 for 合伙人  部门id
+#主
+SELECT
+	project_progress, create_uid, project_departId, COUNT(id) completed
+FROM
+	sop_project
+WHERE
+	project_departId = 13
+	AND is_delete = 0
+	AND project_status != 'projectStatus:2'
+	AND created_time >= 1514736000000
+
+GROUP BY
+	project_progress,create_uid;
+#副
+SELECT
+	pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(listdata.id) completed
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103
+
+	AND deptUser.dep_id = 13
+	AND listdata.field_5 != 0
+	AND pro.project_status != 'projectStatus:2'
+	AND pro.is_delete = 0
+	AND pro.created_time >= 1514736000000
+GROUP BY
+	pro.project_progress, listdata.field_1;
+
+
+
+
+# 查看部门 for 高管
+# 主
+SELECT
+	project_progress, create_uid, project_departId, COUNT(id) completed
+FROM
+	sop_project
+WHERE
+	project_status != 'projectStatus:2'
+	AND is_delete = 0
+	AND created_time >= 1514736000000
+
+GROUP BY
+	project_progress,project_departId;
+
+
+#副
+SELECT
+	pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(listdata.id) completed
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103
+
+	AND listdata.field_5 != 0
+	AND deptUser.dep_id != pro.project_departId
+	AND pro.project_status != 'projectStatus:2'
+	AND pro.is_delete = 0
+	AND pro.created_time >= 1514736000000
+GROUP BY
+	pro.project_progress, deptUser.dep_id;
+
+

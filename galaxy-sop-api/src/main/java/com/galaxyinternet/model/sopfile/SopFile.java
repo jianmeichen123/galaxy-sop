@@ -1,14 +1,14 @@
 package com.galaxyinternet.model.sopfile;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class SopFile extends SopParentFile implements Serializable{
 	
@@ -337,7 +337,7 @@ public class SopFile extends SopParentFile implements Serializable{
 
 
 	public void setFileType(String fileType) {
-		 this.fileType = fileType == null ? null : fileType.trim();
+		 this.fileType = StringUtils.isBlank(fileType)? null : fileType.trim();
          if(fileType != null){
  			this.fType = DictEnum.fileType.getNameByCode(fileType);
          }

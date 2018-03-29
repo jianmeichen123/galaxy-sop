@@ -120,7 +120,7 @@ function initTabPostMeeting(){
 	});
 }
 //填写标准
-function writeStand(){ 
+function writeStand(){  
 	$.getTabHtml({
 		url : platformUrl.writeStand 
 	});

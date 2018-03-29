@@ -2,7 +2,7 @@
 function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
-		var entity = data.entity;
+		var entity = data.entity; 
 		var html = toGetHtmlByMark(entity,'s');
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
@@ -10,6 +10,10 @@ function backFun(data){
 		mustData(projectInfo.id,0);
 		toggle_btn($('.anchor_btn span'),1);
 		resouceShow('s');
+		if($("table[data-code='team-person']").find("tbody tr").length>0){
+			$("table[data-code='team-person']").show();
+			resizetable($("table[data-code='team-person']"));
+		}  
 	}
 }
 function resouceShow(mark){
@@ -186,7 +190,7 @@ function toShowTitleHtml(title,html){
 	return s_div;
 }
 
-function toEditTitleHtml(title,html){
+function toEditTitleHtml(title,html){ 
 	var titleDiv = "" ;
 	if(title.name){
 		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
@@ -210,13 +214,12 @@ function toEditTitleHtml(title,html){
 	return s_div;
 }
 
-function toGetHtmlByMark(title,mark){
+function toGetHtmlByMark(title,mark){ 
 	var html = "";
 	if(title.type){
 		html += switchTypeByMark(title,mark);
-	}
-	
-	var tilelist = title.childList;
+	} 
+	var tilelist = title.childList; 
 	$.each(tilelist,function(i,o){
 		if(this.sign  && this.sign == 3){
 			html += "<div class=\"mb_24 clearfix sign_title\">" + this.name + "</div>";
@@ -234,7 +237,7 @@ function toGetHtmlByMark(title,mark){
 	return html;
 }
 //title_指每一个题
-function switchTypeByMark(entity,title,mark){
+function switchTypeByMark(entity,title,mark){ 
 	var html = "";
 	switch (title.type) {
         case 1:  
@@ -874,34 +877,47 @@ function type_8_html(title,mark){
 
 
 //10:表格
-function type_10_html(title,mark){
+function type_10_html(title,mark){ 
 	table_delComArr[title.id] = [];
 	table_toedit_Value[title.id] = {};
-	table_tosave_Value[title.id] = {};
-	
+	table_tosave_Value[title.id] = {}; 
 	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
-	 
 	var tableHeader = title.tableHeader;
-	var dataList = title.dataList;
-	
+	var dataList = title.dataList; 
 	if(mark == 's'){
-		
+		//展示 
 		var filed_sort = [];
 		if(title.code == 'NO5_7_1'){   //综合竞争比较
 			filed_sort = ['field1','field2','field3','field4','field5'];
 			table_filed[title.id] = filed_sort;
-		}
-		
+		}else if(title.code == 'NO1_1_2'){
+			var filed_sort = ['field1','field2','field3','field4','field5'];
+		} 
 		var hresult = "<dd>未填写</dd>";
+		if(tableHeader.code=="team-person"){ 
+			$.each(dataList,function(){
+				var tdid =this.field1;
+				var res = userInfo.filter(function(val){ return val.idstr == tdid})[0]; 
+				if(res!=undefined){
+					this.field1Str = res.realName?res.realName:"--";
+					this.field2Str =this.field2;
+					this.field3Str = res.departmentName?res.departmentName:"--";
+					this.field3Id = res.departmentId?res.departmentId:"--";
+					this.field4Str = res.managerName?res.managerName:"--";  
+				}
+			})
+		} 
 		if(dataList != null && dataList.length != 0){
-			
-			table_value(title.id,dataList);
-			
-			hresult = "<dd class=\"fl_none\"><table data-talbe-tid='"+title.id+"' ><thead><tr>"
+			table_value(title.id,dataList); 
+			hresult = "<dd class=\"fl_none\"><table data-title-id='"+title.id+"'  data-code='"+tableHeader.code+"' ><thead><tr>"
 			
 			var th = "";
 			for(var i = 0 ; i < filed_sort.length; i++){
-				th +='<th>'+tableHeader[filed_sort[i]]+'</th>';
+				if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
+					
+				}else{
+					th +='<th>'+tableHeader[filed_sort[i]]+'</th>';
+				}
 			}
 			
 			hresult += th + "</tr></thead><tbody>";
@@ -910,7 +926,11 @@ function type_10_html(title,mark){
 			$.each(dataList,function(){
 				tr += '<tr>';
 				for(var i = 0 ; i < filed_sort.length; i++){
-					tr +='<td>'+this[filed_sort[i]]+'</td>';
+					if(tableHeader.code=="team-person"&&filed_sort[i]=="field5"){
+						
+					}else{
+						tr +='<td data-field-name='+filed_sort[i]+'>'+this[filed_sort[i]+'Str']+'</td>';
+					}
 				}
 				tr += "</tr>";
 			});
@@ -918,43 +938,16 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
-		
-		var filed_sort = table_filed[title.id];
-		
-		var eresult = "<dd class=\"fl_none\"><table><thead>";
-		
-		var th = "<tr>";
-		for(var i = 0 ; i < filed_sort.length; i++){
-			var filed  = filed_sort[i];
-			th +='<th>'+tableHeader[filed]+'</th>';
+		//编辑    
+
+		if(tableHeader.code=="team-person"){
+			htitle+="<img title=\"· 主承做人可根据项目的参与情况，添加多个副承做人&#10· 添加多个承做人时，必须给各承做人分配承做比例 &#10· 各承做人承做比例只能是正整数，比例总和=100% &#10· 副承做人可删除，主承做人不可删除 \" src=\"/sop/img/sop_progress/remind__icon.png\" class=\"alertImg\" title=\"\">"
 		}
-		th +='<th>操作</th>';
+		var tableBox = "<table data-title-id="+title.id+" class=\"editable\"></table>";
+		var to_add = "<span class=\"pubbtn bluebtn margin_btn\" onclick=\"addRow(this)\" >新增</span>";
 		
-		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
-		
-		if(dataList != null && dataList.length != 0){
-			if(dataList.length >= 10){
-				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
-			}
-			var tr = "";
-			$.each(dataList,function(i,o){
-				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
-				for(var i = 0 ; i < filed_sort.length; i++){
-					tr +='<td>'+o[filed_sort[i]]+'</td>';
-				}
-				
-				var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >编辑</a>";
-				var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >删除</a>";
-				tr += ('<td>' + edit + del + '</td>');
-				
-				tr += "</tr>";
-			});
-			eresult += tr ;
-		}
-		
-		eresult += "</tbody></table></dd>";
-		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
+		var divBox = "<div class=\"mb_24  clearfix\">"+htitle+tableBox+to_add+"</div>";  
+		return divBox;
 	}
 }
 

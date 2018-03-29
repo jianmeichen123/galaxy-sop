@@ -131,8 +131,7 @@ function getpopHTML(code,even,danaoName){
 				if($(".infoBox li:visible").length<=0){  
 					 $(".infoBox").hide();
 					 $(".fixedbottom").hide(); 
-					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"});
-					 debugger;
+					 $(".emptyInfo").show().css({"margin-bottom":0,"overflow":"hidden"}); 
 					 var block_w =$("#powindow").width(),
 						block_h =$("#powindow").height(), 
 						trans_x = -Math.round(block_w/2),

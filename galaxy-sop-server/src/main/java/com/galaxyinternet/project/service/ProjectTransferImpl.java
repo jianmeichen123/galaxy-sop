@@ -1,7 +1,6 @@
 package com.galaxyinternet.project.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,5 +103,46 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		//iF.setUpdateId(createId);
 		iF.setTitleId(1810l);
 		informationFileDao.updateCreateUid(iF);
+		
+		//更新主承做人
+		ild = new InformationListdata();
+		ild.setTitleId(1103L);
+		ild.setProjectId(projectId);
+		ild.setField1(projectTransfer.getBeforeUid()+"");
+		ild.setField5("0");
+		
+		ild = informationListdataDao.selectOne(ild);
+		
+		
+		if(ild != null)
+		{
+			InformationListdata entity = new InformationListdata();
+			entity.setId(ild.getId());
+			entity.setField1(createId+"");
+			
+			//如果接收用户为副承做人 - 删除原承做人并将用户升级为主承做人，并且添加比例 
+			InformationListdata currQuery = new InformationListdata();
+			currQuery.setProjectId(projectId);
+			currQuery.setTitleId(1103L);
+			currQuery.setProjectId(projectId);
+			currQuery.setField1(createId+"");
+			currQuery.setField5("1");
+			InformationListdata curr = informationListdataDao.selectOne(currQuery);
+			if(curr != null)
+			{
+				BigDecimal pect = BigDecimal.ZERO;
+				try
+				{
+					pect = new BigDecimal(ild.getField2());
+					pect = new BigDecimal(curr.getField2()).add(pect);
+				} catch (Exception e)
+				{
+				}
+				entity.setField2(pect.intValue()+"");
+				informationListdataDao.deleteById(curr.getId());
+			}
+			informationListdataDao.updateById(entity);
+		}
+		
 	}
 }

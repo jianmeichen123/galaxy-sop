@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
+Long projectId = (Long)request.getAttribute("projectId");
 %>
 
 <!doctype html>
@@ -36,7 +37,7 @@
             <div data-tab="con" > 
                -->
             	<div class="member interview">
-            	    <c:if test="${aclViewProject==true}">
+            	    <c:if test="${aclViewProject==true||fx:isCooperative(projectId)==true}">
                    <!--按钮-->
                    <c:if test="${isEditable }">
 					<div class="top clearfix" style="display: none;">
