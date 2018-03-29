@@ -67,6 +67,7 @@ table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#
 .fixed_width td{width:16%;}
 table td a{ font-size:12px;  color:#536379; font-family:"Microsoft Yahei";}
 table .on td{ background:#f0f0f0}
+table .no-records-found.on td{ background:none;} 
 .datetimepicker table .on td{ background:none ;}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
@@ -1927,67 +1928,7 @@ word-wrap:break-word;
     text-align: center;
     font-size: 16px;
     color: #3e4351;
-}
-/*左侧导航icon*/
-/* .navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
-.nav160{background-position: 0 0;}
-.nav168{background-position: 0 -72px;}
-.nav171{background-position: 0 -144px;}
-.nav4{background-position: 0 -216px;}
-.nav5{background-position: 0 -288px;}
-.nav6{background-position: 0 -330px;}
-.nav7{background-position: 0 -377px;}
-.nav8{background-position: 0 -425px;}
-.nav9{background-position: 0 -475px;}
-.nav137{background-position: 0 -216px;}
-.nav143{background-position: 0 -570px;}
-.nav144{background-position: 0 -615px;}
-.nav147{background-position: 0 -673px;}
-.nav150{background-position: 0 -720px;}
-.nav134{background-position: 0 -950px;}
-.nav195{background-position: 0 -902px;}
-.nav136{background-position: 0 -998px;}
-.nav135{background-position: 0 -1046px;}
-.nav177,.nav189{background-position: 0 -378px;}
-.nav180{background-position: 0 -1189px;}
-.nav183{background-position: 0 -378px;}
-.nav156{background-position: 0 -756px;}
-.nav157{background-position: 0 -805px;}
-.nav158{background-position: 0 -854px;}
-.nav186{background-position: 0 -1141px;}
-.nav192{background-position: 0 -1092px;}
-.xingmou{background-position: 0 -1234px;}
-.lft li:hover .nav160,.lft li.on .nav160{background-position: -40px 0;}
-.lft li:hover .nav168,.lft li.on .nav168{background-position: -40px -72px;}
-.lft li:hover .nav171,.lft li.on .nav171{background-position: -40px -144px;}
-.lft li:hover .nav4,.lft li.on .nav4{background-position: -40px -216px;}
-.lft li:hover .nav5,.lft li.on .nav5{background-position: -40px -288px;}
-.lft li:hover .nav6,.lft li.on .nav6{background-position: -40px -330px;}
-.lft li:hover .nav7,.lft li.on .nav7{background-position: -40px -377px;}
-.lft li:hover .nav8,.lft li.on .nav8{background-position: -40px -425px;}
-.lft li:hover .nav9,.lft li.on .nav9{background-position: -40px -475px;}
-.lft li:hover .nav137,.lft li.on .nav137{background-position: -40px -216px;}
-.lft li:hover .nav143,.lft li.on .nav143{background-position: -40px -570px;}
-.lft li:hover .nav144,.lft li.on .nav144{background-position: -40px -615px;}
-.lft li:hover .nav147,.lft li.on .nav147{background-position: -40px -673px;}
-.lft li:hover .nav150,.lft li.on .nav150{background-position: -40px -720px;}
-.lft li:hover .nav134,.lft li.on .nav134{background-position: -40px -950px;}
-.lft li:hover .nav195,.lft li.on .nav195{background-position: -40px -902px;}
-.lft li:hover .nav136,.lft li.on .nav136{background-position: -40px -998px;}
-.lft li:hover .nav135,.lft li.on .nav135{background-position: -40px -1046px;}
-.lft li:hover .nav177,.lft li.on .nav177,.lft li:hover .nav189,.lft li.on .nav189{background-position: -40px -378px;}
-.lft li:hover .nav183,.lft li.on .nav183{background-position: -40px -378px;}
-.lft li:hover .nav180,.lft li.on .nav180{background-position: -40px -1189px;}
-.lft li:hover .nav156,.lft li.on .nav156{background-position: -40px -756px;}
-.lft li:hover .nav157,.lft li.on .nav157{background-position: -40px -805px;}
-.lft li:hover .nav158,.lft li.on .nav158{background-position: -40px -854px;}
-.lft li:hover .nav186,.lft li.on .nav186{background-position: -40px -1141px;}
-.lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
-.lft li:hover .xingmou,.lft li.on .xingmou{background-position: -40px -1230px;}
-.lft .toggle_li ul{background-color: #1f222d !important;}
-.lft .toggle_li li a{color:#eee !important;}
-.lft .toggle_li li ul a{padding-left:30px;}
-.lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;} */
+} 
 /*消息提醒*/
 /* .message table{border-radius:6px;margin-bottom: 10px;width:80% !important;}*/
 .message table .message_t{width:20%;}
@@ -3424,6 +3365,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt .tabcon .fixed-table-body table thead th:nth-child(3){width:150px;}
 .new_poptxt .tabcon .fixed-table-body table tbody tr td:nth-child(3){width:150px;}
 .new_poptxt  #projectProgress_1_table .no-records-found td{height: 88px!important;}
+
 .new_poptxt  #projectProgress_1_table tbody td{ padding:0 0 0 5px!important; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
 /* 会议、访谈调整 */  
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
@@ -4806,6 +4748,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .system-content-two .task-reason{text-align:justify;   text-align-last:justify; width:100px;}
 #noticeStatus_two+.noticeStatus{display:inline-block; margin:0;}
 .noticeStatus .bootstrap-select .btn-default{
-	background:#fff;border-radius:1px; border: 1px solid #d8d8d8;
+	background:#fff;border-radius:1px; border: 1px solid #d8d8d8; 
 }
+.noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}

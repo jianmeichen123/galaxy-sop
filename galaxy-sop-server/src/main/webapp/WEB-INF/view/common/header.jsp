@@ -438,7 +438,7 @@ $(window).resize(function(){
   
  var messageId;
 function queryExitMessage(){
-	  var url = "<%=path %>/galaxy/systemMessage/sml";
+	  var url = "<%=path %>/galaxy/systemMessage/sml?"+new Date().getTime();
 		var dataJson={
 				"osType":"web",
 				"sendStatus":"messageStatus:2",
@@ -458,7 +458,7 @@ function queryExitMessage(){
 		 })
 	}
 function queryExitUserMessage(messageId){
-	  var url = "<%=path %>/galaxy/systemMessageUser/suml";
+	  var url = "<%=path %>/galaxy/systemMessageUser/suml?"+new Date().getTime();
 		var dataJson={
 				"messageOs":"web",
 				"messageId":messageId
@@ -480,7 +480,7 @@ $('.system-tips-close').click(function(){
 	  $(this).parent().remove();
 	  var data = {
 		};
-		var url = "<%=path %>/galaxy/systemMessageUser/amu";
+		var url = "<%=path %>/galaxy/systemMessageUser/amu?"+new Date().getTime();
 		data.messageOs="web";
 		data.messageId=messageId;
 		sendPostRequestByJsonObj(url, data, function(data) {
