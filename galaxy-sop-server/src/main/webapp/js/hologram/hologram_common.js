@@ -2357,8 +2357,7 @@ function editRow(ele)
 				 if(code=="team-person"){   
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
-	            	$("#detail-form input[name='index']").val(row.index());
-	            	debugger;
+	            	$("#detail-form input[name='index']").val(row.index()); 
 	            	$("#detail-form select[name=field1]").addClass('disabled');
 	            	$("#detail-form select[name=field3]").addClass('disabled');
 	            	//带出来 承作人ID 

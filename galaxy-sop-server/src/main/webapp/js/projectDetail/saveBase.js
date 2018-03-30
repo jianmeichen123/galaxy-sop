@@ -1,7 +1,6 @@
 function saveBaseInfo(dom,val1,val2,val3){
 	var infoModeList = new Array();  
 	var fields = $("#"+dom).find(".basic_current:visible input[data-title-id],select[data-title-id]");
-	debugger;
 	var data = {
 			projectId : projectInfo.id
 		};

@@ -240,8 +240,7 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		if(type && type == 'blank'){
 			liObj.find('.file_box').find('img').addClass("add_img");
 			liObj.find('.file_box').find('img').attr("src", Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png');
-		}else{
-			debugger;
+		}else{ 
 			liObj.find('.file_box').find('img').attr("src", imgStr);
 		}
 	}

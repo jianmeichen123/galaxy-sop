@@ -107,8 +107,7 @@ var projectGrid = {
 				return;
 			}
 			//返回页面加载
-			if(getCookieValue("backProjectList")!=''){
-				debugger;
+			if(getCookieValue("backProjectList")!=''){ 
 				$('#search_department_id').val(getCookieValue('search_department_id'))
 				$('#search_project_type').val(getCookieValue('search_project_type'));
 				$('#search_start_time').val(getCookieValue('search_start_time'));
