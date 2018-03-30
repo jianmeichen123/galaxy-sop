@@ -346,7 +346,7 @@
 					</div>
 	    	</div>
 	    			<div class="btn btnbox basic_mes_button legal_button">
-		              <button  class="pubbtn bluebtn version19_save_btn" save_type="save_basic" data-on="save">保存</button>
+		              <button  class="pubbtn bluebtn version19_save_btn" save_type="save_FR" data-on="save">保存</button>
               		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
 	 	   </div>   
@@ -648,27 +648,7 @@ createMenus(5);
 	{
 		$('.legal [data-on="data-open"]').addClass('limits_gray');
 	}
-	/*编辑法人信息保存方法交互  */
-	$('.legal_current [data-btn="save"]').on('click',function(){
-		var projectCompany=$("input[name='projectCompany']").val();
-		var formationDate=$("input[name='formationDate']").val();
-		var companyLegal=$("input[name='companyLegal']").val();
-		$('.bj_hui_on').hide();
-		$('.legal_current').hide();
-		if(projectCompany==""){
-			projectCompany="—";
-		}
-		if(formationDate==""){
-			formationDate="—";
-		}
-		if(companyLegal==""){
-			companyLegal="—";
-		}
-		saveBaseInfo("company-info-form",projectCompany,formationDate,companyLegal);
-		buildShareResult("4","5812");
-		
-		
-	});
+ 
 	//日期选择
 	$('.legal_current input[name="formationDate"]').datepicker({
 	    format: 'yyyy-mm-dd',
