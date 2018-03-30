@@ -120,8 +120,8 @@ $(function(){
 				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
-				$("body").css('overflow','hidden');
-				updateReportMoney();   //编辑显示融资计划值  
+				$("body").css('overflow','hidden'); 
+				//updateReportMoney();   //编辑显示融资计划值  
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
@@ -396,7 +396,7 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			var s_type=$(this).attr("save_type"); 
+			var s_type=$(this).attr("save_type");  
 			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
 				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
 				if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
@@ -428,7 +428,7 @@ $(function(){
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			}else if(s_type=="save_basic"||s_type=="real_invest"){
+			}else if(s_type=="save_basic"||s_type=="real_invest"){ 
 				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
@@ -610,9 +610,9 @@ function buildShareResult(reportType,relateId){
 				{ 
 					var entityList = data.entityList;
 					if(entityList && entityList.length >0)
-					{
+					{ 
 						$.each(entityList,function(){
-							var title = this;
+							var title = this; 
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
@@ -622,13 +622,13 @@ function buildShareResult(reportType,relateId){
 										var num=_val.split('.');
 										if(num[0].length>9){
 											_val=_val;
-										}else{
+										}else{ 
 											_val=Number(_val).toFixed(4)
 										}
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
-								}else if(title.id =="1814" || title.id =="1815" || title.id =="1816"){   //APP端删除数据修复
+								}else if(title.id =="1814" || title.id =="1815" || title.id =="1816"){  
 									if(_val==""){
 										_val="—"
 									}else{
@@ -640,12 +640,12 @@ function buildShareResult(reportType,relateId){
 								}
 								if(_val==undefined){
 									_val="—"
-								}else{
+								}else{ 
 									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
-										var Tval= change_number(_val);
+										var Tval= change_number(_val); 
 										_val = _parsefloat(Tval[0]);
 										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元");
-										if(title.id=="1943"||title.id=="3012"){
+										if(title.id=="1943"||title.id=="3012"){ 
 											var array = String(_val).split(".");
 											if(array[1]!=undefined){ 
 												array[1]=array[1].slice(0,4)
@@ -654,7 +654,7 @@ function buildShareResult(reportType,relateId){
 										}
 									}
 								}
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);  
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
 									if(_val==undefined||_val=="—"){
@@ -674,13 +674,14 @@ function buildShareResult(reportType,relateId){
 }
 //保存后刷新
 function updataReport(projectInfoList){ 
+	debugger;
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
 	    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
-	    		if(entityList && entityList.length>0){
+	    		if(entityList && entityList.length>0){ 
 	    			$.each(entityList,function(){
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
@@ -690,14 +691,14 @@ function updataReport(projectInfoList){
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val = title.value;
 							_val=_parsefloat(_val);
-							var I_val=_val
+							var I_val=_val; 
 							if(_val==undefined){
 								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									if(title.titleId=="1943"||title.titleId=="3012"){
+									if(title.titleId=="1943"||title.titleId=="3012"){ 
 										var array = String(_val).split(".");
 										if(array[1]!=undefined){ 
 											array[1]=array[1].slice(0,4)
@@ -740,7 +741,8 @@ function updataReport(projectInfoList){
 							$("input[data-title-id='"+title.titleId+"']").attr("data-result-id",title.resultId);	
 						}
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
-							var _val =title.value;	
+							var _val =title.value;	 
+							var I_val=_val;
 							//这个是公共的 所以需要判断ID
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
 								if(_val.indexOf('.')>-1){
@@ -752,10 +754,7 @@ function updataReport(projectInfoList){
 									}
 								}
 								_val = _parsefloat(_val);
-								var I_val=_val;
-							}else{
-								var I_val=_val;
-							}
+							} 
 							if(_val==undefined){
 								_val="暂无数据"
 							}else{
@@ -763,6 +762,13 @@ function updataReport(projectInfoList){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									if(title.titleId=="3012"){  
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 								}
 							}
 							
@@ -800,6 +806,7 @@ function updateReportMoney(){
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 		if(data.result.status=='OK'){ 
 			projectInfoListNew=data.userData.report[0].childList;
+			
 			updataReport(projectInfoListNew);
 		}
 	})
