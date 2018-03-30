@@ -121,7 +121,7 @@ $(function(){
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
 				$("body").css('overflow','hidden');
-				updateReportMoney();   //编辑显示融资计划值 
+				updateReportMoney();   //编辑显示融资计划值  
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
@@ -324,7 +324,9 @@ $(function(){
 		 * 计算初始估值
 		 */
 		$("#project_share_ratio_edit").blur(function(){
-			var valuations = calculationValuations();
+			var val2 = $("#project_share_ratio_edit").val();
+			var val1 = $("#project_contribution_edit").val();
+			var valuations = finalValue(val1,val2);
 			$("#project_valuations_edit").val("");
 			if(valuations){
 				$("#project_valuations_edit").prev().val(valuations);
@@ -338,35 +340,24 @@ $(function(){
 		 * project_share_ratio_edit
 		 */
 		$("#project_contribution_edit").blur(function(){
-			var valuations = calculationValuations();
+			var val2 = $("#project_share_ratio_edit").val();
+			var val1 = $("#project_contribution_edit").val();
+			var valuations = finalValue(val1,val2);
 			$("#project_valuations_edit").val("");
 			if(valuations){  
 				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
-		/**
-		 * 计算初始估值
-		 */
-		function calculationValuations(){
-			var projectShareRatio = $("#project_share_ratio_edit").val();
-			var projectContribution = $("#project_contribution_edit").val();
-			if(projectShareRatio > 0 && projectContribution > 0){
-				var res=projectContribution /( projectShareRatio/100 );
-				var array = String(res).split(".");
-				if(array[1]!=undefined){ 
-					array[1]=array[1].slice(0,6)
-				}  
-				return array.join('.');  
-			}
-			return null;
-		}
+	
 		//实际值计算************************************************************
 		/**
 		 * 计算实际估值
 		 */
 		$("#finalShareRatio_edit").blur(function(){
-			var valuations = finalValuations();
+			var valu2 = $("#finalShareRatio_edit").val();
+			var valu1 = $("#finalContribution_edit").val();
+			var valuations = finalValue(valu1,valu2);
 			$("finalValuations_edit").val("");
 			if(valuations){
 				$("#finalValuations_edit").val(valuations);
@@ -379,8 +370,10 @@ $(function(){
 		 * project_valuations_edit
 		 * project_share_ratio_edit
 		 */
-		$("#finalContribution_edit").blur(function(){
-			var valuations = finalValuations();
+		$("#finalContribution_edit").blur(function(){ 
+			var valu2 = $("#finalShareRatio_edit").val();
+			var valu1 = $("#finalContribution_edit").val();
+			var valuations = finalValue(valu1,valu2);
 			$("#finalValuations_edit").val("");
 			if(valuations){
 				$("#finalValuations_edit").prev().val(valuations)
@@ -388,13 +381,11 @@ $(function(){
 			}
 		});
 		/**
-		 * 计算初始估值
+		 * 项目估值计算--公共方法 val1-融资金额，val2 --占比
 		 */
-		function finalValuations(){ 
-			var projectShareRatio = $("#finalShareRatio_edit").val();
-			var projectContribution = $("#finalContribution_edit").val();
-			if(projectShareRatio > 0 && projectContribution > 0){
-				var res=projectContribution /( projectShareRatio/100 );
+		function finalValue(val1,val2){
+			if(val1 > 0 && val2 > 0){
+				var res=val1/( val2/100 );
 				var array = String(res).split(".");
 				if(array[1]!=undefined){ 
 					array[1]=array[1].slice(0,6)
@@ -402,9 +393,7 @@ $(function(){
 				return array.join('.');
 			}
 			return null;
-		}
-
-
+		} 
 		function projectProgress(data){
 			var projectPro = projectInfoDetail.projectProgress;
 			var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
@@ -418,7 +407,18 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var s_type=$(this).attr("save_type"); 
-			if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
+			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
+				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
+				if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
+					var val1=$("#project_contribution_edit").val()?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
+					var val2=$("#project_share_ratio_edit").val()?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
+					var res = finalValue(val1,val2); 
+					if(res && $("#finalValuations_edit").is("visible")){
+						$("#finalValuations_edit").prev().val(res); 
+					}else if(res && $("#project_valuations_edit").is("visible")){
+						$("#project_valuations_edit").prev().val(res); 
+					} 
+				}	 
 				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
 				val2=$(".basic_current:visible input[VType=guzhi]").val(),
 				val3=val1-val2;

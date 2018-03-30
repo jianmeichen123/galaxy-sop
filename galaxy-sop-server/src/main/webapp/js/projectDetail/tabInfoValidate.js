@@ -97,9 +97,9 @@
 	}, "0到100之间的5位小数");
 	//投资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
-		var finalContribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+		var finalContribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (finalContribution.test(value));
-	}, "支持四位小数");
+	}, "支持9位长度的支持6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("finalValuations", function (value, element) {
 		var finalValuations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
