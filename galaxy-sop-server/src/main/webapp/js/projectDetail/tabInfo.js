@@ -395,6 +395,7 @@ $(function(){
 				return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
 			}
 		}
+ 
 		$("[data-on='save']").click(function(){
 			var s_type=$(this).attr("save_type");  
 			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
@@ -428,7 +429,7 @@ $(function(){
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			}else if(s_type=="save_basic"||s_type=="real_invest"){ 
+			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){ 
 				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
@@ -437,7 +438,7 @@ $(function(){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){ 
 						//layer.msg(data2.result.message);
-						saveBaseInfo("basicForm");
+						saveBaseInfo("basicForm"); 
 						if(data2.result.errorCode=='mccf'){  //项目名重复
 							//layer.msg(data2.result.message);
 							return;
@@ -476,7 +477,8 @@ $(function(){
 						}else{
 							$('#financeMode').removeClass('pointer-events');
 							$("#financeMode").removeClass("hide");
-						}					
+						}			
+						buildShareResult("4","5812");
 					}else {
 							layer.msg(data2.result.message);
 					}
