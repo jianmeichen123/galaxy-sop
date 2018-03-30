@@ -62,9 +62,9 @@
 	}, "支持0-1000000的四位小数");
 //占股比例
 	jQuery.validator.addMethod("share", function (value, element) {
-		var share = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+		var share = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
 		return this.optional(element) || (share.test(value));
-	}, "0到100之间的两位小数");
+	}, "0到100之间的5位小数");
 	 
 	jQuery.validator.addMethod("limit12", function (value, element) {
 		var limit12 =  /^(?!.{13}|^\s*$)/;
