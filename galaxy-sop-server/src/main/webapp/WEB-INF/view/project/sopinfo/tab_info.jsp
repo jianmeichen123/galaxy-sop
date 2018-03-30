@@ -216,8 +216,8 @@
 							<tr>
 								<td class="million">
 									<span>项目估值：</span> 
-									<input type="hidden"  name="">
-									<input type="text" class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数" data-title-id="1943">
+									<input type="hidden" data-title-id="1943"  name="">
+									<input type="text" VType='guzhi' class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数" data-title-id="1943">
 								</td>
 							</tr>
 							
@@ -252,7 +252,8 @@
 							<tr class="million">
 								<td>
 									<span>项目估值：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
+									<input type="hidden" data-title-id="3012" name="">
+									<input type="text" VType='guzhi' value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							

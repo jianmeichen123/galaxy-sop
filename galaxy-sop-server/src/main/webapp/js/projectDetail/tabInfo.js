@@ -121,7 +121,7 @@ $(function(){
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
 				$("body").css('overflow','hidden');
-				updateReportMoney();   //编辑显示融资计划值
+				updateReportMoney();   //编辑显示融资计划值 
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
@@ -219,7 +219,7 @@ $(function(){
 				}
 			
 			})
-				function CallBackB(data){
+			function CallBackB(data){
 			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
 			        //_dom.append('<option value="">--请选择--</option>');
@@ -327,6 +327,7 @@ $(function(){
 			var valuations = calculationValuations();
 			$("#project_valuations_edit").val("");
 			if(valuations){
+				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
@@ -339,7 +340,8 @@ $(function(){
 		$("#project_contribution_edit").blur(function(){
 			var valuations = calculationValuations();
 			$("#project_valuations_edit").val("");
-			if(valuations){
+			if(valuations){  
+				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
@@ -350,7 +352,12 @@ $(function(){
 			var projectShareRatio = $("#project_share_ratio_edit").val();
 			var projectContribution = $("#project_contribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(6);
+				var res=projectContribution /( projectShareRatio/100 );
+				var array = String(res).split(".");
+				if(array[1]!=undefined){ 
+					array[1]=array[1].slice(0,6)
+				}  
+				return array.join('.');  
 			}
 			return null;
 		}
@@ -362,7 +369,7 @@ $(function(){
 			var valuations = finalValuations();
 			$("finalValuations_edit").val("");
 			if(valuations){
-				$("#finalValuations_yuanshi").val(valuations);
+				$("#finalValuations_edit").val(valuations);
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
@@ -376,17 +383,23 @@ $(function(){
 			var valuations = finalValuations();
 			$("#finalValuations_edit").val("");
 			if(valuations){
+				$("#finalValuations_edit").prev().val(valuations)
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
 		 * 计算初始估值
 		 */
-		function finalValuations(){
+		function finalValuations(){ 
 			var projectShareRatio = $("#finalShareRatio_edit").val();
 			var projectContribution = $("#finalContribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(4);
+				var res=projectContribution /( projectShareRatio/100 );
+				var array = String(res).split(".");
+				if(array[1]!=undefined){ 
+					array[1]=array[1].slice(0,6)
+				}  
+				return array.join('.');
 			}
 			return null;
 		}
@@ -404,13 +417,23 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			var s_type=$(this).attr("save_type");
+			var s_type=$(this).attr("save_type"); 
+			if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
+				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
+				val2=$(".basic_current:visible input[VType=guzhi]").val(),
+				val3=val1-val2;
+				if(val3>10||val3<-10){
+					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+					return;
+				}
+			}
 			var data="";
 			if(s_type=="finance"){
 				if(!$("#basicForm").validate().form())
 				{
 					return;
 				}
+				
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
@@ -419,7 +442,7 @@ $(function(){
 				if(!$("#basicForm").validate().form())
 				{
 					return;
-				}
+				} 
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){ 
 						//layer.msg(data2.result.message);
@@ -434,8 +457,7 @@ $(function(){
 						$('.'+close+'_on').hide();
 						$('.'+close+'_center').show();
 						$('.bj_hui_on').hide();
-						$("body").css('overflow-y','auto');
-
+						$("body").css('overflow-y','auto');  
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;
 							$("#project_name_t").text(projectInfoDetail.projectName);
@@ -771,7 +793,7 @@ function updataReport(projectInfoList){
 function updateReportMoney(){ 
 	var projectInfoListNew=[];
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
-		if(data.result.status=='OK'){
+		if(data.result.status=='OK'){ 
 			projectInfoListNew=data.userData.report[0].childList;
 			updataReport(projectInfoListNew);
 		}
