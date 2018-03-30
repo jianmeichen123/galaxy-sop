@@ -1,6 +1,6 @@
 function saveBaseInfo(dom,val1,val2,val3){
-	var infoModeList = new Array();
-	var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
+	var infoModeList = new Array();  
+	var fields = $("#"+dom).find(".basic_current:visible input[data-title-id],select[data-title-id]");
 	var data = {
 			projectId : projectInfo.id
 		};
@@ -29,7 +29,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			tochange:_tochange,
 			resultId:_resultId,
 			type : type
-		};
+		}; 
 		if(field.data('titleId')=="1118"&&type=="23"){  
 				var judgment = $("input[name=projectSource]").attr("m-val");
 				if(judgment!='2257'&&judgment!='2262'){ 
@@ -109,7 +109,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 	        infoModeList.push(infoMode);
 	    } 
 		data.infoModeList = infoModeList;
-	}); 
+	});  
 	sendPostRequestByJsonObjNoCache(
 			platformUrl.saveOrUpdateInfo , 
 			data,

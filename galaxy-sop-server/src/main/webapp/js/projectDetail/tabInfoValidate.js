@@ -82,19 +82,19 @@
 	
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
-		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+		var procontribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (procontribution.test(value));
-	}, "支持四位小数");
+	}, "支持9位长度的支持6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
-		var provaluations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
+		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 		return this.optional(element) || (provaluations.test(value));
-	}, "支持四位小数");
+	}, "支持13位长度的支持6位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
-		var proshare = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+		var proshare = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
 		return this.optional(element) || (proshare.test(value));
-	}, "0到100之间的两位小数");
+	}, "0到100之间的5位小数");
 	//投资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
 		var finalContribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
@@ -107,9 +107,9 @@
 	}, "支持四位小数");
 	//股权占比
 	jQuery.validator.addMethod("finalShareRatio", function (value, element) {
-		var finalShareRatio = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
+		var finalShareRatio = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
 		return this.optional(element) || (finalShareRatio.test(value));
-	}, "0到100之间的两位小数");
+	}, "0到100之间的5位小数");
 	//加速服务费占比
 	jQuery.validator.addMethod("serviceChargeedit", function (value, element) {
 		var serviceChargeedit = /^([1-4](\.\d{1,2})?)$|^(5(\.[0]{0,2})?|0\.[1-9]0?|0\.\d[1-9])$/;

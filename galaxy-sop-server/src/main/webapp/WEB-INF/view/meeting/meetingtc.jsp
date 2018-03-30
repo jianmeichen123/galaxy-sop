@@ -134,7 +134,7 @@
 	        <dt><em class="red">*</em>股权占比:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="finalShareRatio" name="finalShareRatio"  onblur="set_finalValuations()" 
-	           		allowNULL="no" valType="OTHER" regString="^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$" msg="<font color=red>*</font>0到100之间的两位小数"/>
+	           		allowNULL="no" valType="OTHER" regString="^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$" msg="<font color=red>*</font>0到100之间的5位小数"/>
 	           	<span class='m_r50'>% </span>
 	           	<!-- 
 	           	<div id="finalShareRatio_valiate" class="tip-yellowsimple" >

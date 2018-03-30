@@ -204,7 +204,7 @@
 							<tr>
 								<td class="million">
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的6位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
@@ -215,8 +215,9 @@
 							</tr>
 							<tr>
 								<td class="million">
-									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
+									<span>项目估值：</span> 
+									<input type="hidden"  name="">
+									<input type="text" class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数" data-title-id="1943">
 								</td>
 							</tr>
 							
@@ -350,7 +351,7 @@
 	 	   </div>   
 	 	   
 	 	   <!-- 合投机构 --> 
-	 	   <div class="agency_institute investTogether_current">
+	 	   <div class="agency_institute investTogether_current basic_current ">
 	 	   		<div class="title_bj_tzjl agency_radius"><span>合投机构</span> <em class="agency_close" data-on="close" data-name="investTogether"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont invest_max_height">

@@ -350,7 +350,7 @@ $(function(){
 			var projectShareRatio = $("#project_share_ratio_edit").val();
 			var projectContribution = $("#project_contribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(4);
+				return (projectContribution * (100/projectShareRatio)).toFixed(6);
 			}
 			return null;
 		}
@@ -362,6 +362,7 @@ $(function(){
 			var valuations = finalValuations();
 			$("finalValuations_edit").val("");
 			if(valuations){
+				$("#finalValuations_yuanshi").val(valuations);
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
