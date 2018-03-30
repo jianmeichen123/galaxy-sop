@@ -161,7 +161,7 @@ $("div").delegate(".appr_part_add","click",function(event){
 					 remainActualMoney=Number(totalMoneyActual)-sum;
 				 }
 				 $("#newRemainMoneyActual").val(remainActualMoney);
-				 $("#grantMoney").on("blur",function(){
+				 $("#grantMoney").on("blur",function(){ 
 					 var val=$(this).val();
 					 var errorTips=$(this).siblings(".error");
 	                if(errorTips.is(":visible")){

@@ -8,8 +8,9 @@
     <!--右中部内容-->
  		<div class='three pagination_common'>
  			<div class='consut_span'>
- 				<span class='hasBackround xhZxun'>星河资讯</span>
- 				<span class='ctZixun secondClick'>创投资讯</span>
+ 			<!-- 1.14隐藏 -->
+ 				<!-- <span class='hasBackround xhZxun'>星河资讯</span>
+ 				<span class='ctZixun secondClick'>创投资讯</span> -->
  			</div>
  			<div class='projectContent'>
  			

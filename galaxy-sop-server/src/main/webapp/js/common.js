@@ -25,6 +25,18 @@ function _parsefloat(date){
 		}
 	}
 }
+
+function finalValue(val1,val2){
+	if(val1 > 0 && val2 > 0){
+		var res=val1/( val2/100 );
+		var array = String(res).split(".");
+		if(array[1]!=undefined){ 
+			array[1]=array[1].slice(0,6)
+		}  
+		return array.join('.');
+	}
+	return null;
+}
 //亿元——万亿转换
 function change_number(date){
 	if(date!=undefined){

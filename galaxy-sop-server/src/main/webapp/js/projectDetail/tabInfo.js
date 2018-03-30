@@ -383,17 +383,7 @@ $(function(){
 		/**
 		 * 项目估值计算--公共方法 val1-融资金额，val2 --占比
 		 */
-		function finalValue(val1,val2){
-			if(val1 > 0 && val2 > 0){
-				var res=val1/( val2/100 );
-				var array = String(res).split(".");
-				if(array[1]!=undefined){ 
-					array[1]=array[1].slice(0,6)
-				}  
-				return array.join('.');
-			}
-			return null;
-		} 
+
 		function projectProgress(data){
 			var projectPro = projectInfoDetail.projectProgress;
 			var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
