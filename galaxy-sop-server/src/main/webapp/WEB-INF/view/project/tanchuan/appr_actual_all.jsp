@@ -30,7 +30,7 @@
 	                	<div id="setValue">
 	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
-	                    		data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
+	                    		data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>

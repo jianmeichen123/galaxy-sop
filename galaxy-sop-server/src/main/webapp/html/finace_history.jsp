@@ -52,7 +52,7 @@
           <dl class="fmdl clearfix sign_fmdl">
             <dt>股权占比：</dt>
                 <dd>
-                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-verify_32_0="true"  data-msg-verify_32_0="<font color=red>*</font>支持0-100之间的两位小数"/>
+                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-verify_35="true"  data-msg-verify_35="<font color=red>*</font>支持0-100之间的5位小数"/>
                 </dd>
            </dl>
            <dl class="fmdl clearfix sign_fmdl">

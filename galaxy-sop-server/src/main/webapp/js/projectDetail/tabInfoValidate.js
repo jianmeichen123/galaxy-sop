@@ -140,6 +140,11 @@
 		return this.optional(element) || (verify_82.test(value));
 	}, "不能超过99999999");
 	//inputValRuleMark=="9,4"
+	
+jQuery.validator.addMethod("verify_96", function(value, element) {
+	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_96.test(value));
+}, "支持9位长度的6位小数");
 	jQuery.validator.addMethod("verify_94", function(value, element) {
 		var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 		return this.optional(element) || (verify_94.test(value));
