@@ -400,18 +400,19 @@ $(function(){
 			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
 				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
 				if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
-					var val1=$("#project_contribution_edit").val()?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
-					var val2=$("#project_share_ratio_edit").val()?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
-					var res = finalValue(val1,val2); 
-					if(res && $("#finalValuations_edit").is("visible")){
+					var val1=$("#project_contribution_edit").is(":hidden")?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
+					var val2=$("#project_share_ratio_edit").is(":hidden")?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
+					var res = finalValue(val1,val2);  
+					if(res && !$("#finalValuations_edit").is(":hidden")){
 						$("#finalValuations_edit").prev().val(res); 
-					}else if(res && $("#project_valuations_edit").is("visible")){
+					}else if(res && !$("#project_valuations_edit").is(":hidden")){
 						$("#project_valuations_edit").prev().val(res); 
 					} 
 				}	 
 				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
 				val2=$(".basic_current:visible input[VType=guzhi]").val(),
 				val3=val1-val2;
+				alert(val3);
 				if(val3>10||val3<-10){
 					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
 					return;
@@ -643,7 +644,14 @@ function buildShareResult(reportType,relateId){
 									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
 										var Tval= change_number(_val);
 										_val = _parsefloat(Tval[0]);
-										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元");
+										if(title.id=="1943"||title.id=="3012"){
+											var array = String(_val).split(".");
+											if(array[1]!=undefined){ 
+												array[1]=array[1].slice(0,4)
+											}  
+											_val= array.join('.');
+										}
 									}
 								}
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
@@ -689,6 +697,13 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
+									if(title.titleId=="1943"||title.titleId=="3012"){
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
