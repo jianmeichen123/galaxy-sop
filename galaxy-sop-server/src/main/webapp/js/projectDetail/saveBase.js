@@ -211,7 +211,15 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
+									
 								}
 							}
 							
@@ -249,7 +257,7 @@ function updataReport(projectInfoList){
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
-							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
+							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011" )&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
 									if(num[0].length>9){
@@ -269,7 +277,14 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 								}
 							}
 							

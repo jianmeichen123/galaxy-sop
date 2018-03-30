@@ -121,6 +121,7 @@ $(function(){
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
 				$("body").css('overflow','hidden'); 
+				debugger;
 				//updateReportMoney();   //编辑显示融资计划值  
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
@@ -412,8 +413,7 @@ $(function(){
 				}	 
 				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
 				val2=$(".basic_current:visible input[VType=guzhi]").val(),
-				val3=val1-val2;
-				alert(val3);
+				val3=val1-val2; 
 				if(val3>10||val3<-10){
 					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
 					return;
@@ -552,8 +552,7 @@ function jointDeliveryList(list){
 	$("#jointDelivery").show().children().remove(); 
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
-	temp.append(html); 
-	//alert(list.length)
+	temp.append(html);  
 	if(list==undefined){
 		$('#financeMode').addClass('pointer-events');
 		return;
@@ -675,8 +674,7 @@ function buildShareResult(reportType,relateId){
 			})
 }
 //保存后刷新
-function updataReport(projectInfoList){ 
-	debugger;
+function updataReport(projectInfoList){  
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
@@ -746,7 +744,7 @@ function updataReport(projectInfoList){
 							var _val =title.value;	 
 							var I_val=_val;
 							//这个是公共的 所以需要判断ID
-							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
+							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011")&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
 									if(num[0].length>9){
@@ -808,7 +806,7 @@ function updateReportMoney(){
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 		if(data.result.status=='OK'){ 
 			projectInfoListNew=data.userData.report[0].childList;
-			
+			debugger;
 			updataReport(projectInfoListNew);
 		}
 	})
