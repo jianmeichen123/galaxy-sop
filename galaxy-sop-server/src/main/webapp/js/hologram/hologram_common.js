@@ -303,26 +303,7 @@ function buildResults(sec,title,readonly)
 					}
 				});
 			}
-		}
-		/*else if(title.type == 5)
-		{
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
-					}else{
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1);
-					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
-					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
-		}*/
+		} 
 		else if(title.type == 12)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
@@ -437,41 +418,7 @@ function buildResults(sec,title,readonly)
 						inputText.attr('required' , true);
 					}
 				})
-			}
-			/*$.each(title.resultList,function(i,n)
-					{
-						if(readonly == true)
-						{
-							
-							$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-							if(n.contentDescribe1){ 
-								$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
-								$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
-							}
-							$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
-						}
-						else
-						{
-							$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-							if(n.contentDescribe1){  
-								$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
-								inputText.attr('disabled',false);
-								inputText.attr('required' , true);
-							}
-						}
-					});*/
-			/*if (readonly == true)
-			{
-				var dds = $("dt[data-type='13'][data-title-id='"+ title.id +"']").siblings().children();
-				$.each(dds,function(i,n)
-				{
-					if ($(this).text() == '未选择')
-					{
-						$(this).hide();
-					}
-				});
-				
-			}*/
+			} 
 		}
 		else if(title.type == 15)
 		{
@@ -599,6 +546,8 @@ function buildResults(sec,title,readonly)
 					}else{
 						var res = change_number(_val);
 						_val = _parsefloat(res[0]);
+						alert("!!!")
+						alert(_val)
 						var moneyT = res[1]+"元";
 					}
 				}

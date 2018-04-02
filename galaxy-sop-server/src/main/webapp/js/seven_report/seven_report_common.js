@@ -545,15 +545,7 @@ function buildResults(sec,title,readonly)
 				}
 			}
 			if(readonly == true)
-			{
-				/*if(title.id=="3012"){*/
-					/*if(nums && nums[1].length>4){
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4)*10000/10000);
-					}else{
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
-					}*/
-//					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(num));
-				/*}else{*/
+			{ 
 					var _val = title.resultList[0].contentDescribe1;
 					var test_num = $(".field[data-title-id='"+title.id+"']").next().text();
 					if(test_num.indexOf("元")<0){
@@ -568,7 +560,7 @@ function buildResults(sec,title,readonly)
 							_val="未填写"
 						}else{
 							var res = change_number(_val);
-							_val = _parsefloat(Number(res[0]).toFixed(4));   //数据互通调整
+							_val = _parsefloat(Number(res[0]));   //数据互通调整 
 							var moneyT = res[1]+"元";
 						}
 					}
@@ -586,12 +578,7 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
-					if(title.resultList[0].contentDescribe1){
-						/*if(nums && nums[1].length>4){
-							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)*10000/10000).attr("resultId",result_id);
-						}else{
-							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
-						}*/
+					if(title.resultList[0].contentDescribe1){ 
 						$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(num)).attr("resultId",result_id);
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
