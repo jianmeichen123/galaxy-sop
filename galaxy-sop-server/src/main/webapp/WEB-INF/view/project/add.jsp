@@ -468,9 +468,11 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
 			console.log(data)
 				if(data.result.status=="ERROR"){
-					if(data.result.errorCode == "name-repeat"){
-						$('.project-name').css('display','block');
-					}
+			    var objDatad =data.userData;
+				if(data.result.errorCode == "name-repeat"){
+					layer.msg("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+					$('.project-name').css('display','block');
+				}
 				}else if(data.result.status ==='OK'){
 					$('.project-name').css('display','none');
 				}
