@@ -117,6 +117,7 @@ window.setInterval("reloadMessage(),fillHeaderdata()",10000);
         if(data.entity.count == 0) {
             $(".work em[action='remind']").css("display","none");
         }else{
+            $(".work em[action='remind']").css("display","block");
             $(".work em[action='remind']").html(data.entity.count);
         }
 	}

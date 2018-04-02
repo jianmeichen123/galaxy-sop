@@ -132,10 +132,13 @@ function remindcbf(data){
 
         if(remindCount == 0) {
             $(".work em[action='remind']").css("display","none");
-        }else if(remindCount>99){
-			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
-		}else{
-			$(".work em[action='remind']").html(remindCount);
+        }else {
+            $(".work em[action='remind']").css("display","block");
+            if(remindCount>99){
+                $(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
+            }else{
+                $(".work em[action='remind']").html(remindCount);
+            }
 		}
 	}
 }
