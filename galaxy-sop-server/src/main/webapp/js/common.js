@@ -783,10 +783,15 @@ function totalMissionCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	if(total>99){
-		$('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+	if(total == 0){
+        $('.totalUrgent').css("display","none");
 	}else{
-		$('.totalUrgent').html(total)
+        $('.totalUrgent').css("display","block");
+        if(total>99){
+            $('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+        }else{
+            $('.totalUrgent').html(total)
+        }
 	}
 	
 }
