@@ -112,7 +112,7 @@ position: absolute;
 						<td>
 							<span>项目名称：</span>
 							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-rule-limit24="true" data-msg-required="<font color=red>*</font>项目名称不能为空"/>
-							<label class='projectname-edit-label'>*项目名称重复</label>
+							<label class='projectname-edit-label'></label>
 						</td>
 					</tr>
 					<tr>
@@ -372,35 +372,6 @@ function projectList(){
 	forwardWithHeader(url);
 }
 
-//项目名称重复限制
-$('#project_name_edit').blur(function(){
-	var projectName = $('#project_name_edit').val().trim();
-	if(projectName==""||projectName=="undefined"){
-		$('.projectname-edit-label').hide();
-		return false;
-	}else{
-		var projectID = '${projectId}';
-		var data1 = {
-			'projectName':projectName,
-			'id' : projectID
-		}
-		sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
-				if(data.result.status=="ERROR"){
-                    var objDatad =data.userData;
-                    if(data.result.errorCode == "name-repeat"){
-                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
-                        $('.projectname-edit-label').show();
-                        return false
-                    }
-				}else if(data.result.status ==='OK'){
-					$('.projectname-edit-label').hide();
-				}
-		})
-	}
-	
-	
-	
-}) 
 //查询 FAtitke 
 function showFaname(){ 
 sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1",null,showName);

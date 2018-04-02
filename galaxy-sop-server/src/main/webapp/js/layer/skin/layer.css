@@ -425,7 +425,7 @@ html #layui_layer_skinlayercss{
 }
 .layui-layer-btn{
 	text-align:center;
-	padding:0 10px 30px;
+	padding:0 10px 20px;
 	pointer-events:auto
 }
 .layui-layer-btn a{
@@ -449,20 +449,23 @@ html #layui_layer_skinlayercss{
 	opacity:.7
 }
 .layui-layer-btn .layui-layer-btn0{
-	border-color:#4a97da;
-	background-color:#4a97da;
+	border:none;
+	background:#3ca6ff;
+	border-radius:2px;
+	min-width:92px;
+	padding:0px;
 	color:#fff
 }
 .layui-layer-dialog{
 	min-width:260px;
-	border-radius: 8px;
+	border-radius: 2px;
 	overflow: hidden;;
 	box-sizing: border-box;
 }
 .layui-layer-dialog .layui-layer-content{
 	position:relative;
-	padding:50px 100px;
-	line-height:24px;
+	padding:20px;
+	line-height: 2; 
 	word-break:break-all;
 	font-size:14px;
 	overflow:auto
@@ -639,6 +642,6 @@ html #layui_layer_skinlayercss{
 	background:#92B8B1
 }
 .layui-layer-dialog  .layui-layer-btn a:hover{ 
-	background-color:#4a97da;
+	background-color:#0084f5;
 	color:#fff;
 }

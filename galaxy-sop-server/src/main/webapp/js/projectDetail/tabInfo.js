@@ -396,7 +396,7 @@ $(function(){
 			}
 		}
  
-		$("[data-on='save']").click(function(){
+		$("[data-on='save']").click(function(){ 
 			var s_type=$(this).attr("save_type");  
 			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
 				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
@@ -428,7 +428,7 @@ $(function(){
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){ 
+			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){  
 				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
@@ -804,8 +804,7 @@ function updateReportMoney(){
 	var projectInfoListNew=[];
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
 		if(data.result.status=='OK'){ 
-			projectInfoListNew=data.userData.report[0].childList;
-			debugger;
+			projectInfoListNew=data.userData.report[0].childList; 
 			updataReport(projectInfoListNew);
 		}
 	})

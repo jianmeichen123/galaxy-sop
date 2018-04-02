@@ -415,7 +415,7 @@ table .width_gd{width:12%;}
 /* .lpubbtn{width: 115px;}
 .llpubbtn{width: 155px;} */
 .pubbtn:hover{ text-decoration:none}
-.bluebtn,.pubbtn{font-family:"Microsoft Yahei", "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif; background-color:#3ca6ff; padding:0 20px;line-height:28px;border-radius:2px; font-size:14px; width:auto; border:none; color:#FFF!important;min-width:92px;box-sizing:border-box;}
+.bluebtn,.pubbtn{font-family:"Microsoft Yahei", "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif; background-color:#3ca6ff; padding:0 20px;line-height:28px;border-radius:2px; font-size:14px; width:auto; border:none; color:#FFF;min-width:92px;box-sizing:border-box;}
 .bluebtn:hover{background-color:#0084f5;}
 .fffbtn{ background-color:#fdfdfe; border-color:#ccd2d7; color:#4a97da}
 .fffbtn:hover{background-color: #66b1f2;color: #fff;border:1px solid #66b1f2;}
@@ -4056,7 +4056,7 @@ select.addpro-input{width:278px;height:32px;}
 .addpro-business-plan table .add_ico_pgn{font-family:Microsoft YaHei;font-size:14px;color:#3ca6ff;}
 .compile_on_left span.adddpro-save{background:#3ca6ff;border-radius:2px;width:92px;height:32px;font-size:14px;color:#ffffff;line-height:32px;font-family:Microsoft YaHei;}
 .compile_on_left span.adddpro-save:hover{background-color:#0084f5;}
-.compile_on_left span.addpro-cacel{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-family:Microsoft YaHei;font-size:14px;color:#3ca6ff;line-height:32px;}
+.compile_on_left span.addpro-cacel{background:#eef6fc; color:#3ca6ff; border-radius:2px;width:92px;height:32px;font-family:Microsoft YaHei;font-size:14px; line-height:32px;}
 .compile_on_left span.addpro-cacel:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .task-cancle:hover{background:#d9e3ea;border:1px solid #d9e3ea;color:#3ca6ff;outline:none;}
 .inpu-radio{opacity:0;filter:alpha(opacity=0);}
@@ -4079,7 +4079,7 @@ select.addpro-input{width:278px;height:32px;}
 .task-no-label{vertical-align: inherit;width:12px;height:12px;display:inline-block;background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -100px -5px !important;cursor:pointer;margin-right:5px;}
 .task-no-label.label-checked{background:url(../img/seven_report/myBlue.png) no-repeat !important;background-position: -86px -5px !important;}
 .project-name,.projectname-edit-label{display:none;color:#ff0000;}
-.projectname-edit-label{margin-left:115px;font-family: Microsoft YaHei;font-size: 14px;}
+.projectname-edit-label{font-family: Microsoft YaHei;font-size: 14px; height:0px;}
 .finicial_current table .basic_mes_input{
 	padding-right:25px;
     width: 405px;
