@@ -120,8 +120,7 @@ $(function(){
 				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
-				$("body").css('overflow','hidden'); 
-				debugger;
+				$("body").css('overflow','hidden');  
 				//updateReportMoney();   //编辑显示融资计划值  
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
@@ -413,7 +412,7 @@ $(function(){
 				}	 
 				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
 				val2=$(".basic_current:visible input[VType=guzhi]").val(),
-				val3=val1-val2; 
+				val3=accSub(val1,val2); 
 				if(val3>10||val3<-10){
 					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
 					return;

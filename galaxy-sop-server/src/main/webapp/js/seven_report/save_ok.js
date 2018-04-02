@@ -5,6 +5,14 @@ var deletedRowIds = new Array();
 var deletedRowIdsGq = new Array();
 
 $('div').delegate(".h_save_btn","click",function(event){
+	if($("input[guzhi]").length>0){
+		var val1 = $("input[guzhi]").val(),val2= $("input[guzhi]").attr("guzhi"),
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
 	var btn = this;
 	var save_this = $(btn).parents('.radius');
 	event.stopPropagation();

@@ -307,23 +307,24 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var parent=valRule1[0];
 							var children=valRule1[1];
 						}
-						function calculationValuations(){
+						function calculationValuations(){ 
 							var projectParent = $("input[data-title-id='"+parent+"']").val();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
 							var cell=$("input[data-title-id='"+children+"']").attr("data-content");
-							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
-								return projectParent * (100/projectChildren);
+							if(projectParent > 0 && projectChildren > 0){ 
+								return finalValue(projectParent,projectChildren) 
 							}else{
 								return null;
 							}
 							
 						}
+						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations());
+						
 						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuations();
 							console.log(valuations)
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								
 							}
@@ -331,7 +332,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 							}
 						})
