@@ -313,7 +313,7 @@ table .width_gd{width:12%;}
           background-clip: padding-box;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: 4px;
+  border-radius: 2px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
@@ -321,7 +321,7 @@ table .width_gd{width:12%;}
 .dropdown-menu1 > li > a:focus {
   color: #262626;
   text-decoration: none;
-  background-color: #f5f5f5;
+  background-color: #e5f3ff;
 }
 .dropdown-menu1 > .active > a,
 .dropdown-menu1 > .active > a:hover,
@@ -425,9 +425,9 @@ table .width_gd{width:12%;}
 .searchbtn_ico .cx{background-position: 15px 0;padding: 0 0 0 22px;}
 .export{width: 80px;display: block;margin-left: auto; margin-bottom: 10px;}
 /* 查询公用按钮 */
-.cx{ float:right;  text-align:center; background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 12px -180px;padding:0 20px 0 30px;}
+.cx{ float:right;  text-align:center; background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 17px -180px;padding:0 20px 0 40px;}
 .pq{ float:right; text-align:center; background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 12px -248px;padding:0 20px 0 30px;}
-.tj{ float:right; text-align:center; background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 12px -212px;padding:0 20px 0 30px;cursor:pointer;}
+.tj{ float:right; text-align:center; background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 19px -212px;padding:0 20px 0 40px;cursor:pointer;}
 .xz{ float:right;  text-align:center;background:#3ca6ff url(../img/btnico2.png) no-repeat;background-position: 15px -121px;padding:0 20px 0 30px;}
 /*公用表单*/
 .fmdl{ /* margin:0 0 15px; */ display:block; font-size:14px; color:#2d3342;line-height:30px;}
@@ -794,7 +794,8 @@ pre{white-space:pre-wrap;margin:0;}
 .ritmin .top .btnbox_f1 .ico{background:#3ca6ff url(../img/btnico2.png) 0 0 no-repeat; }
 .ritmin .top .btnbox_f .c1{background-position: 15px 0;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c2{background-position: 15px -30px;padding: 0 0 0 22px;}
-.ritmin .top .btnbox_f .c3{background-position: 20px -60px;padding: 0 20px 0 48px;}
+.ritmin .top .btnbox_f .c3{background-position: 17px -61px;padding: 0 20px 0 44px;}
+.ritmin .top .btnbox_f .c3:hover,.ritmin .top .btnbox_f .c4:hover,.ritmin .top .btnbox_f1 .addico:hover{background-color:#0084f5;background-image:url(../img/btnico2.png);}
 .ritmin .min_document{ width:100%; background-color: #d6d8e1; border-radius: 5px; padding: 10px 0 0; margin-bottom:10px;}
 .ritmin .min_document .top,.ritmin .min_document .bottom{ margin:0 15px 8px;}
 .ritmin .min_document .top{_height:50px;}
@@ -4203,16 +4204,17 @@ li .projectSource11 span.m_r30{
 #file_history_grid th{font-weight:bold;}
 #file_history_grid td:nth-child(1){text-align:left;padding-left:30px !important;}
 #file_history_grid td a{font-family:Microsoft YaHei;}
-/* 新版分页样式，调用类名pagination_common  */
-.pagination_common .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
-.pagination_common .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:Microsoft YaHei}
-.pagination_common .fixed-table-pagination .pagination > .active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common .fixed-table-pagination .pagination > .active > span:focus{
+/* 新版分页样式，通用 */
+.bootstrap-table .pagination-info,#file-history-dialog .page-list,.pagination_common .pagination-info,.pagination_common .page-list{color:#5a626d;font-family:Microsoft YaHei;}
+.bootstrap-table .fixed-table-pagination .pagination li a,.pagination_common .fixed-table-pagination .pagination li a{padding:3px 0;width:24px;text-align:center;background:#fff;color:#45aaff;margin-left:8px;border-radius:2px;font-family:Microsoft YaHei}
+.bootstrap-table .fixed-table-pagination .pagination > .active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common .fixed-table-pagination .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
-.pagination_common .fixed-table-pagination .pagination > li.active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common  .fixed-table-pagination .pagination > .active > span:focus{
+.bootstrap-table .fixed-table-pagination .pagination > li.active > a, .pagination_common .fixed-table-pagination .pagination > .active > span, .pagination_common .fixed-table-pagination .pagination > .active > a:hover, .pagination_common .fixed-table-pagination .pagination > .active > span:hover, .pagination_common .fixed-table-pagination .pagination > .active > a:focus,.pagination_common  .fixed-table-pagination .pagination > .active > span:focus{
 	background:#45aaff;color:#fff;
 }
-.pagination_common .btn-default{
+.bootstrap-table .page-list{color:#5a626d;}
+.bootstrap-table .btn-default{
 	background:#ffffff;
 	border:1px solid #d8d8d8;
 	border-radius:2px;
@@ -4220,41 +4222,37 @@ li .projectSource11 span.m_r30{
 	height:20px;
 	line-height:18px;
 	padding:0;
-	margin-top:-4px;
+	margin-top:-2px;
 }
-.pagination_common .btn-default .page-size{
+.bootstrap-table .btn-default .page-size{
 	color:#45aaff;
 	font-size:12px;
 	line-height:18px;
 	margin-top:-2px;
 	display:inline-block;
 }
-.pagination_common .dropdown-menu1{
+.bootstrap-table .dropdown-menu1{
 	min-width:40px;
 	background:#fff;
-	padding:0 2px;
+	padding:0;
 	border-radius:0px 0px 3px #f0f0f0;
-}
-.pagination_common .dropdown-menu1 li{
-	height:30px;
-	border-bottom:1px solid #f0f0f0;
-}
-.pagination_common .dropdown-menu1 li a{
-	line-height:30px;
+} 
+.bootstrap-table .dropdown-menu1 li a{
+	width:100%;
+	padding:0;
+	text-align:center;
+	line-height:40px;
 	font-family:Microsoft YaHei;
 }
-.pagination_common .dropdown-menu1 li.active a{
+.bootstrap-table .dropdown-menu1 li.active a{
 	background:none;
 	color:#45aaff;
 }
-.pagination_common .dropdown-menu1 li a:focus,.pagination_common .dropdown-menu1 li a:hover{
-	background:none;
-}
-.pagination_common .fixed-table-pagination .pagination li.page-last a{font-size:20px;padding:0;line-height:20px;height:23px;}
-.pagination_common .fixed-table-pagination .pagination li.page-first a{font-size:20px;padding:0;line-height:20px;height:23px;}
-.pagination_common .fixed-table-pagination .pagination li.page-next a{font-size:20px;padding:0;line-height:20px;height:23px;}
-.pagination_common .fixed-table-pagination .pagination li.page-pre a{font-size:20px;padding:0;line-height:20px;height:23px;}
-.pagination_common .dropdown-menu1{bottom:145%;}
+.bootstrap-table .fixed-table-pagination .pagination li.page-last a{font-size:20px;padding:0;line-height:20px;height:23px;}
+.bootstrap-table .fixed-table-pagination .pagination li.page-first a{font-size:20px;padding:0;line-height:20px;height:23px;}
+.bootstrap-table .fixed-table-pagination .pagination li.page-next a{font-size:20px;padding:0;line-height:20px;height:23px;}
+.bootstrap-table .fixed-table-pagination .pagination li.page-pre a{font-size:20px;padding:0;line-height:20px;height:23px;}
+.bootstrap-table .dropdown-menu1{bottom:145%;}
 #task-table{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 /* 为了兼容IE 最好放下边 */
 input::-webkit-input-placeholder{
