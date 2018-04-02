@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
 <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -46,7 +46,11 @@
  sendPostRequest("<%=request.getContextPath() %>"+"/galaxy/operationMessage/remind", remindcbf);
  function remindcbf(data){
 	if(data.result.status == "OK"){
-		 $(".work em[action='remind']").html(data.entity.count);
+	    if(data.entity.count == 0){
+            $(".work em[action='remind']").attr("display","none");
+        }else{
+            $(".work em[action='remind']").html(data.entity.count);
+        }
 	}
  }
  function logout(){

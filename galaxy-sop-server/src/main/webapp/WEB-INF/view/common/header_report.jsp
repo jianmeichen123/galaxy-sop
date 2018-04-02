@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
 <%
 	User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 	String sessionId = "";
@@ -129,7 +129,10 @@ function reloadMessage(){
 function remindcbf(data){
 	if(data.result.status == "OK"){
 		var remindCount=data.entity.count;
-		if(remindCount>99){
+
+        if(remindCount == 0) {
+            $(".work em[action='remind']").attt("display","none");
+        }else if(remindCount>99){
 			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
 		}else{
 			$(".work em[action='remind']").html(remindCount);
