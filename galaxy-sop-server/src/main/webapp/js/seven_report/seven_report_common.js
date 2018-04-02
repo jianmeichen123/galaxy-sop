@@ -539,8 +539,8 @@ function buildResults(sec,title,readonly)
 					var nums=String(num).split(".");
 					if(nums[0].length>9){
 						num=num;
-					}else{
-						num=Number(num).toFixed(4)
+					}else{ 
+						num=Number(num);
 					}
 				}
 			}
