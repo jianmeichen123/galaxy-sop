@@ -47,7 +47,7 @@
  function remindcbf(data){
 	if(data.result.status == "OK"){
 	    if(data.entity.count == 0){
-            $(".work em[action='remind']").attr("display","none");
+            $(".work em[action='remind']").css("display","none");
         }else{
             $(".work em[action='remind']").html(data.entity.count);
         }

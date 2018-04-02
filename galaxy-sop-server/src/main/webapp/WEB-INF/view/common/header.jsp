@@ -248,7 +248,7 @@ if(isContainResourceByMark("task_into_view")){
 		var remindCount=data.map.count;
 
         if(remindCount == 0) {
-            $(".work em[action='remind']").attt("display","none");
+            $(".work em[action='remind']").css("display","none");
         }else if(remindCount>99){
 			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
 		}else{
