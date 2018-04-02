@@ -384,12 +384,14 @@ $('#project_name_edit').blur(function(){
 			'projectName':projectName,
 			'id' : projectID
 		}
-		sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
 				if(data.result.status=="ERROR"){
-					if(data.result.errorCode == "name-repeat"){
-						$('.projectname-edit-label').show();
-						return false
-					}
+                    var objDatad =data.userData;
+                    if(data.result.errorCode == "name-repeat"){
+                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+                        $('.projectname-edit-label').show();
+                        return false
+                    }
 				}else if(data.result.status ==='OK'){
 					$('.projectname-edit-label').hide();
 				}
