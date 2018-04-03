@@ -66,7 +66,7 @@
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
-                             <span class="m_r30"><input type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
+                            <span class="m_r30"><input style='display: inline-block;vertical-align: middle;' type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/><img style='display: inline-block;vertical-align: middle;' title="创建时间指的是投资业务人员首次接触该项目的时间，并非项目成立时间 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
                         </li>
                         <li>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
