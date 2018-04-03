@@ -70,7 +70,7 @@
                         </li>
                         <li>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'>*项目名称重复</label></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'></label></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
@@ -456,6 +456,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		}
 		return null;
 	}
+	var objDatad='';
 //项目名称重复checkProjectName
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
@@ -468,9 +469,9 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
 			console.log(data)
 				if(data.result.status=="ERROR"){
-			    var objDatad =data.userData;
+			       objDatad =data.userData;
                     if(data.result.errorCode == "name-repeat"){
-                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
                         $('.project-name').css('display','block');
                     }
 				}else if(data.result.status ==='OK'){
@@ -483,7 +484,12 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	
 })  
 //添加项目页面保存按钮
-	function add(){
+	function add(){  
+      if(!$('.project-name').is(":hidden")){
+			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+	         
+			return false;
+		}
         $("#selectRadio[name=projectContractor]").css("display","inline-block")
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();

@@ -334,10 +334,40 @@ $(function(){
 						$("#faNameEdit-error").hide();
 					}
 			});
-			}
-		
+		}
+		//项目名称重复限制 
+		var objDatad = '';
+		$('#project_name_edit').blur(function(){
+			var projectName = $('#project_name_edit').val().trim();
+			if(projectName==""||projectName=="undefined"){
+				$('.projectname-edit-label').hide();
+				return false;
+			}else{
+				var projectID = '${projectId}';
+				var data1 = {
+					'projectName':projectName,
+					'id' : projectID
+				}
+				sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
+						if(data.result.status=="ERROR"){
+		                    objDatad =data.userData;
+		                    if(data.result.errorCode == "name-repeat"){
+		                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+		                        $('.projectname-edit-label').show();
+		                        return false
+		                    }
+						}else if(data.result.status ==='OK'){
+							$('.projectname-edit-label').hide();
+						}
+				})
+			} 
+		}) 
 		//保存
-		$("[data-on='save_basic']").click(function(){
+		$("[data-on='save_basic']").click(function(){ 
+			if(!$(".projectname-edit-label").is(":hidden")){
+                layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+                return false
+            }
 			var s_type=$(this).attr("save_type");
 			var data="";
 			if(s_type=="save_basic"){

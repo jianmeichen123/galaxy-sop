@@ -234,7 +234,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				}
 				
 				//计算项目估值
-				if(reportType=="3"){
+				if(reportType=="3"){ 
 					$(".tz_money").val(tz_money);  //投资金额;
 					$.each($("input[data-type='19']"),function(){
 						var valRuleFormula=$(this).attr("data-valruleformula");
@@ -244,7 +244,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(null!=valRule[1]){
 								valRule1=valRule[1].split("/");
 							}
-						
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
@@ -253,26 +252,26 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
 							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
-								return projectParent * (100/projectChildren);
+								return finalValue(projectParent,projectChildren); 
 							}else{
 								return null;
 							}
-							
 						}
 						function calculationValuationsParent(){  //编辑投资金额
 							var projectParent = $("input[data-title-id='"+parent+"']").val();
 							var projectChildren = $("dd[data-title-id='"+children+"']").text();
 							if(projectParent > 0 && projectChildren > 0){
-								return projectParent * (100/projectChildren);
+								return finalValue(projectParent,projectChildren) 
 							}else{
 								return null;
 							}
 							
 						}
+						$("input[data-title-id='"+result+"']").attr("guzhi", calculationValuations());
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
 							if(valuations != null){
-								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+								$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
 							}
@@ -286,7 +285,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[type='hidden'].money").val("");
 							}else{
 								if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
 								}
