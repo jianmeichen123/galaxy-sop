@@ -334,8 +334,7 @@ $(function(){
 						$("#faNameEdit-error").hide();
 					}
 			});
-			}
-
+		}
 		//项目名称重复限制 
 		var objDatad = '';
 		$('#project_name_edit').blur(function(){
