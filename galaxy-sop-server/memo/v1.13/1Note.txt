@@ -96,6 +96,26 @@ GROUP BY
 	project_progress,create_uid;
 #副
 SELECT
+	 pro.id,pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(DISTINCT pro.id) completed
+FROM
+	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
+WHERE
+	listdata.project_id = pro.id
+	AND listdata.field_1 = deptUser.user_id
+	AND listdata.title_id = 1103
+
+	AND deptUser.dep_id = 2011
+	AND deptUser.dep_id != pro.project_departId
+
+	AND pro.project_status != 'projectStatus:2'
+	AND pro.is_delete = 0
+	AND listdata.field_5 != 0
+	AND pro.created_time >= 1514736000000
+GROUP BY
+	pro.id
+
+##### 废弃 ##
+SELECT
 	pro.project_progress, listdata.field_1, deptUser.dep_id, COUNT(listdata.id) completed
 FROM
 	information_listdata listdata, sop_project pro, v_rel_dep_user deptUser
@@ -105,7 +125,7 @@ WHERE
 	AND listdata.title_id = 1103
 
 	AND deptUser.dep_id = 13
-	AND listdata.field_5 = 0
+	AND listdata.field_5 != 0
 	AND pro.project_status != 'projectStatus:2'
 	AND pro.is_delete = 0
 	AND pro.created_time >= 1514736000000

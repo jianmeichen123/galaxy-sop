@@ -303,26 +303,7 @@ function buildResults(sec,title,readonly)
 					}
 				});
 			}
-		}
-		/*else if(title.type == 5)
-		{
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
-					}else{
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1);
-					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
-					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
-		}*/
+		} 
 		else if(title.type == 12)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
@@ -437,41 +418,7 @@ function buildResults(sec,title,readonly)
 						inputText.attr('required' , true);
 					}
 				})
-			}
-			/*$.each(title.resultList,function(i,n)
-					{
-						if(readonly == true)
-						{
-							
-							$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-							if(n.contentDescribe1){ 
-								$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
-								$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
-							}
-							$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
-						}
-						else
-						{
-							$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-							if(n.contentDescribe1){  
-								$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
-								inputText.attr('disabled',false);
-								inputText.attr('required' , true);
-							}
-						}
-					});*/
-			/*if (readonly == true)
-			{
-				var dds = $("dt[data-type='13'][data-title-id='"+ title.id +"']").siblings().children();
-				$.each(dds,function(i,n)
-				{
-					if ($(this).text() == '未选择')
-					{
-						$(this).hide();
-					}
-				});
-				
-			}*/
+			} 
 		}
 		else if(title.type == 15)
 		{
@@ -599,6 +546,8 @@ function buildResults(sec,title,readonly)
 					}else{
 						var res = change_number(_val);
 						_val = _parsefloat(res[0]);
+						alert("!!!")
+						alert(_val)
 						var moneyT = res[1]+"元";
 					}
 				}
@@ -1261,6 +1210,15 @@ function validate(){
 						"data-msg-verify_92":"<font color=red>*</font>支持9位长度的两位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="13,6"){
+				var validate={
+						"data-rule-verify_136":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的四位小数"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
 				var validate={
 						"data-rule-verify_134":"true",
@@ -1286,6 +1244,15 @@ function validate(){
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
 						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="3,5"){
+				var validate={
+						"data-rule-verify_35":"true",
+						//"required":"required",	
+						"name":i,
+						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
+						"data-msg-verify_35":"<font color=red>*</font>支持0～100的整数和5位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
@@ -1392,6 +1359,10 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 	return this.optional(element) || (verify_102.test(value));
 }, "支持10位长度的两位小数");
 //inputValRuleMark=="13,4"
+jQuery.validator.addMethod("verify_136", function(value, element) {
+	var verify_n4 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_n4.test(value));
+}, "支持13位长度的6位小数");
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
@@ -1411,6 +1382,11 @@ jQuery.validator.addMethod("verify_92", function(value, element) {
 	return this.optional(element) || (verify_92.test(value));
 }, "");
 //inputValRuleMark=="9,4"
+
+jQuery.validator.addMethod("verify_96", function(value, element) {
+	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_96.test(value));
+}, "支持9位长度的6位小数");
 jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
@@ -1441,6 +1417,10 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
+jQuery.validator.addMethod("verify_35", function(value, element) {   
+	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+	return this.optional(element) || (verify_35.test(value));
+}, "支持0-100之间的5位小数"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
@@ -2353,8 +2333,7 @@ function editRow(ele)
 				 if(code=="team-person"){   
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
-	            	$("#detail-form input[name='index']").val(row.index());
-	            	debugger;
+	            	$("#detail-form input[name='index']").val(row.index()); 
 	            	$("#detail-form select[name=field1]").addClass('disabled');
 	            	$("#detail-form select[name=field3]").addClass('disabled');
 	            	//带出来 承作人ID 

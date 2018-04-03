@@ -25,6 +25,43 @@ function _parsefloat(date){
 		}
 	}
 }
+
+function finalValue(val1,val2){  
+	if(val1 > 0 && val2 > 0){
+		var res=val1/( val2/100 );
+		var array = String(res).split(".");
+		if(array[1]!=undefined){ 
+			array[1]=array[1].slice(0,6)
+		}  
+		return array.join('.');
+	}else if(val2==undefined){
+		var array = String(res).split(".");
+		if(array[1]!=undefined){ 
+			array[1]=array[1].slice(0,6)
+		} 
+		return array.join('.');
+	}
+	return null;
+}
+//js计算精度问题 减法
+function accSub(arg1, arg2) {
+    var r1, r2, m, n;
+    try {
+        r1 = arg1.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r1 = 0;
+    }
+    try {
+        r2 = arg2.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r2 = 0;
+    }
+    m = Math.pow(10, Math.max(r1, r2)); //last modify by deeka //动态控制精度长度
+    n = (r1 >= r2) ? r1 : r2;
+    return ((arg1 * m - arg2 * m) / m).toFixed(n);
+}
 //亿元——万亿转换
 function change_number(date){
 	if(date!=undefined){
@@ -751,10 +788,15 @@ function totalMissionCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	if(total>99){
-		$('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+	if(total == 0){
+        $('.totalUrgent').css("display","none");
 	}else{
-		$('.totalUrgent').html(total)
+        $('.totalUrgent').css("display","block");
+        if(total>99){
+            $('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+        }else{
+            $('.totalUrgent').html(total)
+        }
 	}
 	
 }

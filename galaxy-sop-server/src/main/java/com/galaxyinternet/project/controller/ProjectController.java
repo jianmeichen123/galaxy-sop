@@ -1,40 +1,5 @@
 package com.galaxyinternet.project.controller;
 
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
@@ -124,15 +89,46 @@ import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
-
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPipeline;
 import redis.clients.util.SafeEncoder;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -1419,12 +1415,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 
 	/**
 	 * Ajax判断项目名称，组织机构代码是否重复
+	 *
+	 * 项目名称： projectName
+	 * 项目承做人 ：teamPerson
+	 * 承做人部门 ：departmentName
 	 */
 	@RequestMapping(value = "checkProjectName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<Project> checkProjectName(@RequestBody Project project)
 	{
 		ResponseData<Project> resp = new ResponseData<Project>();
+		Map<String, Object> objData = new HashMap<>();
+
 		// 验证项目名是否重复
 		Project obj = new Project();
 		if (null == project.getProjectName() || "".equals(project.getProjectName()))
@@ -1447,10 +1449,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		if (null != projectList && projectList.size() > 0)
 		{
 			resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
+			objData.put("projectName", projectList.get(0).getProjectName());
+			objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName")).toString());
+			objData.put("departmentName", (cache.hget(PlatformConst.CACHE_PREFIX_DEP+projectList.get(0).getProjectDepartid(), "name")).toString());
 		} else
 		{
 			resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
 		}
+
+		resp.setUserData(objData);
 		return resp;
 
 	}

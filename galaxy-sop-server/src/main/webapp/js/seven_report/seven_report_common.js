@@ -545,15 +545,7 @@ function buildResults(sec,title,readonly)
 				}
 			}
 			if(readonly == true)
-			{
-				/*if(title.id=="3012"){*/
-					/*if(nums && nums[1].length>4){
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4)*10000/10000);
-					}else{
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
-					}*/
-//					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(num));
-				/*}else{*/
+			{ 
 					var _val = title.resultList[0].contentDescribe1;
 					var test_num = $(".field[data-title-id='"+title.id+"']").next().text();
 					if(test_num.indexOf("元")<0){
@@ -568,7 +560,7 @@ function buildResults(sec,title,readonly)
 							_val="未填写"
 						}else{
 							var res = change_number(_val);
-							_val = _parsefloat(Number(res[0]).toFixed(4));   //数据互通调整
+							_val = _parsefloat(Number(res[0]));   //数据互通调整 
 							var moneyT = res[1]+"元";
 						}
 					}
@@ -586,12 +578,7 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
-					if(title.resultList[0].contentDescribe1){
-						/*if(nums && nums[1].length>4){
-							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)*10000/10000).attr("resultId",result_id);
-						}else{
-							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
-						}*/
+					if(title.resultList[0].contentDescribe1){ 
 						$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(num)).attr("resultId",result_id);
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
@@ -1302,6 +1289,15 @@ function validate(){
 						"data-msg-verify_134":"<font color=red>*</font>支持13位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="13,6"){
+				var validate={
+						"data-rule-verify_136":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13"){
 				var validate={
 						"data-rule-verify_13":"true",
@@ -1318,6 +1314,15 @@ function validate(){
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
 						"data-msg-verify_32":"<font color=red>*</font>0到100之间的两位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="3,5"){
+				var validate={
+						"data-rule-verify_35":"true",
+						//"required":"required",
+						"name":i,
+						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
+						"data-msg-verify_35":"<font color=red>*</font>0到100之间的5位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
@@ -1445,6 +1450,10 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
+jQuery.validator.addMethod("verify_136", function(value, element) {
+	var verify_n4 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_n4.test(value));
+}, "支持13位长度的6位小数");
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
@@ -1467,11 +1476,16 @@ jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
 }, "支持9位长度的四位小数");
+
+jQuery.validator.addMethod("verify_96", function(value, element) {
+	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_96.test(value));
+}, "支持9位长度的6位小数");
 //支持13位长度的四位小数
 jQuery.validator.addMethod("verify_3012", function(value, element) {
 	var verify_3012 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_3012.test(value));
-}, "支持13位长度的四位小数");
+}, "支持13位长度的四位小数"); 
 //支持0到100之间的四位小数
 jQuery.validator.addMethod("verify_3010", function(value, element) {
 	var verify_3010 = /^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
@@ -1506,6 +1520,11 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
 //inputValRuleMark=="3,2"
+
+jQuery.validator.addMethod("verify_35", function(value, element) {   
+	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+	return this.optional(element) || (verify_35.test(value));
+}, "支持0-100之间的5位小数"); 
 jQuery.validator.addMethod("verify_32", function(value, element) {
 	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));

@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
 <%
 	User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 	String sessionId = "";
@@ -100,7 +100,7 @@ var isDSZ = "<%=isDSZ%>";
        <!--用户信息-->
         <div class="usermsg fl">
               <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办<em class="totalUrgent"></em></a>
-            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息<em action="remind">0</em></a> 
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息<em action="remind" style="display: none">0</em></a>
     
         </div>      <!--当日信息-->
       <div class="man_info fl">
@@ -129,10 +129,16 @@ function reloadMessage(){
 function remindcbf(data){
 	if(data.result.status == "OK"){
 		var remindCount=data.entity.count;
-		if(remindCount>99){
-			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
-		}else{
-			$(".work em[action='remind']").html(remindCount);
+
+        if(remindCount == 0) {
+            $(".work em[action='remind']").css("display","none");
+        }else {
+            $(".work em[action='remind']").css("display","block");
+            if(remindCount>99){
+                $(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
+            }else{
+                $(".work em[action='remind']").html(remindCount);
+            }
 		}
 	}
 }

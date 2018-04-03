@@ -108,12 +108,15 @@
         		
         	</li>   
         	<li>
-        		<div class='task-reason'>系统升级时间：<input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime_two"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span></div>
+        		<div class='task-reason'>系统升级时间：</div><input class='datatimePicture' readonly='readonly' type='text' name="upgradeTime_two"/><span class='system_tips' title="系统升级通知需要选择系统升级时间"></span>
         	</li>
         	<li class='noticeLi'>
-        		<div class='task-reason noticeStatus' id="noticeStatus_two"><em>*</em>通知状态：
+        		<div class='task-reason ' id="noticeStatus_two"><em>*</em>通知状态：
+
+        		</div>
+        		<div class="noticeStatus"> 
 	        		<select id="slpk_two" name='tipsStatus' class='selectpicker'> 
-	        		</select>
+	        		</select> 
         		</div>
         	</li>
         </ul>
@@ -220,7 +223,7 @@ $(function(){
 	    pickerPosition:'top-right'
 	    /* startDate:new Date */
 	})
-	$('.task-reason input[name="upgradeTime"]').datetimepicker({//系统升级
+	$('.task-todeal input[name="upgradeTime"]').datetimepicker({//系统升级
 	    format: 'yyyy-mm-dd hh:ii',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -238,7 +241,7 @@ $(function(){
 	    minuteStep:5,
 	    pickerPosition:'top-right'
 	})
-	$('.task-reason input[name="upgradeTime_two"]').datetimepicker({//系统升级
+	$('.task-todeal input[name="upgradeTime_two"]').datetimepicker({//系统升级
 	    format: 'yyyy-mm-dd hh:ii',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -255,9 +258,7 @@ $(function(){
 	    minView : 0,
 	    minuteStep:5,
 	    pickerPosition:'top-right'
-	})
-	
-	
+	}) 
 	
 	/* 刚加载页面的时候就要开始判断 */
 	var textArealen = $('.system_textarea').val().length;
@@ -265,16 +266,16 @@ $(function(){
 	var radioLen = $('.radio_checked').length;
 	var selectVal = $('.noticeStatus .btn-default .filter-option').html();
 	var updateTime = $('input[name="sendTime"]').val();
-	var selectVal_two = $('#noticeStatus_two .btn-default .filter-option').html();
-	
-	if($('.system_radio_second label input').val()==0){
+	var sendTime = $('input[name="sendTime"]').val();
+	var selectVal_two = $('#noticeStatus_two .btn-default .filter-option').html();  
+	if($('.system_radio_second .radio_checked input')=='0'){
 		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
 		}
 	}else{
-		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
+		if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0|sendTime==0){
 			$('.system_send').addClass('system_disabled')
 		}else{
 			$('.system_send').removeClass('system_disabled')
@@ -292,17 +293,17 @@ $(function(){
 		var textArealen = $('.system_textarea').val().length;
 		var checkboxLen = $('.highlighCheckbox_checked').length;
 		var radioLen = $('.radio_checked').length;
-		var updateTime = $('input[name="sendTime"]').val();
-		var selectVal = $('.noticeStatus .btn-default .filter-option').html();
-	//	var updateTime = $('input[name="sendTime"]').val();
-		if($('.system_radio_second label input').val()==0){
+		var sendTime = $('input[name="sendTime"]').val();
+		var updateTime = $('input[name="upgradeTime"]').val(); 
+		var selectVal = $('.noticeStatus .btn-default .filter-option').html();   
+		if($('.system_radio_second .radio_checked input').val()=='0'){ 
 			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||radioLen==0){
 				$('.system_send').addClass('system_disabled')
 			}else{
 				$('.system_send').removeClass('system_disabled')
 			}
-		}else{
-			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||updateTime==""||radioLen==0){
+		}else{ 
+			if(textArealen==0||checkboxLen==0||selectVal=="请选择"||sendTime==""||radioLen==0){
 				$('.system_send').addClass('system_disabled')
 			}else{
 				$('.system_send').removeClass('system_disabled')
@@ -312,11 +313,9 @@ $(function(){
 		event.preventDefault(); 
 	})
 	/* 点击时候的判断必选项 */
-	$('.system-content-two').click(function(event){
-		/* 必填项判断 */
-		//var updateTime = $('input[name="sendTime"]').val();
-		var selectVal = $('#noticeStatus_two .btn-default .filter-option').html();
-			if(selectVal=="请选择"){
+	$('.system-content-two').click(function(event){  
+		var selectVal = $('#slpk_two').val().trim();
+			if(selectVal==""){
 				$('.system_send_edit').addClass('system_disabled')
 			}else{
 				$('.system_send_edit').removeClass('system_disabled')
@@ -325,6 +324,8 @@ $(function(){
 	})
 	
 	$('.system_send').click(function() {
+		if ($(this).hasClass('system_disabled')) {
+			return false}
 		if ($(".role_toolTip_area ").val().trim()=='') {
 			layer.msg("通知内容不能为空", {
 				time : 2000
@@ -336,7 +337,7 @@ $(function(){
 			} else {
 				var id=$("#messageId").val();
 				//判断是否存在已发送的消息 
-				if(isExitMessage(id)==true){
+				if(isExitMessage(id)==true&&$("#slpk").val()=='messageStatus:2'){
 					layer.msg("已存在一条已发送消息", {
 						time : 500
 					});
@@ -389,6 +390,7 @@ $(function(){
 	})
 	
 	$('#system_send_edit ').click(function() {
+
 		if ($(this).hasClass('system_disabled')) {
 			return false
 		} else {

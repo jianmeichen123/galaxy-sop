@@ -452,12 +452,13 @@ function buildResultsDraft(sec,title,readonly)
 					if(_val==undefined){
 						_val="未填写"
 					}else{
+						alert(_val)
 						var res = change_number(_val);
-						_val = _parsefloat(res[0]);
-						var moneyT = res[1]+"元";
+						alert(_val)
+						_val = _parsefloat(res[0]); 
+						var moneyT = res[1]+"元111";
 					}
-				}
-				
+				} 
 				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if(title.resultMGList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
@@ -485,7 +486,7 @@ function buildResultsDraft(sec,title,readonly)
 				if(_val==undefined){
 					_val="未填写"
 				}else{
-					var res = change_number(_val);
+					var res = change_number(_val); 
 					_val = _parsefloat(res[0]);
 					var moneyT = res[1];
 				}

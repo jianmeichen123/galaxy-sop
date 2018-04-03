@@ -151,7 +151,7 @@
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
-                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
+                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
@@ -159,14 +159,14 @@
                         <li>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
                             <span class="m_r15 after after2">
-                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
+                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数"/>
                             </span>
                             <!-- <span class="m_r30">% </span> -->
 	                    </li>
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
                             <span class="m_r15 after after3">
-                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
+                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>
@@ -468,15 +468,15 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
 			console.log(data)
 				if(data.result.status=="ERROR"){
-					if(data.result.errorCode == "name-repeat"){
-						$('.project-name').css('display','block');
-					}
+			    var objDatad =data.userData;
+                    if(data.result.errorCode == "name-repeat"){
+                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
+                        $('.project-name').css('display','block');
+                    }
 				}else if(data.result.status ==='OK'){
 					$('.project-name').css('display','none');
 				}
 		})
-		
-		
 	}
 
 	

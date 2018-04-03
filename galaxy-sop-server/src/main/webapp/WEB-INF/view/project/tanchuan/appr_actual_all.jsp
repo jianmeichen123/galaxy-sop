@@ -30,7 +30,7 @@
 	                	<div id="setValue">
 	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
-	                    		data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
+	                    		data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -41,7 +41,7 @@
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
 	                    		value="<fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
-	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>0到100之间的两位小数"/>
+	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>0到100之间的5位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
@@ -60,8 +60,9 @@
 	                <dt>项目估值：</dt>
 	                <dd>
 	                	<div id="setValue">
+	                	<input type="hidden" name="">
 	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" data-type="19" id="finalValuations" name="4" value="" 
-	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_3012="true"  data-msg-verify_3012="<font color=red>*</font>支持13位长度的四位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_136="true"  data-msg-verify_136="<font color=red>*</font>支持13位长度的6位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>
@@ -147,13 +148,20 @@
 			projectId : '${projectId}'
 		};
 	var infoModeList = new Array();
-	function save(){
-		
+	function save(){ 
 		 if(!$("#b_apprGrantTotal").validate().form())
 			{
 				return false;
 				
 			}  
+		set_finalValuations(1);
+		var val1=$("#finalValuations").prev().val(),
+		val2=$("#finalValuations").val(),
+		val3=val1-val2;
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
 		var fields = $('#b_apprGrantTotal').find("input[type='text'][data-title-id],select[data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
@@ -210,18 +218,14 @@
 	}
 	
 	//项目估值
-	function set_finalValuations(){
+	function set_finalValuations(val){
 		var finalValuations_val;
-		var projectShareRatio = $("#finalShareRatio").val();
-		var projectContribution = $("#grantMoney").val();
-		if(projectShareRatio > 0 && projectContribution > 0){
-			finalValuations_val =  (projectContribution * (100/projectShareRatio)).toFixed(4);
-		}
-		if(finalValuations_val && finalValuations_val > 0){
-			$("#finalValuations").val(finalValuations_val);
-		}
+		var val2 = $("#finalShareRatio").val();
+		var val1 = $("#grantMoney").val(); 
+	 	var res =finalValue (val1,val2)
+		$("#finalValuations").prev().val(res);
+		if(!val){ $("#finalValuations").val(res);}
 	}
-	
 	function getData(div){
 		var json={};
 	    var list = div.find("*[name]");

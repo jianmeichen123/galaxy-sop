@@ -49,6 +49,8 @@ public class SystemMessage extends PagableEntity {
 	private String messageStatusStr;
 	
 	private String upgradeTimeStr;
+	
+	private String maxTime;//查询已发送的消息是否已经到显示时间
 
 	public Long getId() {
 		return id;
@@ -275,4 +277,14 @@ public class SystemMessage extends PagableEntity {
 		}
 		this.endTime = endTime;
 	}
+
+	public String getMaxTime() {
+		return maxTime;
+	}
+
+	public void setMaxTime(String maxTime) {
+		this.maxTime = maxTime;
+	}
+	
+	
 }

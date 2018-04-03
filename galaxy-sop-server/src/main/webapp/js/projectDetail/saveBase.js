@@ -1,6 +1,6 @@
 function saveBaseInfo(dom,val1,val2,val3){
-	var infoModeList = new Array();
-	var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
+	var infoModeList = new Array();  
+	var fields = $("#"+dom).find(".basic_current:visible input[data-title-id],select[data-title-id]");
 	var data = {
 			projectId : projectInfo.id
 		};
@@ -29,7 +29,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			tochange:_tochange,
 			resultId:_resultId,
 			type : type
-		};
+		}; 
 		if(field.data('titleId')=="1118"&&type=="23"){  
 				var judgment = $("input[name=projectSource]").attr("m-val");
 				if(judgment!='2257'&&judgment!='2262'){ 
@@ -109,7 +109,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 	        infoModeList.push(infoMode);
 	    } 
 		data.infoModeList = infoModeList;
-	}); 
+	});  
 	sendPostRequestByJsonObjNoCache(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -118,7 +118,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					updateReportMoneyBasic();	
+					updateReportMoneyBasic(); 
 					if(dom=="basicForm"&&val1=="finance"){	
 						updateReportMoney(); 
 					}
@@ -129,10 +129,9 @@ function saveBaseInfo(dom,val1,val2,val3){
 					$('.'+close+'_center').show();
 					$('.bj_hui_on').hide();
 					$('.tip-yellowsimple').hide();
-					$("body").css('overflow-y','auto');
+					$("body").css('overflow-y','auto'); 
 					
-					
-					if(dom=='company-info-form'){
+					if(dom=='company-info-form'){ 
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);
 						$('#formationDate').text(val2);
@@ -212,7 +211,15 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
+									
 								}
 							}
 							
@@ -250,7 +257,7 @@ function updataReport(projectInfoList){
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
-							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
+							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011" )&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
 									if(num[0].length>9){
@@ -270,7 +277,14 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 								}
 							}
 							
