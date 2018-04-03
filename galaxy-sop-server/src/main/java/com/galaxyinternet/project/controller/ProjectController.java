@@ -1425,6 +1425,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	public ResponseData<Project> checkProjectName(@RequestBody Project project)
 	{
 		ResponseData<Project> resp = new ResponseData<Project>();
+		resp.setResult(new Result(Status.OK, "", "项目名可用!"));
+
 		Map<String, Object> objData = new HashMap<>();
 
 		// 验证项目名是否重复
@@ -1432,34 +1434,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		if (null == project.getProjectName() || "".equals(project.getProjectName()))
 		{
 			resp.setResult(new Result(Status.ERROR, "param-lost", "参数丢失!"));
-		} else
+			return resp;
+		}
+
+		obj.setProjectName(project.getProjectName());
+		List<Project> projectList = projectService.queryList(obj);
+
+		if (null != project.getId() && !"".equals(project.getId()))
 		{
-			obj.setProjectName(project.getProjectName());
-			if (null != project.getId() && !"".equals(project.getId()))
+			for(Project tempResult : projectList)
 			{
-				Project pro = projectService.queryById(project.getId());
-				if (pro.getProjectName().equals(project.getProjectName()))
-				{
-					resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
-					return resp;
+				if(project.getId()!=tempResult.getId()){
+					resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
+					objData.put("projectName", tempResult.getProjectName());
+					objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempResult.getCreateUid(), "realName")).toString());
+					objData.put("departmentName", (cache.hget(PlatformConst.CACHE_PREFIX_DEP+tempResult.getProjectDepartid(), "name")).toString());
 				}
 			}
-		}
-		List<Project> projectList = projectService.queryList(obj);
-		if (null != projectList && projectList.size() > 0)
-		{
-			resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
-			objData.put("projectName", projectList.get(0).getProjectName());
-			objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName")).toString());
-			objData.put("departmentName", (cache.hget(PlatformConst.CACHE_PREFIX_DEP+projectList.get(0).getProjectDepartid(), "name")).toString());
-		} else
-		{
-			resp.setResult(new Result(Status.OK, "NO-repeat", "项目名可用!"));
+		}else{
+			if (null != projectList && projectList.size() > 0)
+			{
+				resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
+				objData.put("projectName", projectList.get(0).getProjectName());
+				objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName")).toString());
+				objData.put("departmentName", (cache.hget(PlatformConst.CACHE_PREFIX_DEP+projectList.get(0).getProjectDepartid(), "name")).toString());
+			}
 		}
 
 		resp.setUserData(objData);
 		return resp;
-
 	}
 
 	/**
