@@ -210,7 +210,7 @@
 							<tr>
 								<td class="percent">
 									<span>出让股份：</span>
-									<input type="text" class="basic_mes_input" placeholder="出让股份"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数" data-title-id="1917">
+									<input type="text" class="basic_mes_input" placeholder="出让股份"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数" data-title-id="1917">
 								</td>
 							</tr>
 							<tr>

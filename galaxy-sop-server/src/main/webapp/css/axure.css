@@ -1223,7 +1223,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff; position: relative; width:700px;}
 .schedule1tc .addbtn{float: left;}
-.schedule1tc .top{width: 570px;margin-bottom: 10px;}
+ .schedule1tc .top{width: 570px;margin-bottom: 10px;}
 .schedule1tc .searchall{float: right;}
 .schedule1tc .searchall .searchbtn,.schedule1tc .searchall .txt{float: left;}
 .schedule1tc .searchall .txt{width: 150px;height: 28px;border:1px solid #e9ebf2;border-radius: 6px;padding: 0 0 0 5px;}
@@ -2099,7 +2099,8 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .role_center table th{ background-color:#fff; line-height:35px;}
 .role_center table td{ border-bottom:1px solid #f6f7fa;}
 .role_center .delete{ color:#cfcfcf; text-decoration:none; cursor:not-allowed;}
-
+.margin_45 .addbtn{display:inline-block;padding:0 20px 0 30px;background: #3ca6ff url(../img/btnico2.png) 20px -121px  no-repeat;  }
+.margin_45 .addbtn:hover{background:#0084f5;}
 /*角色弹窗*/
 .role_all{ width:450px; margin-top:45px; }
 .role_toolTip_input{ width:325px; border:1px solid #ccd2d7; line-height:30px; height:30px; border-radius:2px; font-size: 12px; text-indent:5px;}
