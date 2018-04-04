@@ -1199,13 +1199,22 @@ function validate(){
 						"data-msg-verify_94":"<font color=red>*</font>支持9位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRuleMark=="9,2"){
+			}else if(inputValRuleMark=="9,6"){
 				var validate={
-						"data-rule-verify_92":"true",
+						"data-rule-verify_96":"true",
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_92":"<font color=red>*</font>支持9位长度的两位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="9,6"){
+				var validate={
+						"data-rule-verify_96":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_96":"<font color=red>*</font>支持9位长度的6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,6"){
@@ -2123,7 +2132,7 @@ function addRow(ele)
 	            	return false;
 	            }
 	            selectContext("detail-form");
-	            $("#save-detail-btn").click(function(){ 
+	            $("#save-detail-btn").click(function(){  
 	                saveForm($("#detail-form"));
 	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
@@ -2174,7 +2183,7 @@ function addRowCompete(ele,id_code){
 					for(var i=0;i<$("textarea").length;i++){
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
-					}
+					} 
 				} else {
 
 				}
@@ -2182,7 +2191,16 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{   
+{    
+	if(form.hasClass("guzhi_pop")){ 
+      var val1 = $("input[name='field5']").val();
+	  val2=$("input[name='field5']").attr('guzhi'), 
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject(); 
@@ -2338,8 +2356,7 @@ function editRow(ele)
 	            	return false;
 	            }
 				selectContext("detail-form");
-				//增加显示字段限制
-				
+				//增加显示字段限制 
 				$.each($("#detail-form").find("input, select, textarea"),function(){
 					var ele = $(this);
 					var name = ele.attr('name');
@@ -2421,7 +2438,16 @@ function editRow(ele)
 							ele.text(selectVal);
 						}
 					}); 
-				})
+				}) 
+				//估值显示guzhi属性融资历史
+				if($("#detail-form").hasClass("guzhi_pop")){ 
+					var projectParent = $("input[name='field3']").val();
+					var projectChildren = $("input[name='field4']").val();
+					var valuations = finalValue(projectParent,projectChildren);
+					if(projectParent!=''&&projectChildren!=''){
+						$("input[name='field5']").attr("guzhi",valuations);
+					}
+				}
 				//分拨剩余金额显示
 				$(".remainMoney span").text($("#formatRemainMoney").text());
 				//特殊处理带万元单位的查看
