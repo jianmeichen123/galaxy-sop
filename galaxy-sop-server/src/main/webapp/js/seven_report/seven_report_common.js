@@ -1280,6 +1280,15 @@ function validate(){
 						"data-msg-verify_92":"<font color=red>*</font>支持9位长度的两位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="9,6"){
+				var validate={
+						"data-rule-verify_96":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_96":"<font color=red>*</font>支持9位长度的6位小数"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
 				var validate={
 						"data-rule-verify_134":"true",
