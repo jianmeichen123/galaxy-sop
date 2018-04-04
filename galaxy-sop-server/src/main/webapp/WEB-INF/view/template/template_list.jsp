@@ -73,39 +73,41 @@
 <div id="upload-dialog"  class="archivestc " style="display:none;">
 
 	<div class="title_bj">模板更新</div>
-<form id="upload-form" style='margin-top:45px;'>
-	<input type="hidden" name="id">
-	<input type="hidden" name="fileKey">
-	<input type="hidden" name="fileLength">
-    <dl class="fmdl clearfix ">
-    	<dt>存储类型：</dt>
-        <dd>
-        	<select name="docType" class="disabled" disabled="disabled"></select>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>业务分类：</dt>
-        <dd>
-        	<select name="worktype" class="disabled" disabled="disabled"></select>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>所属部门：</dt>
-        <dd>
-        	<select name="departmentId" disabled="disabled" class="disabled"></select>
-        </dd>
-    </dl>
-    <div class="fmdl clearfix">
-    	<dt>选择档案：</dt>
-    	<dd>
-        <input type="text" name="fileName" class="txt" onchange="selectFile(this)" disabled="disabled"/>
-    	</dd>
-    	<dd>
-        <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
-    	</dd>
-    </div>
-</form>
-    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
+	<form id="upload-form" style='margin-top:45px;'>
+		<input type="hidden" name="id">
+		<input type="hidden" name="fileKey">
+		<input type="hidden" name="fileLength">
+	    <dl class="fmdl clearfix ">
+	    	<dt>存储类型：</dt>
+	        <dd>
+	        	<select name="docType" class="disabled" disabled="disabled"></select>
+	        </dd>
+	    </dl>
+	    <dl class="fmdl clearfix">
+	    	<dt>业务分类：</dt>
+	        <dd>
+	        	<select name="worktype" class="disabled" disabled="disabled"></select>
+	        </dd>
+	    </dl>
+	    <dl class="fmdl clearfix">
+	    	<dt>所属部门：</dt>
+	        <dd>
+	        	<select name="departmentId" disabled="disabled" class="disabled"></select>
+	        </dd>
+	    </dl>
+	    <div class="fmdl clearfix">
+	    	<dt>选择档案：</dt>
+	    	<dd>
+	        <input type="text" name="fileName" class="txt" onchange="selectFile(this)" disabled="disabled"/>
+	    	</dd>
+	    	<dd>
+	        <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
+	    	</dd>
+	    </div>
+	</form>
+	<div style="text-align:center;"> 
+   	 <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
+	</div>
 </div>
 <!-- upload dialog end -->
 <!-- Mail dialog start-->
