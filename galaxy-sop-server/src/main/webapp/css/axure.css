@@ -3016,12 +3016,12 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		vertical-align: middle;
     }
     .add_list{
-    	padding: 8px 12px 8px 30px;
-    	border-radius:4px;
+    	padding: 0px 20px 0px 35px;
+    	border-radius:2px;
     	display: inline-block;
     	font-size:14px;
 		margin: 17px 0 0px 20px;
-		background: #539be2 url("../img/btnico2.png") 8px -119px no-repeat;
+		background: #3ca6ff url("../img/btnico2.png") 14px -121px  no-repeat;
     }
     .pop_table{
     	border:1px solid #ccd2d7;
