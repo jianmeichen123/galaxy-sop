@@ -100,6 +100,7 @@ var searchPartMoney;
 	    }
 		//编辑总注资计划
 		$("[data-btn='actual_aging']").on("click",function(){
+			alert(2323);
 		
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
