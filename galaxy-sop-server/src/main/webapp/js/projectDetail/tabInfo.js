@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){
+        $("[data-on='data-open']").click(function (){ 
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -418,7 +418,7 @@ $(function(){
 				saveBaseInfo("basicForm",s_type);
 				return;
 			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){  
-				data=getUpdateData();
+				data=getUpdateData(); 
 				if(!$("#basicForm").validate().form())
 				{
 					return;
