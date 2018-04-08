@@ -159,10 +159,13 @@ $(function(){
     $("div").delegate("input[name='field3']","blur",function(){
       var projectParent = $("input[name='field3']").val();
       var projectChildren = $("input[name='field4']").val();
-    	var valuations = finalValue(projectParent,projectChildren);
+    	var valuations = finalValue(projectParent,projectChildren); 
   		if(projectParent!=''&&projectChildren!=''){
   			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
-  		}
+  		}else{
+        //不判断+/-10 
+        $("#detail-form").removeClass("guzhi_pop");
+      }
 	});
     $("div").delegate("input[name='field4']","blur",function(){
       var projectParent = $("input[name='field3']").val();
@@ -170,6 +173,9 @@ $(function(){
       var valuations = finalValue(projectParent,projectChildren);
       if(projectParent!=''&&projectChildren!=''){
         $("input[name='field5']").val(valuations).attr("guzhi",valuations);
+      }else{
+        $("input[name='field5']").val('');
+         $("#detail-form").removeClass("guzhi_pop");
       }
 	});
     
