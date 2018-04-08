@@ -4,10 +4,10 @@ var deletedRowIds = new Array();
 // 股权结构合理性 表格删除行使用
 var deletedRowIdsGq = new Array();
 
-$('div').delegate(".h_save_btn","click",function(event){
+$('div').delegate(".h_save_btn","click",function(event){ 
 	if($("input[guzhi]").length>0){
 		var val1 = $("input[guzhi]").val(),val2= $("input[guzhi]").attr("guzhi"),
-		val3=accSub(val1,val2); 
+		val3=accSub(val1,val2);  
 		if(val3>10||val3<-10){
 			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
 			return;
@@ -30,7 +30,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	var data = {
 		projectId : projectInfo.id
 	};
-	if(reportType=="3"){   //获取投资金额
+	if(reportType=="3"){   //获取投资金额 
 		var tz_moneyNew=$("input[data-title-id=\"3004\"]").val();
 		var parentVal=$("dd[data-title-id=\"3004\"]").text();
 		var childrenVal=$("dd[data-title-id=\"3010\"]").text();
@@ -398,7 +398,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					true,
 					function(data) {
 						var result = data.result.status;
-						if (result == 'OK') {
+						if (result == 'OK') { 
 							if(parent_code){
 			            		updateInforTime(projectInfo.id,parent_code);
 			            	}
@@ -426,10 +426,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 							//$('#a_'+id_code).find('dd[data-type="3"]').hide();
 							//setDate(pid,true);
 							picData(projectInfo.id);
-							if(id_code=="PNO1_1"){
+							if(id_code=="PNO1_1"){ 
 								var val=$("input[type='hidden'].money").val();
-								$("dd[data-title-id=\"3012\"]").text(_parsefloat(val));
-								$("dd[data-title-id=\"3012\"]").next("dd").show();
+								if(val!=''){
+									$("dd[data-title-id=\"3012\"]").text(_parsefloat(val));
+									$("dd[data-title-id=\"3012\"]").next("dd").show();  
+								}
 								if(resultVal!="未填写" && childrenVal=="未填写"){
 									if(parentVal!="未填写" && tz_moneyNew==""){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
@@ -464,8 +466,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 										$("dd[data-title-id=\"3012\"]").text(_parsefloat(resultVal));
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}else if(parentVal!="未填写" && tz_moneyNew==""){
-										$("dd[data-title-id=\"3012\"]").text("未填写");
-										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+//										$("dd[data-title-id=\"3012\"]").text("未填写");
+//										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}
 								}
 							}
