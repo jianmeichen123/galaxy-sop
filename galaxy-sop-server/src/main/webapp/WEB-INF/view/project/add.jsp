@@ -401,22 +401,22 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
    var formData;
 	$(function(){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
-		createMenus(5);
-		//获取TOKEN 用于验证表单提交
-	/* 	sendPostRequest(platformUrl.getToken,function(data){
-			TOKEN=data.TOKEN;
-			return TOKEN;
-		}); */
-		$("#formatShareRatio").blur(function(){
-			var valuations = calculationValuations();
+		createMenus(5); 
+		
+		$("#formatShareRatio").blur(function(){ 
+			var projectShareRatio = $("#formatShareRatio").val();
+			var projectContribution = $("#formatContribution").val();
+			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(4));
+				$("#formatValuations").val(valuations).attr("guzhi",valuations);
 			}
 		});
-		$("#formatContribution").blur(function(){
-			var valuations = calculationValuations();
+		$("#formatContribution").blur(function(){ 
+			var projectShareRatio = $("#formatShareRatio").val();
+			var projectContribution = $("#formatContribution").val();
+			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(4));
+				$("#formatValuations").val(valuations).attr("guzhi",valuations);
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){
@@ -485,15 +485,23 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 })  
 //添加项目页面保存按钮
 	function add(){  
+		
       if(!$('.project-name').is(":hidden")){
 			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
-	         
 			return false;
 		}
         $("#selectRadio[name=projectContractor]").css("display","inline-block")
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
 			return false;	
+		}
+        //验证估值
+        var s_val1=$("#formatValuations").attr("guzhi"),
+		s_val2=$("#formatValuations").val(),
+		s_val3=accSub(s_val1,s_val2); 
+		if(s_val3>10||s_val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
 		}
 		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null || typeof(val) == "undefined"){

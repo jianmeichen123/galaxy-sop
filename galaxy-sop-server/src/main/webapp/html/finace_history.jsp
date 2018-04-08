@@ -12,7 +12,7 @@
 	<div class="title_bj" id="finace_popup_name"></div>
 	<form action="" id="detail-form" class="guzhi_pop">
 			
-    <input name="index" type="hidden" value="">
+      <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
