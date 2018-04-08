@@ -660,12 +660,12 @@ function buildShareResult(reportType,relateId){
 									if(_val==undefined||_val=="—"){
 										_val=0;
 									}
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
 								if(title.id=="3010"){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
 								}}
 						});
 					}
@@ -778,7 +778,7 @@ function updataReport(projectInfoList){
 									_val=0;
 								}
 								if(_val!=0){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}else{
 									$("#invest_chart").html("");
 								}
