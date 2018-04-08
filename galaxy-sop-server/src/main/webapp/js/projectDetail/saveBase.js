@@ -259,7 +259,6 @@ function updataReport(projectInfoList){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011" )&&_val) {
-								debugger;
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
 									if (title.titleId =="3004"||title.titleId =="3010"){

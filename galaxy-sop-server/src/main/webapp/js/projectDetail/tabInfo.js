@@ -609,11 +609,15 @@ function buildShareResult(reportType,relateId){
 								if ((title.id =="3004"||title.id =="3010"||title.id =="3011"||title.id =="3012")&&_val) {
 									if(_val.indexOf('.')>-1){
 										var num=_val.split('.');
-										if(num[0].length>9){
-											_val=_val;
+										if (title.titleId =="3004"||title.titleId =="3010"){
+											
 										}else{ 
-											_val=Number(_val).toFixed(4)
-										}
+											if(num[0].length>9){
+												_val=_val;
+											}else{ 
+												_val=Number(_val).toFixed(4)
+											}
+										} 
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
