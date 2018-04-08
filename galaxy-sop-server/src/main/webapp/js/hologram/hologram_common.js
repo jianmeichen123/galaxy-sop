@@ -1431,7 +1431,7 @@ jQuery.validator.addMethod("verify_35", function(value, element) {
 }, "支持0-100之间的5位小数"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
+	var verify_32 = /^\d{1,2}(?<!0{1,2})(\.\d{5})?$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"

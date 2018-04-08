@@ -35,7 +35,7 @@
             <dl class="fmdl clearfix sign_fmdl">
              <dt>投资金额：</dt>
                 <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_96="true" data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数"/>
                 </dd>
                  
             </dl>
