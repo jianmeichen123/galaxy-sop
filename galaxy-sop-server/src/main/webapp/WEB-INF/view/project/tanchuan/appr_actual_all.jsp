@@ -211,6 +211,7 @@
 						$("#powindow").remove();
 						$("#popbg").remove();
 						initTabAppropriation('${projectId}');
+						rightMoneyCount('${projectId}');
 					}
                    
 			});
@@ -274,5 +275,36 @@
 	}
 	_val = _parsefloat(_val);
 	$('input[data-title-id="3012"]').val(_val);
-
+function rightMoneyCount(proid){
+	sendPostRequest(platformUrl.getApprProcess+"/"+proid,appropriationProcessBack);
+	 function appropriationProcessBack(data){
+	 	var result = data.result.status;
+	 	if(result == "ERROR"){ //OK, ERROR
+	 		layer.msg(data.result.message);
+	 		return;
+	 	}else{
+	 		 var grantTotal = data.userData;
+	 		 var sumPlanMoney=grantTotal.sumPlanMoney;
+	 		 var sumActualMoney=grantTotal.sumActualMoney;
+	 		 $("#planMoney").val(sumPlanMoney);
+	 		  setData(sumPlanMoney,sumActualMoney);
+	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
+	 			sumActualMoney=0;
+	 		 }else{
+	 			 if(sumActualMoney==0.000000){
+	 				sumActualMoney=0;
+	 			 }
+	 		 }
+	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
+	 			    sumPlanMoney=0;
+		 		 }else{
+		 			 if(sumPlanMoney==0.00){
+		 				sumPlanMoney=0;
+		 			 }
+		 		 }
+	 		$(".money_complete").text(sumActualMoney);
+	 		$(".money_total").text(sumPlanMoney);
+	  	}
+	 }
+}
 	</script>
