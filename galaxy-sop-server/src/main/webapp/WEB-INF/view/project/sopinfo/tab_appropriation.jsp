@@ -164,18 +164,18 @@ var searchPartMoney;
 					 getTotalAppr(projectInfo.id,_data_type != "info");
 					//计算剩余金额
 		                var totalMoneyPart=$("#totalMoneyPart").val();
-		                $("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
+		                $("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(6)*10000/10000);
 		                if(_data_type=='add'){   //新增
 		                	 $(".moeny_all input").on("blur",function(){
 				                	var val=$(this).val();
 				                	var errorTips=$(this).siblings(".error");
 				                	if(errorTips.is(":visible")){
 				                		val=0;
-				                		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(4);
+				                		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(6);
 				                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
 				                	}else{
 				                		if(Number(totalMoneyPart)-sum-val>0){
-				                    		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(4);
+				                    		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(6);
 				                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
 				                    	}else{
 				                    		$("#formatRemainMoney").text(0);
@@ -189,11 +189,11 @@ var searchPartMoney;
 		                    	var errorTips=$(this).siblings(".error");
 		                    	if(errorTips.is(":visible")){
 		                    		val=0;
-		                    		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+		                    		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
 		                    		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
 		                    	}else{
 		                    		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-		                        		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+		                        		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
 		                        		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
 		                        	}else{
 		                        		$("#formatRemainMoney").text(0);

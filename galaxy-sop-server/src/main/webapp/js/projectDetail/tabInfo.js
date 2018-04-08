@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){ 
+        $("[data-on='data-open']").click(function (){
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
