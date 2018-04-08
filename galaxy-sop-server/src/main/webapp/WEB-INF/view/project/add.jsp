@@ -409,6 +409,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
 				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
 		$("#formatContribution").blur(function(){ 
@@ -417,6 +419,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
 				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){
@@ -495,7 +499,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			$(".adddpro-save").submit();
 			return false;	
 		}
-        //验证估值
+        //验证估值 
         var s_val1=$("#formatValuations").attr("guzhi"),
 		s_val2=$("#formatValuations").val(),
 		s_val3=accSub(s_val1,s_val2); 
