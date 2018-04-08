@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){ 
+        $("[data-on='data-open']").click(function (){
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -418,7 +418,7 @@ $(function(){
 				saveBaseInfo("basicForm",s_type);
 				return;
 			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){  
-				data=getUpdateData(); 
+				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
 					return;
@@ -609,15 +609,11 @@ function buildShareResult(reportType,relateId){
 								if ((title.id =="3004"||title.id =="3010"||title.id =="3011"||title.id =="3012")&&_val) {
 									if(_val.indexOf('.')>-1){
 										var num=_val.split('.');
-										if (title.titleId =="3004"||title.titleId =="3010"){
-											
+										if(num[0].length>9){
+											_val=_val;
 										}else{ 
-											if(num[0].length>9){
-												_val=_val;
-											}else{ 
-												_val=Number(_val).toFixed(4)
-											}
-										} 
+											_val=Number(_val).toFixed(4)
+										}
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
@@ -739,11 +735,15 @@ function updataReport(projectInfoList){
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011")&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
-									if(num[0].length>9){
-										_val=_val;
-									}else{
-										_val=Number(_val).toFixed(4)
-									}
+									if (title.titleId =="3004"||title.titleId =="3010"){
+										
+									}else{ 
+										if(num[0].length>9){
+											_val=_val;
+										}else{ 
+											_val=Number(_val).toFixed(4)
+										}
+									}  
 								}
 								_val = _parsefloat(_val);
 							} 
