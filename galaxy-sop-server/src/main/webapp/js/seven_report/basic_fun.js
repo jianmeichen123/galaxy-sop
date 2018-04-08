@@ -233,7 +233,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				$("input[data-title-id=3012]").val(res_money);
+				$("input[data-title-id=3012]").val(res_money=='未填写'?'':res_money);
 				//计算项目估值
 				if(reportType=="3"){ 
 					$(".tz_money").val(tz_money);  //投资金额;
@@ -275,6 +275,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(valuations);
+							}else{
+								alert("DD")
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -289,6 +291,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 									$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}else{
+
+									alert("DD2")
 								}
 							}
 						})
@@ -318,14 +323,15 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 							
 						}
-						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations());
-						
+						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations()); 
 						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){ 
 							var valuations = calculationValuations(); 
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
-									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								
+								$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true); 
+							}else{
+								alert("WW ")
+								$("input[data-title-id='"+result+"']").val('').removeAttr('guzhi');
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -333,6 +339,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(valuations != null){
 									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}else{ 
+								alert("WW 2")
+								$("input[data-title-id='"+result+"']").val('').removeAttr('guzhi');
 							}
 						})
 					})
