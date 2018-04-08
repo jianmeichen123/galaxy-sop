@@ -17,9 +17,12 @@ UPDATE `fx_db`.`information_title` SET `val_rule_mark`='9,6' WHERE `id`='1923';
 
 -- 下一轮及隔一轮的融资>估值
 UPDATE `fx_db`.`information_title` SET `val_rule_mark`='13,6' WHERE `id`='1929';
+-- 下一轮及隔一轮的融资>估值(运营报告)
+UPDATE `fx_db`.`information_title` SET `val_rule_mark`='13,6' WHERE `id`='2072';
+
 -- 隔轮融资的估值及时间表>隔轮融资估值
 UPDATE `fx_db`.`information_title` SET `val_rule_mark`='13,6' WHERE `id`='1939';
--- 隔轮融资的估值及时间表>隔轮融资估值
+-- 隔轮融资的估值及时间表>隔轮融资估值(运营报告)
 UPDATE `fx_db`.`information_title` SET `val_rule_mark`='13,6' WHERE `id`='2079';
 
 

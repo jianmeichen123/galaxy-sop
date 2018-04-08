@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){ 
+        $("[data-on='data-open']").click(function (){
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -398,22 +398,15 @@ $(function(){
  
 		$("[data-on='save']").click(function(){ 
 			var s_type=$(this).attr("save_type");  
-			if($(".basic_current:visible input[VType=guzhi]").length>=1){  
+			if($(".basic_current:visible input[VType=guzhi]").length>=1&&($("#project_share_ratio_edit").val().trim()&&$("#project_contribution_edit").val().trim())){  
 				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
-				if($(".basic_current:visible input[VType=guzhi]").length>=1){ 
-					var val1=$("#project_contribution_edit").is(":hidden")?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
-					var val2=$("#project_share_ratio_edit").is(":hidden")?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
-					var res = finalValue(val1,val2);  
-					if(res && !$("#finalValuations_edit").is(":hidden")){
-						$("#finalValuations_edit").prev().val(res); 
-					}else if(res && !$("#project_valuations_edit").is(":hidden")){
-						$("#project_valuations_edit").prev().val(res); 
-					} 
-				}	 
-				var val1=$(".basic_current:visible input[VType=guzhi]").prev().val(),
-				val2=$(".basic_current:visible input[VType=guzhi]").val(),
-				val3=accSub(val1,val2); 
-				if(val3>10||val3<-10){
+				var val1=$("#project_contribution_edit").is(":hidden")?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
+				var val2=$("#project_share_ratio_edit").is(":hidden")?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
+				var res = finalValue(val1,val2);   
+				var s_val1=res,
+				s_val2=$(".basic_current:visible input[VType=guzhi]").val(),
+				s_val3=accSub(s_val1,s_val2); 
+				if(s_val3>10||s_val3<-10){
 					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
 					return;
 				}
@@ -660,12 +653,12 @@ function buildShareResult(reportType,relateId){
 									if(_val==undefined||_val=="—"){
 										_val=0;
 									}
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
 								if(title.id=="3010"){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
 								}}
 						});
 					}
@@ -778,7 +771,7 @@ function updataReport(projectInfoList){
 									_val=0;
 								}
 								if(_val!=0){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}else{
 									$("#invest_chart").html("");
 								}

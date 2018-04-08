@@ -57,12 +57,12 @@
 //验证
 //投资形式-投资金额
 	jQuery.validator.addMethod("amount", function (value, element) {
-		var amount = /^(([0-9]{1,6})|([0-9]{1,6}\.[0-9]{1,4}))$/;
+		var amount = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (amount.test(value));
-	}, "支持0-1000000的四位小数");
+	}, "支持9位长度的6位小数");
 //占股比例
 	jQuery.validator.addMethod("share", function (value, element) {
-		var share = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+		var share = /^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
 		return this.optional(element) || (share.test(value));
 	}, "0到100之间的5位小数");
 	 
@@ -170,7 +170,8 @@ jQuery.validator.addMethod("verify_96", function(value, element) {
 	//inputValRuleMark=="3,2"
 	
 jQuery.validator.addMethod("verify_35", function(value, element) {   
-	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+	//var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
 	return this.optional(element) || (verify_35.test(value));
 }, "支持0-100之间的5位小数"); 
 	jQuery.validator.addMethod("verify_32", function(value, element) {   

@@ -29,7 +29,7 @@
 	                <dd>	
 	                	<div id="setValue">
 	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" data-result-id="${result3004}" data-type="19" name="1"  
-	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
+	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.######" maxFractionDigits="6" > </fmt:formatNumber>" onblur="set_finalValuations()"
 	                    		data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
@@ -40,8 +40,8 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
-	                    		value="<fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
-	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>0到100之间的5位小数"/>
+	                    		value="<fmt:formatNumber value="${value3010}" pattern="#.#####" maxFractionDigits="5" > </fmt:formatNumber>"  onblur="set_finalValuations()"
+	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_35="true"  data-msg-verify_35="<font color=red>*</font>0到100之间的5位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
@@ -211,6 +211,7 @@
 						$("#powindow").remove();
 						$("#popbg").remove();
 						initTabAppropriation('${projectId}');
+						rightMoneyCount('${projectId}');
 					}
                    
 			});
@@ -269,10 +270,41 @@
 		if(num[0].length>9){
 			_val=_val;
 		}else{
-			_val=Number(_val).toFixed(4)
+			_val=Number(_val).toFixed(6)
 		}
 	}
 	_val = _parsefloat(_val);
 	$('input[data-title-id="3012"]').val(_val);
-
+function rightMoneyCount(proid){
+	sendPostRequest(platformUrl.getApprProcess+"/"+proid,appropriationProcessBack);
+	 function appropriationProcessBack(data){
+	 	var result = data.result.status;
+	 	if(result == "ERROR"){ //OK, ERROR
+	 		layer.msg(data.result.message);
+	 		return;
+	 	}else{
+	 		 var grantTotal = data.userData;
+	 		 var sumPlanMoney=grantTotal.sumPlanMoney;
+	 		 var sumActualMoney=grantTotal.sumActualMoney;
+	 		 $("#planMoney").val(sumPlanMoney);
+	 		  setData(sumPlanMoney,sumActualMoney);
+	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
+	 			sumActualMoney=0;
+	 		 }else{
+	 			 if(sumActualMoney==0.000000){
+	 				sumActualMoney=0;
+	 			 }
+	 		 }
+	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
+	 			    sumPlanMoney=0;
+		 		 }else{
+		 			 if(sumPlanMoney==0.00){
+		 				sumPlanMoney=0;
+		 			 }
+		 		 }
+	 		$(".money_complete").text(sumActualMoney);
+	 		$(".money_total").text(sumPlanMoney);
+	  	}
+	 }
+}
 	</script>

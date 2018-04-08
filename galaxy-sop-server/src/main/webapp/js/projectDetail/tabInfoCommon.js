@@ -343,7 +343,7 @@ $(function(){
 				$('.projectname-edit-label').hide();
 				return false;
 			}else{
-				var projectID = '${projectId}';
+				var projectID = $("#project_name_t").attr("pid");
 				var data1 = {
 					'projectName':projectName,
 					'id' : projectID

@@ -233,7 +233,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				$("input[data-title-id=3012]").val(res_money);
+				$("input[data-title-id=3012]").val(res_money=='未填写'?'':res_money);
 				//计算项目估值
 				if(reportType=="3"){ 
 					$(".tz_money").val(tz_money);  //投资金额;
@@ -275,6 +275,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(valuations);
+							}else{ 
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -289,6 +290,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 									$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}else{ 
 								}
 							}
 						})
@@ -318,14 +320,14 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 							
 						}
-						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations());
-						
+						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations()); 
 						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){ 
 							var valuations = calculationValuations(); 
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
-									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								
+								$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true); 
+							}else{ 
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -333,6 +335,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(valuations != null){
 									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}else{  
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						})
 					})
@@ -552,17 +556,17 @@ function editRow(ele)
 				getTotalAppr(projectInfo.id);
 				
 				var totalMoneyPart=$("#totalMoneyPart").val();
-				$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
+				$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(6)*10000/10000);
 				$(".moeny_all input").on("blur",function(){
 	            	var val=$(this).val();
 	            	var errorTips=$(this).siblings(".error");
 	            	if(errorTips.is(":visible")){
 	            		val=0;
-	            		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+	            		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
 	            		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
 	            	}else{
 	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-	                		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+	                		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
 	                		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
 	                	}else{
 	                		$("#formatRemainMoney").text(0);
@@ -1081,17 +1085,17 @@ function addRow(ele)
                     selectContext("detail-form");
                     //计算剩余金额
                     var totalMoneyInit=$("#totalMoneyPart").val();
-                    $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(4)*10000/10000);
+                    $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(6)*10000/10000);
                     $(".moeny_all input").on("blur",function(){
                     	var val=$(this).val();
                     	var errorTips=$(this).siblings(".error");
                     	if(errorTips.is(":visible")){
                     		val=0;
-                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(6);
                     		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
                     	}else{
                     		if(Number(totalMoneyInit)-sum-val>0){
-                        		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+                        		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(6);
                         		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
                         	}else{
                         		$("#formatRemainMoney").text(0);

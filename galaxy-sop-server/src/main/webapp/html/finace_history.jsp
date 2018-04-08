@@ -12,7 +12,7 @@
 	<div class="title_bj" id="finace_popup_name"></div>
 	<form action="" id="detail-form" class="guzhi_pop">
 			
-    <input name="index" type="hidden" value="">
+      <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
@@ -35,7 +35,7 @@
             <dl class="fmdl clearfix sign_fmdl">
              <dt>投资金额：</dt>
                 <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_96="true" data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数"/>
                 </dd>
                  
             </dl>
@@ -159,10 +159,13 @@ $(function(){
     $("div").delegate("input[name='field3']","blur",function(){
       var projectParent = $("input[name='field3']").val();
       var projectChildren = $("input[name='field4']").val();
-    	var valuations = finalValue(projectParent,projectChildren);
+    	var valuations = finalValue(projectParent,projectChildren); 
   		if(projectParent!=''&&projectChildren!=''){
   			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
-  		}
+  		}else{
+        //不判断+/-10 
+        $("#detail-form").removeClass("guzhi_pop");
+      }
 	});
     $("div").delegate("input[name='field4']","blur",function(){
       var projectParent = $("input[name='field3']").val();
@@ -170,6 +173,9 @@ $(function(){
       var valuations = finalValue(projectParent,projectChildren);
       if(projectParent!=''&&projectChildren!=''){
         $("input[name='field5']").val(valuations).attr("guzhi",valuations);
+      }else{
+        $("input[name='field5']").val('');
+         $("#detail-form").removeClass("guzhi_pop");
       }
 	});
     
