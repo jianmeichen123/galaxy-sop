@@ -275,8 +275,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(valuations);
-							}else{
-								alert("DD")
+							}else{ 
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -291,9 +290,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 									$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
-								}else{
-
-									alert("DD2")
+								}else{ 
 								}
 							}
 						})
@@ -329,9 +326,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(valuations != null){
 								$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true); 
-							}else{
-								alert("WW ")
-								$("input[data-title-id='"+result+"']").val('').removeAttr('guzhi');
+							}else{ 
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
@@ -339,9 +335,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(valuations != null){
 									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-							}else{ 
-								alert("WW 2")
-								$("input[data-title-id='"+result+"']").val('').removeAttr('guzhi');
+							}else{  
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						})
 					})

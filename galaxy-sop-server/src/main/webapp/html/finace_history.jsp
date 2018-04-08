@@ -163,8 +163,7 @@ $(function(){
   		if(projectParent!=''&&projectChildren!=''){
   			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
   		}else{
-        //不判断+/-10
-        $("input[name='field5']").val('');
+        //不判断+/-10 
         $("#detail-form").removeClass("guzhi_pop");
       }
 	});
