@@ -102,7 +102,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			}else if(type==14 )
 		{
 			infoMode.value = field.attr('m-val');
-		}else if(type==19 || (!field.hasClass("inputSouce")&&type==1)){
+		}else if(type==19 || (!field.hasClass("inputSouce")&&type==1)){ 
 			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null&&type!="13") {
@@ -209,6 +209,7 @@ function updataReport(projectInfoList){
 								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
+									
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
@@ -260,10 +261,14 @@ function updataReport(projectInfoList){
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011" )&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
-									if(num[0].length>9){
-										_val=_val;
-									}else{
-										_val=Number(_val).toFixed(4)
+									if (title.titleId =="3004"||title.titleId =="3010"){
+										
+									}else{ 
+										if(num[0].length>9){
+											_val=_val;
+										}else{
+											_val=Number(_val).toFixed(4)
+										}
 									}
 								}
 								_val = _parsefloat(_val);

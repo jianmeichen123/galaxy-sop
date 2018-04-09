@@ -409,6 +409,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
 				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
 		$("#formatContribution").blur(function(){ 
@@ -417,6 +419,8 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
 				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){
@@ -466,14 +470,20 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var data2 = {
 				'projectName' : projectName
 		}
-		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
-			console.log(data)
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){ 
 				if(data.result.status=="ERROR"){
 			       objDatad =data.userData;
-                    if(data.result.errorCode == "name-repeat"){
+                    if(data.result.errorCode == "name-repeat"){  
+            			$("select").attr("disabled",true)
                         layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
                         $('.project-name').css('display','block');
                     }
+                    $(".layui-layer-btn").click(function(){ 
+            			$("select").removeAttr("disabled")
+                    })
+                    $(".layui-layer-close").click(function(){ 
+            			$("select").removeAttr("disabled")
+                    })
 				}else if(data.result.status ==='OK'){
 					$('.project-name').css('display','none');
 				}
@@ -484,8 +494,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 	
 })  
 //添加项目页面保存按钮
-	function add(){  
-		
+	function add(){   
       if(!$('.project-name').is(":hidden")){
 			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
 			return false;
@@ -495,7 +504,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			$(".adddpro-save").submit();
 			return false;	
 		}
-        //验证估值
+        //验证估值 
         var s_val1=$("#formatValuations").attr("guzhi"),
 		s_val2=$("#formatValuations").val(),
 		s_val3=accSub(s_val1,s_val2); 

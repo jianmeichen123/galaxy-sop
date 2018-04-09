@@ -173,8 +173,7 @@ $(function(){
       var valuations = finalValue(projectParent,projectChildren);
       if(projectParent!=''&&projectChildren!=''){
         $("input[name='field5']").val(valuations).attr("guzhi",valuations);
-      }else{
-        $("input[name='field5']").val('');
+      }else{ 
          $("#detail-form").removeClass("guzhi_pop");
       }
 	});

@@ -181,7 +181,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	if(reportType=="3"){   //获取股权占比值
 		var stockPencent=$("dd[data-title-id=\"3010\"]").text();
 		var tz_money=$("dd[data-title-id=\"3004\"]").text();
-		var res_money=$("dd[data-title-id=\"3012\"]").text();
+		var res_money=$("dd[data-title-id=\"3012\"]").text()=="未填写"?"":$("dd[data-title-id=\"3012\"]").text();
 	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
@@ -233,7 +233,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				$("input[data-title-id=3012]").val(res_money=='未填写'?'':res_money);
+				if(res_money){
+					$("input[data-title-id=3012]").val(res_money); 
+				}
 				//计算项目估值
 				if(reportType=="3"){ 
 					$(".tz_money").val(tz_money);  //投资金额;

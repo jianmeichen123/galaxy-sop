@@ -326,9 +326,8 @@ $(function(){
 		$("#project_share_ratio_edit").blur(function(){
 			var val2 = $("#project_share_ratio_edit").val();
 			var val1 = $("#project_contribution_edit").val();
-			var valuations = finalValue(val1,val2);
-			$("#project_valuations_edit").val("");
-			if(valuations){
+			var valuations = finalValue(val1,val2); 
+			if(valuations!=null){
 				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
@@ -342,9 +341,8 @@ $(function(){
 		$("#project_contribution_edit").blur(function(){
 			var val2 = $("#project_share_ratio_edit").val();
 			var val1 = $("#project_contribution_edit").val();
-			var valuations = finalValue(val1,val2);
-			$("#project_valuations_edit").val("");
-			if(valuations){  
+			var valuations = finalValue(val1,val2);  
+			if(valuations!=null){  
 				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
@@ -357,9 +355,8 @@ $(function(){
 		$("#finalShareRatio_edit").blur(function(){
 			var valu2 = $("#finalShareRatio_edit").val();
 			var valu1 = $("#finalContribution_edit").val();
-			var valuations = finalValue(valu1,valu2);
-			$("finalValuations_edit").val("");
-			if(valuations){
+			var valuations = finalValue(valu1,valu2); 
+			if(valuations!=null){
 				$("#finalValuations_edit").val(valuations);
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
@@ -373,9 +370,8 @@ $(function(){
 		$("#finalContribution_edit").blur(function(){ 
 			var valu2 = $("#finalShareRatio_edit").val();
 			var valu1 = $("#finalContribution_edit").val();
-			var valuations = finalValue(valu1,valu2);
-			$("#finalValuations_edit").val("");
-			if(valuations){
+			var valuations = finalValue(valu1,valu2); 
+			if(valuations!=null){
 				$("#finalValuations_edit").prev().val(valuations)
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
@@ -739,11 +735,15 @@ function updataReport(projectInfoList){
 							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011")&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
-									if(num[0].length>9){
-										_val=_val;
-									}else{
-										_val=Number(_val).toFixed(4)
-									}
+									if (title.titleId =="3004"||title.titleId =="3010"){
+										
+									}else{ 
+										if(num[0].length>9){
+											_val=_val;
+										}else{ 
+											_val=Number(_val).toFixed(4)
+										}
+									}  
 								}
 								_val = _parsefloat(_val);
 							} 
