@@ -2504,6 +2504,7 @@ function editRow(ele)
 				$('.finicial-number').text(oppoPerson);
 				$('.milestone').text(degress);
 				$('.finicial-time').text(dangerRation); 
+				$("#detail-form input[name='index']").val(row.index());
 				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
