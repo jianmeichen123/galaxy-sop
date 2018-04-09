@@ -496,7 +496,8 @@ function editRow(ele)
 			 var trs=$(ele).closest("table[data-code='"+code+"']").find("tr");
 			 var sum=0;
 			 $.each(trs,function(){ 
-				 sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 //sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 sum=accAdd(sum,Number($(this).find("td[data-field-name='field3']").text()));
 			 })
 		}
 		
@@ -557,19 +558,23 @@ function editRow(ele)
 				//计算剩余金额
 				getTotalAppr(projectInfo.id);
 				
-				var totalMoneyPart=$("#totalMoneyPart").val();
-				$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(6)*10000/10000);
-				$(".moeny_all input").on("blur",function(){
+				var totalMoneyPart=$("#totalMoneyPart").val();  
+				$("#formatRemainMoney").text(_parsefloat(accSub(totalMoneyPart,sum)));
+				$(".moeny_all input").on("blur",function(){ 
 	            	var val=$(this).val();
 	            	var errorTips=$(this).siblings(".error");
 	            	if(errorTips.is(":visible")){
 	            		val=0;
-	            		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
-	            		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+	            		var swich = accSub(totalMoneyPart,sum)
+                		var formatRemainMoneyVal=accSub(swich,val);
+                		formatRemainMoneyVal = accSub(formatRemainMoneyVal,val);
+                		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal)); 
 	            	}else{
-	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-	                		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
-	                		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){ 
+							var swich = accSub(totalMoneyPart,sum)
+	                		var formatRemainMoneyVal=accSub(swich,val);
+	                		formatRemainMoneyVal = accSub(formatRemainMoneyVal,val);
+	                		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
 	                	}else{
 	                		$("#formatRemainMoney").text(0);
 	                	}
@@ -1050,7 +1055,8 @@ function addRow(ele)
     			 var trs=$("table.editable[data-code='"+code+"']").find("tr");
     			 var sum=0;
     			 $.each(trs,function(){ 
-    				 sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 	//sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 	sum=accAdd(sum,Number($(this).find("td[data-field-name='field3']").text()))
     			 })
     			
     		}
@@ -1086,19 +1092,21 @@ function addRow(ele)
                     getTotalAppr(projectInfo.id);
                     selectContext("detail-form");
                     //计算剩余金额
-                    var totalMoneyInit=$("#totalMoneyPart").val();
-                    $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(6)*10000/10000);
+                    var totalMoneyInit=$("#totalMoneyPart").val(); 
+                    $("#formatRemainMoney").text(_parsefloat(accSub(totalMoneyInit,sum)));
                     $(".moeny_all input").on("blur",function(){
                     	var val=$(this).val();
                     	var errorTips=$(this).siblings(".error");
                     	if(errorTips.is(":visible")){
                     		val=0;
-                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(6);
-                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+                    		var swith = accSub(totalMoneyInit,sum)
+                    		var formatRemainMoneyVal = accSub(swith,val)
+                    		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
                     	}else{
-                    		if(Number(totalMoneyInit)-sum-val>0){
-                        		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(6);
-                        		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+                    		if(Number(totalMoneyInit)-sum-val>0){ 
+                    			var swith = accSub(totalMoneyInit,sum)
+                    			var formatRemainMoneyVal = accSub(swith,val)
+                        		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
                         	}else{
                         		$("#formatRemainMoney").text(0);
                         	}
