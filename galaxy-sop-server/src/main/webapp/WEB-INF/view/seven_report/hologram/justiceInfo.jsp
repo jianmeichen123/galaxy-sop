@@ -257,8 +257,7 @@ var deleteJSON={};
 				} else {
 
 				}
-		}) */ 
-		console.log(111111);
+		}) */  
 		data.parentId="1812";
 	//$("body").showLoading();
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){

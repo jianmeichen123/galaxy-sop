@@ -862,7 +862,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{  
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -878,7 +878,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		/*if(k === 'field1'){
 			num = k;
-		}*/
+		}*/ 
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){			
@@ -1424,9 +1424,9 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
-jQuery.validator.addMethod("verify_35", function(value, element) {   
-	
-	//var verify_35 =/^\d+(?:\.\d{1,5})?$/;
+jQuery.validator.addMethod("verify_35", function(value, element) {    
+	 
+	if(_parsefloat(value)=='0'){value=0;}
 	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
 	return this.optional(element) || (verify_35.test(value));
 }, "支持0-100之间的5位小数"); 

@@ -119,9 +119,6 @@ function saveBaseInfo(dom,val1,val2,val3){
 				if (result == 'OK') {
 					layer.msg('保存成功');
 					updateReportMoneyBasic(); 
-					if(dom=="basicForm"&&val1=="finance"){	
-						updateReportMoney(); 
-					}
 //					弹窗关闭
 					var close="basic"
 					$('.'+close+'_current').hide();//basic_current
@@ -130,7 +127,10 @@ function saveBaseInfo(dom,val1,val2,val3){
 					$('.bj_hui_on').hide();
 					$('.tip-yellowsimple').hide();
 					$("body").css('overflow-y','auto'); 
-					
+
+					if(dom=="basicForm"&&val1=="finance"){	
+						updateReportMoney(); 
+					}
 					if(dom=='company-info-form'){ 
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);
@@ -187,7 +187,7 @@ function updateReportMoneyBasic(){
 		}
 	})
 }
-function updataReport(projectInfoList){ 
+function updataReport(projectInfoList){  
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
@@ -195,7 +195,7 @@ function updataReport(projectInfoList){
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
 	    		if(entityList && entityList.length>0){
-	    			$.each(entityList,function(){
+	    			$.each(entityList,function(){ 
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
 						if(title.resultId){
