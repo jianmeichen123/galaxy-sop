@@ -1195,7 +1195,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
+{ 
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
@@ -1228,7 +1228,7 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				var val_text = data[key];
-				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"||titleId=="1144"){					
 					if(key=="field2"){
 						val_text = _parsefloat(val_text)
 					}

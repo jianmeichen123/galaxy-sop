@@ -862,7 +862,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");

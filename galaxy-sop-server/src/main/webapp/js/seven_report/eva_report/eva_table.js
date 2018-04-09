@@ -36,6 +36,7 @@ function saveForm(form)
 {
 	if($(form).validate().form())
 	{
+		debugger;
 		var data = $(form).serializeObject();
 		saveRow(data);
 	}
@@ -45,6 +46,7 @@ function saveForm(form)
  */
 function saveRow(data)
 {
+	debugger
 	data = JSON.parse(data);
 	var titleId = data.titleId;
 	var index = data.index;
@@ -56,6 +58,9 @@ function saveRow(data)
 	else
 	{
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		if(titleId=='1144'){
+			data.field2=_parsefloat(data.field2)
+		}
 		for(var key in data)
 		{
 			if(key.indexOf('field')>-1)

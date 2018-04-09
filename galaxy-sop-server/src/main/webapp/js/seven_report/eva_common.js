@@ -1206,6 +1206,7 @@ function s_editRow(ele)
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
+				debugger;
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	

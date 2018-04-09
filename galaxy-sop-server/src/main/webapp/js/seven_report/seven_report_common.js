@@ -894,7 +894,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths = $('table[data-title-id="'+titleId+'"]:eq(0) th');
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -950,7 +950,7 @@ function buildRow(row,showOpts,titleId)
 
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
-	var td = $('<td data-field-name="opt"></td>');
+	var td = $('<td data-field-name="opt"></td>'); 
 	if(showOpts == true)
 	{
 		if(funFlg=="1"){
