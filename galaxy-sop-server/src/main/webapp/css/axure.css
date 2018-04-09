@@ -3082,6 +3082,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		border-radius:2px;
 		color:#b2b2b2!important;
 	}
+	.team_wid_p.blockRed_error #field2-error {float:none;}
 	.popbtm_btn .bluebtn{
 		float: right;
 		margin-left: 15px;
