@@ -141,7 +141,8 @@ var searchPartMoney;
 		 var trs=$(".approp_table tbody").find("tr");
 		 var sum=0;
 		 $.each(trs,function(){ 
-			 sum+=Number($(this).find("td:nth-child(3)").text());
+		 	sum=accAdd(sum,Number($(this).find("td:nth-child(3)").text()))
+			 //sum+=Number($(this).find("td:nth-child(3)").text());
 		 })
 		 var valtr=$(this).closest('tr').find("td:nth-child(3)").text(); // 当前编辑的金额
 		 var valActual=$(this).closest('tr').find("td:nth-child(4)").text();   //当前实际注资金额
@@ -163,38 +164,43 @@ var searchPartMoney;
 					$("#projectId").val(pId);
 					 getTotalAppr(projectInfo.id,_data_type != "info");
 					//计算剩余金额
-		                var totalMoneyPart=$("#totalMoneyPart").val();
-		                $("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(6)*10000/10000);
+		                var totalMoneyPart=$("#totalMoneyPart").val();  
+		                $("#formatRemainMoney").text(_parsefloat(accSub(totalMoneyPart,sum))); 
 		                if(_data_type=='add'){   //新增
-		                	 $(".moeny_all input").on("blur",function(){
+		                	 $(".moeny_all input").on("blur",function(){ 
 				                	var val=$(this).val();
-				                	var errorTips=$(this).siblings(".error");
+				                	var errorTips=$(this).siblings(".error"); 
 				                	if(errorTips.is(":visible")){
 				                		val=0;
-				                		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(6);
-				                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+				                		var swich = accSub(totalMoneyPart,sum);
+			                    		var formatRemainMoneyVal = accSub(swich,val);
+				                		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
 				                	}else{
 				                		if(Number(totalMoneyPart)-sum-val>0){
-				                    		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(6);
-				                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+				                			var swich = accSub(totalMoneyPart,sum)
+				                    		var formatRemainMoneyVal=accSub(swich,val);
+				                    		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
 				                    	}else{
 				                    		$("#formatRemainMoney").text(0);
 				                    	}
 				                	}
 				                }) 
-		                }else{   //查看+编辑
+		                }else{   //查看+编辑 
 		                	$("#valtr").val(valtr);
 		                	$(".moeny_all input").on("blur",function(){
 		                    	var val=$(this).val();
 		                    	var errorTips=$(this).siblings(".error");
 		                    	if(errorTips.is(":visible")){
 		                    		val=0;
-		                    		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
-		                    		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+		                    		var swich = accSub(totalMoneyPart,sum)
+		                    		var formatRemainMoneyVal=accSub(swich,val);
+			                		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal)); 
 		                    	}else{
 		                    		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-		                        		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(6);
-		                        		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+		                    			var swich = accSub(totalMoneyPart,sum)
+			                    		var formatRemainMoneyVal=accSub(swich,valtr);
+			                    		formatRemainMoneyval=accSub(formatRemainMoneyVal,val); 
+		                        		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyval));
 		                        	}else{
 		                        		$("#formatRemainMoney").text(0);
 		                        	}
