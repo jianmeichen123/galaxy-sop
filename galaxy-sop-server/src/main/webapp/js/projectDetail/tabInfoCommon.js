@@ -348,7 +348,7 @@ $(function(){
 					'projectName':projectName,
 					'id' : projectID
 				}
-				sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){
+				sendPostRequestByJsonObj(platformUrl.checkProjectName,data1,function(data){ 
 						if(data.result.status=="ERROR"){
 		                    objDatad =data.userData;
 		                    if(data.result.errorCode == "name-repeat"){
@@ -363,7 +363,7 @@ $(function(){
 			} 
 		}) 
 		//保存
-		$("[data-on='save_basic']").click(function(){ 
+		$("[data-on='save_basic']").click(function(){  
 			if(!$(".projectname-edit-label").is(":hidden")){
                 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson+"|"+objDatad.departmentName);
                 return false

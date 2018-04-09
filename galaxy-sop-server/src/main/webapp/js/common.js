@@ -4,8 +4,7 @@ function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 //去除小数点末尾无用0  
-function _parsefloat(date){
-	 
+function _parsefloat(date){ 
 	if(date!=undefined){
 		if(parseInt(date)!=NaN||parseInt(date)!=undefined){
 			var dd =  String(date).split("."); 

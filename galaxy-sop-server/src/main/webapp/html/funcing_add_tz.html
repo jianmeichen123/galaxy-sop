@@ -4,7 +4,7 @@
 	
     <div class="qualifications_all" id="learning">
     
-    	<form action="" id="detail-form" method="post">
+    	<form action="" id="detail-form" method="post" class="guzhi_pop">
     	<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
@@ -65,23 +65,24 @@
         function calculationValuations(){
     		var projectParent = $("input[name='field3']").val();
     		var projectChildren = $("input[name='field4']").val();
+            var valuations = finalValue(projectParent,projectChildren);
     		if(projectParent > 0 && projectChildren > 0){
-    			return projectParent * (100/projectChildren);
+    			return valuations;
     		}
     		return null;
     	}
         $("div").delegate("input[name='field3']","blur",function(){
         	var valuations = calculationValuations();
     		if(valuations != null){
-    			 valuations=valuations.toFixed(4);
-    			$("input[name='field5']").val(valuations);
+    			 valuations=valuations;
+    			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
     		}
     	});
         $("div").delegate("input[name='field4']","blur",function(){
         	var valuations = calculationValuations();
     		if(valuations != null){
-                valuations=valuations.toFixed(4);
-    			$("input[name='field5']").val(valuations);
+                valuations=valuations;
+    			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
     		}
     	});
         

@@ -342,8 +342,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 						})
 					})
-				}
-				
+				} 
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
 				for(var i=0;i<textarea_h.length;i++){
@@ -667,6 +666,15 @@ function editRow(ele)
 					});
 					
 				})
+				//估值显示guzhi属性融资历史
+				if($("#detail-form").hasClass("guzhi_pop")){ 
+					var projectParent = $("input[name='field3']").val();
+					var projectChildren = $("input[name='field4']").val();
+					var valuations = finalValue(projectParent,projectChildren);
+					if(projectParent!=''&&projectChildren!=''){
+						$("input[name='field5']").attr("guzhi",valuations);
+					}
+				}
 				//特殊处理带万元单位的查看
 				$.each($(".see_block").find("dd.money[name]"),function(){
 					var ele = $(this);
@@ -1177,6 +1185,15 @@ function addRowCompete(ele,id_code,id_code_new){
 
 function saveForm(form)
 {
+	if(form.hasClass("guzhi_pop")){ 
+      var val1 = $("input[name='field5']").val();
+	  val2=$("input[name='field5']").attr('guzhi'), 
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();

@@ -633,8 +633,8 @@ function buildShareResult(reportType,relateId){
 									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
 										var Tval= change_number(_val); 
 										_val = _parsefloat(Tval[0]);
-										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元");
-										if(title.id=="1943"||title.id=="3012"){ 
+										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元"); 
+										if(title.id=="1943"||title.id=="3012"||title.titleId=='1916'){ 
 											var array = String(_val).split(".");
 											if(array[1]!=undefined){ 
 												array[1]=array[1].slice(0,4)
@@ -686,7 +686,7 @@ function updataReport(projectInfoList){
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									if(title.titleId=="1943"||title.titleId=="3012"){ 
+									if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
 										var array = String(_val).split(".");
 										if(array[1]!=undefined){ 
 											array[1]=array[1].slice(0,4)
