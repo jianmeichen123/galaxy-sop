@@ -273,6 +273,15 @@ function editRow(ele)
 				});
 				
 			})
+			//估值显示guzhi属性融资历史
+				if($("#detail-form").hasClass("guzhi_pop")){ 
+					var projectParent = $("input[name='field3']").val();
+					var projectChildren = $("input[name='field4']").val();
+					var valuations = finalValue(projectParent,projectChildren);
+					if(projectParent!=''&&projectChildren!=''){
+						$("input[name='field5']").attr("guzhi",valuations);
+					}
+				}
 			resizetable(table)
 			//分拨剩余金额显示
 			$(".remainMoney span").text($("#formatRemainMoney").text());
@@ -372,7 +381,16 @@ function getDetailUrl(code)
 }
 //编辑保存  _this  当前 table
 function saveForm(form,_this)
-{ 
+{  
+	if(form.hasClass("guzhi_pop")){ 
+      var val1 = $("input[name='field5']").val();
+	  val2=$("input[name='field5']").attr('guzhi'), 
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
 	if(form !=undefined&&form !=""&&form !="delete"){
 		if($(form).validate().form())
 		{

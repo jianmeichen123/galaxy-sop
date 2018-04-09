@@ -35,8 +35,7 @@ function addRow(ele)
 function saveForm(form)
 {
 	if($(form).validate().form())
-	{
-		debugger;
+	{ 
 		var data = $(form).serializeObject();
 		saveRow(data);
 	}
@@ -45,8 +44,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
-	debugger
+{ 
 	data = JSON.parse(data);
 	var titleId = data.titleId;
 	var index = data.index;

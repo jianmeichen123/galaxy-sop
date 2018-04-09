@@ -195,8 +195,7 @@ function updataReport(projectInfoList){
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
 	    		if(entityList && entityList.length>0){
-	    			$.each(entityList,function(){
-	    				debugger;
+	    			$.each(entityList,function(){ 
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
 						if(title.resultId){
