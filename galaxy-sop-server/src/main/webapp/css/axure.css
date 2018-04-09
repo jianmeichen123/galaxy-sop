@@ -107,7 +107,8 @@ table .width_gd{width:12%;}
   padding: 2px 4px;
   font-size: 14px;
   font-weight: normal;
-  line-height: 1.42857143;
+  line-height: 28px;
+  text-align: center;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -3486,7 +3487,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     line-height: 1.7;
 }
 .before_save_tc .btn{
-	padding:5px 0;
+    padding:0px 0; 
+	border-radius:2px;
 }
 .before_save_tc .button_affrim{
 	width:400px;
