@@ -1444,7 +1444,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		{
 			for(Project tempResult : projectList)
 			{
-				if(project.getId()!=tempResult.getId()){
+				if(project.getId().longValue()!=tempResult.getId().longValue()){
 					resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
 					objData.put("projectName", tempResult.getProjectName());
 					objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+tempResult.getCreateUid(), "realName")).toString());
