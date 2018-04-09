@@ -1176,8 +1176,7 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			//var inputDataId = inputs.eq(i).attr('data-title-id');
-			
+			//var inputDataId = inputs.eq(i).attr('data-title-id'); 
 			if(inputValRule=="2" && inputValRuleMark=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -1187,28 +1186,7 @@ function validate(){
 						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"
 				}
 				inputs.eq(i).attr(validate);
-			}/*else if(inputDataId=='3010'){
-				var validte = {
-						"data-rule-verify_3010":"true",
-						"name":i,
-						"data-msg-verify_3010":"<font color=red>*</font>支持0到100之间的四位小数 "
-				}
-				inputs.eq(i).attr(validate);
-			}else if(inputDataId=='3011'){
-				var validte = {
-						"data-rule-verify_3011":"true",
-						"name":i,
-						"data-msg-verify_3011":"<font color=red>*</font>支持0到5之间的四位小数 "
-				}
-				inputs.eq(i).attr(validate);
-			}else if(inputDataId=='3012'){
-				var validte = {
-						"data-rule-verify_3012":"true",
-						"name":i,
-						"data-msg-verify_3012":"<font color=red>*</font>支持13位长度的四位小数 "
-				}
-				inputs.eq(i).attr(validate);
-			}*/else if(inputValRule=="2" && inputValRuleMark=="2"){
+			}else if(inputValRule=="2" && inputValRuleMark=="2"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_1":"true",
@@ -1226,7 +1204,7 @@ function validate(){
 						"data-msg-vinputValRule_3":"<font color=red>*</font>0到100之间的两位小数"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="3" && inputValRuleMark=="3,2,0"){   //包含0
+			}else if(inputValRule=="3" && inputValRuleMark=="3,2,0"){   //包含0 
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_3_0":"true",

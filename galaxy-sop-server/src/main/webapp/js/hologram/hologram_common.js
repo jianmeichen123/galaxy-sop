@@ -1223,7 +1223,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的四位小数"
+						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
@@ -2504,6 +2504,7 @@ function editRow(ele)
 				$('.finicial-number').text(oppoPerson);
 				$('.milestone').text(degress);
 				$('.finicial-time').text(dangerRation); 
+				$("#detail-form input[name='index']").val(row.index());
 				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性
