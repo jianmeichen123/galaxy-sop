@@ -1424,9 +1424,9 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
-jQuery.validator.addMethod("verify_35", function(value, element) {   
-	
-	//var verify_35 =/^\d+(?:\.\d{1,5})?$/;
+jQuery.validator.addMethod("verify_35", function(value, element) {    
+	 
+	if(_parsefloat(value)=='0'){value=0;}
 	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
 	return this.optional(element) || (verify_35.test(value));
 }, "支持0-100之间的5位小数"); 
