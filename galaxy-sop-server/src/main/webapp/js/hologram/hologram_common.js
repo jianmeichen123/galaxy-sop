@@ -862,7 +862,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{  
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -878,7 +878,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		/*if(k === 'field1'){
 			num = k;
-		}*/
+		}*/ 
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){			
