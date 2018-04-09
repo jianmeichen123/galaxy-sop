@@ -763,7 +763,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 			data_list.currency=currency+"p"+currency_id;
 			data_list.value=_parsefloat(val)+"万"+currency;	
 			var res = change_number(val);
-			data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
+			data_list.Tvalue=_parsefloat(val)+currency 
+			//data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
 			if(val==""||val==undefined){
 				data_list.value="未填写";
 				data_list.Tvalue="未填写";

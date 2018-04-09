@@ -452,11 +452,10 @@ function buildResultsDraft(sec,title,readonly)
 					if(_val==undefined){
 						_val="未填写"
 					}else{
-						alert(_val)
-						var res = change_number(_val);
-						alert(_val)
-						_val = _parsefloat(res[0]); 
-						var moneyT = res[1]+"元111";
+						_val = _parsefloat(_val);
+							// var res = change_number(_val);
+						// _val = _parsefloat(res[0]); 
+						var moneyT ='万元';
 					}
 				} 
 				$(".field[data-title-id='"+title.id+"']").text(_val);
@@ -486,9 +485,10 @@ function buildResultsDraft(sec,title,readonly)
 				if(_val==undefined){
 					_val="未填写"
 				}else{
-					var res = change_number(_val); 
-					_val = _parsefloat(res[0]);
-					var moneyT = res[1];
+					_val = _parsefloat(_val);
+					// var res = change_number(_val);
+					// _val = _parsefloat(res[0]); 
+					var moneyT ='万元';
 				}
 				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){					
