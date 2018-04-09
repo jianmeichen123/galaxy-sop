@@ -224,3 +224,7 @@ jQuery.validator.addMethod("verify_10_01", function(value, element) {
 		return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 	}, "只能是0～100的整数和两位小数"); 
 	
+jQuery.validator.addMethod("verify_136", function(value, element) {
+	var verify = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify.test(value));
+}, "支持13位长度的6位小数");
