@@ -910,7 +910,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"||titleId=="1144"){	 
 					if(k=="field2"){
 						row[k] = _parsefloat(row[k])
 					}
