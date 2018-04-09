@@ -5,6 +5,7 @@ function getURLParameter(name) {
 }
 //去除小数点末尾无用0  
 function _parsefloat(date){
+	 
 	if(date!=undefined){
 		if(parseInt(date)!=NaN||parseInt(date)!=undefined){
 			var dd =  String(date).split("."); 

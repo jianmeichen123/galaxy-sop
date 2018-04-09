@@ -92,7 +92,8 @@
 	}, "支持13位长度的支持6位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
-		var proshare = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+		if(_parsefloat(value)=='0'){value=0;}
+		var proshare = /^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/;
 		return this.optional(element) || (proshare.test(value));
 	}, "0到100之间的5位小数");
 	//投资金额LIMIT_11_NUMBER
@@ -106,8 +107,9 @@
 		return this.optional(element) || (finalValuations.test(value));
 	}, "支持四位小数");
 	//股权占比
-	jQuery.validator.addMethod("finalShareRatio", function (value, element) {
-		var finalShareRatio = /^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+	jQuery.validator.addMethod("finalShareRatio", function (value, element) { 
+		if(_parsefloat(value)=='0'){value=0;}
+		var finalShareRatio =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/;
 		return this.optional(element) || (finalShareRatio.test(value));
 	}, "0到100之间的5位小数");
 	//加速服务费占比
@@ -169,8 +171,8 @@ jQuery.validator.addMethod("verify_96", function(value, element) {
 	}, "支持0-100之间的两位小数"); 
 	//inputValRuleMark=="3,2"
 	
-jQuery.validator.addMethod("verify_35", function(value, element) {   
-	//var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,5})?)$/;
+jQuery.validator.addMethod("verify_35", function(value, element) {     
+	if(_parsefloat(value)=='0'){value=0;}
 	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
 	return this.optional(element) || (verify_35.test(value));
 }, "支持0-100之间的5位小数"); 
