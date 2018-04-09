@@ -342,8 +342,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 						})
 					})
-				}
-				
+				} 
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
 				for(var i=0;i<textarea_h.length;i++){

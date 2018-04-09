@@ -2193,7 +2193,8 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{
+{ 
+	debugger;
 	if(form.hasClass("guzhi_pop")){ 
       var val1 = $("input[name='field5']").val();
 	  val2=$("input[name='field5']").attr('guzhi'), 

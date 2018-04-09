@@ -162,6 +162,7 @@ $(function(){
     	var valuations = finalValue(projectParent,projectChildren); 
   		if(projectParent!=''&&projectChildren!=''){
   			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
+         $("#detail-form").attr('class',"guzhi_pop");
   		}else{
         //不判断+/-10 
         $("#detail-form").removeClass("guzhi_pop");
@@ -173,6 +174,7 @@ $(function(){
       var valuations = finalValue(projectParent,projectChildren);
       if(projectParent!=''&&projectChildren!=''){
         $("input[name='field5']").val(valuations).attr("guzhi",valuations);
+          $("#detail-form").attr('class',"guzhi_pop");
       }else{ 
          $("#detail-form").removeClass("guzhi_pop");
       }
