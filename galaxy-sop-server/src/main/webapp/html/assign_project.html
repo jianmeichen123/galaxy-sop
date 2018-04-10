@@ -45,13 +45,15 @@ $('.select-simulate input').click(function(event){
 	var _this = $(this);
 	_this.toggleClass("up");
 	ul.slideToggle("fast");
-	event.stopPropagation(); 
-	//$(this).parent().siblings().find('ul.toggle-ul').slideToggle()
+	event.stopPropagation();  
 	$(document).on("click", function(){
 		ul.slideUp("fast");
 		_this.removeClass('up');		
 	});
-});
+    $(".toggle-ul li").click(function(){
+        $(this).closest('.select-simulate').find('input').removeAttr('placeholder')
+    })
+}); 
 //配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
 $.validator.setDefaults({
 	errorElement:'span'
