@@ -90,9 +90,9 @@
 				
 		  	</div>
 		  	<div class="input-group input-groupNew">
-			  	<di class='input-content'>
+			  	<div class='input-content'>
 			  		<input type="text" class="form-control" name="nameCodeLike" placeholder="请输入项目名称"><span class="querySearch"></span>
-			  	</di>
+			  	</div>
 		      <!-- <span class="input-group-btn">
 		        <button class="btn btn-default" type="button"></button>
 		      </span> -->
