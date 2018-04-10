@@ -119,8 +119,12 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
-					ele.val(row.data(name));
+				}else{ 
+					if(name=='field2'&&code=='share-holding'){
+						ele.val(_parsefloat(row.data(name)));
+					}else{
+						ele.val(row.data(name)); 
+					}
 				}
 			});
 			//查看显示

@@ -524,7 +524,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg .line{ border-left:1px solid #97c7ee; height:11px; margin:2px 10px 0 0; width:0}
 .header .usermsg .loginout{ margin:0 30px 0 0}
 .header .usermsg .work{ margin:0 30px 0 0;position:relative;}
-.header .usermsg em{font-size:12px;position:absolute;top:-10px;width:20px;height:20px;border-radius:50%;background:#fe552f;text-align:center;line-height:20px;font-family:"Microsoft Yahei", "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC";}
+.header .usermsg em{font-size:12px;position:absolute;top:-11px;left:14px;width:20px;height:20px;border-radius:50%;background:#fe552f;text-align:center;line-height:20px;font-family:"Microsoft Yahei", "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC";}
 .header .usermsg .work em.bubble{display:inline-block; width: 20px;height: 16;text-align:center;line-height:16px;background: url(../img/bubble.png) no-repeat;margin:0 0 0 4px;padding: 0;}
 .header .usermsg .work .bubble{   /* 后加 */
    			-webkit-animation:shark 0.8s linear 0.1s infinite alternate;
@@ -3077,6 +3077,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		border:1px solid #ccd2d7;
 		color:#4a97da;
 	}
+ .popbtm_btn #reject-btn{ float: left; }
 	.popbtm_btn .bluebtn.disabled,.popbtm_btn .fffbtn.disabled{
 		border:0px;
 		border-radius:2px;
@@ -4681,12 +4682,12 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 }
 .commonTab{width:auto;}
 .new_tit_b .commonTab{float:left;}
-.commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;}
+.commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;font-size: 16px;color: #202533;}
 .commonTab .xhtTab.active{border-bottom:4px solid #45aaff;}
 .commonTab .xhtTabs{line-height: 62px; 
     font-size: 22px;
     font-weight: normal;
-    color: #808e9b;margin-left:-30px;}
+    color: #808e9b;margin-left:-30px;font-size: 20px;color: #202533;}
 .project-table_delete .delete_syb,.project-table_delete .delete_tzjl{display:none;}
 #grid_overview{display:none;}
 .project_total_top10{margin-top:40px;}

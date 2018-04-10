@@ -371,6 +371,9 @@ background: none;
 	border: 1px solid #D8D8D8;
 	border-radius: 2px;
 }
+.input-groupNew .querySearch{right:0;}
+.input-groupNew .input-content {float:left;}
+.input-groupNew .reset_search {line-height:35px;}
 .title_top{
 	width:100%;
 	height:64px;

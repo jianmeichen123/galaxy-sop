@@ -499,8 +499,6 @@ function editRow(ele)
 				 sum=accAdd(sum,Number($(this).find("td[data-field-name='field3']").text()));
 			 })
 		}
-		
-		
 		//分期注资验证
 		if(txt == '编辑')
 		{
