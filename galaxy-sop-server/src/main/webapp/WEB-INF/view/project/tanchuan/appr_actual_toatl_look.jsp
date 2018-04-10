@@ -20,14 +20,14 @@
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3004}" pattern="#.######" maxFractionDigits="6" > </fmt:formatNumber>万元</span></div> 
 	                </dd>
 	            </dl>
                 
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>股权占比：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>%</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3010}" pattern="#.#####" maxFractionDigits="5" > </fmt:formatNumber>%</span></div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l  clearfix">
@@ -53,11 +53,13 @@
 	//格式化项目估值
 	var _val='${value3012}';
 	if(_val.indexOf('.')>-1){
+		debugger;
 		var num=_val.split('.');
 		if(num[0].length>9){
 			_val=_val;
 		}else{
-			_val=Number(_val).toFixed(4)
+			//_val=Number(_val).toFixed(4)
+			_val=Number(_val);
 		}
 	}
 	_val = _parsefloat(_val);
