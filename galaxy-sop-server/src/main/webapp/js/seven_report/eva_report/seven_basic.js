@@ -260,14 +260,17 @@
 							if(td_l!="未填写"){														
 								if(td_l.length<=0){
 									return;
-								}
+								} 
 								$("table[data-title-id='"+n.relateId+"']").show();		
+								var judgeId = n.relateId;
 								var tr_html="";
 								if(td_l!="[表格]"){
 								$.each(td_l[0],function(i,n){
 									if($(this)[0].id==undefined){
 										$(this)[0].id="";
-									}
+									}  
+									//1144 团队重要成员是否拥有足够、合理的股权
+									if(judgeId=='1144'||judgeId=='9144'){$(this)[0].field2=_parsefloat($(this)[0].field2)}
 									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"s_editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
 									tr_html+="<tr data-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
 								})
@@ -479,7 +482,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 	 }else if(e_type==2){
 		 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 	 }else if(e_type==3){
-		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
+		$("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 $(".ch_opration").css('width',$(".new_left").width())
 			 check_table();
 			 check_table_tr_edit();
@@ -760,7 +763,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 			data_list.currency=currency+"p"+currency_id;
 			data_list.value=_parsefloat(val)+"万"+currency;	
 			var res = change_number(val);
-			data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
+			data_list.Tvalue=_parsefloat(val)+currency 
+			//data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
 			if(val==""||val==undefined){
 				data_list.value="未填写";
 				data_list.Tvalue="未填写";

@@ -9,6 +9,7 @@
 	<title>星河投</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 	<link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
+	<link href="<%=path%>/css/searchGlobal.css" type="text/css" rel="stylesheet" />
 	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>

@@ -10,9 +10,9 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="qualificationstc errortc finace_history_tc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
 	<div class="title_bj" id="finace_popup_name"></div>
-	<form action="" id="detail-form">
+	<form action="" id="detail-form" class="guzhi_pop">
 			
-    <input name="index" type="hidden" value="">
+      <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
@@ -35,7 +35,7 @@
             <dl class="fmdl clearfix sign_fmdl">
              <dt>投资金额：</dt>
                 <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_96="true" data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数"/>
                 </dd>
                  
             </dl>
@@ -52,13 +52,13 @@
           <dl class="fmdl clearfix sign_fmdl">
             <dt>股权占比：</dt>
                 <dd>
-                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-verify_32_0="true"  data-msg-verify_32_0="<font color=red>*</font>支持0-100之间的两位小数"/>
+                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-verify_35="true"  data-msg-verify_35="<font color=red>*</font>支持0-100之间的5位小数"/>
                 </dd>
            </dl>
            <dl class="fmdl clearfix sign_fmdl">
            <dt>估值金额：</dt>
                 <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_134="true" data-msg-verify_134="<font color=red>*</font>支持13位长度的四位小数"/>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_136="true" data-msg-verify_136="<font color=red>*</font>支持13位长度的6位小数"/>
                 </dd>
             </dl>
            <dl class="fmdl clearfix">
@@ -155,28 +155,29 @@ $(function(){
     $("#detail-form").validate({});
     $.validator.setDefaults({
     	errorElement:'span'
-    });
-    
-    //金额联动
-    function calculationValuations(){
-		var projectParent = $("input[name='field3']").val();
-		var projectChildren = $("input[name='field4']").val();
-		if(projectParent > 0 && projectChildren > 0){
-			return projectParent * (100/projectChildren);
-		}
-		return null;
-	}
+    }); 
     $("div").delegate("input[name='field3']","blur",function(){
-    	var valuations = calculationValuations();
-		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(4));
-		}
+      var projectParent = $("input[name='field3']").val();
+      var projectChildren = $("input[name='field4']").val();
+    	var valuations = finalValue(projectParent,projectChildren); 
+  		if(projectParent!=''&&projectChildren!=''){
+  			$("input[name='field5']").val(valuations).attr("guzhi",valuations);
+         $("#detail-form").attr('class',"guzhi_pop");
+  		}else{
+        //不判断+/-10 
+        $("#detail-form").removeClass("guzhi_pop");
+      }
 	});
     $("div").delegate("input[name='field4']","blur",function(){
-    	var valuations = calculationValuations();
-		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(4));
-		}
+      var projectParent = $("input[name='field3']").val();
+      var projectChildren = $("input[name='field4']").val();
+      var valuations = finalValue(projectParent,projectChildren);
+      if(projectParent!=''&&projectChildren!=''){
+        $("input[name='field5']").val(valuations).attr("guzhi",valuations);
+          $("#detail-form").attr('class',"guzhi_pop");
+      }else{ 
+         $("#detail-form").removeClass("guzhi_pop");
+      }
 	});
     
     

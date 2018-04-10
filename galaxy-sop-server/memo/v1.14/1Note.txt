@@ -1,0 +1,26 @@
+
+项目 - 项目名称与已有的项目重复时，鼠标焦点移开，则出现提示弹窗
+url：
+ Constants.sopEndpointURL+ "/galaxy/project/checkProjectName"
+请求方式： post
+
+返回
+json ： data.userData
+         * 项目名称： projectName
+         * 项目承做人 ：teamPerson
+         * 承做人部门 ：departmentName
+
+示例：
+{
+	result : {status: "ERROR", message: "项目名重复!", errorCode: "name-repeat"}
+    userData :{
+        teamPerson: "人工智能-投资经理one",
+        departmentName: "人工智能",
+        projectName: "333"}
+
+}
+
+
+
+
+

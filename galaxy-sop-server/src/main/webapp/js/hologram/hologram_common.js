@@ -303,26 +303,7 @@ function buildResults(sec,title,readonly)
 					}
 				});
 			}
-		}
-		/*else if(title.type == 5)
-		{
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
-					}else{
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1);
-					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
-					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
-		}*/
+		} 
 		else if(title.type == 12)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
@@ -381,7 +362,7 @@ function buildResults(sec,title,readonly)
 								{
 									layer.msg('不能为空!');
 									inputText.focus();
-								}
+								}                                                                                                                                                                                            
 							});*/
 						}
 						else
@@ -437,41 +418,7 @@ function buildResults(sec,title,readonly)
 						inputText.attr('required' , true);
 					}
 				})
-			}
-			/*$.each(title.resultList,function(i,n)
-					{
-						if(readonly == true)
-						{
-							
-							$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-							if(n.contentDescribe1){ 
-								$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
-								$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
-							}
-							$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
-						}
-						else
-						{
-							$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-							if(n.contentDescribe1){  
-								$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
-								inputText.attr('disabled',false);
-								inputText.attr('required' , true);
-							}
-						}
-					});*/
-			/*if (readonly == true)
-			{
-				var dds = $("dt[data-type='13'][data-title-id='"+ title.id +"']").siblings().children();
-				$.each(dds,function(i,n)
-				{
-					if ($(this).text() == '未选择')
-					{
-						$(this).hide();
-					}
-				});
-				
-			}*/
+			} 
 		}
 		else if(title.type == 15)
 		{
@@ -596,13 +543,13 @@ function buildResults(sec,title,readonly)
 				}else{
 					if(_val==undefined){
 						_val="未填写"
-					}else{
-						var res = change_number(_val);
-						_val = _parsefloat(res[0]);
-						var moneyT = res[1]+"元";
+					}else{ 
+						_val = _parsefloat(_val);
+						// var res = change_number(_val);
+						// _val = _parsefloat(res[0]); 
+						var moneyT ='万元';
 					}
-				}
-				
+				} 
 				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if(title.resultList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
@@ -628,10 +575,11 @@ function buildResults(sec,title,readonly)
 				var _val = title.resultList[0].contentDescribe1;
 				if(_val==undefined){
 					_val="未填写"
-				}else{
-					var res = change_number(_val);
-					_val = _parsefloat(res[0]);
-					var moneyT = res[1];
+				}else{ 
+					_val = _parsefloat(_val);
+					// var res = change_number(_val);
+					// _val = _parsefloat(res[0]); 
+					var moneyT ='万元';
 				}
 				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){					
@@ -915,7 +863,7 @@ function buildTable(sec,title)
 	}
 }
 function buildRow(row,showOpts,titleId)
-{  
+{ 
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
@@ -931,7 +879,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		/*if(k === 'field1'){
 			num = k;
-		}*/
+		}*/ 
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
 				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){			
@@ -1252,13 +1200,31 @@ function validate(){
 						"data-msg-verify_94":"<font color=red>*</font>支持9位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRuleMark=="9,2"){
+			}else if(inputValRuleMark=="9,6"){
 				var validate={
-						"data-rule-verify_92":"true",
+						"data-rule-verify_96":"true",
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_92":"<font color=red>*</font>支持9位长度的两位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="9,6"){
+				var validate={
+						"data-rule-verify_96":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_96":"<font color=red>*</font>支持9位长度的6位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="13,6"){
+				var validate={
+						"data-rule-verify_136":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
@@ -1286,6 +1252,15 @@ function validate(){
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
 						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="3,5"){
+				var validate={
+						"data-rule-verify_35":"true",
+						//"required":"required",	
+						"name":i,
+						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
+						"data-msg-verify_35":"<font color=red>*</font>支持0～100的整数和5位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
@@ -1392,6 +1367,10 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 	return this.optional(element) || (verify_102.test(value));
 }, "支持10位长度的两位小数");
 //inputValRuleMark=="13,4"
+jQuery.validator.addMethod("verify_136", function(value, element) {
+	var verify_n4 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_n4.test(value));
+}, "支持13位长度的6位小数");
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
@@ -1411,6 +1390,11 @@ jQuery.validator.addMethod("verify_92", function(value, element) {
 	return this.optional(element) || (verify_92.test(value));
 }, "");
 //inputValRuleMark=="9,4"
+
+jQuery.validator.addMethod("verify_96", function(value, element) {
+	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_96.test(value));
+}, "支持9位长度的6位小数");
 jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
@@ -1441,9 +1425,15 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	var verify_32_0 =/^([1-9]\d?(\.\d{1,2})?|0\.[1-9]0?|0\.\d[1-9]|100(\.[0]{1,2})?)$/;
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
+jQuery.validator.addMethod("verify_35", function(value, element) {    
+	 
+	if(_parsefloat(value)=='0'){value=0;}
+	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
+	return this.optional(element) || (verify_35.test(value));
+}, "支持0-100之间的5位小数"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
+	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
@@ -2145,7 +2135,7 @@ function addRow(ele)
 	            	return false;
 	            }
 	            selectContext("detail-form");
-	            $("#save-detail-btn").click(function(){ 
+	            $("#save-detail-btn").click(function(){  
 	                saveForm($("#detail-form"));
 	                formBox.attr('tochange',true);    //表格内容变化时，添加tochange属性
 	                check_table();
@@ -2196,7 +2186,7 @@ function addRowCompete(ele,id_code){
 					for(var i=0;i<$("textarea").length;i++){
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
-					}
+					} 
 				} else {
 
 				}
@@ -2204,7 +2194,16 @@ function addRowCompete(ele,id_code){
 }
 //提交表单处理
 function saveForm(form)
-{   
+{  
+	if(form.hasClass("guzhi_pop")){ 
+      var val1 = $("input[name='field5']").val();
+	  val2=$("input[name='field5']").attr('guzhi'), 
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject(); 
@@ -2353,16 +2352,14 @@ function editRow(ele)
 				 if(code=="team-person"){   
 					var totleNum = $("tr.totleNum").find("td[data-field-name='field2']").text(); 
 	            	$("#totleNum").val(totleNum);
-	            	$("#detail-form input[name='index']").val(row.index());
-	            	debugger;
+	            	$("#detail-form input[name='index']").val(row.index()); 
 	            	$("#detail-form select[name=field1]").addClass('disabled');
 	            	$("#detail-form select[name=field3]").addClass('disabled');
 	            	//带出来 承作人ID 
 	            	return false;
 	            }
 				selectContext("detail-form");
-				//增加显示字段限制
-				
+				//增加显示字段限制 
 				$.each($("#detail-form").find("input, select, textarea"),function(){
 					var ele = $(this);
 					var name = ele.attr('name');
@@ -2444,7 +2441,16 @@ function editRow(ele)
 							ele.text(selectVal);
 						}
 					}); 
-				})
+				}) 
+				//估值显示guzhi属性融资历史
+				if($("#detail-form").hasClass("guzhi_pop")){ 
+					var projectParent = $("input[name='field3']").val();
+					var projectChildren = $("input[name='field4']").val();
+					var valuations = finalValue(projectParent,projectChildren);
+					if(projectParent!=''&&projectChildren!=''){
+						$("input[name='field5']").attr("guzhi",valuations);
+					}
+				}
 				//分拨剩余金额显示
 				$(".remainMoney span").text($("#formatRemainMoney").text());
 				//特殊处理带万元单位的查看
@@ -2499,6 +2505,7 @@ function editRow(ele)
 				$('.finicial-number').text(oppoPerson);
 				$('.milestone').text(degress);
 				$('.finicial-time').text(dangerRation); 
+				$("#detail-form input[name='index']").val(row.index());
 				$("#save-detail-btn").click(function(){ 
 					saveForm($("#detail-form"));
 					formBox.attr('tochange',true);  //表格内容变化时，添加tochange属性

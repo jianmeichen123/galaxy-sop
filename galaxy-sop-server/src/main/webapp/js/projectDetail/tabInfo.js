@@ -87,7 +87,7 @@ $(function(){
 			var p;
 			var fs;
 			
-        $("[data-on='data-open']").click(function (){ 
+        $("[data-on='data-open']").click(function (){
         	$('.invest_institue').hide();
         	var txt=$(this).text();
         	    isDelete=[];
@@ -120,8 +120,8 @@ $(function(){
 				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
-				$("body").css('overflow','hidden');
-				updateReportMoney();   //编辑显示融资计划值
+				$("body").css('overflow','hidden');  
+				updateReportMoney();   //编辑显示融资计划值  
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
@@ -219,7 +219,7 @@ $(function(){
 				}
 			
 			})
-				function CallBackB(data){
+			function CallBackB(data){
 			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
 			        //_dom.append('<option value="">--请选择--</option>');
@@ -324,9 +324,11 @@ $(function(){
 		 * 计算初始估值
 		 */
 		$("#project_share_ratio_edit").blur(function(){
-			var valuations = calculationValuations();
-			$("#project_valuations_edit").val("");
-			if(valuations){
+			var val2 = $("#project_share_ratio_edit").val();
+			var val1 = $("#project_contribution_edit").val();
+			var valuations = finalValue(val1,val2); 
+			if(valuations!=null){
+				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
@@ -337,31 +339,25 @@ $(function(){
 		 * project_share_ratio_edit
 		 */
 		$("#project_contribution_edit").blur(function(){
-			var valuations = calculationValuations();
-			$("#project_valuations_edit").val("");
-			if(valuations){
+			var val2 = $("#project_share_ratio_edit").val();
+			var val1 = $("#project_contribution_edit").val();
+			var valuations = finalValue(val1,val2);  
+			if(valuations!=null){  
+				$("#project_valuations_edit").prev().val(valuations);
 				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
-		/**
-		 * 计算初始估值
-		 */
-		function calculationValuations(){
-			var projectShareRatio = $("#project_share_ratio_edit").val();
-			var projectContribution = $("#project_contribution_edit").val();
-			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(4);
-			}
-			return null;
-		}
+	
 		//实际值计算************************************************************
 		/**
 		 * 计算实际估值
 		 */
 		$("#finalShareRatio_edit").blur(function(){
-			var valuations = finalValuations();
-			$("finalValuations_edit").val("");
-			if(valuations){
+			var valu2 = $("#finalShareRatio_edit").val();
+			var valu1 = $("#finalContribution_edit").val();
+			var valuations = finalValue(valu1,valu2); 
+			if(valuations!=null){
+				$("#finalValuations_edit").val(valuations);
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
@@ -371,25 +367,18 @@ $(function(){
 		 * project_valuations_edit
 		 * project_share_ratio_edit
 		 */
-		$("#finalContribution_edit").blur(function(){
-			var valuations = finalValuations();
-			$("#finalValuations_edit").val("");
-			if(valuations){
+		$("#finalContribution_edit").blur(function(){ 
+			var valu2 = $("#finalShareRatio_edit").val();
+			var valu1 = $("#finalContribution_edit").val();
+			var valuations = finalValue(valu1,valu2); 
+			if(valuations!=null){
+				$("#finalValuations_edit").prev().val(valuations)
 				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
-		 * 计算初始估值
+		 * 项目估值计算--公共方法 val1-融资金额，val2 --占比
 		 */
-		function finalValuations(){
-			var projectShareRatio = $("#finalShareRatio_edit").val();
-			var projectContribution = $("#finalContribution_edit").val();
-			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(4);
-			}
-			return null;
-		}
-
 
 		function projectProgress(data){
 			var projectPro = projectInfoDetail.projectProgress;
@@ -402,27 +391,42 @@ $(function(){
 				return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
 			}
 		}
-		$("[data-on='save']").click(function(){
-			var s_type=$(this).attr("save_type");
+ 
+		$("[data-on='save']").click(function(){ 
+			var s_type=$(this).attr("save_type");  
+			if($(".basic_current:visible input[VType=guzhi]").length>=1&&($("#project_share_ratio_edit").val().trim()&&$("#project_contribution_edit").val().trim())){  
+				//编辑回显估值原始值 重新计算(考虑到编辑，不进行计算的情况 需要重新计算)
+				var val1=$("#project_contribution_edit").is(":hidden")?$("#finalContribution_edit").val():$("#project_contribution_edit").val();
+				var val2=$("#project_share_ratio_edit").is(":hidden")?$("#finalShareRatio_edit").val():$("#project_share_ratio_edit").val();
+				var res = finalValue(val1,val2);   
+				var s_val1=res,
+				s_val2=$(".basic_current:visible input[VType=guzhi]").val(),
+				s_val3=accSub(s_val1,s_val2); 
+				if(s_val3>10||s_val3<-10){
+					layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+					return;
+				}
+			}
 			var data="";
 			if(s_type=="finance"){
 				if(!$("#basicForm").validate().form())
 				{
 					return;
 				}
+				
 				data="";
 				saveBaseInfo("basicForm",s_type);
 				return;
-			}else if(s_type=="save_basic"||s_type=="real_invest"){
+			} else if(s_type=="save_basic"||s_type=="real_invest"||s_type=='save_FR'){  
 				data=getUpdateData();
 				if(!$("#basicForm").validate().form())
 				{
 					return;
-				}
+				} 
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 					if(data2.result.status=="OK"){ 
 						//layer.msg(data2.result.message);
-						saveBaseInfo("basicForm");
+						saveBaseInfo("basicForm"); 
 						if(data2.result.errorCode=='mccf'){  //项目名重复
 							//layer.msg(data2.result.message);
 							return;
@@ -433,8 +437,7 @@ $(function(){
 						$('.'+close+'_on').hide();
 						$('.'+close+'_center').show();
 						$('.bj_hui_on').hide();
-						$("body").css('overflow-y','auto');
-
+						$("body").css('overflow-y','auto');  
 						sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id,null, function(data){	
 							projectInfoDetail=data.userData.pro;
 							$("#project_name_t").text(projectInfoDetail.projectName);
@@ -462,7 +465,8 @@ $(function(){
 						}else{
 							$('#financeMode').removeClass('pointer-events');
 							$("#financeMode").removeClass("hide");
-						}					
+						}			
+						buildShareResult("4","5812");
 					}else {
 							layer.msg(data2.result.message);
 					}
@@ -536,8 +540,7 @@ function jointDeliveryList(list){
 	$("#jointDelivery").show().children().remove(); 
 	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>币种</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
-	temp.append(html); 
-	//alert(list.length)
+	temp.append(html);  
 	if(list==undefined){
 		$('#financeMode').addClass('pointer-events');
 		return;
@@ -562,9 +565,9 @@ function jointDeliveryEdit(list){
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs institue_content">'
 	        +'<span class="input_box"><input placeholder="机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name inves_input input_stock_left" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	        +'<span class="input_box"><input placeholder="投资金额(万元)" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"/></span>'
+	        +'<span class="input_box"><input placeholder="投资金额(万元)" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" class="inves_input" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持9位长度的6位小数" data-msg-amount="<font color=red>*</font>支持9位长度的6位小数"/></span>'
 	        +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div></span>'
-	        +'<span class="input_box"><input placeholder="占股比例(%)"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
+	        +'<span class="input_box"><input placeholder="占股比例(%)"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" class="inves_input inves_stock" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的5位小数" data-msg-share="<font color=red>*</font>0-100间的5位小数"/></span>'
 	          +'<em class="inves_delete"></em>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow); 
@@ -596,9 +599,9 @@ function buildShareResult(reportType,relateId){
 				{ 
 					var entityList = data.entityList;
 					if(entityList && entityList.length >0)
-					{
+					{ 
 						$.each(entityList,function(){
-							var title = this;
+							var title = this; 
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
@@ -608,13 +611,13 @@ function buildShareResult(reportType,relateId){
 										var num=_val.split('.');
 										if(num[0].length>9){
 											_val=_val;
-										}else{
+										}else{ 
 											_val=Number(_val).toFixed(4)
 										}
 									}
 									_val = _parsefloat(_val);
 									var I_val=_val;
-								}else if(title.id =="1814" || title.id =="1815" || title.id =="1816"){   //APP端删除数据修复
+								}else if(title.id =="1814" || title.id =="1815" || title.id =="1816"){  
 									if(_val==""){
 										_val="—"
 									}else{
@@ -626,25 +629,32 @@ function buildShareResult(reportType,relateId){
 								}
 								if(_val==undefined){
 									_val="—"
-								}else{
+								}else{ 
 									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
-										var Tval= change_number(_val);
+										var Tval= change_number(_val); 
 										_val = _parsefloat(Tval[0]);
-										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元"); 
+										if(title.id=="1943"||title.id=="3012"||title.titleId=='1916'){ 
+											var array = String(_val).split(".");
+											if(array[1]!=undefined){ 
+												array[1]=array[1].slice(0,4)
+											}  
+											_val= array.join('.');
+										}
 									}
 								}
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);  
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
 									if(_val==undefined||_val=="—"){
 										_val=0;
 									}
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
 								if(title.id=="3010"){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],["0","100"]);
 								}}
 						});
 					}
@@ -652,14 +662,14 @@ function buildShareResult(reportType,relateId){
 			})
 }
 //保存后刷新
-function updataReport(projectInfoList){ 
+function updataReport(projectInfoList){  
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
 	    		$("label[data-title-id='"+o.titleId+"']").attr({"value":o.value,"data-result-id":o.resultId});
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
-	    		if(entityList && entityList.length>0){
+	    		if(entityList && entityList.length>0){ 
 	    			$.each(entityList,function(){
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
@@ -669,13 +679,20 @@ function updataReport(projectInfoList){
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val = title.value;
 							_val=_parsefloat(_val);
-							var I_val=_val
+							var I_val=_val; 
 							if(_val==undefined){
 								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
+									if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
@@ -712,22 +729,24 @@ function updataReport(projectInfoList){
 							$("input[data-title-id='"+title.titleId+"']").attr("data-result-id",title.resultId);	
 						}
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
-							var _val =title.value;	
+							var _val =title.value;	 
+							var I_val=_val;
 							//这个是公共的 所以需要判断ID
-							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
+							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011")&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
-									if(num[0].length>9){
-										_val=_val;
-									}else{
-										_val=Number(_val).toFixed(4)
-									}
+									if (title.titleId =="3004"||title.titleId =="3010"){
+										
+									}else{ 
+										if(num[0].length>9){
+											_val=_val;
+										}else{ 
+											_val=Number(_val).toFixed(4)
+										}
+									}  
 								}
 								_val = _parsefloat(_val);
-								var I_val=_val;
-							}else{
-								var I_val=_val;
-							}
+							} 
 							if(_val==undefined){
 								_val="暂无数据"
 							}else{
@@ -735,6 +754,13 @@ function updataReport(projectInfoList){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									if(title.titleId=="3012"){  
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 								}
 							}
 							
@@ -745,7 +771,7 @@ function updataReport(projectInfoList){
 									_val=0;
 								}
 								if(_val!=0){
-									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
+									//base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}else{
 									$("#invest_chart").html("");
 								}
@@ -770,8 +796,8 @@ function updataReport(projectInfoList){
 function updateReportMoney(){ 
 	var projectInfoListNew=[];
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/infoProject/getTitleRelationResults/4/"+projectInfo.id, null, function(data){
-		if(data.result.status=='OK'){
-			projectInfoListNew=data.userData.report[0].childList;
+		if(data.result.status=='OK'){ 
+			projectInfoListNew=data.userData.report[0].childList; 
 			updataReport(projectInfoListNew);
 		}
 	})

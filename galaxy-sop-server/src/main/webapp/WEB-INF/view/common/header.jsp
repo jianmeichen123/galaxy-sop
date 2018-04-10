@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
@@ -80,7 +80,7 @@
        <!--用户信息-->
         <div class="usermsg fl">
               <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban" onclick="buryPoint('126')">待办<em class="totalUrgent"></em></a>
-            <a href="<%=path %>/galaxy/operationMessage/index" class="work" onclick="buryPoint('125')">消息<em action="remind">0</em></a> 
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work" onclick="buryPoint('125')">消息<em action="remind" style="display: none">0</em></a>
     
         </div>      <!--当日信息-->
       <div class="man_info fl">
@@ -246,11 +246,17 @@ if(isContainResourceByMark("task_into_view")){
  function remindcbf(data){
 	if(data.status == "OK"){
 		var remindCount=data.map.count;
-		if(remindCount>99){
-			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
-		}else{
-			$(".work em[action='remind']").html(remindCount);
-		}
+
+        if(remindCount == 0) {
+            $(".work em[action='remind']").css("display","none");
+        }else{
+            $(".work em[action='remind']").css("display","block");
+            if(remindCount>99){
+                $(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
+            }else{
+                $(".work em[action='remind']").html(remindCount);
+            }
+        }
 	}
  }
  function logout(url){

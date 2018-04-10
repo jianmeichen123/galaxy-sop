@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
 	String path = request.getContextPath(); 
@@ -71,7 +71,7 @@
             <span class="light_blue">当前您有：</span>
             <a href="<%=path %>/galaxy/soptask" class="work" id="daiban">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
-            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind" style="display: none">0</em></a>
         </div>    	
         <!--当日信息-->
     	<div class="todaymsg clearfix">
@@ -113,7 +113,13 @@ window.setInterval("reloadMessage(),fillHeaderdata()",10000);
  }
  function remindcbf(data){
 	if(data.result.status == "OK"){
-		 $(".work em[action='remind']").html(data.entity.count);
+
+        if(data.entity.count == 0) {
+            $(".work em[action='remind']").css("display","none");
+        }else{
+            $(".work em[action='remind']").css("display","block");
+            $(".work em[action='remind']").html(data.entity.count);
+        }
 	}
  }
  function logout(){

@@ -79,7 +79,7 @@
 							<div class="relative_box">
 								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em><span>%</span>
 								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em><span>%</span></p>
-								<p id="invest_chart"></p>
+								<!-- <p id="invest_chart"></p> -->
 							</div>
 						</div>
 					</li>
@@ -204,19 +204,20 @@
 							<tr>
 								<td class="million">
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的6位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
 								<td class="percent">
 									<span>出让股份：</span>
-									<input type="text" class="basic_mes_input" placeholder="出让股份"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数" data-title-id="1917">
+									<input type="text" class="basic_mes_input" placeholder="出让股份"  size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数" data-title-id="1917">
 								</td>
 							</tr>
 							<tr>
 								<td class="million">
-									<span>项目估值：</span>
-									<input type="text" class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数" data-title-id="1943">
+									<span>项目估值：</span> 
+									<input type="hidden"   name="">
+									<input type="text" VType='guzhi' class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数" data-title-id="1943">
 								</td>
 							</tr>
 							
@@ -239,19 +240,20 @@
 							<tr class="million">
 								<td >
 									<span>投资金额：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的四位小数"  data-title-id="3004"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的6位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
 							<tr class="percent">
 								<td >
 									<span>股权占比：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的两位小数"  data-title-id="3010"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的5位小数"  data-title-id="3010"/>
 								</td>
 							</tr>
 							<tr class="million">
 								<td>
 									<span>项目估值：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"  data-title-id="3012">
+									<input type="hidden"   name="">
+									<input type="text" VType='guzhi' value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							
@@ -344,13 +346,13 @@
 					</div>
 	    	</div>
 	    			<div class="btn btnbox basic_mes_button legal_button">
-		              <button  class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
+		              <button  class="pubbtn bluebtn version19_save_btn" save_type="save_FR" data-on="save">保存</button>
               		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
 	 	   </div>   
 	 	   
 	 	   <!-- 合投机构 --> 
-	 	   <div class="agency_institute investTogether_current">
+	 	   <div class="agency_institute investTogether_current basic_current ">
 	 	   		<div class="title_bj_tzjl agency_radius"><span>合投机构</span> <em class="agency_close" data-on="close" data-name="investTogether"></em></div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont invest_max_height">
@@ -604,9 +606,9 @@ createMenus(5);
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs institue_content">'
 	          +'<span class="input_box"><input placeholder="机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持6位长度的四位小数" data-msg-amount="<font color=red>*</font>支持6位长度的四位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持9位长度的6位小数" data-msg-amount="<font color=red>*</font>支持9位长度的6位小数"/></span>'
 	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
-	          +'<span class="input_box"><input placeholder="占股比例(%)"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的两位小数" data-msg-share="<font color=red>*</font>0-100间的两位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="占股比例(%)"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的5位小数" data-msg-share="<font color=red>*</font>0-100间的5位小数"/></span>'
 	            +'<em class="inves_delete"></em>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
@@ -646,27 +648,7 @@ createMenus(5);
 	{
 		$('.legal [data-on="data-open"]').addClass('limits_gray');
 	}
-	/*编辑法人信息保存方法交互  */
-	$('.legal_current [data-btn="save"]').on('click',function(){
-		var projectCompany=$("input[name='projectCompany']").val();
-		var formationDate=$("input[name='formationDate']").val();
-		var companyLegal=$("input[name='companyLegal']").val();
-		$('.bj_hui_on').hide();
-		$('.legal_current').hide();
-		if(projectCompany==""){
-			projectCompany="—";
-		}
-		if(formationDate==""){
-			formationDate="—";
-		}
-		if(companyLegal==""){
-			companyLegal="—";
-		}
-		saveBaseInfo("company-info-form",projectCompany,formationDate,companyLegal);
-		buildShareResult("4","5812");
-		
-		
-	});
+ 
 	//日期选择
 	$('.legal_current input[name="formationDate"]').datepicker({
 	    format: 'yyyy-mm-dd',
@@ -713,8 +695,8 @@ createMenus(5);
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/danao/danao.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
-<script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
 
 

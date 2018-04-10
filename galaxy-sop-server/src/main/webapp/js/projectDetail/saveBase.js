@@ -1,6 +1,6 @@
 function saveBaseInfo(dom,val1,val2,val3){
-	var infoModeList = new Array();
-	var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
+	var infoModeList = new Array();  
+	var fields = $("#"+dom).find(".basic_current:visible input[data-title-id],select[data-title-id]");
 	var data = {
 			projectId : projectInfo.id
 		};
@@ -29,7 +29,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 			tochange:_tochange,
 			resultId:_resultId,
 			type : type
-		};
+		}; 
 		if(field.data('titleId')=="1118"&&type=="23"){  
 				var judgment = $("input[name=projectSource]").attr("m-val");
 				if(judgment!='2257'&&judgment!='2262'){ 
@@ -102,14 +102,14 @@ function saveBaseInfo(dom,val1,val2,val3){
 			}else if(type==14 )
 		{
 			infoMode.value = field.attr('m-val');
-		}else if(type==19 || (!field.hasClass("inputSouce")&&type==1)){
+		}else if(type==19 || (!field.hasClass("inputSouce")&&type==1)){ 
 			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null&&type!="13") {
 	        infoModeList.push(infoMode);
 	    } 
 		data.infoModeList = infoModeList;
-	}); 
+	});  
 	sendPostRequestByJsonObjNoCache(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -118,10 +118,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					updateReportMoneyBasic();	
-					if(dom=="basicForm"&&val1=="finance"){	
-						updateReportMoney(); 
-					}
+					updateReportMoneyBasic(); 
 //					弹窗关闭
 					var close="basic"
 					$('.'+close+'_current').hide();//basic_current
@@ -129,10 +126,12 @@ function saveBaseInfo(dom,val1,val2,val3){
 					$('.'+close+'_center').show();
 					$('.bj_hui_on').hide();
 					$('.tip-yellowsimple').hide();
-					$("body").css('overflow-y','auto');
-					
-					
-					if(dom=='company-info-form'){
+					$("body").css('overflow-y','auto'); 
+
+					if(dom=="basicForm"&&val1=="finance"){	
+						updateReportMoney(); 
+					}
+					if(dom=='company-info-form'){ 
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);
 						$('#formationDate').text(val2);
@@ -188,7 +187,7 @@ function updateReportMoneyBasic(){
 		}
 	})
 }
-function updataReport(projectInfoList){ 
+function updataReport(projectInfoList){  
 	if(projectInfoList && projectInfoList.length>0){
     	$.each(projectInfoList,function(i,o){
 	    	if(o.nodeName=='本轮融资轮次'){
@@ -196,7 +195,7 @@ function updataReport(projectInfoList){
 	    	}else if(o.nodeName=='融资计划'){
 	    		var entityList=o.childList;
 	    		if(entityList && entityList.length>0){
-	    			$.each(entityList,function(){
+	    			$.each(entityList,function(){ 
 						var title = this;
 						$("input[data-title-id='"+title.titleId+"']").attr("data-type",title.type);	
 						if(title.resultId){
@@ -208,11 +207,20 @@ function updataReport(projectInfoList){
 							var I_val=_val
 							if(_val==undefined){
 								_val="暂无数据"
-							}else{
+							}else{ 
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
+									
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
+									
 								}
 							}
 							
@@ -250,13 +258,17 @@ function updataReport(projectInfoList){
 						if(null!=title.value&& undefined!=title.value&&""!=title.value){
 							var _val =title.value;	
 							//这个是公共的 所以需要判断ID
-							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011"||title.titleId =="3012")&&_val) {
+							if ((title.titleId =="3004"||title.titleId =="3010"||title.titleId =="3011" )&&_val) {
 								if(_val.indexOf('.')>-1){
 									var num=_val.split('.');
-									if(num[0].length>9){
-										_val=_val;
-									}else{
-										_val=Number(_val).toFixed(4)
+									if (title.titleId =="3004"||title.titleId =="3010"){
+										
+									}else{ 
+										if(num[0].length>9){
+											_val=_val;
+										}else{
+											_val=Number(_val).toFixed(4)
+										}
 									}
 								}
 								_val = _parsefloat(_val);
@@ -266,11 +278,18 @@ function updataReport(projectInfoList){
 							}
 							if(_val==undefined){
 								_val="暂无数据"
-							}else{
+							}else{ 
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
 									var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元");
+									if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
+										var array = String(_val).split(".");
+										if(array[1]!=undefined){ 
+											array[1]=array[1].slice(0,4)
+										}  
+										_val= array.join('.');
+									}
 								}
 							}
 							

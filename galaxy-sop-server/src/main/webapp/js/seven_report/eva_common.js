@@ -484,10 +484,11 @@ function buildResult(title)
 				}else{
 					var res = change_number(val);
 					val=_parsefloat(res[0])+res[1]+currency; 
-					a_val =_parsefloat(a_val)+"万"+currency;
+					a_val =_parsefloat(a_val)+"万"+currency; 
 				}
 				_ele.find("span").attr("currency",currency_id).attr("value",a_val);
-				_ele.find("span").html(val);
+				_ele.find("span").html(a_val);
+				//_ele.find("span").html(val);
 			 }else if(type==1){
 				 val=_parsefloat(val);
 				 _ele.find("span").html(val);
@@ -1205,7 +1206,7 @@ function s_editRow(ele)
 				_ele.val(_td.text());
 			});
 			$("#detail-form input[name='index']").val(row.index());
-			$("#save-detail-btn").click(function(){
+			$("#save-detail-btn").click(function(){ 
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	

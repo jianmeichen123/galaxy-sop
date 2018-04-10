@@ -35,7 +35,7 @@ function addRow(ele)
 function saveForm(form)
 {
 	if($(form).validate().form())
-	{
+	{ 
 		var data = $(form).serializeObject();
 		saveRow(data);
 	}
@@ -44,7 +44,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
+{ 
 	data = JSON.parse(data);
 	var titleId = data.titleId;
 	var index = data.index;
@@ -56,6 +56,9 @@ function saveRow(data)
 	else
 	{
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		if(titleId=='1144'||titleId=='9144'){
+			data.field2=_parsefloat(data.field2)
+		}
 		for(var key in data)
 		{
 			if(key.indexOf('field')>-1)
@@ -116,8 +119,12 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
-					ele.val(row.data(name));
+				}else{ 
+					if(name=='field2'&&code=='share-holding'){
+						ele.val(_parsefloat(row.data(name)));
+					}else{
+						ele.val(row.data(name)); 
+					}
 				}
 			});
 			//查看显示

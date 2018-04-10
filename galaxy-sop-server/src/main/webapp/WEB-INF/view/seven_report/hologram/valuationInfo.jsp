@@ -46,7 +46,7 @@
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
 		<!-- 隐藏域，用于草稿箱20类型的全部清空操作 -->
-		<span class="block" data-title-id="1929" data-type="20"></span>
+		<span class="none" data-title-id="1929" data-type="20"></span>
 		<span class="none" data-title-id="1939" data-type="20"></span>
 		<span class="none" data-title-id="1910" data-type="20"></span>
 		<span class="none" data-title-id="1911" data-type="20"></span>
@@ -167,7 +167,7 @@ var deleteJSON={};
 					var span1910=$(".h#a_"+id_code).find('select[id="1910_select"]').val();
 					var span1911=$(".h#a_"+id_code).find('select[id="1911_select"]').val();
 					var span1929=$(".h#a_"+id_code).find('select[id="1929_select"]').val();
-					var span1939=$(".h#a_"+id_code).find('select[id="1939_select"]').val();
+					var span1939=$(".h#a_"+id_code).find('select[id="1939_select"]').val(); 
 					$('span[data-title-id="1910"][data-type="20"]').text(span1910);
 					$('span[data-title-id="1911"][data-type="20"]').text(span1911);
 					$('span[data-title-id="1929"][data-type="20"]').text(span1929);
@@ -190,24 +190,26 @@ var deleteJSON={};
 						var projectParent = $("input[data-title-id='"+parent+"']").val();
 						var projectChildren = $("input[data-title-id='"+children+"']").val();
 						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
-						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
-							return projectParent * (100/projectChildren);
+						if(projectParent > 0 && projectChildren > 0 && cell=="%"){ 
+								return finalValue(projectParent,projectChildren) 
 						}
 						return null;
 					}
+					//编辑时候需要判断 
+					$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations());
 					$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
+							$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-						}
+						} 
 					});
 					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
+							$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-						}
+						} 
 					})
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
@@ -304,7 +306,14 @@ var deleteJSON={};
 		var data = {
 			projectId : projectInfo.id
 		};
-
+		if($("input[guzhi]").length>0){  
+			var val1 = $("input[guzhi]").val(),val2= $("input[guzhi]").attr("guzhi"),
+			val3=accSub(val1,val2); 
+			if(val3>10||val3<-10){
+				layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+				return;
+			}
+		}
 		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){

@@ -40,6 +40,15 @@ function validate(){
 						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="3,2,0"){   //包含0 
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3_0":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3_0":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="10,2"){
 				var validate={
 						"data-rule-verify_102":"true",
@@ -47,6 +56,13 @@ function validate(){
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_102":"<font color=red>*</font>支持10位长度的两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="13,6"){
+				var validate={
+						"data-rule-verify_136":"true",
+						"name":i,
+						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="8,2"){
@@ -147,6 +163,10 @@ function validate(){
 $.validator.setDefaults({
 	errorElement:'span'
 });
+jQuery.validator.addMethod("verify_136", function(value, element) {
+	var verify = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify.test(value));
+}, "支持13位长度的6位小数");
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
@@ -165,6 +185,10 @@ jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
 }, "支持9位长度的四位小数");
+jQuery.validator.addMethod("verify_96", function(value, element) {
+	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
+	return this.optional(element) || (verify_96.test(value));
+}, "支持9位长度的6位小数");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2}|0)$/;;
@@ -184,6 +208,12 @@ jQuery.validator.addMethod("verify_32_0", function(value, element) {
 	return this.optional(element) || (verify_32_0.test(value));
 }, "支持0-100之间的两位小数"); 
 //inputValRuleMark=="3,2"
+
+jQuery.validator.addMethod("verify_35", function(value, element) {   
+	if(_parsefloat(value)=='0'){value=0;}
+	var verify_35 =/^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
+	return this.optional(element) || (verify_35.test(value));
+}, "支持0-100之间的5位小数"); 
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
@@ -272,3 +302,7 @@ jQuery.validator.addMethod("eva_100", function(value, element) {
 	return this.optional(element) || (eva_100.test(value));
 	;
 }, "只允许输入数字0~100整数");
+jQuery.validator.addMethod("vinputValRule_3_0", function(value, element) {   
+	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|0|100|100\.0{1,2})$/;
+	return this.optional(element) || (vinputValRule_3.test(value));
+}, "不能超过100"); 

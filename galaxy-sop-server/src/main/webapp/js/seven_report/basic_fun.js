@@ -177,10 +177,11 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			  break;
 	   default:
 		   reportType="";	  
-	}
+	} 
 	if(reportType=="3"){   //获取股权占比值
 		var stockPencent=$("dd[data-title-id=\"3010\"]").text();
 		var tz_money=$("dd[data-title-id=\"3004\"]").text();
+		var res_money=$("dd[data-title-id=\"3012\"]").text()=="未填写"?"":$("dd[data-title-id=\"3012\"]").text();
 	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
@@ -232,9 +233,11 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				
+				if(res_money){
+					$("input[data-title-id=3012]").val(res_money); 
+				}
 				//计算项目估值
-				if(reportType=="3"){
+				if(reportType=="3"){ 
 					$(".tz_money").val(tz_money);  //投资金额;
 					$.each($("input[data-type='19']"),function(){
 						var valRuleFormula=$(this).attr("data-valruleformula");
@@ -244,7 +247,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(null!=valRule[1]){
 								valRule1=valRule[1].split("/");
 							}
-						
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
@@ -253,31 +255,32 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
 							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
-								return projectParent * (100/projectChildren);
+								return finalValue(projectParent,projectChildren); 
 							}else{
 								return null;
 							}
-							
 						}
 						function calculationValuationsParent(){  //编辑投资金额
 							var projectParent = $("input[data-title-id='"+parent+"']").val();
 							var projectChildren = $("dd[data-title-id='"+children+"']").text();
 							if(projectParent > 0 && projectChildren > 0){
-								return projectParent * (100/projectChildren);
+								return finalValue(projectParent,projectChildren) 
 							}else{
 								return null;
 							}
 							
 						}
-					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
+						$("input[data-title-id='"+result+"']").attr("guzhi", calculationValuations());
+					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){   	
 							var valuations = calculationValuationsParent();
 							if(valuations != null){
-								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+								$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								$("input[type='hidden'].money").val(valuations);
+							}else{ 
 							}
 						});
-						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
 							var val=$(this).val();
 							var valuations = calculationValuations();
 							if(stockPencent!="未填写" && val=="" || tz_money=="未填写"){
@@ -286,9 +289,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[type='hidden'].money").val("");
 							}else{
 								if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").val(valuations).attr("guzhi",valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}else{ 
 								}
 							}
 						})
@@ -307,37 +311,38 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var parent=valRule1[0];
 							var children=valRule1[1];
 						}
-						function calculationValuations(){
+						function calculationValuations(){ 
 							var projectParent = $("input[data-title-id='"+parent+"']").val();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
 							var cell=$("input[data-title-id='"+children+"']").attr("data-content");
-							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
-								return projectParent * (100/projectChildren);
+							if(projectParent > 0 && projectChildren > 0){ 
+								return finalValue(projectParent,projectChildren) 
 							}else{
 								return null;
 							}
 							
 						}
-						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
-							var valuations = calculationValuations();
-							console.log(valuations)
+						$("input[data-title-id='"+result+"']").attr('guzhi',calculationValuations()); 
+						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){ 
+							var valuations = calculationValuations(); 
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
-									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								
+								$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true); 
+							}else{ 
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						});
-						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){ 
 							var valuations = calculationValuations();
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").val(valuations).attr('guzhi',valuations);
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}else{  
+								$("input[data-title-id='"+result+"']").removeAttr('guzhi');
 							}
 						})
 					})
-				}
-				
+				} 
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
 				for(var i=0;i<textarea_h.length;i++){
@@ -490,11 +495,10 @@ function editRow(ele)
 			 var trs=$(ele).closest("table[data-code='"+code+"']").find("tr");
 			 var sum=0;
 			 $.each(trs,function(){ 
-				 sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 //sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 sum=accAdd(sum,Number($(this).find("td[data-field-name='field3']").text()));
 			 })
 		}
-		
-		
 		//分期注资验证
 		if(txt == '编辑')
 		{
@@ -551,25 +555,29 @@ function editRow(ele)
 				//计算剩余金额
 				getTotalAppr(projectInfo.id);
 				
-				var totalMoneyPart=$("#totalMoneyPart").val();
-				$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
-				$(".moeny_all input").on("blur",function(){
+				var totalMoneyPart=$("#totalMoneyPart").val();  
+				$("#formatRemainMoney").text(_parsefloat(accSub(totalMoneyPart,sum)));
+				$(".moeny_all input").on("blur",function(){ 
 	            	var val=$(this).val();
 	            	var errorTips=$(this).siblings(".error");
 	            	if(errorTips.is(":visible")){
 	            		val=0;
-	            		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
-	            		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+	            		var swich = accSub(totalMoneyPart,sum)
+                		var formatRemainMoneyVal=accSub(swich,val);
+                		formatRemainMoneyVal = accSub(formatRemainMoneyVal,val);
+                		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal)); 
 	            	}else{
-	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-	                		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
-	                		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){ 
+							var swich = accSub(totalMoneyPart,sum)
+	                		var formatRemainMoneyVal=accAdd(swich,valtr);
+	                		formatRemainMoneyVal = accSub(formatRemainMoneyVal,val);
+	                		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
 	                	}else{
 	                		$("#formatRemainMoney").text(0);
 	                	}
 	            	}
 	            })
-	            $(".remainMoney span").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);  //查看时的剩余金额
+	            $(".remainMoney span").text(accSub(totalMoneyPart,sum));  //查看时的剩余金额
 				selectContext("detail-form");
 				$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 					var ele = $(this);
@@ -656,6 +664,15 @@ function editRow(ele)
 					});
 					
 				})
+				//估值显示guzhi属性融资历史
+				if($("#detail-form").hasClass("guzhi_pop")){ 
+					var projectParent = $("input[name='field3']").val();
+					var projectChildren = $("input[name='field4']").val();
+					var valuations = finalValue(projectParent,projectChildren);
+					if(projectParent!=''&&projectChildren!=''){
+						$("input[name='field5']").attr("guzhi",valuations);
+					}
+				}
 				//特殊处理带万元单位的查看
 				$.each($(".see_block").find("dd.money[name]"),function(){
 					var ele = $(this);
@@ -1044,7 +1061,8 @@ function addRow(ele)
     			 var trs=$("table.editable[data-code='"+code+"']").find("tr");
     			 var sum=0;
     			 $.each(trs,function(){ 
-    				 sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 	//sum+=Number($(this).find("td[data-field-name='field3']").text());
+				 	sum=accAdd(sum,Number($(this).find("td[data-field-name='field3']").text()))
     			 })
     			
     		}
@@ -1080,19 +1098,21 @@ function addRow(ele)
                     getTotalAppr(projectInfo.id);
                     selectContext("detail-form");
                     //计算剩余金额
-                    var totalMoneyInit=$("#totalMoneyPart").val();
-                    $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(4)*10000/10000);
+                    var totalMoneyInit=$("#totalMoneyPart").val(); 
+                    $("#formatRemainMoney").text(_parsefloat(accSub(totalMoneyInit,sum)));
                     $(".moeny_all input").on("blur",function(){
                     	var val=$(this).val();
                     	var errorTips=$(this).siblings(".error");
                     	if(errorTips.is(":visible")){
                     		val=0;
-                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
-                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+                    		var swith = accSub(totalMoneyInit,sum)
+                    		var formatRemainMoneyVal = accSub(swith,val)
+                    		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
                     	}else{
-                    		if(Number(totalMoneyInit)-sum-val>0){
-                        		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
-                        		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+                    		if(Number(totalMoneyInit)-sum-val>0){ 
+                    			var swith = accSub(totalMoneyInit,sum)
+                    			var formatRemainMoneyVal = accSub(swith,val)
+                        		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
                         	}else{
                         		$("#formatRemainMoney").text(0);
                         	}
@@ -1163,6 +1183,15 @@ function addRowCompete(ele,id_code,id_code_new){
 
 function saveForm(form)
 {
+	if(form.hasClass("guzhi_pop")){ 
+      var val1 = $("input[name='field5']").val();
+	  val2=$("input[name='field5']").attr('guzhi'), 
+		val3=accSub(val1,val2); 
+		if(val3>10||val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
+		}
+	}
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();
@@ -1181,7 +1210,7 @@ function saveForm(form)
  * 保存至到tr标签data属性
  */
 function saveRow(data)
-{
+{ 
 	data = JSON.parse(data);
 	if(data.subCode=="competitor_obvious" || data.subCode=="competitor_potential"){   //显在、潜在竞争对手特殊textarera处理空格回车
 		for(var key in data){
@@ -1214,7 +1243,7 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				var val_text = data[key];
-				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"||titleId=="1144"){					
 					if(key=="field2"){
 						val_text = _parsefloat(val_text)
 					}

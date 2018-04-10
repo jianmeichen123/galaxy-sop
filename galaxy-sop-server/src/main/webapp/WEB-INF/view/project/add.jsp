@@ -66,11 +66,11 @@
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
-                             <span class="m_r30"><input type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
+                            <span class="m_r30"><input style='display: inline-block;vertical-align: middle;' type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/><img style='display: inline-block;vertical-align: middle;' title="创建时间指的是投资业务人员首次接触该项目的时间，并非项目成立时间 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
                         </li>
                         <li>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'>*项目名称重复</label></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'></label></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr addpro-input addpro-input-arrow ' data-title-id="1108" data-type="14">
@@ -151,7 +151,7 @@
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
-                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的四位小数"/>
+                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
@@ -159,14 +159,14 @@
                         <li>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
                             <span class="m_r15 after after2">
-                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的两位小数"/>
+                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数"/>
                             </span>
                             <!-- <span class="m_r30">% </span> -->
 	                    </li>
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
                             <span class="m_r15 after after3">
-                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的四位小数"/>
+                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>
@@ -401,22 +401,26 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
    var formData;
 	$(function(){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
-		createMenus(5);
-		//获取TOKEN 用于验证表单提交
-	/* 	sendPostRequest(platformUrl.getToken,function(data){
-			TOKEN=data.TOKEN;
-			return TOKEN;
-		}); */
-		$("#formatShareRatio").blur(function(){
-			var valuations = calculationValuations();
+		createMenus(5); 
+		
+		$("#formatShareRatio").blur(function(){ 
+			var projectShareRatio = $("#formatShareRatio").val();
+			var projectContribution = $("#formatContribution").val();
+			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(4));
+				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
-		$("#formatContribution").blur(function(){
-			var valuations = calculationValuations();
+		$("#formatContribution").blur(function(){ 
+			var projectShareRatio = $("#formatShareRatio").val();
+			var projectContribution = $("#formatContribution").val();
+			var valuations = finalValue(projectContribution,projectShareRatio);
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(4));
+				$("#formatValuations").val(valuations).attr("guzhi",valuations);
+			}else{
+				$("#formatValuations").removeAttr("guzhi");
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){
@@ -456,6 +460,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		}
 		return null;
 	}
+	var objDatad='';
 //项目名称重复checkProjectName
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
@@ -465,29 +470,47 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var data2 = {
 				'projectName' : projectName
 		}
-		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
-			console.log(data)
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){ 
 				if(data.result.status=="ERROR"){
-					if(data.result.errorCode == "name-repeat"){
-						$('.project-name').css('display','block');
-					}
+			       objDatad =data.userData;
+                    if(data.result.errorCode == "name-repeat"){  
+            			$("select").attr("disabled",true)
+                        layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+                        $('.project-name').css('display','block');
+                    }
+                    $(".layui-layer-btn").click(function(){ 
+            			$("select").removeAttr("disabled")
+                    })
+                    $(".layui-layer-close").click(function(){ 
+            			$("select").removeAttr("disabled")
+                    })
 				}else if(data.result.status ==='OK'){
 					$('.project-name').css('display','none');
 				}
 		})
-		
-		
 	}
 
 	
 	
 })  
 //添加项目页面保存按钮
-	function add(){
+	function add(){   
+      if(!$('.project-name').is(":hidden")){
+			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+			return false;
+		}
         $("#selectRadio[name=projectContractor]").css("display","inline-block")
 		if(!$('#add_form').validate().form()){//验证不通过时候执行
 			$(".adddpro-save").submit();
 			return false;	
+		}
+        //验证估值 
+        var s_val1=$("#formatValuations").attr("guzhi"),
+		s_val2=$("#formatValuations").val(),
+		s_val3=accSub(s_val1,s_val2); 
+		if(s_val3>10||s_val3<-10){
+			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+			return;
 		}
 		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null || typeof(val) == "undefined"){
