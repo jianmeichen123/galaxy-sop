@@ -233,8 +233,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				if(res_money){
-					$("input[data-title-id=3012]").val(res_money); 
+				if(res_money){ 
+					$("input[data-title-id=3012]").val(finalFloat(res_money,6)); 
 				}
 				//计算项目估值
 				if(reportType=="3"){ 
@@ -576,8 +576,8 @@ function editRow(ele)
 	                		$("#formatRemainMoney").text(0);
 	                	}
 	            	}
-	            })
-	            $(".remainMoney span").text(accSub(totalMoneyPart,sum));  //查看时的剩余金额
+	            }) 
+	            $(".remainMoney span").text(finalFloat(accSub(totalMoneyPart,sum),6));  //查看时的剩余金额
 				selectContext("detail-form");
 				$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 					var ele = $(this);
