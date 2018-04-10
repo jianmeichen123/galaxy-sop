@@ -4681,12 +4681,12 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
 }
 .commonTab{width:auto;}
 .new_tit_b .commonTab{float:left;}
-.commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;}
+.commonTab .xhtTab{cursor:pointer; float:left;margin-right:30px; line-height:50px;color:#33363e;margin-top:10px;font-size: 16px;color: #202533;}
 .commonTab .xhtTab.active{border-bottom:4px solid #45aaff;}
 .commonTab .xhtTabs{line-height: 62px; 
     font-size: 22px;
     font-weight: normal;
-    color: #808e9b;margin-left:-30px;}
+    color: #808e9b;margin-left:-30px;font-size: 20px;color: #202533;}
 .project-table_delete .delete_syb,.project-table_delete .delete_tzjl{display:none;}
 #grid_overview{display:none;}
 .project_total_top10{margin-top:40px;}
