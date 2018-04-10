@@ -371,6 +371,7 @@ background: none;
 	border: 1px solid #D8D8D8;
 	border-radius: 2px;
 }
+.input-groupNew input{display:inline-block;}
 .title_top{
 	width:100%;
 	height:64px;
