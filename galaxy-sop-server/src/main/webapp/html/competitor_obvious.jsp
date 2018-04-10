@@ -31,7 +31,7 @@
 		                </dd>
 		            </dl>
 	                 <dl class="fmdl fl_l  clearfix">
-		                <dt>计划注资金额 ：</dt>
+		                <dt>计划注资金额：</dt>
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
