@@ -270,7 +270,7 @@
 										$(this)[0].id="";
 									}  
 									//1144 团队重要成员是否拥有足够、合理的股权
-									if(judgeId=='1144'){$(this)[0].field2=_parsefloat($(this)[0].field2)}
+									if(judgeId=='1144'||judgeId=='9144'){$(this)[0].field2=_parsefloat($(this)[0].field2)}
 									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"s_editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
 									tr_html+="<tr data-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
 								})
