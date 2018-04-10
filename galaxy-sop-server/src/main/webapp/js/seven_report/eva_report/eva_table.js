@@ -56,7 +56,7 @@ function saveRow(data)
 	else
 	{
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
-		if(titleId=='1144'){
+		if(titleId=='1144'||titleId=='9144'){
 			data.field2=_parsefloat(data.field2)
 		}
 		for(var key in data)
