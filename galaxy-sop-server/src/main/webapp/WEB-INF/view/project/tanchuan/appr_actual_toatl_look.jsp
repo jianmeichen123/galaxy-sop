@@ -59,7 +59,7 @@
 			_val=_val;
 		}else{
 			//_val=Number(_val).toFixed(4)
-			_val=Number(_val);
+			_val=Number(_val).toFixed(6);
 		}
 	}
 	_val = _parsefloat(_val);
