@@ -381,8 +381,8 @@ function getDetailUrl(code)
 }
 //编辑保存  _this  当前 table
 function saveForm(form,_this)
-{  
-	if(form.hasClass("guzhi_pop")){ 
+{   
+	if(form!='delete'&&form.hasClass("guzhi_pop")){ 
       var val1 = $("input[name='field5']").val();
 	  val2=$("input[name='field5']").attr('guzhi'), 
 		val3=accSub(val1,val2); 
