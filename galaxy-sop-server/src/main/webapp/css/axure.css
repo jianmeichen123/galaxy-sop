@@ -3077,6 +3077,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		border:1px solid #ccd2d7;
 		color:#4a97da;
 	}
+ .popbtm_btn #reject-btn{ float: left; }
 	.popbtm_btn .bluebtn.disabled,.popbtm_btn .fffbtn.disabled{
 		border:0px;
 		border-radius:2px;
