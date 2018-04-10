@@ -195,11 +195,11 @@ var searchPartMoney;
 		                    		var swich = accSub(totalMoneyPart,sum)
 		                    		var formatRemainMoneyVal=accSub(swich,val);
 			                		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal)); 
-		                    	}else{
+		                    	}else{  
 		                    		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-		                    			var swich = accSub(totalMoneyPart,sum)
-			                    		var formatRemainMoneyVal=accSub(swich,valtr);
-			                    		formatRemainMoneyval=accSub(formatRemainMoneyVal,val); 
+		                    			var swich = accSub(totalMoneyPart,sum);
+		                    			swich=accAdd(swich,valtr); 
+			                    		var formatRemainMoneyval=accSub(swich,val); 
 		                        		$("#formatRemainMoney").text(_parsefloat(formatRemainMoneyval));
 		                        	}else{
 		                        		$("#formatRemainMoney").text(0);
