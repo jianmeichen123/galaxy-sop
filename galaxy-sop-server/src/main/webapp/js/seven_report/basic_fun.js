@@ -569,7 +569,7 @@ function editRow(ele)
 	            	}else{
 	            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){ 
 							var swich = accSub(totalMoneyPart,sum)
-	                		var formatRemainMoneyVal=accSub(swich,val);
+	                		var formatRemainMoneyVal=accAdd(swich,valtr);
 	                		formatRemainMoneyVal = accSub(formatRemainMoneyVal,val);
 	                		 $("#formatRemainMoney").text(_parsefloat(formatRemainMoneyVal));
 	                	}else{
