@@ -577,7 +577,7 @@ function editRow(ele)
 	                	}
 	            	}
 	            })
-	            $(".remainMoney span").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);  //查看时的剩余金额
+	            $(".remainMoney span").text(accSub(totalMoneyPart,sum));  //查看时的剩余金额
 				selectContext("detail-form");
 				$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 					var ele = $(this);
