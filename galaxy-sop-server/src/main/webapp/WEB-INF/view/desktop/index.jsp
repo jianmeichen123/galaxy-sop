@@ -67,7 +67,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <li><a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" ><span class="ico_small psh"></span><span>CEO评审</span></a></li>
             </acl:acl>
             <acl:acl resourceMark="div_normal_tool">
-            <li><span class="ico_small tool"></span><span>常用工具</span></li>
+            <li>
+                <span class="ico_small tool"></span>
+                <a href="<%=path %>/galaxy/manual/download">用户手册</a>
+                <%--<span class="ico_small tool"></span><span>常用工具</span>--%>
+            </li>
             </acl:acl>
           </ul>
         </div>
@@ -170,11 +174,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="div_normal_tool">
         <dl  class="tool_radius">
 
-            <a href="<%=path %>/galaxy/manual/download" target="_self" class="light_gray"><b class="b1 ico null">ico</b>手册下载</a>
-
-
             <dd class="tool">
-              <a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
+                <a href="<%=path %>/galaxy/manual/download"  class="light_gray"><b class="b1 ico null">ico</b>手册下载</a>
+
+                <%--<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                 <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
                 
                 <c:choose>
@@ -187,13 +190,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		        	
                        <a href="javascript:;" class="light_gray"><b class="b4 ico null">ico</b>新增访谈</a>
                    	<a href="javascript:;" class="light_gray" ><b class="b3 ico null">ico</b>新增会议</a>
-                   	  <%--  <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
-                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a> --%>
+                   	  &lt;%&ndash;  <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a> &ndash;%&gt;
 		        	</c:otherwise>
 	        	</c:choose>
 		        	
                 <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
-                <a href="javascript:;" class="add ico">&nbsp;</a>
+                <a href="javascript:;" class="add ico">&nbsp;</a>--%>
             </dd>
         </dl>
         </acl:acl>
