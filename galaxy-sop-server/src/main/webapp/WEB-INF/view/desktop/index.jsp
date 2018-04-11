@@ -1,8 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.oss.OSSConstant"%>
-<%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <% 
@@ -171,6 +169,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!-- 常用工具 -->
         <acl:acl resourceMark="div_normal_tool">
         <dl  class="tool_radius">
+
+            <a href="<%=path %>/galaxy/manual/download" target="_self" class="light_gray"><b class="b1 ico null">ico</b>手册下载</a>
+
+
             <dd class="tool">
               <a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                 <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
