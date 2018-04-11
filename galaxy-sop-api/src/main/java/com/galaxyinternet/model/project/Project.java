@@ -4,10 +4,14 @@ package com.galaxyinternet.model.project;
 import java.util.List;
 
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.NumberUtils;
+import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -151,6 +155,19 @@ public class Project extends PagableEntity {
 
 // 大脑数据
 	private String danaoProjCode;
+	
+	//2018-04-11新增项目重构功能添加辅助属性
+	private InformationListdata infimationListdate;//用于处理团队成员
+	
+	private InterviewRecord interviewRecord;//用于处理新增项目访谈
+	
+	private InformationData informationData;//项目信息保存报告的其他字段
+	
+	private String planKey;//移动端上传商业计划书需要的字段key
+	
+	private SopFile businessPlanFile;//移动端上传商业计划书对象
+	
+	private ProjectQuery projectQuery;
 
 
     public Long getId() {
@@ -873,8 +890,54 @@ public class Project extends PagableEntity {
 		this.proejctIdList = proejctIdList;
 	}
 
-	
-	
+	public InformationListdata getInfimationListdate() {
+		return infimationListdate;
+	}
+
+	public void setInfimationListdate(InformationListdata infimationListdate) {
+		this.infimationListdate = infimationListdate;
+	}
+
+	public InterviewRecord getInterviewRecord() {
+		return interviewRecord;
+	}
+
+	public void setInterviewRecord(InterviewRecord interviewRecord) {
+		this.interviewRecord = interviewRecord;
+	}
+
+	public InformationData getInformationData() {
+		return informationData;
+	}
+
+	public void setInformationData(InformationData informationData) {
+		this.informationData = informationData;
+	}
+
+	public String getPlanKey() {
+		return planKey;
+	}
+
+	public void setPlanKey(String planKey) {
+		this.planKey = planKey;
+	}
+
+	public SopFile getBusinessPlanFile() {
+		return businessPlanFile;
+	}
+
+	public void setBusinessPlanFile(SopFile businessPlanFile) {
+		this.businessPlanFile = businessPlanFile;
+	}
+
+	public ProjectQuery getProjectQuery() {
+		return projectQuery;
+	}
+
+	public void setProjectQuery(ProjectQuery projectQuery) {
+		this.projectQuery = projectQuery;
+	}
+
 	
 
 }

@@ -642,6 +642,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		    }
 			data.infoModeList = infoModeList;
 		});  
+		debugger;
 		sendPostRequestByJsonObjNoCache(
 				platformUrl.saveOrUpdateInfo , 
 				data,
