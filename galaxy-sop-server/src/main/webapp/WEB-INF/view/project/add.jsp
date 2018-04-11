@@ -72,8 +72,8 @@
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
                             <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName" <%-- data-msg-required="<font color=red>*</font>项目名称不能为空" --%>/><label class='project-name'></label></span>
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space rzlc_span'>本轮融资轮次：</span></span>
-                            <span class="m_r30 selectcheck">
-								<select name="financeStatus" class=' ' multiple data-title-id="1108" data-type="14">
+                            <span class="m_r30 selectcheck select">
+								<select name="financeStatus" class=' '   data-title-id="1108" data-type="14">
 									<!-- <option value="">请选择</option> -->
 			                    </select>
 							</span>
@@ -81,14 +81,14 @@
                         <li class="projectSourceli clearfix">
                         	
                             <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
-                            <span class="m_r30 selectcheck" >
-	                            <select name="proSource" class='' data-title-id="1120" data-type="14" >
+                            <span class="m_r30  " >
+	                            <select name="proSource"  data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
 				                </select> 
                        		</span>                       		
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30">
-                            	<select name="industryOwn" class='new_nputr addpro-input addpro-input-arrow ' >
+                            	<select name="industryOwn"   >
 			                    	<option value="">请选择</option>
 			                    </select>
                             </span>
@@ -294,9 +294,7 @@ $(function(){
 	    	$.each(entity.valueList,function(){
 	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 			});
-	    	_dom.selectpicker({
-	   			 dropupAuto:false
-            });
+	    	_dom.selectpicker();
 	    }
 	    //项目来源下拉数据
 	    CallBackD(data)
@@ -344,201 +342,6 @@ $(function(){
 		})
 	}  
 })  
-<<<<<<< HEAD
-//添加项目页面保存按钮
-	function add(){   
-      if(!$('.project-name').is(":hidden")){
-			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
-			return false;
-		}
-        $("#selectRadio[name=projectContractor]").css("display","inline-block")
-		if(!$('#add_form').validate().form()){//验证不通过时候执行
-			$(".adddpro-save").submit();
-			return false;	
-		}
-        //验证估值 
-        var s_val1=$("#formatValuations").attr("guzhi"),
-		s_val2=$("#formatValuations").val(),
-		s_val3=accSub(s_val1,s_val2); 
-		if(s_val3>10||s_val3<-10){
-			layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
-			return;
-		}
-		var val=$('input:radio[name="projectType"]:checked').val();
-		if(val == null || typeof(val) == "undefined"){
-			$("#projectTypeTip").css("display","block");
-			return;
-		} 
-		var data1= JSON.stringify(getUpdateData());//转换成字符串
-		console.log()
-		if(formData != data1){
-			
-			//获取TOKEN 用于验证表单提交
-			sendPostRequest(platformUrl.getToken,function(data){
-				TOKEN=data.TOKEN;
-				return TOKEN;
-			});
-		} 
-		console.log(data1);
-			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
-				console.log(data);
-				if(!data){
-					layer.msg("提交表单过于频繁!");
-				}else if(data.result.status=="ERROR"){
-					if(data.result.errorCode == "csds"){
-						layer.msg("必要的参数丢失!");
-					}else if(data.result.errorCode == "myqx"){
-						layer.msg("没有权限添加项目!");
-					}
-					// else if(data.result.errorCode == "mccf"){
-					// 	layer.msg("项目名重复!");
-					// }
-					formData = JSON.stringify(getUpdateData());
-				}else{
-					saveBaseInfo("add_form",data.id,data.id);
-					
-				}
-				
-			},TOKEN);
-		
-	}
-	
-	function saveBaseInfo(dom,projectId,Id){
-		var infoModeList = new Array();
-		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
-		var data = {
-				projectId : projectId
-			};
-		$.each(fields,function(){
-			var field = $(this);
-			var type = field.data('type');
-			var sele = field.get(0).tagName;
-			var _resultId = field.attr("data-result-id");
-			
-			if(_resultId==undefined){
-				_resultId=null;
-			}
-			var infoMode = {
-				titleId	: field.data('titleId'),
-				tochange:'true',
-				resultId:_resultId,
-				type : type
-			};
-			if(field.data('titleId')=="1118"&&type=="23"){
-				//获取多选带备注数据 proSource
-				var judgment = $("select[name=proSource]").val();
-				if(judgment!='2257'&&judgment!='2262'){
-					var judgName = $(".man_info .name").text();
-					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
-					 if(val!=undefined){
-						 var infoMode = {
-							titleId	: field.data('titleId'),
-							tochange:true,
-							resultId:"",
-							type : type,
-							value:val
-						};	
-					 }else{
-						 val = $("select[data-title-id=1118]").find("option").last().attr("value"); 
-						 var infoMode = {
-							titleId	: field.data('titleId'),
-							tochange:true,
-							resultId:_resultId,
-							type : type,
-							value:val,
-							remark1:judgName
-							
-						};
-					 }
-					 infoModeList.push(infoMode); 
-					 data.infoModeList = infoModeList;
-					 return; 
-				}else if(judgment=='2257'){
-					data.deletedResultTids=['1118'];
-					return;
-				
-				}else{
-				var values =[] ; 
-				var doms = $(".selectcheck li.selected span");
-				$.each(doms,function(){ 
-					values.push($(this).attr('data-value'))
-				})  
-				var remark = $('.selectcheck .addpro-input').val();
-				var other = $('.selectcheck .addpro-input').attr("ovalue");  
-				for(i=0;i<values.length;i++){ 
-					var infoMode = {
-							titleId	: field.data('titleId'),
-							tochange:'true',
-							resultId:"",
-							type : type
-						};
-					var that = values[i]; 
-					infoMode.value=that;  
-					if(other==that&&remark!=''&&remark!=null){  
-						infoMode.remark1=remark;
-					}
-					infoModeList.push(infoMode); 
-				}  
-				data.infoModeList = infoModeList;
-				return;
-
-			}
-			}else if(type==14 )
-			{
-				infoMode.value = field.val();
-			}else if(type==19 || type==1){
-				infoMode.remark1 = field.val();
-			}
-			if (infoMode != null&&type!="13") {
-		        infoModeList.push(infoMode);
-		    }
-			data.infoModeList = infoModeList;
-		});  
-		debugger;
-		sendPostRequestByJsonObjNoCache(
-				platformUrl.saveOrUpdateInfo , 
-				data,
-				true,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') { 
-						//判断大脑数据
-						var projectName = $("#projectName").val();
-						var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
-						var jsonObj={
-								keyword:projectName
-						} 
-						sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
-							if(data.result.status=="ERROR"){
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
-								return false;
-							}
-							var num =data.pageList.total;
-							if(num==0||!num){
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
-							}else{
-								forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
-							} 
-						})
-						 } else {
-						
-					}
-			});
-	}
-	
-	function getUpdateData(){  //获取保存数据
-		var projectType=$('input:radio[name="projectType"]:checked').val();
-		var projectName=$("#projectName").val().trim();
-		var createDate=$("#createDate").val().trim();
-		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
-		var formatData={
-	  				   "projectType":projectType,
-				       "projectName":projectName,
-				       "createDate":createDate,
-				       "industryOwn":industryOwn
-		};
-		return formatData;
-	}
 //*结束
 
 </script>
