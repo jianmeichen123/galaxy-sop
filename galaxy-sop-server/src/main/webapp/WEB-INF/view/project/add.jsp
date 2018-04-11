@@ -81,13 +81,13 @@
                         <li class="projectSourceli clearfix">
                         	
                             <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
-                            <span class="m_r30  " >
+                            <span class="m_r30  selectcheck select" >
 	                            <select name="proSource"  data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
 				                </select> 
                        		</span>                       		
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
-                            <span class="m_r30">
+                            <span class="m_r30 selectcheck select">
                             	<select name="industryOwn"   >
 			                    	<option value="">请选择</option>
 			                    </select>
@@ -140,6 +140,12 @@
 								</span>
                         	</div>
                         </li>
+                        <li class="projectSourceli clearfix">
+                        	<span class="basic_span addpro-basic-span">公司名称：</span></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName"  /> </span>
+                       		
+                        </li>
+                          
                     </ul>  
                 </div>
                     <!--融资计划-->
@@ -276,6 +282,7 @@
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script>
 $(function(){
+	$("#createDate").val(new Date().format("yyyy-MM-dd"));
 	createMenus(5);  
 	/**
 	 * 本轮融资轮次下拉数据
@@ -342,8 +349,56 @@ $(function(){
 		})
 	}  
 })  
-//*结束
+//结束
 
+/**
+ * 项目来源和承揽人等联动
+ * @version 2018-4-11
+ *开始
+ */ 
+$("select[name='proSource']").change(function(){
+	$(".projectSource").hide();
+	var selCode=$(this).find("option:checked").attr("code");
+	$("."+selCode).show(); 
+	$("#selectRadio option").attr("selected",false);
+	$("button.selectpicker").attr("title",'请选择');
+	$("button.selectpicker span").text("请选择");
+	$("ul.selectpicker li").removeClass("selected");
+	$(".projectSource input").val("")
+	$(".trSouce input").val("");
+	$(".trSouceOther").hide().val("")
+	$("span.error").hide();
+	$(".selectcheck input.addpro-input").hide();
+	 $('#selectRadio').selectpicker({
+  			 dropupAuto:false
+             });
+})
+//结束
+/**
+ * 获取项目承揽人下拉项
+ * @version 2016-06-21
+ */
+ sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+ function CallBackE(data){ 
+ 	var data_list = data.entityList; 
+ 	var res="";
+ 	$.each(data_list,function(){
+ 		if(this.departmentName!=null){
+ 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+ 		}else{
+ 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+ 		}
+ 		
+ 	})
+ 	$("#selectRadio").html(res) 
+} 
+//结束
+/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
+ 	$("select[name='industryOwn']").selectpicker()
 </script>
 </html>
 
