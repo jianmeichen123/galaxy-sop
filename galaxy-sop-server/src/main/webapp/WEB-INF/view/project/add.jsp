@@ -181,7 +181,52 @@
                         </li>
                     </ul>
                </div>
-               
+               <!-- 团队成员 -->
+                <div class='addpro-finacing-plan'>
+                 	<div class="addpro-new-title ">
+                        <span class="new_color  add-pro-basicmessage">团队成员</span>
+                    </div> 
+                    <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
+	                 <thead>
+		                	<tr>
+		                		<th>姓名</th>
+		                		<th>性别</th>
+		                		<th>最高学历</th>
+		                		<th>联系电话</th>
+		                		<th>微信号</th>
+		                		<th>职位</th>
+		                	</tr>	
+		                </thead>	
+		                <tbody>
+		                	<tr>
+		                		<td>
+								<input  name="field1" type="text" class="" maxlength="50" required />
+								</td> 
+		                		<td>
+									<select name="field3">
+										<option value='1343'>男</option>
+										<option value='1344'>女</option>
+									</select>
+								</td>
+								<td>
+									<select name="field5" class="txt_select txt" id="field5">
+	               
+                   					</select>
+								</td>
+								<td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
+								</td>
+								<td>
+									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
+								</td>
+								<td>
+									<select name="field2" class="txt_select txt" id="field2">
+									</select>
+								</td>
+		                	</tr>	
+		                </tbody>
+	                </table>
+                </div>
                     <!--实际投资-->
                 <div class='addpro-business-plan'>
 	                <div class="addpro-new-title ">
@@ -189,6 +234,7 @@
                     </div> 
 	                <!-- 商业计划书表格-->
 	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
+		               
 	                </table>
 	                <div class="compile_on_center">
                        <div class="compile_on_left addpro-compile">
@@ -377,10 +423,7 @@ $("select[name='proSource']").change(function(){
 	 $('#selectRadio').selectpicker({
   			 dropupAuto:false
              });
-})
-
-
-
+}) 
 $("#selectRadio").change(function(){
         $(".add-project-tabtable #selectRadio-error").hide();
 		var otherValue = $(this).find("option").last().val();
@@ -446,7 +489,42 @@ $("#formatContribution").blur(function(){
 		$("#formatValuations").removeAttr("guzhi");
 	}
 });
+//结束
+//团队下拉 
+var map_pos = selectCache("team-members","field5") 
+/**
+团队select 字典缓存
+*/
+var map_pos = selectCache("team-members","field5");
+var map_field2 = selectCache("team-members","field2");
 
+var xlOP="";
+var xlOP2="";
+$.each(map_field2,function(e,index){ 
+	xlOP2 += "<option value="+e+">"+index+"</option>"
+})
+$.each(map_pos,function(e,index){ 
+	xlOP += "<option value="+e+">"+index+"</option>"
+})
+$("#team-table select[name=field5]").html(xlOP);
+$("#team-table select[name=field2]").html(xlOP2);
+function selectCache(subCode,filed){
+    var map = {};
+	sendGetRequest(platformUrl.getDirectory+"1303"+'/'+subCode+"/"+filed,null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK')
+			{
+				var dataMap = data.userData;
+			    var list=dataMap[filed];
+			    var name=""
+				$.each(list, function(i, value){
+				     map[value.id]=value.name;
+				});
+			}
+		})
+		return map;
+}
 
 
 
