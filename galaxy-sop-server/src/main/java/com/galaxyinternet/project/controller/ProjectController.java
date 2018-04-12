@@ -442,10 +442,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "重要的参数丢失"));
 				return responseBody;
 			}*/
-			SopFile file=null;
-		   String ua = request.getHeader("User-Agent");
-			UploadFileResult result=new UploadFileResult();
-			   if(!CommonUtil.checkAgentIsMobile(ua)){
+		           SopFile file=null;
+			       UploadFileResult result=new UploadFileResult();
 					//验证是否包含一条访谈记录
 					if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
 						responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
@@ -470,7 +468,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					}else{
 						project.setBusinessPlanFile(file);
 					}
-			   }
 	
 	    //其他特殊字段判断不能为空
 			if(null!=project.getInformationData()&&!"".equals(project.getInformationData())){

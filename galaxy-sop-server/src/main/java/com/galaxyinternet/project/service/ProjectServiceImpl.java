@@ -271,11 +271,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
          /**
           * p    该对象为了传值  p.setCreateUid(userId);   
           * project.getProjectQuery()    改对象是将访谈记录从前台传到后台
-          * result 控制层上传商业计划书到阿里云的结果
+          * result 控制层上传录音到阿里云的结果
           * request  对象
           */
          if(null!=project.getProjectQuery()){
-        	 interviewRecordService.operateInterview(p, project.getProjectQuery(), result, request);
+        	 ProjectQuery pq=project.getProjectQuery(); 
+        	 pq.setPid(id);
+        	 interviewRecordService.operateInterview(p, pq, result, request);
          }
          //通用属性
 		SopFile f = new SopFile();
