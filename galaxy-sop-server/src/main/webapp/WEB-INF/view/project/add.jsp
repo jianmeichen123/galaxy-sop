@@ -21,7 +21,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script> 
 <style>
 	body{
 		background-color:#E9EBF2;
@@ -81,13 +81,13 @@
                         <li class="projectSourceli clearfix">
                         	
                             <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
-                            <span class="m_r30  " >
+                            <span class="m_r30  selectcheck select" >
 	                            <select name="proSource"  data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
 				                </select> 
                        		</span>                       		
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
-                            <span class="m_r30">
+                            <span class="m_r30 selectcheck select">
                             	<select name="industryOwn"   >
 			                    	<option value="">请选择</option>
 			                    </select>
@@ -136,10 +136,19 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="23" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
+									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
 								</span>
                         	</div>
                         </li>
+                        <li class="projectSourceli clearfix">
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="50" data-title-id="1814" data-type="1" /> </span>
+                        </li>
+                        <li class="projectSourceli clearfix">
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
+                            <span class=""><textarea data-title-id="1203" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" ></textarea> </span>
+                        </li>
+                          
                     </ul>  
                 </div>
                     <!--融资计划-->
@@ -274,8 +283,10 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness2.js'></script>
 <!-- 校验 -->
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
+<script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script>
 $(function(){
+	$("#createDate").val(new Date().format("yyyy-MM-dd"));
 	createMenus(5);  
 	/**
 	 * 本轮融资轮次下拉数据
@@ -320,6 +331,7 @@ $(function(){
  * @version 2018-4-11
  *开始
  */
+ //这儿会导致验证有点问题
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
@@ -342,8 +354,167 @@ $(function(){
 		})
 	}  
 })  
-//*结束
+//结束
 
+/**
+ * 项目来源和承揽人等联动
+ * @version 2018-4-11
+ *开始
+ */ 
+$("select[name='proSource']").change(function(){
+	$(".projectSource").hide();
+	var selCode=$(this).find("option:checked").attr("code");
+	$("."+selCode).show(); 
+	$("#selectRadio option").attr("selected",false);
+	$("button.selectpicker").attr("title",'请选择');
+	$("button.selectpicker span").text("请选择");
+	$("ul.selectpicker li").removeClass("selected");
+	$(".projectSource input").val("")
+	$(".trSouce input").val("");
+	$(".trSouceOther").hide().val("")
+	$("span.error").hide();
+	$(".selectcheck input.addpro-input").hide();
+	 $('#selectRadio').selectpicker({
+  			 dropupAuto:false
+             });
+})
+
+
+
+$("#selectRadio").change(function(){
+        $(".add-project-tabtable #selectRadio-error").hide();
+		var otherValue = $(this).find("option").last().val();
+		var value = $(this).val();
+		if(value==null){
+			$(".selectcheck .addpro-input").hide().val("").removeAttr("name");
+			return;
+		}
+		var filt = value.filter(function(val){return val==otherValue});
+		if(filt.length>0){
+			$(".selectcheck .addpro-input").show().attr("name",'pickeother');
+			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
+		}else{
+			$(".selectcheck .addpro-input").hide().val("").removeAttr("name");
+		}
+	})
+//结束
+/**
+ * 获取项目承揽人下拉项
+ * @version 2016-06-21
+ */
+ sendGetRequest(platformUrl.searchCLR, null,CallBackE);
+ function CallBackE(data){ 
+ 	var data_list = data.entityList; 
+ 	var res="";
+ 	$.each(data_list,function(){
+ 		if(this.departmentName!=null){
+ 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+ 		}else{
+ 			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
+ 		}
+ 		
+ 	})
+ 	$("#selectRadio").html(res) 
+} 
+//结束
+/**
+* 查询事业线  行业归属下拉
+* @version 2016-06-21
+*/
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
+$("select[name='industryOwn']").selectpicker() 
+//结束
+
+//估值计算 
+$("#formatShareRatio").blur(function(){ 
+	var projectShareRatio = $("#formatShareRatio").val();
+	var projectContribution = $("#formatContribution").val();
+	var valuations = finalValue(projectContribution,projectShareRatio);
+	if(valuations != null){
+		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+	}else{
+		$("#formatValuations").removeAttr("guzhi");
+	}
+});
+$("#formatContribution").blur(function(){ 
+	var projectShareRatio = $("#formatShareRatio").val();
+	var projectContribution = $("#formatContribution").val();
+	var valuations = finalValue(projectContribution,projectShareRatio);
+	if(valuations != null){
+		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+	}else{
+		$("#formatValuations").removeAttr("guzhi");
+	}
+});
+
+
+
+
+
+
+/**
+* 查询事业线  行业归属下拉
+* @version 2018-04-11
+*/ 
+//验证不忽略隐藏的select（使用了插件）
+$.validator.setDefaults({ignore: ".projectSource :hidden"});
+function add(){     
+	//保存前的验证
+	//1.项目名称是否重复  
+	 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
+		  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+		return false;
+	}
+	//2.项目承揽人
+    $("#selectRadio[name=projectContractor]").css("display","inline-block");
+	//3.表单验证  
+    if(!$('#add_form').validate().form()){//验证不通过时候执行
+		$(".adddpro-save").submit();
+		return false;	
+	}
+	//开始新建项目
+    var data1= JSON.stringify(getUpdateData());//转换成字符串 
+	if(formData != data1){ 
+		//获取TOKEN 用于验证表单提交
+		sendPostRequest(platformUrl.getToken,function(data){
+			TOKEN=data.TOKEN;
+			return TOKEN;
+		});
+	}   
+	sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
+		console.log(data);
+		if(!data){
+			layer.msg("提交表单过于频繁!");
+		}else if(data.result.status=="ERROR"){
+			if(data.result.errorCode == "csds"){
+				layer.msg("必要的参数丢失!");
+			}else if(data.result.errorCode == "myqx"){
+				layer.msg("没有权限添加项目!");
+			} 
+			formData = JSON.stringify(getUpdateData());
+		}else{
+			debugger;
+			//saveBaseInfo("add_form",data.id,data.id);
+			
+		}
+		
+	},TOKEN);
+	
+	
+}
+function getUpdateData(){  //获取保存数据
+	var projectType=$('input:radio[name="projectType"]:checked').val();
+	var projectName=$("#projectName").val().trim();
+	var createDate=$("#createDate").val().trim();
+	var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
+	var formatData={
+  				   "projectType":projectType,
+			       "projectName":projectName,
+			       "createDate":createDate,
+			       "industryOwn":industryOwn
+	};
+	return formatData;
+}
 </script>
 </html>
 
