@@ -189,12 +189,12 @@
                     <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
 	                 <thead>
 		                	<tr>
-		                		<th width='15%'>姓名</th>
-		                		<th width='15%'>性别</th>
-		                		<th width='15%'>最高学历</th>
+		                		<th width='10%'>姓名</th>
+		                		<th width='10%'>性别</th>
+		                		<th width='13%'>最高学历</th>
 		                		<th width='15%'>联系电话</th>
-		                		<th width='20%'>微信号</th>
-		                		<th width='20%'>职位</th>
+		                		<th width='15%'>微信号</th>
+		                		<th width='37%'>职位</th>
 		                	</tr>	
 		                </thead>	
 		                <tbody>
