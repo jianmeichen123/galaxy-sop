@@ -181,22 +181,138 @@
                         </li>
                     </ul>
                </div>
-               
-                    <!--实际投资-->
+               <!-- 商业计划书 -->
                 <div class='addpro-business-plan'>
 	                <div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
 	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
+		               
 	                </table>
-	                <div class="compile_on_center">
+                </div>
+               <!-- 团队成员 -->
+                <div class='ADDcurrendTable'>
+                 	<div class="addpro-new-title ">
+                        <span class="new_color  add-pro-basicmessage">团队成员</span>
+                    </div> 
+                    <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
+		                 <thead>
+		                	<tr>
+		                		<th width='10%'>姓名</th>
+		                		<th width='10%'>性别</th>
+		                		<th width='13%'>最高学历</th>
+		                		<th width='15%'>联系电话</th>
+		                		<th width='15%'>微信号</th>
+		                		<th width='30%'>职位</th>
+		                		<th width='7%'></th>
+		                	</tr>	
+		                </thead>	
+		                <tbody>
+		                	<tr>
+		                		<td>
+								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
+								</td> 
+		                		<td class="selectcheck select">
+									<select name="field3">
+										<option value='1343'>男</option>
+										<option value='1344'>女</option>
+									</select>
+								</td>
+								<td class="selectcheck select">
+									<select name="field5" class="txt_select txt" id="field5">
+	               
+                   					</select>
+								</td>
+								<td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
+								</td>
+								<td>
+									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
+								</td>
+								<td class="selectcheck select">
+									<select name="field2" class="txt_select txt" id="field2">
+									</select>
+								</td>
+								<td class="team_delete">删除</td>
+		                	</tr>	
+		                </tbody>
+	                </table>
+                </div>
+                
+                <div class='ADDcurrendTable'>
+                 	<div class="addpro-new-title ">
+                        <span class="new_color  add-pro-basicmessage">*访谈记录</span>
+                    </div> 
+                    <form class="myprojecttc new_poptxt myproject_add"  type="validate">
+				        <div id="tabtitle" class="tabtitle edit popup_name">
+				            <!--编辑状态显示  编辑访谈记录  -->
+				            <h3 id="popup_name">添加访谈记录</h3>
+				            <input type="hidden" name="meetingType" id="meetingType"/>
+				        </div>
+				        <div class="tab_con">
+				        <!-- time+interviewee-->
+				         <!-- 编辑状态下 title改成 编辑访谈记录  移除INPUT  dd填入内容-->
+				            <div class="clearfix ">
+				            <input type="hidden" id="recordId">
+				                <dl class="fmdl clearfix intw_time">
+				                    <dt id="toobar_time">访谈时间：</dt>
+				                    <dd>
+				                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
+				                        <!-- <dd>2017-06-05 12:00</dd> -->
+				                    </dd>
+				                </dl>   
+				                <dl class="fmdl fml clearfix interviewee" id="targetView">
+				                    <dt id="toobar_notes">访谈对象：</dt>
+				                    <dd class="clearfix viewTarget">
+				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
+				                        <!-- <dd>刘丽君琉璃苣</dd> -->
+				                    </dd>
+				                </dl>
+				            </div>
+				           <!-- Interview summary -->
+				            <div class="intw_summary">
+				                <dl class="fmdl clearfix">
+				                    <dt id="toobar_content">访谈纪要：</dt>
+				                    <dd>
+				                        <textarea id="viewNotes"></textarea> 
+				                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
+				                    </dd>
+				                </dl>           
+				            </div>
+				            <dl class="fmdl clearfix">
+				                <dt id="toobar_voice">访谈录音：</dt>
+				                <dd>
+				                
+							        <!-- <input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
+				                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a> -->
+				                    <!-- 添加文件后或者有文件的状态下改为 -->
+				
+				                	<p id="file_object"></p>
+				                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a>
+				                </dd>
+				            </dl>  
+				            <dl class="fmdl clearfix check_result">
+				                <dt id="toobar_result">访谈结论：</dt>
+				                <dd id="resultRadion">
+				                    
+				                </dd>
+				            </dl>   
+				        </div>                
+				    </form>
+				    
+				      <div class="compile_on_center">
                        <div class="compile_on_left addpro-compile">
                            <span class="pubbtn adddpro-save" onclick="add();">保存</span>
                            <span class="pubbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
                 </div>
+                     
+            
+                
+                
+	              
                  </form>
                     <!-- 商业计划书隐藏页面 -->
 					<div id="uploadPanel"  style="display: none;">
@@ -377,10 +493,7 @@ $("select[name='proSource']").change(function(){
 	 $('#selectRadio').selectpicker({
   			 dropupAuto:false
              });
-})
-
-
-
+}) 
 $("#selectRadio").change(function(){
         $(".add-project-tabtable #selectRadio-error").hide();
 		var otherValue = $(this).find("option").last().val();
@@ -446,7 +559,43 @@ $("#formatContribution").blur(function(){
 		$("#formatValuations").removeAttr("guzhi");
 	}
 });
+//结束
+//团队下拉 
+var map_pos = selectCache("team-members","field5") 
+/**
+团队select 字典缓存
+*/
+var map_pos = selectCache("team-members","field5");
+var map_field2 = selectCache("team-members","field2");
 
+var xlOP="";
+var xlOP2="";
+$.each(map_field2,function(e,index){ 
+	xlOP2 += "<option value="+e+">"+index+"</option>"
+})
+$.each(map_pos,function(e,index){ 
+	xlOP += "<option value="+e+">"+index+"</option>"
+})
+$("#team-table select[name=field5]").html(xlOP).selectpicker();
+$("#team-table select[name=field2]").html(xlOP2).selectpicker(); 
+$("#team-table select[name=field3]").selectpicker(); 
+function selectCache(subCode,filed){
+    var map = {};
+	sendGetRequest(platformUrl.getDirectory+"1303"+'/'+subCode+"/"+filed,null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK')
+			{
+				var dataMap = data.userData;
+			    var list=dataMap[filed];
+			    var name=""
+				$.each(list, function(i, value){
+				     map[value.id]=value.name;
+				});
+			}
+		})
+		return map;
+}
 
 
 

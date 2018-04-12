@@ -503,7 +503,12 @@ function buildResult(title)
 		}else{
 			if(type==8){
 				if(textarea_show(results[0].contentDescribe1)>0){
-					_ele.html(results[0].contentDescribe1);
+					var str=results[0].contentDescribe1;
+					if(str && (str.indexOf('<sitg>')>-1 || str.indexOf('</sitg>')>-1) ){
+						str=str.replace(/<sitg>/g,"（");
+						str=str.replace(/<\/sitg>/g,"）");
+					}
+					_ele.html(str);
 				}
 			}else{
 				_ele.html(results[0].contentDescribe1);

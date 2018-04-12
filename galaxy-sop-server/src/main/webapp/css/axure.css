@@ -2320,6 +2320,18 @@ margin: 45px auto 30px;}
     background-position: 4px -300px;}
 .pagebox .big .tool a.light_gray .b4{width: 50px;
     background-position: 4px -347px;}
+.bottom_small ul li .handbook{background-position: 0 -299px;cursor:pointer;}
+.bottom_small ul li .handbook:hover{background-position: 0 -364px;}
+
+
+
+.pagebox .big .tool.handbook .b1{
+	background-image: url(../img/ico_index.png);
+	background-position: 7px -293px;
+}
+.pagebox .big .tool.handbook .b1:hover{
+	background-position: 7px -358px;
+}
 /* 内容区域 */
 #tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"Microsoft YaHei"}
 .floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
@@ -3686,11 +3698,11 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .finance_infoC li:nth-child(2) .con_box{background:#fbae96;}
  .finance_infoC li:nth-child(3) .con_box{background:#fd88b8;}
  .finance_infoC li .con_box p:nth-child(1){line-height:1;padding-bottom:8px;}
- .finance_infoC .data_con em{font-size:36px;line-height:1;color:#fff;}
+ .finance_infoC .data_con em{font-size:18px;line-height:1;color:#fff;}
  .finance_infoC .data_con em.font-normal,.invest_money p em.font-normal,.relative_box .rate.font-normal{font-size: 18px;margin-top: 12px;display: inline-block;}
  .con_box .img_box{margin-bottom:8px; display:block;width:70px;padding-top:57px;background:url(../img/base_info/base_icon.png) no-repeat  -429px -93px;}
  .relative_box,.two_part #serviceCharge{font-size:12px;color:#777acb;}
- .relative_box .rate{font-size:36px; line-height: 1;margin-bottom:13px; display: inline-block;color:#4f52a0;}
+ .relative_box .rate{font-size:18px; line-height: 1;margin-bottom:13px; display: inline-block;color:#4f52a0;}
   .relative_box .rate+p em{color:#777acb;}
  .relative_box .oval,#invest_chart{position:absolute; right:30px;top:0;}
  #invest_chart{top:-6px;}
@@ -3710,7 +3722,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_infoC .invest_money p{display:block;border:1px solid #d8d8d8;border-radius:2px;font-size:12px;color:#777acb; padding:20px 0 20px 30px; height:47px;}
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
- .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
+ .invest_money p em{font-size:18px;color:#4f52a0;display:block;display: inline-block;}
  .tabinfo_con table.base_table{border:1px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;}
  .tabinfo_con table.base_table label.blue{font-family: Microsoft YaHei;color:#45aaff;}
  .tabinfo_con table.base_table label:nth-child(2){margin:0 20px;}
@@ -4054,10 +4066,12 @@ select.addpro-input{width:278px;height:32px;}
 .add-pro-basicmessage em{font-size:12px;color:#999999;margin-left:10px;}
 .business-plan-table{margin:10px 20px 40px 20px;table-layout: fixed;}
 .addpro-compile{padding-bottom:30px;}
-.addpro-business-plan table{border-radius:0px !important;border:1px solid #d8d8d8;}
+.addpro-business-plan table,.ADDcurrendTable table{border-radius:0px !important;border:1px solid #d8d8d8;}
 .addpro-business-plan table a{font-family:Microsoft YaHei;}
-.addpro-business-plan table th{text-align:center;font-size:14px;font-weight:bold;height:40px;}
-.addpro-business-plan table td{text-align:center;height:40px;font-family:Microsoft YaHei;font-size:14px;color:#5a626d;}
+.addpro-business-plan table th ,.ADDcurrendTable table th{text-align:center;font-size:14px;font-weight:bold;height:40px;}
+.addpro-business-plan table td,.ADDcurrendTable table td{text-align:center;height:40px;font-family:Microsoft YaHei;font-size:14px;color:#5a626d;}
+.ADDcurrendTable table th{text-align:left;}
+
 .addpro-business-plan table th:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table td:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table th:nth-child(3){text-align:right;padding-right:40px;}
@@ -4759,3 +4773,11 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 }
 .noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}
+#team-table td{text-align:left;}
+#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
+#team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
+#team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
+#team-table{table-layout: fixed;margin: 0 auto;}
+#team-table tr th:nth-child(1),#team-table tr td:nth-child(1){padding-left:10px;}
+.ADDcurrendTable{background:#fff;}
+table#team-table .on td{background:none;}
