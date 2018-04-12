@@ -21,8 +21,15 @@ import java.io.IOException;
 public class UserManualController {
     final Logger logger = LoggerFactory.getLogger(UserManualController.class);
 
-    //public static  @Value("${sop.file.userdir.path}") String userdir;
-    //public static  @Value("${sop.user.manual.name}") String userManualName;
+/*
+    <!--星河投用户文档文件夹-->
+    <sop.file.userdir.path>/data/apps/osstemp/xhtDir</sop.file.userdir.path>
+    <!--用户手册文件名， 文件类型不固定-->
+    <sop.user.manual.name>XHT_USER_MANUAL_001</sop.user.manual.name>
+
+    public static  @Value("${sop.file.userdir.path}") String userdir;
+    public static  @Value("${sop.user.manual.name}") String userManualName;
+*/
 
 
     public static final String MANUAL_DIRECTORY = "/template/userManual";
