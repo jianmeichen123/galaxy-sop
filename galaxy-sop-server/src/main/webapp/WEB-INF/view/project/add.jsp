@@ -302,16 +302,12 @@
 				    </form>
 				    
 				      <div class="compile_on_center">
-                       <div class="compile_on_left addpro-compile">
+                       <div class="compile_on_left addpro-compile" style="margin-top:20px;">
                            <span class="pubbtn adddpro-save" onclick="add();">保存</span>
                            <span class="pubbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
-                </div>
-                     
-            
-                
-                
+                </div> 
 	              
                  </form>
                     <!-- 商业计划书隐藏页面 -->
@@ -389,7 +385,11 @@
      
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include> 
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/config.js"></script>
+<script type="text/javascript" src="<%=path %>/ckeditor/lang/zh-cn.js"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
@@ -404,6 +404,8 @@
 $(function(){
 	$("#createDate").val(new Date().format("yyyy-MM-dd"));
 	createMenus(5);  
+	//ckeditor实例化
+	var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 	/**
 	 * 本轮融资轮次下拉数据
 	 * 项目来源下拉数据
@@ -595,12 +597,7 @@ function selectCache(subCode,filed){
 			}
 		})
 		return map;
-}
-
-
-
-
-
+} 
 /**
 * 查询事业线  行业归属下拉
 * @version 2018-04-11
@@ -647,9 +644,7 @@ function add(){
 			
 		}
 		
-	},TOKEN);
-	
-	
+	},TOKEN); 
 }
 function getUpdateData(){  //获取保存数据
 	var projectType=$('input:radio[name="projectType"]:checked').val();
@@ -664,6 +659,105 @@ function getUpdateData(){  //获取保存数据
 	};
 	return formatData;
 }
+
+
+
+
+/* 会议记录 */
+ //会议结论原因数据字段获取
+radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult"); 
+var arrName=[];
+arrName.push("meetingUndeterminedReason");
+arrName.push("meetingVetoReason"); 
+selectDict(arrName);
+
+$(".check_result select").selectpicker();
+$("#targetView").attr("style","display:block");
+function radioSearch(url, name){
+	sendGetRequest(url,null, function(data){
+		radionDiv(data);
+	}); 
+}
+function radionDiv(data){
+	var dd=$("#resultRadion");
+	$.each(data.entityList, function(i, value){
+		var lable;
+		if(i==0){
+			lable='<label><input name="interviewResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value='+value.code+' />'+value.name+'</label>';
+		}else{
+			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
+		}
+		var htmlDiv= 
+		'<div id="div_'+i+'" class="clearfix">'+lable
+		     var parentCode=changeSelect(value);
+	       if(parentCode!=""){
+	    	   var htmlSelect='<div class="resel_box selectcheck select"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
+	           '<option value="">请选择原因</option>'+
+	           '</select></div>'+
+	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"></div>';
+	    	 htmlDiv=htmlDiv+htmlSelect;
+		  }
+	     htmlDiv=htmlDiv+'</div>';	     
+		dd.append(htmlDiv);		
+	})
+}
+
+
+$("#resultRadion input[type='radio']").click(function(){
+	var _select = $(this).parent("label").next().find("select");
+	var oh_select = $(this).parents("#resultRadion").find("select");
+//	var _input = $(this).parent().siblings(".reason_box").find("input[type='text']");
+	var oh_input = $(this).parent().parent().siblings().find("input[type='text']");
+//	_input.val("").removeClass("disabled").removeAttr("disabled");
+	oh_input.val("").addClass("disabled").attr("disabled","true");
+	oh_select.val("").addClass("disabled").attr("disabled","true");
+	_select.attr("required","true");
+	_select.removeClass("disabled").removeAttr("disabled");
+	$(".check_result select").selectpicker('refresh');
+	_select.next().removeClass("disabled");
+})
+function changeSelect(value){
+	//meeting5Result:1:跟进中
+	//meeting5Result:2:否决
+	//meeting3Result:6:否决
+	//meetingResult:2:待定
+	//meetingResult:3:否决
+	var parentCode="";
+	if(value.code=='meeting5Result:1'||value.code=='meeting2Result:3'){
+		parentCode="meetingFollowingReason";
+	 }
+	if(value.code=='meetingResult:2'){
+		parentCode="meetingUndeterminedReason";
+	}
+	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting1Result:4'||value.code=='meeting3Result:6'||value.code=='meeting4Result:3'){
+		parentCode="meetingVetoReason";
+	}
+	return parentCode;
+}
+function selectDict(arr){ 
+	if(null!=arr){
+		for(var i=0;i<arr.length;i++){
+			createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+arr[i],arr[i]);
+		}
+	}
+}
+//原因选择其他时 
+reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
+function reason(obj,value){
+	$(obj).change(function(){
+		var val=$(this).children("option:selected").val();
+		var _this= $(this).parent().siblings(".reason_box").find("input");
+		if(val==value){
+			_this.attr("required","true").removeAttr("disabled").removeClass("disabled");
+		}else{
+			_this.val("").attr("disabled","true").addClass("disabled");
+		}
+	})
+}
+ 
+ 
+ 
+ 
 </script>
 </html>
 

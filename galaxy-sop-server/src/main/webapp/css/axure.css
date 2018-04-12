@@ -3110,6 +3110,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         float: left;
         width:50%;
     }
+    .ADDcurrendTable .intw_time,.ADDcurrendTable .interviewee{width:360px;float: left;}
+    .ADDcurrendTable .intw_summary{margin:25px 0;}
     .interviewee{
         float: right;
         width:50%;
@@ -4779,5 +4781,5 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 #team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
 #team-table{table-layout: fixed;margin: 0 auto;}
 #team-table tr th:nth-child(1),#team-table tr td:nth-child(1){padding-left:10px;}
-.ADDcurrendTable{background:#fff;}
+.ADDcurrendTable{background:#fff; margin-top: 10px;}
 table#team-table .on td{background:none;}
