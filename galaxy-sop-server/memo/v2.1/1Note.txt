@@ -1,0 +1,16 @@
+
+
+用户手册下载
+
+接口：
+    UserManualController.download
+    url: sop + /galaxy/manual/download
+
+文件存放位置：
+     tomcat项目目录下 ： /template/userManual
+
+对应关系：
+     服务器中固定文件名（类型不限）   问题名
+     XHT_USER_MANUAL_001        用户手册
+
+
