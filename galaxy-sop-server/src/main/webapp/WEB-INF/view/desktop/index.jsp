@@ -68,7 +68,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </acl:acl>
             <acl:acl resourceMark="div_normal_tool">
             <li>
-                <span class="ico_small tool"></span>
+                <span class="ico_small handbook"></span>
                 <a href="<%=path %>/galaxy/manual/download">用户手册</a>
                 <%--<span class="ico_small tool"></span><span>常用工具</span>--%>
             </li>
@@ -174,8 +174,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="div_normal_tool">
         <dl  class="tool_radius">
 
-            <dd class="tool">
-                <a href="<%=path %>/galaxy/manual/download"  class="light_gray"><b class="b1 ico null">ico</b>手册下载</a>
+            <dd class="tool handbook">
+                <a href="<%=path %>/galaxy/manual/download"  class="light_gray"><b class="b1 ico null">ico</b>用户手册</a>
 
                 <%--<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                 <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
