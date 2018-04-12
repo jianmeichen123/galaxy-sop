@@ -13,20 +13,34 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.sopfile.SopFile;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+@ApiModel(value="项目对象",description="项目对象")
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value="id数组",hidden=true)
 	private int completed; 
+	@ApiModelProperty(value="id数组",hidden=true)
 	private int type_completed; 
+	@ApiModelProperty(value="id数组",hidden=true)
 	private int depNumOrder;  //部门排名
+	@ApiModelProperty(value="id数组",hidden=true)
 	private Long durationDay;   //历时
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String departmentName;
 	
-
+	@ApiModelProperty(value="项目名称",
+			name="projectName",example="星河互联集团有限公司")
 	private String projectName;
     private String projectCode;
+	@ApiModelProperty(value="id数组",hidden=true)
     private Long ideaId;
+	
+	@ApiModelProperty(value="项目类型",
+	name="projectType",example="projectType:1")
     private String projectType;
+	@ApiModelProperty(value="id数组",hidden=true)
     private Integer stockTransfer;
     private String projectCareerline;
     private Long projectDepartid;
@@ -34,139 +48,183 @@ public class Project extends PagableEntity {
     private Double projectContribution;
     private Integer currencyUnit;
     private Double projectShareRatio;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectCompany;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectCompanyCode;
+	@ApiModelProperty(value="id数组",hidden=true)
     private Long createUid;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String createUname;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String createUposition;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectProgress;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectStatus;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectDescribe;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectDescribeFinancing;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectBusinessModel;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String companyLocation;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String userPortrait;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String prospectAnalysis;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String nextFinancingSource;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String industryAnalysis;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String operationalData;
     //06-21版本更新字段
+	
+	@ApiModelProperty(value="行业归属",example="5")
   	private Long industryOwn;//行业归属
+	@ApiModelProperty(value="id数组",hidden=true)
   	private String financeStatus;//融资状态
+	@ApiModelProperty(value="id数组",hidden=true)
   	private Double finalValuations;//实际估值
+	@ApiModelProperty(value="id数组",hidden=true)
   	private Double finalContribution;//实际投资
+	@ApiModelProperty(value="id数组",hidden=true)
   	private Double finalShareRatio;//实际所占股份百分比
+	@ApiModelProperty(value="id数组",hidden=true)
 	private Double serviceCharge;
+	@ApiModelProperty(value="id数组",hidden=true)
   	private String companyLegal;//公司法人
+	@ApiModelProperty(value="id数组",hidden=true)
   	private Long formationDate;//公司成立时间
   	//数据转换
+	@ApiModelProperty(value="id数组",hidden=true)
     private String formatContribution;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String formatValuations;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String formatUnit;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String formatShareRatio;
+	@ApiModelProperty(value="id数组",hidden=true)
     private String nameCodeLike;
     //详情数据转换
+	@ApiModelProperty(value="创建时间",example="2018-04-11")
   	private String createDate;
+	@ApiModelProperty(value="id数组",hidden=true)
   	private String updateDate;
+	@ApiModelProperty(value="id数组",hidden=true)
   	private String type;
+	@ApiModelProperty(value="id数组",hidden=true)
   	private String progress;
+	@ApiModelProperty(value="id数组",hidden=true)
     private  String  hhrName;
     //行业归属数据转换
+	@ApiModelProperty(value="id数组",hidden=true)
     private String industryOwnDs;
     //项目进度状态数据转换
+	@ApiModelProperty(value="id数组",hidden=true)
     private String projectStatusDs;
     //融资状态的数据转换
+	@ApiModelProperty(value="id数组",hidden=true)
     private String financeStatusDs;
 
     //in查询
+	@ApiModelProperty(value="id数组",hidden=true)
     private List<Long> deptIdList;
-    
+	@ApiModelProperty(value="id数组",hidden=true)
     private List<String> proejctIdList;
+	@ApiModelProperty(value="id数组",hidden=true)
 	private Long startTime; 
+	@ApiModelProperty(value="id数组",hidden=true)
 	private Long endTime;
-	
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String  faFlag;//项目来源
-	
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String faFlagStr;
-	
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String faName;//中介名称
 	
 	/**
 	 * 项目成员
 	 */
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String projectPerson;
 
 	/**
 	 * 项目绿色通道标识
 	 */
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String greanChannel;
 	
 	/**
 	 *项目备注
 	 */
+	@ApiModelProperty(value="id数组",hidden=true)
     private String remark;
     
-     
+	@ApiModelProperty(value="id数组",hidden=true)
     private List<FinanceHistory> financeList;
-    
+	@ApiModelProperty(value="id数组",hidden=true)
     private InformationTitle listInfoTitle;
     
     /**
      * 投后运营新增字段
      */
-    
+	@ApiModelProperty(value="id数组",hidden=true)
    private String isNullTime;
    
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String healthState;
    
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String ctime;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private Double grantMoney;
-    
+	@ApiModelProperty(value="id数组",hidden=true)
    private String deptId;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String sDate;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String eDate;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private Long projectTime;
+	@ApiModelProperty(value="id数组",hidden=true)
    private String progressHistory;
+	@ApiModelProperty(value="id数组",hidden=true)
    private String businessTypeCode;
+	@ApiModelProperty(value="id数组",hidden=true)
    private String financeMode;//投资形式
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String fModeRemark;//投资形式备注
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private List<JointDelivery> jointDeliveryList;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private List<Long> isDelete;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private Long updateUid;
-   
+	@ApiModelProperty(value="id数组",hidden=true)
    private String resultId;
    /**
     * 该字段为项目删除标识
     */
+	@ApiModelProperty(value="id数组",hidden=true)
    private int isdelete;
-
+	@ApiModelProperty(value="id数组",hidden=true)
    private String deleteReason;
 
 
 // 大脑数据
+	@ApiModelProperty(value="id数组",hidden=true)
 	private String danaoProjCode;
-	
-	//2018-04-11新增项目重构功能添加辅助属性
-	private InformationListdata infimationListdate;//用于处理团队成员
-	
-	private InterviewRecord interviewRecord;//用于处理新增项目访谈
-	
+   //2018-04-11新增项目重构功能添加辅助属性
+	@ApiModelProperty(value="跟报告同步的其他字段")
 	private InformationData informationData;//项目信息保存报告的其他字段
-	
-	private String planKey;//移动端上传商业计划书需要的字段key
-	
+	@ApiModelProperty(value="商业计划书",hidden=true)
 	private SopFile businessPlanFile;//移动端上传商业计划书对象
-	
+	@ApiModelProperty(value="访谈信息",
+			name="projectQuery")
 	private ProjectQuery projectQuery;
 
 
@@ -890,21 +948,6 @@ public class Project extends PagableEntity {
 		this.proejctIdList = proejctIdList;
 	}
 
-	public InformationListdata getInfimationListdate() {
-		return infimationListdate;
-	}
-
-	public void setInfimationListdate(InformationListdata infimationListdate) {
-		this.infimationListdate = infimationListdate;
-	}
-
-	public InterviewRecord getInterviewRecord() {
-		return interviewRecord;
-	}
-
-	public void setInterviewRecord(InterviewRecord interviewRecord) {
-		this.interviewRecord = interviewRecord;
-	}
 
 	public InformationData getInformationData() {
 		return informationData;
@@ -914,13 +957,6 @@ public class Project extends PagableEntity {
 		this.informationData = informationData;
 	}
 
-	public String getPlanKey() {
-		return planKey;
-	}
-
-	public void setPlanKey(String planKey) {
-		this.planKey = planKey;
-	}
 
 	public SopFile getBusinessPlanFile() {
 		return businessPlanFile;

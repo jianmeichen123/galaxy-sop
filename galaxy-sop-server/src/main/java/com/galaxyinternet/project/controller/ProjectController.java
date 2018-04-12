@@ -414,7 +414,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	 * @version v2.1
 	 * @author jianmeichen
 	 */
-	@Token
+	//@Token
 	@ResponseBody
 	@ApiOperation("添加项目")
 	@RequestMapping(value = "/insertProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -433,7 +433,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				return responseBody;
 			}
 			//验证是否包含至少一条团队成员的信息
-			if(null!=project.getInfimationListdate()&&!"".equals(project.getInfimationListdate())){
+			/*if(null!=project.getInfimationListdate()&&!"".equals(project.getInfimationListdate())){
 				if(null==project.getInfimationListdate().getDataList()||project.getInfimationListdate().getDataList().size()<=0){
 					responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "至少添加一条团队成员信息"));
 					return responseBody;
@@ -441,7 +441,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			}else{
 				responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "重要的参数丢失"));
 				return responseBody;
-			}
+			}*/
 			SopFile file=null;
 		   String ua = request.getHeader("User-Agent");
 			UploadFileResult result=new UploadFileResult();

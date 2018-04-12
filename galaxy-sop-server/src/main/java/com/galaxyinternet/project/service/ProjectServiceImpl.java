@@ -260,20 +260,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			file.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 			sopFileDao.insert(file);
 		}
-		//需要保存到报告里面的字段处理
+		//需要保存到报告里面的字段/团队成员保存处理
 		 InformationData informationData = project.getInformationData();
 		 informationData.setProjectId(id+"");
 		 infoDataService.save(informationData);
-		//团队成员特殊处理
-         List<InformationListdata> dataList = project.getInfimationListdate().getDataList();
-		 for( InformationListdata infomationdata:dataList){
-			 infomationdata.setProjectId(id);
-			 infomationdata.setCreatedTime(time);
-			 infomationdata.setUpdateTime(time);
-			 infomationdata.setCreateId(userId);
-			 infomationdata.setUpdateId(userId);
-		 }
-         informationListdataService.saveBatch(dataList);
          //接触访谈信息处理
          Project p= new Project();
          p.setCreateUid(userId);
