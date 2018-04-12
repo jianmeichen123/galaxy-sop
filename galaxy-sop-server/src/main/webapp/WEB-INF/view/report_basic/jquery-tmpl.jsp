@@ -300,6 +300,7 @@
 
 					{{else type=="8"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+						<img style='position:absolute;margin:0;right:0;display:none;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg">
 						<dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" placeholder="\${placeholder}" id="\${titleId}" onInput='countChar("\${titleId}","label_\${titleId}","\${valRuleMark}");'  data-must="\${isMust}" name="\${titleId}"></textarea>
 							<p class="num_tj">
