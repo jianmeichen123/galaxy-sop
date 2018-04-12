@@ -142,11 +142,11 @@
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" /> </span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="50" data-title-id="1814" data-type="1" /> </span>
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
-                            <span class="m_r30"><textarea type="text" class='addpro-input' maxlength="2000" ></textarea> </span>
+                            <span class=""><textarea data-title-id="1203" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" ></textarea> </span>
                         </li>
                           
                     </ul>  
@@ -425,13 +425,40 @@ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn",
 $("select[name='industryOwn']").selectpicker() 
 //结束
 
+//估值计算 
+$("#formatShareRatio").blur(function(){ 
+	var projectShareRatio = $("#formatShareRatio").val();
+	var projectContribution = $("#formatContribution").val();
+	var valuations = finalValue(projectContribution,projectShareRatio);
+	if(valuations != null){
+		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+	}else{
+		$("#formatValuations").removeAttr("guzhi");
+	}
+});
+$("#formatContribution").blur(function(){ 
+	var projectShareRatio = $("#formatShareRatio").val();
+	var projectContribution = $("#formatContribution").val();
+	var valuations = finalValue(projectContribution,projectShareRatio);
+	if(valuations != null){
+		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+	}else{
+		$("#formatValuations").removeAttr("guzhi");
+	}
+});
+
+
+
+
+
+
 /**
 * 查询事业线  行业归属下拉
 * @version 2018-04-11
 */ 
 //验证不忽略隐藏的select（使用了插件）
-$.validator.setDefaults({ignore: "input:hidden"});
-function add(){    
+$.validator.setDefaults({ignore: ".projectSource :hidden"});
+function add(){     
 	//保存前的验证
 	//1.项目名称是否重复  
 	 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
@@ -446,15 +473,14 @@ function add(){
 		return false;	
 	}
 	//开始新建项目
-    var data1= JSON.stringify(getUpdateData());//转换成字符串
+    var data1= JSON.stringify(getUpdateData());//转换成字符串 
 	if(formData != data1){ 
 		//获取TOKEN 用于验证表单提交
 		sendPostRequest(platformUrl.getToken,function(data){
 			TOKEN=data.TOKEN;
 			return TOKEN;
 		});
-	}  
-    return false;
+	}   
 	sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 		console.log(data);
 		if(!data){
@@ -476,7 +502,19 @@ function add(){
 	
 	
 }
-
+function getUpdateData(){  //获取保存数据
+	var projectType=$('input:radio[name="projectType"]:checked').val();
+	var projectName=$("#projectName").val().trim();
+	var createDate=$("#createDate").val().trim();
+	var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
+	var formatData={
+  				   "projectType":projectType,
+			       "projectName":projectName,
+			       "createDate":createDate,
+			       "industryOwn":industryOwn
+	};
+	return formatData;
+}
 </script>
 </html>
 
