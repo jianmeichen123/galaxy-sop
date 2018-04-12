@@ -182,33 +182,33 @@
                     </ul>
                </div>
                <!-- 团队成员 -->
-                <div class='addpro-finacing-plan'>
+                <div class='addpro-finacing-plan ADDcurrendTable'>
                  	<div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">团队成员</span>
                     </div> 
                     <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
 	                 <thead>
 		                	<tr>
-		                		<th>姓名</th>
-		                		<th>性别</th>
-		                		<th>最高学历</th>
-		                		<th>联系电话</th>
-		                		<th>微信号</th>
-		                		<th>职位</th>
+		                		<th width='15%'>姓名</th>
+		                		<th width='15%'>性别</th>
+		                		<th width='15%'>最高学历</th>
+		                		<th width='15%'>联系电话</th>
+		                		<th width='20%'>微信号</th>
+		                		<th width='20%'>职位</th>
 		                	</tr>	
 		                </thead>	
 		                <tbody>
 		                	<tr>
 		                		<td>
-								<input  name="field1" type="text" class="" maxlength="50" required />
+								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
 								</td> 
-		                		<td>
+		                		<td class="selectcheck select">
 									<select name="field3">
 										<option value='1343'>男</option>
 										<option value='1344'>女</option>
 									</select>
 								</td>
-								<td>
+								<td class="selectcheck select">
 									<select name="field5" class="txt_select txt" id="field5">
 	               
                    					</select>
@@ -219,7 +219,7 @@
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
 								</td>
-								<td>
+								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
 								</td>
@@ -506,8 +506,9 @@ $.each(map_field2,function(e,index){
 $.each(map_pos,function(e,index){ 
 	xlOP += "<option value="+e+">"+index+"</option>"
 })
-$("#team-table select[name=field5]").html(xlOP);
-$("#team-table select[name=field2]").html(xlOP2);
+$("#team-table select[name=field5]").html(xlOP).selectpicker();
+$("#team-table select[name=field2]").html(xlOP2).selectpicker(); 
+$("#team-table select[name=field3]").selectpicker(); 
 function selectCache(subCode,filed){
     var map = {};
 	sendGetRequest(platformUrl.getDirectory+"1303"+'/'+subCode+"/"+filed,null,

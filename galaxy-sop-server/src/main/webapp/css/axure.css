@@ -4054,10 +4054,12 @@ select.addpro-input{width:278px;height:32px;}
 .add-pro-basicmessage em{font-size:12px;color:#999999;margin-left:10px;}
 .business-plan-table{margin:10px 20px 40px 20px;table-layout: fixed;}
 .addpro-compile{padding-bottom:30px;}
-.addpro-business-plan table{border-radius:0px !important;border:1px solid #d8d8d8;}
+.addpro-business-plan table,.ADDcurrendTable table{border-radius:0px !important;border:1px solid #d8d8d8;}
 .addpro-business-plan table a{font-family:Microsoft YaHei;}
-.addpro-business-plan table th{text-align:center;font-size:14px;font-weight:bold;height:40px;}
-.addpro-business-plan table td{text-align:center;height:40px;font-family:Microsoft YaHei;font-size:14px;color:#5a626d;}
+.addpro-business-plan table th ,.ADDcurrendTable table th{text-align:center;font-size:14px;font-weight:bold;height:40px;}
+.addpro-business-plan table td,.ADDcurrendTable table td{text-align:center;height:40px;font-family:Microsoft YaHei;font-size:14px;color:#5a626d;}
+.ADDcurrendTable table th{text-align:left;}
+
 .addpro-business-plan table th:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table td:nth-child(1){text-align:left;padding-left:20px;}
 .addpro-business-plan table th:nth-child(3){text-align:right;padding-right:40px;}
@@ -4759,3 +4761,8 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 }
 .noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}
+#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
+#team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
+#team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
+#team-table{table-layout: fixed;margin: 0 auto;}
+table#team-table .on td{background:none;}
