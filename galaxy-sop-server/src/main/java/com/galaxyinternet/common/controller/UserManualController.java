@@ -21,25 +21,35 @@ import java.io.IOException;
 public class UserManualController {
     final Logger logger = LoggerFactory.getLogger(UserManualController.class);
 
+    //public static  @Value("${sop.file.userdir.path}") String userdir;
+    //public static  @Value("${sop.user.manual.name}") String userManualName;
+
 
     public static final String MANUAL_DIRECTORY = "/template/userManual";
-    public static final String MANUAL_MARK_NAME = "FX_MANUAL_000001";
+    public static final String MANUAL_MARK_NAME = "XHT_USER_MANUAL_001";
     public static final String MANUAL_STR_NAME = "用户手册";
-
 
 
     @RequestMapping("/download")
     public void download(HttpServletRequest request, HttpServletResponse response)
     {
-        String manualDir = request.getSession().getServletContext().getRealPath("") + MANUAL_DIRECTORY;
-        File dir = new File(manualDir);
-
+        //File dir = new File(userdir);
         BufferedOutputStream out = null;
         BufferedInputStream in = null;
         try {
-            if(dir.exists()){
-                File[] files = dir.listFiles();
-                if(files != null && files.length != 0)
+            String manualDir = request.getSession().getServletContext().getRealPath("") + MANUAL_DIRECTORY;
+            File dir = new File(manualDir);
+
+            File[] files = dir.listFiles();
+            if(files == null || files.length == 0)
+            {
+                File createFile = new File(dir,MANUAL_MARK_NAME+".txt");
+                createFile.createNewFile();
+            }
+
+            files = dir.listFiles();
+            for(File file : files){
+                if(file.getName().contains(MANUAL_MARK_NAME))
                 {
                     String suffix = files[0].getName().substring(files[0].getName().lastIndexOf("."), files[0].getName().length());
 
@@ -59,6 +69,7 @@ public class UserManualController {
                     }
 
                     out.flush();
+                    break;
                 }
             }
         }catch (Exception e){
