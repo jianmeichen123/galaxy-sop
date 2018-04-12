@@ -21,7 +21,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script> 
 <style>
 	body{
 		background-color:#E9EBF2;
@@ -136,7 +136,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="23" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" name="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
+									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
 								</span>
                         	</div>
                         </li>
@@ -280,6 +280,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness2.js'></script>
 <!-- 校验 -->
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
+<script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script>
 $(function(){
 	$("#createDate").val(new Date().format("yyyy-MM-dd"));
@@ -327,6 +328,7 @@ $(function(){
  * @version 2018-4-11
  *开始
  */
+ //这儿会导致验证有点问题
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
@@ -373,6 +375,25 @@ $("select[name='proSource']").change(function(){
   			 dropupAuto:false
              });
 })
+
+
+
+$("#selectRadio").change(function(){
+        $(".add-project-tabtable #selectRadio-error").hide();
+		var otherValue = $(this).find("option").last().val();
+		var value = $(this).val();
+		if(value==null){
+			$(".selectcheck .addpro-input").hide().val("").removeAttr("name");
+			return;
+		}
+		var filt = value.filter(function(val){return val==otherValue});
+		if(filt.length>0){
+			$(".selectcheck .addpro-input").show().attr("name",'pickeother');
+			$(".selectcheck .addpro-input").attr("ovalue",filt[0])
+		}else{
+			$(".selectcheck .addpro-input").hide().val("").removeAttr("name");
+		}
+	})
 //结束
 /**
  * 获取项目承揽人下拉项
@@ -394,11 +415,65 @@ $("select[name='proSource']").change(function(){
 } 
 //结束
 /**
-	 * 查询事业线
-	 * @version 2016-06-21
-	 */
-	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
- 	$("select[name='industryOwn']").selectpicker()
+* 查询事业线  行业归属下拉
+* @version 2016-06-21
+*/
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
+$("select[name='industryOwn']").selectpicker() 
+//结束
+
+/**
+* 查询事业线  行业归属下拉
+* @version 2018-04-11
+*/ 
+//验证不忽略隐藏的select（使用了插件）
+	$.validator.setDefaults({ignore: "input:hidden"});
+function add(){    
+	//保存前的验证
+	//1.项目名称是否重复  
+	 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
+		  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+		return false;
+	}
+	//2.项目承揽人
+    $("#selectRadio[name=projectContractor]").css("display","inline-block");
+	//3.表单验证  
+    if(!$('#add_form').validate().form()){//验证不通过时候执行
+		$(".adddpro-save").submit();
+		return false;	
+	}
+	//开始新建项目
+    var data1= JSON.stringify(getUpdateData());//转换成字符串
+	if(formData != data1){ 
+		//获取TOKEN 用于验证表单提交
+		sendPostRequest(platformUrl.getToken,function(data){
+			TOKEN=data.TOKEN;
+			return TOKEN;
+		});
+	}  
+    return false;
+	sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
+		console.log(data);
+		if(!data){
+			layer.msg("提交表单过于频繁!");
+		}else if(data.result.status=="ERROR"){
+			if(data.result.errorCode == "csds"){
+				layer.msg("必要的参数丢失!");
+			}else if(data.result.errorCode == "myqx"){
+				layer.msg("没有权限添加项目!");
+			} 
+			formData = JSON.stringify(getUpdateData());
+		}else{
+			debugger;
+			//saveBaseInfo("add_form",data.id,data.id);
+			
+		}
+		
+	},TOKEN);
+	
+	
+}
+
 </script>
 </html>
 

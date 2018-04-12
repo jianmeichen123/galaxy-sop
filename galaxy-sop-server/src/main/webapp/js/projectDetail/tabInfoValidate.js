@@ -52,6 +52,9 @@
 				}
 				
 			},
+			errorPlacement: function(error, element) {    
+    		 error.appendTo( element.next() );//这里的element是录入数据的对象  
+    		 },
 		});
 	})
 //验证

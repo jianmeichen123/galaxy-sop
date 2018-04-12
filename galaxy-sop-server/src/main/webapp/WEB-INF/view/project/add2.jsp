@@ -509,9 +509,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			return;
 		} 
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
-		console.log()
-		if(formData != data1){
-			
+		if(formData != data1){ 
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
 				TOKEN=data.TOKEN;
