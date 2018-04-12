@@ -631,16 +631,16 @@ function buildShareResult(reportType,relateId){
 									_val="—"
 								}else{ 
 									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
-										var Tval= change_number(_val); 
-										_val = _parsefloat(Tval[0]);
-										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元"); 
-										if(title.id=="1943"||title.id=="3012"||title.titleId=='1916'){ 
+										//var Tval= change_number(_val); 
+										//_val = _parsefloat(Tval[0]);
+										//$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元"); 
+										/*if(title.id=="1943"||title.id=="3012"||title.titleId=='1916'){ 
 											var array = String(_val).split(".");
 											if(array[1]!=undefined){ 
 												array[1]=array[1].slice(0,4)
 											}  
 											_val= array.join('.');
-										}
+										}*/
 									}
 								}
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);  
@@ -684,16 +684,16 @@ function updataReport(projectInfoList){
 								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
-									var Tval= change_number(_val);
-									_val = _parsefloat(Tval[0]);
-									if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
+									//var Tval= change_number(_val);
+									//_val = _parsefloat(Tval[0]);
+									/*if(title.titleId=="1943"||title.titleId=="3012"||title.titleId=='1916'){ 
 										var array = String(_val).split(".");
 										if(array[1]!=undefined){ 
 											array[1]=array[1].slice(0,4)
 										}  
 										_val= array.join('.');
-									}
-									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
+									}*/
+									//$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 								}
 							}
 							
@@ -751,7 +751,7 @@ function updataReport(projectInfoList){
 								_val="暂无数据"
 							}else{
 								if(title.titleId=="1916"||title.titleId=="1943"||title.titleId=="3004"||title.titleId=="3012"){
-									var Tval= change_number(_val);
+									/*var Tval= change_number(_val);
 									_val = _parsefloat(Tval[0]);
 									$(".new_color_black[data-title-id='"+title.titleId+"']").next().text(Tval[1]+"元")
 									if(title.titleId=="3012"){  
@@ -760,7 +760,7 @@ function updataReport(projectInfoList){
 											array[1]=array[1].slice(0,4)
 										}  
 										_val= array.join('.');
-									}
+									}*/
 								}
 							}
 							
