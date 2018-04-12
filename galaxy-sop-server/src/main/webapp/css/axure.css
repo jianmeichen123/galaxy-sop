@@ -4778,4 +4778,6 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
 #team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
 #team-table{table-layout: fixed;margin: 0 auto;}
+#team-table tr th:nth-child(1),#team-table tr td:nth-child(1){padding-left:10px;}
+.ADDcurrendTable{background:#fff;}
 table#team-table .on td{background:none;}
