@@ -141,9 +141,12 @@
                         	</div>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span">公司名称：</span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" id="projectName" name="projectName"  /> </span>
-                       		
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="24" /> </span>
+                        </li>
+                        <li class="projectSourceli clearfix">
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
+                            <span class="m_r30"><textarea type="text" class='addpro-input' maxlength="2000" ></textarea> </span>
                         </li>
                           
                     </ul>  
@@ -427,7 +430,7 @@ $("select[name='industryOwn']").selectpicker()
 * @version 2018-04-11
 */ 
 //验证不忽略隐藏的select（使用了插件）
-	$.validator.setDefaults({ignore: "input:hidden"});
+$.validator.setDefaults({ignore: "input:hidden"});
 function add(){    
 	//保存前的验证
 	//1.项目名称是否重复  
