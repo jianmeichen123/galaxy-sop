@@ -3437,6 +3437,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .interview .bootstrap-table #projectProgress_1_table tr td,.interview .bootstrap-table #data-table tr td{word-break: break-all;}
 
  #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
+#resultRadion .resel_box .bootstrap-select{margin-top:0;margin-right: 10px;}
+.check_result .dropdown-menu{margin-top:0;}
 .sev_report li{
 	width:32.9%;
 	display:inline-block;
@@ -4171,12 +4173,12 @@ li .projectSource11 span.m_r30{
 .selectcheck .btn-default .caret{display:none;}
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
 .open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
-.selectcheck .text{width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
+.selectcheck .text{display:block; width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
 .selectcheck .text:hover{color:#333;}
 .selectcheck .open>.dropdown-menu{background:#fff;right:0;border-radius:1px;}
 .selectcheck .dropdown-menu{padding:0;}
 #add_form  .selectcheck .dropdown-menu li{margin-bottom:0;}
-.selectcheck .selected .text{background: url(../img/seven_report/myboxB.png) no-repeat; background-position: 245px 3px;}
+.selectcheck .selected .text{font-weight:bold; background: url(../img/seven_report/myboxB.png) no-repeat; background-position: 245px 3px;}
 .select.selectcheck .text{background:none;}
 .selectcheck .addpro-input{display:inline-block;vertical-align: top;margin-left:10px; display:none;margin-top: -4px;}
 .select_input{display:none}

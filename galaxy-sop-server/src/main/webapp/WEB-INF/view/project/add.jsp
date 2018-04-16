@@ -659,10 +659,6 @@ function getUpdateData(){  //获取保存数据
 	};
 	return formatData;
 }
-
-
-
-
 /* 会议记录 */
  //会议结论原因数据字段获取
 radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult"); 
@@ -742,9 +738,13 @@ function selectDict(arr){
 	}
 }
 //原因选择其他时 
-reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
+	reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
+	/* reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+	reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2'); */
 function reason(obj,value){
+	debugger;
 	$(obj).change(function(){
+		debugger
 		var val=$(this).children("option:selected").val();
 		var _this= $(this).parent().siblings(".reason_box").find("input");
 		if(val==value){
