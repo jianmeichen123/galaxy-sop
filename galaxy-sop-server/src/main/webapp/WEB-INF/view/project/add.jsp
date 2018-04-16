@@ -196,6 +196,7 @@
                  	<div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">团队成员</span>
                     </div> 
+                    <div class="pubbtn bluebtn addBtnC teamAdd">添加</div>
                     <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
 		                 <thead>
 		                	<tr>
@@ -209,6 +210,35 @@
 		                	</tr>	
 		                </thead>	
 		                <tbody>
+		                <!-- 第一个用于克隆。不保存 -->
+		                	<tr>
+		                		<td>
+								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
+								</td> 
+		                		<td class="selectcheck select">
+									<select name="field3">
+										<option value='1343'>男</option>
+										<option value='1344'>女</option>
+									</select>
+								</td>
+								<td class="selectcheck select">
+									<select name="field5" class="txt_select txt" id="field5">
+	               
+                   					</select>
+								</td>
+								<td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
+								</td>
+								<td>
+									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
+								</td>
+								<td class="selectcheck select">
+									<select name="field2" class="txt_select txt" id="field2">
+									</select>
+								</td>
+								<td class="team_delete">删除</td>
+		                	</tr> 
+		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
 								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
@@ -371,18 +401,10 @@
           </div>
         </div>
        <!--右边-->
-        <div class="basic_right">
-        <!-- 	<div class="tabtable_con_on">
-            	<div class="new_bottom_color">
-                    <span class="new_ico_hint"></span>
-                    <span class="new_color size16">温馨提示</span>
-                </div>
-                <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）</p>
-            </div> -->
+        <div class="basic_right"> 
         </div>
         <!--右边 end--> 
-    </div>
-     
+    </div> 
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include> 
@@ -741,8 +763,7 @@ function selectDict(arr){
 	reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 	/* reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
 	reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2'); */
-function reason(obj,value){
-	debugger;
+function reason(obj,value){ 
 	$(obj).change(function(){
 		debugger
 		var val=$(this).children("option:selected").val();
@@ -754,8 +775,12 @@ function reason(obj,value){
 		}
 	})
 }
- 
- 
+ /* 团队添加 */
+ $(".teamAdd").click(function(){
+	 var copy = $("#team-table tbody tr:first-child").clone();
+	 $("#team-table tbody").append(copy);
+ })
+ $(".team_delete")
  
  
 </script>
