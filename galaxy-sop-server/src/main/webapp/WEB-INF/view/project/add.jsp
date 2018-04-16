@@ -192,7 +192,7 @@
 	                </table>
                 </div>
                <!-- 团队成员 -->
-                <div class='ADDcurrendTable'>
+                <div class='ADDcurrendTable clearfix'>
                  	<div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">团队成员</span>
                     </div> 
@@ -784,11 +784,18 @@ function reason(obj,value){
 }
  /* 团队添加 删除 */
  $(".teamAdd").click(function(){
+	 $("#team-table tbody .no-records-found").remove();
 	 var copy = $("#team-table tbody tr:first-child").clone();
 	 $("#team-table tbody").append(copy);
  })
  function deleteTeam(event){
 	 $(event).closest("tr").remove();
+	 if($("#team-table tbody tr").length==1){
+		nodata='<tr class="no-records-found"><td colspan="6" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+			$("#team-table tbody").append(nodata);
+	 }else{
+		
+	 }
  }  
  /*结束 */
   /* 团队 成员填入访谈记录*/
