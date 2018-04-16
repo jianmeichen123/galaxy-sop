@@ -4174,7 +4174,7 @@ li .projectSource11 span.m_r30{
 .selectcheck .btn-default .caret{display:none;}
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
 .open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
-.selectcheck .text{display:block; width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px;}
+.selectcheck .text{display:block; width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px; overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
 .selectcheck .text:hover{color:#333;}
 .selectcheck .open>.dropdown-menu{background:#fff;right:0;border-radius:1px;}
 .selectcheck .dropdown-menu{padding:0;}
@@ -4313,7 +4313,6 @@ input:-ms-input-placeholder {
 .content_task{margin-top:50px;margin-left: 9.375%;display:none;}
 .input-content{position:relative;}
 .input-content span{display:inline-block;width:32px;height:35px;cursor:pointer;position:absolute;right:3px;border-radius: 0 2px 2px 0;background:url(../img/search_new.png) no-repeat 6px 8px;background-color: #3CA6FF;}
-.input-content input{}
 .reset_search{font-size: 12px;color: #3CA6FF;margin-left:20px;cursor:pointer;}
 .assign_project .ritmin{margin:10px 20px 0px 20px;}
 .assingTable{width:100%;border-collapse:collapse;border-radius:0 !important;}
@@ -4330,8 +4329,7 @@ table.assingTable td a{font-size:14px;}
 .highlighCheckbox{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_th{cursor:pointer;width:14px;height:12px;display:inline-block;vertical-align:middle;    background: url(../img/seven_report/myBlue.png) no-repeat -100px -5px;}
 .highlighCheckbox_checked{background-position: -86px -5px !important;}
-.bs-checkbox{width:1% !important;}
-.assingTable tbody tr td:nth-child(1) input{} 
+.bs-checkbox{width:1% !important;} 
 /* .pagination_common .fixed-table-pagination{margin-top:13px;} */
 .content_task .bootstrap-select .btn{min-width:98px;}
 .assign_project .ctlist {margin-left:10px;}
@@ -4391,8 +4389,7 @@ p.outerProjectNew{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;cursor:pointer;height:32px;line-height:32px;padding-left:20px;font-family: Microsoft YaHei;font-size: 14px;color: #666666;}
-.globalSearhc-ul li:hover{background:#E5F3FF;}
-.assign_project ul li input:placeholder{}
+.globalSearhc-ul li:hover{background:#E5F3FF;} 
 .assign_project ul li input::-webkit-input-placeholder, .inputsForm input::-webkit-input-placeholder{ /* WebKit browsers */
     color:#666;
     font-family:Microsoft YaHei;
@@ -4588,8 +4585,7 @@ font-weight:bold;
 .dnContent{width:100%;}
 .xhtContent{width:100%;}
 .outerContent .bootstrap-table .table > tbody > tr > td{padding:0 20px !important;}
-.outerContent .fixed-table-container thead th .th-inner{padding:0px;}
-.outerContent .fixed-table-container table tbody tr td{}
+.outerContent .fixed-table-container thead th .th-inner{padding:0px;} 
 /* .line_bottom{height:1px;background:#e4e4e4;;width:100.7%;margin-left:-10px;} */
 .search-top .to-task-tips{border-bottom:1px solid #e4e4e4;}
 .outerContent .fixed-table-body{overflow:hidden;}
@@ -4734,6 +4730,7 @@ color:#ffffff;font-family:Microsoft YaHei;text-align:center;margin-left:40px;cur
     background: #fff;
     /* background: url(../img/base_info/down.png) no-repeat right 7px center; */}
 .noticeStatus .bootstrap-select.btn-group .dropdown-menu{background:#fff;}
+.bootstrap-select.btn-group .dropdown-menu{max-width:100%;}
 .noticeStatus .bootstrap-select.btn-group .dropdown-menu li{ 
 	padding-right: 0px !important;
     height: 30px;

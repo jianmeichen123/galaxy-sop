@@ -422,9 +422,18 @@
 <!-- 校验 -->
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
 <script>
-$(function(){
-	$("#createDate").val(new Date().format("yyyy-MM-dd"));
+$(function(){ 
+	  document.getElementsByClassName("datetimepickerHour")[0].addEventListener('click', function(e) {
+		    e.currentTarget.blur();  //解决input多次点击，日期插件不显示的问题
+		});
 	createMenus(5);  
 	//ckeditor实例化
 	var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
@@ -761,11 +770,9 @@ function selectDict(arr){
 }
 //原因选择其他时 
 	reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
-	/* reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
-	reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2'); */
+	reason('select[name="meetingVetoReason"]','meetingVetoReason:5') 
 function reason(obj,value){ 
-	$(obj).change(function(){
-		debugger
+	$(obj).change(function(){ 
 		var val=$(this).children("option:selected").val();
 		var _this= $(this).parent().siblings(".reason_box").find("input");
 		if(val==value){
