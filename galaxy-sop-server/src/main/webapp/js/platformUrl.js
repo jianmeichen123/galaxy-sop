@@ -31,8 +31,14 @@ var platformUrl = {
 	/**
 	 * 添加项目
 	 */
-	addProject : Constants.sopEndpointURL + "/galaxy/project/ap",
+	addProjectOld : Constants.sopEndpointURL + "/galaxy/project/ap",
 	/**
+		/**
+	 * 添加项目
+	 */
+	addProject : Constants.sopEndpointURL + "/galaxy/project/insertProject",
+	/**
+	
 	 * 关闭项目
 	 */
 	closeProject : Constants.sopEndpointURL + "/galaxy/progress/reject",

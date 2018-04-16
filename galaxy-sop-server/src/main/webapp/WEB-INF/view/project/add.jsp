@@ -348,13 +348,13 @@
 				    
 				      <div class="compile_on_center">
                        <div class="compile_on_left addpro-compile" style="margin-top:20px;">
-                           <span class="pubbtn adddpro-save" onclick="add();">保存</span>
+                           <span class="pubbtn adddpro-save" id="projectAdd">保存</span>
                            <span class="pubbtn addpro-cacel" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
-                </div> 
-	              
+                </div>  
                  </form>
+                 
                     <!-- 商业计划书隐藏页面 -->
 					<div id="uploadPanel"  style="display: none;">
 						<div class="title_bj">上传更新</div>
@@ -645,7 +645,101 @@ function selectCache(subCode,filed){
 */ 
 //验证不忽略隐藏的select（使用了插件）
 $.validator.setDefaults({ignore: ".projectSource :hidden"});
+
+
+
+
+
+initViewUpload();
+function initViewUpload() {
+	var data={
+			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
+			"createDate": $("input[name=createDate]").val(),//项目创建时间
+			"projectName": $("input[name=projectName]").val(),//项目名称
+			"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
+		} 
+		//会议纪要
+		var projectQuery={
+			//"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
+			"createDate": $("input[name=viewDate]").val(),//访谈时间
+			"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
+			"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
+			"resultReason": $("#resultRadion select.reson").val(),//原因
+			"stage": "projectProgress:1",//当前阶段
+			"target": $("input[name=viewTarget]").val()//访谈对象
+		}  
+		data.projectQuery=projectQuery; 
+ 
+	var viewuploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#select_btn")[0], 
+		url : platformUrl.addProject,
+		multipart:true,
+		multi_selection:false,
+		filters : {
+			max_file_size : '50MB',
+			mime_types: paramsFilter(1)
+		},
+		init: {
+			PostInit: function(up) {
+				$("#projectAdd").click(function(){
+					//验证先不加
+					 
+					if(up.files.length > 0){ 
+						debugger;
+						alert("SSSS")
+							viewuploader.start(); 
+					}else{ 
+						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){
+							debugger;
+						})
+							
+					}
+					
+					
+				})
+			},
+			 
+		} 
+	}); 
+	viewuploader.init();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function add(){     
+	var data={
+			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
+			"createDate": $("input[name=createDate]").val(),//项目创建时间
+			"projectName": $("input[name=projectName]").val(),//项目名称
+			"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
+		} 
+		//会议纪要
+		var projectQuery={
+			"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
+			"createDate": $("input[name=viewDate]").val(),//访谈时间
+			"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
+			"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
+			"resultReason": $("#resultRadion select.reson").val(),//原因
+			"stage": "projectProgress:1",//当前阶段
+			"target": $("input[name=viewTarget]").val()//访谈对象
+		}  
+		data.projectQuery=projectQuery;  
 	//保存前的验证
 	//1.项目名称是否重复  
 	 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
@@ -659,44 +753,47 @@ function add(){
 		$(".adddpro-save").submit();
 		return false;	
 	}
-	//开始新建项目
-    var data1= JSON.stringify(getUpdateData());//转换成字符串 
-	if(formData != data1){ 
-		//获取TOKEN 用于验证表单提交
-		sendPostRequest(platformUrl.getToken,function(data){
-			TOKEN=data.TOKEN;
-			return TOKEN;
-		});
-	}   
-	sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
-		console.log(data);
-		if(!data){
-			layer.msg("提交表单过于频繁!");
-		}else if(data.result.status=="ERROR"){
-			if(data.result.errorCode == "csds"){
-				layer.msg("必要的参数丢失!");
-			}else if(data.result.errorCode == "myqx"){
-				layer.msg("没有权限添加项目!");
-			} 
-			formData = JSON.stringify(getUpdateData());
-		}else{
-			debugger;
-			//saveBaseInfo("add_form",data.id,data.id);
-			
-		}
+	//开始新建项目  
+	/* sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){ 
 		
-	},TOKEN); 
+		
+	});  */
 }
+/* plupload 多实例上传 */
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getUpdateData(){  //获取保存数据
 	var projectType=$('input:radio[name="projectType"]:checked').val();
 	var projectName=$("#projectName").val().trim();
 	var createDate=$("#createDate").val().trim();
 	var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");	
 	var formatData={
-  				   "projectType":projectType,
-			       "projectName":projectName,
-			       "createDate":createDate,
-			       "industryOwn":industryOwn
+	   "projectType":projectType,
+       "projectName":projectName,
+       "createDate":createDate,
+       "industryOwn":industryOwn
 	};
 	return formatData;
 }
@@ -742,14 +839,12 @@ function radionDiv(data){
 
 $("#resultRadion input[type='radio']").click(function(){
 	var _select = $(this).parent("label").next().find("select");
-	var oh_select = $(this).parents("#resultRadion").find("select");
-//	var _input = $(this).parent().siblings(".reason_box").find("input[type='text']");
-	var oh_input = $(this).parent().parent().siblings().find("input[type='text']");
-//	_input.val("").removeClass("disabled").removeAttr("disabled");
+	var oh_select = $(this).parents("#resultRadion").find("select"); 
+	var oh_input = $(this).parent().parent().siblings().find("input[type='text']"); 
 	oh_input.val("").addClass("disabled").attr("disabled","true");
 	oh_select.val("").addClass("disabled").attr("disabled","true");
 	_select.attr("required","true");
-	_select.removeClass("disabled").removeAttr("disabled");
+	_select.removeClass("disabled").removeAttr("disabled").addClass("reson");
 	$(".check_result select").selectpicker('refresh');
 	_select.next().removeClass("disabled");
 })
