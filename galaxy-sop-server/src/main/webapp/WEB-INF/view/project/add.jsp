@@ -213,7 +213,7 @@
 		                <!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
+								<input placeholder="姓名" onblur="blurName(this)" name="field1" type="text" class="" maxlength="50" required />
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -236,12 +236,12 @@
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
 								</td>
-								<td class="team_delete">删除</td>
+								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
 		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-								<input placeholder="姓名" name="field1" type="text" class="" maxlength="50" required />
+								<input placeholder="姓名" onblur="blurName(this)" name="field1" type="text" class="" maxlength="50" required />
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -264,7 +264,7 @@
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
 								</td>
-								<td class="team_delete">删除</td>
+								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr>	
 		                </tbody>
 	                </table>
@@ -775,14 +775,22 @@ function reason(obj,value){
 		}
 	})
 }
- /* 团队添加 */
+ /* 团队添加 删除 */
  $(".teamAdd").click(function(){
 	 var copy = $("#team-table tbody tr:first-child").clone();
 	 $("#team-table tbody").append(copy);
  })
- $(".team_delete")
- 
- 
+ function deleteTeam(event){
+	 $(event).closest("tr").remove();
+ }  
+ /*结束 */
+  /* 团队 成员填入访谈记录*/
+ function blurName(event){ 
+	 var val = $(event).val().trim();
+	 if($("#viewTarget").val().trim()==''&& val!=''){
+		 $("#viewTarget").val(val); 
+	 }
+ }
 </script>
 </html>
 

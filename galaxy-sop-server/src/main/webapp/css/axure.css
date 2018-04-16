@@ -4788,3 +4788,4 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 table#team-table .on td{background:none;}
 .ADDcurrendTable .teamAdd{float:right; margin:0 20px 10px 0;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
+#team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
