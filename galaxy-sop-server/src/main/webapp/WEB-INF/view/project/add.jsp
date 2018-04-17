@@ -79,7 +79,7 @@
                     	<li>
                         	<span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目类型：</span></span>
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
-                            <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
+                            <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:3" id="radio_n"><label for="radio_n">直营</label></span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
                             <span class="m_r30"><input style='display: inline-block;vertical-align: middle;' type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/><img style='display: inline-block;vertical-align: middle;' title="创建时间指的是投资业务人员首次接触该项目的时间，并非项目成立时间 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
                         </li>
@@ -157,11 +157,11 @@
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' maxlength="50" data-title-id="1814" data-type="1" /> </span>
+                            <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
-                            <span class=""><textarea data-title-id="1203" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" ></textarea> </span>
+                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg"><div></div></span>
                         </li>
                           
                     </ul>  
@@ -175,7 +175,8 @@
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
-                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
+                            	<input type="text" required placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
+                            	<div></div>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
@@ -183,14 +184,16 @@
                         <li>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
                             <span class="m_r15 after after2">
-                            	<input type="text" placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数"/>
+                            	<input type="text" required placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数"/>
+                            	<div></div>
                             </span>
                             <!-- <span class="m_r30">% </span> -->
 	                    </li>
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
                             <span class="m_r15 after after3">
-                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"/>
+                            	<input type="text"   placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"/>
+                            	<div></div>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>
@@ -686,10 +689,11 @@ function initViewUpload() {
 					//2.项目承揽人
 				    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 					//3.表单验证  
+					debugger
 				    /* if(!$('#add_form').validate().form()){//验证不通过时候执行
 						$(".adddpro-save").submit();
 						return false;	
-					} */
+					}  */
 				    //验证估值 
 			        var s_val1=$("#formatValuations").attr("guzhi"),
 					s_val2=$("#formatValuations").val(),

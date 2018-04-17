@@ -7,6 +7,12 @@
 					required :true,
 					limit24 :true
 				},
+				procontribution:{ 
+					required :true,
+				},
+				projectInfo:{
+					required :true,
+				},
 				financeStatus :{
 					required: true
 				},
@@ -31,6 +37,12 @@
 			messages :{
 				projectName:{
 					required:'*项目名称不能为空'
+				},
+				procontribution:{
+					required:'* 不能为空'
+				},
+				projectInfo:{
+					required:'*项目简介不能为空'
 				},
 				projectContractor:{
 					required:'*项目承揽人不能为空'
@@ -83,11 +95,11 @@
 	}, "*不能超过24字且不能全为空格");
 	
 	
-	//融资金额LIMIT_11_NUMBER
+ 
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (procontribution.test(value));
-	}, "支持9位长度的支持6位小数");
+	}, "必填，支持9位长度的支持6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
 		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
