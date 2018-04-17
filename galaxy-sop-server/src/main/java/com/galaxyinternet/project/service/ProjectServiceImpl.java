@@ -263,7 +263,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//需要保存到报告里面的字段/团队成员保存处理
 		 InformationData informationData = project.getInformationData();
 		 informationData.setProjectId(id+"");
-		 infoDataService.save(informationData);
+		 try{
+			 infoDataService.save(informationData);
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		
+		 
          //接触访谈信息处理
          Project p= new Project();
          p.setCreateUid(userId);

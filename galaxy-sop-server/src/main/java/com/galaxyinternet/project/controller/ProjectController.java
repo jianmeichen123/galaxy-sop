@@ -448,8 +448,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			if(null==ua||"".equals(ua)){
 				//验证是否包含一条访谈记录
 				if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
-					responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
-					return responseBody;
+					//responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
+					//return responseBody;
 				}else{
 				  	/**
 			 		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
