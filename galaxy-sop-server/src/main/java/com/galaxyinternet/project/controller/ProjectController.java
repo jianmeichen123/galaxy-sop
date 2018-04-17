@@ -445,7 +445,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			String ua = request.getHeader("User-Agent");
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;
-			if(!CommonUtil.checkAgentIsMobile(ua)){
+			if(null!=ua&&!CommonUtil.checkAgentIsMobile(ua)){
 					//验证是否包含一条访谈记录
 					if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
 						responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
