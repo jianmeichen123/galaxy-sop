@@ -295,15 +295,10 @@
                 </div>
                   
                 <div class='ADDcurrendTable'>
-                 	<div class="addpro-new-title ">
+                	<div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">*访谈记录</span>
-                    </div> 
-                    <form class="myprojecttc new_poptxt myproject_add"  type="validate">
-				        <div id="tabtitle" class="tabtitle edit popup_name">
-				            <!--编辑状态显示  编辑访谈记录  -->
-				            <h3 id="popup_name">添加访谈记录</h3>
-				            <input type="hidden" name="meetingType" id="meetingType"/>
-				        </div>
+                    </div>  
+                    <form class="myprojecttc new_poptxt myproject_add"  type="validate"> 
 				        <div class="tab_con">
 				        <!-- time+interviewee-->
 				         <!-- 编辑状态下 title改成 编辑访谈记录  移除INPUT  dd填入内容-->
