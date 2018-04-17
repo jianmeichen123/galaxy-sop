@@ -445,31 +445,33 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			String ua = request.getHeader("User-Agent");
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;
-			if(!CommonUtil.checkAgentIsMobile(ua)){
-					//验证是否包含一条访谈记录
-					if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
-						responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
+			if(CommonUtil.checkAgentIsMobile(ua)){
+					
+			}else{
+				//验证是否包含一条访谈记录
+				if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
+					responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
+					return responseBody;
+				}else{
+				  	/**
+			 		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
+			 		 */
+			 		String fileKey = String
+			 				.valueOf(IdGenerator.generateId(OSSHelper.class));
+			 	    result = uploadFileToOSS(request, fileKey,
+			 				tempfilePath);
+				} 
+				// 验证商业计划书是否上传成功
+				if(null==project.getBusinessPlanFile()||"".equals(project.getBusinessPlanFile())){
+					file = (SopFile) request.getSession().getAttribute("businessPlan");
+					if (file != null && file.getFileLength().longValue() <= 0)
+					{
+						responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "商业计划书上传失败!"));
 						return responseBody;
-					}else{
-					  	/**
-				 		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
-				 		 */
-				 		String fileKey = String
-				 				.valueOf(IdGenerator.generateId(OSSHelper.class));
-				 	    result = uploadFileToOSS(request, fileKey,
-				 				tempfilePath);
-					} 
-					// 验证商业计划书是否上传成功
-					if(null==project.getBusinessPlanFile()||"".equals(project.getBusinessPlanFile())){
-						file = (SopFile) request.getSession().getAttribute("businessPlan");
-						if (file != null && file.getFileLength().longValue() <= 0)
-						{
-							responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "商业计划书上传失败!"));
-							return responseBody;
-						}
-					}else{
-						project.setBusinessPlanFile(file);
 					}
+				}else{
+					project.setBusinessPlanFile(file);
+				}
 			}
 		          
 	

@@ -662,7 +662,7 @@ function initViewUpload() {
 		multi_selection:false,
 		filters : {
 			max_file_size : '50MB',
-			mime_types: paramsFilter(1)
+			//mime_types: paramsFilter(1)
 		},
 		init: {
 			PostInit: function(up) {
@@ -678,6 +678,19 @@ function initViewUpload() {
 						$(".adddpro-save").submit();
 						return false;	
 					} */
+				    //验证估值 
+			        var s_val1=$("#formatValuations").attr("guzhi"),
+					s_val2=$("#formatValuations").val(),
+					s_val3=accSub(s_val1,s_val2); 
+					if(s_val3>10||s_val3<-10){
+						layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+						return;
+					}
+					var val=$('input:radio[name="projectType"]:checked').val();
+					if(val == null || typeof(val) == "undefined"){
+						$("#projectTypeTip").css("display","block");
+						return;
+					} 
 					//数据
 					 var data={
 						"industryOwn": $("select[name=industryOwn]").val(),//行业归属
@@ -696,7 +709,7 @@ function initViewUpload() {
 						"target": $("input[name=viewTarget]").val()//访谈对象
 					}  
 					data.projectQuery=projectQuery; 
-					var informationData={ };
+					var informationData ={};
 					var infoModeList = new Array();
 					var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
 					$.each(fields,function(){
@@ -741,7 +754,7 @@ function initViewUpload() {
 									};
 								 }
 								 infoModeList.push(infoMode); 
-								 data.infoModeList = infoModeList;
+								 informationData.infoModeList = infoModeList;
 								 return; 
 							}else if(judgment=='2257'){
 								data.deletedResultTids=['1118'];
@@ -768,8 +781,8 @@ function initViewUpload() {
 									infoMode.remark1=remark;
 								}
 								infoModeList.push(infoMode); 
-							}  
-							data.infoModeList = infoModeList;
+							}   
+							informationData.infoModeList = infoModeList;
 							return;
 
 						}
@@ -781,37 +794,38 @@ function initViewUpload() {
 						}
 						if (infoMode != null&&type!="13") {
 					        infoModeList.push(infoMode);
-					    }
-						var informationData={}; 
+					    } 
 						informationData.infoModeList = infoModeList;
-						//团队数据
-						var tableTr = $("#team-table tbody tr:gt(0)");
+					
+					});  
+					//团队数据
+					var tableTr = $("#team-table tbody tr:gt(0)");
 
-						var infoTableModelList= [];
-						$.each(tableTr,function(){
-							var that = $(this); 
-							$.each(that.find("input[name],select[name]"),function(){
-								var field = $(this); 
-								var list={
-									 code: 'team-members', //表格编号
-								     titleId: '1303',//标题id
-								     subCode: 'team-members',
-								}; 
-								list.field.attr("name")=field.val();
-								infoTableModelList.push(list);
-							})
+					var infoTableModelList= [];
+					$.each(tableTr,function(){
+						var that = $(this); 
+						var list={
+								 code: 'team-members', //表格编号
+							     titleId: '1303',//标题id
+							     subCode: 'team-members',
+							}; 
+						$.each(that.find("input[name],select[name]"),function(){
+							var field = $(this); 
+							var fil = field.attr("name"); 
+							list[fil]=field.val();
 						})
-						informationData.infoTableModelList = infoTableModelList;
-						 data.informationData=informationData;
-					}); 
-					debugger;
+
+						infoTableModelList.push(list);
+					})
+					informationData.infoTableModelList = infoTableModelList;
+					 data.informationData=informationData; 
 					if(up.files.length > 0){ 
 						//先不加验证
-						debugger;
-						alert("SSSS")
+						/* debugger;
+						alert("SSSS") */
+							up.settings.multipart_params = data;
 							viewuploader.start(); 
-					}else{ 
-						debugger;
+					}else{  
 						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){
 							debugger;
 						})
@@ -820,6 +834,33 @@ function initViewUpload() {
 					
 					
 				})
+			},
+			FilesAdded: function(up, files) {
+				if(viewuploader.files.length >= 2){
+					viewuploader.splice(0, viewuploader.files.length-1)
+				}
+				plupload.each(files, function(file) {
+					var size=up.settings.filters.max_file_size.replace("MB","");   
+					var fileSize = 0;
+					if (navigator.userAgent.indexOf('Mac') != -1) {
+						 fileSize = file.size / 1000/1000;
+						 if(parseInt(fileSize) > parseInt(size) * 1000){
+								layer.msg("最大支持"+size+"MB");
+								return false;
+						 }
+					} else {
+						 fileSize = file.size / 1024/1024;
+						 if(parseInt(fileSize) > parseInt(size)){
+								layer.msg("最大支持"+size+"MB");
+								return false;
+						 }
+					}
+					$("#file_object").removeClass("no_bg");
+					$("#file_object").text(file.name);
+					$("#select_btn").next().find("input").hide();
+					$("#select_btn").text("更新");
+					$("#file_object").addClass("audio_name");
+				});
 			},
 			 
 		} 
@@ -1014,6 +1055,7 @@ function reason(obj,value){
 	 $("#team-table tbody .no-records-found").remove();
 	 var copy = $("#team-table tbody tr:first-child").clone();
 	 $("#team-table tbody").append(copy); 
+	 copy.find("select").selectpicker('refresh');
 	 if($("#team-table tbody tr").length>=11){$(".teamAdd").hide();}
  })
  function deleteTeam(event){
