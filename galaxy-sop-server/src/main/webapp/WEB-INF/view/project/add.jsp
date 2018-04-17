@@ -512,8 +512,7 @@ $(function(){
 		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){ 
 				if(data.result.status=="ERROR"){
 			       objDatad =data.userData;
-                    if(data.result.errorCode == "name-repeat"){  
-            			$("select").attr("disabled",true)
+                    if(data.result.errorCode == "name-repeat"){   
                         layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
                         $('.project-name').css('display','block');
                     } 
