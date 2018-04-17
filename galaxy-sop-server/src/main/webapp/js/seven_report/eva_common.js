@@ -503,7 +503,12 @@ function buildResult(title)
 		}else{
 			if(type==8){
 				if(textarea_show(results[0].contentDescribe1)>0){
-					_ele.html(results[0].contentDescribe1);
+					var str=results[0].contentDescribe1;
+					if(str && (str.indexOf('<sitg>')>-1 || str.indexOf('</sitg>')>-1) ){
+						str=str.replace(/<sitg>/g,"（");
+						str=str.replace(/<\/sitg>/g,"）");
+					}
+					_ele.html(str);
 				}
 			}else{
 				_ele.html(results[0].contentDescribe1);
@@ -1222,6 +1227,7 @@ function font_color(data){
 		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
 		var code_input = _this.closest("td").siblings(".score-column").find("input");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
+		var titleId=_this.attr("data-title-id");
 		if(sign_status){
 			//多道题 sign=3
 			var num=0;
@@ -1243,8 +1249,10 @@ function font_color(data){
 			}
 		}else{
 			if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
+				if(titleId != 1203){
+					code_dom.addClass("disabled").attr("disabled",true);
+				}
 				_this.removeClass("black");			
-				code_dom.addClass("disabled").attr("disabled",true);
 				code_dom.val("");
 				code_select.val("请选择");
 			}else{
@@ -1274,7 +1282,7 @@ function font_color(data){
 			}
 		}
 		if(_this.data("relateId")=="1006"){
-			code_input.addClass("disabled").attr("disabled",true);
+			//code_input.addClass("disabled").attr("disabled",true);
 			var sitg=_this.find("sitg");
 			var clean_status=0;
 			$.each(sitg,function(i,n){
@@ -1282,7 +1290,7 @@ function font_color(data){
 				var len = sitg.length;
 				if(i==len-1||i==len-2){
 					if(n_this.text()!=""){
-						code_input.removeClass("disabled").attr("disabled",false);
+						//code_input.removeClass("disabled").attr("disabled",false);
 						clean_status=1;
 						return clean_status;
 						return false;

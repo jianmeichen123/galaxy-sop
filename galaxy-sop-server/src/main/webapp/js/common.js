@@ -43,6 +43,13 @@ function finalValue(val1,val2){
 	}
 	return null;
 }
+function finalFloat(res,num){    
+		var array = String(res).split(".");
+		if(array[1]!=undefined){ 
+			array[1]=array[1].slice(0,num);
+		}  
+		return array.join('.');
+	} 
 //js计算精度问题 减法
 function accSub(arg1, arg2) {
     var r1, r2, m, n;

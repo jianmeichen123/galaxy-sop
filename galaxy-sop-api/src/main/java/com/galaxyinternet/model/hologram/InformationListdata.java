@@ -4,18 +4,21 @@ import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.CommonUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-
+@ApiModel(value="动态表格处理",description="动态表格处理")
 public class InformationListdata extends PagableEntity implements Cloneable{
 
 	private static final long serialVersionUID = 1L;
-
+	@ApiModelProperty(value="分数",hidden=true)
     private Long id;
-
+	@ApiModelProperty(value="分数",hidden=true)
     private Long projectId;
 
     private Long titleId;
@@ -65,49 +68,57 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private String field20;
 
     private Integer isValid;
-    
+    @ApiModelProperty(value="分数",hidden=true)
     private String relateFileId;
-
+    @ApiModelProperty(value="分数",hidden=true)
 	private Long createTime;
-
+	@ApiModelProperty(value="分数",hidden=true)
     private Long createId;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private Long updateTime;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private Long updateId;
-    
+    @ApiModelProperty(value="分数",hidden=true)
     private Set<String> titleIds;
 
     private List<InformationListdata> dataList;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private List<InformationListdata> workList;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private List<InformationListdata> studyList;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private List<InformationListdata> startupList;
-    
+    @ApiModelProperty(value="分数",hidden=true)
     private Long time;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private List<String> codes;
-    
+    @ApiModelProperty(value="分数",hidden=true)
     private List<InformationFile> fileList;
-
+    @ApiModelProperty(value="分数",hidden=true)
 	private Set<String> ids;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private String property;
-
+    @ApiModelProperty(value="分数",hidden=true)
     private  String direction;
-    
+    @ApiModelProperty(value="分数",hidden=true)
     private String createUserName;
+    @ApiModelProperty(value="分数",hidden=true)
     private String createTimeStr;
+    @ApiModelProperty(value="分数",hidden=true)
     private String updateUserName;
+    @ApiModelProperty(value="分数",hidden=true)
     private String updateTimeStr;
 
     //查询辅助
+    @ApiModelProperty(value="分数",hidden=true)
     private Boolean field1NotNull;
+    @ApiModelProperty(value="分数",hidden=true)
     private Boolean field2NotNull;
+    @ApiModelProperty(value="分数",hidden=true)
     private Boolean field3NotNull;
+    @ApiModelProperty(value="分数",hidden=true)
     private Boolean field4NotNull;
+    @ApiModelProperty(value="分数",hidden=true)
     private Boolean field5NotNull;
 
 

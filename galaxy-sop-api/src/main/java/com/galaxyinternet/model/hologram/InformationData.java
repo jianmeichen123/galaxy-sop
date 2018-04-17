@@ -16,24 +16,42 @@ public class InformationData extends PagableEntity {
 	private String projectId;
 	
 	private int flag;//0:正常数据编辑;1:表格数据处理;2:固定表格处理
-	@ApiModelProperty("普通类型")
+	@ApiModelProperty(value="普通类型",example="[{titleId: 1108, tochange: 'true', resultId: null, type: 14, value: '1123'},"+
+	"{titleId: 1120, tochange: 'true', resultId: null, type: 14, value: '2254'},"+
+	"{titleId: 1121, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1202, tochange: 'true', resultId: null, type: 8, remark1: '商业模式'},"+
+	"{titleId: 1122, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1123, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1124, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1125, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1126, tochange: 'true', resultId: null, type: 1, remark1: ''},"+
+	"{titleId: 1118, tochange: 'true', resultId: '',   type: 23, value: '104'},"+
+	"{titleId: 1916, tochange: 'true', resultId: null, type: 19, remark1: '12'},"+
+	"{titleId: 1917, tochange: 'true', resultId: null, type: 19, remark1: '12'},"+
+	"{titleId: 1943, tochange: 'true', resultId: null, type: 19, remark1: '100'}]")
 	private List<InformationModel> infoModeList;
-	@ApiModelProperty("固定表格")
+	@ApiModelProperty(value="固定表格",hidden=true)
 	private List<FixedTableModel> infoFixedTableList;
-	@ApiModelProperty("动态表格-删除的记录")
+	@ApiModelProperty(value="动态表格-删除的记录",hidden=true)
 	private Set<String> deletedRowIds;  //适用table表
-	@ApiModelProperty("动态表格")
+	@ApiModelProperty(value="动态表格",example=""
+			+ "[{ code: 'team-members',"
+			+ "titleId: '1303', "
+			+ "subCode: 'team-members',"
+			+ "field1:'12',"
+			+ "field2:'1353',"
+			+ "field4:'1212',"
+			+ "field5:'1374',"
+			+ "field6:'12'}]")
 	private List<TableModel>     infoTableModelList;
-	@ApiModelProperty("分数")
+	@ApiModelProperty(value="分数",hidden=true)
 	private List<InformationScore> scoreList;
-	@ApiModelProperty("文件/图片")
+	@ApiModelProperty(value="文件/图片",hidden=true)
 	private List<InformationFile> infoFileList;
-	
+	@ApiModelProperty(value="删除文件集合",hidden=true)
 	private Set<Long> deleteFileIds;
-	
+	@ApiModelProperty(value="删除结果集合",hidden=true)
 	private Set<String> deletedResultTids;  //适用result表
-	
-	
 	public String getProjectId() {
 		return projectId;
 	}

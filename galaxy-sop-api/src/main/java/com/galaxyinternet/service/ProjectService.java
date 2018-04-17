@@ -2,6 +2,7 @@ package com.galaxyinternet.service;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.query.ChartKpiQuery;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface ProjectService extends BaseService<Project> {
 
 	public Project selectColumnById(Long id);
@@ -21,6 +24,12 @@ public interface ProjectService extends BaseService<Project> {
 	 * 对于每个新添加的项目来讲，整个生命周期中所关联的文档已确定，这里需要一并添加
 	 */
 	public long newProject(Project project, SopFile file) throws Exception;
+	
+	/**
+	 * 添加项目
+	 * 对于每个新添加的项目来讲，整个生命周期中所关联的文档已确定，这里需要一并添加
+	 */
+	public long insertProject(Project project,UploadFileResult result,HttpServletRequest request) throws Exception;
 	
 	/**
 	 * 申请立项会

@@ -34,6 +34,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.CommonUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
@@ -91,6 +92,7 @@ import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.commons.lang.StringUtils;
@@ -391,6 +393,156 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					_common_logger_.info("添加项目[" + "项目名称:" + project.getProjectName() + " 创建人:"
 							+ project.getCreateUname() + " 部门：" + user.getDepartmentName() + "]");
 
+					final Long uid = user.getId();
+					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+						public void run()
+						{
+							informationProgressService.initUsersAllReportProgressOfPro(uid, id);
+						}
+					});
+				}
+			}
+		} catch (Exception e)
+		{
+			_common_logger_.error("异常信息:", e.getMessage());
+		}
+		return responseBody;
+	}
+	/**
+	 * 新建项目接口
+	 * 
+	 * @version v2.1
+	 * @author jianmeichen
+	 */
+	//@Token
+	@ResponseBody
+	@ApiOperation("添加项目")
+	@RequestMapping(value = "/insertProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> insertProject(
+	@ApiParam(name = "project", value = "项目信息", required = true)
+	@RequestBody Project project, HttpServletRequest request)
+	{
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		//验证必填字段非空
+			if (project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
+					|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
+					|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())
+					|| project.getIndustryOwn() == null)
+			{
+				responseBody.setResult(new Result(Status.ERROR, "csds", "必要的参数丢失!"));
+				return responseBody;
+			}
+			//验证是否包含至少一条团队成员的信息
+			/*if(null!=project.getInfimationListdate()&&!"".equals(project.getInfimationListdate())){
+				if(null==project.getInfimationListdate().getDataList()||project.getInfimationListdate().getDataList().size()<=0){
+					responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "至少添加一条团队成员信息"));
+					return responseBody;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "重要的参数丢失"));
+				return responseBody;
+			}*/
+		           SopFile file=null;
+			       UploadFileResult result=new UploadFileResult();
+					//验证是否包含一条访谈记录
+					if(null==project.getProjectQuery()||"".equals(project.getProjectQuery())){
+						responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "访谈记录不能为空"));
+						return responseBody;
+					}else{
+					  	/**
+				 		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
+				 		 */
+				 		String fileKey = String
+				 				.valueOf(IdGenerator.generateId(OSSHelper.class));
+				 	    result = uploadFileToOSS(request, fileKey,
+				 				tempfilePath);
+					} 
+					// 验证商业计划书是否上传成功
+					if(null==project.getBusinessPlanFile()||"".equals(project.getBusinessPlanFile())){
+						file = (SopFile) request.getSession().getAttribute("businessPlan");
+						if (file != null && file.getFileLength().longValue() <= 0)
+						{
+							responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "商业计划书上传失败!"));
+							return responseBody;
+						}
+					}else{
+						project.setBusinessPlanFile(file);
+					}
+	
+	    //其他特殊字段判断不能为空
+			if(null!=project.getInformationData()&&!"".equals(project.getInformationData())){
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "Important parameter loss", "重要的参数丢失"));
+				return responseBody;
+			}
+		try
+		{
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			// 判断当前用户是否为投资经理
+			List<Long> roleIdList = user.getRoleIds();
+			if (!roleIdList.contains(UserConstant.TZJL))
+			{
+				responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
+				return responseBody;
+			}
+			// 验证项目名是否重复
+			Project obj = new Project();
+			obj.setProjectName(project.getProjectName());
+			List<Project> projectList = projectService.queryList(obj);
+			if (null != projectList && projectList.size() > 0)
+			{
+				responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
+				return responseBody;
+			}
+			// 创建项目编码
+			Config config = configService.createCode();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumIntegerDigits(6);
+			nf.setMinimumIntegerDigits(6);
+			Long did = user.getDepartmentId();
+			if (did != null)
+			{
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				project.setProjectCode(String.valueOf(projectCode));
+
+				if (project.getProjectValuations() == null)
+				{
+					if (project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0
+							&& project.getProjectContribution() != null && project.getProjectContribution() > 0)
+					{
+						project.setProjectValuations(
+								project.getProjectContribution() * 100 / project.getProjectShareRatio());
+					}
+				}
+				project.setCurrencyUnit(0);
+				// 默认不涉及股权转让
+				project.setStockTransfer(0);
+				project.setCreateUid(user.getId());
+				project.setCreateUname(user.getRealName());
+				project.setProjectDepartid(did);
+				project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
+				Date date = new Date();
+				project.setUpdatedTime(date.getTime());
+				project.setProjectTime(date.getTime());
+				project.setCreatedTime(
+						DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+				final long id = projectService.insertProject(project,result,request);
+				if (id > 0)
+				{
+					applicationcontext.publishEvent(new ProjectCreatedEvent(id));
+					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
+					responseBody.setId(id);
+					if (file != null)
+					{
+						file.setMultipartFile(null);
+					}
+					_common_logger_.info("添加项目[" + "项目名称:" + project.getProjectName() + " 创建人:"
+							+ project.getCreateUname() + " 部门：" + user.getDepartmentName() + "]");
+					// 记录操作日志
+					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.one);
 					final Long uid = user.getId();
 					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 						public void run()

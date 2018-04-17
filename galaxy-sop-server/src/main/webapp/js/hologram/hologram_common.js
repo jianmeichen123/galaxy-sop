@@ -500,7 +500,12 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				var contentDescribe=title.resultList[0].contentDescribe1;
-				$(".field[data-title-id='"+title.id+"']").html((contentDescribe==undefined || textarea_show(contentDescribe)==0) ?"未填写":title.resultList[0].contentDescribe1);
+				//处理商业模式历史数据处理
+				if(contentDescribe && (contentDescribe.indexOf('<sitg>')>-1 || contentDescribe.indexOf('</sitg>')>-1) ){
+					contentDescribe=contentDescribe.replace(/<sitg>/g,"（");
+					contentDescribe=contentDescribe.replace(/<\/sitg>/g,"）");
+				}
+				$(".field[data-title-id='"+title.id+"']").html((contentDescribe==undefined || textarea_show(contentDescribe)==0) ?"未填写":contentDescribe);
 			}
 			else
 			{
@@ -510,6 +515,15 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br\/>/g,'\n');
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
+				}
+				//处理商业模式历史数据处理
+				if(str && (str.indexOf('<sitg>')>-1 || str.indexOf('</sitg>')>-1) ){
+					str=str.replace(/<sitg>/g,"（");
+					str=str.replace(/<\/sitg>/g,"）");
+				}
+				if(title.id==1203){
+					$("textarea[data-title-id='"+title.id+"']").closest('dl').find('img').css("display","block");
+					$("textarea[data-title-id='"+title.id+"']").removeAttr('placeholder');
 				}
 				$("textarea[data-title-id='"+title.id+"']").val((title.resultList[0].contentDescribe1==undefined || textarea_show(title.resultList[0].contentDescribe1)==0)?"":str).attr("resultId",result_id);
 			}
@@ -626,6 +640,17 @@ function buildResults(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
+			}
+		}else if(title.type == 8){
+			if(readonly !=true){
+				//特殊处理商业模式
+				if(title.id==1203){
+					var defalutText="";
+					defalutText=title.placeholder;
+					$("textarea[data-title-id='"+title.id+"']").val(defalutText);
+					$("textarea[data-title-id='"+title.id+"']").closest('dl').find('img').css("display","block");
+					$("textarea[data-title-id='"+title.id+"']").removeAttr('placeholder');
+				}
 			}
 		}
 	}
