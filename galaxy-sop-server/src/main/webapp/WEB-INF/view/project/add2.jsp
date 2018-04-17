@@ -517,7 +517,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			});
 		} 
 		console.log(data1);
-			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
+			sendPostRequestBySignJsonStr(platformUrl.addProjectOld,data1, function(data){
 				console.log(data);
 				if(!data){
 					layer.msg("提交表单过于频繁!");
