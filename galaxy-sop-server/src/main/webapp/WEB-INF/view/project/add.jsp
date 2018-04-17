@@ -652,23 +652,7 @@ $.validator.setDefaults({ignore: ".projectSource :hidden"});
 
 initViewUpload();
 function initViewUpload() {
-	var data={
-			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
-			"createDate": $("input[name=createDate]").val(),//项目创建时间
-			"projectName": $("input[name=projectName]").val(),//项目名称
-			"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
-		} 
-		//会议纪要
-		var projectQuery={
-			//"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
-			"createDate": $("input[name=viewDate]").val(),//访谈时间
-			"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
-			"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
-			"resultReason": $("#resultRadion select.reson").val(),//原因
-			"stage": "projectProgress:1",//当前阶段
-			"target": $("input[name=viewTarget]").val()//访谈对象
-		}  
-		data.projectQuery=projectQuery; 
+	
  
 	var viewuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -682,14 +666,152 @@ function initViewUpload() {
 		},
 		init: {
 			PostInit: function(up) {
-				$("#projectAdd").click(function(){
-					//验证先不加
-					 
+				$("#projectAdd").click(function(){ 
+					 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
+						  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+						return false;
+					}
+					//2.项目承揽人
+				    $("#selectRadio[name=projectContractor]").css("display","inline-block");
+					//3.表单验证  
+				    /* if(!$('#add_form').validate().form()){//验证不通过时候执行
+						$(".adddpro-save").submit();
+						return false;	
+					} */
+					//数据
+					 var data={
+						"industryOwn": $("select[name=industryOwn]").val(),//行业归属
+						"createDate": $("input[name=createDate]").val(),//项目创建时间
+						"projectName": $("input[name=projectName]").val(),//项目名称
+						"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
+					} 
+					//会议纪要
+					var projectQuery={
+						"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
+						"createDate": $("input[name=viewDate]").val(),//访谈时间
+						"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
+						"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
+						"resultReason": $("#resultRadion select.reson").val(),//原因
+						"stage": "projectProgress:1",//当前阶段
+						"target": $("input[name=viewTarget]").val()//访谈对象
+					}  
+					data.projectQuery=projectQuery; 
+					var informationData={ };
+					var infoModeList = new Array();
+					var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
+					$.each(fields,function(){
+						var field = $(this);
+						var type = field.data('type');
+						var sele = field.get(0).tagName;
+						var _resultId = field.attr("data-result-id");
+						
+						if(_resultId==undefined){
+							_resultId=null;
+						}
+						var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:'true',
+							resultId:_resultId,
+							type : type
+						};
+						if(field.data('titleId')=="1118"&&type=="23"){
+							//获取多选带备注数据 proSource
+							var judgment = $("select[name=proSource]").val();
+							if(judgment!='2257'&&judgment!='2262'){
+								var judgName = $(".man_info .name").text();
+								var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
+								 if(val!=undefined){
+									 var infoMode = {
+										titleId	: field.data('titleId'),
+										tochange:true,
+										resultId:"",
+										type : type,
+										value:val
+									};	
+								 }else{
+									 val = $("select[data-title-id=1118]").find("option").last().attr("value"); 
+									 var infoMode = {
+										titleId	: field.data('titleId'),
+										tochange:true,
+										resultId:_resultId,
+										type : type,
+										value:val,
+										remark1:judgName
+										
+									};
+								 }
+								 infoModeList.push(infoMode); 
+								 data.infoModeList = infoModeList;
+								 return; 
+							}else if(judgment=='2257'){
+								data.deletedResultTids=['1118'];
+								return;
+							
+							}else{
+							var values =[] ; 
+							var doms = $(".selectcheck li.selected span");
+							$.each(doms,function(){ 
+								values.push($(this).attr('data-value'))
+							})  
+							var remark = $('.selectcheck .addpro-input').val();
+							var other = $('.selectcheck .addpro-input').attr("ovalue");  
+							for(i=0;i<values.length;i++){ 
+								var infoMode = {
+										titleId	: field.data('titleId'),
+										tochange:'true',
+										resultId:"",
+										type : type
+									};
+								var that = values[i]; 
+								infoMode.value=that;  
+								if(other==that&&remark!=''&&remark!=null){  
+									infoMode.remark1=remark;
+								}
+								infoModeList.push(infoMode); 
+							}  
+							data.infoModeList = infoModeList;
+							return;
+
+						}
+						}else if(type==14 )
+						{
+							infoMode.value = field.val();
+						}else if(type==19 || type==1){
+							infoMode.remark1 = field.val();
+						}
+						if (infoMode != null&&type!="13") {
+					        infoModeList.push(infoMode);
+					    }
+						var informationData={}; 
+						informationData.infoModeList = infoModeList;
+						//团队数据
+						var tableTr = $("#team-table tbody tr:gt(0)");
+
+						var infoTableModelList= [];
+						$.each(tableTr,function(){
+							var that = $(this); 
+							$.each(that.find("input[name],select[name]"),function(){
+								var field = $(this); 
+								var list={
+									 code: 'team-members', //表格编号
+								     titleId: '1303',//标题id
+								     subCode: 'team-members',
+								}; 
+								list.field.attr("name")=field.val();
+								infoTableModelList.push(list);
+							})
+						})
+						informationData.infoTableModelList = infoTableModelList;
+						 data.informationData=informationData;
+					}); 
+					debugger;
 					if(up.files.length > 0){ 
+						//先不加验证
 						debugger;
 						alert("SSSS")
 							viewuploader.start(); 
 					}else{ 
+						debugger;
 						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){
 							debugger;
 						})
