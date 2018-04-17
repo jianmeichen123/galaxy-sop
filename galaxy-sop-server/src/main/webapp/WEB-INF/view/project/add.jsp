@@ -662,7 +662,7 @@ function initViewUpload() {
 		multi_selection:false,
 		filters : {
 			max_file_size : '50MB',
-			mime_types: paramsFilter(1)
+			//mime_types: paramsFilter(1)
 		},
 		init: {
 			PostInit: function(up) {
@@ -804,17 +804,18 @@ function initViewUpload() {
 					var infoTableModelList= [];
 					$.each(tableTr,function(){
 						var that = $(this); 
-						$.each(that.find("input[name],select[name]"),function(){
-							var field = $(this); 
-							var list={
+						var list={
 								 code: 'team-members', //表格编号
 							     titleId: '1303',//标题id
 							     subCode: 'team-members',
 							}; 
+						$.each(that.find("input[name],select[name]"),function(){
+							var field = $(this); 
 							var fil = field.attr("name"); 
 							list[fil]=field.val();
-							infoTableModelList.push(list);
 						})
+
+						infoTableModelList.push(list);
 					})
 					informationData.infoTableModelList = infoTableModelList;
 					 data.informationData=informationData; 
