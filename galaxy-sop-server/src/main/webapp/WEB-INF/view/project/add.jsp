@@ -218,9 +218,9 @@
                     <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
 		                 <thead>
 		                	<tr>
-		                		<th width='10%'>姓名</th>
-		                		<th width='10%'>性别</th>
-		                		<th width='13%'>最高学历</th>
+		                		<th width='15%'>姓名</th>
+		                		<th width='8%'>性别</th>
+		                		<th width='11%'>最高学历</th>
 		                		<th width='15%'>联系电话</th>
 		                		<th width='15%'>微信号</th>
 		                		<th width='30%'>职位</th>
@@ -231,7 +231,8 @@
 		                <!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-								<input placeholder="姓名" onblur="blurName(this)" name="field1" type="text" class="" maxlength="50" required />
+									 <input type="text" class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
+                 					<div></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -259,7 +260,8 @@
 		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-								<input placeholder="姓名" onblur="blurName(this)" name="field1" type="text" class="" maxlength="50" required />
+									 <input type="text" class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
+                 					 <div></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -282,12 +284,16 @@
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
 								</td>
-								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
+								<td onclick="deleteTeam(this)" class="team_delete">删除
+								
+								</td>
+		                	
 		                	</tr>	
+		                	
 		                </tbody>
 	                </table>
                 </div>
-                
+                  
                 <div class='ADDcurrendTable'>
                  	<div class="addpro-new-title ">
                         <span class="new_color  add-pro-basicmessage">*访谈记录</span>
@@ -306,15 +312,15 @@
 				                <dl class="fmdl clearfix intw_time">
 				                    <dt id="toobar_time">访谈时间：</dt>
 				                    <dd>
-				                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
-				                        <!-- <dd>2017-06-05 12:00</dd> -->
+				                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate"  />
+				                        <div></div>
 				                    </dd>
 				                </dl>   
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
-				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
-				                        <!-- <dd>刘丽君琉璃苣</dd> -->
+				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
+			                        	<div></div>
 				                    </dd>
 				                </dl>
 				            </div>
@@ -659,12 +665,26 @@ function selectCache(subCode,filed){
 * @version 2018-04-11
 */ 
 //验证不忽略隐藏的select（使用了插件）
-$.validator.setDefaults({ignore: ".projectSource :hidden"});
-
-
-
-
-
+$.validator.setDefaults({ignore: ".projectSource :hidden,#team-table tr :hidden"});
+//验证方法 
+function addValidate(){
+	  //验证估值 
+    var s_val1=$("#formatValuations").attr("guzhi"),
+	s_val2=$("#formatValuations").val(),
+	s_val3=accSub(s_val1,s_val2); 
+	if(s_val3>10||s_val3<-10){
+		layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
+		return false;
+	}
+	var val=$('input:radio[name="projectType"]:checked').val();
+	if(val == null || typeof(val) == "undefined"){
+		$("#projectTypeTip").css("display","block");
+		return false;
+	} 
+	//团队验证
+}
+ 
+/* $('.tab_con').validate(); */
 initViewUpload();
 function initViewUpload() {
 	
@@ -690,23 +710,11 @@ function initViewUpload() {
 				    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 					//3.表单验证  
 					debugger
-				    /* if(!$('#add_form').validate().form()){//验证不通过时候执行
+				    if(!$('#add_form').validate().form()){//验证不通过时候执行
 						$(".adddpro-save").submit();
 						return false;	
-					}  */
-				    //验证估值 
-			        var s_val1=$("#formatValuations").attr("guzhi"),
-					s_val2=$("#formatValuations").val(),
-					s_val3=accSub(s_val1,s_val2); 
-					if(s_val3>10||s_val3<-10){
-						layer.msg('项目估值的修改结果超出自动计算得出结论的 +/-10万');
-						return;
-					}
-					var val=$('input:radio[name="projectType"]:checked').val();
-					if(val == null || typeof(val) == "undefined"){
-						$("#projectTypeTip").css("display","block");
-						return;
-					} 
+					}   
+					
 					//数据
 					 var data={
 						"industryOwn": $("select[name=industryOwn]").val(),//行业归属

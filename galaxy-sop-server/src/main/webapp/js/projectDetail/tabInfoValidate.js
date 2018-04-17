@@ -10,6 +10,18 @@
 				procontribution:{ 
 					required :true,
 				},
+				proshare:{
+					required :true,
+				},
+				viewTarget:{
+					required :true,
+				},
+				viewDate:{
+					required :true,
+				},
+				provaluations:{
+					required :true,
+				},
 				projectInfo:{
 					required :true,
 				},
@@ -35,11 +47,23 @@
 				}
 			},
 			messages :{
+				viewTarget:{
+					required :"必填",
+				},
+				viewDate:{
+					required :"必填",
+				},
 				projectName:{
 					required:'*项目名称不能为空'
 				},
 				procontribution:{
-					required:'* 不能为空'
+					required:'*融资金额不能为空'
+				},
+				proshare:{
+					required:'*出让股份不能为空'
+				},
+				provaluations:{
+					required:'*项目估值不能为空'
 				},
 				projectInfo:{
 					required:'*项目简介不能为空'
