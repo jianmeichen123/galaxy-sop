@@ -445,8 +445,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				return responseBody;
 			}*/
 			String ua = request.getHeader("gt");
-		//	SessionBean bean = CUtils.get().getBeanBySession(request);
-			String sessionid=request.getHeader("sessionid")==null?request.getHeader("sid"):null;
+			String sessionid=request.getHeader("sessionId");
+			User user = (User)cache.getByRedis(sessionid);
+			User userNew = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if(null==userNew){
+				request.getSession().setAttribute(Constants.SESSION_USER_KEY, user);
+			}
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;
 			if(null==ua||"".equals(ua)){
@@ -486,14 +490,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		try
 		{
 			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			User user = (User)cache.getByRedis(sessionid);
+			
 			// 判断当前用户是否为投资经理
-			List<Long> roleIdList = user.getRoleIds();
-			if (!roleIdList.contains(UserConstant.TZJL))
+			//List<Long> roleIdList = user.getRoleIds();
+			/*if (!roleIdList.contains(UserConstant.TZJL))
 			{
 				responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
 				return responseBody;
-			}
+			}*/
 			// 验证项目名是否重复
 			Project obj = new Project();
 			obj.setProjectName(project.getProjectName());
