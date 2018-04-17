@@ -97,7 +97,7 @@
                         	
                             <span class="basic_span addpro-basic-span "><em class="red">*</em><span class='letter-space'>项目来源：</span></span>
                             <span class="m_r30  selectcheck select" >
-	                            <select name="proSource"  data-title-id="1120" data-type="14" >
+	                            <select name="proSource" class="proSource" data-title-id="1120" data-type="14" >
 				                    	<option value="">请选择</option>
 				                </select> 
                        		</span>                       		
@@ -440,6 +440,16 @@
 
 <script>
 $(function(){ 
+	//radio样式切换
+	$('.inpu-self').click(function(){
+		$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
+		$('.inpu-self-checked').find('input').attr('checked',true);
+		$('.inpu-self-checked').siblings().find('input').attr('checked',false);
+	});
+
+	   var TOKEN;
+	   
+	  // var formData;
 	$("#createDate").val(new Date().format("yyyy-MM-dd"));
 	  document.getElementsByClassName("datetimepickerHour")[0].addEventListener('click', function(e) {
 		    e.currentTarget.blur();  //解决input多次点击，日期插件不显示的问题
@@ -525,9 +535,9 @@ $("select[name='proSource']").change(function(){
 	var selCode=$(this).find("option:checked").attr("code");
 	$("."+selCode).show(); 
 	$("#selectRadio option").attr("selected",false);
-	$("button.selectpicker").attr("title",'请选择');
-	$("button.selectpicker span").text("请选择");
-	$("ul.selectpicker li").removeClass("selected");
+	$(".proSource button.selectpicker").attr("title",'请选择');
+	$(".proSource button.selectpicker span").text("请选择");
+	$(".proSource ul.selectpicker li").removeClass("selected");
 	$(".projectSource input").val("")
 	$(".trSouce input").val("");
 	$(".trSouceOther").hide().val("")
@@ -619,9 +629,12 @@ $.each(map_field2,function(e,index){
 $.each(map_pos,function(e,index){ 
 	xlOP += "<option value="+e+">"+index+"</option>"
 })
-$("#team-table select[name=field5]").html(xlOP).selectpicker();
-$("#team-table select[name=field2]").html(xlOP2).selectpicker(); 
-$("#team-table select[name=field3]").selectpicker(); 
+$("#team-table select[name=field5]").html(xlOP);
+$("#team-table select[name=field2]").html(xlOP2);  
+$("#team-table tbody tr:gt(0) select[name=field2]").selectpicker()
+$("#team-table tbody tr:gt(0) select[name=field3]").selectpicker()
+$("#team-table tbody tr:gt(0) select[name=field5]").selectpicker()
+
 function selectCache(subCode,filed){
     var map = {};
 	sendGetRequest(platformUrl.getDirectory+"1303"+'/'+subCode+"/"+filed,null,
@@ -826,9 +839,13 @@ function initViewUpload() {
 							up.settings.multipart_params = data;
 							viewuploader.start(); 
 					}else{  
+						sendPostRequest(platformUrl.getToken,function(data){
+							TOKEN=data.TOKEN;
+							return TOKEN;
+						});
 						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){
 							debugger;
-						})
+						},TOKEN)
 							
 					}
 					
@@ -870,82 +887,9 @@ function initViewUpload() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function add(){     
-	var data={
-			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
-			"createDate": $("input[name=createDate]").val(),//项目创建时间
-			"projectName": $("input[name=projectName]").val(),//项目名称
-			"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
-		} 
-		//会议纪要
-		var projectQuery={
-			"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
-			"createDate": $("input[name=viewDate]").val(),//访谈时间
-			"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
-			"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
-			"resultReason": $("#resultRadion select.reson").val(),//原因
-			"stage": "projectProgress:1",//当前阶段
-			"target": $("input[name=viewTarget]").val()//访谈对象
-		}  
-		data.projectQuery=projectQuery;  
-	//保存前的验证
-	//1.项目名称是否重复  
-	 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
-		  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
-		return false;
-	}
-	//2.项目承揽人
-    $("#selectRadio[name=projectContractor]").css("display","inline-block");
-	//3.表单验证  
-    if(!$('#add_form').validate().form()){//验证不通过时候执行
-		$(".adddpro-save").submit();
-		return false;	
-	}
-	//开始新建项目  
-	/* sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){ 
-		
-		
-	});  */
-}
-/* plupload 多实例上传 */
  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 function getUpdateData(){  //获取保存数据
 	var projectType=$('input:radio[name="projectType"]:checked').val();
@@ -1053,9 +997,9 @@ function reason(obj,value){
  /* 团队添加 删除 */
  $(".teamAdd").click(function(){
 	 $("#team-table tbody .no-records-found").remove();
-	 var copy = $("#team-table tbody tr:first-child").clone();
+	 var copy = $("#team-table tbody tr:first-child").clone(); 
+		copy.find("select").selectpicker(); 
 	 $("#team-table tbody").append(copy); 
-	 copy.find("select").selectpicker('refresh');
 	 if($("#team-table tbody tr").length>=11){$(".teamAdd").hide();}
  })
  function deleteTeam(event){
