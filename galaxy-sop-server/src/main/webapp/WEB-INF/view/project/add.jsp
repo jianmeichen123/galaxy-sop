@@ -843,8 +843,37 @@ function initViewUpload() {
 							TOKEN=data.TOKEN;
 							return TOKEN;
 						});
-						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){
-							debugger;
+						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
+							if(!data){
+								layer.msg("提交表单过于频繁!");
+							}else if(data.result.status=="ERROR"){
+								if(data.result.errorCode == "csds"){
+									layer.msg("必要的参数丢失!");
+								}else if(data.result.errorCode == "myqx"){
+									layer.msg("没有权限添加项目!");
+								}  
+							}else if(data.result.status=="OK"){
+								//判断大脑数据
+								var Id=data.id;
+								var projectName = $("#projectName").val();
+								var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+								var jsonObj={
+										keyword:projectName
+								} 
+								sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
+									if(data.result.status=="ERROR"){
+										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+										return false;
+									}
+									var num =data.pageList.total;
+									if(num==0||!num){
+										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+									}else{
+										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
+									} 
+								})
+								
+							}
 						},TOKEN)
 							
 					}
