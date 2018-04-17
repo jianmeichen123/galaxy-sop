@@ -161,7 +161,7 @@
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
-                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg"><div></div></span>
+                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea><div></div> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
                         </li>
                           
                     </ul>  
@@ -254,6 +254,7 @@
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
+									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
@@ -283,6 +284,7 @@
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2">
 									</select>
+									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -661,6 +663,20 @@ function selectCache(subCode,filed){
 */ 
 //验证不忽略隐藏的select（使用了插件）
 $.validator.setDefaults({ignore: ".projectSource :hidden,#team-table tr :hidden"});
+//团队other
+$("#team-table select[name='field2']").change(function(){
+	  var val=$(this).find("option:selected").attr("value");
+	  if(val=='1363'){
+		  $(this).siblings('input[name="other"]').show();
+		  $(this).siblings('input[name="other"]').attr("required",true);
+	  }else{
+		  $(this).siblings('input[name="other"]').hide();
+		  $(this).siblings('input[name="other"]').removeAttr("required");
+		  $(this).siblings('input[name="other"]').next().find(".error").hide(); 
+		  $(this).siblings('input[name="other"]').val('');
+		  
+	  }
+})
 //验证方法 
 function addValidate(){
 	  //验证估值 
