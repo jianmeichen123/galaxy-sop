@@ -605,10 +605,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			}*/
 			String ua = request.getHeader("gt");
 			String sessionid=request.getHeader("sessionId");
-			User user = (User)cache.getByRedis(sessionid);
-			User userNew = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			if(null==userNew){
-				request.getSession().setAttribute(Constants.SESSION_USER_KEY, user);
+			User userNew = (User)cache.getByRedis(sessionid);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if(null==user){
+				request.getSession().setAttribute(Constants.SESSION_USER_KEY, userNew);
 			}
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;
@@ -633,9 +633,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					{
 						responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "商业计划书上传失败!"));
 						return responseBody;
+					}else{
+						project.setBusinessPlanFile(file);
 					}
-				}else{
-					project.setBusinessPlanFile(file);
 				}
 			}
 		          
