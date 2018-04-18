@@ -1089,6 +1089,7 @@ function reason(obj,value){
 					layer.msg("保存成功", {time : 500}); 
 				 
 				}
+				
 			},
 			
 			/* BeforeUpload:function(up){
