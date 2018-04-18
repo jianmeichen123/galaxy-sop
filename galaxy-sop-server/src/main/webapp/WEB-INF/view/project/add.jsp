@@ -714,248 +714,196 @@ function addValidate(){
 /* $('.tab_con').validate(); */
 initViewUpload();
 function initViewUpload() {
-	
-	//var url1 = Constants.sopEndpointURL + "/galaxy/project/p1/add1";
-	var url = Constants.sopEndpointURL + "/galaxy/project/insertProject";
-	var viewuploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
-		browse_button : $("#select_btn")[0], 
-		url : url,
-		multipart:true,
-		multi_selection:false,
-		filters : {
-			max_file_size : '50MB',
-			//mime_types: paramsFilter(1)
-		},
-		init: {
-			PostInit: function(up) {
-				$("#projectAdd").click(function(){ 
-					debugger;
-					 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
-						  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
-						return false;
-					}
-					//2.项目承揽人
-				    $("#selectRadio[name=projectContractor]").css("display","inline-block");
-					//3.表单验证  
-				     if(!$('#add_form').validate().form()){//验证不通过时候执行
-						$(".adddpro-save").submit();
-						return false;	
-					}   
+	 
+	$("#projectAdd").click(function(){  
+		 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
+			  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
+			return false;
+		}
+		//2.项目承揽人
+	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
+		//3.表单验证  
+	     if(!$('#add_form').validate().form()){//验证不通过时候执行
+			$(".adddpro-save").submit();
+			return false;	
+		}   
 
-				    var VDStatus = addValidate();
-				    if(!VDStatus){return false;}
-					//数据
-					 var data={
-						"industryOwn": $("select[name=industryOwn]").val(),//行业归属
-						"createDate": $("input[name=createDate]").val(),//项目创建时间
-						"projectName": $("input[name=projectName]").val(),//项目名称
-						"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
-					} 
-					/*  var data1={
-								
-							} */
-					//会议纪要
-					var projectQuery={
-						"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
-						"createDate": $("input[name=viewDate]").val(),//访谈时间
-						"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
-						"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
-						"resultReason": $("#resultRadion select.reson").val(),//原因
-						"stage": "projectProgress:1",//当前阶段
-						"target": $("input[name=viewTarget]").val()//访谈对象
-					}  
-					data.projectQuery=projectQuery; 
-					var informationData ={};
-					var infoModeList = new Array();
-					var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
-					$.each(fields,function(){
-						var field = $(this);
-						var type = field.data('type');
-						var sele = field.get(0).tagName;
-						var _resultId = field.attr("data-result-id");
-						
-						if(_resultId==undefined){
-							_resultId=null;
-						}
-						var infoMode = {
+	    var VDStatus = addValidate();
+	    if(!VDStatus){return false;}
+		//数据
+		 var data={
+			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
+			"createDate": $("input[name=createDate]").val(),//项目创建时间
+			"projectName": $("input[name=projectName]").val(),//项目名称
+			"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
+		} 
+		/*  var data1={
+					
+				} */
+		//会议纪要
+		var projectQuery={
+			"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
+			"createDate": $("input[name=viewDate]").val(),//访谈时间
+			"interviewResult": $("input[name=interviewResult]:checked").val(),//访谈结果
+			"reasonOther": $("#resultRadion select.reson").closest(".resel_box").next().find("input").val(),//注意该字段为访谈结果对应的原因选择“其他原因”时，文本框的值
+			"resultReason": $("#resultRadion select.reson").val(),//原因
+			"stage": "projectProgress:1",//当前阶段
+			"target": $("input[name=viewTarget]").val()//访谈对象
+		}  
+	//	data1.projectQuery=projectQuery;
+		//data.projectQuery=projectQuery; 
+		var informationData ={};
+		var infoModeList = new Array();
+		var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var sele = field.get(0).tagName;
+			var _resultId = field.attr("data-result-id");
+			
+			if(_resultId==undefined){
+				_resultId=null;
+			}
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				tochange:'true',
+				resultId:_resultId,
+				type : type
+			};
+			if(field.data('titleId')=="1118"&&type=="23"){
+				//获取多选带备注数据 proSource
+				var judgment = $("select[name=proSource]").val();
+				if(judgment!='2257'&&judgment!='2262'){
+					var judgName = $(".man_info .name").text();
+					var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
+					 if(val!=undefined){
+						 var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:true,
+							resultId:"",
+							type : type,
+							value:val
+						};	
+					 }else{
+						 val = $("select[data-title-id=1118]").find("option").last().attr("value"); 
+						 var infoMode = {
+							titleId	: field.data('titleId'),
+							tochange:true,
+							resultId:_resultId,
+							type : type,
+							value:val,
+							remark1:judgName
+							
+						};
+					 }
+					 infoModeList.push(infoMode); 
+					 informationData.infoModeList = infoModeList;
+					 return; 
+				}else if(judgment=='2257'){
+					data.deletedResultTids=['1118'];
+					return;
+				
+				}else{
+				var values =[] ; 
+				var doms = $(".selectcheck li.selected span");
+				$.each(doms,function(){ 
+					values.push($(this).attr('data-value'))
+				})  
+				var remark = $('.selectcheck .addpro-input').val();
+				var other = $('.selectcheck .addpro-input').attr("ovalue");  
+				for(i=0;i<values.length;i++){ 
+					var infoMode = {
 							titleId	: field.data('titleId'),
 							tochange:'true',
-							resultId:_resultId,
+							resultId:"",
 							type : type
 						};
-						if(field.data('titleId')=="1118"&&type=="23"){
-							//获取多选带备注数据 proSource
-							var judgment = $("select[name=proSource]").val();
-							if(judgment!='2257'&&judgment!='2262'){
-								var judgName = $(".man_info .name").text();
-								var val = $("select[data-title-id=1118]").find("option:contains("+judgName+")").attr("value");
-								 if(val!=undefined){
-									 var infoMode = {
-										titleId	: field.data('titleId'),
-										tochange:true,
-										resultId:"",
-										type : type,
-										value:val
-									};	
-								 }else{
-									 val = $("select[data-title-id=1118]").find("option").last().attr("value"); 
-									 var infoMode = {
-										titleId	: field.data('titleId'),
-										tochange:true,
-										resultId:_resultId,
-										type : type,
-										value:val,
-										remark1:judgName
-										
-									};
-								 }
-								 infoModeList.push(infoMode); 
-								 informationData.infoModeList = infoModeList;
-								 return; 
-							}else if(judgment=='2257'){
-								data.deletedResultTids=['1118'];
-								return;
-							
-							}else{
-							var values =[] ; 
-							var doms = $(".selectcheck li.selected span");
-							$.each(doms,function(){ 
-								values.push($(this).attr('data-value'))
-							})  
-							var remark = $('.selectcheck .addpro-input').val();
-							var other = $('.selectcheck .addpro-input').attr("ovalue");  
-							for(i=0;i<values.length;i++){ 
-								var infoMode = {
-										titleId	: field.data('titleId'),
-										tochange:'true',
-										resultId:"",
-										type : type
-									};
-								var that = values[i]; 
-								infoMode.value=that;  
-								if(other==that&&remark!=''&&remark!=null){  
-									infoMode.remark1=remark;
-								}
-								infoModeList.push(infoMode); 
-							}   
-							informationData.infoModeList = infoModeList;
-							return;
-
-						}
-						}else if(type==14 )
-						{
-							infoMode.value = field.val();
-						}else if(type==19 || type==1){
-							infoMode.remark1 = field.val();
-						}
-						if (infoMode != null&&type!="13") {
-					        infoModeList.push(infoMode);
-					    } 
-						informationData.infoModeList = infoModeList;
-					
-					});  
-					//团队数据
-					var tableTr = $("#team-table tbody tr:gt(0)");
-
-					var infoTableModelList= [];
-					$.each(tableTr,function(){
-						var that = $(this); 
-						var list={
-								 code: 'team-members', //表格编号
-							     titleId: '1303',//标题id
-							     subCode: 'team-members',
-							}; 
-						$.each(that.find("input[name],select[name]"),function(){
-							var field = $(this); 
-							var fil = field.attr("name"); 
-							list[fil]=field.val();
-						})
-
-						infoTableModelList.push(list);
-					})
-					informationData.infoTableModelList = infoTableModelList;
-					 data.informationData=informationData; 
-					if(up.files.length > 0){ 
-						//先不加验证
-						/* debugger;
-						alert("SSSS") */
-						console.log(projectQuery);
-							up.settings.multipart_params = data;
-							viewuploader.start(); 
-					}else{  
-						 sendPostRequest(platformUrl.getToken,function(data){
-							TOKEN=data.TOKEN;
-							return TOKEN;
-						}); 
-						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
-							if(!data){
-								layer.msg("提交表单过于频繁!");
-							}else if(data.result.status=="ERROR"){
-								if(data.result.errorCode == "csds"){
-									layer.msg("必要的参数丢失!");
-								}else if(data.result.errorCode == "myqx"){
-									layer.msg("没有权限添加项目!");
-								}  
-							}else if(data.result.status=="OK"){
-								//判断大脑数据
-								var Id=data.id;
-								var projectName = $("#projectName").val();
-								var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
-								var jsonObj={
-										keyword:projectName
-								} 
-								 sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
-									if(data.result.status=="ERROR"){
-										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
-										return false;
-									}
-									var num =data.pageList.total;
-									if(num==0||!num){
-										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
-									}else{
-										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
-									} 
-								})  
-							}
-						},TOKEN)
-							
+					var that = values[i]; 
+					infoMode.value=that;  
+					if(other==that&&remark!=''&&remark!=null){  
+						infoMode.remark1=remark;
 					}
-					
-					
-				})
-			},
-			FilesAdded: function(up, files) {
-				if(viewuploader.files.length >= 2){
-					viewuploader.splice(0, viewuploader.files.length-1)
+					infoModeList.push(infoMode); 
+				}   
+				informationData.infoModeList = infoModeList;
+				return;
+
+			}
+			}else if(type==14 )
+			{
+				infoMode.value = field.val();
+			}else if(type==19 || type==1){
+				infoMode.remark1 = field.val();
+			}
+			if (infoMode != null&&type!="13") {
+		        infoModeList.push(infoMode);
+		    } 
+			informationData.infoModeList = infoModeList;
+		
+		});  
+		//团队数据
+		var tableTr = $("#team-table tbody tr:gt(0)");
+
+		var infoTableModelList= [];
+		$.each(tableTr,function(){
+			var that = $(this); 
+			var list={
+					 code: 'team-members', //表格编号
+				     titleId: '1303',//标题id
+				     subCode: 'team-members',
+				}; 
+			$.each(that.find("input[name],select[name]"),function(){
+				var field = $(this); 
+				var fil = field.attr("name"); 
+				list[fil]=field.val();
+			})
+
+			infoTableModelList.push(list);
+		})
+		informationData.infoTableModelList = infoTableModelList;
+		 data.informationData=informationData; 
+		 projectQuery.project=data;
+		 console.log(projectQuery);  
+			 sendPostRequest(platformUrl.getToken,function(projectQuery){
+				TOKEN=data.TOKEN;
+				return TOKEN;
+			}); 
+			sendPostRequestByJsonObj(platformUrl.addProject,projectQuery,function(data){ 
+				if(!data){
+					layer.msg("提交表单过于频繁!");
+				}else if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "csds"){
+						layer.msg("必要的参数丢失!");
+					}else if(data.result.errorCode == "myqx"){
+						layer.msg("没有权限添加项目!");
+					}  
+				}else if(data.result.status=="OK"){
+					//判断大脑数据
+					var Id=data.id;
+					var projectName = $("#projectName").val();
+					var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
+					var jsonObj={
+							keyword:projectName
+					} 
+					 sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
+						if(data.result.status=="ERROR"){
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+							return false;
+						}
+						var num =data.pageList.total;
+						if(num==0||!num){
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
+						}else{
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
+						} 
+					})  
 				}
-				plupload.each(files, function(file) {
-					var size=up.settings.filters.max_file_size.replace("MB","");   
-					var fileSize = 0;
-					if (navigator.userAgent.indexOf('Mac') != -1) {
-						 fileSize = file.size / 1000/1000;
-						 if(parseInt(fileSize) > parseInt(size) * 1000){
-								layer.msg("最大支持"+size+"MB");
-								return false;
-						 }
-					} else {
-						 fileSize = file.size / 1024/1024;
-						 if(parseInt(fileSize) > parseInt(size)){
-								layer.msg("最大支持"+size+"MB");
-								return false;
-						 }
-					}
-					$("#file_object").removeClass("no_bg");
-					$("#file_object").text(file.name);
-					$("#select_btn").next().find("input").hide();
-					$("#select_btn").text("更新");
-					$("#file_object").addClass("audio_name");
-				});
-			},
-			 
-		} 
-	}); 
-	viewuploader.init();
+			},TOKEN)
+				 
+		
+		
+	})
+ 
 }
 
 
@@ -1093,6 +1041,75 @@ function reason(obj,value){
 		 $("#viewTarget").val(val); 
 	 }
  }
+ //platformUrl.commonUploadFile   上传录音、
+ 
+ var viewuploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#select_btn")[0], 
+		url :platformUrl.uploadBpToSession,
+		multipart:true,
+		multi_selection:false,
+		multipart_params:{"flag":'video'},
+		filters : {
+			max_file_size : '25mb',
+			mime_types: paramsFilter(1)
+		},
+
+		init: {
+			//上传按钮点击事件 - 开始上传
+			PostInit: function(up) {
+				
+			},
+			
+			FilesAdded: function(up, files) {
+				debugger;
+				if(viewuploader.files.length >= 2){
+					viewuploader.splice(0, viewuploader.files.length-1)
+				}
+				plupload.each(files, function(file) {
+					$("#file_object").val(file.name);
+				}); 
+				viewuploader.start();
+			},
+			
+			UploadProgress: function(up, file) { 
+			},
+			
+			FileUploaded: function(up, files, rtn) {  //上传回调
+				$("#powindow").hideLoading();
+				var response = $.parseJSON(rtn.response);
+				var rs = response.result.status;
+				if(rs == "ERROR"){ //OK, ERROR
+					$("#save_interview").removeClass("disabled");
+					$("#file_object").val("");
+					viewuploader.splice(0, meetuploader.files.length)
+					layer.msg(response.result.message);
+					return false;
+				}else{
+					layer.msg("保存成功", {time : 500}); 
+				 
+				}
+				
+			},
+			
+			/* BeforeUpload:function(up){
+				$("#powindow").showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
+			}, */
+			
+			Error: function(up, err) {
+				$("#powindow").hideLoading();
+				$("#save_interview").removeClass("disabled");
+				$("#file_object").val("");
+				layer.msg(err.message);
+			}
+		}
+	}); 
+	viewuploader.init();
+ 
+ 
 </script>
 </html>
 
