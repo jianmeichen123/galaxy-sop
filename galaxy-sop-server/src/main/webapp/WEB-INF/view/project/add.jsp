@@ -1066,6 +1066,7 @@ function reason(obj,value){
 				plupload.each(files, function(file) {
 					$("#file_object").text(file.name);
 				}); 
+				$("#select_btn").text("更新")
 				viewuploader.start();
 			},
 			
