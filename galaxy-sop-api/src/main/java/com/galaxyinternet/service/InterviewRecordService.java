@@ -34,4 +34,6 @@ public interface InterviewRecordService extends BaseService<InterviewRecord> {
 	public SopResult operateInterview(Project project,ProjectQuery p,UploadFileResult result,HttpServletRequest request);
 	
 	public int updateByIdProjectId(InterviewRecord entity);
+	
+	public void insertInterview(Project project,ProjectQuery p);
 }

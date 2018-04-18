@@ -226,6 +226,8 @@ public class Project extends PagableEntity {
 	@ApiModelProperty(value="访谈信息",
 			name="projectQuery")
 	private ProjectQuery projectQuery;
+	
+	private SopFile vidioFile;//移动端上传商业计划书对象
 
 
     public Long getId() {
@@ -972,6 +974,14 @@ public class Project extends PagableEntity {
 
 	public void setProjectQuery(ProjectQuery projectQuery) {
 		this.projectQuery = projectQuery;
+	}
+
+	public SopFile getVidioFile() {
+		return vidioFile;
+	}
+
+	public void setVidioFile(SopFile vidioFile) {
+		this.vidioFile = vidioFile;
 	}
 
 	

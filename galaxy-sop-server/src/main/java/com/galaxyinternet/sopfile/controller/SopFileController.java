@@ -1329,7 +1329,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/uploadBpToSession",method=RequestMethod.POST)
-	public ResponseData<SopFile> uploadBpToSession(HttpServletRequest request){
+	public ResponseData<SopFile> uploadBpToSession(HttpServletRequest request,@RequestBody String flag){
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		//校验
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -1372,7 +1372,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					form.setCreatedTime(System.currentTimeMillis());
 				}
 			}
-			request.getSession().setAttribute("businessPlan", form);
+			if(null!=flag&&!"".equals(flag)&&"video".equals(flag)){
+				request.getSession().setAttribute("videoFile", form);
+			}else{
+				request.getSession().setAttribute("businessPlan", form);
+			}
+			
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "系统出现异常"));
