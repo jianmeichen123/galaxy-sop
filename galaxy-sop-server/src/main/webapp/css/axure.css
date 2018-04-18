@@ -4797,3 +4797,7 @@ table#team-table .on td{background:none;}
     position: absolute;
     width: 31px;}
     .left48{left: 48px;}
+    a[data-btn="health_status"]{
+        min-width: 90px;
+        width: auto!important;
+    display: inline-block;}
