@@ -1091,7 +1091,7 @@ function reason(obj,value){
 			},
 			
 			BeforeUpload:function(up){
-				uploader.setOption({"flag":'video'});
+				viewuploader.setOption("multipart_params",{"flag":'video'});
 			}, 
 			
 			Error: function(up, err) {
