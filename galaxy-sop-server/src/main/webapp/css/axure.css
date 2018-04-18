@@ -4791,3 +4791,4 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table{margin-bottom:20px;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
+.basic_ul li.mr_50{display: inline-block;width:49%;}

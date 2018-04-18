@@ -172,7 +172,7 @@
                         <span class="new_color  add-pro-basicmessage">融资计划</span>
                     </div> 
                     <ul class="basic_ul addpro-finacing-ul">
-                        <li>
+                        <li class='mr_50'>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
                             	<input type="text" required placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
@@ -181,7 +181,7 @@
                             <!-- <span class="m_r30">万元</span> -->
                             
                         </li>
-                        <li>
+                        <li class='mr_50'>
 	                        <span class="basic_span letter-space add-finace-lf">出让股份：</span>
                             <span class="m_r15 after after2">
                             	<input type="text" required placeholder='出让股份' class='new_nputr_number addpro-input ' id="formatShareRatio" data-title-id="1917" data-type="19" name="proshare"  data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的5位小数"/>
@@ -231,7 +231,7 @@
 		                <!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
                  					<div></div>
 								</td> 
 		                		<td class="selectcheck select">
@@ -261,7 +261,7 @@
 		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
                  					 <div></div>
 								</td> 
 		                		<td class="selectcheck select">
@@ -505,8 +505,7 @@ $(function(){
  * 项目名字重复
  * @version 2018-4-11
  *开始
- */
- //这儿会导致验证有点问题
+ */ 
   $('#projectName').blur(function(){
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
@@ -693,6 +692,22 @@ function addValidate(){
 		return false;
 	} 
 	//团队验证
+	var teamValidate=true;
+	$.each($("#team-table tbody tr:gt(0)"),function(){ 
+		if($(this).find("input[name=field4]").val().trim()=='' && $(this).find("input[name=field6]").val().trim()==''){
+			teamValidate=false;
+			return false;
+		}
+	})
+	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
+		layer.msg('团队成员,要求至少有一条记录并且团队成员为必填项，要求至少有一条记录');
+		return false;
+	}
+	/* 访谈纪要 */ 
+	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
+		layer.msg('访谈纪要或访谈录音要求至少有一项');
+		return false;
+	} 
 }
  
 /* $('.tab_con').validate(); */
@@ -725,7 +740,9 @@ function initViewUpload() {
 						$(".adddpro-save").submit();
 						return false;	
 					}   
-					 
+
+				    var VDStatus = addValidate();
+				    if(!VDStatus){return false;}
 					//数据
 					 var data={
 						"industryOwn": $("select[name=industryOwn]").val(),//行业归属
@@ -889,7 +906,7 @@ function initViewUpload() {
 								var jsonObj={
 										keyword:projectName
 								} 
-								sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
+								 sendPostRequestByJsonObj(_url, jsonObj, function(data){ 
 									if(data.result.status=="ERROR"){
 										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 										return false;
@@ -900,8 +917,7 @@ function initViewUpload() {
 									}else{
 										forwardWithHeader(Constants.sopEndpointURL + "/galaxy/infoDanao/list/"+Id);
 									} 
-								})
-								
+								})  
 							}
 						},TOKEN)
 							
