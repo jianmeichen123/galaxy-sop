@@ -106,7 +106,7 @@ _this.id="interviewAdd";
 //初始化文件上传
 //plupload 上传对象初始化, 绑定保存saveViewFile
 var meetingType = $("#meetingType").val();
-var url = Constants.sopEndpointURL + "/galaxy/project/p1/add1";
+var url = Constants.sopEndpointURL + "/galaxy/progress/p1/add";
 //var url = Constants.sopEndpointURL + "/galaxy/project/insertProject";
 if(meetingType != ""){
 	url = Constants.sopEndpointURL + "/galaxy/progress/p2/add";
