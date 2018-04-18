@@ -339,43 +339,38 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		
 		UrlNumber number = null;
 		//没有上传文件时
-		if(null==project.getVidioFile()||"".equals(project.getVidioFile())){
+		if(null!=project.getVidioFile()&&!"".equals(project.getVidioFile())){
 			if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
 				ir.setId(p.getRecordId());
 				interviewRecordDao.updateById(ir);
 				number = UrlNumber.two;
 			}else{
 				interviewRecordDao.insert(ir);	
-				number = UrlNumber.one;
-			}
-		}else{
-			SopFile result = project.getVidioFile();
-			SopFile file = new SopFile();
-			file.setProjectId(p.getPid());
-			file.setProjectProgress(p.getStage());
-			file.setCareerLine(p.getDepartmentId());
-			file.setFileType(DictEnum.fileType.音频文件.getCode());
-			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			file.setFileUid(p.getCreatedUid());
-			file.setCreatedTime((new Date()).getTime());
-			file.setFileLength(result.getFileLength());
-			file.setFileKey(result.getFileKey());
-			file.setBucketName(result.getBucketName());
-			file.setFileName(result.getFileName());
-			file.setFileSuffix(result.getFileSuffix());
-			file.setFileValid(1);
-			fid = sopFileDao.insert(file);
-			ir.setFileId(fid);
-	
-					Long interId = interviewRecordDao.insert(ir);	
-					
-					if(interId > 0){
-						interviewRecordId = interId;
-					}
-				
+				SopFile result = project.getVidioFile();
+				SopFile file = new SopFile();
+				file.setProjectId(p.getPid());
+				file.setProjectProgress(p.getStage());
+				file.setCareerLine(p.getDepartmentId());
+				file.setFileType(DictEnum.fileType.音频文件.getCode());
+				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				file.setFileUid(p.getCreatedUid());
+				file.setCreatedTime((new Date()).getTime());
+				file.setFileLength(result.getFileLength());
+				file.setFileKey(result.getFileKey());
+				file.setBucketName(result.getBucketName());
+				file.setFileName(result.getFileName());
+				file.setFileSuffix(result.getFileSuffix());
+				file.setFileValid(1);
+				fid = sopFileDao.insert(file);
+				ir.setFileId(fid);
+				int updateById = interviewRecordDao.updateById(ir);
+				if(updateById > 0){
+					interviewRecordId = ir.getId();
+				}
 				file.setInterviewRecordId(interviewRecordId);
 				sopFileDao.updateById(file);
-	    }
+			}
+		}
 	}
 
 	@Override

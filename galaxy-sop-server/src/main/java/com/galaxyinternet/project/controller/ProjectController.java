@@ -468,8 +468,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 						project.setBusinessPlanFile(file);
 					}
 				}
-			}
-		          
+				// 验证商业计划书是否上传成功
+				if(null==project.getVidioFile()||"".equals(project.getVidioFile())){
+					file = (SopFile) request.getSession().getAttribute("videoFile");
+					if (file != null && file.getFileLength().longValue() <= 0)
+					{
+						responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "音频文件上传失败!"));
+						return responseBody;
+					}else{
+						project.setVidioFile(file);
+					}
+			     }
+			}     
 	
 	    //其他特殊字段判断不能为空
 			if(null!=project.getInformationData()&&!"".equals(project.getInformationData())){
@@ -564,8 +574,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			
 		}
 		return responseBody;
+	    
 	}
-
 
 	/**
 	 * 修改项目信息接口
