@@ -4792,3 +4792,8 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
 .basic_ul li.mr_50{display: inline-block;width:49%;}
+.check_result label .absoerror,.absoerror{display: inherit;
+    margin: 0;
+    position: absolute;
+    width: 31px;}
+    .left48{left: 48px;}

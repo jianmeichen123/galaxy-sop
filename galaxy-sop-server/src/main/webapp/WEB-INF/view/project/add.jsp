@@ -708,6 +708,7 @@ function addValidate(){
 		layer.msg('访谈纪要或访谈录音要求至少有一项');
 		return false;
 	} 
+	return true;
 }
  
 /* $('.tab_con').validate(); */
@@ -729,6 +730,7 @@ function initViewUpload() {
 		init: {
 			PostInit: function(up) {
 				$("#projectAdd").click(function(){ 
+					debugger;
 					 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
 						  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
 						return false;
@@ -998,7 +1000,7 @@ function radionDiv(data){
 	$.each(data.entityList, function(i, value){
 		var lable;
 		if(i==0){
-			lable='<label><input name="interviewResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value='+value.code+' />'+value.name+'</label>';
+			lable='<label><input name="interviewResult" type="radio"  value='+value.code+' /><div class="absoerror left48"></div>'+value.name+'</label>';
 		}else{
 			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
 		}

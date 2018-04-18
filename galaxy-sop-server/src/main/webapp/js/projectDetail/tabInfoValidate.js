@@ -44,14 +44,20 @@
 				pickeother:{
 					required:true,
 					limit12 : true
+				},
+				interviewResult:{
+					required:true,
 				}
 			},
 			messages :{
 				viewTarget:{
-					required :"必填",
+					required :"*必填",
+				},
+				interviewResult:{
+					required :"*必选",
 				},
 				viewDate:{
-					required :"必填",
+					required :"*必填",
 				},
 				projectName:{
 					required:'*项目名称不能为空'
