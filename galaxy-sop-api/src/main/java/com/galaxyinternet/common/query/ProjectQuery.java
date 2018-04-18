@@ -7,6 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.project.Project;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,6 +42,8 @@ public class ProjectQuery extends ViewQuery{
 	@ApiModelProperty(value="访谈结果",example="meetingResult:2")
 	private String interviewResult;
 	private String projectProgress;
+	
+	private Project project;
 	
 	
 	public String getProjectProgress() {
@@ -261,6 +264,12 @@ public class ProjectQuery extends ViewQuery{
 	}
 	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
+	}
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 	

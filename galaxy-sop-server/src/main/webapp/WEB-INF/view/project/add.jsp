@@ -699,11 +699,12 @@ function addValidate(){
 initViewUpload();
 function initViewUpload() {
 	
- 
+	//var url1 = Constants.sopEndpointURL + "/galaxy/project/p1/add1";
+	var url = Constants.sopEndpointURL + "/galaxy/project/insertProject";
 	var viewuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#select_btn")[0], 
-		url : platformUrl.addProject,
+		url : url,
 		multipart:true,
 		multi_selection:false,
 		filters : {
@@ -720,12 +721,11 @@ function initViewUpload() {
 					//2.项目承揽人
 				    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 					//3.表单验证  
-					debugger
-				    if(!$('#add_form').validate().form()){//验证不通过时候执行
+				     if(!$('#add_form').validate().form()){//验证不通过时候执行
 						$(".adddpro-save").submit();
 						return false;	
 					}   
-					
+					 
 					//数据
 					 var data={
 						"industryOwn": $("select[name=industryOwn]").val(),//行业归属
@@ -733,6 +733,9 @@ function initViewUpload() {
 						"projectName": $("input[name=projectName]").val(),//项目名称
 						"projectType": $(".inpu-self-checked .inpu-radio").val(),//项目类型
 					} 
+					/*  var data1={
+								
+							} */
 					//会议纪要
 					var projectQuery={
 						"content": $.trim(CKEDITOR.instances.viewNotes.getData()),//会议纪要
@@ -743,7 +746,8 @@ function initViewUpload() {
 						"stage": "projectProgress:1",//当前阶段
 						"target": $("input[name=viewTarget]").val()//访谈对象
 					}  
-					data.projectQuery=projectQuery; 
+				//	data1.projectQuery=projectQuery;
+					//data.projectQuery=projectQuery; 
 					var informationData ={};
 					var infoModeList = new Array();
 					var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
@@ -854,18 +858,21 @@ function initViewUpload() {
 					})
 					informationData.infoTableModelList = infoTableModelList;
 					 data.informationData=informationData; 
+					 projectQuery.project=data;
+					 console.log(projectQuery);
 					if(up.files.length > 0){ 
 						//先不加验证
 						/* debugger;
 						alert("SSSS") */
-							up.settings.multipart_params = data;
+						console.log(projectQuery);
+							up.settings.multipart_params = projectQuery;
 							viewuploader.start(); 
 					}else{  
-						sendPostRequest(platformUrl.getToken,function(data){
+						 sendPostRequest(platformUrl.getToken,function(projectQuery){
 							TOKEN=data.TOKEN;
 							return TOKEN;
-						});
-						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
+						}); 
+						sendPostRequestByJsonObj(platformUrl.addProject,projectQuery,function(data){ 
 							if(!data){
 								layer.msg("提交表单过于频繁!");
 							}else if(data.result.status=="ERROR"){
