@@ -1046,7 +1046,7 @@ function reason(obj,value){
 		url :platformUrl.uploadBpToSession,
 		multipart:true,
 		multi_selection:false,
-		multipart_params:{"flag":'video'},
+		//multipart_params:{"flag":'video'},
 		filters : {
 			max_file_size : '25mb',
 			mime_types: paramsFilter(1)
@@ -1064,7 +1064,7 @@ function reason(obj,value){
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
-					$("#file_object").val(file.name);
+					$("#file_object").text(file.name);
 				}); 
 				viewuploader.start();
 			},
@@ -1089,12 +1089,9 @@ function reason(obj,value){
 				
 			},
 			
-			/* BeforeUpload:function(up){
-				$("#powindow").showLoading(
-						 {
-						    'addClass': 'loading-indicator'						
-						 });
-			}, */
+			BeforeUpload:function(up){
+				uploader.setOption({"flag":'video'});
+			}, 
 			
 			Error: function(up, err) {
 				$("#powindow").hideLoading();
