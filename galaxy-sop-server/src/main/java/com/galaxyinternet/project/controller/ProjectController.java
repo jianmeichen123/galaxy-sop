@@ -580,7 +580,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 	@ResponseBody
 	@ApiOperation("添加项目")
 	@RequestMapping(value = "/insertProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectQuery> insertProject(ProjectQuery projectquery,HttpServletRequest request,HttpServletResponse response )
+	public ResponseData<ProjectQuery> insertProject(@RequestBody ProjectQuery projectquery,HttpServletRequest request,HttpServletResponse response )
 	{
 		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
 		Project project = projectquery.getProject();
