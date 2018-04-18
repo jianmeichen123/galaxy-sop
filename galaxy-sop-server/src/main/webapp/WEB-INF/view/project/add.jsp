@@ -765,8 +765,7 @@ function initViewUpload() {
 						"stage": "projectProgress:1",//当前阶段
 						"target": $("input[name=viewTarget]").val()//访谈对象
 					}  
-				//	data1.projectQuery=projectQuery;
-					//data.projectQuery=projectQuery; 
+					data.projectQuery=projectQuery; 
 					var informationData ={};
 					var infoModeList = new Array();
 					var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
@@ -877,21 +876,19 @@ function initViewUpload() {
 					})
 					informationData.infoTableModelList = infoTableModelList;
 					 data.informationData=informationData; 
-					 projectQuery.project=data;
-					 console.log(projectQuery);
 					if(up.files.length > 0){ 
 						//先不加验证
 						/* debugger;
 						alert("SSSS") */
 						console.log(projectQuery);
-							up.settings.multipart_params = projectQuery;
+							up.settings.multipart_params = data;
 							viewuploader.start(); 
 					}else{  
-						 sendPostRequest(platformUrl.getToken,function(projectQuery){
+						 sendPostRequest(platformUrl.getToken,function(data){
 							TOKEN=data.TOKEN;
 							return TOKEN;
 						}); 
-						sendPostRequestByJsonObj(platformUrl.addProject,projectQuery,function(data){ 
+						sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
 							if(!data){
 								layer.msg("提交表单过于频繁!");
 							}else if(data.result.status=="ERROR"){
