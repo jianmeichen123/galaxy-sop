@@ -409,6 +409,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		return responseBody;
 	}
 	@ApiOperation("添加项目")
+	@ResponseBody
 	@RequestMapping(value = "/insertProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> insertProject(
 	@ApiParam(name = "project", value = "项目信息", required = true)
