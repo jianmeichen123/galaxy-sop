@@ -35,3 +35,6 @@ UPDATE `fx_db`.`dict` SET `name`='已经或意向签约其他投资机构' WHERE
 UPDATE `fx_db`.`dict` SET `name`='决策改变' WHERE `id`='198';
 UPDATE `fx_db`.`dict` SET `dict_sort`='13' WHERE `id`='199';
 
+
+INSERT INTO `fx_db`.`project_standard` (`id`, `module_code`, `module_name`, `standard_details`, `status`, `is_valid`) VALUES ('13', '12', '项目简介', '该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。', '1', '0');
+
