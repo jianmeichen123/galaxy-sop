@@ -205,7 +205,7 @@
                         <span class="new_color  add-pro-basicmessage">商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                <table style="width:97%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
+	                  <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
 		               
 	                </table>
                 </div>
@@ -711,10 +711,7 @@ function addValidate(){
 	return true;
 }
  
-/* $('.tab_con').validate(); */
-initViewUpload();
-function initViewUpload() {
-	 
+ 
 	$("#projectAdd").click(function(){  
 		 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
 			  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
@@ -860,12 +857,9 @@ function initViewUpload() {
 			infoTableModelList.push(list);
 		})
 		informationData.infoTableModelList = infoTableModelList;
-		 data.informationData=informationData; 
-			 sendPostRequest(platformUrl.getToken,function(data){
-				TOKEN=data.TOKEN;
-				return TOKEN;
-			}); 
+		 data.informationData=informationData;  
 			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
+				debugger;
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
@@ -876,6 +870,7 @@ function initViewUpload() {
 					}  
 				}else if(data.result.status=="OK"){
 					//判断大脑数据
+					debugger;
 					var Id=data.id;
 					var projectName = $("#projectName").val();
 					var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
@@ -895,13 +890,8 @@ function initViewUpload() {
 						} 
 					})  
 				}
-			},TOKEN)
-				 
-		
-		
-	})
- 
-}
+			})  
+		}) 
 
 
 
@@ -1058,8 +1048,7 @@ function reason(obj,value){
 				
 			},
 			
-			FilesAdded: function(up, files) {
-				debugger;
+			FilesAdded: function(up, files) { 
 				if(viewuploader.files.length >= 2){
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
@@ -1084,13 +1073,13 @@ function reason(obj,value){
 					layer.msg(response.result.message);
 					return false;
 				}else{
-					layer.msg("保存成功", {time : 500}); 
+					//layer.msg("保存成功", {time : 500}); 
 				 
 				}
 				
 			},
 			
-			BeforeUpload:function(up){
+			BeforeUpload:function(up){ 
 				viewuploader.setOption("multipart_params",{"flag":'video'});
 			}, 
 			
