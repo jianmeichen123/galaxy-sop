@@ -565,34 +565,58 @@ $("select[name='proSource']").change(function(){
 	$(".projectSource input").val("")
 	$(".trSouce input").val("");
 	$(".trSouceOther").hide().val("")
-	//插件选择后验证
-	$('#add_form').validate().form();
+	//插件选择后验证  
 	//$("#proSource-error").hide();
 	$(".selectcheck input.addpro-input").hide();
 	 $('#selectRadio').selectpicker({
 	 	dropupAuto:false
       });
+	 if($(this).val()!=''){
+		 $("#proSource-error").hide()
+	 }else{
+		 $("#proSource-error").show()
+	 }
 }) 
 $("select[name='financeStatus']").change(function(){
 	//插件选择后验证
-	$('#add_form').validate().form();
+	if($(this).val()!=''){
+	 	$("#financeStatus-error").hide()
+	 }else{
+		 $("#financeStatus-error").show()
+	 }
 })
 $("select[name='industryOwn']").change(function(){
 	//插件选择后验证
-	$('#add_form').validate().form();
+	if($(this).val()!=''){
+	 	$("#industryOwn-error").hide()
+	 }else{
+		 $("#industryOwn-error").show()
+	 }
 })
 $(".meetingUndeterminedReason").change(function(){
 	//插件选择后验证
-	$('#add_form').validate().form();
+	if($(this).val()!=''){
+	 	$("#meetingUndeterminedReason-error").hide()
+	 }else{
+		 $("#meetingUndeterminedReason-error").show()
+	 }
 })
 $(".meetingVetoReason").change(function(){
 	//插件选择后验证
-	$('#add_form').validate().form();
+	if($(this).val()!=''){
+	 	$("#meetingVetoReason-error").hide()
+	 }else{
+		 $("#meetingVetoReason-error").show()
+	 }
 })
 
 $(".datetimepickerHour").change(function(){
 	//插件选择后验证
-	$('#add_form').validate().form();
+	if($(this).val()!=''){
+	 	$("#datetimepickerHour-error").hide()
+	 }else{
+		 $("#datetimepickerHour-error").show()
+	 }
 })
  
 $("#selectRadio").change(function(){
