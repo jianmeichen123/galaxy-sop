@@ -12,7 +12,7 @@ var planGrid = {
 					if(row.fileName){
 						return row.fileName +'.'+row.fileSuffix;
 					}else{
-						return "-";
+						return "";
 					}
 					
 				},

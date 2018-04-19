@@ -4209,6 +4209,7 @@ li .projectSource11 span.m_r30{
 #add_form .selectcheck .show-tick{margin-top: -18px;margin-left: -7px;
       margin-bottom: 30px;
     top: 14px;}
+    #add_form .error{font-size:12px!important;}
 .add-project-tabtable{overflow:visible;}
 .historyData{color: red;  margin-left: 118px;display:none;}
 .h_look .division_dd dd{width:80%;}
@@ -4801,13 +4802,13 @@ table#team-table .on td{background:none;}
         min-width: 90px;
         width: auto!important;
     display: inline-block;}
-    /* 新建项目的商业计划书列表改样式， */
-    .addSpBusForm {} 
-    .addSpBusForm thead{display:none!important;}
-    .addSpBusForm tr td:nth-child(3){opacity:0;}
-    .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
-    .addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:100px;}
-    .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
+/* 新建项目的商业计划书列表改样式， */
+.addSpBusForm {} 
+.addSpBusForm thead{display:none!important;}
+.addSpBusForm tr td:nth-child(3){opacity:0;}
+.addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
+.addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:1px;}
+.addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
     
     
     

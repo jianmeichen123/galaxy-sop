@@ -161,7 +161,7 @@
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
-                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea><div></div> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
+                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea><div></div> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg xmjj"></span>
                         </li>
                           
                     </ul>  
@@ -446,6 +446,22 @@
 
 <script>
 $(function(){ 
+	var url= platformUrl.fillStatus+'/12';
+	$.ajax({
+			 type:"get",
+			 url:url,
+			 dataType:'json',
+			 success:function(data){ 
+				 if(data.entity&&data.entity.status==1){
+					// $(dom).show()
+					 var tips = data.entity.standardDetails;
+					$(".xmjj").attr('title',tips) 
+				 } else{
+					 
+				 }
+				
+			 }
+		 }) 
 	//radio样式切换
 	$('.inpu-self').click(function(){
 		$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
@@ -700,12 +716,12 @@ function addValidate(){
 		}
 	})
 	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-		layer.msg('团队成员,要求至少有一条记录并且团队成员为必填项，要求至少有一条记录');
+		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 		return false;
 	}
 	/* 访谈纪要 */ 
 	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
-		layer.msg('访谈纪要或访谈录音要求至少有一项');
+		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 		return false;
 	} 
 	return true;
