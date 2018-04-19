@@ -3111,7 +3111,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         float: left;
         width:50%;
     }
-    .ADDcurrendTable .intw_time,.ADDcurrendTable .interviewee{width:360px;float: left;}
+    .ADDcurrendTable .intw_time,.ADDcurrendTable .interviewee{width:430px;float: left;}
     .ADDcurrendTable .intw_summary{margin:25px 0;}
     .interviewee{
         float: right;
@@ -4809,9 +4809,8 @@ table#team-table .on td{background:none;}
 .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
 .addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:1px;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
-    
-    
-    
+.ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
+ 
     
     
     

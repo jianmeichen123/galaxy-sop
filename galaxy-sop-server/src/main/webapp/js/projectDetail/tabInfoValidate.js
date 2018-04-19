@@ -7,6 +7,9 @@
 					required :true,
 					limit24 :true
 				},
+				projectInfo:{
+					required :true,
+				},
 				procontribution:{ 
 					required :true,
 				},
@@ -55,6 +58,9 @@
 				},
 				interviewResult:{
 					required :"*必选",
+				},
+				projectInfo:{
+					required :"*项目简介不能为空",
 				},
 				viewDate:{
 					required :"*必填",
