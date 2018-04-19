@@ -452,20 +452,20 @@
 $(function(){ 
 	var url= platformUrl.fillStatus+'/12';
 	$.ajax({
-			 type:"get",
-			 url:url,
-			 dataType:'json',
-			 success:function(data){ 
-				 if(data.entity&&data.entity.status==1){
-					// $(dom).show()
-					 var tips = data.entity.standardDetails;
-					$(".xmjj").attr('title',tips) 
-				 } else{
-					 
-				 }
-				
+		 type:"get",
+		 url:url,
+		 dataType:'json',
+		 success:function(data){ 
+			 if(data.entity&&data.entity.status==1){
+				// $(dom).show()
+				 var tips = data.entity.standardDetails;
+				$(".xmjj").attr('title',tips) 
+			 } else{
+				 
 			 }
-		 }) 
+			
+		 }
+	 }) 
 	//radio样式切换
 	$('.inpu-self').click(function(){
 		$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
@@ -581,6 +581,15 @@ $("select[name='industryOwn']").change(function(){
 	//插件选择后验证
 	$('#add_form').validate().form();
 })
+$(".meetingUndeterminedReason").change(function(){
+	//插件选择后验证
+	$('#add_form').validate().form();
+})
+$(".meetingVetoReason").change(function(){
+	//插件选择后验证
+	$('#add_form').validate().form();
+})
+
 $(".datetimepickerHour").change(function(){
 	//插件选择后验证
 	$('#add_form').validate().form();

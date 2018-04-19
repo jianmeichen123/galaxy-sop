@@ -3,6 +3,8 @@ var keyJSON={};
 var deleteJSON={};
 var totalMoney;
 var remainMoney;
+
+
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
 	var params = {};
 	var uploader = new plupload.Uploader({
@@ -192,7 +194,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
-				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code); 
+				tips("12",$(".tips12")) 
 				if(id_code=="DNO5_1" || id_code=="GNO5_1" ){   //竞争俩字
 					$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
 				}

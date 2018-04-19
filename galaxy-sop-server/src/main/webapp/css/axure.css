@@ -4810,7 +4810,7 @@ table#team-table .on td{background:none;}
 .addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:1px;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
- 
+.ADDcurrendTable .reason_box{vertical-align:top;}
     
     
     
