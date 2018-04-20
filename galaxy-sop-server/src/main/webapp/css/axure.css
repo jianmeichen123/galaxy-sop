@@ -4793,7 +4793,8 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
 #team-table td{position:relative;    border: 0px;}
-#team-table .tberror{position:absolute;line-height: 1;}
+#team-table .tberror{position:absolute;line-height: 1; display:none;}
+.Terror{color:red;font-size:12px;}
 .basic_ul li.mr_50{display: inline-block;width:49%;}
 .check_result label .absoerror,.absoerror{display: inherit;
     margin: 0;
@@ -4813,7 +4814,7 @@ table#team-table .on td{background:none;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
 .ADDcurrendTable .reason_box{vertical-align:top;}
-    
+.ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
     
     
     

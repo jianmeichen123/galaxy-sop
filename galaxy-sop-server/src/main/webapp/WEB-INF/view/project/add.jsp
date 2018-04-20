@@ -235,8 +235,8 @@
 		                <!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					<div class="tberror"></div>
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value=""   maxLength="50" />
+                 					<div class="tberror"><span class="Terror">*必填</span></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -250,7 +250,7 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" /><div class="tberror"></div>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号" onblur="validaNull($(this),'phone')"  /><div class="tberror"><span class="Terror">*格式不对</span></div>
 								</td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
@@ -258,15 +258,17 @@
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input style="width:45%;" class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
+									<input onblur="validaNull($(this))" style="width:45%;" class="txt" name="other" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
 		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					 <div class="tberror"></div>
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value=""  maxLength="50" />
+                 					 <div class="tberror">
+                 					 	<span class="Terror">*必填</span>
+                 					 </div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -280,14 +282,14 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>手机格式不对" /><div class="tberror"></div></td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  onblur="validaNull($(this),'phone')" /><div class="tberror"><span class='Terror'>*格式不对</span></div></td>
 								<td>
-									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
+									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"   />								
 								</td>
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" style="width:45%;" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
+									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -742,22 +744,28 @@ function otherC(that){
 		  $(that).siblings('input[name="other"]').val('');
 		  
 	  }
-}
-/* $("#team-table select[name='field2']").change(function(){
-	  var val=$(this).find("option:selected").attr("value");
-	  if(val=='1363'){
-		  $(this).siblings('input[name="other"]').show();
-		  $(this).siblings('input[name="other"]').attr("required",true);
-	  }else{
-		  $(this).siblings('input[name="other"]').hide();
-		  $(this).siblings('input[name="other"]').removeAttr("required");
-		  $(this).siblings('input[name="other"]').next().find(".error").hide(); 
-		  $(this).siblings('input[name="other"]').val('');
-		  
-	  }
-}) */
+} 
 //验证方法 
-function addValidate(){
+function addValidate(){ 
+	//团队验证 
+	var teamValidate=true;
+	$.each($("#team-table tbody tr:gt(0)"),function(){ 
+		//提示文字
+		var that=$(this);
+		var list1 =that.find("input[name=field1]"); 
+		validaNull(list1);
+		var list2 = that.find("input[name=other]:visible"); 
+		validaNull(list2);
+		//
+		if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
+			teamValidate=false;
+			//return false;
+		}
+	}) 
+	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
+		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
+		return false;
+	}
 	  //验证估值 
     var s_val1=$("#formatValuations").attr("guzhi"),
 	s_val2=$("#formatValuations").val(),
@@ -771,18 +779,6 @@ function addValidate(){
 		$("#projectTypeTip").css("display","block");
 		return false;
 	} 
-	//团队验证
-	var teamValidate=true;
-	$.each($("#team-table tbody tr:gt(0)"),function(){ 
-		if($(this).find("input[name=field4]").val().trim()=='' && $(this).find("input[name=field6]").val().trim()==''){
-			teamValidate=false;
-			return false;
-		}
-	})
-	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
-		return false;
-	}
 	/* 访谈纪要 */ 
 	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
 		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
@@ -796,16 +792,16 @@ function addValidate(){
 		 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
 			  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
 			return false;
-		}
+		} 
 		//2.项目承揽人
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
-		//3.表单验证  
+		//3.表单验证   
 	     if(!$('#add_form').validate().form()){//验证不通过时候执行
-			$(".adddpro-save").submit();
-			return false;	
-		}   
-
-	    var VDStatus = addValidate();
+	    	 debugger;
+			    var VDStatus = addValidate(); 
+				return false;	
+		}    
+	     var VDStatus = addValidate(); 
 	    if(!VDStatus){return false;}
 		//数据
 		 var data={
@@ -1098,6 +1094,33 @@ function reason(obj,value){
 	 var val = $(event).val().trim();
 	 if($("#viewTarget").val().trim()==''&& val!=''){
 		 $("#viewTarget").val(val); 
+	 }
+	 if(val==''){
+		 $(event).next().show();
+	 }else{
+		 $(event).next().hide()
+	 }
+ }
+ //团队验证
+ function validaNull(event,ruler){
+	 if(event==undefined||event.val()==undefined){
+		 return false;
+	 }
+	 var val = event.val().trim(); 	
+	 if(ruler=='phone'){
+		 var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+		 var res = mobile.test(val);
+		 if(!res){
+			 event.next().show();
+		 }else{
+			 event.next().hide()
+		 }
+	 }else{ 
+		 if(val==''){
+			 event.next().show();
+		 }else{
+			 event.next().hide()
+		 }
 	 }
  }
  //platformUrl.commonUploadFile   上传录音、
