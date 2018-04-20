@@ -62,8 +62,8 @@ public enum DictEnum {
 	public enum projectType {
 		
 		投资("投资","projectType:1"),
-		创建("创建","projectType:2");
-		
+		创建("创建","projectType:2"),
+		直营("直营","projectType:3");
 		private String name;
 
 		private String code;
@@ -731,15 +731,21 @@ public enum DictEnum {
 			尚未获投("尚未获投", "尚未获投"),
 			种子轮("种子", "1122"),
 			天使轮("天使", "1123"),
-			PreA("PreA", "1124"),
-			A轮("A轮", "1125"),
-			B轮("B轮", "1126"),
-			C轮("C轮", "1127"),
-			IPO("IPO", "1128"),
+			PreA("Pre-A", "1124"),
+			A轮("A", "1125"),
+			B轮("B", "1126"),
+			C轮("C", "1127"),
+			IPO("Pre-IPO", "1128"),
 			已上市("已上市", "1129"),
-			新三板挂牌("新三板挂牌", "1130"),
+			新三板挂牌("新三板", "1130"),
 			并购("并购", "1139"),
 			战略投资("战略投资", "1140"),
+			A+("A+", "2287"),
+			B+("B+", "2288"),
+			C+("C+", "2289"),
+			D("D", "2290"),
+			D+("D+", "2291"),
+			E("E", "2292"),
 			不明确("不明确", "不明确");
 			private String name;
 			private String code;
