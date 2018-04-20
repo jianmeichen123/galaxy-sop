@@ -135,12 +135,12 @@
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (procontribution.test(value));
-	}, "必填，支持9位长度的支持6位小数");
+	}, "必填，支持9位长度的6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
 		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 		return this.optional(element) || (provaluations.test(value));
-	}, "支持13位长度的支持6位小数");
+	}, "支持13位长度的6位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
 		if(_parsefloat(value)=='0'){value=0;}
@@ -151,7 +151,7 @@
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
 		var finalContribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (finalContribution.test(value));
-	}, "支持9位长度的支持6位小数");
+	}, "支持9位长度的6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("finalValuations", function (value, element) {
 		var finalValuations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;

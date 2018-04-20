@@ -4173,6 +4173,7 @@ li .projectSource11 span.m_r30{
 .selectcheck .btn-default,.selectcheck .open > .dropdown-toggle.btn-default{background: #fff;width: 278px;height: 32px; background: url(../img/base_info/down.png) no-repeat right 7px center;}
 .selectcheck .btn-default .caret{display:none;}
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
+.addpro-basi-ul .projectSourceli select{width:278px;}
 .open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
 .selectcheck .text{display:block; width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px; overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
 .selectcheck .text:hover{color:#333;}
@@ -4779,8 +4780,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 #team-table td{text-align:left; padding-bottom:15px;}
 #team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
-#team-table td input[name='other']{display:none;}
-#team-table td:first-child input{width:70%;}
+#team-table td input[name='other']{display:none;} 
 #team-table td:first-child input+div{ }
 #team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
 #team-table{table-layout: fixed;margin: 0 auto;}
@@ -4793,7 +4793,8 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
 #team-table td{position:relative;    border: 0px;}
-#team-table .tberror{position:absolute;line-height: 1;}
+#team-table .tberror{position:absolute;line-height: 1; display:none;}
+.Terror{color:red;font-size:12px;}
 .basic_ul li.mr_50{display: inline-block;width:49%;}
 .check_result label .absoerror,.absoerror{display: inherit;
     margin: 0;
@@ -4813,7 +4814,7 @@ table#team-table .on td{background:none;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
 .ADDcurrendTable .reason_box{vertical-align:top;}
-    
+.ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
     
     
     
