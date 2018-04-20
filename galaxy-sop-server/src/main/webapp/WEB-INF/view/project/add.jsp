@@ -761,25 +761,7 @@ function otherC(that){
 } 
 //验证方法 
 function addValidate(){ 
-	//团队验证 
-	var teamValidate=true;
-	$.each($("#team-table tbody tr:gt(0)"),function(){ 
-		//提示文字
-		var that=$(this);
-		var list1 =that.find("input[name=field1]"); 
-		validaNull(list1);
-		var list2 = that.find("input[name=other]:visible"); 
-		validaNull(list2);
-		//
-		if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
-			teamValidate=false;
-			//return false;
-		}
-	}) 
-	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
-		return false;
-	}
+
 	  //验证估值 
     var s_val1=$("#formatValuations").attr("guzhi"),
 	s_val2=$("#formatValuations").val(),
@@ -793,11 +775,7 @@ function addValidate(){
 		$("#projectTypeTip").css("display","block");
 		return false;
 	} 
-	/* 访谈纪要 */ 
-	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
-		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
-		return false;
-	} 
+
 	return true;
 }
  
@@ -809,13 +787,37 @@ function addValidate(){
 		} 
 		//2.项目承揽人
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
-		//3.表单验证   
-	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
-			    var VDStatus = addValidate(); 
-				return false;	
-		}    
+		//3.表单验证    
 	     var VDStatus = addValidate(); 
 	    if(!VDStatus){return false;}
+
+		//团队验证 
+		var teamValidate=true;
+		$.each($("#team-table tbody tr:gt(0)"),function(){ 
+			//提示文字
+			var that=$(this);
+			var list1 =that.find("input[name=field1]"); 
+			validaNull(list1);
+			var list2 = that.find("input[name=other]:visible"); 
+			validaNull(list2);
+			//
+			if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
+				teamValidate=false;
+				//return false;
+			}
+		}) 
+	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
+			return false;	
+		}    
+		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
+			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
+			return false;
+		}
+	 	/* 访谈纪要 */ 
+	 	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
+	 		layer.msg('访谈纪要或访谈录音至少填写/上传一项');
+	 		return false;
+	 	} 
 		//数据
 		 var data={
 			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
