@@ -444,6 +444,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			if(null==user){
 				request.getSession().setAttribute(Constants.SESSION_USER_KEY, userNew);
+				user=userNew;
 			}
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;

@@ -74,6 +74,7 @@
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					sec.showResults();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();

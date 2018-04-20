@@ -1,3 +1,25 @@
+ 
+//提示语
+function tips(code,dom){
+	var url= platformUrl.fillStatus+'/'+code;
+	$.ajax({
+		 type:"get",
+		 url:url,
+		 dataType:'json',
+		 success:function(data){ 
+			 if(data.entity&&data.entity.status==1){
+				// $(dom).show()
+				 var tips = data.entity.standardDetails;
+				 dom.attr('title',tips) 
+			 } else{
+				 
+			 }
+			
+		 }
+	 }) 
+
+}
+
 //获取参数
   
 function getURLParameter(name) {

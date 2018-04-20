@@ -446,8 +446,8 @@ $(function(){
 							$("#industryOwnDs").text(projectInfoDetail.industryOwnDs);
 							$("#financeStatusDs").text(projectInfoDetail.financeStatusDs==null?"-":projectInfoDetail.financeStatusDs);
 							$("#projectType").text(projectInfoDetail.type);
-							$("#faName").text(projectInfoDetail.faFlagStr);
-							if(projectInfoDetail.faFlag=="projectSource:1"){
+							$("#faName").text(projectInfoDetail.faFlagStr); 
+							if(projectInfoDetail.faFlag=="projectSource:1"){ 
 								$("#faName").attr('data-original-title',projectInfoDetail.faName);
 								$("#faName[data-toggle='tooltip']").tooltip();//提示
 							}else{

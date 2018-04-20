@@ -2184,6 +2184,7 @@ function addRowCompete(ele,id_code){
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('添加显在竞争对手')
 					}else{
@@ -2548,6 +2549,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('编辑显在竞争对手')
 					}else{
