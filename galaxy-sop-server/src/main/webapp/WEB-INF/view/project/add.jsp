@@ -499,8 +499,13 @@ $(function(){
 	    var entity=data.entity.childList[0];
 	    if(!childNum || childNum !=0 ){
 	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-			});
+	    		if(this.id=='1123'){
+	    			_dom.append("<option value='"+this.id+"' selected=true data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+		    		
+	    		}else{
+	    			_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    		}
+	    		});
 	    	_dom.selectpicker();
 	    }
 	    //项目来源下拉数据
@@ -513,9 +518,16 @@ $(function(){
 	    var childNum = _dom.find("option").length;  
 	    var entity=data.entity.childList.filter(function(val){return val.titleId=="1120"})[0];  
 	    if(!childNum || childNum !=0 ){
-	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-			}); 
+	    	$.each(entity.valueList,function(){ 
+	    		 if(this.id=='2253'){
+	    			 _dom.append("<option value='"+this.id+"' selected=true  code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    				
+	    		 }else{
+	    			 _dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    				
+	    		 }
+	    		
+	    			}); 
 	    	_dom.selectpicker()
 	    }
 	} 
@@ -661,7 +673,9 @@ $("#selectRadio").change(function(){
 * @version 2016-06-21
 */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
-$("select[name='industryOwn']").selectpicker() 
+
+$("select option[value="+departmentId+"]").attr("selected",true)
+$("select[name='industryOwn']").selectpicker();
 //结束
 
 //估值计算 
@@ -796,8 +810,7 @@ function addValidate(){
 		//2.项目承揽人
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 		//3.表单验证   
-	     if(!$('#add_form').validate().form()){//验证不通过时候执行
-	    	 debugger;
+	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
 			    var VDStatus = addValidate(); 
 				return false;	
 		}    
