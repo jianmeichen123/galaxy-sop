@@ -470,22 +470,26 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 		var data2 = {
 				'projectName' : projectName
 		}
-		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){ 
+		sendPostRequestByJsonObj(platformUrl.checkProjectName,data2,function(data){
+			console.log(data)
 				if(data.result.status=="ERROR"){
 			       objDatad =data.userData;
-                    if(data.result.errorCode == "name-repeat"){  
-            			$("select").attr("disabled",true)
+                    if(data.result.errorCode == "name-repeat"){
                         layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
                         $('.project-name').css('display','block');
-                    } 
+                    }
 				}else if(data.result.status ==='OK'){
 					$('.project-name').css('display','none');
 				}
 		})
-	}  
+	}
+
+	
+	
 })  
 //添加项目页面保存按钮
-	function add(){   
+	function add(){  
+		
       if(!$('.project-name').is(":hidden")){
 			 layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
 			return false;
@@ -509,7 +513,9 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			return;
 		} 
 		var data1= JSON.stringify(getUpdateData());//转换成字符串
-		if(formData != data1){ 
+		console.log()
+		if(formData != data1){
+			
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
 				TOKEN=data.TOKEN;
@@ -517,7 +523,7 @@ $('.addpro-basi-ul li select.addpro-input-arrow').blur(function(){
 			});
 		} 
 		console.log(data1);
-			sendPostRequestBySignJsonStr(platformUrl.addProjectOld,data1, function(data){
+			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				console.log(data);
 				if(!data){
 					layer.msg("提交表单过于频繁!");

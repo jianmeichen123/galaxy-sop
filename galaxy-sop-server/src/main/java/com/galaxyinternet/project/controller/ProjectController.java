@@ -70,6 +70,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.chart.DataFormat;
@@ -410,15 +411,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 		}
 		return responseBody;
 	}
-	/**
-	 * 新建项目接口
-	 * 
-	 * @version v2.1
-	 * @author jianmeichen
-	 */
-	//@Token
-	@ResponseBody
 	@ApiOperation("添加项目")
+	@ResponseBody
 	@RequestMapping(value = "/insertProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> insertProject(
 	@ApiParam(name = "project", value = "项目信息", required = true)
@@ -446,10 +440,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			}*/
 			String ua = request.getHeader("gt");
 			String sessionid=request.getHeader("sessionId");
-			User user = (User)cache.getByRedis(sessionid);
-			User userNew = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			if(null==userNew){
-				request.getSession().setAttribute(Constants.SESSION_USER_KEY, user);
+			User userNew = (User)cache.getByRedis(sessionid);
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if(null==user){
+				request.getSession().setAttribute(Constants.SESSION_USER_KEY, userNew);
 			}
 			 UploadFileResult result=new UploadFileResult();
 			 SopFile file=null;
@@ -474,12 +468,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					{
 						responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "商业计划书上传失败!"));
 						return responseBody;
+					}else{
+						project.setBusinessPlanFile(file);
 					}
-				}else{
-					project.setBusinessPlanFile(file);
 				}
-			}
-		          
+				// 验证商业计划书是否上传成功
+				if(null==project.getVidioFile()||"".equals(project.getVidioFile())){
+					file = (SopFile) request.getSession().getAttribute("videoFile");
+					if (file != null && file.getFileLength().longValue() <= 0)
+					{
+						responseBody.setResult(new Result(Status.ERROR, "upload businessPlan error", "音频文件上传失败!"));
+						return responseBody;
+					}else{
+						project.setVidioFile(file);
+					}
+			     }
+			}     
 	
 	    //其他特殊字段判断不能为空
 			if(null!=project.getInformationData()&&!"".equals(project.getInformationData())){
@@ -574,6 +578,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			
 		}
 		return responseBody;
+	    
 	}
 
 	/**

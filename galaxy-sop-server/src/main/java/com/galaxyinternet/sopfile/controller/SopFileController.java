@@ -1333,18 +1333,24 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		//校验
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		String flag=null;
 		if(user==null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录"));
 			return responseBody;
 		}
+		
 		try {
 			
 			MultipartFile file = null;
+			
 			if(request instanceof MultipartHttpServletRequest)
 			{
 				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 				file = multipartRequest.getFile("file");
+				 flag=(String)multipartRequest.getAttribute("flag");
+				 flag=(String)multipartRequest.getParameter("flag");
 			}
+			
 			SopFile form = new SopFile();
 			if(file != null){
 				String fileName = file.getOriginalFilename();
@@ -1372,7 +1378,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					form.setCreatedTime(System.currentTimeMillis());
 				}
 			}
-			request.getSession().setAttribute("businessPlan", form);
+			if(null!=flag&&!"".equals(flag)&&"video".equals(flag)){
+				request.getSession().setAttribute("videoFile", form);
+			}else{
+				request.getSession().setAttribute("businessPlan", form);
+			}
+			
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "系统出现异常"));

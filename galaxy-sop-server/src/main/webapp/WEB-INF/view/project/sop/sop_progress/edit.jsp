@@ -107,6 +107,7 @@ _this.id="interviewAdd";
 //plupload 上传对象初始化, 绑定保存saveViewFile
 var meetingType = $("#meetingType").val();
 var url = Constants.sopEndpointURL + "/galaxy/progress/p1/add";
+//var url = Constants.sopEndpointURL + "/galaxy/project/insertProject";
 if(meetingType != ""){
 	url = Constants.sopEndpointURL + "/galaxy/progress/p2/add";
 }
@@ -226,6 +227,7 @@ function initViewUpload() {
 						res.recordId=recordId;
 					}
 					if(up.files.length > 0){
+						console.log(res);
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{

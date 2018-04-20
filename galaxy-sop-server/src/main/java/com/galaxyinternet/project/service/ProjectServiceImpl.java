@@ -283,7 +283,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
          if(null!=project.getProjectQuery()){
         	 ProjectQuery pq=project.getProjectQuery(); 
         	 pq.setPid(id);
-        	 interviewRecordService.operateInterview(p, pq, result, request);
+        	 interviewRecordService.insertInterview(project, pq);
          }
          //通用属性
 		SopFile f = new SopFile();

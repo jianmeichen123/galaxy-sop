@@ -4778,6 +4778,9 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 #team-table td{text-align:left;}
 #team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
+#team-table td input[name='other']{display:none;}
+#team-table td:first-child input{width:70%;}
+#team-table td:first-child input+div{display:inline-block;}
 #team-table td select[name='field2'],#team-table td select[name='field2']+.bootstrap-select{width:50%;}
 #team-table{table-layout: fixed;margin: 0 auto;}
 #team-table tr th:nth-child(1),#team-table tr td:nth-child(1){padding-left:10px;}
@@ -4788,3 +4791,33 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table{margin-bottom:20px;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
+.basic_ul li.mr_50{display: inline-block;width:49%;}
+.check_result label .absoerror,.absoerror{display: inherit;
+    margin: 0;
+    position: absolute;
+    width: 31px;}
+    .left48{left: 48px;}
+    a[data-btn="health_status"]{
+        min-width: 90px;
+        width: auto!important;
+    display: inline-block;}
+    /* 新建项目的商业计划书列表改样式， */
+    .addSpBusForm {} 
+    .addSpBusForm thead{display:none!important;}
+    .addSpBusForm tr td:nth-child(3){opacity:0;}
+    .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
+    .addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:100px;}
+    .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

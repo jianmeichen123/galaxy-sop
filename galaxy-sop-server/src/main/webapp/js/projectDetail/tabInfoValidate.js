@@ -7,6 +7,24 @@
 					required :true,
 					limit24 :true
 				},
+				procontribution:{ 
+					required :true,
+				},
+				proshare:{
+					required :true,
+				},
+				viewTarget:{
+					required :true,
+				},
+				viewDate:{
+					required :true,
+				},
+				provaluations:{
+					required :true,
+				},
+				projectInfo:{
+					required :true,
+				},
 				financeStatus :{
 					required: true
 				},
@@ -26,11 +44,35 @@
 				pickeother:{
 					required:true,
 					limit12 : true
+				},
+				interviewResult:{
+					required:true,
 				}
 			},
 			messages :{
+				viewTarget:{
+					required :"*必填",
+				},
+				interviewResult:{
+					required :"*必选",
+				},
+				viewDate:{
+					required :"*必填",
+				},
 				projectName:{
 					required:'*项目名称不能为空'
+				},
+				procontribution:{
+					required:'*融资金额不能为空'
+				},
+				proshare:{
+					required:'*出让股份不能为空'
+				},
+				provaluations:{
+					required:'*项目估值不能为空'
+				},
+				projectInfo:{
+					required:'*项目简介不能为空'
 				},
 				projectContractor:{
 					required:'*项目承揽人不能为空'
@@ -83,11 +125,11 @@
 	}, "*不能超过24字且不能全为空格");
 	
 	
-	//融资金额LIMIT_11_NUMBER
+ 
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (procontribution.test(value));
-	}, "支持9位长度的支持6位小数");
+	}, "必填，支持9位长度的支持6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
 		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;

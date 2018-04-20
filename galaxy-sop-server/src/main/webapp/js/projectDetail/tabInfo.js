@@ -75,6 +75,7 @@ $(function(){
 			
 			//report信息
 			updateReportMoney();
+			 
 			if(roleId==4){   //投资经理a看投资经理B的项目，团队，法人，股权，融资隐藏
 				var roleProject=$('#createUname').text();
 				var roleLogin=$('.man_info .name').text();
