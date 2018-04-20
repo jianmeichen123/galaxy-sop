@@ -236,7 +236,7 @@
 		                	<tr>
 		                		<td>
 									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					<div></div>
+                 					<div class="tberror"></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -250,15 +250,15 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" /><div class="tberror"></div>
 								</td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
 								</td>
 								<td class="selectcheck select">
-									<select name="field2" class="txt_select txt" id="field2">
+									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
+									<input style="width:45%;" class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
@@ -266,7 +266,7 @@
 		                	<tr>
 		                		<td>
 									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					 <div></div>
+                 					 <div class="tberror"></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -280,15 +280,14 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
-								</td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>手机格式不对" /><div class="tberror"></div></td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
 								</td>
 								<td class="selectcheck select">
-									<select name="field2" class="txt_select txt" id="field2">
+									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
+									<input class="txt" name="other" style="width:45%;" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -731,7 +730,20 @@ function selectCache(subCode,filed){
 //验证不忽略隐藏的select（使用了插件）
 $.validator.setDefaults({ignore: ".projectSource :hidden,#team-table tr :hidden"});
 //团队other
-$("#team-table select[name='field2']").change(function(){
+function otherC(that){
+	 var val=$(that).find("option:selected").attr("value");
+	  if(val=='1363'){
+		  $(that).siblings('input[name="other"]').show();
+		  $(that).siblings('input[name="other"]').attr("required",true);
+	  }else{
+		  $(that).siblings('input[name="other"]').hide();
+		  $(that).siblings('input[name="other"]').removeAttr("required");
+		  $(that).siblings('input[name="other"]').next().find(".error").hide(); 
+		  $(that).siblings('input[name="other"]').val('');
+		  
+	  }
+}
+/* $("#team-table select[name='field2']").change(function(){
 	  var val=$(this).find("option:selected").attr("value");
 	  if(val=='1363'){
 		  $(this).siblings('input[name="other"]').show();
@@ -743,7 +755,7 @@ $("#team-table select[name='field2']").change(function(){
 		  $(this).siblings('input[name="other"]').val('');
 		  
 	  }
-})
+}) */
 //验证方法 
 function addValidate(){
 	  //验证估值 
@@ -957,13 +969,7 @@ function addValidate(){
 					})  
 				}
 			})  
-		}) 
-
-
-
- 
-
- 
+		})  
 
 function getUpdateData(){  //获取保存数据
 	var projectType=$('input:radio[name="projectType"]:checked').val();

@@ -281,3 +281,8 @@ jQuery.validator.addMethod("verify_136", function(value, element) {
 	var verify = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify.test(value));
 }, "支持13位长度的6位小数");
+//验证手机号
+jQuery.validator.addMethod("phone", function (value, element) {
+  var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+	return this.optional(element) || (mobile.test(value));
+}, "手机格式不对");
