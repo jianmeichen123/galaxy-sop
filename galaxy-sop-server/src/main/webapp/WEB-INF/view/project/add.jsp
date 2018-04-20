@@ -81,7 +81,7 @@
                             <span class="m_r30 inpu-self inpu-self-checked"><input class='inpu-radio' name="projectType" type="radio" value="projectType:1" id="radio_w" checked='checked'><label for="radio_w">投资</label></span>
                             <span class="m_r30 inpu-self"><input class='inpu-radio' name="projectType" type="radio" value="projectType:3" id="radio_n"><label for="radio_n">直营</label></span>
                             <span class="basic_span addpro-basic-span addpro-left"><em class="red">*</em><span class='letter-space'>创建时间：</span></span>
-                            <span class="m_r30"><input style='display: inline-block;vertical-align: middle;' type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/><img style='display: inline-block;vertical-align: middle;' title="创建时间指的是投资业务人员首次接触该项目的时间，并非项目成立时间 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
+                            <span class="m_r30"><input style='display: inline-block;vertical-align: middle;' type="text" class='datepicker-text addpro-input' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/><img style='display: inline-block;vertical-align: middle;margin-left:10px;' title="创建时间指的是投资业务人员首次接触该项目的时间，并非项目成立时间 " src="/sop/img/sop_progress/remindG-icon.png" class="alertImg"></span>
                         </li>
                         <li class='projectSourceli clearfix'>
                             <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>项目名称：</span></span>
@@ -157,11 +157,15 @@
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
-                            <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
+                            <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle; margin-left:10px;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remindG-icon.png" class="alertImg"></span>
                         </li>
                         <li class="projectSourceli clearfix">
                         	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
-                            <span class=""><textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea><div></div> <img style='display: inline-block;vertical-align: middle;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remind__icon.png" class="alertImg"></span>
+                            <span class="">
+                            	<textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea>
+                            	<div></div> 
+                           	</span>
+                           	<img style='display: inline-block;vertical-align: middle; margin-left:10px;' title="该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。" src="/sop/img/sop_progress/remindG-icon.png" class="alertImg xmjj">
                         </li>
                           
                     </ul>  
@@ -232,7 +236,7 @@
 		                	<tr>
 		                		<td>
 									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					<div></div>
+                 					<div class="tberror"></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -246,15 +250,15 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" /><div class="tberror"></div>
 								</td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
 								</td>
 								<td class="selectcheck select">
-									<select name="field2" class="txt_select txt" id="field2">
+									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
+									<input style="width:45%;" class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
@@ -262,7 +266,7 @@
 		                	<tr>
 		                		<td>
 									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					 <div></div>
+                 					 <div class="tberror"></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -276,15 +280,14 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
-								</td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>手机格式不对" /><div class="tberror"></div></td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
 								</td>
 								<td class="selectcheck select">
-									<select name="field2" class="txt_select txt" id="field2">
+									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div></div>
+									<input class="txt" name="other" style="width:45%;" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -310,14 +313,14 @@
 				                    <dt id="toobar_time">访谈时间：</dt>
 				                    <dd>
 				                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate"  />
-				                        <div></div>
+				                        <div class='inline'></div>
 				                    </dd>
 				                </dl>   
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
 				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
-			                        	<div></div>
+			                        	<div class='inline'></div>
 				                    </dd>
 				                </dl>
 				            </div>
@@ -446,6 +449,22 @@
 
 <script>
 $(function(){ 
+	var url= platformUrl.fillStatus+'/12';
+	$.ajax({
+		 type:"get",
+		 url:url,
+		 dataType:'json',
+		 success:function(data){ 
+			 if(data.entity&&data.entity.status==1){
+				// $(dom).show()
+				 var tips = data.entity.standardDetails;
+				$(".xmjj").attr('title',tips) 
+			 } else{
+				 
+			 }
+			
+		 }
+	 }) 
 	//radio样式切换
 	$('.inpu-self').click(function(){
 		$(this).addClass('inpu-self-checked').siblings().removeClass('inpu-self-checked');
@@ -545,12 +564,60 @@ $("select[name='proSource']").change(function(){
 	$(".projectSource input").val("")
 	$(".trSouce input").val("");
 	$(".trSouceOther").hide().val("")
-	$("span.error").hide();
+	//插件选择后验证  
+	//$("#proSource-error").hide();
 	$(".selectcheck input.addpro-input").hide();
 	 $('#selectRadio').selectpicker({
-  			 dropupAuto:false
-             });
+	 	dropupAuto:false
+      });
+	 if($(this).val()!=''){
+		 $("#proSource-error").hide()
+	 }else{
+		 $("#proSource-error").show()
+	 }
 }) 
+$("select[name='financeStatus']").change(function(){
+	//插件选择后验证
+	if($(this).val()!=''){
+	 	$("#financeStatus-error").hide()
+	 }else{
+		 $("#financeStatus-error").show()
+	 }
+})
+$("select[name='industryOwn']").change(function(){
+	//插件选择后验证
+	if($(this).val()!=''){
+	 	$("#industryOwn-error").hide()
+	 }else{
+		 $("#industryOwn-error").show()
+	 }
+})
+$(".meetingUndeterminedReason").change(function(){
+	//插件选择后验证
+	if($(this).val()!=''){
+	 	$("#meetingUndeterminedReason-error").hide()
+	 }else{
+		 $("#meetingUndeterminedReason-error").show()
+	 }
+})
+$(".meetingVetoReason").change(function(){
+	//插件选择后验证
+	if($(this).val()!=''){
+	 	$("#meetingVetoReason-error").hide()
+	 }else{
+		 $("#meetingVetoReason-error").show()
+	 }
+})
+
+$(".datetimepickerHour").change(function(){
+	//插件选择后验证
+	if($(this).val()!=''){
+	 	$("#datetimepickerHour-error").hide()
+	 }else{
+		 $("#datetimepickerHour-error").show()
+	 }
+})
+ 
 $("#selectRadio").change(function(){
         $(".add-project-tabtable #selectRadio-error").hide();
 		var otherValue = $(this).find("option").last().val();
@@ -663,7 +730,20 @@ function selectCache(subCode,filed){
 //验证不忽略隐藏的select（使用了插件）
 $.validator.setDefaults({ignore: ".projectSource :hidden,#team-table tr :hidden"});
 //团队other
-$("#team-table select[name='field2']").change(function(){
+function otherC(that){
+	 var val=$(that).find("option:selected").attr("value");
+	  if(val=='1363'){
+		  $(that).siblings('input[name="other"]').show();
+		  $(that).siblings('input[name="other"]').attr("required",true);
+	  }else{
+		  $(that).siblings('input[name="other"]').hide();
+		  $(that).siblings('input[name="other"]').removeAttr("required");
+		  $(that).siblings('input[name="other"]').next().find(".error").hide(); 
+		  $(that).siblings('input[name="other"]').val('');
+		  
+	  }
+}
+/* $("#team-table select[name='field2']").change(function(){
 	  var val=$(this).find("option:selected").attr("value");
 	  if(val=='1363'){
 		  $(this).siblings('input[name="other"]').show();
@@ -675,7 +755,7 @@ $("#team-table select[name='field2']").change(function(){
 		  $(this).siblings('input[name="other"]').val('');
 		  
 	  }
-})
+}) */
 //验证方法 
 function addValidate(){
 	  //验证估值 
@@ -700,12 +780,12 @@ function addValidate(){
 		}
 	})
 	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-		layer.msg('团队成员,要求至少有一条记录并且团队成员为必填项，要求至少有一条记录');
+		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 		return false;
 	}
 	/* 访谈纪要 */ 
 	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
-		layer.msg('访谈纪要或访谈录音要求至少有一项');
+		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 		return false;
 	} 
 	return true;
@@ -858,8 +938,7 @@ function addValidate(){
 		})
 		informationData.infoTableModelList = infoTableModelList;
 		 data.informationData=informationData;  
-			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){ 
-				debugger;
+			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){  
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
@@ -869,8 +948,7 @@ function addValidate(){
 						layer.msg("没有权限添加项目!");
 					}  
 				}else if(data.result.status=="OK"){
-					//判断大脑数据
-					debugger;
+					//判断大脑数据 
 					var Id=data.id;
 					var projectName = $("#projectName").val();
 					var _url = Constants.sopEndpointURL +"/galaxy/infoDanao/searchProject";
@@ -891,13 +969,7 @@ function addValidate(){
 					})  
 				}
 			})  
-		}) 
-
-
-
- 
-
- 
+		})  
 
 function getUpdateData(){  //获取保存数据
 	var projectType=$('input:radio[name="projectType"]:checked').val();
@@ -943,7 +1015,7 @@ function radionDiv(data){
 	    	   var htmlSelect='<div class="resel_box selectcheck select"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
-	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"></div>';
+	         '<div class="reason_box"><input type="text" style="display:inline-block;" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"><span></span></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';	     
