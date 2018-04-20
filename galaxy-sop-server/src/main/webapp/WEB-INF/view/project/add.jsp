@@ -179,7 +179,7 @@
                         <li class='mr_50'>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
-                            	<input type="text" required placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的支持6位小数"/>
+                            	<input type="text" required placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的6位小数"/>
                             	<div></div>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
@@ -235,8 +235,8 @@
 		                <!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					<div class="tberror"></div>
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value=""   maxLength="50" />
+                 					<div class="tberror"><span class="Terror">*必填</span></div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -250,7 +250,7 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" /><div class="tberror"></div>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号" onblur="validaNull($(this),'phone')"  /><div class="tberror"><span class="Terror">*格式不对</span></div>
 								</td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
@@ -258,15 +258,17 @@
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input style="width:45%;" class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
+									<input onblur="validaNull($(this))" style="width:45%;" class="txt" name="other" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除</td>
 		                	</tr> 
 		                	<!-- 第一个用于克隆。不保存 -->
 		                	<tr>
 		                		<td>
-									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" />
-                 					 <div class="tberror"></div>
+									 <input type="text" onblur='blurName(this)' class="txt"  name="field1" placeholder="姓名" class="txt"   value=""  maxLength="50" />
+                 					 <div class="tberror">
+                 					 	<span class="Terror">*必填</span>
+                 					 </div>
 								</td> 
 		                		<td class="selectcheck select">
 									<select name="field3">
@@ -280,14 +282,14 @@
                    					</select>
 								</td>
 								<td>
-									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>手机格式不对" /><div class="tberror"></div></td>
+									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  onblur="validaNull($(this),'phone')" /><div class="tberror"><span class='Terror'>*格式不对</span></div></td>
 								<td>
-									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"  data-msg-phone="<font color=red>*</font>允许输入字母、数字、下划线和减号" />								
+									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"   />								
 								</td>
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input class="txt" name="other" style="width:45%;" maxlength="20" data-msg-required="<font color=red>*</font>请输入职位"><div class="tberror"></div>
+									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -497,8 +499,13 @@ $(function(){
 	    var entity=data.entity.childList[0];
 	    if(!childNum || childNum !=0 ){
 	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-			});
+	    		if(this.id=='1123'){
+	    			_dom.append("<option value='"+this.id+"' selected=true data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+		    		
+	    		}else{
+	    			_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    		}
+	    		});
 	    	_dom.selectpicker();
 	    }
 	    //项目来源下拉数据
@@ -511,9 +518,16 @@ $(function(){
 	    var childNum = _dom.find("option").length;  
 	    var entity=data.entity.childList.filter(function(val){return val.titleId=="1120"})[0];  
 	    if(!childNum || childNum !=0 ){
-	    	$.each(entity.valueList,function(){
-	    		_dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-			}); 
+	    	$.each(entity.valueList,function(){ 
+	    		 if(this.id=='2253'){
+	    			 _dom.append("<option value='"+this.id+"' selected=true  code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    				
+	    		 }else{
+	    			 _dom.append("<option value='"+this.id+"' code='"+this.code+"'  data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+	    				
+	    		 }
+	    		
+	    			}); 
 	    	_dom.selectpicker()
 	    }
 	} 
@@ -659,7 +673,9 @@ $("#selectRadio").change(function(){
 * @version 2016-06-21
 */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
-$("select[name='industryOwn']").selectpicker() 
+
+$("select option[value="+departmentId+"]").attr("selected",true)
+$("select[name='industryOwn']").selectpicker();
 //结束
 
 //估值计算 
@@ -742,22 +758,10 @@ function otherC(that){
 		  $(that).siblings('input[name="other"]').val('');
 		  
 	  }
-}
-/* $("#team-table select[name='field2']").change(function(){
-	  var val=$(this).find("option:selected").attr("value");
-	  if(val=='1363'){
-		  $(this).siblings('input[name="other"]').show();
-		  $(this).siblings('input[name="other"]').attr("required",true);
-	  }else{
-		  $(this).siblings('input[name="other"]').hide();
-		  $(this).siblings('input[name="other"]').removeAttr("required");
-		  $(this).siblings('input[name="other"]').next().find(".error").hide(); 
-		  $(this).siblings('input[name="other"]').val('');
-		  
-	  }
-}) */
+} 
 //验证方法 
-function addValidate(){
+function addValidate(){ 
+
 	  //验证估值 
     var s_val1=$("#formatValuations").attr("guzhi"),
 	s_val2=$("#formatValuations").val(),
@@ -771,23 +775,7 @@ function addValidate(){
 		$("#projectTypeTip").css("display","block");
 		return false;
 	} 
-	//团队验证
-	var teamValidate=true;
-	$.each($("#team-table tbody tr:gt(0)"),function(){ 
-		if($(this).find("input[name=field4]").val().trim()=='' && $(this).find("input[name=field6]").val().trim()==''){
-			teamValidate=false;
-			return false;
-		}
-	})
-	if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
-		return false;
-	}
-	/* 访谈纪要 */ 
-	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
-		layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
-		return false;
-	} 
+
 	return true;
 }
  
@@ -796,17 +784,40 @@ function addValidate(){
 		 if(!$('.project-name').is(":hidden")&&$("#projectName").val().trim()!=''){
 			  layer.alert("您输入的项目与【"+objDatad.projectName+"】项目重复，不能保存。<br/>项目承做人："+objDatad.teamPerson +" | "+ objDatad.departmentName);
 			return false;
-		}
+		} 
 		//2.项目承揽人
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
-		//3.表单验证  
-	     if(!$('#add_form').validate().form()){//验证不通过时候执行
-			$(".adddpro-save").submit();
-			return false;	
-		}   
-
-	    var VDStatus = addValidate();
+		//3.表单验证    
+	     var VDStatus = addValidate(); 
 	    if(!VDStatus){return false;}
+
+		//团队验证 
+		var teamValidate=true;
+		$.each($("#team-table tbody tr:gt(0)"),function(){ 
+			//提示文字
+			var that=$(this);
+			var list1 =that.find("input[name=field1]"); 
+			validaNull(list1);
+			var list2 = that.find("input[name=other]:visible"); 
+			validaNull(list2);
+			//
+			if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
+				teamValidate=false;
+				//return false;
+			}
+		}) 
+	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
+			return false;	
+		}    
+		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
+			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
+			return false;
+		}
+	 	/* 访谈纪要 */ 
+	 	if($.trim(CKEDITOR.instances.viewNotes.getData())==''&&$("#file_object").text()==''){
+	 		layer.msg('访谈纪要或访谈录音至少填写/上传一项');
+	 		return false;
+	 	} 
 		//数据
 		 var data={
 			"industryOwn": $("select[name=industryOwn]").val(),//行业归属
@@ -1098,6 +1109,33 @@ function reason(obj,value){
 	 var val = $(event).val().trim();
 	 if($("#viewTarget").val().trim()==''&& val!=''){
 		 $("#viewTarget").val(val); 
+	 }
+	 if(val==''){
+		 $(event).next().show();
+	 }else{
+		 $(event).next().hide()
+	 }
+ }
+ //团队验证
+ function validaNull(event,ruler){
+	 if(event==undefined||event.val()==undefined){
+		 return false;
+	 }
+	 var val = event.val().trim(); 	
+	 if(ruler=='phone'){
+		 var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+		 var res = mobile.test(val);
+		 if(!res){
+			 event.next().show();
+		 }else{
+			 event.next().hide()
+		 }
+	 }else{ 
+		 if(val==''){
+			 event.next().show();
+		 }else{
+			 event.next().hide()
+		 }
 	 }
  }
  //platformUrl.commonUploadFile   上传录音、

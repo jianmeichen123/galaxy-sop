@@ -3,6 +3,8 @@ UPDATE `fx_db`.`information_title` SET `type`='8' WHERE `id`='1241';
 
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `val_rule`, `val_rule_mark`) VALUES ('1270', '1202', 'NO2_1_4', '刚需或痛点', '205.500', '8', '2', 'f', '0', '1', '2000');
 UPDATE `fx_db`.`information_title_relate` SET `title_id`='1270' WHERE `id`='1006';
+UPDATE `fx_db`.`information_title_relate` SET `title_id`='1270' WHERE `id`='9006';
+
 
 -- 修改融资轮次
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2287', '1121', '1108', 'projectStage12', 'A+', 'D3_12', '5', '0');
@@ -38,3 +40,6 @@ UPDATE `fx_db`.`dict` SET `dict_sort`='13' WHERE `id`='199';
 
 INSERT INTO `fx_db`.`project_standard` (`id`, `module_code`, `module_name`, `standard_details`, `status`, `is_valid`) VALUES ('13', '12', '项目简介', '该项目是一个通过或基于（VR定制屏和核心延时算法技术）的（提供全球最清晰的VR体验）的（头显一体化解决方案提供商），连接（优质内容）和（消费者），为（消费者）提供（显示清晰不眩晕的VR产品）的产品或服务，满足了（使用优质体验VR设备的需求）的刚需或解决了（VR设备不清晰、眩晕的痛点）。', '1', '0');
 
+INSERT INTO `dict` VALUES ('252', 'projectType', '直营', '3', 'projectType:3', '3', NULL, '1456817970774', '1456817970774', '0');
+
+UPDATE dict SET is_delete=1 WHERE dict_code='projectType:2';
