@@ -4148,6 +4148,9 @@ select.addpro-input{width:278px;height:32px;}
 .basic_ul li.projectSourceli{
 	overflow:visible;
 }
+.basic_ul li.projectSourceli.nomargin{
+	margin:0;
+}
 li .projectSource11 span.basic_span {
 	float:none;
 	display:inline-block;
@@ -4815,7 +4818,7 @@ table.addSpBusForm {margin-bottom:15px;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
 .ADDcurrendTable .reason_box{vertical-align:top;}
 .ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
-    
+/* .dropdown-menu.open{max-height:300px!important;z-index:100!important;}    */
     
     
     

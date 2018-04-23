@@ -103,12 +103,12 @@
                        		</span>                       		
                        		<span class="basic_span addpro-basic-span addpro-marin-lt"><em class="red">*</em><span class='letter-space'>行业归属：</span></span>
                             <span class="m_r30 selectcheck select">
-                            	<select name="industryOwn"   >
+                            	<select name="industryOwn"   data-dropup-auto=false>
 			                    	<option value="">请选择</option>
 			                    </select>
                             </span>
                         </li>
-                        <li class="projectSourceli clearfix">
+                        <li class="projectSourceli nomargin clearfix">
                         <div class="projectSource projectSource5">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>合投机构名称 ：</span></span>
                         		 <span class="m_r30">
