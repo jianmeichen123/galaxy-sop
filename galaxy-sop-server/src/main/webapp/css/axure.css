@@ -4795,7 +4795,7 @@ table#team-table .on td{background:none;}
 #team-table td{position:relative;    border: 0px;}
 #team-table .tberror{position:absolute;line-height: 1; display:none;}
 .Terror{color:red;font-size:12px;}
-.basic_ul li.mr_50{display: inline-block;width:49%;}
+.basic_ul li.mr_50{display: inline-block;width:49%;vertical-align: top;}
 .check_result label .absoerror,.absoerror{display: inherit;
     margin: 0;
     position: absolute;
@@ -4806,7 +4806,7 @@ table#team-table .on td{background:none;}
         width: auto!important;
     display: inline-block;}
 /* 新建项目的商业计划书列表改样式， */
-.addSpBusForm {} 
+table.addSpBusForm {margin-bottom:15px;} 
 .addSpBusForm thead{display:none!important;}
 .addSpBusForm tr td:nth-child(3){opacity:0;}
 .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
