@@ -921,7 +921,7 @@ function addValidate(){
 			}else if(type==14 )
 			{
 				infoMode.value = field.val();
-			}else if(type==19 || type==1||type==19){
+			}else if(type==19 || type==1||type==8){
 				infoMode.remark1 = field.val();
 			}
 			if (infoMode != null&&type!="13") {
@@ -951,6 +951,8 @@ function addValidate(){
 		})
 		informationData.infoTableModelList = infoTableModelList;
 		 data.informationData=informationData;  
+		/*  console.log(data);
+		 return ; */
 			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){  
 				if(!data){
 					layer.msg("提交表单过于频繁!");
