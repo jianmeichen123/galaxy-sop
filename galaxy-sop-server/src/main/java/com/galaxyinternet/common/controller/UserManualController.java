@@ -33,7 +33,9 @@ public class UserManualController {
 
 
     public static final String MANUAL_DIRECTORY = "/template/userManual";
-    public static final String MANUAL_MARK_NAME = "XHT_USER_MANUAL_001";
+  //  public static final String MANUAL_MARK_NAME = "XHT_USER_MANUAL_001";
+    public static final String MANUAL_MARK_NAME = "星河投系统用户手册";
+    
     public static final String MANUAL_STR_NAME = "用户手册";
 
 
