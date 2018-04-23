@@ -188,7 +188,7 @@ jQuery.validator.addMethod("verify_94", function(value, element) {
 jQuery.validator.addMethod("verify_96", function(value, element) {
 	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_96.test(value));
-}, "支持9位长度的6位小数");
+}, "金额最大允许输入9位整数和6位小数");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2}|0)$/;;
