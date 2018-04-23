@@ -151,7 +151,7 @@
                         <li>
                             <span class="basic_span letter-space add-finace-lf">融资金额：</span>
                             <span class="m_r15 after after1">
-                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>支持9位长度的6位小数"/>
+                            	<input type="text" placeholder='融资金额' class='new_nputr_number addpro-input' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution procontribution" data-rule-procontribution="true"  data-msg-procontribution="<font color=red>*</font>金额最大允许输入9位整数和6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                             
@@ -166,7 +166,7 @@
                         <li>
                         	<span class="basic_span letter-space add-finace-lf">项目估值：</span>
                             <span class="m_r15 after after3">
-                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"/>
+                            	<input type="text" placeholder='项目估值' class='new_nputr_number addpro-input' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations provaluations"  data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>金额最大允许输入13位整数和6位小数"/>
                             </span>
                             <!-- <span class="m_r30">万元</span> -->
                         </li>

@@ -24,7 +24,7 @@ var planGrid = {
 						operator = '上传附件';
 					}
 					return [
-					        '<input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"/><a class="pubbtn bluebtn addBtnC"  href="javascript:void(0)" style="margin-left:-100px;">'+ operator +'</a>'
+					        '<input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"/><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >'+ operator +'</a>'
 							//'<a class="uploadlink blue ico_pgn 3333" id="upload_btn" href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					

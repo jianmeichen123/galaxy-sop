@@ -44,7 +44,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="field3" name="field3" type="text" value="" required data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数"/>
+		                    	<input class=" txt " id="field3" name="field3" type="text" value="" required data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>金额最大允许输入9位整数和6位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 

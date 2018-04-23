@@ -354,7 +354,7 @@
 	 * @version 2016-06-21
 	 */
 	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectType","projectType");
-	$("select[name=projectType]").append("<option index='3' value='projectType:2'>创建</option>")
+	/* $("select[name=projectType]").append("<option index='3' value='projectType:2'>创建</option>") */
 	/**
 	 * 获取项目进度下拉项
 	 * @version 2016-06-21
