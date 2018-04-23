@@ -843,7 +843,7 @@ function addValidate(){
 		data.projectQuery=projectQuery; 
 		var informationData ={};
 		var infoModeList = new Array();
-		var fields = $("#add_form").find("input[data-title-id],select[data-title-id]");
+		var fields = $("#add_form").find("input[data-title-id],select[data-title-id],textarea[data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -921,7 +921,7 @@ function addValidate(){
 			}else if(type==14 )
 			{
 				infoMode.value = field.val();
-			}else if(type==19 || type==1){
+			}else if(type==19 || type==1||type==19){
 				infoMode.remark1 = field.val();
 			}
 			if (infoMode != null&&type!="13") {

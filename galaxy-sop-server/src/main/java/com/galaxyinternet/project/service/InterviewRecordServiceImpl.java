@@ -339,13 +339,14 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		
 		UrlNumber number = null;
 		//没有上传文件时
-		if(null!=project.getVidioFile()&&!"".equals(project.getVidioFile())){
+		//if(null!=project.getVidioFile()&&!"".equals(project.getVidioFile())){
 			if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
 				ir.setId(p.getRecordId());
 				interviewRecordDao.updateById(ir);
 				number = UrlNumber.two;
 			}else{
 				interviewRecordDao.insert(ir);	
+			if(null!=project.getVidioFile()&&!"".equals(project.getVidioFile())){
 				SopFile result = project.getVidioFile();
 				SopFile file = new SopFile();
 				file.setProjectId(p.getPid());
@@ -369,8 +370,9 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				}
 				file.setInterviewRecordId(interviewRecordId);
 				sopFileDao.updateById(file);
+				}
 			}
-		}
+		//}
 	}
 
 	@Override
