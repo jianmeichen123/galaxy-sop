@@ -757,7 +757,7 @@ function otherC(that){
 	  }else{
 		  $(that).siblings('input[name="other"]').hide();
 		  $(that).siblings('input[name="other"]').removeAttr("required");
-		  $(that).siblings('input[name="other"]').next().find(".error").hide(); 
+		  $(that).siblings('input[name="other"]').next().hide(); 
 		  $(that).siblings('input[name="other"]').val('');
 		  
 	  }
