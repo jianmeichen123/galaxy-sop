@@ -542,6 +542,7 @@ $(function(){
   $('#projectName11').blur(function(){ 
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
+		$('.project-name').css('display','block');
 		return false
 	}else{
 		var data2 = {
