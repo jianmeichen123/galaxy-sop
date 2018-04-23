@@ -73,7 +73,7 @@
                  <form action="" id="add_form" method="post" autocomplete="off">
                   <div class='addpro-basic-content'>
                     <div class="addpro-new-title ">
-                        <span class="new_color  add-pro-basicmessage">基本信息</span>
+                        <span class="new_color  add-pro-basicmessage"><font color=red>*</font>基本信息</span>
                     </div>  
                     <ul class="basic_ul addpro-basi-ul clearfix">
                     	<li>
@@ -160,7 +160,7 @@
                             <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle; margin-left:10px;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remindG-icon.png" class="alertImg"></span>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>项目简介：</span></span></span>
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'><font color=red>*</font>项目简介：</span></span></span>
                             <span class="">
                             	<textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea>
                             	<div></div> 
@@ -173,7 +173,7 @@
                     <!--融资计划-->
                 <div class='addpro-finacing-plan'>
                     <div class="addpro-new-title ">
-                        <span class="new_color  add-pro-basicmessage">融资计划</span>
+                        <span class="new_color  add-pro-basicmessage"><font color=red>*</font>融资计划</span>
                     </div> 
                     <ul class="basic_ul addpro-finacing-ul">
                         <li class='mr_50'>
@@ -206,7 +206,7 @@
                <!-- 商业计划书 -->
                 <div class='addpro-business-plan'>
 	                <div class="addpro-new-title ">
-                        <span class="new_color  add-pro-basicmessage">商业计划书<em>(文件上传大小不超过25MB)</em></span>
+                        <span class="new_color  add-pro-basicmessage"><font color=red>*</font>商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
 	                  <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
@@ -216,7 +216,7 @@
                <!-- 团队成员 -->
                 <div class='ADDcurrendTable clearfix'>
                  	<div class="addpro-new-title ">
-                        <span class="new_color  add-pro-basicmessage">团队成员</span>
+                        <span class="new_color  add-pro-basicmessage"><font color=red>*</font>团队成员</span>
                     </div> 
                     <div class="pubbtn bluebtn addBtnC teamAdd">添加</div>
                     <table style="width:97%;" id="team-table" cellspacing="0" cellpadding="0" class="team-table">
@@ -303,7 +303,7 @@
                   
                 <div class='ADDcurrendTable'>
                 	<div class="addpro-new-title ">
-                        <span class="new_color  add-pro-basicmessage">*访谈记录</span>
+                        <span class="new_color  add-pro-basicmessage"><font color=red>*</font>访谈记录</span>
                     </div>  
                     <form class="myprojecttc new_poptxt myproject_add"  type="validate"> 
 				        <div class="tab_con">
@@ -685,6 +685,7 @@ $("#formatShareRatio").blur(function(){
 	var valuations = finalValue(projectContribution,projectShareRatio);
 	if(valuations != null){
 		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+		$("#formatValuations-error").remove();
 	}else{
 		$("#formatValuations").removeAttr("guzhi");
 	}
@@ -695,6 +696,7 @@ $("#formatContribution").blur(function(){
 	var valuations = finalValue(projectContribution,projectShareRatio);
 	if(valuations != null){
 		$("#formatValuations").val(valuations).attr("guzhi",valuations);
+		$("#formatValuations-error").remove();
 	}else{
 		$("#formatValuations").removeAttr("guzhi");
 	}
@@ -1023,17 +1025,19 @@ function radionDiv(data){
 		'<div id="div_'+i+'" class="clearfix">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<div class="resel_box selectcheck select"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
+	    	   var htmlSelect='<div class="resel_box selectcheck select"><select required="required"disabled="disabled" class="disabled"  data-dropup-auto="false"  name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
-	         '<div class="reason_box"><input type="text" style="display:inline-block;" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"><span></span></div>';
+	         '<div class="reason_box"><input type="text" style="display:inline-block;" disabled="disabled"  name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"><span></span></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';	     
 		dd.append(htmlDiv);		
 	})
 }
-
+$('[data-on="close"]').on('click',function(){
+	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
+});
 
 $("#resultRadion input[type='radio']").click(function(){
 	var _select = $(this).parent("label").next().find("select");
