@@ -1249,7 +1249,7 @@ function font_color(data){
 			}
 		}else{
 			if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
-				if(titleId != 1203){
+				if(titleId != 1270){
 					code_dom.addClass("disabled").attr("disabled",true);
 				}
 				_this.removeClass("black");			

@@ -539,7 +539,7 @@ $(function(){
  * @version 2018-4-11
  *开始
  */ 
-  $('#projectName').blur(function(){
+  $('#projectName11').blur(function(){ 
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
 		return false
