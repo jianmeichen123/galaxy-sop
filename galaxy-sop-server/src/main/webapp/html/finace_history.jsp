@@ -58,7 +58,7 @@
            <dl class="fmdl clearfix sign_fmdl">
            <dt>估值金额：</dt>
                 <dd>
-                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_136="true" data-msg-verify_136="<font color=red>*</font>支持13位长度的6位小数"/>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_136="true" data-msg-verify_136="<font color=red>*</font>金额最大允许输入13位整数和6位小数"/>
                 </dd>
             </dl>
            <dl class="fmdl clearfix">

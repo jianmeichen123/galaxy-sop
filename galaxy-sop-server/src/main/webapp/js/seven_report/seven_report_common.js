@@ -1309,7 +1309,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
+						"data-msg-verify_136":"<font color=red>*</font>金额最大允许输入13位整数和6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13"){
@@ -1467,7 +1467,7 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 jQuery.validator.addMethod("verify_136", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
-}, "支持13位长度的6位小数");
+}, "金额最大允许输入13位整数和6位小数");
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
