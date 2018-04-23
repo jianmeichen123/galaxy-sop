@@ -690,6 +690,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* 消息提醒 */
 .news_table{display: none;}
 .addBtnC{display:inline-block; background: #3CA6FF url(../img/btnico2.png) 0 0 no-repeat;background-position: 15px -121px;    padding-left: 30px;}
+.addBtnSY{}
 /* 项目基本信息内容 */
 .pagebox .projectmsg{width: 732px;padding:5px 20px 35px;margin:0 auto;background-color: #fff;border-radius: 10px;}
 .pagebox .projectmsg h2{width:100%;color:#6b799f;font-size: 20px;text-align: center;}
@@ -4054,7 +4055,7 @@ input::input-placeholder{color:red !important;}
 select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul .letter-space,.addpro-finacing-ul .letter-space{white-space:nowrap;width:110px;font-family:Microsoft YaHei;font-size:14px;color:#666666;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .addpro-basi-ul .letter-space.rzlc_span{letter-spacing:0.7px;}
-.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:12px;color:#333333;}
+.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;color:#333333;}
 .addpro-basi-ul select,.selectcheck button.btn-default,.selectcheck  .open > .dropdown-toggle.btn-default{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:14px;color:#333333; padding-left:10px !important; outline: none;}
 .addpro-basic-span{width:auto;padding-left:10px;}
 .addpro-basi-ul{padding-left:40px;min-width:1088px;padding-top:10px;overflow:visible;    box-sizing: border-box;}
