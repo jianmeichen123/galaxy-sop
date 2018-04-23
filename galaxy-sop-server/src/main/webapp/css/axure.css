@@ -690,7 +690,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* 消息提醒 */
 .news_table{display: none;}
 .addBtnC{display:inline-block; background: #3CA6FF url(../img/btnico2.png) 0 0 no-repeat;background-position: 15px -121px;    padding-left: 30px;}
-.addBtnSY{}
+.addBtnSY{margin-left:40px;margin-top: -26px;width:100px;cursor:pointer;}
+ 
+.uploadlink{margin-left:40px;}
 /* 项目基本信息内容 */
 .pagebox .projectmsg{width: 732px;padding:5px 20px 35px;margin:0 auto;background-color: #fff;border-radius: 10px;}
 .pagebox .projectmsg h2{width:100%;color:#6b799f;font-size: 20px;text-align: center;}
@@ -4821,8 +4823,8 @@ table.addSpBusForm {margin-bottom:15px;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
 .ADDcurrendTable .reason_box{vertical-align:top;}
 .ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
-.dropdown-menu.open{height:300px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
-.dropdown-menu.inner   {height:260px!important;max-height:260px!important;}    
+/* .dropdown-menu.open{height:300px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
+.dropdown-menu.inner   {height:260px!important;max-height:260px!important;}   */  
     
     
     

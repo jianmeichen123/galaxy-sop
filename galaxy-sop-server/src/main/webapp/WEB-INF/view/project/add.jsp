@@ -707,7 +707,7 @@ var map_pos = selectCache("team-members","field5")
 /**
 团队select 字典缓存
 */
-var map_pos = selectCache("team-members","field5");
+var map_pos = selectCache("team-members","field5"); 
 var map_field2 = selectCache("team-members","field2");
 
 var xlOP="";
@@ -718,7 +718,8 @@ $.each(map_field2,function(e,index){
 $.each(map_pos,function(e,index){ 
 	xlOP += "<option value="+e+">"+index+"</option>"
 })
-$("#team-table select[name=field5]").html(xlOP);
+$("#team-table select[name=field5]").html(xlOP); 
+$("#team-table select[name=field5]").find("option[value=1374]").attr("selected",true)
 $("#team-table select[name=field2]").html(xlOP2);  
 $("#team-table tbody tr:gt(0) select[name=field2]").selectpicker()
 $("#team-table tbody tr:gt(0) select[name=field3]").selectpicker()
