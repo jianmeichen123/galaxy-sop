@@ -110,7 +110,7 @@
 	jQuery.validator.addMethod("amount", function (value, element) {
 		var amount = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (amount.test(value));
-	}, "支持9位长度的6位小数");
+	}, "金额最大允许输入9位整数和6位小数");
 //占股比例
 	jQuery.validator.addMethod("share", function (value, element) {
 		var share = /^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
@@ -140,7 +140,7 @@
 	jQuery.validator.addMethod("provaluations", function (value, element) {
 		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 		return this.optional(element) || (provaluations.test(value));
-	}, "支持13位长度的6位小数");
+	}, "金额最大允许输入13位整数和6位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
 		if(_parsefloat(value)=='0'){value=0;}
@@ -151,7 +151,7 @@
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
 		var finalContribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (finalContribution.test(value));
-	}, "支持9位长度的6位小数");
+	}, "金额最大允许输入9位整数和6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("finalValuations", function (value, element) {
 		var finalValuations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
@@ -197,7 +197,7 @@
 jQuery.validator.addMethod("verify_96", function(value, element) {
 	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_96.test(value));
-}, "支持9位长度的6位小数");
+}, "金额最大允许输入9位整数和6位小数");
 	jQuery.validator.addMethod("verify_94", function(value, element) {
 		var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 		return this.optional(element) || (verify_94.test(value));
@@ -280,7 +280,7 @@ jQuery.validator.addMethod("verify_10_01", function(value, element) {
 jQuery.validator.addMethod("verify_136", function(value, element) {
 	var verify = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify.test(value));
-}, "支持13位长度的6位小数");
+}, "金额最大允许输入13位整数和6位小数");
 //验证手机号
 jQuery.validator.addMethod("phone", function (value, element) {
   var mobile = /^[\+\-\(\)0-9]{0,40}$/;
