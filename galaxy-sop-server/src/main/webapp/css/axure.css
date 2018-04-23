@@ -478,7 +478,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:11;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:100;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .ico:hover{background-color:#0084f5;}
@@ -690,6 +690,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* 消息提醒 */
 .news_table{display: none;}
 .addBtnC{display:inline-block; background: #3CA6FF url(../img/btnico2.png) 0 0 no-repeat;background-position: 15px -121px;    padding-left: 30px;}
+.addBtnSY{margin-left:40px;margin-top: -26px;width:100px;cursor:pointer;}
+ 
+.uploadlink{margin-left:40px;}
 /* 项目基本信息内容 */
 .pagebox .projectmsg{width: 732px;padding:5px 20px 35px;margin:0 auto;background-color: #fff;border-radius: 10px;}
 .pagebox .projectmsg h2{width:100%;color:#6b799f;font-size: 20px;text-align: center;}
@@ -4054,10 +4057,11 @@ input::input-placeholder{color:red !important;}
 select.addpro-input{width:278px;height:32px;}
 .addpro-basi-ul .letter-space,.addpro-finacing-ul .letter-space{white-space:nowrap;width:110px;font-family:Microsoft YaHei;font-size:14px;color:#666666;text-align:justify;text-justify:distribute-all-lines;/*ie6-8*/text-align-last:justify;/* ie9*/-moz-text-align-last:justify;/*ff*/-webkit-text-align-last:justify;/*chrome 20+*/}
 .addpro-basi-ul .letter-space.rzlc_span{letter-spacing:0.7px;}
-.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:12px;color:#333333;}
+.addpro-basi-ul input,.addpro-finacing-ul input{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;color:#333333;}
 .addpro-basi-ul select,.selectcheck button.btn-default,.selectcheck  .open > .dropdown-toggle.btn-default{border:1px solid #d8d8d8;border-radius:2px;font-family:Microsoft YaHei;font-size:14px;color:#333333; padding-left:10px !important; outline: none;}
 .addpro-basic-span{width:auto;padding-left:10px;}
-.addpro-basi-ul{margin-left:9px;min-width:1088px;padding-top:10px;overflow:visible;}
+.addpro-basi-ul{padding-left:40px;min-width:1088px;padding-top:10px;overflow:visible;    box-sizing: border-box;}
+.addpro-finacing-ul{padding-left:20px;    box-sizing: border-box;}
 .addpro-basi-ul li{margin:0;}
 .addpro-basi-ul li{margin-bottom:16px;}
 .addpro-basic-span em{left:-1px;}
@@ -4789,6 +4793,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 #team-table{table-layout: fixed;margin: 0 auto;}
 #team-table tr th:nth-child(1),#team-table tr td:nth-child(1){padding-left:10px;}
 .ADDcurrendTable{background:#fff; margin-top: 10px;}
+.ADDcurrendTable .tab_con{    padding: 0 40px;}
 table#team-table .on td{background:none;}
 .ADDcurrendTable{position:relative;}
 .ADDcurrendTable .teamAdd{position:absolute; right:20px; top:10px;}
@@ -4818,8 +4823,8 @@ table.addSpBusForm {margin-bottom:15px;}
 .ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
 .ADDcurrendTable .reason_box{vertical-align:top;}
 .ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
-/* .dropdown-menu.open{max-height:300px!important;z-index:100!important;}    */
-    
+/* .dropdown-menu.open{height:300px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
+.dropdown-menu.inner   {height:260px!important;max-height:260px!important;}   */  
     
     
     
