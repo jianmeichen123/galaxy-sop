@@ -894,7 +894,7 @@ function addValidate(){
 				
 				}else{
 				var values =[] ; 
-				var doms = $(".selectcheck li.selected span");
+				var doms = $("#selectRadio").closest(".selectcheck").find("li.selected span");
 				$.each(doms,function(){ 
 					values.push($(this).attr('data-value'))
 				})  
