@@ -506,8 +506,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			List<Project> projectList = projectService.queryList(obj);
 			if (null != projectList && projectList.size() > 0)
 			{
-				responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
-				return responseBody;
+				if(null!=ua&&!"".equals(ua)){
+					if (null != projectList && projectList.size() > 0)
+					{
+                        String name =(cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName")).toString();
+                        String dep=(cache.hget(PlatformConst.CACHE_PREFIX_DEP+projectList.get(0).getProjectDepartid(), "name")).toString();
+						String message="您输入的项目与【"+projectList.get(0).getProjectName()+"】项目重复，不能保存。&&项目承做人："+name +" | "+ dep;
+						responseBody.setResult(new Result(Status.ERROR, "mccf", message));
+						return responseBody;
+					}
+				}else{
+					responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
+					return responseBody;
+				}
+				
 			}
 			// 创建项目编码
 			Config config = configService.createCode();
