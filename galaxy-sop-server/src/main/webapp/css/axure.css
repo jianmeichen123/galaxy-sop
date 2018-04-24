@@ -4785,7 +4785,7 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 .noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}
 #team-table td{text-align:left; padding-bottom:15px;}
-#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
+#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;height:30px;border-radius:2px;background:#fff;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
 #team-table td input[name='other']{display:none;} 
 #team-table td:first-child input+div{ }
@@ -4837,7 +4837,7 @@ text-overflow:ellipsis;
 white-space: nowrap;    width: 195px;
     display: inline-block;
     vertical-align: middle;}
-    
+.projectSourceli .add_textarea {    max-height: 150px;overflow-y: auto;min-height: 80px;}
     
     
     

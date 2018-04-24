@@ -156,11 +156,11 @@
                         	</div>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
+                        	<span class="basic_span addpro-basic-span"  ><span class='letter-space'>公司名称：</span></span></span>
                             <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle; margin-left:10px;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remindG-icon.png" class="alertImg"></span>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span"><span class='letter-space'><font color=red>*</font>项目简介：</span></span></span>
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'><em class="red">*</em>项目简介：</span></span></span>
                             <span class="">
                             	<textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea>
                             	<div></div> 
