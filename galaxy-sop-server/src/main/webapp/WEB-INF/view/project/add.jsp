@@ -156,11 +156,11 @@
                         	</div>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span"><span class='letter-space'>公司名称：</span></span></span>
+                        	<span class="basic_span addpro-basic-span"  ><span class='letter-space'>公司名称：</span></span></span>
                             <span class="m_r30"><input type="text" class='addpro-input' style='display: inline-block;' maxlength="50" data-title-id="1814" data-type="1" /> <img style='display: inline-block;vertical-align: middle; margin-left:10px;' title="正确填写公司名称可以快速调取法人信息、融资历史、股权结构，减少手动输入 " src="/sop/img/sop_progress/remindG-icon.png" class="alertImg"></span>
                         </li>
                         <li class="projectSourceli clearfix">
-                        	<span class="basic_span addpro-basic-span"><span class='letter-space'><font color=red>*</font>项目简介：</span></span></span>
+                        	<span class="basic_span addpro-basic-span"><span class='letter-space'><em class="red">*</em>项目简介：</span></span></span>
                             <span class="">
                             	<textarea data-title-id="1203" style='display: inline-block; vertical-align: middle;'  name="projectInfo" data-type="8" type="text" class='textarea_h add_textarea' maxlength="2000" >该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</textarea>
                             	<div></div> 
@@ -285,11 +285,12 @@
 									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  onblur="validaNull($(this),'phone')" /><div class="tberror"><span class='Terror'>*格式不对</span></div></td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"   />								
+										<div style="position:absolute;line-height:1;"></div>
 								</td>
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
+									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror" style="left:50.5%;"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -321,7 +322,7 @@
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
-				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
+				                        <input type="text" class="txt" maxlength="40" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
 			                        	<div class='inline'></div>
 				                    </dd>
 				                </dl>
@@ -332,7 +333,7 @@
 				                    <dt id="toobar_content">访谈纪要：</dt>
 				                    <dd>
 				                        <textarea id="viewNotes"></textarea> 
-				                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
+				                        <span id="viewNotes-error" style='color:red;' for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
 				                    </dd>
 				                </dl>           
 				            </div>
@@ -484,6 +485,16 @@ $(function(){
 	createMenus(5);  
 	//ckeditor实例化
 	var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
+	viewNotesLen=0;
+	viewNotes.on( 'change', function() {   //访谈纪要 
+		viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    });
 	/**
 	 * 本轮融资轮次下拉数据
 	 * 项目来源下拉数据
@@ -539,9 +550,10 @@ $(function(){
  * @version 2018-4-11
  *开始
  */ 
-  $('#projectName11').blur(function(){ 
+  $('#projectName').blur(function(){ 
 	var projectName=$("#projectName").val().trim();
 	if(projectName==""||projectName=="undefined"){
+		$('.project-name').css('display','block');
 		return false
 	}else{
 		var data2 = {
@@ -763,8 +775,7 @@ function otherC(that){
 	  }
 } 
 //验证方法 
-function addValidate(){ 
-
+function addValidate(){  
 	  //验证估值 
     var s_val1=$("#formatValuations").attr("guzhi"),
 	s_val2=$("#formatValuations").val(),
@@ -778,7 +789,7 @@ function addValidate(){
 		$("#projectTypeTip").css("display","block");
 		return false;
 	} 
-
+	
 	return true;
 }
  
@@ -792,26 +803,35 @@ function addValidate(){
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 		//3.表单验证    
 	     var VDStatus = addValidate(); 
-	    if(!VDStatus){return false;}
-
+	    if(!VDStatus){return false;} 
 		//团队验证 
 		var teamValidate=true;
 		$.each($("#team-table tbody tr:gt(0)"),function(){ 
 			//提示文字
 			var that=$(this);
+			if(that.hasClass("no-records-found")){teamValidate =false; return false;}
 			var list1 =that.find("input[name=field1]"); 
 			validaNull(list1);
 			var list2 = that.find("input[name=other]:visible"); 
 			validaNull(list2);
 			//
 			if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
-				teamValidate=false;
-				//return false;
+				teamValidate=false; 
 			}
 		}) 
 	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
 			return false;	
-		}    
+		}     
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+			return false;
+		}else{
+			$("#viewNotes-error").hide();
+		}
+		if($("#plan_business_table tbody tr td").eq(0).text()==''){
+			layer.msg('请上传商业计划书');
+			return false;
+		}
 		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
 			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 			return false;
@@ -945,15 +965,17 @@ function addValidate(){
 			$.each(that.find("input[name],select[name]"),function(){
 				var field = $(this); 
 				var fil = field.attr("name"); 
-				list[fil]=field.val();
+				if(fil=='field2'&&field.val()=='1363'){  
+					list[fil]=field.val()+"-"+field.next().next().val();
+				}else{
+					list[fil]=field.val()
+				}
 			})
 
 			infoTableModelList.push(list);
 		})
 		informationData.infoTableModelList = infoTableModelList;
-		 data.informationData=informationData;  
-		/*  console.log(data);
-		 return ; */
+		 data.informationData=informationData;   
 			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){  
 				if(!data){
 					layer.msg("提交表单过于频繁!");

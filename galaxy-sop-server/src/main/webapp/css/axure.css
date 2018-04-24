@@ -478,7 +478,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:100;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:10000;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .ico:hover{background-color:#0084f5;}
@@ -3114,7 +3114,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         float: left;
         width:50%;
     }
-    .ADDcurrendTable .intw_time,.ADDcurrendTable .interviewee{width:430px;float: left;}
+    .ADDcurrendTable .intw_time,.ADDcurrendTable .interviewee{width:412px;float: left;}
     .ADDcurrendTable .intw_summary{margin:25px 0;}
     .interviewee{
         float: right;
@@ -4217,7 +4217,7 @@ li .projectSource11 span.m_r30{
 #add_form .selectcheck .show-tick{margin-top: -18px;margin-left: -7px;
       margin-bottom: 30px;
     top: 14px;}
-    #add_form .error{font-size:12px!important;}
+#add_form span.error{font-size:12px!important;}
 .add-project-tabtable{overflow:visible;}
 .historyData{color: red;  margin-left: 118px;display:none;}
 .h_look .division_dd dd{width:80%;}
@@ -4784,8 +4784,9 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 }
 .noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}
-#team-table td{text-align:left; padding-bottom:15px;}
-#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;border-radius:2px;background:#fff;}
+#team-table td{text-align:left; padding-bottom:15px; border: none!important;}
+#team-table tr:nth-child(2) td{  padding-top:15px; border: none;}
+#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:32px;height:32px;border-radius:2px;background:#fff;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
 #team-table td input[name='other']{display:none;} 
 #team-table td:first-child input+div{ }
@@ -4800,10 +4801,10 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table{margin-bottom:20px;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
-#team-table td{position:relative;    border: 0px;}
+#team-table td{position:relative; border: none;}
 #team-table .tberror{position:absolute;line-height: 1; display:none;}
 .Terror{color:red;font-size:12px;}
-.basic_ul li.mr_50{display: inline-block;width:49%;vertical-align: top;}
+.basic_ul li.mr_50{display: inline-block;width:494px;vertical-align: top;}
 .check_result label .absoerror,.absoerror{display: inherit;
     margin: 0;
     position: absolute;
@@ -4820,15 +4821,26 @@ table.addSpBusForm {margin-bottom:15px;}
 .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
 .addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:1px;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
-.ADDcurrendTable .inline,.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{    vertical-align: middle;display:inline-block;} 
+.ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{  border-radius:2px;  vertical-align: middle;display:inline-block;
+    width: 270px!important;} 
+.ADDcurrendTable .inline{position: absolute;
+    right: 0;
+    top: 0;}
+.ADDcurrendTable .interviewee{margin-left:130px;}
 .ADDcurrendTable .reason_box{vertical-align:top;}
+.ADDcurrendTable .datetimepickerHour.time{background-position: 245px -150px !important;}
 .ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
-/* .dropdown-menu.open{height:300px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
-.dropdown-menu.inner   {height:260px!important;max-height:260px!important;}   */  
-    
-    
-    
-    
-    
+.ADDcurrendTable #cke_viewNotes{width:822px!important;}
+
+.tab2Link{overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;    width: 195px;
+    display: inline-block;
+    vertical-align: middle;}
+.projectSourceli .add_textarea {    max-height: 150px;overflow-y: auto;min-height: 80px;}
+ .dropdown-menu.open{min-height:50px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
+.dropdown-menu.inner {min-height: 50px!important;max-height: 260px!important;height: auto!important;}  
+#div_2 .dropdown-menu.inner{max-height: 100px!important;}
+.ADDcurrendTable .fmdl dt{color:#666666;}   
     
     

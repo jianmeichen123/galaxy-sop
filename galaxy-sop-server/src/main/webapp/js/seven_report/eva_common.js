@@ -1228,6 +1228,15 @@ function font_color(data){
 		var code_input = _this.closest("td").siblings(".score-column").find("input");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
 		var titleId=_this.attr("data-title-id");
+
+		if(titleId=='1270'){
+			if(_this.text()!='未填写'){
+				_this.addClass("black");
+			}else{
+				_this.removeClass("black");
+			}
+			return;
+		}
 		if(sign_status){
 			//多道题 sign=3
 			var num=0;
@@ -1263,6 +1272,7 @@ function font_color(data){
 				
 			}
 		}
+
 		//16类型特殊处理
 		var clean_status=0;
 		if(_this.parent().hasClass("content_16")){
