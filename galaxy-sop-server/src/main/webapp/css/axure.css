@@ -4831,16 +4831,16 @@ table.addSpBusForm {margin-bottom:15px;}
 .ADDcurrendTable .datetimepickerHour.time{background-position: 245px -150px !important;}
 .ADDcurrendTable #select_btn,.ADDcurrendTable #file_object{display:inline-block;}
 .ADDcurrendTable #cke_viewNotes{width:822px!important;}
-/* .dropdown-menu.open{height:300px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
-.dropdown-menu.inner   {height:260px!important;max-height:260px!important;}   */  
+
 .tab2Link{overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;    width: 195px;
     display: inline-block;
     vertical-align: middle;}
 .projectSourceli .add_textarea {    max-height: 150px;overflow-y: auto;min-height: 80px;}
-    
-    
+ .dropdown-menu.open{min-height:50px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
+.dropdown-menu.inner {min-height: 50px!important;max-height: 260px!important;height: auto!important;}  
+#div_2 .dropdown-menu.inner{max-height: 100px!important;}
     
     
     
