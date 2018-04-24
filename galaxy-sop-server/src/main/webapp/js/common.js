@@ -1112,7 +1112,7 @@ function intervierInfoFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
 	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue tab2Link\" >"+row.fname+"</a>"
 	}
 	
 	var targetStr = row.viewTarget;

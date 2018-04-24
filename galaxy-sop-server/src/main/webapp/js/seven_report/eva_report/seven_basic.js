@@ -679,7 +679,7 @@ function right(obj,type){
 				$("#save-rpt-btn em").removeClass("disabled")
 			})
 			saveGrade()
-	}
+	} 
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
 		var input_text = other.parents(".radioShow").find(".others_text").val();
