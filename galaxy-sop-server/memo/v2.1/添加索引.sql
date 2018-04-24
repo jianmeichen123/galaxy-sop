@@ -43,3 +43,12 @@ INSERT INTO `fx_db`.`project_standard` (`id`, `module_code`, `module_name`, `sta
 INSERT INTO `dict` VALUES ('252', 'projectType', '直营', '3', 'projectType:3', '3', NULL, '1456817970774', '1456817970774', '0');
 
 UPDATE dict SET is_delete=1 WHERE dict_code='projectType:2';
+
+
+
+UPDATE `fx_db`.`dict` SET `dict_value`='32', `dict_code`='32' WHERE `id`='146';
+UPDATE `fx_db`.`dict` SET `dict_value`='2011', `dict_code`='2011' WHERE `id`='149';
+
+
+UPDATE `fx_db`.`sop_project` SET `industry_own`='32' WHERE `industry_own` = 14;
+UPDATE `fx_db`.`sop_project` SET `industry_own`='2011' WHERE `industry_own` = 29;
