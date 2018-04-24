@@ -333,7 +333,7 @@
 				                    <dt id="toobar_content">访谈纪要：</dt>
 				                    <dd>
 				                        <textarea id="viewNotes"></textarea> 
-				                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
+				                        <span id="viewNotes-error" style='color:red;' for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
 				                    </dd>
 				                </dl>           
 				            </div>
@@ -485,6 +485,16 @@ $(function(){
 	createMenus(5);  
 	//ckeditor实例化
 	var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
+	viewNotesLen=0;
+	viewNotes.on( 'change', function() {   //访谈纪要 
+		viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    });
 	/**
 	 * 本轮融资轮次下拉数据
 	 * 项目来源下拉数据
@@ -765,8 +775,7 @@ function otherC(that){
 	  }
 } 
 //验证方法 
-function addValidate(){ 
-
+function addValidate(){  
 	  //验证估值 
     var s_val1=$("#formatValuations").attr("guzhi"),
 	s_val2=$("#formatValuations").val(),
@@ -780,7 +789,7 @@ function addValidate(){
 		$("#projectTypeTip").css("display","block");
 		return false;
 	} 
-
+	
 	return true;
 }
  
@@ -794,8 +803,7 @@ function addValidate(){
 	    $("#selectRadio[name=projectContractor]").css("display","inline-block");
 		//3.表单验证    
 	     var VDStatus = addValidate(); 
-	    if(!VDStatus){return false;}
-
+	    if(!VDStatus){return false;} 
 		//团队验证 
 		var teamValidate=true;
 		$.each($("#team-table tbody tr:gt(0)"),function(){ 
@@ -808,13 +816,18 @@ function addValidate(){
 			validaNull(list2);
 			//
 			if(that.find("input[name=field4]").val().trim()=='' &&that.find("input[name=field6]").val().trim()==''){
-				teamValidate=false;
-				//return false;
+				teamValidate=false; 
 			}
 		}) 
 	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
 			return false;	
 		}     
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+			return false;
+		}else{
+			$("#viewNotes-error").hide();
+		}
 		if($("#plan_business_table tbody tr td").eq(0).text()==''){
 			layer.msg('请上传商业计划书');
 			return false;
