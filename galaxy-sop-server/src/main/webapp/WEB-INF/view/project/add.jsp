@@ -290,7 +290,7 @@
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
 									</select>
-									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror"><span class='Terror'>*请输入职位</span></div>
+									<input onblur="validaNull($(this))" class="txt" name="other" style="width:45%;" maxlength="20" /><div class="tberror" style="left:50.5%;"><span class='Terror'>*请输入职位</span></div>
 								</td>
 								<td onclick="deleteTeam(this)" class="team_delete">删除
 								
@@ -322,7 +322,7 @@
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
-				                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
+				                        <input type="text" class="txt" maxlength="40" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
 			                        	<div class='inline'></div>
 				                    </dd>
 				                </dl>

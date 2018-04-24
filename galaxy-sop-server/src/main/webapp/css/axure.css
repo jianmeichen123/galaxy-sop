@@ -478,7 +478,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:100;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:10000;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .ico:hover{background-color:#0084f5;}
@@ -4784,8 +4784,9 @@ table[data-code='team-person'] td .blue{margin-right: 10px; cursor:pointer;}
 }
 .noticeStatus .bootstrap-select .btn-default[data-id='slpk_two']{margin-left: -4px;}
 .NEWsearchCss .bootstrap-select.btn-group .dropdown-menu li > a{display:block; width:100%;}
-#team-table td{text-align:left; padding-bottom:15px;}
-#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:30px;height:30px;border-radius:2px;background:#fff;}
+#team-table td{text-align:left; padding-bottom:15px; border: none!important;}
+#team-table tr:nth-child(2) td{  padding-top:15px; border: none;}
+#team-table td input,#team-table td select,#team-table td .bootstrap-select{width:95%; line-height:32px;height:32px;border-radius:2px;background:#fff;}
 #team-table td input{border:1px solid #d8d8d8; padding-left:8px;box-sizing: border-box;}
 #team-table td input[name='other']{display:none;} 
 #team-table td:first-child input+div{ }
@@ -4800,7 +4801,7 @@ table#team-table .on td{background:none;}
 .ADDcurrendTable #team-table{margin-bottom:20px;}
 .ADDcurrendTable #team-table tbody tr:first-child{display:none;}
 #team-table .team_delete{color:#3ca6ff; font-size:14px;cursor:pointer;}
-#team-table td{position:relative;    border: 0px;}
+#team-table td{position:relative; border: none;}
 #team-table .tberror{position:absolute;line-height: 1; display:none;}
 .Terror{color:red;font-size:12px;}
 .basic_ul li.mr_50{display: inline-block;width:494px;vertical-align: top;}
