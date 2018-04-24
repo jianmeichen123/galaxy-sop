@@ -564,6 +564,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					responseBody.setId(id);
 					if (file != null)
 					{
+						request.getSession().setAttribute("videoFile", null);
 						file.setMultipartFile(null);
 					}
 					_common_logger_.info("添加项目[" + "项目名称:" + project.getProjectName() + " 创建人:"
