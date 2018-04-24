@@ -286,3 +286,8 @@ jQuery.validator.addMethod("phone", function (value, element) {
   var mobile = /^[\+\-\(\)0-9]{0,40}$/;
 	return this.optional(element) || (mobile.test(value));
 }, "手机格式不对");
+//验证微信
+jQuery.validator.addMethod("wechat", function (value, element) {
+  var wechat =  /^[a-z|A-Z|0-9|_|-]{0,20}$/;
+	return this.optional(element) || (wechat.test(value));
+}, "微信格式不对"); 

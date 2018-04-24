@@ -285,6 +285,7 @@
 									 <input  type="text" class="txt " name="field4" class="" placeholder="手机号"  onblur="validaNull($(this),'phone')" /><div class="tberror"><span class='Terror'>*格式不对</span></div></td>
 								<td>
 									  <input  type="text" class="txt " name="field6" class="fn-tinput" placeholder="微信号"  maxlength="20" data-rule-wechat="true"   />								
+										<div style="position:absolute;line-height:1;"></div>
 								</td>
 								<td class="selectcheck select">
 									<select name="field2" class="txt_select txt" id="field2" onchange="otherC(this)">
@@ -800,6 +801,7 @@ function addValidate(){
 		$.each($("#team-table tbody tr:gt(0)"),function(){ 
 			//提示文字
 			var that=$(this);
+			if(that.hasClass("no-records-found")){teamValidate =false; return false;}
 			var list1 =that.find("input[name=field1]"); 
 			validaNull(list1);
 			var list2 = that.find("input[name=other]:visible"); 
@@ -812,7 +814,11 @@ function addValidate(){
 		}) 
 	     if(!$('#add_form').validate().form()){//验证不通过时候执行 
 			return false;	
-		}    
+		}     
+		if($("#plan_business_table tbody tr td").eq(0).text()==''){
+			layer.msg('请上传商业计划书');
+			return false;
+		}
 		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
 			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
 			return false;
@@ -946,15 +952,17 @@ function addValidate(){
 			$.each(that.find("input[name],select[name]"),function(){
 				var field = $(this); 
 				var fil = field.attr("name"); 
-				list[fil]=field.val();
+				if(fil=='field2'&&field.val()=='1363'){  
+					list[fil]=field.val()+"-"+field.next().next().val();
+				}else{
+					list[fil]=field.val()
+				}
 			})
 
 			infoTableModelList.push(list);
 		})
 		informationData.infoTableModelList = infoTableModelList;
-		 data.informationData=informationData;  
-		/*  console.log(data);
-		 return ; */
+		 data.informationData=informationData;   
 			sendPostRequestByJsonObj(platformUrl.addProject,data,function(data){  
 				if(!data){
 					layer.msg("提交表单过于频繁!");
