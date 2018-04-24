@@ -4841,6 +4841,6 @@ white-space: nowrap;    width: 195px;
  .dropdown-menu.open{min-height:50px!important;max-height:300px!important;z-index:9!important;overflow:hidden!important;}    
 .dropdown-menu.inner {min-height: 50px!important;max-height: 260px!important;height: auto!important;}  
 #div_2 .dropdown-menu.inner{max-height: 100px!important;}
-    
+.ADDcurrendTable .fmdl dt{color:#666666;}   
     
     
