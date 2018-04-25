@@ -197,9 +197,11 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 
 
 
-
+var fileNameO;
 function tosaveToggle(mark,selectId,fileName,beforeType){
-	
+	if(null!=fileName){
+		fileNameO=fileName;
+	}
 	var selectObj = $("#"+selectId);
 	var liObj = selectObj.closest("li");	
 	var typeObj=liObj.find("input[data-type]")[0];
@@ -226,6 +228,9 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		// to hide...;  for error
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
+		if(undefined==file.fileSuffix&&null!=fileNameO){
+			file=fileNameO
+		}
 		imgStr = getImageOrPdf(file);  
         beforeType=beforeType.toLowerCase();
 		if(beforeType=="pdf"){
