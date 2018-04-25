@@ -4181,7 +4181,7 @@ li .projectSource11 span.m_r30{
 .selectcheck .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]){width:278px; }
 .addpro-basi-ul .projectSourceli select{width:278px;}
 .open > .selectcheck .btn-default{background: url(../img/base_info/up.png) no-repeat right 7px center;}
-.selectcheck .text{display:block; width:100%;color:#333; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px; overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
+.selectcheck .text{display:block; width:100%;color:#333; box-sizing:border-box; padding-left:10px;height:32px;background: url(../img/seven_report/myboxG.png) no-repeat;background-position: 245px 3px; overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
 .selectcheck .text:hover{color:#333;}
 .selectcheck .open>.dropdown-menu{background:#fff;right:0;border-radius:1px;}
 .selectcheck .dropdown-menu{padding:0;}
@@ -4841,5 +4841,5 @@ white-space: nowrap;    width: 195px;
 .dropdown-menu.inner {min-height: 50px!important;max-height: 260px!important;height: auto!important;}  
 #div_2 .dropdown-menu.inner{max-height: 100px!important;}
 .ADDcurrendTable .fmdl dt{color:#666666;}   
-    
+#business_plan_grid tbody tr td:nth-child(1){width:300px;display:block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}  
     
