@@ -209,9 +209,11 @@
                         <span class="new_color  add-pro-basicmessage"><font color=red>*</font>商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                  <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
-		               
-	                </table>
+	                <p id="AfileName"></p>
+                	 <input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >上传附件</a>
+	                 
+	                <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table"></table> 
+                	 
                 </div>
                <!-- 团队成员 -->
                 <div class='ADDcurrendTable clearfix'>

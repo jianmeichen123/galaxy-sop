@@ -689,9 +689,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* 消息提醒 */
 .news_table{display: none;}
 .addBtnC{display:inline-block; background: #3CA6FF url(../img/btnico2.png) 0 0 no-repeat;background-position: 15px -121px;    padding-left: 30px;}
-.addBtnSY{margin-left:40px;margin-top: -26px;width:100px;cursor:pointer;}
+.addBtnSY{ margin-top: -26px;width:100px;cursor:pointer;display:inline-block;    margin-left: -102px;}
  
-.uploadlink{margin-left:40px;}
+.uploadlink{margin-left:12px;display:inline-block;}
 /* 项目基本信息内容 */
 .pagebox .projectmsg{width: 732px;padding:5px 20px 35px;margin:0 auto;background-color: #fff;border-radius: 10px;}
 .pagebox .projectmsg h2{width:100%;color:#6b799f;font-size: 20px;text-align: center;}
@@ -4818,7 +4818,7 @@ table.addSpBusForm {margin-bottom:15px;}
 .addSpBusForm thead{display:none!important;}
 .addSpBusForm tr td:nth-child(3){opacity:0;}
 .addSpBusForm thead th:nth-child(2),.addSpBusForm tr td:nth-child(2){max-width:120px!important;width:120px!important;}
-.addSpBusForm thead th:nth-child(1),.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:1px;}
+.addSpBusForm tr td:nth-child(1){max-width:400px!important;width:30px; box-sizing:border-box;}
 .addSpBusForm tr.on td, .addSpBusForm tr td,.addSpBusForm{background:none!important;border:0px!important;}
 .ADDcurrendTable .datetimepickerHour.time ,.ADDcurrendTable #viewTarget{  border-radius:2px;  vertical-align: middle;display:inline-block;
     width: 270px!important;} 
@@ -4842,4 +4842,24 @@ white-space: nowrap;    width: 195px;
 #div_2 .dropdown-menu.inner{max-height: 100px!important;}
 .ADDcurrendTable .fmdl dt{color:#666666;}   
 #business_plan_grid tbody tr td:nth-child(1){width:300px;display:block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}  
-    
+#AfileName{padding-left:25px; box-sizing:border-box; display:inline-block;max-width:400px;white-space: nowrap; vertical-align: middle;overflow: hidden;text-overflow: ellipsis;}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
