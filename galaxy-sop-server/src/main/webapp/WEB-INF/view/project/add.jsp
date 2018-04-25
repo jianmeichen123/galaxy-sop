@@ -112,37 +112,37 @@
                         <div class="projectSource projectSource5">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>合投机构名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS5"/>
+									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS5"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"   maxlength="20"  placeholder="请输入FA名称（必填）" id="proS6" name="proS6"/>
+									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"   maxlength="20"  placeholder="请输入FA名称（必填）" id="proS6" name="proS6"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>孵化器名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1123" data-type="1" maxlength="50" placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
+									<input type="text" class="addpro-input" data-title-id="1123" data-type="1" maxlength="50" placeholder="请输入孵化器名称" id="proS7" name="proS7"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>机构及路演名称：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/>
+									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>创投机构名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1125" data-type="1" maxlength="50" placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
+									<input type="text" class="addpro-input" data-title-id="1125" data-type="1" maxlength="50" placeholder="请输入创投机构名称" id="proS9" name="proS9"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>媒体名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/>
+									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource11">
@@ -151,7 +151,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="23" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
+									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/><div style="display:inline;"></div>
 								</span>
                         	</div>
                         </li>
@@ -1179,7 +1179,7 @@ function reason(obj,value){
 		multi_selection:false,
 		//multipart_params:{"flag":'video'},
 		filters : {
-			max_file_size : '25mb',
+			max_file_size : '50mb',
 			mime_types: paramsFilter(1)
 		},
 
