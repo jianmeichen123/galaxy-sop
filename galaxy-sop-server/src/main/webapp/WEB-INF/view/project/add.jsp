@@ -322,7 +322,7 @@
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
-				                        <input type="text" class="txt" maxlength="40" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
+				                        <input type="text" class="txt" maxlength="50" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
 			                        	<div class='inline'></div>
 				                    </dd>
 				                </dl>
