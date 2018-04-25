@@ -60,7 +60,7 @@
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 		<div class="new_tit_b add-project-title">
-            <span>添加项目</span>
+            <span id="ADDP">添加项目</span>
 		</div>
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
@@ -112,37 +112,37 @@
                         <div class="projectSource projectSource5">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>合投机构名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS5"/>
+									<input type="text" class="addpro-input" data-title-id="1121" data-type="1"   maxlength="50"  placeholder="请输入合投机构名称" id="proS6" name="proS5"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource6">
                         		 <span class="basic_span addpro-basic-span"><em class="red">*</em><span class='letter-space'>FA名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"   maxlength="20"  placeholder="请输入FA名称（必填）" id="proS6" name="proS6"/>
+									<input type="text" class="addpro-input" data-title-id="1122" data-type="1"   maxlength="20"  placeholder="请输入FA名称（必填）" id="proS6" name="proS6"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource7">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>孵化器名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1123" data-type="1" maxlength="50" placeholder="请输入孵化器名称" id="proS7" name="proS7"/>
+									<input type="text" class="addpro-input" data-title-id="1123" data-type="1" maxlength="50" placeholder="请输入孵化器名称" id="proS7" name="proS7"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource8">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>机构及路演名称：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/>
+									<input type="text" class="addpro-input" data-title-id="1124" data-type="1" maxlength="50" placeholder="请输入机构及路演名称" id="proS8" name="proS8"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource9">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>创投机构名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1125" data-type="1" maxlength="50" placeholder="请输入创投机构名称" id="proS9" name="proS9"/>
+									<input type="text" class="addpro-input" data-title-id="1125" data-type="1" maxlength="50" placeholder="请输入创投机构名称" id="proS9" name="proS9"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource10">
                         		 <span class="basic_span addpro-basic-span"><span class='letter-space'>媒体名称 ：</span></span>
                         		 <span class="m_r30">
-									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/>
+									<input type="text" class="addpro-input" data-title-id="1126" data-type="1" maxlength="50" placeholder="请输入媒体名称" id="proS10" name="proS10"/><div></div>
 								 </span>
                         	</div>
                         	<div class="projectSource projectSource11">
@@ -151,7 +151,7 @@
 									<select id="selectRadio" name="projectContractor" class="selectpicker" multiple data-live-search="true" data-type="23" data-title-id="1118">
 									    
 									  </select>
-									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/>
+									  <input type="text" class="addpro-input" id="pickeother" maxlength="12" placeholder='请输入非投资线项目承揽人名称(必填)'/><div style="display:inline;"></div>
 								</span>
                         	</div>
                         </li>
@@ -209,9 +209,11 @@
                         <span class="new_color  add-pro-basicmessage"><font color=red>*</font>商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                  <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
-		               
-	                </table>
+	                  <p id="AfileName"></p>
+                	 <input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >上传附件</a> 
+	                 
+	                <table style="display:none;" class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table"></table> 
+                	 
                 </div>
                <!-- 团队成员 -->
                 <div class='ADDcurrendTable clearfix'>
@@ -322,7 +324,7 @@
 				                <dl class="fmdl fml clearfix interviewee" id="targetView">
 				                    <dt id="toobar_notes">访谈对象：</dt>
 				                    <dd class="clearfix viewTarget">
-				                        <input type="text" class="txt" maxlength="40" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
+				                        <input type="text" class="txt" maxlength="50" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""/>
 			                        	<div class='inline'></div>
 				                    </dd>
 				                </dl>
@@ -671,7 +673,7 @@ $("#selectRadio").change(function(){
  	var res="";
  	$.each(data_list,function(){
  		if(this.departmentName!=null){
- 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+ 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+' |&nbsp;&nbsp;'+this.departmentName+"</option>"
  		}else{
  			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
  		}
@@ -828,12 +830,12 @@ function addValidate(){
 		}else{
 			$("#viewNotes-error").hide();
 		}
-		if($("#plan_business_table tbody tr td").eq(0).text()==''){
+		if($("#AfileName").text()==''){
 			layer.msg('请上传商业计划书');
 			return false;
-		}
+		} 
 		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
+			layer.msg('团队成员必填且联系电话／微信号不能为空');
 			return false;
 		}
 	 	/* 访谈纪要 */ 
@@ -1177,7 +1179,7 @@ function reason(obj,value){
 		multi_selection:false,
 		//multipart_params:{"flag":'video'},
 		filters : {
-			max_file_size : '25mb',
+			max_file_size : '50mb',
 			mime_types: paramsFilter(1)
 		},
 

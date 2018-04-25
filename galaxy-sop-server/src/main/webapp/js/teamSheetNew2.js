@@ -154,9 +154,16 @@
 										if(!win.ossObject){
 											var _restmp = $.parseJSON(result.response);
 											var _projectId = _restmp.message;
-											if(_restmp.result.status == "OK"){
-												layer.msg("上传成功");
-												win.callFuc();
+											if(_restmp.result.status == "OK"){ 
+												layer.msg("上传成功"); 
+												//win.callFuc();
+												 if($("#ADDP").length>0){ 
+													$("#AfileName").text(file.name)
+													$("#AfileName").next().next().text("更新附件")
+												}else{
+													win.callFuc();
+												} 
+												
 											}else{
 												if(_restmp.result.errorCode){
 													layer.msg(_restmp.result.errorCode);
