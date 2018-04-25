@@ -28,30 +28,7 @@ var planGrid = {
 							//'<a class="uploadlink blue ico_pgn 3333" id="upload_btn" href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					
-				}/*,
-				operatorEvent : {
-					 'mouseover .uploadlink': function (e, value, row, index) {
-						 console.log("2")
-						 formData = {
-					    			_fileType : "fileType:1",
-					    			_fileTypeAuto : true,
-					    			_workType : "fileWorktype:12",
-					    			_projectId : '0',
-					    			_projectName : "-",
-					    			_isProve : "hide",
-					    			_remark : "hide",
-									callFuc : function(){
-										console.log("刷新商业计划表格");
-//										window.location.reload(platformUrl.projectDetail + project.projectId);
-										$('#' + planGrid.domid).bootstrapTable('refresh',planGrid.queryParams);
-									},
-									_url : platformUrl.uploadBpToSession, //兼容老板插件
-									_localUrl : platformUrl.uploadBpToSession
-							};
-							win.init(formData);
-							
-				        }
-				}*/
+				}
 		}
 		
 		 planGrid.domid = data._domid;
@@ -80,7 +57,8 @@ var planGrid = {
 			detailView : false, // 是否显示父子表
 			//文件名称，状态，更新时间，下载
 			//fileName + fileSuffix,fileStatusDesc,createDate
-			columns : [{
+			//更改新建项目的结构
+		/*	columns : [{
 				field : 'fileName',
 				title : '文档名称',
 				formatter : gridFormatter.fileNameFormatter
@@ -92,7 +70,7 @@ var planGrid = {
 			}, {
 				field : 'createDate',
 				title : '更新时间'
-			}],
+			}],*/
 			onLoadSuccess : function(){
 				 formData = {
 			    			_fileType : "fileType:1",

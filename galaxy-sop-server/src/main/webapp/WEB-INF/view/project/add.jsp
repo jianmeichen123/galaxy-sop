@@ -209,9 +209,11 @@
                         <span class="new_color  add-pro-basicmessage"><font color=red>*</font>商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                  <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table">
-		               
-	                </table>
+	                <p id="AfileName"></p>
+                	 <input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >上传附件</a>
+	                 
+	                <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table"></table> 
+                	 
                 </div>
                <!-- 团队成员 -->
                 <div class='ADDcurrendTable clearfix'>
@@ -671,7 +673,7 @@ $("#selectRadio").change(function(){
  	var res="";
  	$.each(data_list,function(){
  		if(this.departmentName!=null){
- 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+this.departmentName+"</option>"
+ 			res+="<option value='"+this.id+"' data-type='23' data-title-id='1118'>"+this.realName+' |&nbsp;&nbsp;'+this.departmentName+"</option>"
  		}else{
  			res+="<option value='"+this.realName+"' data-type='23' data-title-id='1118'>"+this.realName+"</option>"
  		}
@@ -833,7 +835,7 @@ function addValidate(){
 			return false;
 		}
 		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
-			layer.msg('团队成员必须有一条记录且联系电话或微信号至少填写一项');
+			layer.msg('团队成员必填且联系电话／微信号不能为空');
 			return false;
 		}
 	 	/* 访谈纪要 */ 
