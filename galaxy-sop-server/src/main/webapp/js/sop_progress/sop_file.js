@@ -189,8 +189,13 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
 		/*$("#"+selectId).closest("li").hideLoading();*/ 
-		tosaveToggle('toHide',selectId,"",fileType);
+		var str =$(".cancel").attr("onclick");
+		str = str.match(/\((\S*)\)/)[1]; 
+		str.split(',');
+		str = str.split(',')[3].replace("'","").replace("'","")
+		tosaveToggle('toHide',selectId,"",str);
 		layer.msg(err.message);
+		$(".file_btn span").show()
 		uploader.splice(0, uploader.files.length);
 	});
 }
