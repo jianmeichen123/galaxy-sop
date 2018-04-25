@@ -58,7 +58,7 @@ var planGrid = {
 			//文件名称，状态，更新时间，下载
 			//fileName + fileSuffix,fileStatusDesc,createDate
 			//更改新建项目的结构
-		/*	columns : [{
+		 columns : [{
 				field : 'fileName',
 				title : '文档名称',
 				formatter : gridFormatter.fileNameFormatter
@@ -70,7 +70,7 @@ var planGrid = {
 			}, {
 				field : 'createDate',
 				title : '更新时间'
-			}],*/
+			}], 
 			onLoadSuccess : function(){
 				 formData = {
 			    			_fileType : "fileType:1",

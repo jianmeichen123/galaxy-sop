@@ -4843,8 +4843,8 @@ white-space: nowrap;    width: 195px;
 .ADDcurrendTable .fmdl dt{color:#666666;}   
 #business_plan_grid tbody tr td:nth-child(1){width:300px;display:block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}  
 #AfileName{padding-left:25px; box-sizing:border-box; display:inline-block;max-width:400px;white-space: nowrap; vertical-align: middle;overflow: hidden;text-overflow: ellipsis;}  
-
-
+.addpro-business-plan{padding-bottom:20px;}
+#win_uploadBtn{display:inline-block;}
 
 
 
