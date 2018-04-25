@@ -348,15 +348,14 @@ table .width_gd{width:12%;}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   color: #262626;
-  text-decoration: none;
-  background-color: #f5f5f5;
+  text-decoration: none; 
+  background-color: #e5f3ff; 
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus {
-  color: #fff;
+.dropdown-menu > .active > a:focus { 
   text-decoration: none;
-  background-color: #66b1f2;
+  background-color: #e5f3ff;
   outline: 0;
 }
 .dropdown-menu > .disabled > a,

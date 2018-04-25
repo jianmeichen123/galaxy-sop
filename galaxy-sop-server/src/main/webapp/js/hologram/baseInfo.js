@@ -410,9 +410,9 @@ function one_select_edit(title,inputtype,type){
 					var _id=o.id;
 					if(_id!=null){
 						if(idArr.indexOf(_id.toString())>-1){
-							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"' selected=\"selected\">"+o.realName+' |  '+o.departmentName+"</option>"
 						}else{
-							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+'&nbsp;&nbsp;|&nbsp;&nbsp;'+o.departmentName+"</option>"
+							li+="<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='"+o.id+"'>"+o.realName+' |&nbsp;&nbsp;'+o.departmentName+"</option>"
 						}
 					}else{
 						if(idArr.indexOf('非投资线员工')>-1){
