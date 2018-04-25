@@ -60,7 +60,7 @@
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 		<div class="new_tit_b add-project-title">
-            <span>添加项目</span>
+            <span id="ADDP">添加项目</span>
 		</div>
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
@@ -209,10 +209,10 @@
                         <span class="new_color  add-pro-basicmessage"><font color=red>*</font>商业计划书<em>(文件上传大小不超过25MB)</em></span>
                     </div> 
 	                <!-- 商业计划书表格-->
-	                <p id="AfileName"></p>
-                	 <input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >上传附件</a>
+	                  <p id="AfileName"></p>
+                	 <input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >上传附件</a> 
 	                 
-	                <table  class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table"></table> 
+	                <table style="display:none;" class="addSpBusForm" id="plan_business_table" cellspacing="0" cellpadding="0" class="business-plan-table"></table> 
                 	 
                 </div>
                <!-- 团队成员 -->
@@ -830,10 +830,10 @@ function addValidate(){
 		}else{
 			$("#viewNotes-error").hide();
 		}
-		if($("#plan_business_table tbody tr td").eq(0).text()==''){
+		if($("#AfileName").text()==''){
 			layer.msg('请上传商业计划书');
 			return false;
-		}
+		} 
 		if($("#team-table tbody tr:gt(0)").length<1||!teamValidate ){
 			layer.msg('团队成员必填且联系电话／微信号不能为空');
 			return false;
