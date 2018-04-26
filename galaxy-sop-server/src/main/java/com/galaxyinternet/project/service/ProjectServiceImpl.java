@@ -4,6 +4,8 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ChartKpiQuery;
+import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.JointDeliveryDao;
@@ -16,14 +18,22 @@ import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationModel;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -34,6 +44,7 @@ import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.project_process.event.RejectEvent;
@@ -44,6 +55,10 @@ import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -62,6 +77,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Service("com.galaxyinternet.service.ProjectService")
@@ -100,6 +117,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private MeetingRecordService meetingRecordService;
 	@Autowired
 	private InterviewRecordService interviewRecordService;
+	@Autowired
+	private InformationDataService infoDataService;
+	@Autowired
+	private InformationListdataService informationListdataService;
 
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -224,6 +245,121 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return id;
 	}
 
+	@Override
+	@Transactional
+	public long insertProject(Project project,UploadFileResult result,HttpServletRequest request) throws Exception  {
+		project.setProgressHistory(project.getProjectProgress());
+		long id = projectDao.insertProject(project);
+		User user = WebUtils.getUserFromSession();
+		Long userId = user != null ? user.getId() : null;
+		Long time=new Date().getTime();
+		//存商业计划书
+		if(null!=project.getBusinessPlanFile()){
+			SopFile file=project.getBusinessPlanFile();
+			file.setProjectId(id);
+			file.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+			sopFileDao.insert(file);
+		}
+		//需要保存到报告里面的字段/团队成员保存处理
+		 InformationData informationData = project.getInformationData();
+		 informationData.setProjectId(id+"");
+		 try{
+			 infoDataService.save(informationData);
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		
+		 
+         //接触访谈信息处理
+         Project p= new Project();
+         p.setCreateUid(userId);
+         //该接口调用之前项目流程里面的添加访谈记录的处理方式
+         /**
+          * p    该对象为了传值  p.setCreateUid(userId);   
+          * project.getProjectQuery()    改对象是将访谈记录从前台传到后台
+          * result 控制层上传录音到阿里云的结果
+          * request  对象
+          */
+         if(null!=project.getProjectQuery()){
+        	 ProjectQuery pq=project.getProjectQuery(); 
+        	 pq.setPid(id);
+        	 interviewRecordService.insertInterview(project, pq);
+         }
+         //通用属性
+		SopFile f = new SopFile();
+		f.setProjectId(id);
+		f.setCareerLine(project.getProjectDepartid());
+		f.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+		f.setCreatedTime(time);
+		SopVoucherFile svf = new SopVoucherFile();
+		svf.setProjectId(id);
+		svf.setCareerLine(project.getProjectDepartid());
+		svf.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+		svf.setCreatedTime(time);
+		//投资意向书，先提交投资意向书-签署-上传签署证明
+		svf.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
+		svf.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
+		svf.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setVoucherId(null);
+		//尽调阶段
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		//投资协议文档，投资协议文档+签署证明
+		svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+		svf.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+		svf.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setVoucherId(null);
+		//股权交割
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+			//投资项目必须四个尽调、创建必须两个尽调
+			f.setFileValid(0);
+			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+			sopFileDao.insert(f);
+			f.setId(null);
+			f.setFileValid(0);
+			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+			sopFileDao.insert(f);
+			f.setId(null);
+			//投资转让协议文档，投资转让协议文档+签署证明
+			svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+			svf.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
+			svf.setId(null);
+			f.setFileValid(1);
+			f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
+			sopFileDao.insert(f);
+			f.setId(null);
+		return id;
+	}
 	@Override
 	@Transactional
 	public void toEstablishStage(Project project) throws Exception {

@@ -30,7 +30,7 @@
 	                	<div id="setValue">
 	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.######" maxFractionDigits="6" > </fmt:formatNumber>" onblur="set_finalValuations()"
-	                    		data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>支持9位长度的6位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
+	                    		data-rule-verify_96="true"  data-msg-verify_96="<font color=red>*</font>金额最大允许输入9位整数和6位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -62,7 +62,7 @@
 	                	<div id="setValue">
 	                	<input type="hidden" name="">
 	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" data-type="19" id="finalValuations" name="4" value="" 
-	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_136="true"  data-msg-verify_136="<font color=red>*</font>支持13位长度的6位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_136="true"  data-msg-verify_136="<font color=red>*</font>金额最大允许输入13位整数和6位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>

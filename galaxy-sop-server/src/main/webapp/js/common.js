@@ -1,3 +1,25 @@
+ 
+//提示语
+function tips(code,dom){
+	var url= platformUrl.fillStatus+'/'+code;
+	$.ajax({
+		 type:"get",
+		 url:url,
+		 dataType:'json',
+		 success:function(data){ 
+			 if(data.entity&&data.entity.status==1){
+				// $(dom).show()
+				 var tips = data.entity.standardDetails;
+				 dom.attr('title',tips) 
+			 } else{
+				 
+			 }
+			
+		 }
+	 }) 
+
+}
+
 //获取参数
   
 function getURLParameter(name) {
@@ -43,6 +65,13 @@ function finalValue(val1,val2){
 	}
 	return null;
 }
+function finalFloat(res,num){    
+		var array = String(res).split(".");
+		if(array[1]!=undefined){ 
+			array[1]=array[1].slice(0,num);
+		}  
+		return array.join('.');
+	} 
 //js计算精度问题 减法
 function accSub(arg1, arg2) {
     var r1, r2, m, n;
@@ -1083,7 +1112,7 @@ function intervierInfoFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
 	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue tab2Link\" title="+row.fname+" >"+row.fname+"</a>"
 	}
 	
 	var targetStr = row.viewTarget;
@@ -1463,7 +1492,7 @@ function createDictionaryOptions(url, name, selectIndex){
 			}else{
 				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 			}
-		});
+		}); 
 		$('select[name="'+name+'"]').append(options.join(''));
 		
 	});

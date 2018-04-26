@@ -40,7 +40,7 @@
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix viewTarget">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -107,6 +107,7 @@ _this.id="interviewAdd";
 //plupload 上传对象初始化, 绑定保存saveViewFile
 var meetingType = $("#meetingType").val();
 var url = Constants.sopEndpointURL + "/galaxy/progress/p1/add";
+//var url = Constants.sopEndpointURL + "/galaxy/project/insertProject";
 if(meetingType != ""){
 	url = Constants.sopEndpointURL + "/galaxy/progress/p2/add";
 }
@@ -226,6 +227,7 @@ function initViewUpload() {
 						res.recordId=recordId;
 					}
 					if(up.files.length > 0){
+						console.log(res);
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{

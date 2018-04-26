@@ -7,14 +7,19 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.project.Project;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value="封装对象",description="目前用来保存访谈信息")
 public class ProjectQuery extends ViewQuery{
 	private static final long serialVersionUID = 1L;
 	
 	//项目ID
 	private Long pid;
 	//本次选择的项目阶段，并以一定和项目当前阶段一致
+	@ApiModelProperty(value="本次选择的项目阶段，并以一定和项目当前阶段一致",example="projectProgress:1")
 	private String stage;
 	//针对会议类型
 	private String meetingType;
@@ -31,10 +36,14 @@ public class ProjectQuery extends ViewQuery{
 	//档案来源
 	private Integer type;
 	//针对访谈对象
+	@ApiModelProperty(value="针对访谈对象",example="访谈对象AAAAAAAA")
 	private String target;
 	//访谈结果
+	@ApiModelProperty(value="访谈结果",example="meetingResult:2")
 	private String interviewResult;
 	private String projectProgress;
+	
+	private Project project;
 	
 	
 	public String getProjectProgress() {
@@ -51,8 +60,10 @@ public class ProjectQuery extends ViewQuery{
 		this.interviewResult = interviewResult;
 	}
 	//结果原因
+	@ApiModelProperty(value="结果原因",example="meetingUndeterminedReason:2")
 	private String resultReason;
 	//其他原因
+	@ApiModelProperty(value="其他原因",example="其他原因BBBBBBBBBB")
 	private String reasonOther;
 	
 	
@@ -69,9 +80,11 @@ public class ProjectQuery extends ViewQuery{
 	public void setReasonOther(String reasonOther) {
 		this.reasonOther = reasonOther;
 	}
-	//附加内容
+	//附加内容<p>asdasdasdasd</p>
+	@ApiModelProperty(value="会议纪要",example="<p>会议纪要asdasdasdasd</p>")
 	private String content;
 	//时间
+	@ApiModelProperty(value="创建时间",example="2018-04-12 10:54")
 	private String createDate;
 	
 	//文件属性
@@ -251,6 +264,12 @@ public class ProjectQuery extends ViewQuery{
 	}
 	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
+	}
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 	

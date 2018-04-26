@@ -7,6 +7,27 @@
 					required :true,
 					limit24 :true
 				},
+				projectInfo:{
+					required :true,
+				},
+				procontribution:{ 
+					required :true,
+				},
+				proshare:{
+					required :true,
+				},
+				viewTarget:{
+					required :true,
+				},
+				viewDate:{
+					required :true,
+				},
+				provaluations:{
+					required :true,
+				},
+				projectInfo:{
+					required :true,
+				},
 				financeStatus :{
 					required: true
 				},
@@ -26,11 +47,38 @@
 				pickeother:{
 					required:true,
 					limit12 : true
+				},
+				interviewResult:{
+					required:true,
 				}
 			},
 			messages :{
+				viewTarget:{
+					required :"*必填",
+				},
+				interviewResult:{
+					required :"*必选",
+				},
+				projectInfo:{
+					required :"*项目简介不能为空",
+				},
+				viewDate:{
+					required :"*必填",
+				},
 				projectName:{
 					required:'*项目名称不能为空'
+				},
+				procontribution:{
+					required:'*融资金额不能为空'
+				},
+				proshare:{
+					required:'*出让股份不能为空'
+				},
+				provaluations:{
+					required:'*项目估值不能为空'
+				},
+				projectInfo:{
+					required:'*项目简介不能为空'
 				},
 				projectContractor:{
 					required:'*项目承揽人不能为空'
@@ -52,6 +100,9 @@
 				}
 				
 			},
+			errorPlacement: function(error, element) {    
+    		 error.appendTo( element.next() );//这里的element是录入数据的对象  
+    		 },
 		});
 	})
 //验证
@@ -59,7 +110,7 @@
 	jQuery.validator.addMethod("amount", function (value, element) {
 		var amount = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (amount.test(value));
-	}, "支持9位长度的6位小数");
+	}, "金额最大允许输入9位整数和6位小数");
 //占股比例
 	jQuery.validator.addMethod("share", function (value, element) {
 		var share = /^([1-9]\d?(\.\d{1,5})?|0+(?:\.\d{1,5})|100(\.[0]{1,5})?)$/
@@ -80,16 +131,16 @@
 	}, "*不能超过24字且不能全为空格");
 	
 	
-	//融资金额LIMIT_11_NUMBER
+ 
 	jQuery.validator.addMethod("procontribution", function (value, element) {
 		var procontribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (procontribution.test(value));
-	}, "支持9位长度的支持6位小数");
+	}, "必填，支持9位长度的6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
 		var provaluations = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 		return this.optional(element) || (provaluations.test(value));
-	}, "支持13位长度的支持6位小数");
+	}, "金额最大允许输入13位整数和6位小数");
 	//出让股份
 	jQuery.validator.addMethod("proshare", function (value, element) {
 		if(_parsefloat(value)=='0'){value=0;}
@@ -100,7 +151,7 @@
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
 		var finalContribution = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 		return this.optional(element) || (finalContribution.test(value));
-	}, "支持9位长度的支持6位小数");
+	}, "金额最大允许输入9位整数和6位小数");
 	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("finalValuations", function (value, element) {
 		var finalValuations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
@@ -146,7 +197,7 @@
 jQuery.validator.addMethod("verify_96", function(value, element) {
 	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_96.test(value));
-}, "支持9位长度的6位小数");
+}, "金额最大允许输入9位整数和6位小数");
 	jQuery.validator.addMethod("verify_94", function(value, element) {
 		var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 		return this.optional(element) || (verify_94.test(value));
@@ -229,4 +280,14 @@ jQuery.validator.addMethod("verify_10_01", function(value, element) {
 jQuery.validator.addMethod("verify_136", function(value, element) {
 	var verify = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify.test(value));
-}, "支持13位长度的6位小数");
+}, "金额最大允许输入13位整数和6位小数");
+//验证手机号
+jQuery.validator.addMethod("phone", function (value, element) {
+  var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+	return this.optional(element) || (mobile.test(value));
+}, "手机格式不对");
+//验证微信
+jQuery.validator.addMethod("wechat", function (value, element) {
+  var wechat =  /^[a-z|A-Z|0-9|_|-]{0,20}$/;
+	return this.optional(element) || (wechat.test(value));
+}, "微信格式不对"); 

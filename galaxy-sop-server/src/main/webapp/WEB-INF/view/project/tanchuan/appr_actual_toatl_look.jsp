@@ -58,8 +58,9 @@
 		if(num[0].length>9){
 			_val=_val;
 		}else{
-			//_val=Number(_val).toFixed(4)
-			_val=Number(_val);
+			//_val=Number(_val).toFixed(4) 
+			_val=finalFloat(_val,6)
+			debugger;
 		}
 	}
 	_val = _parsefloat(_val);

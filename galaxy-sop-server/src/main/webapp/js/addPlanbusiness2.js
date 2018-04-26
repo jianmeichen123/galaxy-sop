@@ -12,7 +12,7 @@ var planGrid = {
 					if(row.fileName){
 						return row.fileName +'.'+row.fileSuffix;
 					}else{
-						return "-";
+						return "";
 					}
 					
 				},
@@ -24,34 +24,11 @@ var planGrid = {
 						operator = '上传附件';
 					}
 					return [
-					        '<input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"/><a class="blue 3333"  href="javascript:void(0)" style="margin-left:-100px;">'+ operator +'</a>'
+					        '<input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"/><a class="pubbtn bluebtn addBtnSY  lightbg new_blueBtn"  href="javascript:void(0)"  >'+ operator +'</a>'
 							//'<a class="uploadlink blue ico_pgn 3333" id="upload_btn" href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					
-				}/*,
-				operatorEvent : {
-					 'mouseover .uploadlink': function (e, value, row, index) {
-						 console.log("2")
-						 formData = {
-					    			_fileType : "fileType:1",
-					    			_fileTypeAuto : true,
-					    			_workType : "fileWorktype:12",
-					    			_projectId : '0',
-					    			_projectName : "-",
-					    			_isProve : "hide",
-					    			_remark : "hide",
-									callFuc : function(){
-										console.log("刷新商业计划表格");
-//										window.location.reload(platformUrl.projectDetail + project.projectId);
-										$('#' + planGrid.domid).bootstrapTable('refresh',planGrid.queryParams);
-									},
-									_url : platformUrl.uploadBpToSession, //兼容老板插件
-									_localUrl : platformUrl.uploadBpToSession
-							};
-							win.init(formData);
-							
-				        }
-				}*/
+				}
 		}
 		
 		 planGrid.domid = data._domid;
@@ -80,19 +57,20 @@ var planGrid = {
 			detailView : false, // 是否显示父子表
 			//文件名称，状态，更新时间，下载
 			//fileName + fileSuffix,fileStatusDesc,createDate
-			columns : [{
-				field : 'createDate',
-				title : '更新时间'
-			}, {
+			//更改新建项目的结构
+		 columns : [{
 				field : 'fileName',
 				title : '文档名称',
 				formatter : gridFormatter.fileNameFormatter
-			}, {
+			},{
 				field : 'operate',
 				title : '操作',
 				//events : gridFormatter.operatorEvent,
 				formatter : gridFormatter.operatorFormatter
-			}],
+			}, {
+				field : 'createDate',
+				title : '更新时间'
+			}], 
 			onLoadSuccess : function(){
 				 formData = {
 			    			_fileType : "fileType:1",

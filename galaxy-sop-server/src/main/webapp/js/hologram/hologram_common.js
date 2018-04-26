@@ -500,7 +500,12 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				var contentDescribe=title.resultList[0].contentDescribe1;
-				$(".field[data-title-id='"+title.id+"']").html((contentDescribe==undefined || textarea_show(contentDescribe)==0) ?"未填写":title.resultList[0].contentDescribe1);
+				//处理商业模式历史数据处理
+				if(contentDescribe && (contentDescribe.indexOf('<sitg>')>-1 || contentDescribe.indexOf('</sitg>')>-1) ){
+					contentDescribe=contentDescribe.replace(/<sitg>/g,"（");
+					contentDescribe=contentDescribe.replace(/<\/sitg>/g,"）");
+				}
+				$(".field[data-title-id='"+title.id+"']").html((contentDescribe==undefined || textarea_show(contentDescribe)==0) ?"未填写":contentDescribe);
 			}
 			else
 			{
@@ -510,6 +515,15 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br\/>/g,'\n');
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
+				}
+				//处理商业模式历史数据处理
+				if(str && (str.indexOf('<sitg>')>-1 || str.indexOf('</sitg>')>-1) ){
+					str=str.replace(/<sitg>/g,"（");
+					str=str.replace(/<\/sitg>/g,"）");
+				}
+				if(title.id==1203){
+					$("textarea[data-title-id='"+title.id+"']").closest('dl').find('img').css("display","block");
+					$("textarea[data-title-id='"+title.id+"']").removeAttr('placeholder');
 				}
 				$("textarea[data-title-id='"+title.id+"']").val((title.resultList[0].contentDescribe1==undefined || textarea_show(title.resultList[0].contentDescribe1)==0)?"":str).attr("resultId",result_id);
 			}
@@ -626,6 +640,17 @@ function buildResults(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
+			}
+		}else if(title.type == 8){
+			if(readonly !=true){
+				//特殊处理商业模式
+				if(title.id==1203){
+					var defalutText="";
+					defalutText=title.placeholder;
+					$("textarea[data-title-id='"+title.id+"']").val(defalutText);
+					$("textarea[data-title-id='"+title.id+"']").closest('dl').find('img').css("display","block");
+					$("textarea[data-title-id='"+title.id+"']").removeAttr('placeholder');
+				}
 			}
 		}
 	}
@@ -1215,7 +1240,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_96":"<font color=red>*</font>支持9位长度的6位小数"
+						"data-msg-verify_96":"<font color=red>*</font>金额最大允许输入9位整数和6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,6"){
@@ -1224,7 +1249,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_136":"<font color=red>*</font>支持13位长度的6位小数"
+						"data-msg-verify_136":"<font color=red>*</font>金额最大允许输入13位整数和6位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
@@ -1370,7 +1395,7 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 jQuery.validator.addMethod("verify_136", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,12})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
-}, "支持13位长度的6位小数");
+}, "金额最大允许输入13位整数和6位小数");
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
@@ -1394,7 +1419,7 @@ jQuery.validator.addMethod("verify_92", function(value, element) {
 jQuery.validator.addMethod("verify_96", function(value, element) {
 	var verify_96 = /^(\d(\.\d{1,6})?|([1-9][0-9]{1,8})(\.\d{1,6})?)$/;
 	return this.optional(element) || (verify_96.test(value));
-}, "支持9位长度的6位小数");
+}, "金额最大允许输入9位整数和6位小数");
 jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
@@ -2159,6 +2184,7 @@ function addRowCompete(ele,id_code){
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('添加显在竞争对手')
 					}else{
@@ -2523,6 +2549,7 @@ function editRowCompete(ele,id_code,row,code){   //ele指代this,id_code是模�
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					if(id_code=='NO5_4'){
 						$('.h_title_conpetition').text('编辑显在竞争对手')
 					}else{

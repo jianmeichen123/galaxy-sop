@@ -193,7 +193,7 @@
 		<profile>
 			<id>qa</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->

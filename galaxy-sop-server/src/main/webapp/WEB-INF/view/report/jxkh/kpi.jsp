@@ -60,8 +60,9 @@
 						<dd>
 							<select name="projectType" id="userkpi_projectType">
 								<option value="">全部</option>
-								<option value="projectType:2">创建</option>
+								
 								<option value="projectType:1">投资</option>
+								<option value="projectType:3">直营</option>
 							</select>
 						</dd>
 					</dl>
@@ -115,8 +116,9 @@
 						<dd>
 							<select name="projectType" id="deptkpi_projectType">
 								<option value="">全部</option>
-								<option value="projectType:2">创建</option>
+								
 								<option value="projectType:1">投资</option>
+								<option value="projectType:3">直营</option>
 							</select>
 						</dd>
 					</dl>

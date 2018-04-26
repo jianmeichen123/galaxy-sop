@@ -420,6 +420,11 @@ function buildResultsDraft(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
+				//处理商业模式历史数据处理
+				if(str && (str.indexOf('<sitg>')>-1 || str.indexOf('</sitg>')>-1) ){
+					str=str.replace(/<sitg>/g,"（");
+					str=str.replace(/<\/sitg>/g,"）");
+				}
 				$("textarea[data-title-id='"+title.id+"']").val((title.resultMGList[0].contentDescribe1==undefined || textarea_show(title.resultMGList[0].contentDescribe1)==0)?"":str).attr("resultId",result_id);
 				$("textarea[data-title-id='"+title.id+"']").closest('div.mb_24,dl.h_edit_txt').find('dt').attr("tochange",true);
 			}

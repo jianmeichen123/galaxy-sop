@@ -101,11 +101,11 @@
 							multi_selection:false,
 							filters : {
 								max_file_size : '25mb',
-							/*	mime_types: [
-									//{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
-									//{title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
-									//{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
-									//{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
+								/*mime_types: [
+									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
+									{title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
+									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
+									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
 								]*/
 							},
 							init: {
@@ -154,9 +154,16 @@
 										if(!win.ossObject){
 											var _restmp = $.parseJSON(result.response);
 											var _projectId = _restmp.message;
-											if(_restmp.result.status == "OK"){
-												layer.msg("上传成功");
-												win.callFuc();
+											if(_restmp.result.status == "OK"){ 
+												layer.msg("上传成功"); 
+												//win.callFuc();
+												 if($("#ADDP").length>0){ 
+													$("#AfileName").text(file.name)
+													$("#AfileName").next().next().text("更新附件")
+												}else{
+													win.callFuc();
+												} 
+												
 											}else{
 												if(_restmp.result.errorCode){
 													layer.msg(_restmp.result.errorCode);

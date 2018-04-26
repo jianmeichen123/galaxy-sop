@@ -393,10 +393,13 @@ sendGetRequest(platformUrl.editProjectAreaInfo + projectInfoDetail.id + "/NO1_1"
 			if(valList.filter(function(val){return val.valRuleFormula==code})[0].id=="1118"&&List){
 					var Str=""
 				$.each(List,function(){ 
-					Str+=$(this)[0].valueName=="非投资线员工"?$(this)[0].contentDescribe1:$(this)[0].valueName;		
-					Str+='、'; 
+					var s = $(this)[0].valueName=="非投资线员工"?$(this)[0].contentDescribe1:$(this)[0].valueName;
+					if(s!=undefined){
+						Str+=s; 
+						Str+='、'; 
+					} 	
 				}) 
-				Str=Str.substring(0,Str.length-1); 
+				Str=Str.substring(0,Str.length-1);  
 				$("#faName").attr('data-original-title',Str);
 				$("#faName[data-toggle='tooltip']").tooltip();//提示
 			}

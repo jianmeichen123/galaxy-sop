@@ -204,7 +204,7 @@
 							<tr>
 								<td class="million">
 									<span>融资金额：</span>
-									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持9位长度的6位小数" data-title-id="1916">
+									<input type="text" class="basic_mes_input" size="20" placeholder="融资金额"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>金额最大允许输入9位整数和6位小数" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
@@ -217,7 +217,7 @@
 								<td class="million">
 									<span>项目估值：</span> 
 									<input type="hidden"   name="">
-									<input type="text" VType='guzhi' class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数" data-title-id="1943">
+									<input type="text" VType='guzhi' class="basic_mes_input" placeholder="项目估值" data-title-id="1943" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>金额最大允许输入13位整数和6位小数" data-title-id="1943">
 								</td>
 							</tr>
 							
@@ -240,7 +240,7 @@
 							<tr class="million">
 								<td >
 									<span>投资金额：</span>
-									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持9位长度的6位小数"  data-title-id="3004"/>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>金额最大允许输入9位整数和6位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
 							<tr class="percent">
@@ -253,7 +253,7 @@
 								<td>
 									<span>项目估值：</span>
 									<input type="hidden"   name="">
-									<input type="text" VType='guzhi' value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持13位长度的6位小数"  data-title-id="3012">
+									<input type="text" VType='guzhi' value="" class="basic_mes_input real_ivestest_input" placeholder="项目估值" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>金额最大允许输入13位整数和6位小数"  data-title-id="3012">
 								</td>
 							</tr>
 							
@@ -606,7 +606,7 @@ createMenus(5);
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs institue_content">'
 	          +'<span class="input_box"><input placeholder="机构名称" class="name inves_input input_stock_left" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font>不能为空"/></span>'
-	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持9位长度的6位小数" data-msg-amount="<font color=red>*</font>支持9位长度的6位小数"/></span>'
+	          +'<span class="input_box"><input placeholder="投资金额(万元)" class="inves_input" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持9位长度的6位小数" data-msg-amount="<font color=red>*</font>金额最大允许输入9位整数和6位小数"/></span>'
 	          +'<span class="input_box"><div id="dropdown"> <input class="input_select" autocomplete="off"  onclick="dropdown_select(this,event)" type="text" value="人民币" m-val="currency:0" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空" aria-required="true"/> <ul class="base_select_ul"><li value="currency:0">人民币</li><li value="currency:1">美元</li></ul></div> </span>'
 	          +'<span class="input_box"><input placeholder="占股比例(%)"  class="inves_input inves_stock" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0-100间的5位小数" data-msg-share="<font color=red>*</font>0-100间的5位小数"/></span>'
 	            +'<em class="inves_delete"></em>'

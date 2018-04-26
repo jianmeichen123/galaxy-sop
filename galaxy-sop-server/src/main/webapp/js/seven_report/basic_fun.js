@@ -3,6 +3,8 @@ var keyJSON={};
 var deleteJSON={};
 var totalMoney;
 var remainMoney;
+
+
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
 	var params = {};
 	var uploader = new plupload.Uploader({
@@ -192,7 +194,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
-				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code); 
+				tips("12",$(".tips12")) 
 				if(id_code=="DNO5_1" || id_code=="GNO5_1" ){   //竞争俩字
 					$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
 				}
@@ -233,8 +236,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				if(reportType=="7" && id_code=="ONO9_2"){
 					$("#add_row").remove();
 				}
-				if(res_money){
-					$("input[data-title-id=3012]").val(res_money); 
+				if(res_money){ 
+					$("input[data-title-id=3012]").val(finalFloat(res_money,6)); 
 				}
 				//计算项目估值
 				if(reportType=="3"){ 
@@ -576,8 +579,8 @@ function editRow(ele)
 	                		$("#formatRemainMoney").text(0);
 	                	}
 	            	}
-	            })
-	            $(".remainMoney span").text(accSub(totalMoneyPart,sum));  //查看时的剩余金额
+	            }) 
+	            $(".remainMoney span").text(finalFloat(accSub(totalMoneyPart,sum),6));  //查看时的剩余金额
 				selectContext("detail-form");
 				$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 					var ele = $(this);

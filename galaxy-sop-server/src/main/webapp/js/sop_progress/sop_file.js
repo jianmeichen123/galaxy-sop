@@ -189,17 +189,24 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
 		/*$("#"+selectId).closest("li").hideLoading();*/ 
-		tosaveToggle('toHide',selectId,"",fileType);
+		var str =$(".cancel").attr("onclick");
+		str = str.match(/\((\S*)\)/)[1]; 
+		str.split(',');
+		str = str.split(',')[3].replace("'","").replace("'","")
+		tosaveToggle('toHide',selectId,"",str);
 		layer.msg(err.message);
+		$(".file_btn span").show()
 		uploader.splice(0, uploader.files.length);
 	});
 }
 
 
 
-
+var fileNameO;
 function tosaveToggle(mark,selectId,fileName,beforeType){
-	
+	if(null!=fileName){
+		fileNameO=fileName;
+	}
 	var selectObj = $("#"+selectId);
 	var liObj = selectObj.closest("li");	
 	var typeObj=liObj.find("input[data-type]")[0];
@@ -226,6 +233,9 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		// to hide...;  for error
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
+		if(undefined==file.fileSuffix&&null!=fileNameO){
+			file=fileNameO
+		}
 		imgStr = getImageOrPdf(file);  
         beforeType=beforeType.toLowerCase();
 		if(beforeType=="pdf"){

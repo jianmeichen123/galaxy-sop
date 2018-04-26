@@ -74,6 +74,7 @@
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					tips("12",$(".tips12")) 
 					sec.showResults();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
@@ -188,6 +189,9 @@
 				var str=str.replace(/\n|\r\n/g,"<br>")
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
+				if(field.data('titleId')==1203){   //不更改商业模式的内容，也能保存成功
+					infoMode.tochange=true;
+				}
 			}
 			else if(type == 16)
 			{
