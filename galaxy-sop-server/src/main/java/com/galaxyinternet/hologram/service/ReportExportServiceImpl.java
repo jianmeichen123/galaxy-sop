@@ -114,9 +114,15 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(StringUtils.isBlank(text)){
             return null;
         }else{
-            String check = text.replace("<br/>","")
-                    .replace("<br>","")
-                    .replace("&nbsp;","");
+        	String check ="";
+            if(text.contains("sitg")){
+            	check = text.replace("<sitg>","（").replace("</sitg>","）");
+            }else{
+            	check = text;
+            }
+            check=  text.replace("<br/>","")
+            .replace("<br>","")
+            .replace("&nbsp;","");
             if(StringUtils.isBlank(check)){
                 return null;
             }
