@@ -123,7 +123,7 @@
 		                <!-- <label><input type="radio" name="faFlag" value = "1"/>是</label>
 		                <label><input type="radio" name="faFlag" value = "0"/>否</label> -->
 		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
-	                    	<option value="">--请选择--</option>
+	                    	<option value="">全部</option>
 	                    	<c:forEach items="${projectSourceList }" var="item">
 	                    		<option value="${item.id }">${item.name }</option>
 	                    	</c:forEach>
