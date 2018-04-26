@@ -1203,7 +1203,7 @@ function reason(obj,value){
 			UploadProgress: function(up, file) { 
 			},
 			
-			FileUploaded: function(up, files, rtn) {  //上传回调
+			FileUploaded: function(up, files, rtn) {  //上传回调 
 				$("#powindow").hideLoading();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
@@ -1214,6 +1214,7 @@ function reason(obj,value){
 					layer.msg(response.result.message);
 					return false;
 				}else{
+					//layer.msg("上传成功"); 
 					//layer.msg("保存成功", {time : 500}); 
 				 
 				}
@@ -1221,6 +1222,10 @@ function reason(obj,value){
 			},
 			
 			BeforeUpload:function(up){ 
+				$('.pagebox').showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				viewuploader.setOption("multipart_params",{"flag":'video'});
 			}, 
 			
