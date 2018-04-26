@@ -422,7 +422,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         List<InformationResult> resultList = tempTitle.getResultList();
 
-        if ( type == 0 ||type == 1 || type == 8 || type == 18)
+        if ( type == 0 ||type == 1|| type == 18)
         {
             // 1:文本、  8:文本域(textarea)、
             //  map : code-value
@@ -528,10 +528,11 @@ public class ReportExportServiceImpl implements ReportExportService {
             } else {
                 return mapValue;
             }
-        } else if (type == 16) {
+        } else if (/*type == 16*/ type == 8 ) {
             // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
             // map : code-value
             InformationResult tempResult = resultList.get(0);
+          //  value = textConversion(tempResult.getContentDescribe1());
             if (StringUtils.isNotBlank(tempResult.getContentDescribe1()))
             {
                 if (tempResult.getContentDescribe1().contains("sitg"))
@@ -845,13 +846,13 @@ public class ReportExportServiceImpl implements ReportExportService {
         {
             // 15 一个标题带两个文本域(textarea)、
             value = fieldValue;
-        }else if(type == 16 )
+        }else if(type == 8 )
         {
             // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
             if(fieldValue.contains("sitg")){
                 value = fieldValue.replace("<sitg>","（").replace("</sitg>","）");
             }else{
-                value = fieldValue;
+                value = textConversion(fieldValue);
             }
         }else if(type == 19 || type == 20 )
         {
