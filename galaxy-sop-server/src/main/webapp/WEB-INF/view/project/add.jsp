@@ -1073,6 +1073,7 @@ $("#resultRadion input[type='radio']").click(function(){
 	oh_input.val("").addClass("disabled").attr("disabled","true");
 	oh_select.val("").addClass("disabled").attr("disabled","true");
 	_select.attr("required","true");
+	$("select.reson").removeClass("reson")
 	_select.removeClass("disabled").removeAttr("disabled").addClass("reson");
 	$(".check_result select").selectpicker('refresh');
 	_select.next().removeClass("disabled");
