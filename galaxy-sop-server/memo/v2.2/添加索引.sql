@@ -1,4 +1,8 @@
 -- 投资方主体调整
+ALTER TABLE `fx_db`.`information_dictionary` 
+ADD COLUMN `short_name` VARCHAR(100) NULL AFTER `name`;
+
+
 UPDATE `fx_db`.`information_dictionary` SET `short_name`='天马基金' WHERE `id`='2271';
 UPDATE `fx_db`.`information_dictionary` SET `short_name`='星河之光' WHERE `id`='2272';
 UPDATE `fx_db`.`information_dictionary` SET `short_name`='诚合基石' WHERE `id`='2278';
