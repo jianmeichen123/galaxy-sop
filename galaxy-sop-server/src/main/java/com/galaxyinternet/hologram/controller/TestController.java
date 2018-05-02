@@ -64,7 +64,11 @@ public class TestController{
 	public String platformTest123(HttpServletRequest request) {
 		return "systemNotice/notice";
 	}
- //健康度3個tab
+	@RequestMapping(value = "/operateAanalysis")
+	public String operateAanalysis(HttpServletRequest request) {
+		return "project/sopinfo/operateAanalysis";
+	}
+ //健康度3個tab 
 	//运营 会议
 	@RequestMapping(value = "/health_meet")
 	public String health_meet(HttpServletRequest request) {
