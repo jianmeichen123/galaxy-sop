@@ -265,6 +265,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				project.getPageSize(), Direction.fromString(project.getDirection()), project.getProperty()));
 		// 封装事业线数据
 		List<Project> projectList = new ArrayList<Project>();
+		Map<String,Dict> dictHealthMap= dictObjectMap("healthState");
 		for (Project p : pageProject.getContent())
 		{
 			projectList.add(p);
@@ -276,6 +277,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					break;
 				}
 			}
+			Dict health=dictHealthMap.get(p.getHealthState());
+			p.setHealthState(null!=health?health.getName():"-");
 			// 项目来源
 			if (p.getFaFlag() != null)
 			{
@@ -291,12 +294,37 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 					p.setFaFlagStr(p.getFaFlag());
 				}
 			}
+			//投资方主体
+						if (p.getInvestorBody() != null)
+						{
+							if (NumberUtils.isNumber(p.getInvestorBody()))
+							{
+								Object dictVal = cache.hget(SopConstant.TITLE_DICT_KEY_PREFIX + p.getInvestorBody(), "name");
+								if (dictVal != null)
+								{
+									p.setInvestorBody((String) dictVal);
+								}
+							} else
+							{
+								p.setInvestorBody(p.getInvestorBody());
+							}
+						}
 		}
 		pageProject.setContent(projectList);
 		responseBody.setPageList(pageProject);
 		responseBody.putAttachmentItem("user", user);
 		responseBody.setResult(new Result(Status.OK, ""));
 		return responseBody;
+	}
+	
+	public Map<String,Dict> dictObjectMap(String perentCode){
+		
+		Map<String,Dict> map=new HashMap<String,Dict>();
+		List<Dict> dictList = dictService.selectByParentCode(perentCode);
+		for(Dict dict:dictList){
+			map.put(dict.getValue().toString(), dict);
+		}
+		return map;
 	}
 
 	/**

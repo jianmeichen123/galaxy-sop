@@ -20,7 +20,7 @@ INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `co
 
 
 -- 健康度调整
-INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('253', 'xhhl', '健康度', '0', 'healthState', '0', '1524727556630', '1524727556630', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('259', 'xhhl', '健康度', '0', 'healthState', '0', '1524727556630', '1524727556630', '0');
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('254', 'healthState', '风险', '0', 'healthState:0', '4', '1524727556630', '1524727556630', '0');
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('255', 'healthState', '优异', '1', 'healthState:1', '1', '1524727556630', '1524727556630', '0');
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('256', 'healthState', '健康', '2', 'healthState:2', '2', '1524727556630', '1524727556630', '0');
