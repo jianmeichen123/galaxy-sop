@@ -44,7 +44,7 @@ $(function(){
 	
 	
 	$('.project_analysis').tabchange2({
-		onchangeSuccess:function(index){
+		onchangeSuccess:function(index){ 
 			switch(index){
 				case 0: overViewInit();  break;  //标签0:项目总览
 				case 1: statisticsInit(); break;  //标签1:项目数统计

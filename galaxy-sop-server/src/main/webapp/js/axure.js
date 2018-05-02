@@ -746,31 +746,32 @@
 				showback:function(){},
 				hideback:function(){}
 			},options);
-			function popEve(){
+			function popEve(){ 
 				this.strpopTab="<div id=\"tab-content\" data-id=\"tab-content\"><div class=\"tabtxt\"></div></div>"
 				this.txt = opts.txt;//弹层添加数据
 				//显示出来之后执行
 				this.showback = opts.showback;
 				//隐藏后执行
 				this.hideback = opts.hideback;
-				this.id = "[data-id='tab-content']";
+				this.id = "[data-id='tab-content']"; 
 			}
 			popEve.prototype = {
 				init:function(){
-					var _this = this;
-					$("#tab-content").remove();
-					_this.inserttxt();
-		//			$("#tab-content").hide();
-		//			$("#tab-content").animate({left: '0px'}, 1000);  	
-		
+					var _this = this; 
+					if(opts.obj==''){ 
+						$("#tab-content").remove();
+					}
+					_this.inserttxt(); 
 				},
 				//内容插入
 				inserttxt:function(){
 					var _this = this;
-					//插入弹窗外部皮肤
+					if(opts.obj==''){ 
+					//插入弹窗外部皮肤 
 					$("[data-id='tab-block']").append(_this.strpopTab);
 					//插入内容
-					$(_this.id).children(".tabtxt").html(_this.txt);
+						$(_this.id).children(".tabtxt").html(_this.txt);
+					}
 					//对外接口
 					_this.showback.apply(_this);
 					return _this;	
@@ -785,14 +786,14 @@
 				showback:function(){},
 				hideback:function(){}
 			},options);
-			function popEve(){
+			function popEve(){ 
 				this.strpopTab="<div id=\"tab-content1\" data-id=\"tab-content1\"><div class=\"tabtxt\"></div></div>"
 				this.txt = opts.txt;//弹层添加数据
 				//显示出来之后执行
 				this.showback = opts.showback;
 				//隐藏后执行
 				this.hideback = opts.hideback;
-				this.id = "[data-id='tab-content1']";
+				this.id = "[data-id='tab-content1']";  
 			}
 			popEve.prototype = {
 				init:function(){
@@ -822,23 +823,28 @@
 		
 		
 		/*获取html模版弹窗*/
+		// 添加了obj插入对象参数
 		$.getTabHtml = function(options){
 			var opts = $.extend({
 				url:"",//模版请求地址
 				data:"",//传递参数
+				obj:"",
 				okback:function(){}//模版反回成功执行	
 			},options);
 			//拉取静态模版
 			$.tabup({
+				obj:opts.obj,
 				showback:function(){
 					var _this = this;
+					var objDom = opts.obj;
 					$.ajax({
 						type:"GET",
 						data:opts.data,
 						dataType:"html",
 						url:opts.url,
+						obj:opts.obj,
 						cache:false,
-						beforeSend: function (xhr) {
+						beforeSend: function (xhr) { 
 							/**清楚浏览器缓存**/
 							xhr.setRequestHeader("If-Modified-Since","0");
 							xhr.setRequestHeader("Cache-Control","no-cache");
@@ -849,15 +855,23 @@
 								xhr.setRequestHeader("guserId", userId);
 							}
 							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.png">'+'</img></center></div>';
-							$(_this.id).find(".tabtxt").html(imgDiv);
+							if(objDom==''){
+								$(_this.id).find(".tabtxt").html(imgDiv);
+							}else{ 
+								objDom.html(imgDiv);
+							}
 						},
-						success:function(html){
+						success:function(html){ 
 							var flag=$(html).find('form').find('#flagLogin').val();
 							if(typeof(flag)!=="undefined"&&flag=="login"){
 								window.location.href=endpointObj["galaxy.project.platform.endpoint"] +"/galaxy/userlogin/toLogin";
 								return;
+							} 
+							if(objDom==''){
+								$(_this.id).find(".tabtxt").html(html);
+							}else{ 
+								objDom.html(html);
 							}
-							$(_this.id).find(".tabtxt").html(html);
 							opts.okback();
 						},
 						error:function(){
@@ -955,16 +969,13 @@
 				obj.seton();
 				opts.onchangeSuccess(opts.defaultnum);
 				//事件执行
-				obj.nav.on(opts.eventType,function(){
-					$("#tab-content").remove();
-					$("#tab-content1").remove();
-					
-					
-				/*	$("#tab-content").animate({opacity: 'hide'}, 2000,
-							function(){ 
-								$("#tab-content").remove();
-								});  	
-					*/
+				obj.nav.on(opts.eventType,function(){ 
+					if($(this).parent().hasClass("newTab180")){
+
+					}else{ 
+						$("#tab-content").remove();
+						$("#tab-content1").remove();
+					}
 					obj.num = $(this).index();
 					obj.seton();
 					opts.onchangeSuccess.apply(this,[obj.num]);
@@ -1015,8 +1026,7 @@
 				opts.onchangeSuccess(opts.defaultnum);
 				//事件执行
 				obj.nav.on(opts.eventType,function(){
-					$("#tab-content").remove();
-					
+					$("#tab-content").remove(); 
 					
 				/*	$("#tab-content").animate({opacity: 'hide'}, 2000,
 							function(){ 

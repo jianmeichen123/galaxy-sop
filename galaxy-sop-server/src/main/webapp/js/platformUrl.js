@@ -993,21 +993,21 @@ var platformUrl = {
 	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting",
 
 	/**
-	 * 运营分析
-	 */
-	health_meet: Constants.sopEndpointURL+"/galaxy/test/health_meet",
+	 * 运营分析2
+	 */ 
+	operateAanalysis: Constants.sopEndpointURL+"/galaxy/test/operateAanalysis",
 	/**
 	 * 健康度tab1
 	 */
-	health_change: Constants.sopEndpointURL+"/galaxy/test/health_change",
+	health_meet: Constants.sopEndpointURL+"/galaxy/test/health_meet",
 	/**
 	 * 健康度tab2
 	 */
-	health_record: Constants.sopEndpointURL+"/galaxy/test/health_record",
+	health_change: Constants.sopEndpointURL+"/galaxy/test/health_change",
 	/**
 	 * 健康度tab3
 	 */
-	operateAanalysis: Constants.sopEndpointURL+"/galaxy/test/operateAanalysis",
+	health_record: Constants.sopEndpointURL+"/galaxy/test/health_record",
 	/**
 	 * 填写标准
 	 */

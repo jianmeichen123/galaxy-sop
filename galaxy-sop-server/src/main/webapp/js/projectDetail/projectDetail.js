@@ -17,7 +17,7 @@ $(function(){
 	}
 	$('.projectDetail').tabLazyChange({
 		defaultnum:defaultnum,
-		onchangeSuccess:function(index){
+		onchangeSuccess:function(index){ 
 			switch(index){
 				case 0: initTabInfo(projectId);  break;  //标签0:基本信息
 				case 1: initTabProjectTeam(); break;  //标签1:团队成员
@@ -113,10 +113,10 @@ function initTabAppropriation(projectId){
 	});
 }
 //运营分析
-function initTabPostMeeting(){
-	//buryPoint("104");
+function initTabPostMeeting(){ 
 	$.getTabHtml({
-		url : platformUrl.showOperationsAnalysis +'/'+ projectId
+		//url : platformUrl.operateAanalysis +'/'+ projectId
+		url : platformUrl.operateAanalysis  
 	});
 }
 //填写标准
