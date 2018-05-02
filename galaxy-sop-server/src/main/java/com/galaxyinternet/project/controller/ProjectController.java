@@ -1644,9 +1644,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			{
 				resp.setResult(new Result(Status.ERROR, "name-repeat", "项目名重复!"));
 				objData.put("projectName", projectList.get(0).getProjectName());
-				objData.put("teamPerson", (cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName")).toString());
+				Object userName=cache.hget(PlatformConst.CACHE_PREFIX_USER+projectList.get(0).getCreateUid(), "realName");
+				objData.put("teamPerson", userName==null?"-":userName.toString());
 				objData.put("departmentName", (cache.hget(PlatformConst.CACHE_PREFIX_DEP+projectList.get(0).getProjectDepartid(), "name")).toString());
-			}
+		 }
 		}
 
 		resp.setUserData(objData);
