@@ -26,3 +26,8 @@ INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_cod
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('256', 'healthState', '健康', '2', 'healthState:2', '2', '1524727556630', '1524727556630', '0');
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('257', 'healthState', '关注', '3', 'healthState:3', '3', '1524727556630', '1524727556630', '0');
 INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `created_time`, `updated_time`, `is_delete`) VALUES ('258', 'healthState', '损失', '4', 'healthState:4', '5', '1524727556630', '1524727556630', '0');
+
+
+--健康度添加删除标识
+ALTER TABLE `fx_db`.`sop_project_health` 
+ADD COLUMN `is_delete` INT(11) NULL DEFAULT 0 COMMENT '删除标识：0，正常；1：删除' AFTER `updated_time`;

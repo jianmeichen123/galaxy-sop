@@ -35,6 +35,8 @@ public class ProjectHealth extends PagableEntity {
     
     private String projectCareerline;
     
+   private Integer isDelete;
+    
     public Long getProjectId() {
         return projectId;
     }
@@ -162,5 +164,14 @@ public class ProjectHealth extends PagableEntity {
 		return projectCareerline;
 	}
 
+	public Integer getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Integer isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	
 	
 }

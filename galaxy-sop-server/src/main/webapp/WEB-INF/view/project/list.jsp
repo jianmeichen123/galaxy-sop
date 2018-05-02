@@ -183,7 +183,9 @@
 			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
+			        	<th data-field="investorBody" data-formatter=""  class="data-input sort" data-sortable="true" data-width="8%">投资主体<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="healthState" data-formatter=""  class="data-input sort" data-sortable="true" data-width="8%">健康度<span></span></th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-class="delete_syb" data-width="12%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-class="delete_tzjl"  data-width="14%">投资经理</th>

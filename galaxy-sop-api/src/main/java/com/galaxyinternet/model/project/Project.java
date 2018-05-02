@@ -228,9 +228,20 @@ public class Project extends PagableEntity {
 	private ProjectQuery projectQuery;
 	
 	private SopFile vidioFile;//移动端上传商业计划书对象
+	
+	
+	private String investorBody;
+	
 
+    public String getInvestorBody() {
+		return investorBody;
+	}
 
-    public Long getId() {
+	public void setInvestorBody(String investorBody) {
+		this.investorBody = investorBody;
+	}
+
+	public Long getId() {
         return id;
     }
 

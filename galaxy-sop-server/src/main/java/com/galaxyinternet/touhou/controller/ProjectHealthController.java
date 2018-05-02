@@ -2,6 +2,7 @@ package com.galaxyinternet.touhou.controller;
 
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,8 +111,12 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		}
 		
 		try {
+			Date date= new Date();
 			Project project = projectService.queryById(projectHealth.getProjectId());
 			projectHealth.setCreatedUid(user.getId()); 
+			projectHealth.setUpdatedUid(user.getId());
+			projectHealth.setCreatedTime(date.getTime());
+			projectHealth.setUpdatedTime(date.getTime());
 			projectHealth.setUserName(user.getRealName());
 			Long id = projectHealthService.insert(projectHealth);
 			responseBody.setResult(new Result(Status.OK, ""));

@@ -56,7 +56,9 @@
     <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
     <result column="is_delete" property="isdelete" jdbcType="BIGINT"/>
     <result column="delete_reason" property="deleteReason" jdbcType="VARCHAR"/>
-	  <result column="danao_proj_code" property="danaoProjCode" jdbcType="VARCHAR"/>
+	<result column="danao_proj_code" property="danaoProjCode" jdbcType="VARCHAR"/>
+    <result column="investor_body" property="investorBody" jdbcType="VARCHAR"/>
+     
     </resultMap>
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
@@ -77,6 +79,15 @@
 	FROM information_result r 
 	WHERE r.project_id = sop_project.id AND r.title_id = 1120 AND r.is_valid = 0 LIMIT 1
 	) AS fa_flag,
+	
+    (SELECT 
+		r.content_choose 
+	FROM information_result r 
+	WHERE  r.project_id = sop_project.id and r.title_id = 3020   AND r.is_valid = 0 LIMIT 1 ) as  investor_body,
+	(
+	   SELECT h.`health_state` FROM  `sop_project_health` h WHERE 
+	   h.`project_id`= sop_project.id AND
+	    h.is_delete=0 ORDER BY h.`updated_time` DESC LIMIT 1) as health_state,
     (
     SELECT 
 		(CASE r.content_choose 
@@ -149,7 +160,25 @@
 				AND r.content_choose = #{financeStatus,jdbcType=VARCHAR} 
 				)
 		      </if>
-		     
+		      
+		      
+		       <if test="investorBody != null" >
+		      	AND EXISTS(
+				SELECT 1
+				FROM information_title t
+				INNER JOIN information_result r ON t.id = r.title_id 
+				WHERE r.project_id = sop_project.id AND t.title_id = 3020 
+				AND r.content_choose = #{investorBody,jdbcType=VARCHAR} 
+				)
+		      </if>
+		     <if test="healthState != null">
+		     AND EXISTS 
+                     (SELECT  1 FROM `sop_project_health` h 
+           WHERE h.`project_id` = sop_project.id 
+          AND h.is_delete = 0 AND h.health_state = #{healthState,jdbcType=VARCHAR}
+           ORDER BY h.`updated_time` DESC 
+           LIMIT 1)
+		     </if>
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
 		      <if test="finalContribution != null" >  and final_contribution = #{finalContribution,jdbcType=DECIMAL} </if>
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
