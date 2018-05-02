@@ -605,11 +605,11 @@ function financeHistoryFormat(value, row, index){
 function healthStateFormatter(value, row, index){
 	var val;
 	var data={
-		'0':'初始',	
-		'1':'高于预期',
-		'2':'正常',
-		'3':'健康预警',
-		'4':'清算'
+		'0':'风险',	
+		'1':'优异',
+		'2':'健康',
+		'3':'关注',
+		'4':'损失'
 	};
 	if(null!=row.healthState&&row.healthState!=""){
 		val=data[row.healthState];

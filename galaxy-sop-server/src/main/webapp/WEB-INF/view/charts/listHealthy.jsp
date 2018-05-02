@@ -6,11 +6,11 @@
     String flag=(String)request.getAttribute("flagUrl");
     String title="";
     if(flag.equals("healthHighNum")){
-    	title="高于预期";
+    	title="优异";
     }else if(flag.equals("healthGoodNum")){
     	title="健康";
     }else if(flag.equals("healthWarnNum")){
-    	title="健康预警";
+    	title="关注";
     }else{
     	title="项目健康度详情";
     }
@@ -104,11 +104,11 @@
 	 function healthStateFormat(value,row,index){
 		 var healthState=row.healthState;
 		 var healthStates={
-				 "0":"初始",
-				 "1":"高于预期",
-				 "2":"正常",
-				 "3":"健康预警",
-				 "4":"清算"
+				 "0":"风险",
+				 "1":"优异",
+				 "2":"健康",
+				 "3":"关注",
+				 "4":"损失"
 		 }
 		 return  healthStates[healthState];
 	 }

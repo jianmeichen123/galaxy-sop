@@ -29,7 +29,7 @@ $(function(){
 	          xAxis : [
 	              {
 	                  type : 'category',
-	                  data : ["高于预期","健康","健康预警"],
+	                  data : ["优异","健康","关注"],
 	                  axisLabel: {
 	                      show: true,
 	                      textStyle: {
@@ -145,7 +145,7 @@ $(function(){
 	   myChart.on('click', function (param) {
 		   if (typeof param.seriesIndex != 'undefined') {
 	           switch (param.name) {
-	               case "高于预期": 
+	               case "优异": 
 	               	setCookie("href_url", window.location,24,'/');
 	               	window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthHighNum";                           
 	                   break;
@@ -153,7 +153,7 @@ $(function(){
 	               	setCookie("href_url", window.location,24,'/');
 	                   window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthGoodNum";
 	                   break;
-	               case "健康预警":
+	               case "关注":
 	               	setCookie("href_url", window.location,24,'/');
 	                   window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthWarnNum";
 	                   break;
