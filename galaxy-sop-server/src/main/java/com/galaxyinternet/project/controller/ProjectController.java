@@ -3920,19 +3920,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 				switch (k)
 				{
 				case 0:
-					result = "初始";
+					result = "风险";
 					break;
 				case 1:
-					result = "高于预期";
+					result = "优异";
 					break;
 				case 2:
-					result = "正常";
+					result = "健康";
 					break;
 				case 3:
-					result = "健康预警";
+					result = "关注";
 					break;
 				case 4:
-					result = "清算";
+					result = "损失";
 					break;
 				default:
 					result = "";
