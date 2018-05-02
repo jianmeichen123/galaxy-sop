@@ -19,8 +19,7 @@
 var defaultnum=4; 
 $('.newTab180').tabLazyChange({
 	defaultnum:defaultnum,
-	onchangeSuccess:function(index){
-		debugger;
+	onchangeSuccess:function(index){ 
 		switch(index){
 			case 0: health_meet();  break;  //标签0:基本信息
 			case 1: health_change(); break;  //标签1:团队成员
