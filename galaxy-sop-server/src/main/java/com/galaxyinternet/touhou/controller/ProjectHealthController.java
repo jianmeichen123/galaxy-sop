@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -104,30 +105,81 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	public ResponseData<ProjectHealth> addHealth(@RequestBody ProjectHealth projectHealth,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		
 		if(projectHealth == null || projectHealth.getProjectId() == null){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善信息"));
 			return responseBody;
 		}
-		
 		try {
 			Date date= new Date();
 			Project project = projectService.queryById(projectHealth.getProjectId());
-			projectHealth.setCreatedUid(user.getId()); 
 			projectHealth.setUpdatedUid(user.getId());
-			projectHealth.setCreatedTime(date.getTime());
 			projectHealth.setUpdatedTime(date.getTime());
-			projectHealth.setUserName(user.getRealName());
-			Long id = projectHealthService.insert(projectHealth);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "添加失败"));
-			logger.error("addHealth 添加失败",e);
+				if(null==projectHealth.getId()){
+					projectHealth.setCreatedUid(user.getId()); 
+					projectHealth.setCreatedTime(date.getTime());
+					projectHealth.setUserName(user.getRealName());
+					Long id = projectHealthService.insert(projectHealth);
+					responseBody.setResult(new Result(Status.OK,"添加成功"));
+					responseBody.setId(id);
+					ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
+				}else{
+					int updateById = projectHealthService.updateById(projectHealth);
+					responseBody.setResult(new Result(Status.OK, "编辑成功"));
+					responseBody.setId(new Long(updateById));
+					ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.two);
+				}
+			     return responseBody;
+			} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("Health 操作失败",e);
 		}
 		return responseBody;
 	}
+	
+	/**
+	 * 查询  健康记录
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getDetail/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> getDetail(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
+		try {
+			ProjectHealth projectHealth = projectHealthService.queryById(id);
+			responseBody.setEntity(projectHealth);
+			responseBody.setResult(new Result(Status.OK, "获取健康信息成功"));
+			return responseBody;
+			} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("get Health 操作失败",e);
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 删除  健康记录
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> delete(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
+		try {
+			int deleteById = projectHealthService.deleteById(id);
+			if(deleteById>0){
+				responseBody.setId(id);
+				responseBody.setResult(new Result(Status.OK,"删除成功"));
+				return responseBody;
+			}else{
+				responseBody.setResult(new Result(Status.OK,"删除失败"));
+				return responseBody;
+			}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("Health 操作失败",e);
+		}
+		return responseBody;
+	}
+	
 	
 	
 	/**
