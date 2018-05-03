@@ -66,10 +66,6 @@
 </script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/common.js" type="text/javascript"></script>
-<!-- 富文本编辑器 -->
-<%-- <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script> --%>
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/init.js"></script>
@@ -118,8 +114,7 @@ function show_health_case(){
 			data:"",
 			okback:function(){
 				$("#popup_name").html(_name);
-				$("#health-custom-toolbar [name='projectId']").val(proid);
-				
+				$("#health-custom-toolbar [name='projectId']").val(proid); 
 				init_bootstrapTable('project_health_table',5);
 			}
 		});

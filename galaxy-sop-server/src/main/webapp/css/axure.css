@@ -4860,7 +4860,7 @@ white-space: nowrap;    width: 195px;
 .tab2Con #meetGrid th{border:0;background-color: #f3f5f9;border-radius: 0;}
 .tab2Con .pro_analysis .fmdll{margin-right:0;}  
 .tab2Con  #searchBtn.cx{    max-width: 27px; min-width: 27px; height: 28px;background:  url(../img/searchblue.png) no-repeat 0 5px; }
-
+.tab2Con .table_health_case{position:static;margin-top:10px;}
 
 
 

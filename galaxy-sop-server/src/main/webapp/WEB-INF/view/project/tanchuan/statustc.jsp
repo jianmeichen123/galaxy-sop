@@ -2,7 +2,9 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
+<style type="text/css" media="screen">
+#but_oper{width:auto;text-align: center;}	
+</style>
 <div class="statustc status">
 
 	<div class="title_bj" id="popup_name">添加健康状况</div>
@@ -14,10 +16,10 @@
 		<dl class="fmdl clearfix">
 			<dt>健康状况：</dt>
 			<dd>
-			    <label class="radio"> <input type="radio" name="healthState" value="0"> 风险 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="1"> 优异 </label> 
-				<label class="radio"> <input type="radio" name="healthState" value="2" checked="checked"> 健康 </label> 
-				<label class="radio"> <input type="radio" name="healthState" value="3"> 关注 </label>
+				<label class="radio"> <input type="radio" name="healthState" value="2" > 健康 </label> 
+				<label class="radio"> <input type="radio" name="healthState" value="3" checked="checked"> 关注 </label>
+			    <label class="radio"> <input type="radio" name="healthState" value="0"> 风险 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="4"> 损失 </label>
 			</dd>
 		</dl>
