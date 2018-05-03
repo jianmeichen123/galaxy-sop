@@ -2,10 +2,12 @@ package com.galaxyinternet.touhou.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,7 @@ import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -41,8 +44,15 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import redis.clients.jedis.Response;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPipeline;
 
 
 /**
@@ -61,6 +71,9 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	private ProjectService projectService;
 	
 	private String tempfilePath;
+	
+	@Autowired
+	private Cache cache;
 
 	public String getTempfilePath() {
 		return tempfilePath;
@@ -99,10 +112,12 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 * 添加  健康记录
 	 */
+	@ApiOperation("添加/编辑项目健康度")
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
-	@RequestMapping(value = "/addhealth", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectHealth> addHealth(@RequestBody ProjectHealth projectHealth,HttpServletRequest request,HttpServletResponse response ) {
+	@RequestMapping(value = "/addhealth", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> addHealth(@ApiParam(name = "projectHealth", value = "项目信息", required = true) 
+	@RequestBody ProjectHealth projectHealth,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(projectHealth == null || projectHealth.getProjectId() == null){
@@ -124,8 +139,13 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 					ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.one);
 				}else{
 					int updateById = projectHealthService.updateById(projectHealth);
-					responseBody.setResult(new Result(Status.OK, "编辑成功"));
-					responseBody.setId(new Long(updateById));
+					if(updateById>0){
+						responseBody.setResult(new Result(Status.OK, "编辑成功"));
+						responseBody.setId(new Long(updateById));	
+					}else{
+						responseBody.setResult(new Result(Status.OK, "编辑失败"));
+					}
+					
 					ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), UrlNumber.two);
 				}
 			     return responseBody;
@@ -139,14 +159,19 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 * 查询  健康记录
 	 */
+	@ApiOperation("查看项目健康度")
 	@ResponseBody
 	@RequestMapping(value = "/getDetail/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectHealth> getDetail(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
+	public ResponseData<ProjectHealth> getDetail(@ApiParam(name = "id", value = "健康度id", required = true) @PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		try {
 			ProjectHealth projectHealth = projectHealthService.queryById(id);
-			responseBody.setEntity(projectHealth);
-			responseBody.setResult(new Result(Status.OK, "获取健康信息成功"));
+			if(null==projectHealth){
+				responseBody.setResult(new Result(Status.ERROR, "记录不存在"));
+			}else{
+				responseBody.setEntity(projectHealth);
+				responseBody.setResult(new Result(Status.OK, "获取健康信息成功"));	
+			}
 			return responseBody;
 			} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
@@ -158,24 +183,32 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 * 删除  健康记录
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@ApiOperation("删除项目健康度")
 	@ResponseBody
-	@RequestMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectHealth> delete(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
+	@RequestMapping(value = "/deleteDetail/{id}",  method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> deleteDetail(@ApiParam(name = "id", value = "健康度id", required = true)@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		try {
 			ProjectHealth projectHealth=new ProjectHealth();
-			projectHealth.setIsDelete(1);
+			ProjectHealth queryOne = projectHealthService.queryById(id);
 			projectHealth.setId(id);
-			int deleteById = projectHealthService.updateById(projectHealth);
-			if(deleteById>0){
-				responseBody.setId(id);
-				responseBody.setResult(new Result(Status.OK,"删除成功"));
-				return responseBody;
+			projectHealth.setIsDelete(1);
+			if(null!=queryOne){
+				int deleteById = projectHealthService.updateById(projectHealth);
+				if(deleteById>0){
+					responseBody.setId(id);
+					responseBody.setResult(new Result(Status.OK,"删除成功"));
+					return responseBody;
+				}else{
+					responseBody.setResult(new Result(Status.OK,"删除失败"));
+					return responseBody;
+				}
 			}else{
-				responseBody.setResult(new Result(Status.OK,"删除失败"));
+				responseBody.setResult(new Result(Status.OK,"记录不存在"));
 				return responseBody;
 			}
+			
+			
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			logger.error("Health 操作失败",e);
@@ -219,6 +252,7 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	 * @param project
 	 * @return
 	 */
+	@ApiOperation("查询项目健康度列表（带参）")
 	@ResponseBody
 	@RequestMapping(value="/getHealthyCharts",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> getHealthyCharts(HttpServletRequest request,@RequestBody ProjectBo project){
@@ -282,6 +316,11 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		if (roleIdList.contains(UserConstant.HHR)){
 			query.setDepId(user.getDepartmentId());
 		}
+		ShardedJedis jedis = null;
+		jedis = cache.getJedis();
+		ShardedJedisPipeline pip = jedis.pipelined();
+		Response<String> response = pip.get(PlatformConst.CACHE_USER_ROLEIDS+user.getId());
+		String string = response.get();
 		try {
 			PageRequest pageRequest = new PageRequest();
 			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
@@ -308,5 +347,14 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		}
 		return responseBody;
 	}
-	
+	   public List<String> getUserIdsByDepId(String deptId){
+	    	ShardedJedis jedis = null;
+	    	jedis = cache.getJedis();
+			ShardedJedisPipeline pip = jedis.pipelined();
+				Response<Set<String>> resp = pip.smembers(PlatformConst.CACHE_PREFIX_DEP_USERS+deptId);
+				Set<String> userIds = resp.get();
+				List<String> ls=new ArrayList<String>(userIds); 
+				return ls;
+		}
+		 
 }

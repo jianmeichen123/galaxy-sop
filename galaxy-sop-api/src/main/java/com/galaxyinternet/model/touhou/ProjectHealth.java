@@ -1,8 +1,12 @@
 package com.galaxyinternet.model.touhou;
 
+import java.util.List;
+
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
+import io.swagger.annotations.ApiModel;
+@ApiModel(value="健康度对象",description="项目健康度")
 public class ProjectHealth extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +40,8 @@ public class ProjectHealth extends PagableEntity {
     private String projectCareerline;
     
    private Integer isDelete;
+   
+   private List<String> createUids;
     
     public Long getProjectId() {
         return projectId;
@@ -172,6 +178,18 @@ public class ProjectHealth extends PagableEntity {
 		this.isDelete = isDelete;
 	}
 
+	public List<String> getCreateUids() {
+		return createUids;
+	}
+
+	public void setCreateUids(List<String> createUids) {
+		this.createUids = createUids;
+	}
+
+	
+
+
+	
 	
 	
 }

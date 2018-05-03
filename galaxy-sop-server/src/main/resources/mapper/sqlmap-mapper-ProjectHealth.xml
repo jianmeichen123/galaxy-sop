@@ -38,6 +38,14 @@
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			      <if test="updatedUid != null"> and updated_uid = #{updatedUid,jdbcType=BIGINT} </if>
 			      <if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+			       <if test="createUids != null">
+					AND created_uid IN
+					<foreach collection="createUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			         </if>
+			
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -53,7 +61,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from sop_project_health
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT} and is_delete=0
 	</select>
 	
 	<!-- 查询 -->
@@ -97,14 +105,14 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.touhou.ProjectHealth">
 		update sop_project_health
 		<set>
-	      <if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT} </if>
-	      <if test="healthState != null"> health_state = #{healthState,jdbcType=TINYINT} </if>
-	      <if test="rematk != null"> rematk = #{rematk,jdbcType=VARCHAR} </if>
-	      <if test="userName != null"> user_name = #{userName,jdbcType=VARCHAR} </if>
-	      <if test="createdUid != null"> created_uid = #{createdUid,jdbcType=BIGINT} </if>
-	      <if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT} </if>
-	      <if test="updatedUid != null"> updated_uid = #{updatedUid,jdbcType=BIGINT} </if>
-	      <if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+	      <if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+	      <if test="healthState != null"> health_state = #{healthState,jdbcType=TINYINT}, </if>
+	      <if test="rematk != null"> rematk = #{rematk,jdbcType=VARCHAR}, </if>
+	      <if test="userName != null"> user_name = #{userName,jdbcType=VARCHAR}, </if>
+	      <if test="createdUid != null"> created_uid = #{createdUid,jdbcType=BIGINT}, </if>
+	      <if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+	      <if test="updatedUid != null"> updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
+	      <if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 	      <if test="isDelete != null"> is_delete = #{isDelete,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
@@ -144,6 +152,14 @@
 			   <if test="depId!= null">
 			  AND s.`project_departId`=#{depId}
 			 </if>
+			   <!--  <if test="createUids != null">
+					AND created_uid IN
+					<foreach collection="createUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			         </if>
+			 -->
 			 GROUP BY a.`project_id`
 			 
 			<if test="sorting != null"> order by ${sorting}</if>
@@ -165,6 +181,14 @@
 			  <if test="depId!= null">
 			  AND s.`project_departId`=#{depId}
 			 </if>
+			   <!--  <if test="createUids != null">
+					AND created_uid IN
+					<foreach collection="createUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			         </if> -->
+			
 	</select>
   
 </mapper>
