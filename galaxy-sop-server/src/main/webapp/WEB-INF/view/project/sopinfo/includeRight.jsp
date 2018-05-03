@@ -35,7 +35,7 @@
         	<div id="thyy_div" style="display:none;">
 					<div class="correlation">投后运营</div>
 					<div class="new_correlation_cen status">
-						<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
+						<span>健康度</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
   						<div class="delivery">
   							<div class="title">交割前确认事项</div>
   							<ul class="clearfix">
