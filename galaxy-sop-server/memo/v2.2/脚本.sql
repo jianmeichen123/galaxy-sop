@@ -17,6 +17,10 @@ INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `co
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `short_name`, `value`, `sort`, `is_valid`) VALUES ('2290', '2270', '3020', 'investmentMainpart13', '东方元鼎（北京）投资咨询有限公司', '东方元鼎', 'D229_13', '13', '0');
 UPDATE `fx_db`.`information_dictionary` SET `is_valid`='1' WHERE `id`='2273';
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `short_name`, `value`, `sort`, `is_valid`) VALUES ('2291', '2270', '3020', 'investmentMainpart14', '喀什星河创业投资有限公司', '喀什星河创业', 'D229_14', '14', '0');
+UPDATE `fx_db`.`information_dictionary` SET `short_name`='星河数银' WHERE `id`='2277';
+-- 投资主体由 "喀什星河互联创业投资有限公司" 调整为 "喀什诚合基石创业投资有限公司"			
+UPDATE `fx_db`.`information_result` SET `content_choose`='2278' WHERE content_choose = 2273;			
+			
 
 
 -- 健康度调整
