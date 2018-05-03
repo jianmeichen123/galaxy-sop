@@ -164,7 +164,10 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	public ResponseData<ProjectHealth> delete(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		try {
-			int deleteById = projectHealthService.deleteById(id);
+			ProjectHealth projectHealth=new ProjectHealth();
+			projectHealth.setIsDelete(1);
+			projectHealth.setId(id);
+			int deleteById = projectHealthService.updateById(projectHealth);
 			if(deleteById>0){
 				responseBody.setId(id);
 				responseBody.setResult(new Result(Status.OK,"删除成功"));
