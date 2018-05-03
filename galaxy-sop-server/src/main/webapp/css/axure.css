@@ -3797,7 +3797,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_tablink li.on{border-bottom:4px #45aaff solid;}
 .version19_tablink li.no{color:#B2B2B2;pointer-events:none;cursor:defalut;}
 /* 新TAB样式 */
-.newTab180 li{width:180px; line-height:50px;padding:0;margin:0;box-sizing:border-box;position:relative;}
+.newTab180 li{width:180px; line-height:50px;padding:0;margin:0;box-sizing:border-box;position:relative; order-top:4px solid #fff;}
 .newTab180{ border-bottom:1px solid #f0f0f0;}
 .newTab180 li.on{border-top:4px solid #45aaff; border-bottom:0px ; border-right:1px solid #f0f0f0;border-left:1px solid #f0f0f0;}
 .newTab180 li.on::after{content:'';height:1px;background:#fff;position:absolute;bottom:-1px;right:0;left:0;}
@@ -4853,12 +4853,13 @@ white-space: nowrap;    width: 195px;
 #AfileName{padding-left:25px; box-sizing:border-box; display:inline-block;max-width:400px;white-space: nowrap; vertical-align: middle;overflow: hidden;text-overflow: ellipsis;}  
 .addpro-business-plan{padding-bottom:20px;}
 #win_uploadBtn{display:inline-block;}
-
-
-
-
-
-
+.tab2Con{padding:0 10px;}
+.tab2Con .member .btnbox_f{margin:10px 0; float: right;}
+.tab2Con .min_document{margin:0;background-color: #f3f5f9; border-radius: 2px;}
+.tab2Con #meetGrid {margin-top:10px;}
+.tab2Con #meetGrid th{border:0;background-color: #f3f5f9;border-radius: 0;}
+.tab2Con .pro_analysis .fmdll{margin-right:0;}  
+.tab2Con  #searchBtn.cx{    max-width: 27px; min-width: 27px; height: 28px;background:  url(../img/searchblue.png) no-repeat 0 5px; }
 
 
 

@@ -13,20 +13,16 @@
 <link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <!-- 运营分析 -->
-<div id="post_meeting_anlysis">
+<div id="post_meeting_anlysis" class="tab2Con">
 	<div class="member proOperation">
         <div class="top clearfix">
             <!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
             	<c:if test="${isEditable}">
             	 
-                <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
+                <a href="javascript:void(0)" class="  new_blueBtn bluebtn addico c4" id="addPostMeetingBtn"  data-btn="conference">添加</a>
             	</c:if>
-            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
-            	<a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${pid}"  class="pbtn bluebtn h_bluebtn" >运营数据记录</a>
-                <%-- <c:if test="${isEditable}">
-            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
-                </c:if> --%>
+            	 
             </div>
         </div>
         <!-- 搜索条件 -->
