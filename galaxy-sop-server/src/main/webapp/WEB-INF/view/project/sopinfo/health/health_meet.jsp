@@ -22,6 +22,11 @@
             	 
                 <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
             	</c:if>
+            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
+            	<a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${pid}"  class="pbtn bluebtn h_bluebtn" >运营数据记录</a>
+                <%-- <c:if test="${isEditable}">
+            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
+                </c:if> --%>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -36,10 +41,10 @@
                 <dl class="fmdl fmdll clearfix">
                   <dt>会议日期：</dt>
                   <dd>
-					<input type="text" class="datepicker txt time" name="meet_startDate"  /> 
-					<span>至</span>
-					<input type="text" class="datepicker txt time" name="meet_endDate"  />
-		    	  </dd>
+<input type="text" class="datepicker txt time" name="meet_startDate"  /> 
+<span>至</span>
+<input type="text" class="datepicker txt time" name="meet_endDate"  />
+    </dd>
                   <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">搜索</a></dd>
                 </dl>
               </div>
@@ -51,7 +56,18 @@
 	</div>  
 </div>
      	
- 
+
+<script type="text/javascript">
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$("[data-btn='conference']").addClass('limits_gray');
+		$("[data-btn='health_status']").addClass('limits_gray');
+	}
+	function getProject(){
+		return ${proinfo};
+	}
+</script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/common.js" type="text/javascript"></script>
 <!-- 富文本编辑器 -->
@@ -73,6 +89,62 @@
 <script type="text/javascript" src="<%=path%>/js/tabPostMeetingAnlysis.js"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 
- 
+<script>
+
+//============================健康状况
+	var proid = projectInfo.id;
+	var deliver_selectRow = null;
+	
+	
+$(function(){
+	show_health_case();
+});
+
+function hide_health_case(){
+	$("[data-btn='health_case']").off();
+	$("[data-btn='health_case']").remove();
+}
+function hide_health_status(){
+	$("[data-btn='health_status']").off();
+	$("[data-btn='health_status']").remove();
+}
+ /**
+  * 健康记录  列表
+  */
+function show_health_case(){
+	$("[data-btn='health_case']").text("健康状况变更记录");
+	$("[data-btn='health_case']").on("click",function(){
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist?hiddenBtn=${isEditable}';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health-custom-toolbar [name='projectId']").val(proid);
+				
+				init_bootstrapTable('project_health_table',5);
+			}
+		});
+		return false;
+	});
+}
+
+
+$(".datepicker").datepicker({
+    format: 'yyyy-mm-dd',
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: false,
+    defaultDate : Date,
+    today: "Today",
+    todayBtn:'linked',
+    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    forceParse:false,
+});
+</script>
+
 
 </html>

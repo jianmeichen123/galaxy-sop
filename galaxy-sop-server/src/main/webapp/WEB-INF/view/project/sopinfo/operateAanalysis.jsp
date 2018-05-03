@@ -37,21 +37,21 @@ $('.newTab180').tabLazyChange({
 });  
 function health_meet(){ 
 	$.getTabHtml({
-		url : platformUrl.health_meet,
+		url : platformUrl.health_meet+ "/" + projectId,
 		data : "",
 		obj : $("#operateA"),
 	});
 }
 function health_change(){ 
 	$.getTabHtml({
-		url : platformUrl.health_change ,
+		url : platformUrl.health_change+ "/" + projectId ,
 		data : "",
 		obj : $("#operateA"),
 	});
 }
 function health_record(){ 
 	$.getTabHtml({
-		url : platformUrl.health_record ,
+		url : platformUrl.health_record+ "/" + projectId ,
 		data : "",
 		obj : $("#operateA"),
 	});

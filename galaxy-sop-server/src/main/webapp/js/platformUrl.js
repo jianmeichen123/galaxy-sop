@@ -999,15 +999,15 @@ var platformUrl = {
 	/**
 	 * 健康度tab1
 	 */
-	health_meet: Constants.sopEndpointURL+"/galaxy/test/health_meet",
+	health_meet: Constants.sopEndpointURL+"/galaxy/project/postOperation/health_meet",
 	/**
 	 * 健康度tab2
 	 */
-	health_change: Constants.sopEndpointURL+"/galaxy/test/health_change",
+	health_change: Constants.sopEndpointURL+"/galaxy/project/postOperation/health_change",
 	/**
 	 * 健康度tab3
 	 */
-	health_record: Constants.sopEndpointURL+"/galaxy/test/health_record",
+	health_record: Constants.sopEndpointURL+"/galaxy/project/postOperation/health_record",
 	/**
 	 * 填写标准
 	 */

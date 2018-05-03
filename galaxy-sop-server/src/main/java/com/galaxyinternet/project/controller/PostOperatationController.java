@@ -135,6 +135,41 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/tab_postMeetingAnlysis";
 	}
+	
+	
+	@RequestMapping(value="health_meet/{pid}",method=RequestMethod.GET)
+	public String health_meet(HttpServletRequest request,@PathVariable Long pid){
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/health/health_meet";
+	}
+	@RequestMapping(value="health_change/{pid}",method=RequestMethod.GET)
+	public String health_change(HttpServletRequest request,@PathVariable Long pid){
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/health/health_change";
+	}
+	@RequestMapping(value="health_record/{pid}",method=RequestMethod.GET)
+	public String health_record(HttpServletRequest request,@PathVariable Long pid){
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/health/health_record";
+	}
 	/**
 	 * 分页查询透后运营会议记录
 	 * @param meetingRecord

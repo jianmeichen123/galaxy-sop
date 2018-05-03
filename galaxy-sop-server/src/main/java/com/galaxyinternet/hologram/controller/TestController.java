@@ -70,19 +70,6 @@ public class TestController{
 	}
  //健康度3個tab 
 	//运营 会议
-	@RequestMapping(value = "/health_meet")
-	public String health_meet(HttpServletRequest request) {
-		return "project/sopinfo/health/health_meet";
-	}
-
-	@RequestMapping(value = "/health_change")
-	public String health_change(HttpServletRequest request) {
-		return "project/sopinfo/health/health_change";
-	}
-
-	@RequestMapping(value = "/health_record")
-	public String health_record(HttpServletRequest request) {
-		return "project/sopinfo/health/health_record";
-	}
+ 
 
 }

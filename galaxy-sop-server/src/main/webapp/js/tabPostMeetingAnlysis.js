@@ -13,6 +13,7 @@ var meetingSearchPanel = {
 			
 			
 			$("#addPostMeetingBtn").click(function(){
+				debugger;
 				if($(this).hasClass('limits_gray'))
 				{
 					return;
