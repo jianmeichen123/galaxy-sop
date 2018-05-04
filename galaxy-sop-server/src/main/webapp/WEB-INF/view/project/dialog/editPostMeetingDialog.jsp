@@ -11,7 +11,7 @@
 <div id="post-meeting-dialog">
 	<form id="win_post_meeting_form" type="validate">
 	<div class="editPostMeetingtc">
-		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
+		<div class="title_bj_tzjl" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix grantPartTc">
 	        <div class="conference_all">
 	            <dl class="fmdl fl_l  clearfix">

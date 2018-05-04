@@ -34,7 +34,7 @@
 
 <body> 
 
-<div class="pagebox clearfix"> 
+<div class="clearfix"> 
 	<!--右中部内容--> 
     	
         <!--页眉-->

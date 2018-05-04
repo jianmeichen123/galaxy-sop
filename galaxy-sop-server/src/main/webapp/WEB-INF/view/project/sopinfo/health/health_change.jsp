@@ -26,11 +26,11 @@
 			 <table class="health_case table table_health_case">
 				<thead>
 					<tr>
-						<th>健康状况　</th>
-						<th>风险点</th>
-						<th>分析人</th>
-						<th>分析日期</th>
-						<th>操作</th>
+						<th width="10%">健康状况　</th>
+						<th width="13%">风险点</th>
+						<th width="27%">分析人</th>
+						<th width="20%">分析日期</th>
+						<th width="30%">操作</th>
 					</tr>
 				</thead>
 			</table> 
@@ -41,11 +41,11 @@
 				data-toolbar="#health-custom-toolbar">
 				<thead>
 					<tr>
-						<th data-field="healthStateStr"  >健康状况　</th>
-						<th data-field="rematk">风险点</th>
-						<th data-field="userName">分析人</th>
-						<th data-field="createdTime" data-formatter="longTime_Format" >分析日期</th>
-						<th data-field='operateFormatter'>操作</th>
+						<th data-width="10%" data-field="healthStateStr"  >健康状况　</th>
+						<th data-width="13%" data-field="rematk">风险点</th>
+						<th data-width="27%" data-field="userName">分析人</th>
+						<th data-width="20%" data-field="createdTime" data-formatter="longTime_Format" >分析日期</th>
+						<th data-width="30%"  >操作</th>
 					</tr>
 				</thead>
 			</table>
@@ -77,7 +77,7 @@
 * 健康记录  添加
 */
 function show_health_status(){
-	$("[data-btn='health_status']").text("添加健康状况");
+	$("[data-btn='health_status']").text("添加");
 	$("[data-btn='health_status']").on("click",function(){
 		if($(this).hasClass('limits_gray'))
 		{
@@ -101,12 +101,16 @@ function save_health(){
 	var content = JSON.parse($("#health_form").serializeObject());
 	var _url =  Constants.sopEndpointURL + '/galaxy/health/addhealth'
 	sendPostRequestByJsonObj(_url, content, function(data){
-		if (data.result.status=="OK") {
-			debugger;
+		if (data.result.status=="OK") { 
 			layer.msg("保存成功");	
 			$.popupTwoClose();
 			//init_bootstrapTable('project_health_table',5);
-			$("#project_health_table").bootstrapTable('refresh');
+			$("#project_health_table").bootstrapTable('refresh',{
+			    query: 
+			    {
+			    	projectId:projectId, 
+			    }
+			});
 			//启用滚动条
 			 $(document.body).css({
 			   "overflow-x":"auto",
@@ -115,7 +119,12 @@ function save_health(){
 			//刷新投后运营简报信息
 			setThyyInfo();
 			
-			$("#project_delivery_table").bootstrapTable('refresh');
+			$("#project_delivery_table").bootstrapTable('refresh',{
+			    query: 
+			    {
+			    	projectId:projectId, 
+			    }
+			});
 		} else {
 			layer.msg(data.result.message);
 		}
@@ -123,6 +132,10 @@ function save_health(){
 	
 }
 show_health_status();
-init_bootstrapTable('project_health_table',5);
+var parm ={
+    	projectId:projectId, 
+};
+init_bootstrapTable('project_health_table',5 ,parm);
+ 
 
 </script>
