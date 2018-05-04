@@ -1717,7 +1717,7 @@ var cookieOperator = {
 	}
 }
 
-function init_bootstrapTable(table_id,page_size){
+function init_bootstrapTable(table_id,page_size,queryParams ){
 	$('#'+table_id).bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:page_size,
@@ -1728,7 +1728,8 @@ function init_bootstrapTable(table_id,page_size){
 		uniqueId: "id", 
 		idField : "id",
 		clickToSelect: true,
-        search: false
+        search: false,
+        queryParams :queryParams ,
 	});
 }
 

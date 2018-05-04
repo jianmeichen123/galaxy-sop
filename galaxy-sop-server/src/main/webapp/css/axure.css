@@ -4867,10 +4867,9 @@ white-space: nowrap;    width: 195px;
 .tab2Con .table_health_case{position:static;margin-top:10px;}
 .tab2Con .table_health_case{margin:0!important; }
 #project_health_table.healthCommTable{border:0;}
-#project_health_table.healthCommTable td{border-color:#f0f0f0;}
-
-
-
+#project_health_table.healthCommTable td{border-color:#f0f0f0;} 
+.member .tab2Con .table_health_case th{    padding: 0 8px ;  }
+.tab2Con #meetGrid thead th .th-inner{ padding: 5px 8px;}
 
 
 
