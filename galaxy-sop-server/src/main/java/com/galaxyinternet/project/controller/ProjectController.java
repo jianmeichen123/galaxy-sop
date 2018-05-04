@@ -4152,10 +4152,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo>
 			@ApiResponse(code = 200, message = "事业线列表", response = ResponseData.class) })
 	@RequestMapping(value = "/lines", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseData<Department> getLists()
+	public ResponseData<Department> getLists(HttpServletRequest request)
 	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		ResponseData<Department> data = new ResponseData<Department>();
 		List<Department> list = baseInfoCache.getLines();
+		for(Department department : list){
+			if(user.getDepartmentId().longValue() == department.getId().longValue()){
+				department.setCurrentUser(true);
+				break;
+			}
+		}
 		data.setEntityList(list);
 		return data;
 	}

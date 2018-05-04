@@ -622,6 +622,12 @@ var platformUrl = {
 	/**
 	 * 查询事业线
 	 */
+	getCareerlineListNew : Constants.sopEndpointURL + "/galaxy/project/lines",
+
+	
+	/**
+	 * 查询事业线
+	 */
 	getCareerlineListByRole : Constants.sopEndpointURL + "/galaxy/common/getCareerlineListByRole",
 	/**
 	 * 根据事业线查询相应的投资经理
