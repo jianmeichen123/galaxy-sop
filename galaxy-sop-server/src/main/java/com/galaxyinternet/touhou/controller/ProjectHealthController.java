@@ -221,9 +221,12 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 *查询  健康列表
 	 */
+	@ApiOperation("查询项目健康度列表（不带参数）")
 	@ResponseBody
-	@RequestMapping(value = "/queryhealthpage", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectHealth> queryHealthPage(HttpServletRequest request, @RequestBody ProjectHealthBo query) {
+	@RequestMapping(value = "/queryhealthpage",method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> queryHealthPage(HttpServletRequest request,
+			@ApiParam(name = "projectHealth", value = "项目健康度", required = true)
+			@RequestBody ProjectHealthBo query) {
 		
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		
@@ -252,7 +255,6 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	 * @param project
 	 * @return
 	 */
-	@ApiOperation("查询项目健康度列表（带参）")
 	@ResponseBody
 	@RequestMapping(value="/getHealthyCharts",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> getHealthyCharts(HttpServletRequest request,@RequestBody ProjectBo project){
@@ -303,9 +305,12 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 *首页健康度详情
 	 */
+	@ApiOperation("查询项目健康度列表（带参）")
 	@ResponseBody
-	@RequestMapping(value = "/getHealthChartGrid", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectHealth> getHealthChartGrid(HttpServletRequest request, @RequestBody ProjectHealthBo query) {
+	@RequestMapping(value = "/getHealthChartGrid", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> getHealthChartGrid(HttpServletRequest request,
+			@ApiParam(name = "projectHealth", value = "项目健康度", required = true)
+			@RequestBody ProjectHealthBo query) {
 		
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		
