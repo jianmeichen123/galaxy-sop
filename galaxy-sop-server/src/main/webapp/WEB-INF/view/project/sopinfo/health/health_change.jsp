@@ -17,12 +17,12 @@
     <div class="form clearfix" >
     
 		<c:if test="${isEditable}">
-			<div>
+			<div class="btnbox_f">
 				<a href="javascript:void(0)"  class="new_blueBtn bluebtn" data-btn="health_status" data-name='健康状况' style="width:90px;"></a>
 			</div>
 		</c:if>
 		
-		<div class="  scroll_table" style="position:relative;" id="health_case_scroll">
+		<div class="  scroll_table"  id="health_case_scroll">
 			<table class="health_case table table_health_case">
 				<thead>
 					<tr>
