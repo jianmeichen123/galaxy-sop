@@ -190,8 +190,8 @@
 			        	<th data-field="projectCareerline"  class="data-input" data-class="delete_syb" data-width="12%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-class="delete_tzjl"  data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
-         				<c:if test="${fx:hasRole(4)}">
+			        <!-- 	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
+         			 -->	<c:if test="${fx:hasRole(4)}">
 			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="6%">操作</th>
  						</c:if>
  					</tr>	
