@@ -40,7 +40,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:isCreatedByUser('project',projectId)}">
-            <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="javascript:void(0);"  onclick="operateOperationalData()" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -226,13 +226,13 @@ function getToobarQueryOperationParams(ToolbarId){
 
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
-	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
+	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData()\" >查看</span>";
 	var edit = "";
 	var deletes = "";
 	if('${fx:isTransfering(projectId)}' == 'false'){
 		if(isflag == "true"){
-			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
-			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData()\" >编辑</span>";
+			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData()\" >删除</span>";
 		}
 	}
 	return info + edit + deletes;
@@ -241,41 +241,17 @@ function dataRange(value,row,index){
 	return value+"年"+row.dataTypeValue;
 }
 
-function operateOperationalData(id,i){
-	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;
-	if(i == "info"){
-		_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
-	}
-	
-	if(i == "add"){
-		_url='<%=path %>/galaxy/operationalData/addOperationalDataList/'+id;
-	}
-	
-	//详情页返回地址
-	var options = $("#fileGridOperation").bootstrapTable('getOptions');
-	var tempPageSize = options.pageSize ? options.pageSize : 10;
-	var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-	var dataTypeMonth = $("input[name='dataTypeMonth']:checked").val();
-	var dataTypeQuarter = $("input[name='dataTypeQuarter']:checked").val();
-	var operateDateStart = $("input[name='operateDateStart']").val();
-	var operateDateEnd = $("input[name='operateDateEnd']").val();
-	var projectId =  $("input[name='projectId']").val();
-	
-	var formdata = {
-			_paramKey : 'operationList',
-			_url : _url,
-			_path : "/",
-			_param : {
-				pageNum : tempPageNum,
-        		pageSize : tempPageSize,
-        		dataTypeMonth : dataTypeMonth,
-        		dataTypeQuarter : dataTypeQuarter,
-        		operateDateStart : operateDateStart,
-        		operateDateEnd : operateDateEnd,
-        		projectId :projectId
-			}
-	}
-	cookieOperator.forwardPushCookie(formdata);
+function operateOperationalData(){
+	 debugger;
+	 var _url="<%=path %>/galaxy/operationalData/addOperationalDataList/"+projectId; 
+	//var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(){
+			 
+		}
+	});
 }
 function deleteOperationalData(selectRowId){
 	layer.confirm('是否删除运营数据?',

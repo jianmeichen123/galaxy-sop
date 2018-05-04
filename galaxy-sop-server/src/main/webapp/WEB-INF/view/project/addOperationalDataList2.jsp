@@ -3,7 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
-%> 
+%>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
 <%@ include file="../common/taglib.jsp"%>
@@ -23,10 +28,67 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
- 
-<div class="pagebox clearfix"> 
+</head>
+
+<body>
+
+<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+
+<div class="pagebox clearfix">
+	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
- 	<div class="ritmin"> 
+ 	<div class="ritmin">
+    	<div class="new_tit_a">
+    	<a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>><c:if test="${not empty operationalData }">编辑</c:if><c:if test="${empty operationalData }">添加</c:if>运营数据
+    		<span class="b_span" style="float:right;"> 
+            <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${projectId}" class="blue">返回&gt;</a>
+          </span>
+    	</div>
+    	<form id="operationData_form" action="" method="post" autocomplete="off" onsubmit="return false">
+    	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
+    	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
+    	<div class="new_tit_b">
+        	<dl class="fmdl fmmt clearfix">
+              <dt>运营数据统计区间：</dt>
+              <dd>
+               <input type="text" class="datepicker-year-text txt time" readonly id="startTime" name="operationIntervalDate" style="height:23px;" value="${operationalData.operationIntervalDate }">
+              </dd>
+          </dl>
+          <dl class="fmdl fmmt clearfix">
+              <dd class="clearfix">
+                <label><input type="radio" checked="checked" name="dataType" value="0" id="month" <c:if test="${operationalData.dataType == '0'}">checked="checked"</c:if>>月数据</label>
+                <label><input type="radio" name="dataType" value="1" id="quarter" <c:if test="${operationalData.dataType == '1'}">checked="checked"</c:if>>季数据</label>
+                
+              </dd>
+            </dl>
+         	<dl class="fmdl fmmt clearfix">
+         		<dd>
+         			<select name="dataTypeValue" id="monthData">
+                  <option value="">--请选择--</option>
+                  <option value="1月">1月</option>
+                  <option value="2月">2月</option>
+                  <option value="3月">3月</option>
+                  <option value="4月">4月</option>
+                  <option value="5月">5月</option>
+                  <option value="6月">6月</option>
+                  <option value="7月">7月</option>
+                  <option value="8月">8月</option>
+                  <option value="9月">9月</option>
+                  <option value="10月">10月</option>
+                  <option value="11月">11月</option>
+                  <option value="12月">12月</option>
+                </select>
+                <select name="dataTypeValue" id="quarterData">
+                  <option value="">--请选择--</option>
+                  <option value="第一季度">第一季度</option>
+                  <option value="第二季度">第二季度</option>
+                  <option value="第三季度">第三季度</option>
+                  <option value="第四季度">第四季度</option>
+                </select>
+         		</dd>
+         	</dl>
+          
+      </div>
       <div class="tabtable_con_on operationalInfo">
         <div class="new_r_compile ">
           <span class="new_color size16">基础情况</span>
@@ -191,10 +253,12 @@
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 
 
-  
+
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 <style>
 .tip-yellowsimple{z-index: 8 !important;}
-</style> 
+</style>
+</body>
 <script>
 $(window).scroll(function () {
 	$("#textid").focus();
@@ -317,5 +381,7 @@ function saveOperationDataCallBack(data){
 }
 </script>
 
- 
+
+
+</html>
 
