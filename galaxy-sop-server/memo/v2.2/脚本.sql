@@ -70,8 +70,16 @@ insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `re
 values
 ('1167','1165','projectHealth_delete','删除项目健康度','3',NULL,'2116','健康状况-删除项目健康度','0','0','0',NULL,NULL,NULL,NULL,'1',NULL);
 
-
-
+-- 移动端运营分析权限
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5501,0,'app_operation','运营分析(移动端)',2,NULL,5501,'可查看到运营分析标签内的信息',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5502,5501,'app_operationMeeting','运营会议纪要(移动端)',2,NULL,5502,'运营分析模块-运营会议纪要功能',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5503,5502,'app_operationMeeting_add','添加运营会议',3,NULL,5503,'可以添加运营分析中的运营会议',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5504,5502,'app_operationMeeting_update','编辑运营会议',3,NULL,5504,'可以编辑运营分析中的运营会议',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5505,5502,'app_operationMeeting_delete','删除运营会议',3,NULL,5505,'可以删除运营分析中的运营会议',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5506,5501,'app_projectHealth','健康状况(移动端)',2,NULL,5506,'运营分析模块-健康状况功能',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5507,5506,'app_projectHealth_add','添加健康状态记录',3,NULL,5507,'可以添加运营分析中的健康状况记录',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5508,5506,'app_projectHealth_delete','编辑项目健康度',3,NULL,5508,'可以编辑运营分析中的健康状况记录',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `resource` (`Id`,`parent_id`,`resource_code`,`resource_name`,`resource_type`,`resource_url`,`resource_order`,`resource_desc`,`product_type`,`is_del`,`is_outtage`,`create_time`,`create_id`,`update_time`,`update_id`,`company_id`,`style`) VALUES (5509,5506,'app_projectHealth_delete','删除项目健康度',3,NULL,5509,'可以删除运营分析中的健康状况记录',0,0,0,NULL,NULL,NULL,NULL,1,NULL);
 
 
 
