@@ -23,7 +23,7 @@
 		</c:if>
 		
 		<div class="  scroll_table"  id="health_case_scroll">
-			<table class="health_case table table_health_case">
+			 <table class="health_case table table_health_case">
 				<thead>
 					<tr>
 						<th>健康状况　</th>
@@ -33,8 +33,8 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-			</table>
-			<table id="project_health_table" class="health_case"
+			</table> 
+			<table id="project_health_table" class="health_case healthCommTable"
 				data-page-list="[5, 10, 20]" 
 				data-url="<%=path%>/galaxy/health/queryhealthpage" 
 				data-id-field="id"
@@ -45,7 +45,7 @@
 						<th data-field="rematk">风险点</th>
 						<th data-field="userName">分析人</th>
 						<th data-field="createdTime" data-formatter="longTime_Format" >分析日期</th>
-						<th data-field='operateFormatter'></th>
+						<th data-field='operateFormatter'>操作</th>
 					</tr>
 				</thead>
 			</table>
