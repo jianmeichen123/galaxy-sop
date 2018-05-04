@@ -50,9 +50,12 @@ UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1155';
 UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1156';
 UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1157';
 UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1158';
-UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1159';
 
-
+UPDATE `power`.`resource` SET `resource_order`='2101' WHERE `Id`='1164';
+UPDATE `power`.`resource` SET `resource_order`='2104' WHERE `Id`='1165';
+UPDATE `power`.`resource` SET `resource_order`='2105' WHERE `Id`='1158';
+UPDATE `power`.`resource` SET `resource_order`='2117' WHERE `Id`='1156';
+UPDATE `power`.`resource` SET `parent_id`='1151', `resource_desc`='运营分析模块-运营数据功能' WHERE `Id`='1159';
 
 insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`) 
 values
