@@ -35,3 +35,41 @@ INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_cod
 --健康度添加删除标识
 ALTER TABLE `fx_db`.`sop_project_health` 
 ADD COLUMN `is_delete` INT(11) NULL DEFAULT 0 COMMENT '删除标识：0，正常；1：删除' AFTER `updated_time`;
+
+
+
+
+UPDATE `power`.`resource` SET `parent_id`='1159' WHERE `Id`='1163';
+UPDATE `power`.`resource` SET `parent_id`='1159' WHERE `Id`='1162';
+UPDATE `power`.`resource` SET `parent_id`='1159' WHERE `Id`='1161';
+UPDATE `power`.`resource` SET `parent_id`='1159' WHERE `Id`='1160';
+UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1152';
+UPDATE `power`.`resource` SET `parent_id`='1164 ' WHERE `Id`='1153';
+UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1154';
+UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1155';
+UPDATE `power`.`resource` SET `parent_id`='1164' WHERE `Id`='1156';
+UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1157';
+UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1158';
+UPDATE `power`.`resource` SET `parent_id`='1165' WHERE `Id`='1159';
+
+
+
+insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`) 
+values
+('1164','1151','operationMeeting','运营会议纪要','3',NULL,'2113','运营分析模块-运营会议纪要功能','0','0','0',NULL,NULL,NULL,NULL,'1',NULL);
+insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`) 
+values
+('1165','1151','projectHealth','健康状况','3',NULL,'2114','运营分析模块-健康状况功能','0','0','0',NULL,NULL,NULL,NULL,'1',NULL);
+insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`) 
+values
+('1166','1165','projectHealth_delete','编辑项目健康度','3',NULL,'2115','健康状况-编辑项目健康度','0','0','0',NULL,NULL,NULL,NULL,'1',NULL);
+insert into `resource` (`Id`, `parent_id`, `resource_code`, `resource_name`, `resource_type`, `resource_url`, `resource_order`, `resource_desc`, `product_type`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`, `style`) 
+values
+('1167','1165','projectHealth_delete','删除项目健康度','3',NULL,'2116','健康状况-删除项目健康度','0','0','0',NULL,NULL,NULL,NULL,'1',NULL);
+
+
+
+
+
+
+
