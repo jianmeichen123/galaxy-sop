@@ -6,7 +6,7 @@
 %> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
-<%@ include file="../common/taglib.jsp"%>
+<%@ include file="../common/healthlib.jsp"%>
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
