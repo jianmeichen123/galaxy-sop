@@ -311,16 +311,25 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		
         User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
+	
+         //从缓存获取当前用户的所有角色
+        ShardedJedis jedis = null;
+        jedis = cache.getJedis();
+        Set<String> smembers = jedis.smembers(PlatformConst.CACHE_USER_ROLEIDS+user.getId());
+		List<String> roleIdList = new ArrayList<String>(smembers);
+	     //$$$$$$$$$$$$$$$$$$$$$$
 		//有搜索条件则不启动默认筛选
-		List<Long> roleIdList = user.getRoleIds();
-		if (roleIdList.contains(UserConstant.HHR)){
-			query.setDepId(user.getDepartmentId());
+		if(roleIdList.contains(UserConstant.HHR)){
+	    	 query.setDepId(user.getDepartmentId());
+	     }
+	     if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR)){ 
+	    	 if(null!=query.getDepId()){
+	    		 query.setDepId(query.getDepId());
+	    	 }
 		}
-		ShardedJedis jedis = null;
-		jedis = cache.getJedis();
-		ShardedJedisPipeline pip = jedis.pipelined();
-		Response<String> response = pip.get(PlatformConst.CACHE_USER_ROLEIDS+user.getId());
-		String string = response.get();
+	     if(null!=query.getHealthState()){
+	    	 query.setHealthState(query.getHealthState());
+	     }
 		try {
 			PageRequest pageRequest = new PageRequest();
 			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
