@@ -24,12 +24,15 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
  <style>
- 	.ritmin{height:400px;overflow:auto;width:900px;}
+ 	.ritmin{height:450px;overflow:auto;width:900px;}
  	div.tip-yellowsimple{z-index:10000!important;}
  	#operationData_form{padding-top:45px;}
  	.operationalInfo{text-align:center;}
  	.button_span{display:inline-block; margin:20px 0;}
 	.pop .poptxt{padding:0;}
+	table{width: 100%;}
+	 table .on td  {background:none;}
+	 .operationalInfo table td .new_nputr,.fmdl dd select,.fmdl dd .txt{border-radius:2px;border:1px solid #d8d8d8;}
  </style>
 <div class=" clearfix"> 
 	<!--右中部内容-->

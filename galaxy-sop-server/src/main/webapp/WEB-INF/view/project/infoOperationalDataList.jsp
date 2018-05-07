@@ -37,6 +37,8 @@
  	div.tip-yellowsimple{z-index:10000!important;}
 	.pop .poptxt{padding:0;}
 	 .new_tit_b{margin-top:45px;}
+	 table .on td {background:none;}
+	 .operationalInfo table td .new_nputr{border-radius:2px;border:1px solid #d8d8d8;}
  </style>
 <div class="  clearfix"> 
 	<!--右中部内容-->
