@@ -103,8 +103,8 @@ function save_health(){
 	sendPostRequestByJsonObj(_url, content, function(data){
 		if (data.result.status=="OK") { 
 			layer.msg("保存成功");	
-			$.popupTwoClose();
-			//init_bootstrapTable('project_health_table',5);
+			 $("#popbg").remove();
+			 $("#powindow").remove();
 			$("#project_health_table").bootstrapTable('refresh',{
 			    query: 
 			    {
