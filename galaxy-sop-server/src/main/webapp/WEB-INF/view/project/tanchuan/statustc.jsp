@@ -13,6 +13,7 @@
 		<form id="health_form">
 		
 		<input type="hidden" name="projectId" value="" />
+		<input type="hidden" name="id" id="id" value=""> 
 		<dl class="fmdl clearfix">
 			<dt>健康状况：</dt>
 			<dd>

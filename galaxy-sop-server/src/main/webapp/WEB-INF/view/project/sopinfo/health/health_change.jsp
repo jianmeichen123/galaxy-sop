@@ -161,11 +161,15 @@ function health_edit(id){
 				var result=data.result.status;
 				if(result=="OK"){
 				 var obj=data.entity;
-				
+				 $("[name='healthState']").each(function(){
+					 var radio=this;
+					 if(radio.value==obj.healthState){
+						 this.checked=true;
+					 }
+				 })
+				 $("[name='rematk']").text(obj.rematk);
+				 $("#id").val(obj.id);
 				}
-				
-				
-				
 			})
 		}
 	});
@@ -173,14 +177,30 @@ function health_edit(id){
 }
 
 function health_delete(id){
-	
 	var reqUrl=Constants.sopEndpointURL + '/galaxy/health/deleteDetail/'+id;
-	sendGetRequest(reqUrl,null,function(data){
-		var result=data.result.status;
-		
-		
-	})
-	
+	layer.confirm("确定删除？",function(i){
+		layer.close(i);
+		sendGetRequest(
+				reqUrl,
+			{},
+			function(data){
+				if(data.result.status=='OK')
+				{
+					layer.msg("删除成功");
+					$("#project_health_table").bootstrapTable('refresh',{
+					    query: 
+					    {
+					    	projectId:projectId, 
+					    }
+					});
+				}
+				else
+				{
+					layer.msg("删除失败。");
+				}
+			}
+		);
+	});
 }
 
 function health_look(id){

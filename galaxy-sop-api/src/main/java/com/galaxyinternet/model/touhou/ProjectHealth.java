@@ -39,7 +39,7 @@ public class ProjectHealth extends PagableEntity {
     
     private String projectCareerline;
     
-   private Integer isDelete;
+   private int isDelete;
    
    private List<String> createUids;
     
@@ -170,11 +170,13 @@ public class ProjectHealth extends PagableEntity {
 		return projectCareerline;
 	}
 
-	public Integer getIsDelete() {
+	
+
+	public int getIsDelete() {
 		return isDelete;
 	}
 
-	public void setIsDelete(Integer isDelete) {
+	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
 

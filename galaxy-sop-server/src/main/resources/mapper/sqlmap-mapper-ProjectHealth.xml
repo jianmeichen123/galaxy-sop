@@ -45,6 +45,9 @@
 						#{item}
 					</foreach>
 			         </if>
+			         <if test="isDelete != null"> and is_delete = #{isDelete,jdbcType=BIGINT} </if>
+			      
+			         
 			
 			</trim>
 		</where>
