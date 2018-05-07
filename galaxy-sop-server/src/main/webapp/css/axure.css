@@ -1749,9 +1749,10 @@ word-wrap:break-word;
 .prj_all .searchall_prj .searchall_top,.prj_all .searchall_prj .searchall_bottom{padding-right:0;width:99%;}
 .btnbox_f .add_prj{border:1px solid #539be2;}
 .searchall_prj{width:100%;padding:10px 0;background-color: #d6d8e1;border-radius: 4px;margin-top: 10px;position: relative;}
-.searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:95%;}
+.searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0; padding-left:10px;overflow: hidden;width:95%;}
+.searchall_prj dt{margin-right:3px;}
 .searchall_prj .searchall_top{margin-bottom: 10px;display: none;}
-.searchall_prj .fmdl{margin-right: 1%;}
+.searchall_prj .fmdl{margin-right: 10px;}
 .searchall_prj .fmdl select{box-sizing: border-box; height:28px;}
 .searchall_prj dt{width:75px;text-align: right;font-size: 14px;color:#3e4351;}
 .searchall_prj dd,.searchall_prj dd select{width:110px;}
@@ -1762,9 +1763,9 @@ word-wrap:break-word;
 .cx_prj{  font-family:"Microsoft Yahei"; background:#3CA6FF  url(../img/btnico2.png) no-repeat;background-position: 15px -180px;padding:0 8px 0 30px;}
 .searchall_prj .reset{width:60px;}
 .searchall_prj .reset.hide{display:none;;}
-.searchall_prj .btn{margin-left: 35px; float: left;}
-.searchall_prj .show_more{position: absolute;right:25px;bottom:15px;}
-.searchall_prj .show_more a{margin-left: 10px;cursor: pointer; font-family:"Microsoft Yahei"; }
+.searchall_prj .btn{margin-left: 0px; float: left;}
+.searchall_prj .show_more,.searchall_prj .show_more_prj{position: absolute;right:0px;bottom:15px;}
+.searchall_prj .show_more a,.searchall_prj .show_more_prj a{margin-left: 10px;cursor: pointer; font-family:"Microsoft Yahei"; }
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .searchall_prj .f4{background-position: right -95px;padding: 0 30px 0 20px; }
