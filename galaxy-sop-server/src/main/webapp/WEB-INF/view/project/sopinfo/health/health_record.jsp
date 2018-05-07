@@ -241,7 +241,7 @@ function dataRange(value,row,index){
 	return value+"年"+row.dataTypeValue;
 }
 
-function operateOperationalData(id,i){ 
+function operateOperationalData(id,i){ debugger;
 	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;
 	 if(i == "info"){
 			_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
@@ -252,8 +252,7 @@ function operateOperationalData(id,i){
 	$.getHtml({
 		url:_url,
 		data:"",
-		okback:function(){
-			 
+		okback:function(){ 	 
 		}
 	});
 }
@@ -277,7 +276,7 @@ function del_operate(id){
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
- 	        var le = $("#fileGridOperation tbody tr").length;
+ 	        var le = $("#fileGridOperation tbody tr").length; 
  	        if(le <= 1){
  	        	var options = $("#operationList").bootstrapTable('getOptions');
  				var tempPageNum = options.pageNumber ? options.pageNumber : 1;

@@ -51,65 +51,10 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 </script>
 <script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
-<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<%-- <script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script> --%>
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script> 
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/buryPoint.js" type="text/javascript"></script>
-
-<%-- <script>
-var allResourceToUser = new Array();
-<%
-if(null!=user){
-	List<PlatformResource> list = user.getAllResourceToUser();
-	if(list!=null){
-		for(int j=0;j<list.size();j++)
-		{%>
-			allResourceToUser.push(<%=list.get(j)%>);
-		<%}
-	}
-	
-}%>
-	
-	function isContainResourceByMark(mark){
-		var result = false;
-		$.each(allResourceToUser, function(index, element){
-			if(element.resourceMark == mark){
-				result = true;
-			}
-		});
-		return result;
-	}
-checkVersion()
-function getInternetExplorerVersion(){
-	var rv = -1; 
-	if (navigator.appName == 'Microsoft Internet Explorer'){
-		var ua = navigator.userAgent;
-		var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-		if (re.exec(ua) != null)
-			rv = parseFloat( RegExp.$1 );
-	}
-	return rv;
-}
-
-function checkVersion(){
-	var msg =Constants.sopEndpointURL;
-	var ver = getInternetExplorerVersion();
-	if ( ver> -1 ) {
-		if ( ver <= 10.0 ){
-		}else{
-			document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-			document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
-		}
-	}else{
-		document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-		document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
-	}
-
-}
-</script> --%>
+<script src="<%=request.getContextPath() %>/js/buryPoint.js" type="text/javascript"></script> 
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/layer.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/extend/layer.ext.js"></script>
