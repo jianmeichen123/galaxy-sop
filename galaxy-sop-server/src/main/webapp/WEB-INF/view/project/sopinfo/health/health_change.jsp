@@ -45,7 +45,7 @@
 						<th data-width="13%" data-field="rematk">风险点</th>
 						<th data-width="27%" data-field="userName">分析人</th>
 						<th data-width="20%" data-field="createdTime" data-formatter="longTime_Format" >分析日期</th>
-						<th data-width="30%"  >操作</th>
+						<th data-width="30%"  data-formatter="editor" >操作</th>
 					</tr>
 				</thead>
 			</table>
@@ -136,6 +136,73 @@ var parm ={
     	projectId:projectId, 
 };
 init_bootstrapTable('project_health_table',5 ,parm);
- 
+var isflag= "${fx:hasRole(4)}";
+function editor(value,row,index){
+	var btns = "";
+	if(isCreatedByUser == "true" && isTransfering != 'true')
+	{
+		btns += '<a class="health_edit blue" onclick="health_edit('+row.id+')"  href="javascript:void(0)">编辑</a>  ';
+		btns += '<a class="health_delete blue" onclick="health_delete('+row.id+')"  href="javascript:void(0)">删除</a>  ';
+		btns += '<a class="health_look blue" onclick="health_look('+row.id+')"  href="javascript:void(0)">查看</a>  '
+	}
+	return btns;
+}
+var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+function health_edit(id){
+	var _name="编辑健康度"
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(){
+			$("#popup_name").html(_name);
+			$("#health_form [name='projectId']").val(proid);
+			var reqUrl=Constants.sopEndpointURL+'/galaxy/health/getDetail/'+id;
+			sendGetRequest(reqUrl,null,function(data){
+				var result=data.result.status;
+				if(result=="OK"){
+				 var obj=data.entity;
+				
+				}
+				
+				
+				
+			})
+		}
+	});
+	
+}
+
+function health_delete(id){
+	
+	var reqUrl=Constants.sopEndpointURL + '/galaxy/health/deleteDetail/'+id;
+	sendGetRequest(reqUrl,null,function(data){
+		var result=data.result.status;
+		
+		
+	})
+	
+}
+
+function health_look(id){
+	var _name="查看健康度"
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(){
+			$("#popup_name").html(_name);
+			$("#health_form [name='projectId']").val(proid);
+			var reqUrl=Constants.sopEndpointURL+'/galaxy/health/getDetail/'+id;
+			sendGetRequest(reqUrl,null,function(data){
+				var result=data.result.status;
+				
+				
+			})
+		}
+	});
+}
+
+	
+
+	
 
 </script>
