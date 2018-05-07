@@ -6,7 +6,7 @@
 %> 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
-<%@ include file="../common/taglib.jsp"%>
+<%@ include file="../common/healthlib.jsp"%>
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -23,10 +23,58 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
- 
-<div class="pagebox clearfix"> 
+ <style>
+ 	.ritmin{height:400px;overflow:auto;}
+ 	div.tip-yellowsimple{z-index:10000!important;}
+ </style>
+<div class=" clearfix"> 
 	<!--右中部内容-->
  	<div class="ritmin"> 
+     <form id="operationData_form" action="" method="post" autocomplete="off" onsubmit="return false">
+    	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
+    	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
+    	<div class="new_tit_b">
+        	<dl class="fmdl fmmt clearfix">
+              <dt>运营数据统计区间：</dt>
+              <dd>
+               <input type="text" class="datepicker-year-text txt time" readonly id="startTime" name="operationIntervalDate" style="height:23px;" value="${operationalData.operationIntervalDate }">
+              </dd>
+          </dl>
+          <dl class="fmdl fmmt clearfix">
+              <dd class="clearfix">
+                <label><input type="radio" checked="checked" name="dataType" value="0" id="month" <c:if test="${operationalData.dataType == '0'}">checked="checked"</c:if>>月数据</label>
+                <label><input type="radio" name="dataType" value="1" id="quarter" <c:if test="${operationalData.dataType == '1'}">checked="checked"</c:if>>季数据</label>
+                
+              </dd>
+            </dl>
+         	<dl class="fmdl fmmt clearfix">
+         		<dd>
+         			<select name="dataTypeValue" id="monthData">
+                  <option value="">--请选择--</option>
+                  <option value="1月">1月</option>
+                  <option value="2月">2月</option>
+                  <option value="3月">3月</option>
+                  <option value="4月">4月</option>
+                  <option value="5月">5月</option>
+                  <option value="6月">6月</option>
+                  <option value="7月">7月</option>
+                  <option value="8月">8月</option>
+                  <option value="9月">9月</option>
+                  <option value="10月">10月</option>
+                  <option value="11月">11月</option>
+                  <option value="12月">12月</option>
+                </select>
+                <select name="dataTypeValue" id="quarterData">
+                  <option value="">--请选择--</option>
+                  <option value="第一季度">第一季度</option>
+                  <option value="第二季度">第二季度</option>
+                  <option value="第三季度">第三季度</option>
+                  <option value="第四季度">第四季度</option>
+                </select>
+         		</dd>
+         	</dl>
+          
+      </div>
       <div class="tabtable_con_on operationalInfo">
         <div class="new_r_compile ">
           <span class="new_color size16">基础情况</span>
@@ -182,8 +230,7 @@
        <!--  <span class="pubbtn bluebtn" onclick="saveOperationData();">保存</span> -->
         <span class="pubbtn bluebtn button_span" onclick="saveOperationData();">保存</span>
         </form>
-      </div>     
-    </div>
+    </div>     
 </div>
 
 <!-- 校验 -->
@@ -196,6 +243,7 @@
 .tip-yellowsimple{z-index: 8 !important;}
 </style> 
 <script>
+
 $(window).scroll(function () {
 	$("#textid").focus();
 	
@@ -226,8 +274,8 @@ document.onkeydown = function(event) {
 
 if(!'${operationalData.operationIntervalDate}'){
 	$('input[name="operationIntervalDate"]').val(new Date().format("yyyy"));
-}
-var projectId = $("#projectId").val();
+} 
+var projectId = '${projectId}';
 var dataTypeValue = '${operationalData.dataTypeValue}';
 var payType = '${operationalData.payType}';
 var dataType = '${operationalData.dataType}';
@@ -285,22 +333,20 @@ function saveOperationData(){
 		if($(".tip-yellowsimple").length>0){
 			layer.msg("填写有误!");
 			return;
-		}
-		var projectId = $("#projectId").val();
-		
+		}  
 		var dataMonth = $("#monthData").val();
 		var dataQuarter = $("#quarterData").val();
 		
 		if(dataMonth == '' && dataQuarter == ''){
 			layer.msg("请选择数据类型!");
 			return;
-		}
-		
-		if(projectId != ''){
-			
-				//serializeObject serializeObjectIsNotNull
+		} 
+		if(projectId != ''){ 
 				sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
-		               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
+
+					$(".newTab180 li").last().click();
+					$("#powindow").remove();
+	                $("#popbg").remove();
 				}});
 			
 		}

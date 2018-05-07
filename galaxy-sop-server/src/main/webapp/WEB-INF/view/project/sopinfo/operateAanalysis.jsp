@@ -56,7 +56,7 @@ function health_record(){
 		obj : $("#operateA"),
 	});
 }
-$(".newTab180  li:first").click();
+$(".newTab180 li:first").click();
 </script>
 
 
