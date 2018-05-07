@@ -11,7 +11,7 @@
 <title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<%@ include file="/WEB-INF/view/common/healthlib.jsp"%>
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -32,19 +32,15 @@
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-
-<div class="pagebox clearfix">
-	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
+ <style>
+ 	.ritmin{height:400px;overflow:auto;width:900px;}
+ 	div.tip-yellowsimple{z-index:10000!important;}
+ .new_tit_b{margin-top:45px;}
+ </style>
+<div class="  clearfix"> 
 	<!--右中部内容-->
- 	<div class="ritmin">
-    	    <div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</a><a href="#">>${projectName }</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>运营分析</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>运营数据记录</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>查看运营数据
-    	    	<span class="b_span" style="float:right;"> 
-            <%-- <c:if test="${fx:hasRole(4)}"><a href="<%=path %>/galaxy/operationalData/editOperationalDataList/${operationalData.id}" class="blue edit_operation">编辑</a></c:if>
-             --%>
-            <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${operationalData.projectId}" class="blue">返回&gt;</a>
-          </span>
-    	    </div>
-    		
+ 	<div class="ritmin"> 
+ 	 <div class="title_bj" id="popup_name">查看运营数据</div>
     	<div class="new_tit_b">
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
@@ -190,8 +186,7 @@
               </tbody>
           </table>  
     </div>
-</div>
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+</div> 
 <style>
 .tip-yellowsimple{z-index: 8 !important;}
 </style>

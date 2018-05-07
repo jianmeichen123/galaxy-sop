@@ -4858,7 +4858,7 @@ white-space: nowrap;    width: 195px;
 .tab2Con{padding:0 10px;}
 .tab2Con .btnbox_f{margin:10px 0; float: right;}
 .tab2Con .btnbox_f .addico.c4{ padding: 0 20px 0 39px;}
-.tab2Con .btnbox_f a[data-btn='health_status']{padding: 0 20px 0 39px;background-image: url(../img/btnico2.png);background-position: 15px -121px;background-repeat: no-repeat;}
+.tab2Con .btnbox_f a[data-btn='health_status'],.tab2Con .btnbox_f  #addOperate{padding: 0 20px 0 39px;background-image: url(../img/btnico2.png);background-position: 15px -121px;background-repeat: no-repeat;}
 .tab2Con .min_document{margin:0;background-color: #f3f5f9; border-radius: 2px;}
 .tab2Con #meetGrid {margin-top:10px;}
 .tab2Con #meetGrid th,.member .tab2Con .table_health_case th,.member .tab2Con .table_health_case{border:0;background-color: #f3f5f9;border-radius: 0;}
