@@ -11,6 +11,8 @@
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <style>
 .bars{margin:0 !important;}
+.pop .poptxt{padding:0;}
+#health_form{padding:0 10px;}
 </style>
 <div class="addmentc tab2Con"> 
 	
@@ -141,9 +143,10 @@ function editor(value,row,index){
 	var btns = "";
 	if(isCreatedByUser == "true" && isTransfering != 'true')
 	{
+		btns += '<a class="health_look blue" onclick="health_look('+row.id+')"  href="javascript:void(0)">查看</a>  '
 		btns += '<a class="health_edit blue" onclick="health_edit('+row.id+')"  href="javascript:void(0)">编辑</a>  ';
 		btns += '<a class="health_delete blue" onclick="health_delete('+row.id+')"  href="javascript:void(0)">删除</a>  ';
-		btns += '<a class="health_look blue" onclick="health_look('+row.id+')"  href="javascript:void(0)">查看</a>  '
+		
 	}
 	return btns;
 }
@@ -210,7 +213,7 @@ function health_look(id){
 		data:"",
 		okback:function(){
 			$("#health_form .fmdl dd").text("-");
-			$("#but_oper").remove();
+			$("#but_oper a").hide();
 			$("#popup_name").html(_name);
 			$("#health_form [name='projectId']").val(proid);
 			var reqUrl=Constants.sopEndpointURL+'/galaxy/health/getDetail/'+id;
@@ -221,9 +224,7 @@ function health_look(id){
 				}else{ 
 					$("#health_form .fmdl:first").find("dd").text(data.entity.healthStateStr);
 					$("#health_form .fmdl").last().find("dd").text(data.entity.rematk);
-				}
-				 
-				
+				} 
 			})
 		}
 	});

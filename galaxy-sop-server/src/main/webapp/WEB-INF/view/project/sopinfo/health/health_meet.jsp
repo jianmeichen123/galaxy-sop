@@ -11,6 +11,12 @@
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <!-- 保存进度条 -->
 <link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<style type="text/css" media="screen">
+  .pop .poptxt{padding:0;}
+  .grantPartTc{max-height: 350px;padding:0 10px;}
+  .button_affrim{margin-bottom: 20px;}
+  .conference_all{margin-top:30px;}
+</style>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <!-- 运营分析 -->
 <div id="post_meeting_anlysis" class="tab2Con">

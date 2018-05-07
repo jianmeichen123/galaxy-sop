@@ -29,11 +29,12 @@
  	#operationData_form{padding-top:45px;}
  	.operationalInfo{text-align:center;}
  	.button_span{display:inline-block; margin:20px 0;}
+	.pop .poptxt{padding:0;}
  </style>
 <div class=" clearfix"> 
 	<!--右中部内容-->
  	<div class="ritmin"> 
- 	 <div class="title_bj" id="popup_name">添加运营数据</div>
+ 	 <div class="title_bj_tzjl" id="popup_name">添加运营数据</div>
      <form id="operationData_form" action="" method="post" autocomplete="off" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
     	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>

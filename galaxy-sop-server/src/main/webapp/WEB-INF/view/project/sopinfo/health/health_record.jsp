@@ -31,7 +31,11 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 </head>
-
+<style>
+.bars{margin:0 !important;}
+.pop .poptxt{padding:0;}
+#operationData_form{padding:0 10px;}
+</style> 	
 <body> 
 
 <div class="clearfix tab2Con"> 
