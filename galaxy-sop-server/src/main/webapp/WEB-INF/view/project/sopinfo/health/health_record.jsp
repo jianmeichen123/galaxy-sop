@@ -241,13 +241,11 @@ function dataRange(value,row,index){
 	return value+"年"+row.dataTypeValue;
 }
 
-function operateOperationalData(id,i){
-	 debugger;
-	 var _url="<%=path %>/galaxy/operationalData/addOperationalDataList/"+id;   
+function operateOperationalData(id,i){ 
+	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;
 	 if(i == "info"){
 			_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
-		}
-		
+		} 
 		if(i == "add"){
 			_url='<%=path %>/galaxy/operationalData/addOperationalDataList/'+id;
 		} 
