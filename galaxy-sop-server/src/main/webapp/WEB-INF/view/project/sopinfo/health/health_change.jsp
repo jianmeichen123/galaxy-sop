@@ -209,12 +209,20 @@ function health_look(id){
 		url:_url,
 		data:"",
 		okback:function(){
+			$("#health_form .fmdl dd").text("-");
+			$("#but_oper").remove();
 			$("#popup_name").html(_name);
 			$("#health_form [name='projectId']").val(proid);
 			var reqUrl=Constants.sopEndpointURL+'/galaxy/health/getDetail/'+id;
 			sendGetRequest(reqUrl,null,function(data){
 				var result=data.result.status;
-				
+				if(result=="ERROR"){
+					layer.msg(data.result.errorCode)
+				}else{ 
+					$("#health_form .fmdl:first").find("dd").text(data.entity.healthStateStr);
+					$("#health_form .fmdl").last().find("dd").text(data.entity.rematk);
+				}
+				 
 				
 			})
 		}
