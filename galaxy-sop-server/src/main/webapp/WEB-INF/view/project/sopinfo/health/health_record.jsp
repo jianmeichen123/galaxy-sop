@@ -40,7 +40,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:isCreatedByUser('project',projectId)}">
-            <a href="javascript:void(0);"  onclick="operateOperationalData()" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -226,13 +226,13 @@ function getToobarQueryOperationParams(ToolbarId){
 
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
-	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData()\" >查看</span>";
+	var info = "<d id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</d>";
 	var edit = "";
 	var deletes = "";
 	if('${fx:isTransfering(projectId)}' == 'false'){
 		if(isflag == "true"){
-			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData()\" >编辑</span>";
-			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData()\" >删除</span>";
+			edit = " <d  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</d>";
+			deletes = " <d  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</d>";
 		}
 	}
 	return info + edit + deletes;
@@ -241,10 +241,16 @@ function dataRange(value,row,index){
 	return value+"年"+row.dataTypeValue;
 }
 
-function operateOperationalData(){
+function operateOperationalData(id,i){
 	 debugger;
-	 var _url="<%=path %>/galaxy/operationalData/addOperationalDataList/"+projectId; 
-	//var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+	 var _url="<%=path %>/galaxy/operationalData/addOperationalDataList/"+id;   
+	 if(i == "info"){
+			_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
+		}
+		
+		if(i == "add"){
+			_url='<%=path %>/galaxy/operationalData/addOperationalDataList/'+id;
+		} 
 	$.getHtml({
 		url:_url,
 		data:"",
