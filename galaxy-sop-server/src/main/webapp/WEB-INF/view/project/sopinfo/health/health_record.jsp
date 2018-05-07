@@ -34,17 +34,17 @@
 
 <body> 
 
-<div class="clearfix"> 
+<div class="clearfix tab2Con"> 
 	<!--右中部内容--> 
     	
         <!--页眉-->
-        <div class="top clearfix">
+        <div class="top clearfix btnbox_f">
           <c:if test="${fx:isCreatedByUser('project',projectId)}">
-            <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')"  id="addOperate" class="new_blueBtn bluebtn" >添加</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
-        <div class="min_document clearfix min_document_da"  id="custom-toolbar-operate">
+        <div class="min_document clearfix min_document_da"  id="custom-toolbar-operate" style="float:left;">
           <div class="top clearfix search_adjust1 searchall">
             <input type="hidden" name="projectId" value="${projectId}">
           <dl class="fmdl fmdll clearfix"">

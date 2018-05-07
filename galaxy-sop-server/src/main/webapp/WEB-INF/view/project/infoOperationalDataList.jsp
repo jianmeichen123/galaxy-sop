@@ -33,12 +33,14 @@
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
  <style>
- 	.ritmin{height:400px;overflow:auto;}
+ 	.ritmin{height:400px;overflow:auto;width:900px;}
  	div.tip-yellowsimple{z-index:10000!important;}
+ .new_tit_b{margin-top:45px;}
  </style>
 <div class="  clearfix"> 
 	<!--右中部内容-->
  	<div class="ritmin"> 
+ 	 <div class="title_bj" id="popup_name">查看运营数据</div>
     	<div class="new_tit_b">
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>

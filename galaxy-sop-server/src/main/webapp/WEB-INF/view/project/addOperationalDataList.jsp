@@ -24,12 +24,16 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
  <style>
- 	.ritmin{height:400px;overflow:auto;}
+ 	.ritmin{height:400px;overflow:auto;width:900px;}
  	div.tip-yellowsimple{z-index:10000!important;}
+ 	#operationData_form{padding-top:45px;}
+ 	.operationalInfo{text-align:center;}
+ 	.button_span{display:inline-block; margin:20px 0;}
  </style>
 <div class=" clearfix"> 
 	<!--右中部内容-->
  	<div class="ritmin"> 
+ 	 <div class="title_bj" id="popup_name">添加运营数据</div>
      <form id="operationData_form" action="" method="post" autocomplete="off" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
     	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
@@ -279,8 +283,11 @@ var projectId = '${projectId}';
 var dataTypeValue = '${operationalData.dataTypeValue}';
 var payType = '${operationalData.payType}';
 var dataType = '${operationalData.dataType}';
-var productProcess = '${operationalData.productProcess }';
+var productProcess = '${operationalData.productProcess }'; 
 //数据类型月or季
+if(dataTypeValue!=''){
+	$("#popup_name").text("编辑运营数据")
+}
 if(dataType){
 	if(dataType == "0"){
 		$("#monthData").show();
@@ -289,8 +296,7 @@ if(dataType){
 	}else{
 		$("#quarterData").show();
 		$("#monthData").hide();
-		$("#quarterData option[value='"+dataTypeValue+"']").prop("selected", "selected"); 
-	   
+		$("#quarterData option[value='"+dataTypeValue+"']").prop("selected", "selected");  
 	}
 }
 if(productProcess){
@@ -327,8 +333,7 @@ $(function(){
     createMenus(14);
   })
   
-function saveOperationData(){
-	//$('#button_span').click(function(){console.log('0')})
+function saveOperationData(){ 
 	setTimeout(function () { 
 		if($(".tip-yellowsimple").length>0){
 			layer.msg("填写有误!");
