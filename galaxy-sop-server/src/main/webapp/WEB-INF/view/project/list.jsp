@@ -83,56 +83,7 @@
 		<div class="top clearfix" id="custom-toolbar">
 			<input type="hidden" name="primary" value="0">
           <div class="searchall_prj clearfix">
-            <div class="searchall_bottom clearfix">
-                <dl class="fmdl fml fmdll clearfix">
-                  <dt>事业部：</dt>
-                  <dd>
-                    <select name="projectDepartid">
-                      <option value="0">全部</option>
-                    </select>
-                  </dd>
-                </dl>
-                <dl class="fmdl fml fmdll clearfix">
-                  <dt>投资经理：</dt>
-                  <dd>
-                    <select name="createUid">
-                      <option value="0">全部</option>
-                    </select>
-                  </dd>
-                </dl>
-                 <dl class="fmdl fml fmdll special clearfix">
-                  <dt>项目进度：</dt>
-                  <dd>
-                    <select name="projectProgress">
-                      <option index="-1" value="">全部</option>
-                    </select>
-                  </dd>
-                </dl>  
-                
-                 <dl class="fmdl fml  fmdll clearfix">
-              		<dt >项目来源：</dt>
-              		<dd class="clearfix"> 
-		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
-	                    	<option value="">全部</option>
-	                    	<c:forEach items="${projectSourceList }" var="item">
-	                    		<option value="${item.id }">${item.name }</option>
-	                    	</c:forEach>
-	                    	<option>创业者</option>
-	                    	<option>外部独立合伙人</option>
-	                    	<option>自开发</option>
-	                    </select>
-	            	</dd>
-         		</dl> 
-                <dl class="fmdl fmdll clearfix fmdlSearch">
-                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称" >
-	                <div class="btn fr">
-	                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
-	                    <input type="hidden" value="0" id="showResetBtn">
-	                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
-	                </div>
-                </dl>
-                
-            </div>
+            
             <div class="searchall_top" data-btn="box">
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目类型：</dt>
@@ -184,8 +135,48 @@
                       <option index="-1" value="">全部</option>
                     </select>
                   </dd>
+                </dl> 
+            </div>
+            <div class="searchall_bottom clearfix">
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>事业部：</dt>
+                  <dd>
+                    <select name="projectDepartid">
+                      <option value="0">全部</option>
+                    </select>
+                  </dd>
                 </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>投资经理：</dt>
+                  <dd>
+                    <select name="createUid">
+                      <option value="0">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                 <dl class="fmdl fml fmdll special clearfix">
+                  <dt>项目进度：</dt>
+                  <dd>
+                    <select name="projectProgress">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>  
                 
+                 <dl class="fmdl fml  fmdll clearfix">
+              		<dt >项目来源：</dt>
+              		<dd class="clearfix"> 
+		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                    	<option value="">全部</option>
+	                    	<c:forEach items="${projectSourceList }" var="item">
+	                    		<option value="${item.id }">${item.name }</option>
+	                    	</c:forEach>
+	                    	<option>创业者</option>
+	                    	<option>外部独立合伙人</option>
+	                    	<option>自开发</option>
+	                    </select>
+	            	</dd>
+         		</dl> 
                 <dl class="fmdl fmdll clearfix fmdlSearch">
                 	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称" >
 	                <div class="btn fr">
@@ -194,11 +185,13 @@
 	                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
 	                </div>
                 </dl>
+                
             </div>
-            <div class="show_more_prj">
+            <div class="show_more ">
                 <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
             </div>
           </div>
+          
         </div>
 		<div class="tab-pane active ctlist" id="view" style="padding-top:55px;">	
 			<table id="project-table" data-url="project/search" 

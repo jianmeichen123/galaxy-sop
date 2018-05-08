@@ -1,6 +1,7 @@
 function leicj(){
   //我的日程弹窗搜索框显示隐藏
   $('.show_more a').on("click",function(){ 
+	  
     var $self=$(this),
         _name = $self.attr("data-btn"),
         _siblings = $self.siblings();
@@ -69,7 +70,7 @@ function leicj(){
     });
   });
   };		
-  function leicj_prj(){
+/*  function leicj_prj(){
 	  //我的日程弹窗搜索框显示隐藏
 	  $('.show_more_prj a').on("click",function(){ 
 		$(".fmdlSearch").hide();
@@ -92,4 +93,4 @@ function leicj(){
 	        }
 	        return false;
 	  })
-  }
+  }*/
