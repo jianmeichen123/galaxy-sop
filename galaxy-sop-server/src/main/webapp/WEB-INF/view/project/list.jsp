@@ -83,9 +83,8 @@
 		<div class="top clearfix" id="custom-toolbar">
 			<input type="hidden" name="primary" value="0">
           <div class="searchall_prj clearfix">
-            
             <div class="searchall_top" data-btn="box">
-                <dl class="fmdl fml fmdll clearfix">
+            	   <dl class="fmdl fml fmdll clearfix">
                   <dt>项目类型：</dt>
                   <dd>
                     <select name="projectType">
@@ -103,7 +102,6 @@
                     </select>
                   </dd>
                 </dl>
-               
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目状态：</dt>
                   <dd>
@@ -112,15 +110,11 @@
                     </select>
                   </dd>
                 </dl>
-                  <dl class="fmdl fml fmdll clearfix">
-                  <dt>团队成员：</dt>
-                  <dd style="width:135px;">
-                    <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" onkeyup="onkeyupall(this)" style="margin-left:0">
-                  </dd>
-                </dl>
             </div>
             <div class="searchall_top" data-btn="box">
-            	<dl class="fmdl fml fmdll clearfix">
+             
+               
+               <dl class="fmdl fml fmdll clearfix">
                   <dt>投资主体：</dt>
                   <dd>
                     <select name="projectStatus">
@@ -136,7 +130,30 @@
                     </select>
                   </dd>
                 </dl> 
+               
+               
+                  <dl class="fmdl fml fmdll clearfix">
+                  <dt>团队成员：</dt>
+                  <dd style="width:135px;">
+                    <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" onkeyup="onkeyupall(this)" style="margin-left:0">
+                  </dd>
+                </dl>
+                <dl class="fmdl fml  fmdll clearfix">
+              		<dt >项目来源：</dt>
+              		<dd class="clearfix"> 
+		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                    	<option value="">全部</option>
+	                    	<c:forEach items="${projectSourceList }" var="item">
+	                    		<option value="${item.id }">${item.name }</option>
+	                    	</c:forEach>
+	                    	<option>创业者</option>
+	                    	<option>外部独立合伙人</option>
+	                    	<option>自开发</option>
+	                    </select>
+	            	</dd>
+         		</dl> 
             </div>
+            
             <div class="searchall_bottom clearfix">
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>事业部：</dt>
@@ -163,20 +180,7 @@
                   </dd>
                 </dl>  
                 
-                 <dl class="fmdl fml  fmdll clearfix">
-              		<dt >项目来源：</dt>
-              		<dd class="clearfix"> 
-		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
-	                    	<option value="">全部</option>
-	                    	<c:forEach items="${projectSourceList }" var="item">
-	                    		<option value="${item.id }">${item.name }</option>
-	                    	</c:forEach>
-	                    	<option>创业者</option>
-	                    	<option>外部独立合伙人</option>
-	                    	<option>自开发</option>
-	                    </select>
-	            	</dd>
-         		</dl> 
+                 
                 <dl class="fmdl fmdll clearfix fmdlSearch">
                 	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称" >
 	                <div class="btn fr">
