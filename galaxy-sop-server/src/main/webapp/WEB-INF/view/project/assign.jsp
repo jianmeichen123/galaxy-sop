@@ -92,10 +92,7 @@
 		  	<div class="input-group input-groupNew">
 			  	<div class='input-content'>
 			  		<input type="text" class="form-control" name="nameCodeLike" placeholder="请输入项目名称"><span class="querySearch"></span>
-			  	</div>
-		      <!-- <span class="input-group-btn">
-		        <button class="btn btn-default" type="button"></button>
-		      </span> -->
+			  	</div> 
 		      <span class='reset_search visibility'>重置</span>
 		    </div>
 		</div> 
@@ -469,7 +466,7 @@ if(${from eq 'assign' }){
     }
 }
 	
-	$('.content_task').show()
+$('.content_task').show()
 
 /**
  * 获取多有的事业线id

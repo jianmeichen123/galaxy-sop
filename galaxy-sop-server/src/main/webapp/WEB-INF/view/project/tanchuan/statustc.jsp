@@ -15,7 +15,7 @@
 		<input type="hidden" name="projectId" value="" />
 		<input type="hidden" name="id" id="id" value=""> 
 		<dl class="fmdl clearfix">
-			<dt>健康状况：</dt>
+			<dt>健康度：</dt>
 			<dd>
 				<label class="radio"> <input type="radio" name="healthState" value="1"> 优异 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="2" > 健康 </label> 

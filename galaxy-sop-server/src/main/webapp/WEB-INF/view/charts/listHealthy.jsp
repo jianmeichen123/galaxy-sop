@@ -34,23 +34,45 @@
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 
-</head>
-
+</head> 
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
+	<div class="content_task">
+		<div class="title_top">
+			<h3 style="font-weight: normal;"><%=title %></h3>
+			<span class="operate_project">返回</span>
+		</div>
+		<div class="pageTop clearfix">
+			<div class="buttonGroup clearfix">
+				<div class="form-group">
+			      <select name='projectDepartid' class="selectpicker">
+					  <option index="-1" value="0">全部事业部</option>
+				  </select>
+			  	</div>
+			  	<div class="form-group">
+			      <select name='healthState' class="selectpicker">
+					  <option index="-1" value="">健康度</option>
+					  <option index="1" value="1">优异</option>
+                      <option index="2" value="2">健康</option>
+                      <option index="3" value="3">关注</option>
+                      <option index="3" value="0">风险</option>
+                      <option index="3" value="4">损失</option>
+				  </select>
+			  	</div>
+			  	<div class="input-group input-groupNew">
+				  	<div class='input-content'>
+				  		<input type="text" class="form-control" name="nameCodeLike" placeholder="请输入项目名称"><span class="querySearch"></span>
+				  	</div> 
+			      <span class='reset_search visibility'>重置</span>
+			    </div>
+			</div>
+		</div>
+	</div>
 	<!--右中部内容-->
- 	<div class="ritmin prj_all" >
-    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>项目健康度</div>
-    		
-    	<div class="new_tit_b">
-        	<span class="size18" id="project_name_t"><%=title %></span>
-        	<span class="b_span"> 
-	        	<a href="#" onclick="backIndex();">返回></a>
-			</span>
-        </div>
+ 	<div class="ritmin prj_all" style="margin-top:0;"> 
     	 	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
 				<div class="bottom searchall clearfix">
 					<input type="hidden" name="flagUrl" value="${ flagUrl}"> 
@@ -77,17 +99,40 @@
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 
 <!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css"> 
+<link href="<%=path %>/bootstrap/css/bootstrap-select.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/searchGlobal.css" type="text/css" rel="stylesheet"/> 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=path %>/bootstrap/js/bootstrap-select.js"></script>
 
 
 <script type="text/javascript">
     $(function(){
     	createMenus(160);
-    	init_bootstrapTable('chart_health_table',10);
+    	init_bootstrapTable('chart_health_table',10); 
+	 	detailHeaderWidth();
+	 	 $('.selectpicker').selectpicker({
+		  style: 'btn-info',
+		  size: 4,
+		  
+		});
     });
+    /**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	createCareelineOptions(platformUrl.getCareerlineListNew,"projectDepartid");
+	 function detailHeaderWidth(){
+	 	  var  w_lft=$(".lft").width();
+	 	  	$('.content_task').css({'margin-left':w_lft});
+	 	  		$('.content_task').show();
+	 }
+	 $(window).resize(function(){
+	 	detailHeaderWidth();
+	 })	
+
 	 function rematkFormat(value,row,index){
 			var str=row.rematk;
 			var options="";

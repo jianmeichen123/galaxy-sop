@@ -117,7 +117,7 @@
                <dl class="fmdl fml fmdll clearfix">
                   <dt>投资主体：</dt>
                   <dd>
-                    <select name="projectStatus">
+                    <select name="investorBody">
                       <option index="-1" value="">全部</option>
                     </select>
                   </dd>
@@ -125,8 +125,13 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>健康度：</dt>
                   <dd>
-                    <select name="projectStatus">
+                    <select name="healthState">
                       <option index="-1" value="">全部</option>
+                      <option index="1" value="1">优异</option>
+                      <option index="2" value="2">健康</option>
+                      <option index="3" value="3">关注</option>
+                      <option index="3" value="0">风险</option>
+                      <option index="3" value="4">损失</option>
                     </select>
                   </dd>
                 </dl> 
@@ -134,7 +139,7 @@
                
                   <dl class="fmdl fml fmdll clearfix">
                   <dt>团队成员：</dt>
-                  <dd style="width:135px;">
+                  <dd>
                     <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" onkeyup="onkeyupall(this)" style="margin-left:0">
                   </dd>
                 </dl>
